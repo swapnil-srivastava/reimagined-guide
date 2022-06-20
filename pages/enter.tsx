@@ -1,33 +1,16 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { auth, googleAuthProvider } from '../lib/firebase';
-import { usernameUpdate, userUpdate } from '../redux/actions/actions';
 
 // e.g. localhost:3000/enter
 function Enter() {
   const { user, username } = useSelector(state => state.user);
-
-  const dispatch = useDispatch();
-  
-  function checkStateUser() {
-    dispatch(userUpdate('swapnil'));
-  }
-
-  function checkState() {
-    dispatch(usernameUpdate('srivastava'));
-  }
-  
 
   // 1. user signed out <SignInButton />
   // 2. user signed in, but missing username <UsernameForm />
   // 3. user signed in, has username <SignOutButton />
   return (
     <>
-    {/* <button onClick={() => checkStateUser()}>Check State User</button>
-    <button onClick={() => checkState()}>Check State</button>
-    user {user}
-    <br/>
-    userName {userName} */}
     <SignInButton />
     <SignOutButton /> 
     <main>
