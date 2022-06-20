@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 // Top bar
 function Navbar() {
 
-  const { user, username } = useSelector(state => state.user);
+  const { user, username } = useSelector(state => state.users);
 
   return (
     <nav className='navbar'>

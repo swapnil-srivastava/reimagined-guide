@@ -4,7 +4,8 @@ import { auth, googleAuthProvider } from '../lib/firebase';
 
 // e.g. localhost:3000/enter
 function Enter() {
-  const { user, username } = useSelector(state => state.user);
+  const { user, username } = useSelector(state => state.users);
+
 
   // 1. user signed out <SignInButton />
   // 2. user signed in, but missing username <UsernameForm />

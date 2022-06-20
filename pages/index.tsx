@@ -7,8 +7,6 @@ import Loader from "../components/Loader";
 import { useUserData } from '../lib/hooks';
 
 export default function Home() {
-  const { user: userAuth, username: usernameAuth } = useUserData();
-
   return (
     <div className={styles.container}>
       <button onClick={() => toast.success("hello toast")}>Toast - Click me</button>

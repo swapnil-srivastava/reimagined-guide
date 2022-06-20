@@ -6,9 +6,12 @@ import { Toaster } from 'react-hot-toast';
 import Navbar from '../components/Navbar';
 
 import '../styles/globals.css';
+import { useUserData } from '../lib/hooks';
 
 function MyApp({ Component, pageProps }) {
-  const store = useStore(pageProps.initialReduxState);
+  
+  const userData = useUserData();
+  const store = useStore({...pageProps.initialReduxState, users: userData});
 
   return (
     <>

@@ -5,7 +5,7 @@ import { userReducer } from './userReducer';
 // COMBINED REDUCERS
 const reducers = {
   counter: counterReducer,
-  user: userReducer
+  users: userReducer
 }
 
 export default combineReducers(reducers)
