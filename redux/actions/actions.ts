@@ -8,3 +8,9 @@ export const decrementCount = () => ({ type: types.DECREMENT });
 
 // RESET COUNTER
 export const resetCount = () => ({ type: types.RESET });
+
+// UPDATE THE USER 
+export const userUpdate = (payload) => ({ type: types.USER_UPDATE, user: payload });
+
+// UPDATE THE USERNAME
+export const usernameUpdate = (payload) => ({ type: types.USERNAME_UPDATE, username: payload });

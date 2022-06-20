@@ -1,11 +1,12 @@
 import React from 'react'
 import Link from "next/link";
+import { useSelector } from 'react-redux';
+
 
 // Top bar
 function Navbar() {
 
-  const user = null;
-  const username = null;
+  const { user, username } = useSelector(state => state.user);
 
   return (
     <nav className='navbar'>
@@ -39,7 +40,7 @@ function Navbar() {
                         <Link href="/enter">
                             <button className='btn-blue'>Log In</button>
                         </Link>
-                    </li>                
+                    </li>         
                 </>
             )}
 
