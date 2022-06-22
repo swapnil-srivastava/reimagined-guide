@@ -1,10 +1,11 @@
 import React from 'react'
+import AuthCheck from '../../components/AuthCheck'
 
 // e.g. localhost:3000/admin
 
 function Admin() {
   return (
-    <div>admin</div>
+    <AuthCheck></AuthCheck>
   )
 }
 
