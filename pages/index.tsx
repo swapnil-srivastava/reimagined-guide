@@ -44,7 +44,7 @@ export default function Home(props) {
     const query = firestore
       .collectionGroup("posts")
       .where("published", "==", true)
-      .orderBy("updatedAt", "desc")
+      .orderBy("createdAt", "desc")
       .startAfter(cursor)
       .limit(LIMIT);
 
