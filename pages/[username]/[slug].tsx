@@ -5,6 +5,9 @@ import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { firestore, getUserWithUsername, postToJSON } from '../../lib/firebase';
 import PostContent from '../../components/PostContent';
 import Metatags from '../../components/Metatags';
+import AuthCheck from '../../components/AuthCheck';
+import Link from 'next/link';
+import HeartButton from '../../components/HeartButton';
 
 
 // e.g. localhost:3000/swapnil/page1
@@ -76,7 +79,7 @@ function Post(props) {
           <strong>{post.heartCount || 0} 🤍</strong>
         </p>
 
-        {/* <AuthCheck
+        <AuthCheck
           fallback={
             <Link href="/enter">
               <button>💗 Sign Up</button>
@@ -84,13 +87,13 @@ function Post(props) {
           }
         >
           <HeartButton postRef={postRef} />
-        </AuthCheck> */}
+        </AuthCheck> 
 
-        {/* {currentUser?.uid === post.uid && (
+         {currentUser?.uid === post.uid && (
           <Link href={`/admin/${post.slug}`}>
             <button className="btn-blue">Edit Post</button>
           </Link>
-        )} */}
+        )}
 
 
       </aside>
