@@ -10,6 +10,7 @@ import ReactMarkdown from 'react-markdown';
 
 import AuthCheck from '../../components/AuthCheck';
 import { auth, firestore, serverTimestamp } from '../../lib/firebase';
+import ImageUploader from '../../components/ImageUploader';
 
 // e.g. localhost:3000/admin/page1
 // e.g. localhost:3000/admin/page2
@@ -82,7 +83,9 @@ function PostForm({ defaultValues, postRef, preview }) {
         </div>
       )}
 
+
       <div className={preview ? styles.hidden : styles.controls}>
+      <ImageUploader />
   
         <textarea name="content" {...register('content', { 
             maxLength: { value: 20000, message: 'content is too long' },
