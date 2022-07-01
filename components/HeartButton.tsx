@@ -1,13 +1,13 @@
 import { firestore, auth, increment } from '../lib/firebase';
 import { useEffect, useState } from 'react';
-import { getDoc } from "firebase/firestore";
+import { DocumentSnapshot, getDoc } from "firebase/firestore";
 
 // Allows user to heart or like a post
 export default function Heart({ postRef }) {
   // Listen to heart document for currently logged in user
   const heartRef = postRef.collection('hearts').doc(auth.currentUser.uid);
 
-  const [docRefState, setDocRefState] = useState()
+  const [docRefState, setDocRefState] = useState<DocumentSnapshot | undefined>()
 
   useEffect(() => {
     heartRefCheck();
