@@ -14,13 +14,6 @@ export default function Heart({ postRef }) {
       const docRef = await getDoc(heartRef);
 
       setDocRefState(docRef);
-
-      if (docRef.exists()) {
-        console.log("use Effect Document data:", docRef.data());
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-      }
     }
     addHeart();
   }, [])
