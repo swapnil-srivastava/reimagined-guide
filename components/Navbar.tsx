@@ -17,6 +17,8 @@ function Navbar() {
                 </Link>
             </li>
 
+            <span>Blogging app - Swapnil Srivastava</span>
+
             {/* user is signed-in and has username */}
             {username && (
                 <>  
