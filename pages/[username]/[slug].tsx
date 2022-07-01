@@ -76,7 +76,6 @@ function Post(props) {
 
   const post = realtimePost || props.post;
 
-  const imageTag = "https://firebasestorage.googleapis.com/v0/b/didactic-guide.appspot.com/o/uploads%2FWYrropAdLKWaNdQDtkl64Anuthf2%2F1656062605177.jpeg?alt=media&token=51fb6fe9-9d53-49bb-806e-fe98f9411d47";
 
   // TS infers type: (state: RootState) => boolean
   const selectUser = (state: RootState) => state.users; 
@@ -92,7 +91,7 @@ function Post(props) {
 
   return (
     <main className={styles.container}>
-      <Metatags title={post.title} description={generateMetaDescription(post.content)} image={imageTag}/>
+      <Metatags title={post.title} description={generateMetaDescription(post.content)} />
 
       <section>
         <PostContent post={post} />
