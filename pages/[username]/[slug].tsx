@@ -83,7 +83,7 @@ function Post(props) {
 
   return (
     <main className={styles.container}>
-      <Metatags title={post.title} description={post.title} />
+      <Metatags title={post.title} description={post.content} />
 
       <section>
         <PostContent post={post} />
