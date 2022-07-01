@@ -3,7 +3,7 @@ import Head from 'next/head';
 export default function Metatags({
   title = 'Swapnil Srivastava',
   description = 'A Bloggin App',
-  image = 'public/google.png',
+  image = '../public/google.png',
 }) {
   return (
     <Head>
