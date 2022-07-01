@@ -57,7 +57,7 @@ export default function Heart({ postRef }) {
     setDocRefState(docRef);
   };
 
-  return docRef?.exists() ? (
+  return docRefState?.exists() ? (
       <button onClick={removeHeart}>💔 Unheart</button>
     ) : (
       <button onClick={addHeart}>💗 Heart</button>
