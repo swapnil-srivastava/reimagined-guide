@@ -11,6 +11,16 @@ import AuthCheck from '../../components/AuthCheck'
 import PostFeed from '../../components/PostFeed';
 import { firestore, auth, serverTimestamp } from '../../lib/firebase';
 
+interface RootState {
+  counter: Object
+  users: UserState,
+}
+
+interface UserState {
+  user: Object,
+  username: any
+}
+
 // e.g. localhost:3000/admin
 
 function Admin() {
@@ -25,7 +35,7 @@ function Admin() {
 function PostList() {
   const ref = firestore.collection('users').doc(auth.currentUser.uid).collection('posts');
   const query = ref.orderBy('createdAt');
-  const [querySnapshot] = useCollection(query);
+  const [querySnapshot] = useCollection(query as any);
 
   const posts = querySnapshot?.docs.map((doc) => doc.data());
 
@@ -41,7 +51,11 @@ function PostList() {
 function CreateNewPost() {
 
   const router = useRouter();
-  const { username } = useSelector(state => state.users);
+  
+  // TS infers type: (state: RootState) => boolean
+  const selectUser = (state: RootState) => state.users; 
+  const { username } = useSelector(selectUser);
+  
   const [title, setTitle] = useState('');
 
   // Ensure slug is URL safe

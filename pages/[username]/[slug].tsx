@@ -9,6 +9,19 @@ import AuthCheck from '../../components/AuthCheck';
 import Link from 'next/link';
 import HeartButton from '../../components/HeartButton';
 
+interface RootState {
+  counter: Object
+  users: UserState,
+}
+
+interface UserState {
+  user: User,
+  username: any
+}
+
+interface User {
+  uid: String
+}
 
 // e.g. localhost:3000/swapnil/page1
 // e.g. localhost:3000/swapnil/page2
@@ -56,14 +69,16 @@ export async function getStaticPaths() {
 }
 
 function Post(props) {
-  const postRef = firestore.doc(props.path);
+  const postRef : any = firestore.doc(props.path);
 
   const [realtimePost] = useDocumentData(postRef);
 
 
   const post = realtimePost || props.post;
 
-  const { user: currentUser } = useSelector(state => state.users);
+  // TS infers type: (state: RootState) => boolean
+  const selectUser = (state: RootState) => state.users; 
+  const { user: currentUser, username } = useSelector(selectUser);
   // const { user: currentUser } = useContext(UserContext);
 
   return (

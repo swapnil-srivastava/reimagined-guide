@@ -3,9 +3,28 @@ import { useSelector } from 'react-redux';
 import { auth, firestore, googleAuthProvider } from '../lib/firebase';
 import debounce from 'lodash.debounce';
 
+interface RootState {
+  counter: Object
+  users: UserState,
+}
+
+interface UserState {
+  user: User,
+  username: any
+}
+
+interface User {
+  uid: String
+  photoURL: String, 
+  displayName: String
+}
+
 // e.g. localhost:3000/enter
 function Enter() {
-  const { user, username } = useSelector(state => state.users);
+  
+  // TS infers type: (state: RootState) => boolean
+  const selectUser = (state: RootState) => state.users; 
+  const { user, username } = useSelector(selectUser);
 
 
   // 1. user signed out <SignInButton />
@@ -45,10 +64,6 @@ function SignOutButton() {
   function signout() {
     
     auth.signOut();
-    console.log('====================================');
-    console.log("clicked");
-    console.log('====================================');
-
   }
 
   return <button onClick={() => signout()}>Sign Out</button>;
@@ -60,7 +75,9 @@ function UsernameForm() {
   const [isValid, setIsValid] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { user, username } = useSelector(state => state.users);
+  // TS infers type: (state: RootState) => boolean
+  const selectUser = (state: RootState) => state.users; 
+  const { user, username } = useSelector(selectUser);
 
   const onSubmit = async (e) => {
     e.preventDefault();

@@ -2,11 +2,26 @@ import React from 'react'
 import Link from "next/link";
 import { useSelector } from 'react-redux';
 
+interface RootState {
+    counter: Object
+    users: UserState,
+}
+  
+interface UserState {
+    user: User,
+    username: any
+}
+
+interface User {
+    photoURL: string,
+}
 
 // Top bar
 function Navbar() {
 
-  const { user, username } = useSelector(state => state.users);
+  // TS infers type: (state: RootState) => boolean
+  const selectUser = (state: RootState) => state.users; 
+  const { user, username } = useSelector(selectUser);
 
   return (
     <nav className='navbar'>
