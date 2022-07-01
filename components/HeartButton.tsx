@@ -10,13 +10,13 @@ export default function Heart({ postRef }) {
   const [docRefState, setDocRefState] = useState()
 
   useEffect(() => {
-    const addHeart = async () => {
-      const docRef = await getDoc(heartRef);
+    heartRefCheck();
+  }, []);
 
-      setDocRefState(docRef);
-    }
-    addHeart();
-  }, [])
+  const heartRefCheck = async () => {
+    const docRef = await getDoc(heartRef);
+    setDocRefState(docRef);
+  }
   
 
   // Create a user-to-post relationship
@@ -31,8 +31,7 @@ export default function Heart({ postRef }) {
     await batch.commit();
 
     // reading the ref and updating the state
-    const docRef = await getDoc(heartRef);
-    setDocRefState(docRef);
+    heartRefCheck();
   };
 
   // Remove a user-to-post relationship
@@ -46,8 +45,7 @@ export default function Heart({ postRef }) {
     await batch.commit();
 
     // reading the ref and updating the state
-    const docRef = await getDoc(heartRef);
-    setDocRefState(docRef);
+    heartRefCheck();
   };
 
   return docRefState?.exists() ? (
