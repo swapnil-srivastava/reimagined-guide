@@ -83,9 +83,16 @@ function Post(props) {
   const { user: currentUser, username } = useSelector(selectUser);
   // const { user: currentUser } = useContext(UserContext);
 
+  function generateMetaDescription(input) {
+    if (input.length > 100) {
+      return input.substring(0, 100) + '...';
+   }
+   return input;
+  }
+
   return (
     <main className={styles.container}>
-      <Metatags title={post.title} description={post.content} image={imageTag}/>
+      <Metatags title={post.title} description={generateMetaDescription(post.content)} image={imageTag}/>
 
       <section>
         <PostContent post={post} />
