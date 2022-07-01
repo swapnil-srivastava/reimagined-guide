@@ -32,9 +32,6 @@ function Enter() {
   // 3. user signed in, has username <SignOutButton />
   return (
     <>
-     {/* <Metatags title="Enter" description="Sign up for this amazing app!" /> */}
-    <SignInButton />
-    <SignOutButton /> 
     <main>
       {user ? 
         !username ? <UsernameForm /> : <SignOutButton /> 
