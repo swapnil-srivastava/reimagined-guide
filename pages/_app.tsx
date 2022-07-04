@@ -1,6 +1,5 @@
-
-
 import { Provider } from 'react-redux';
+import { ThemeProvider } from 'next-themes'
 import { useStore } from '../redux/store';
 import { Toaster } from 'react-hot-toast';
 import Navbar from '../components/Navbar';
@@ -14,12 +13,14 @@ function MyApp({ Component, pageProps }) {
   const store = useStore({...pageProps.initialReduxState, users: userData});
 
   return (
-    <>
-      <Provider store={store}>
-        <Navbar />
-        <Component {...pageProps} />
-        <Toaster />
-      </Provider>
+    <> 
+      <ThemeProvider attribute="class">
+        <Provider store={store}>
+          <Navbar />
+          <Component {...pageProps} />
+          <Toaster />
+        </Provider>
+      </ThemeProvider>
     </>
   )
 }

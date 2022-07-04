@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import toast from "react-hot-toast";
+import { useTheme } from 'next-themes'
 
 import PostFeed from "../components/PostFeed";
 import Loader from "../components/Loader";
@@ -29,6 +30,7 @@ export async function getServerSideProps(context) {
 export default function Home(props) {
   const [posts, setPosts] = useState(props.posts);
   const [loading, setLoading] = useState(false);
+  const {theme, setTheme} = useTheme();
 
   const [postsEnd, setPostsEnd] = useState(false);
 
@@ -60,6 +62,9 @@ export default function Home(props) {
 
   return (
     <main>
+      <h1 className="text-3xl text-pink-500">
+        Welcome to Your App
+      </h1>
       <PostFeed posts={posts} admin />
 
       {!loading && !postsEnd && (
@@ -72,6 +77,9 @@ export default function Home(props) {
 
       <button onClick={() => toast.success("hello toast")}>
         Toast - Click me
+      </button>
+      <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+        toggle
       </button>
     </main>
   );
