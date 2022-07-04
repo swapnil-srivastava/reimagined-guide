@@ -62,9 +62,6 @@ export default function Home(props) {
 
   return (
     <main>
-      <h1 className="text-3xl text-pink-500">
-        Welcome to Your App
-      </h1>
       <PostFeed posts={posts} admin />
 
       {!loading && !postsEnd && (
