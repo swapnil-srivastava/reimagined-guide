@@ -79,7 +79,7 @@ export default function Home(props) {
         Toast - Click me
       </button>
       <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-        toggle
+        toggle to dark mode or light mode
       </button>
     </main>
   );
