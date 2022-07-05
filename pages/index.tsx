@@ -72,10 +72,10 @@ export default function Home(props) {
 
       {postsEnd && "You have reached the end!"}
 
-      <button className="bg-hit-pink-500" onClick={() => toast.success("hello toast")}>
+      <button className="bg-hit-pink-500 text-blog-black" onClick={() => toast.success("hello toast")}>
         Toast - Click me
       </button>
-      <button  className="bg-fun-blue-500 text-white" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+      <button  className="bg-fun-blue-500 text-blog-white" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
         toggle to dark mode or light mode
       </button>
     </main>

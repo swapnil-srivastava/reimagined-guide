@@ -9,6 +9,8 @@ module.exports = {
     typography: (theme) => ({}),
     extend: {
       colors : {
+        'blog-black': '#0A0A0A',
+        'blog-white': '#FBFBFB',
         'caribbean-green': {
           '50': '#f3fdfb', 
           '100': '#e7fcf6', 
