@@ -24,7 +24,7 @@ function Navbar() {
   const { user, username } = useSelector(selectUser);
 
   return (
-    <nav className='navbar'>
+    <nav className='navbar dark:bg-gray-800 dark:text-sky-400'>
         <ul>
             <li>
                 <Link href="/">
