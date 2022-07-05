@@ -43,3 +43,27 @@ options: {
     safelist: ['dark'], //specific classes
 },
 `
+
+Color Scehme
+
+Analogues 
+HEX: #1249de
+HEX: #5d12de
+HEX: #12dea8
+
+
+MonoChoromatic 
+HEX: #1249de
+HEX: #385dc5
+
+Black 
+#FBFBFB
+
+White 
+#0A0A0A
+
+Royal Blue 
+#00539c
+
+Peach
+#eea47f
