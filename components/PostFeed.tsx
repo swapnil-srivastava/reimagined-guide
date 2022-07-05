@@ -12,7 +12,7 @@ function PostItem({post, admin = false}) {
 
     return (
         <>
-          <div className="card dark:bg-gray-800 dark:text-sky-400">
+          <div className="card dark:bg-gray-800 dark:text-blog-white">
             <Link href={`/${post.username}`}>
                 <a>
                 <strong>By @{post.username}</strong>
