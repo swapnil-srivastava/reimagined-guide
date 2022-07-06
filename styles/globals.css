@@ -16,7 +16,6 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Noto Sans', sans-serif;
   color: var(--color-text);
   margin-top: 50px;
 }

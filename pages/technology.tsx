@@ -1,23 +1,19 @@
 import { useEffect, useState } from "react";
 import Metatags from "../components/Metatags";
 import TechBox from "../components/TechBox";
-import * as axios from "axios";
+import axios from "axios";
 
 type TechStack = {
     techName: number;
     colorTechStack: string;
 };
 
-type TechStackArray = { 
-    techStack : TechStack[] 
+type TechStackResponse = { 
+    techStack : TechStack[]; 
 }
-
-type GetTechStackResponse = {
-    data: TechStackArray[];
-};
   
 export default function Technology() {
-  const [techStack, setTechStack] = useState<TechStack[]>();
+  const [techStackState, setTechStackState] = useState<TechStack[]>();
 
   useEffect(() => {
     getTechStack();
@@ -27,7 +23,7 @@ export default function Technology() {
 
     try {
       // 👇️ const data: GetTechStackResponse
-      const { data, status } = await axios.get<GetTechStackResponse>(
+      const { data, status } = await axios.get<TechStackResponse>(
         '/api/techstack',
         {
           headers: {
@@ -35,13 +31,15 @@ export default function Technology() {
           },
         },
       );
+
+      const { techStack } = data;
   
-      setTechStack(data.techStack);
+      setTechStackState(techStack);
   
       return data;
 
     } catch (error) {
-      if (new axios.AxiosError(error)) {
+      if (axios.isAxiosError(error)) {
         console.log('error message: ', error.message);
         return error.message;
       } else {
@@ -56,7 +54,7 @@ export default function Technology() {
     <>
         <Metatags description={`Technology stack that I am fluent in`}/>
         <div className="flex py-10 px-10 flex-wrap">
-            {techStack && techStack.map(({techName, colorTechStack}) => <TechBox key={techName} techStackName={techName} techStackColor={colorTechStack}/>)}
+            {techStackState && techStackState.map(({techName, colorTechStack}) => <TechBox key={techName} techStackName={techName} techStackColor={colorTechStack}/>)}
         </div>
     </>
   );
