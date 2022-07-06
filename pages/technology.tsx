@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Metatags from "../components/Metatags";
 import TechBox from "../components/TechBox";
 
 const initialTechStackState = [
@@ -259,6 +260,7 @@ export default function Technology() {
 
   return (
     <>
+        <Metatags description={`Technology stack that I am fluent in`}/>
         <div className="flex py-10 px-10 flex-wrap">
         {techStack && techStack.map(({techName, colorTechStack}) => <TechBox key={techName} techStackName={techName} techStackColor={colorTechStack}/>)}
         </div>
