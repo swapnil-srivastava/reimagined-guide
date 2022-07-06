@@ -77,6 +77,12 @@ export default function Home(props) {
         </button>
       </Link>
 
+      <Link href={`/enter`}>
+        <button className='bg-hit-pink-500 text-blog-black'>
+          Login page
+        </button>
+      </Link>
+
       {postsEnd && "You have reached the end!"}
     </main>
   );
