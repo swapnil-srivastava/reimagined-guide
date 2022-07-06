@@ -63,7 +63,7 @@ function SignOutButton() {
     auth.signOut();
   }
 
-  return <button onClick={() => signout()}>Sign Out</button>;
+  return <button className="bg-hit-pink-500 text-blog-black" onClick={() => signout()}>Sign Out</button>;
 }
 
 // Username form

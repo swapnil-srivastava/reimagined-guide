@@ -97,7 +97,7 @@ function Post(props) {
         <PostContent post={post} />
       </section>
 
-      <aside className="card">
+      <aside className="card dark:bg-fun-blue-500 dark:text-blog-white">
         <p>
           <strong>{post.heartCount || 0} 🤍</strong>
         </p>
@@ -105,7 +105,7 @@ function Post(props) {
         <AuthCheck
           fallback={
             <Link href="/enter">
-              <button>💗 Sign Up</button>
+              <button className='bg-hit-pink-500 text-blog-black'>💗 Sign Up</button>
             </Link>
           }
         >
@@ -114,7 +114,7 @@ function Post(props) {
 
          {currentUser?.uid === post.uid && (
           <Link href={`/admin/${post.slug}`}>
-            <button className="btn-blue">Edit Post</button>
+            <button className="bg-hit-pink-500 text-blog-black">Edit Post</button>
           </Link>
         )}
 

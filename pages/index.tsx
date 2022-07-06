@@ -2,7 +2,6 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import toast from "react-hot-toast";
-import { useTheme } from 'next-themes'
 
 import PostFeed from "../components/PostFeed";
 import Loader from "../components/Loader";
@@ -30,7 +29,6 @@ export async function getServerSideProps(context) {
 export default function Home(props) {
   const [posts, setPosts] = useState(props.posts);
   const [loading, setLoading] = useState(false);
-  const {theme, setTheme} = useTheme();
 
   const [postsEnd, setPostsEnd] = useState(false);
 
@@ -65,19 +63,12 @@ export default function Home(props) {
       <PostFeed posts={posts} admin />
 
       {!loading && !postsEnd && (
-        <button onClick={getMorePosts}>Load more</button>
+        <button className="bg-hit-pink-500 text-blog-black" onClick={getMorePosts}>Load more</button>
       )}
 
       <Loader show={loading} />
 
       {postsEnd && "You have reached the end!"}
-
-      <button className="bg-hit-pink-500 text-blog-black" onClick={() => toast.success("hello toast")}>
-        Toast - Click me
-      </button>
-      <button  className="bg-fun-blue-500 text-blog-white" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-        toggle to dark mode or light mode
-      </button>
     </main>
   );
 }

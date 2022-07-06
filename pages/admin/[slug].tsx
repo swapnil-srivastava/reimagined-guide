@@ -45,9 +45,9 @@ function PostManager() {
 
           <aside>
           <h3>Tools</h3>
-            <button onClick={() => setPreview(!preview)}>{preview ? 'Edit' : 'Preview'}</button>
+            <button className="bg-hit-pink-500 text-blog-black" onClick={() => setPreview(!preview)}>{preview ? 'Edit' : 'Preview'}</button>
             <Link href={`/${post.username}/${post.slug}`}>
-              <button className="btn-blue">Live view</button>
+              <button className="bg-hit-pink-500 text-blog-black">Live view</button>
             </Link>
           </aside>
         </>
@@ -99,7 +99,7 @@ function PostForm({ defaultValues, postRef, preview }) {
           <label>Published</label>
         </fieldset>
 
-        <button type="submit" className="btn-green" disabled={!isDirty || !isValid}>
+        <button type="submit" className="bg-hit-pink-500 text-blog-black" disabled={!isDirty || !isValid}>
           Save Changes
         </button>
       </div>
