@@ -2,7 +2,7 @@ import Head from 'next/head';
 
 export default function Metatags({
   title = 'Swapnil Srivastava',
-  description = 'A Bloggin App',
+  description = 'A Blogging App',
   image = 'https://firebasestorage.googleapis.com/v0/b/didactic-guide.appspot.com/o/image.jpg?alt=media&token=efebcb25-458d-4e37-b046-6eda25124e86',
 }) {
   return (
