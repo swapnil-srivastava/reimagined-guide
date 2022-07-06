@@ -55,12 +55,12 @@ function Navbar() {
                 {/* user is signed-in and has username */}
                 {username && (
                     <>  
-                        <li className=''>
+                        <li>
                             <Link href="/admin">
                                 <button className='bg-hit-pink-500 text-blog-black'>Write Posts</button>
                             </Link>
                         </li>
-                        <li>
+                        <li className='pr-3'>
                             <Link href={`/${username}`}>
                                 <img src={user?.photoURL} alt="" />
                             </Link>
