@@ -3,34 +3,34 @@ import TechBox from "../components/TechBox";
 
 const initialTechStackState = [
     {
-        techName: "JavaScript",
+        techName: "#JavaScript",
     },
     {
-        techName: "TypeScript",
+        techName: "#TypeScript",
     },
     {
-        techName: "CSS",
+        techName: "#CSS",
     },
     {
-        techName: "CSS4",
+        techName: "#CSS4",
     },
     {
-        techName: "HTML",
+        techName: "#HTML",
     },
     {
-        techName: "HTML5",
+        techName: "#HTML5",
     },
     {
-        techName: "ES6/7",
+        techName: "#ES6/7",
     },
     {
-        techName: "Redux",
+        techName: "#Redux",
     },
     {
-        techName: "ngRX",
+        techName: "#ngRX",
     },
     {
-        techName: "Angular",
+        techName: "#Angular",
     },
 ]
 

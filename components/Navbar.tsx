@@ -26,9 +26,9 @@ function Navbar() {
   const {theme, setTheme} = useTheme();
 
   return (
-    <nav className='navbar dark:text-blog-white dark:bg-fun-blue-500'>
-        <ul className='flex items-center justify-around'>
-            <div className='flex items-center justify-start'>
+    <nav className='navbar md:pl-4 dark:text-blog-white dark:bg-fun-blue-500'>
+        <ul className='flex items-center justify-around md:justify-between'>
+            <div className='flex'>
                 <li>
                     <Link href="/">
                         <button className='bg-hit-pink-500 text-blog-black'>FEED</button>
