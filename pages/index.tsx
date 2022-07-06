@@ -9,6 +9,7 @@ import { firestore, fromMillis, postToJSON } from "../lib/firebase";
 
 import { useState } from "react";
 import Metatags from "../components/Metatags";
+import Link from "next/link";
 
 // Max post to query per page
 const LIMIT = 1;
@@ -69,6 +70,12 @@ export default function Home(props) {
       )}
 
       <Loader show={loading} />
+
+      <Link href={`/technology`}>
+        <button className='bg-hit-pink-500 text-blog-black'>
+          Tech Stack
+        </button>
+      </Link>
 
       {postsEnd && "You have reached the end!"}
     </main>
