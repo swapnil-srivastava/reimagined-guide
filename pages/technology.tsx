@@ -32,6 +32,216 @@ const initialTechStackState = [
     {
         techName: "#Angular",
     },
+    {
+        techName: "#JavaScript",
+    },
+    {
+        techName: "#TypeScript",
+    },
+    {
+        techName: "#CSS",
+    },
+    {
+        techName: "#CSS4",
+    },
+    {
+        techName: "#HTML",
+    },
+    {
+        techName: "#HTML5",
+    },
+    {
+        techName: "#ES6/7",
+    },
+    {
+        techName: "#Redux",
+    },
+    {
+        techName: "#ngRX",
+    },
+    {
+        techName: "#Angular",
+    },
+    {
+        techName: "#JavaScript",
+    },
+    {
+        techName: "#TypeScript",
+    },
+    {
+        techName: "#CSS",
+    },
+    {
+        techName: "#CSS4",
+    },
+    {
+        techName: "#HTML",
+    },
+    {
+        techName: "#HTML5",
+    },
+    {
+        techName: "#ES6/7",
+    },
+    {
+        techName: "#Redux",
+    },
+    {
+        techName: "#ngRX",
+    },
+    {
+        techName: "#Angular",
+    },
+    {
+        techName: "#JavaScript",
+    },
+    {
+        techName: "#TypeScript",
+    },
+    {
+        techName: "#CSS",
+    },
+    {
+        techName: "#CSS4",
+    },
+    {
+        techName: "#HTML",
+    },
+    {
+        techName: "#HTML5",
+    },
+    {
+        techName: "#ES6/7",
+    },
+    {
+        techName: "#Redux",
+    },
+    {
+        techName: "#ngRX",
+    },
+    {
+        techName: "#Angular",
+    },
+    {
+        techName: "#JavaScript",
+    },
+    {
+        techName: "#TypeScript",
+    },
+    {
+        techName: "#CSS",
+    },
+    {
+        techName: "#CSS4",
+    },
+    {
+        techName: "#HTML",
+    },
+    {
+        techName: "#HTML5",
+    },
+    {
+        techName: "#ES6/7",
+    },
+    {
+        techName: "#Redux",
+    },
+    {
+        techName: "#ngRX",
+    },
+    {
+        techName: "#Angular",
+    },
+    {
+        techName: "#JavaScript",
+    },
+    {
+        techName: "#TypeScript",
+    },
+    {
+        techName: "#CSS",
+    },
+    {
+        techName: "#CSS4",
+    },
+    {
+        techName: "#HTML",
+    },
+    {
+        techName: "#HTML5",
+    },
+    {
+        techName: "#ES6/7",
+    },
+    {
+        techName: "#Redux",
+    },
+    {
+        techName: "#ngRX",
+    },
+    {
+        techName: "#Angular",
+    },
+    {
+        techName: "#JavaScript",
+    },
+    {
+        techName: "#TypeScript",
+    },
+    {
+        techName: "#CSS",
+    },
+    {
+        techName: "#CSS4",
+    },
+    {
+        techName: "#HTML",
+    },
+    {
+        techName: "#HTML5",
+    },
+    {
+        techName: "#ES6/7",
+    },
+    {
+        techName: "#Redux",
+    },
+    {
+        techName: "#ngRX",
+    },
+    {
+        techName: "#Angular",
+    },
+    {
+        techName: "#JavaScript",
+    },
+    {
+        techName: "#TypeScript",
+    },
+    {
+        techName: "#CSS",
+    },
+    {
+        techName: "#CSS4",
+    },
+    {
+        techName: "#HTML",
+    },
+    {
+        techName: "#HTML5",
+    },
+    {
+        techName: "#ES6/7",
+    },
+    {
+        techName: "#Redux",
+    },
+    {
+        techName: "#ngRX",
+    },
+    {
+        techName: "#Angular",
+    }
 ]
 
 export default function Technology() {
