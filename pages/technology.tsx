@@ -5,11 +5,11 @@ import TechBox from "../components/TechBox";
 const initialTechStackState = [
     {
         techName: "#JavaScript",
-        colorTechStack: "dark:text-blog-white bg-persian-blue-500 hover:bg-persian-blue-600 " 
+        colorTechStack: "text-blog-white dark:text-blog-white bg-persian-blue-500 hover:bg-persian-blue-600 " 
     },
     {
         techName: "#TypeScript",
-        colorTechStack: "dark:text-blog-white bg-dark-blue-500 hover:bg-dark-blue-600" 
+        colorTechStack: "text-blog-white dark:text-blog-white bg-dark-blue-500 hover:bg-dark-blue-600" 
     },
     {
         techName: "#CSS",
