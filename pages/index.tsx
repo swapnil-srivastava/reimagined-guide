@@ -12,7 +12,7 @@ import Metatags from "../components/Metatags";
 import Link from "next/link";
 
 // Max post to query per page
-const LIMIT = 1;
+const LIMIT = 5;
 
 export async function getServerSideProps(context) {
   const postsQuery = firestore
@@ -63,7 +63,7 @@ export default function Home(props) {
   return (
     <main>
       <Metatags />
-      <PostFeed posts={posts} admin />
+      <PostFeed posts={posts} />
 
       {!loading && !postsEnd && (
         <button className="bg-hit-pink-500 text-blog-black" onClick={getMorePosts}>Load more</button>

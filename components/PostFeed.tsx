@@ -1,12 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
+import { auth } from '../lib/firebase';
 
-export default function PostFeed({posts, admin}) {
-  return posts ? posts.map(post => <PostItem post={post} key={post.slug} admin={admin}/>) : null ;
+export function PostFeed({posts, admin = false}) {
+  return posts ? posts.map(post => <PostItem post={post} key={post.slug} admin={post && post.uid === auth.currentUser?.uid ? true : false}/>) : '';
 }
 
 function PostItem({post, admin = false}) {
-
     const wordCount = post?.content.trim().split(/\s+/g).length;
     const minutesToRead = (wordCount / 100 + 1).toFixed(0);
 
@@ -52,4 +52,6 @@ function PostItem({post, admin = false}) {
             </div>
         </>
     );
-}
+};
+
+export default PostFeed;
