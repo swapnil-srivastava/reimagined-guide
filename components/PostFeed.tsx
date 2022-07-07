@@ -12,24 +12,34 @@ function PostItem({post, admin = false}) {
 
     return (
         <>
-          <div className="card dark:bg-fun-blue-500 dark:text-blog-white">
+          <div className=" 
+          p-8
+          my-4
+          mx-0
+          bg-[#fbfbfb]
+          dark:bg-fun-blue-500 
+          dark:text-blog-white
+          border
+          border-[#0a0a0a]
+          ">
+              {/* rounded-2xl */}
             <Link href={`/${post.username}`}>
                 <a>
-                <strong>By @{post.username}</strong>
+                    <strong>By @{post.username}</strong>
                 </a>
             </Link>
 
             <Link href={`/${post.username}/${post.slug}`}>
                 <h2>
-                <a>{post.title}</a>
+                    <a>{post.title}</a>
                 </h2>
             </Link>
 
             <footer>
                 <span>
-                {wordCount} words. {minutesToRead} min read
+                    {wordCount} words. {minutesToRead} min read
                 </span>
-                <span className="push-left">💗 {post.heartCount || 0} Hearts</span>
+                <span>💗 {post.heartCount || 0} Hearts</span>
             </footer>
 
             {/* If admin view, show extra controls for user */}
