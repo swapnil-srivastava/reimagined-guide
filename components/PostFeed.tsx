@@ -12,17 +12,14 @@ function PostItem({post, admin = false}) {
 
     return (
         <>
-          <div className=" 
-          p-8
-          my-4
-          mx-0
-          bg-[#fbfbfb]
-          dark:bg-fun-blue-500 
-          dark:text-blog-white
-          border
-          border-[#0a0a0a]
-          ">
-              {/* rounded-2xl */}
+          <div className="
+                p-3 my-4 mx-4 
+                bg-[#fbfbfb] 
+                dark:bg-fun-blue-600 dark:text-blog-white
+                rounded-lg
+                drop-shadow-lg
+                hover:drop-shadow-xl
+                ">
             <Link href={`/${post.username}`}>
                 <a>
                     <strong>By @{post.username}</strong>
