@@ -14,7 +14,7 @@ function PostItem({post, admin = false}) {
         <>
           <div className="
                 p-3 my-4 mx-4 
-                bg-[#fbfbfb] 
+                bg-blog-white 
                 dark:bg-fun-blue-600 dark:text-blog-white
                 rounded-lg
                 drop-shadow-lg
