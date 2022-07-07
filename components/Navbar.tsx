@@ -26,7 +26,12 @@ function Navbar() {
   const {theme, setTheme} = useTheme();
 
   return (
-    <nav className='navbar md:pl-4 dark:text-blog-white dark:bg-fun-blue-500'>
+    <nav className='navbar md:pl-4 dark:text-blog-white dark:bg-fun-blue-500
+                    bg-blog-white text-blog-black
+                    drop-shadow-lg
+                    z-50
+                    font-medium
+    '>
         <ul className='flex items-center justify-around md:justify-between'>
             <div className='flex'>
                 <li className='pl-2 md:pl-0'>

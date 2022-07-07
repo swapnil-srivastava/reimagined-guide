@@ -20,8 +20,6 @@ body {
   margin-top: 45px;
 }
 
-
-
 h1 { font-size: 2rem; }
 h2 { font-size: 1.5rem; }
 h2 { font-size: 1.25rem; }
@@ -61,13 +59,8 @@ code {
 
 .navbar {
   width: 100%;
-  background: white;
-  color: var(--colors-text);
   position: fixed;
   top: 0;
-  font-weight: bold;
-  border-bottom: 1px solid var(--color-gray);
-  z-index: 99;
 }
 
 .navbar ul {
