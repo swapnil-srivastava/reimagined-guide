@@ -31,15 +31,13 @@ function Enter() {
   // 2. user signed in, but missing username <UsernameForm />
   // 3. user signed in, has username <SignOutButton />
   return (
-    <>
-    <main>
+    <main className='flex items-center justify-center'>
       {user ? 
         !username ? <UsernameForm /> : <SignOutButton /> 
         : 
         <SignInButton />
       }
     </main>
-    </>
   );
 }
 
