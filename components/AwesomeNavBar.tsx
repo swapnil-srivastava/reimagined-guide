@@ -46,14 +46,16 @@ function DropdownMenu() {
   const dropdownRef = useRef(null);
 
   useEffect(() => {
-    setMenuHeight(dropdownRef.current?.offsetHeight)
+    setMenuHeight(dropdownRef.current?.offsetHeight);
   }, [])
 
   function calcHeight(el) {
-    // const height = el.offsetHeight;
-    const height = el.current?.firstChild.offsetHeight;
-    setMenuHeight(height);
+      // const { height } = el.getBoundingClientRect();
+      const height = el.offsetHeight;
+      setMenuHeight(height);
   }
+
+
 
   function DropdownItem(props) {
     
@@ -82,7 +84,7 @@ function DropdownMenu() {
 
   return (
     <div
-      className="absolute top-12 w-80 -translate-x-2/4 bg-blue-600 text-blog-white p-4 overflow-hidden rounded-lg border border-blue-500 transition-height"
+      className="absolute top-12 w-80 -translate-x-2/4 bg-blue-600 text-blog-white overflow-hidden rounded-lg border border-blue-500 transition-height"
       style={{ height: menuHeight }}
       ref={dropdownRef}
     >
@@ -92,12 +94,13 @@ function DropdownMenu() {
             timeout={500}
             classNames="menu-primary"
             unmountOnExit
-            onEnter={calcHeight}
-            onEntered={calcHeight}
-            onEntering={calcHeight}
+            onEnter={(el) => calcHeight(el)}
+            onEntered={(el) => calcHeight(el)}
+            onEntering={(el) => calcHeight(el)}
+            onExit={(el) => calcHeight(el)}
             >
         
-            <div className="menu">
+            <div className="menu p-4">
 
                 <DropdownItem>My Profile</DropdownItem>
                 <DropdownItem
@@ -121,12 +124,13 @@ function DropdownMenu() {
             timeout={500}
             classNames="menu-secondary"
             unmountOnExit
-            onEnter={calcHeight}
-            onEntered={calcHeight}
-            onEntering={calcHeight}
+            onEnter={(el) => calcHeight(el)}
+            onEntered={(el) => calcHeight(el)}
+            onEntering={(el) => calcHeight(el)}
+            onExit={(el) => calcHeight(el)}
             >
 
-            <div className="menu">
+            <div className="menu p-4">
                 <DropdownItem goToMenu="main" leftIcon={<ChevronLeftIcon />}>
                     <h2>My Tutorial</h2>
                 </DropdownItem>
@@ -143,12 +147,13 @@ function DropdownMenu() {
             timeout={500}
             classNames="menu-secondary"
             unmountOnExit
-            onEnter={calcHeight}
-            onEntered={calcHeight}
-            onEntering={calcHeight}
+            onEnter={(el) => calcHeight(el)}
+            onEntered={(el) => calcHeight(el)}
+            onEntering={(el) => calcHeight(el)}
+            onExit={(el) => calcHeight(el)}
             >
 
-            <div className="menu">
+            <div className="menu p-4">
 
                 <DropdownItem goToMenu="main" leftIcon={<ChevronLeftIcon />}>
                     <h2>Animals</h2>
