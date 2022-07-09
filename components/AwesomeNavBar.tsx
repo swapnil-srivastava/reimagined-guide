@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import {
   BeakerIcon,
@@ -75,12 +76,13 @@ function AwesomeNavBar() {
             </Link>
           </NavBarItem>
 
-          {/* TODO : have to correct the image */}
-          {/* <div className="pr-0 md:pr-3 w-12 h-12 cursor-pointer rounded-full flex items-center justify-center">
-            <Link href={`/${username}`}>
-              <img src={user?.photoURL} alt="" />
-            </Link>
-          </div> */}
+          <NavBarItem nextRouteUrl>
+            <div className="w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] rounded-full cursor-pointer flex items-center overflow-hidden">
+              <Link href={`/${username}`} >
+                <Image width={200} height={200} src={user?.photoURL} alt="" />
+              </Link>
+            </div>
+          </NavBarItem>
 
         </>
       )}
