@@ -6,6 +6,7 @@ import Navbar from '../components/Navbar';
 
 import '../styles/globals.css';
 import { useUserData } from '../lib/hooks';
+import AwesomeNavBar from '../components/AwesomeNavBar';
 
 function MyApp({ Component, pageProps }) {
   
@@ -16,7 +17,8 @@ function MyApp({ Component, pageProps }) {
     <> 
       <ThemeProvider attribute="class">
         <Provider store={store}>
-          <Navbar />
+          {/* <Navbar /> */}
+          <AwesomeNavBar />
           <Component {...pageProps} />
           <Toaster />
         </Provider>
