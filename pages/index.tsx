@@ -66,16 +66,12 @@ export default function Home(props) {
       <PostFeed posts={posts} />
 
       {!loading && !postsEnd && (
-        <button className="bg-hit-pink-500 text-blog-black" onClick={getMorePosts}>Load more</button>
+        <div className="flex items-center justify-center">
+          <button className="bg-hit-pink-500 text-blog-black" onClick={getMorePosts}>Load more</button>
+        </div>
       )}
 
       <Loader show={loading} />
-
-      <Link href={`/enter`}>
-        <button className='bg-hit-pink-500 text-blog-black'>
-          Login page
-        </button>
-      </Link>
 
       {postsEnd && "You have reached the end!"}
     </main>

@@ -159,7 +159,8 @@ function DropdownMenu() {
   }
 
   return (
-    <div className="absolute top-12 w-80 -translate-x-2/4 
+    <div
+      className="absolute top-12 w-80 -translate-x-2/4 
           overflow-hidden rounded-lg 
           border border-blog-white
           transition-height
@@ -170,82 +171,91 @@ function DropdownMenu() {
           hover:drop-shadow-xl
           z-55"
       style={{ height: menuHeight }}
-      ref={dropdownRef}>
-
-        <CSSTransition
-            in={activeMenu === 'main'}
-            timeout={500}
-            classNames="menu-primary"
-            unmountOnExit
-            onEnter={(el) => calcHeight(el)}
-            onEntered={(el) => calcHeight(el)}
-            onEntering={(el) => calcHeight(el)}
-            onExit={(el) => calcHeight(el)}>
-        
-            <div className="menu p-4">
-
-                <DropdownItem>My Profile</DropdownItem>
-                <DropdownItem
-                    leftIcon={<CogIcon />}
-                    rightIcon={<ChevronRightIcon />}
-                    goToMenu="settings">
-                    Settings
-                </DropdownItem>
-                <DropdownItem
-                    leftIcon="🦧"
-                    rightIcon={<ChevronRightIcon />}
-                    goToMenu="animals">
-                    Animals
-                </DropdownItem>
-
+      ref={dropdownRef}
+    >
+      <CSSTransition
+        in={activeMenu === "main"}
+        timeout={500}
+        classNames="menu-primary"
+        unmountOnExit
+        onEnter={(el) => calcHeight(el)}
+        onEntered={(el) => calcHeight(el)}
+        onEntering={(el) => calcHeight(el)}
+        onExit={(el) => calcHeight(el)}
+      >
+        <div className="menu p-4">
+          <DropdownItem>
+            {/* <div className="w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] rounded-full cursor-pointer flex items-center overflow-hidden">
+              <Link href={`/${username}`}>
+                <Image width={200} height={200} src={user?.photoURL} alt="" />
+              </Link>
             </div>
-        </CSSTransition>
+             */}
+            My Profile
+          </DropdownItem>
+          <DropdownItem leftIcon={<LoginIcon />}>
+            <Link href="/enter">Logout</Link>
+          </DropdownItem>
+          <DropdownItem
+            leftIcon={<CogIcon />}
+            rightIcon={<ChevronRightIcon />}
+            goToMenu="settings"
+          >
+            Settings
+          </DropdownItem>
+          <DropdownItem
+            leftIcon="🦧"
+            rightIcon={<ChevronRightIcon />}
+            goToMenu="animals"
+          >
+            Animals
+          </DropdownItem>
+        </div>
+      </CSSTransition>
 
-        <CSSTransition
-            in={activeMenu === 'settings'}
-            timeout={500}
-            classNames="menu-secondary"
-            unmountOnExit
-            onEnter={(el) => calcHeight(el)}
-            onEntered={(el) => calcHeight(el)}
-            onEntering={(el) => calcHeight(el)}
-            onExit={(el) => calcHeight(el)}>
+      <CSSTransition
+        in={activeMenu === "settings"}
+        timeout={500}
+        classNames="menu-secondary"
+        unmountOnExit
+        onEnter={(el) => calcHeight(el)}
+        onEntered={(el) => calcHeight(el)}
+        onEntering={(el) => calcHeight(el)}
+        onExit={(el) => calcHeight(el)}
+      >
+        <div className="menu p-4">
+          <DropdownItem goToMenu="main" leftIcon={<ChevronLeftIcon />}>
+            <h2>My Tutorial</h2>
+          </DropdownItem>
+          <DropdownItem leftIcon={<LightningBoltIcon />}>HTML</DropdownItem>
+          <DropdownItem leftIcon={<LightningBoltIcon />}>CSS</DropdownItem>
+          <DropdownItem leftIcon={<LightningBoltIcon />}>
+            JavaScript
+          </DropdownItem>
+          <DropdownItem leftIcon={<LightningBoltIcon />}>Awesome!</DropdownItem>
+        </div>
+      </CSSTransition>
 
-            <div className="menu p-4">
-                <DropdownItem goToMenu="main" leftIcon={<ChevronLeftIcon />}>
-                    <h2>My Tutorial</h2>
-                </DropdownItem>
-                <DropdownItem leftIcon={<LightningBoltIcon />}>HTML</DropdownItem>
-                <DropdownItem leftIcon={<LightningBoltIcon />}>CSS</DropdownItem>
-                <DropdownItem leftIcon={<LightningBoltIcon />}>JavaScript</DropdownItem>
-                <DropdownItem leftIcon={<LightningBoltIcon />}>Awesome!</DropdownItem>
-            </div>
-
-        </CSSTransition>
-
-        <CSSTransition
-            in={activeMenu === 'animals'}
-            timeout={500}
-            classNames="menu-secondary"
-            unmountOnExit
-            onEnter={(el) => calcHeight(el)}
-            onEntered={(el) => calcHeight(el)}
-            onEntering={(el) => calcHeight(el)}
-            onExit={(el) => calcHeight(el)}>
-
-            <div className="menu p-4">
-
-                <DropdownItem goToMenu="main" leftIcon={<ChevronLeftIcon />}>
-                    <h2>Animals</h2>
-                </DropdownItem>
-                <DropdownItem leftIcon="🦘">Kangaroo</DropdownItem>
-                <DropdownItem leftIcon="🐸">Frog</DropdownItem>
-                <DropdownItem leftIcon="🦋">Horse?</DropdownItem>
-                <DropdownItem leftIcon="🦔">Hedgehog</DropdownItem>
-            
-            </div>
-         </CSSTransition>
-
+      <CSSTransition
+        in={activeMenu === "animals"}
+        timeout={500}
+        classNames="menu-secondary"
+        unmountOnExit
+        onEnter={(el) => calcHeight(el)}
+        onEntered={(el) => calcHeight(el)}
+        onEntering={(el) => calcHeight(el)}
+        onExit={(el) => calcHeight(el)}
+      >
+        <div className="menu p-4">
+          <DropdownItem goToMenu="main" leftIcon={<ChevronLeftIcon />}>
+            <h2>Animals</h2>
+          </DropdownItem>
+          <DropdownItem leftIcon="🦘">Kangaroo</DropdownItem>
+          <DropdownItem leftIcon="🐸">Frog</DropdownItem>
+          <DropdownItem leftIcon="🦋">Horse?</DropdownItem>
+          <DropdownItem leftIcon="🦔">Hedgehog</DropdownItem>
+        </div>
+      </CSSTransition>
     </div>
   );
 }
