@@ -75,7 +75,7 @@ export default function Home(props) {
         <Loader show={loading} />
       </div>
 
-      {postsEnd && "You have reached the end!"}
+      {postsEnd && <div className="flex items-center justify-center"> You have reached the end!</div>}
     </main>
   );
 }
