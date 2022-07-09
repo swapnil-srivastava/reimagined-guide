@@ -44,16 +44,16 @@ function AwesomeNavBar() {
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         icon={
           theme === "dark" ? (
-            <MoonIcon className="bg-blue-400 w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-300 hover:filter hover:brightness-125" />
+            <MoonIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
           ) : (
-            <SunIcon className="bg-blue-400 w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-300 hover:filter hover:brightness-125" />
+            <SunIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
           )
         }
       />
 
       <NavBarItem nextRouteUrl>
         <Link href="/technology"> 
-            <LightningBoltIcon className="bg-blue-400 w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-300 hover:filter hover:brightness-125" />
+            <LightningBoltIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
         </Link>
       </NavBarItem>
 
@@ -61,7 +61,7 @@ function AwesomeNavBar() {
       {!username && (
         <NavBarItem nextRouteUrl>
           <Link href="/enter"> 
-              <LoginIcon className="bg-blue-400 w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-300 hover:filter hover:brightness-125" />
+              <LoginIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
           </Link>
         </NavBarItem>
       )}
@@ -71,7 +71,7 @@ function AwesomeNavBar() {
         <>
           <NavBarItem nextRouteUrl>
             <Link href="/admin"> 
-              <PencilIcon className="bg-blue-400 w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-300 hover:filter hover:brightness-125" />
+              <PencilIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
             </Link>
           </NavBarItem>
 
@@ -87,7 +87,7 @@ function AwesomeNavBar() {
 
       <NavBarItem
         icon={
-          <ChevronDownIcon className="bg-blue-400 w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-300 hover:filter hover:brightness-125" />
+          <ChevronDownIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
         }
       >
         <DropdownMenu />
@@ -136,11 +136,11 @@ function DropdownMenu() {
     
     return (
       <a href="#" className="flex h-12 p-2 rounded-lg items-center 
-      transition-background duration-300 hover:bg-fun-blue-400 gap-x-1"
+      transition-background duration-500 hover:bg-fun-blue-300 gap-x-1"
         onClick={() => props.goToMenu && setActiveMenu(props.goToMenu)}
       >
         {props.leftIcon && (
-          <span className="bg-blue-400 w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-300 hover:filter hover:brightness-125">
+          <span className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
             {props.leftIcon}
           </span>
         )}
@@ -148,7 +148,7 @@ function DropdownMenu() {
         {props.children}
 
         {props.rightIcon && (
-          <span className="ml-auto bg-blue-400 w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-300 hover:filter hover:brightness-125">
+          <span className="ml-auto bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
             {props.rightIcon}
           </span>
         )}
