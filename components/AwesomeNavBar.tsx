@@ -6,22 +6,86 @@ import {
   CogIcon,
   ChevronRightIcon,
   ChevronLeftIcon,
-  LightningBoltIcon
+  MoonIcon,
+  SunIcon,
+  LoginIcon,
+  PencilIcon,
 } from "@heroicons/react/solid";
+import {
+  LightningBoltIcon,
+} from "@heroicons/react/outline";
 import { CSSTransition } from "react-transition-group";
+import { useSelector } from "react-redux";
+import { useTheme } from "next-themes";
+
 import "../styles/AwesomeNavBar.module.css";
+interface RootState {
+  counter: Object
+  users: UserState,
+}
+interface UserState {
+  user: User,
+  username: any
+}
+interface User {
+  photoURL: string,
+}
 
 function AwesomeNavBar() {
+
+  // TS infers type: (state: RootState) => boolean
+  const selectUser = (state: RootState) => state.users; 
+  const { user, username } = useSelector(selectUser);
+  const {theme, setTheme} = useTheme();
+
   return (
     <NavBar>
       <NavBarItem
-        nextRouteUrl={"/enter"}
+        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         icon={
-          <BeakerIcon className="bg-blue-400 w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-300 hover:filter hover:brightness-125" />
+          theme === "dark" ? (
+            <MoonIcon className="bg-blue-400 w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-300 hover:filter hover:brightness-125" />
+          ) : (
+            <SunIcon className="bg-blue-400 w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-300 hover:filter hover:brightness-125" />
+          )
         }
       />
+
+      <NavBarItem nextRouteUrl>
+        <Link href="/technology"> 
+            <LightningBoltIcon className="bg-blue-400 w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-300 hover:filter hover:brightness-125" />
+        </Link>
+      </NavBarItem>
+
+      {/* user is not signed-in or has not created username */}
+      {!username && (
+        <NavBarItem nextRouteUrl>
+          <Link href="/enter"> 
+              <LoginIcon className="bg-blue-400 w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-300 hover:filter hover:brightness-125" />
+          </Link>
+        </NavBarItem>
+      )}
+
+      {/* user is signed-in and has username */}
+      {username && (
+        <>
+          <NavBarItem nextRouteUrl>
+            <Link href="/admin"> 
+              <PencilIcon className="bg-blue-400 w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-300 hover:filter hover:brightness-125" />
+            </Link>
+          </NavBarItem>
+
+          {/* TODO : have to correct the image */}
+          {/* <div className="pr-0 md:pr-3 w-12 h-12 cursor-pointer rounded-full flex items-center justify-center">
+            <Link href={`/${username}`}>
+              <img src={user?.photoURL} alt="" />
+            </Link>
+          </div> */}
+
+        </>
+      )}
+
       <NavBarItem
-        nextRouteUrl={"/technology"}
         icon={
           <ChevronDownIcon className="bg-blue-400 w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-300 hover:filter hover:brightness-125" />
         }
@@ -34,7 +98,20 @@ function AwesomeNavBar() {
 
 function NavBar({ children }) {
   return (
-    <nav className="fixed top-0 w-full h-16 py-0 px-4 bg-blue-600 text-blog-white">
+    <nav className="fixed top-0 w-full h-16 py-0 px-4 
+            bg-blog-white 
+            dark:bg-fun-blue-600 dark:text-blog-white
+            drop-shadow-lg
+            hover:drop-shadow-xl
+            z-50 
+            flex
+            flex-row
+          ">
+      <div className="basis-1/2 md:basis-1/4 self-center md:text-2xl m-1">
+        <Link href="/">     
+          {`Swapnil's Notes`}          
+        </Link>
+      </div>
       <ul className="w-full h-full flex justify-end">{children}</ul>
     </nav>
   );
@@ -55,14 +132,11 @@ function DropdownMenu() {
       setMenuHeight(height);
   }
 
-
-
   function DropdownItem(props) {
     
     return (
-      <a
-        href="#"
-        className="flex h-12 p-2 rounded-lg items-center transition-background duration-300 hover:bg-blue-500"
+      <a href="#" className="flex h-12 p-2 rounded-lg items-center 
+      transition-background duration-300 hover:bg-fun-blue-400 gap-x-1"
         onClick={() => props.goToMenu && setActiveMenu(props.goToMenu)}
       >
         {props.leftIcon && (
@@ -83,11 +157,18 @@ function DropdownMenu() {
   }
 
   return (
-    <div
-      className="absolute top-12 w-80 -translate-x-2/4 bg-blue-600 text-blog-white overflow-hidden rounded-lg border border-blue-500 transition-height"
+    <div className="absolute top-12 w-80 -translate-x-2/4 
+          overflow-hidden rounded-lg 
+          border border-blog-white
+          transition-height
+          bg-blog-white 
+          dark:bg-fun-blue-600 dark:text-blog-white
+          dark:border-fun-blue-500 
+          drop-shadow-lg
+          hover:drop-shadow-xl
+          z-55"
       style={{ height: menuHeight }}
-      ref={dropdownRef}
-    >
+      ref={dropdownRef}>
 
         <CSSTransition
             in={activeMenu === 'main'}
@@ -97,8 +178,7 @@ function DropdownMenu() {
             onEnter={(el) => calcHeight(el)}
             onEntered={(el) => calcHeight(el)}
             onEntering={(el) => calcHeight(el)}
-            onExit={(el) => calcHeight(el)}
-            >
+            onExit={(el) => calcHeight(el)}>
         
             <div className="menu p-4">
 
@@ -127,8 +207,7 @@ function DropdownMenu() {
             onEnter={(el) => calcHeight(el)}
             onEntered={(el) => calcHeight(el)}
             onEntering={(el) => calcHeight(el)}
-            onExit={(el) => calcHeight(el)}
-            >
+            onExit={(el) => calcHeight(el)}>
 
             <div className="menu p-4">
                 <DropdownItem goToMenu="main" leftIcon={<ChevronLeftIcon />}>
@@ -150,8 +229,7 @@ function DropdownMenu() {
             onEnter={(el) => calcHeight(el)}
             onEntered={(el) => calcHeight(el)}
             onEntering={(el) => calcHeight(el)}
-            onExit={(el) => calcHeight(el)}
-            >
+            onExit={(el) => calcHeight(el)}>
 
             <div className="menu p-4">
 
@@ -175,12 +253,10 @@ function NavBarItem(props) {
 
   return (
     <div className="flex">
-      <div className="w-[calc(4rem_*_0.8)] flex items-center justify-center">
-        {/* <Link href={props.nextRouteUrl} > */}
-        <div onClick={() => setOpen(!open)}>{props.icon}</div>
-
-        {/* </Link> */}
-        {open && props.children}
+      <div className="w-[calc(4rem_*_0.8)] flex items-center justify-center" {...props}>
+         {props.nextRouteUrl && props.children}
+         {!props.nextRouteUrl && <div onClick={() => setOpen(!open)}>{props.icon}</div>}
+         {open && props.children}
       </div>
     </div>
   );
