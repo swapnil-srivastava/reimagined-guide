@@ -109,7 +109,7 @@ function NavBar({ children }) {
             flex
             flex-row
           ">
-      <div className="basis-1/2 md:basis-1/4 self-center md:text-2xl m-1">
+      <div className="basis-1/2 md:basis-1/3 self-center md:text-2xl m-1">
         <Link href="/">     
           {`Swapnil's Notes`}          
         </Link>
