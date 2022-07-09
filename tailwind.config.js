@@ -8,6 +8,10 @@ module.exports = {
   theme: {
     typography: (theme) => ({}),
     extend: {
+      transitionProperty: {
+        'height': 'height',
+        'spacing': 'margin, padding',
+      },
       colors : {
         'blog-black': '#0A0A0A',
         'blog-white': '#FBFBFB',
