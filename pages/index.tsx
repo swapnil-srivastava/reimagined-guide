@@ -71,12 +71,6 @@ export default function Home(props) {
 
       <Loader show={loading} />
 
-      <Link href={`/technology`}>
-        <button className='bg-hit-pink-500 text-blog-black'>
-          Tech Stack
-        </button>
-      </Link>
-
       <Link href={`/enter`}>
         <button className='bg-hit-pink-500 text-blog-black'>
           Login page
