@@ -88,7 +88,7 @@ function PostItem({ post, admin = false }) {
           "
             >
               <div>{post.heartCount || 0}</div>
-              <HeartIcon />
+              <HeartIcon className="h-5 w-5"/>
             </div>
           </div>
 
