@@ -87,7 +87,7 @@ function CreateNewPost() {
       content: "# hello world!",
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
-      heartCount: 0, 
+      heartCount: 0,
     };
 
     await ref.set(data);
@@ -105,30 +105,37 @@ function CreateNewPost() {
 
   return (
     <form onSubmit={createPost}>
-      <div className="flex items-center justify-center text-3xl mb-5 dark:text-blog-white">Create a new post</div>
+      <div className="flex items-center justify-center text-3xl mb-5 dark:text-blog-white">
+        Create a new post
+      </div>
       <div className="flex item-center border-b border-fun-blue-500 dark:border-fun-blue-300 py-2">
         {/* <label className={styles.inputLabel} htmlFor="title">
             New Article Title *
         </label> */}
-        <span className="sr-only">Add a new article title and create the post</span>
+        <span className="sr-only">
+          Add a new article title and create the post
+        </span>
         <input
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="Enter 'Your Next Big Article Title!'"
-            className={styles.input}
-          />
+          id="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Enter 'Your Next Big Article Title!'"
+          className={styles.input}
+        />
         <button type="submit" disabled={!isValid} className={styles.btnAdmin}>
           Create
         </button>
-        <button className="border border-fun-blue-500 dark:border-blog-white text-fun-blue-500 dark:text-blog-white hover:text-fun-blue-400 dark:hover:text-slate-300 text-sm rounded py-1 px-2 mx-1" 
+        <button
+          className="border border-fun-blue-500 dark:border-blog-white text-fun-blue-500 dark:text-blog-white hover:text-fun-blue-400 dark:hover:text-slate-300 text-sm rounded py-1 px-2 mx-1"
           type="button"
           onClick={clearTitle}
-          >
+        >
           Cancel
         </button>
       </div>
-      <p className="p-1 m-1 dark:text-blog-white text-sm md:text-lg">Article URL : {slug || `your-next-big-article-title`}</p>
+      <p className="p-1 m-1 dark:text-blog-white text-sm md:text-lg">
+        Article URL : {slug || `your-next-big-article-title`}
+      </p>
     </form>
   );
 }

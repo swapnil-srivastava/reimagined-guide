@@ -44,23 +44,30 @@ function PostItem({ post, admin = false }) {
             "
       >
         <div className="basis-2/3">
+          
           <Link href={`/${post.username}`}>
-            <a>
-              <strong>By @{post.username}</strong>
+            <a className="text-md">
+             By @{post.username}
             </a>
           </Link>
 
-          <Link href={`/${post.username}/${post.slug}`}>
-            <h2>
-              <a>{post.title}</a>
-            </h2>
-          </Link>
+          <div className="flex flex-wrap font-light gap-x-1">
+            <Link href={`/${post.username}/${post.slug}`}>
+              <a>
+                {post.title}
+              </a>
+            </Link>
 
-          <div>{contentTrimmed}</div>
+            {/* <span className="font-light">({wordCount} words</span>
+            <span className="font-light">{minutesToRead} min read)</span> */}
+          </div>
+
+
+          <div className="font-extralight">{contentTrimmed}</div>
 
           <footer>
-            <span>{wordCount} words </span>
-            <span>{minutesToRead} min read</span>
+            <span className="font-light">{wordCount} words </span>
+            <span className="font-light">{minutesToRead} min read</span>
           </footer>
         </div>
 
@@ -74,8 +81,7 @@ function PostItem({ post, admin = false }) {
                     className="
                     bg-hit-pink-500 text-blog-black
                     dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-1 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125
-                    "
-                  >
+                    ">
                     <PencilAltIcon className="h-5 w-5"/>
                   </button>
                 </Link>
