@@ -76,7 +76,7 @@ function PostItem({ post, admin = false }) {
                     dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-1 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125
                     "
                   >
-                    <PencilAltIcon />
+                    <PencilAltIcon className="h-5 w-5"/>
                   </button>
                 </Link>
               </>

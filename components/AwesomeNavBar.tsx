@@ -192,19 +192,19 @@ function DropdownMenu() {
              */}
             My Profile
           </DropdownItem>
-          <DropdownItem leftIcon={<LoginIcon />}>
+          <DropdownItem leftIcon={<LoginIcon className="w-5 h-5"/>}>
             <Link href="/enter">Logout</Link>
           </DropdownItem>
           <DropdownItem
-            leftIcon={<CogIcon />}
-            rightIcon={<ChevronRightIcon />}
+            leftIcon={<CogIcon className="w-5 h-5"/>}
+            rightIcon={<ChevronRightIcon className="w-5 h-5"/>}
             goToMenu="settings"
           >
             Settings
           </DropdownItem>
           <DropdownItem
             leftIcon="🦧"
-            rightIcon={<ChevronRightIcon />}
+            rightIcon={<ChevronRightIcon className="w-5 h-5"/>}
             goToMenu="animals"
           >
             Animals
@@ -223,15 +223,15 @@ function DropdownMenu() {
         onExit={(el) => calcHeight(el)}
       >
         <div className="menu p-4">
-          <DropdownItem goToMenu="main" leftIcon={<ChevronLeftIcon />}>
+          <DropdownItem goToMenu="main" leftIcon={<ChevronLeftIcon className="w-5 h-5"/>}>
             <h2>My Tutorial</h2>
           </DropdownItem>
-          <DropdownItem leftIcon={<LightningBoltIcon />}>HTML</DropdownItem>
-          <DropdownItem leftIcon={<LightningBoltIcon />}>CSS</DropdownItem>
-          <DropdownItem leftIcon={<LightningBoltIcon />}>
+          <DropdownItem leftIcon={<LightningBoltIcon className="w-5 h-5"/>}>HTML</DropdownItem>
+          <DropdownItem leftIcon={<LightningBoltIcon className="w-5 h-5"/>}>CSS</DropdownItem>
+          <DropdownItem leftIcon={<LightningBoltIcon className="w-5 h-5"/>}>
             JavaScript
           </DropdownItem>
-          <DropdownItem leftIcon={<LightningBoltIcon />}>Awesome!</DropdownItem>
+          <DropdownItem leftIcon={<LightningBoltIcon className="w-5 h-5"/>}>Awesome!</DropdownItem>
         </div>
       </CSSTransition>
 
@@ -246,7 +246,7 @@ function DropdownMenu() {
         onExit={(el) => calcHeight(el)}
       >
         <div className="menu p-4">
-          <DropdownItem goToMenu="main" leftIcon={<ChevronLeftIcon />}>
+          <DropdownItem goToMenu="main" leftIcon={<ChevronLeftIcon className="w-5 h-5"/>}>
             <h2>Animals</h2>
           </DropdownItem>
           <DropdownItem leftIcon="🦘">Kangaroo</DropdownItem>
