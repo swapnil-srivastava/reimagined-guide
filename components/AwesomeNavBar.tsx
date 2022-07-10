@@ -99,7 +99,7 @@ function AwesomeNavBar() {
 
 function NavBar({ children }) {
   return (
-    <nav className="fixed top-0 w-full h-16 py-0 px-4 
+    <nav className="fixed top-0 w-full h-16 py-0 px-4
             bg-blog-white 
             dark:bg-fun-blue-600 dark:text-blog-white
             drop-shadow-lg
@@ -108,9 +108,9 @@ function NavBar({ children }) {
             flex
             flex-row
           ">
-      <div className="basis-1/2 md:basis-1/3 self-center md:text-2xl m-1">
+      <div className="basis-1/2 md:basis-1/3 self-strech flex items-center md:text-2xl m-1">
         <Link href="/">     
-          {`Swapnil's Notes`}          
+          <a className="py-4">{`Swapnil's Notes`}</a>
         </Link>
       </div>
       <ul className="w-full h-full flex justify-end">{children}</ul>
@@ -119,6 +119,9 @@ function NavBar({ children }) {
 }
 
 function DropdownMenu() {
+  const selectUser = (state: RootState) => state.users; 
+  const { user, username } = useSelector(selectUser);
+  
   const [activeMenu, setActiveMenu] = useState("main");
   const [menuHeight, setMenuHeight] = useState(null);
   const dropdownRef = useRef(null);
@@ -184,16 +187,16 @@ function DropdownMenu() {
       >
         <div className="menu p-4">
           <DropdownItem>
-            {/* <div className="w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] rounded-full cursor-pointer flex items-center overflow-hidden">
+            <div className="w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] rounded-full cursor-pointer flex items-center overflow-hidden">
               <Link href={`/${username}`}>
                 <Image width={200} height={200} src={user?.photoURL} alt="" />
               </Link>
             </div>
-             */}
+            
             My Profile
           </DropdownItem>
           <DropdownItem leftIcon={<LoginIcon className="w-5 h-5"/>}>
-            <Link href="/enter">Logout</Link>
+            <Link href="/enter">Login Page</Link>
           </DropdownItem>
           <DropdownItem
             leftIcon={<CogIcon className="w-5 h-5"/>}
