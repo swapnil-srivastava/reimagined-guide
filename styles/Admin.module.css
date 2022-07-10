@@ -1,5 +1,40 @@
   .input {
-    @apply p-1 m-1 bg-fun-blue-700 rounded-lg;
+    /* @apply p-2 m-2 rounded-lg; */
+    @apply mt-1 px-3 py-2 
+    bg-fun-blue-300
+    border
+    /* dark:border-fun-blue-200 */
+    placeholder-fun-blue-500
+    focus:outline-none 
+    focus:border-fun-blue-500 
+    focus:ring-fun-blue-500
+    block 
+    w-full 
+    rounded-md 
+    text-sm md:text-lg
+    focus:ring-1;
+  }
+
+  .inputAndLabel {
+    @apply flex flex-col;
+  }
+
+  .inputLabel {
+    @apply text-sm md:text-lg 
+  }
+
+  .adminAddArticle {
+    @apply mx-4 flex flex-col
+  }
+
+  .btnAdmin {
+    @apply p-2 m-1 
+    font-light
+    bg-hit-pink-500 
+    border border-hit-pink-500 
+    rounded-lg
+    self-end
+    hover:filter hover:brightness-125
   }
 
   .container {

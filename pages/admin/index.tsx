@@ -26,8 +26,8 @@ interface UserState {
 function Admin() {
   return (
     <AuthCheck>
-      <PostList></PostList>
       <CreateNewPost></CreateNewPost>
+      <PostList></PostList>
     </AuthCheck>
   );
 }
@@ -87,7 +87,7 @@ function CreateNewPost() {
       content: "# hello world!",
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
-      heartCount: 0,
+      heartCount: 0, 
     };
 
     await ref.set(data);
@@ -100,23 +100,27 @@ function CreateNewPost() {
 
   return (
     <form onSubmit={createPost}>
-      <div>
-        <input
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="My Awesome Article!"
-          className={styles.input}
-        />
-        <p className="p-1 m-1">
-          <strong>Slug:</strong> {slug}
-        </p>
+      <div className="flex items-center justify-center text-3xl mb-5 dark:text-blog-white">Create a new post</div>
+      <div className={styles.adminAddArticle}>
+        <div className={styles.inputAndLabel}>
+          <label className={styles.inputLabel} htmlFor="title">
+            New Article Title *
+          </label>
+          <span className="sr-only">Add a new article title and create the post</span>
+          <input
+            id="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Your Next Big Article Title!"
+            className={styles.input}
+          />
+        </div>
 
-        <button
-          type="submit"
-          disabled={!isValid}
-          className="p-1 m-1 bg-hit-pink-500 border border-hit-pink-500 rounded-md"
-        >
-          Create New Post
+        <p className="p-1 m-1 dark:text-blog-white text-sm md:text-lg">Article URL : {slug || `your-next-big-article-title`}</p>
+
+
+        <button type="submit" disabled={!isValid} className={styles.btnAdmin}>
+          Create
         </button>
       </div>
     </form>
