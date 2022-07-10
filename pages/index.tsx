@@ -67,7 +67,7 @@ export default function Home(props) {
 
       {!loading && !postsEnd && (
         <div className="flex items-center justify-center">
-          <button className="bg-hit-pink-500 text-blog-black" onClick={getMorePosts}>Load more</button>
+          <button className="p-2 bg-hit-pink-500 text-blog-black rounded-lg" onClick={getMorePosts}>Load More</button>
         </div>
       )}
 

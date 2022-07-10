@@ -1,4 +1,8 @@
-.container {
+  .input {
+    @apply p-1 m-1 bg-fun-blue-700 rounded-lg;
+  }
+
+  .container {
     min-height: 100vh;
     display: flex;
   }
@@ -35,14 +39,6 @@
     outline: none;
     padding: 0.5rem;
     font-size: 1.25rem;
-  }
-  
-  .input {
-    outline: none;
-    border: none;
-    font-size: 2.5rem;
-    width: 100%;
-    padding: 5px 10px;
   }
   
   .checkbox {

@@ -17,10 +17,10 @@ export function PostFeed({ posts, admin = false }) {
 
 function PostItem({ post, admin = false }) {
   const wordCount = post?.content.trim().split(/\s+/g).length;
-  const contentTrimmed = generateMetaDescription(post?.content);
+  const contentTrimmed = generateContent(post?.content);
   const minutesToRead = (wordCount / 100 + 1).toFixed(0);
 
-  function generateMetaDescription(input) {
+  function generateContent(input) {
     if (!input) return;
     if (input.length > 50) {
       return input.substring(0, 50) + "...";
