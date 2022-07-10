@@ -1,18 +1,21 @@
   .input {
     /* @apply p-2 m-2 rounded-lg; */
-    @apply mt-1 px-3 py-2 
-    bg-fun-blue-300
-    border
-    /* dark:border-fun-blue-200 */
+    @apply 
+    px-3 py-2 
+    dark:bg-transparent
+    dark:bg-slate-500
+    text-fun-blue-500
+    dark:text-slate-50
+    bg-blog-white
+    border-none 
     placeholder-fun-blue-500
-    focus:outline-none 
-    focus:border-fun-blue-500 
-    focus:ring-fun-blue-500
+    focus:outline-none
     block 
     w-full 
-    rounded-md 
-    text-sm md:text-lg
-    focus:ring-1;
+    rounded-sm
+    text-sm 
+    md:text-lg
+    leading-tight
   }
 
   .inputAndLabel {
@@ -20,7 +23,7 @@
   }
 
   .inputLabel {
-    @apply text-sm md:text-lg 
+    @apply text-sm md:text-lg dark:text-blog-white
   }
 
   .adminAddArticle {
@@ -28,13 +31,16 @@
   }
 
   .btnAdmin {
-    @apply p-2 m-1 
+    @apply 
+    py-1 px-2
     font-light
+    text-sm
     bg-hit-pink-500 
-    border border-hit-pink-500 
-    rounded-lg
-    self-end
+    border-4 border-hit-pink-500 
+    rounded
     hover:filter hover:brightness-125
+    ml-1
+    flex-shrink-0 
   }
 
   .container {
