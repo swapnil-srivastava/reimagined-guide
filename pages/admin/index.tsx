@@ -105,9 +105,6 @@ function CreateNewPost() {
 
   return (
     <form onSubmit={createPost}>
-      <div className="flex items-center justify-center text-3xl mb-5 dark:text-blog-white">
-        Create a new post
-      </div>
       <div className="flex item-center border-b border-fun-blue-500 dark:border-fun-blue-300 py-2">
         {/* <label className={styles.inputLabel} htmlFor="title">
             New Article Title *
