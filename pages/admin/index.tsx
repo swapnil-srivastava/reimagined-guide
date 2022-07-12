@@ -106,24 +106,54 @@ function CreateNewPost() {
   return (
     <form onSubmit={createPost}>
       <div className="flex item-center border-b border-fun-blue-500 dark:border-fun-blue-300 py-2">
-        {/* <label className={styles.inputLabel} htmlFor="title">
-            New Article Title *
-        </label> */}
         <span className="sr-only">
           Add a new article title and create the post
         </span>
-        <input
-          id="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Enter 'Your Next Big Article Title!'"
-          className={styles.input}
-        />
+
+        <div className="relative w-full mx-3">
+          <input
+            id="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Not supposed to be seen"
+            className="peer dark:bg-transparent
+            dark:bg-slate-500
+            text-fun-blue-500
+            dark:text-slate-50
+            bg-blog-white
+            border-none 
+            focus:outline-none
+            block 
+            w-full 
+            rounded-sm
+            text-sm 
+            md:text-lg
+            leading-tight
+            h-10
+            placeholder-transparent
+          "
+          />
+          <label
+            htmlFor="title"
+            className="absolute left-0 -top-3.5 
+            text-fun-blue-600 text-sm 
+            transition-all 
+            peer-placeholder-shown:text-base 
+            peer-placeholder-shown:text-fun-blue-400 
+            peer-placeholder-shown:top-2 
+            peer-focus:-top-3.5 
+            peer-focus:text-fun-blue-600
+            peer-focus:text-sm"
+          >
+            Enter Your Next Big Article Title!
+          </label>
+        </div>
+
         <button type="submit" disabled={!isValid} className={styles.btnAdmin}>
           Create
         </button>
         <button
-          className="border border-fun-blue-500 dark:border-blog-white text-fun-blue-500 dark:text-blog-white hover:text-fun-blue-400 dark:hover:text-slate-300 text-sm rounded py-1 px-2 mx-1"
+          className="border border-fun-blue-500 dark:border-blog-white text-fun-blue-500 dark:text-blog-white hover:text-fun-blue-400 dark:hover:text-slate-300 text-sm rounded py-1 px-2 mx-1 mr-4"
           type="button"
           onClick={clearTitle}
         >
