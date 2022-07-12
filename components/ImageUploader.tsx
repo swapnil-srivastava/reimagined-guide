@@ -1,24 +1,24 @@
-import { useState } from 'react';
-import { auth, storage, STATE_CHANGED } from '../lib/firebase';
-import Loader from './Loader';
+import { useState } from "react";
+import { auth, storage, STATE_CHANGED } from "../lib/firebase";
+import Loader from "./Loader";
 
 // Uploads images to Firebase Storage
 export default function ImageUploader() {
   const [uploading, setUploading] = useState(false);
-  const [progress, setProgress] = useState<String>('');
+  const [progress, setProgress] = useState<String>("");
   const [downloadURL, setDownloadURL] = useState(null);
-
 
   // Creates a Firebase Upload Task
   const uploadFile = async (e) => {
-
-    const target= e.target as HTMLInputElement;
+    const target = e.target as HTMLInputElement;
     // Get the file
     const file: File = Array.from(target.files)[0];
-    const extension = file.type.split('/')[1];
+    const extension = file.type.split("/")[1];
 
     // Makes reference to the storage bucket location
-    const ref = storage.ref(`uploads/${auth.currentUser.uid}/${Date.now()}.${extension}`);
+    const ref = storage.ref(
+      `uploads/${auth.currentUser.uid}/${Date.now()}.${extension}`
+    );
     setUploading(true);
 
     // Starts the upload
@@ -26,7 +26,10 @@ export default function ImageUploader() {
 
     // Listen to updates to upload task
     task.on(STATE_CHANGED, (snapshot) => {
-      const pct : String = ((snapshot.bytesTransferred / snapshot.totalBytes) * 100).toFixed(0);
+      const pct: String = (
+        (snapshot.bytesTransferred / snapshot.totalBytes) *
+        100
+      ).toFixed(0);
       setProgress(pct);
 
       // Get downloadURL AFTER task resolves (Note: this is not a native Promise)
@@ -46,14 +49,27 @@ export default function ImageUploader() {
 
       {!uploading && (
         <>
-          <label className="btn bg-hit-pink-500 text-blog-black">
-            📸 Upload Img
-            <input type="file" onChange={uploadFile} accept="image/x-png,image/gif,image/jpeg" />
+          <label className="block">
+            <span className="sr-only">Choose Image</span>
+            <input
+              type="file"
+              onChange={uploadFile}
+              accept="image/x-png,image/gif,image/jpeg"
+              className="block w-full text-sm text-slate-500
+                file:mr-4 file:py-2 file:px-4
+                file:rounded-full file:border-0
+                file:text-sm file:font-semibold
+                file:bg-hit-pink-500 file:text-blog-black
+                transition-filter duration-500 hover:filter hover:brightness-125
+                "
+            />
           </label>
         </>
       )}
 
-      {downloadURL && <code className="upload-snippet">{`![alt](${downloadURL})`}</code>}
+      {downloadURL && (
+        <code className="upload-snippet">{`![alt](${downloadURL})`}</code>
+      )}
     </div>
   );
 }

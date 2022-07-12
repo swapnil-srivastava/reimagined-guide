@@ -125,10 +125,6 @@ button.btn-logo {
 
 /* File uploads */
 
-input[type="file"] {
-  display: none;
-}
-
 .upload-snippet {
   width: 75%;
     margin-left: auto;
