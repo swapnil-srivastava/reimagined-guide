@@ -63,10 +63,6 @@
     font-size: 1.25rem;
   }
   
-  .checkbox {
-    display: inline;
-    width: auto;
-  }
   
   @media only screen and (max-width: 768px) {
     .container {

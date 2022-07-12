@@ -36,18 +36,18 @@ function PostManager() {
     <main className={styles.container}>
       {post && (
         <>
-          <section>
-            <h1>{post.title}</h1>
-            <p>ID: {post.slug}</p>
+          <section className='p-3'>
+            <p className='text-3xl font-sans'>{post.title}</p>
+            <p className='p-1 text-md font-mono'>Article ID: {post.slug}</p>
 
             <PostForm postRef={postRef} defaultValues={post} preview={preview} />
           </section>
 
-          <aside>
-          <h3>Tools</h3>
-            <button className="bg-hit-pink-500 text-blog-black" onClick={() => setPreview(!preview)}>{preview ? 'Edit' : 'Preview'}</button>
+          <aside className='p-3'>
+            <p className='text-xl font-light dark:text-blog-white'>Tools</p>
+            <button className="p-2 m-1 bg-hit-pink-500 text-blog-black rounded-lg" onClick={() => setPreview(!preview)}>{preview ? 'Edit' : 'Preview'}</button>
             <Link href={`/${post.username}/${post.slug}`}>
-              <button className="bg-hit-pink-500 text-blog-black">Live view</button>
+              <button className="p-2 m-1 bg-hit-pink-500 text-blog-black rounded-lg">Live view</button>
             </Link>
           </aside>
         </>
@@ -77,7 +77,7 @@ function PostForm({ defaultValues, postRef, preview }) {
   return (
     <form onSubmit={handleSubmit(updatePost)}>
       {preview && (
-        <div className="card">
+        <div className="drop-shadow-xl">
           <ReactMarkdown>{watch('content')}</ReactMarkdown>
         </div>
       )}
@@ -95,11 +95,12 @@ function PostForm({ defaultValues, postRef, preview }) {
         {errors && errors.content && <p className="text-danger">{errors.content.message}</p>}
 
         <fieldset>
-          <input className={styles.checkbox} name="published" type="checkbox" {...register('published', { required: true })}/>
+          <input name="published" type="checkbox" {...register('published', { required: true })}/>
           <label>Published</label>
         </fieldset>
 
-        <button type="submit" className="bg-hit-pink-500 text-blog-black" disabled={!isDirty || !isValid}>
+        <button type="submit" className="
+          p-2 bg-hit-pink-500 text-blog-black rounded-lg" disabled={!isDirty || !isValid}>
           Save Changes
         </button>
       </div>

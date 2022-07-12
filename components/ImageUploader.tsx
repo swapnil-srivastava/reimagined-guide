@@ -49,13 +49,15 @@ export default function ImageUploader() {
 
       {!uploading && (
         <>
-          <label className="block">
+          <label htmlFor="image-upload" className="block p-1 mb-5">
             <span className="sr-only">Choose Image</span>
             <input
               type="file"
+              id="image-upload"
               onChange={uploadFile}
               accept="image/x-png,image/gif,image/jpeg"
-              className="block w-full text-sm text-slate-500
+              className="block w-full
+                text-sm text-slate-500
                 file:mr-4 file:py-2 file:px-4
                 file:rounded-full file:border-0
                 file:text-sm file:font-semibold
