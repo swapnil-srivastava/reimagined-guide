@@ -9,7 +9,6 @@ import { firestore, fromMillis, postToJSON } from "../lib/firebase";
 
 import { useState } from "react";
 import Metatags from "../components/Metatags";
-import Link from "next/link";
 
 // Max post to query per page
 const LIMIT = 5;
@@ -66,16 +65,42 @@ export default function Home(props) {
       <PostFeed posts={posts} />
 
       {!loading && !postsEnd && (
-        <div className="flex items-center justify-center">
-          <button className="p-2 bg-hit-pink-500 text-blog-black rounded-lg" onClick={getMorePosts}>Load More</button>
+        <div className="inset-x-0 bottom-0 
+                        flex justify-center 
+                        bg-gradient-to-t 
+                        from-white 
+                        pt-32 
+                        pb-8 
+                        pointer-events-none 
+                        dark:from-slate-900 
+                        sticky 
+                        -mt-52 
+                        transition-opacity 
+                        duration-300 
+                        opacity-100">
+          {/* <button className="p-2 bg-hit-pink-500 text-blog-black rounded-lg" onClick={getMorePosts}>Load More</button> */}
+          <button className="relative 
+                            bg-hit-pink-500
+                            focus:outline-none focus:ring-2 
+                            focus:ring-fun-blue-400 
+                            focus:ring-offset-2 text-sm 
+                            text-blog-black
+                            font-semibold 
+                            h-12 px-6 rounded-lg flex items-center 
+                            dark:bg-hit-pink-500
+                            transition-transform pointer-events-auto
+                            transition-filter duration-500 hover:filter hover:brightness-125
+                            " onClick={getMorePosts}>Load More</button>
         </div>
       )}
 
       <div className="flex items-center justify-center">
         <Loader show={loading} />
       </div>
-
+      
       {postsEnd && <div className="flex items-center justify-center dark:text-blog-white"> You have reached the end!</div>}
+
+
     </main>
   );
 }
