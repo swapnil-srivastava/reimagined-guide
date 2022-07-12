@@ -93,11 +93,11 @@ function Post(props) {
         description={generateMetaDescription(post.content)}
       />
 
-      <section>
+      <section className="p-3">
         <PostContent post={post} />
       </section>
       
-      <aside className="card dark:bg-fun-blue-500 dark:text-blog-white">
+      <aside className="p-3 dark:bg-fun-blue-500 dark:text-blog-white">
         <p>
           <strong>{post.heartCount || 0} 🤍</strong>
         </p>
@@ -105,7 +105,7 @@ function Post(props) {
         <AuthCheck
           fallback={
             <Link href="/enter">
-              <button className="bg-hit-pink-500 text-blog-black">
+              <button className="bg-hit-pink-500 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
                 💗 Sign Up
               </button>
             </Link>
@@ -116,7 +116,7 @@ function Post(props) {
 
         {currentUser?.uid === post.uid && (
           <Link href={`/admin/${post.slug}`}>
-            <button className="bg-hit-pink-500 text-blog-black">
+            <button className="bg-hit-pink-500 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
