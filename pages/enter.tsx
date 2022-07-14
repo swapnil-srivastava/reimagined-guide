@@ -48,9 +48,24 @@ function SignInButton() {
   };
 
   return (
-    <button className="btn-google" onClick={signInWithGoogle}>
-      <img src={'/google.png'} /> Sign in with Google
-    </button>
+    <div className='flex items-center'>
+      <button className="flex items-center bg-white rounded-lg px-4 m-2
+              transition-filter duration-500 hover:filter hover:brightness-125 
+              focus:outline-none focus:ring-2 
+              focus:ring-fun-blue-400 
+              focus:ring-offset-2 text-sm 
+              text-blog-black
+              font-semibold 
+              dark:text-fun-blue-500
+              " onClick={signInWithGoogle}>
+        <img className="h-10 w-10" src={'/google.png'} /> 
+        <div>
+        Sign in with Google
+        </div>
+      </button>
+      {/* Add another button here */}
+    </div>
+
   );
 }
 
