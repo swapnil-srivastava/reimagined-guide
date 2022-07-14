@@ -110,6 +110,8 @@ export default function Technology() {
   return (
     <>
         <Metatags description={`Technology stack that I am fluent in`}/>
+        <div className="px-10 text-2xl font-extralight dark:text-blog-white">Tech Stack</div>
+
         <div className="flex py-10 px-10 flex-wrap">
             {techStackState && techStackState.map(({techName, colorTechStack}) => <TechBox key={techName} techStackName={techName} techStackColor={colorTechStack}/>)}
         </div>
