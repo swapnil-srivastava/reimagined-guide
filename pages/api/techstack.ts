@@ -5,7 +5,7 @@ export default function handler(req, res) {
     const initialTechStackState = [
         {
             techName: "#JavaScript",
-            colorTechStack: "text-blog-white dark:text-blog-white bg-persian-blue-500 hover:bg-persian-blue-600 " 
+            colorTechStack: "text-blog-white dark:text-blog-white bg-persian-blue-500 hover:bg-persian-blue-600" 
         },
         {
             techName: "#TypeScript",
