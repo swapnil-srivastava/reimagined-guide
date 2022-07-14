@@ -17,8 +17,14 @@ interface RootState {
 }
 
 interface UserState {
-  user: Object;
+  user: User;
   username: any;
+}
+
+interface User {
+  uid : string
+  displayName : string,
+  photoURL : string
 }
 
 // e.g. localhost:3000/admin
@@ -57,7 +63,7 @@ function CreateNewPost() {
 
   // TS infers type: (state: RootState) => boolean
   const selectUser = (state: RootState) => state.users;
-  const { username } = useSelector(selectUser);
+  const { user, username } = useSelector(selectUser);
 
   const [title, setTitle] = useState("");
 
@@ -71,6 +77,7 @@ function CreateNewPost() {
   const createPost = async (e) => {
     e.preventDefault();
     const uid = auth.currentUser.uid;
+    const { photoURL } = user;
     const ref = firestore
       .collection("users")
       .doc(uid)
@@ -83,6 +90,7 @@ function CreateNewPost() {
       slug,
       uid,
       username,
+      photoURL,
       published: false,
       content: "# hello world!",
       createdAt: serverTimestamp(),
