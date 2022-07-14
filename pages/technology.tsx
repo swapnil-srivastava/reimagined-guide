@@ -110,14 +110,14 @@ export default function Technology() {
   return (
     <>
         <Metatags description={`Technology stack that I am fluent in`}/>
-        <div className="px-10 text-2xl font-extralight dark:text-blog-white">Tech Stack</div>
+        <div className="px-10 pb-2 text-2xl font-extralight dark:text-blog-white">Tech Stack</div>
 
-        <div className="flex py-10 px-10 flex-wrap">
+        <div className="flex py-10 px-10 pt-2 flex-wrap">
             {techStackState && techStackState.map(({techName, colorTechStack}) => <TechBox key={techName} techStackName={techName} techStackColor={colorTechStack}/>)}
         </div>
 
-        <div className="px-10 text-2xl font-extralight dark:text-blog-white">Bleeding Tech</div>
-        <div className="flex py-10 px-10 flex-wrap">
+        <div className="px-10 pb-0 text-2xl font-extralight dark:text-blog-white">Bleeding Tech</div>
+        <div className="flex py-10 px-10 pt-2 flex-wrap">
             {bleedingTechState && bleedingTechState.map(({techName, colorTechStack}) => <TechBox key={techName} techStackName={techName} techStackColor={colorTechStack}/>)}
         </div>
     </>
