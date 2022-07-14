@@ -188,15 +188,17 @@ function DropdownMenu() {
         onExit={(el) => calcHeight(el)}
       >
         <div className="menu p-4">
-          <DropdownItem>
-            <div className="w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] rounded-full cursor-pointer flex items-center overflow-hidden">
-              <Link href={`/${username}`}>
-                <Image width={200} height={200} src={user?.photoURL} alt="" />
-              </Link>
-            </div>
-            
-            My Profile
-          </DropdownItem>
+        {username && 
+            (<DropdownItem>
+              <div className="w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] rounded-full cursor-pointer flex items-center overflow-hidden">
+                <Link href={`/${username}`}>
+                  <Image width={200} height={200} src={user?.photoURL} alt="" />
+                </Link>
+              </div>
+              
+              My Profile
+            </DropdownItem>)
+          }
           <DropdownItem leftIcon={<LoginIcon className="w-5 h-5"/>}>
             <Link href="/enter">Login Page</Link>
           </DropdownItem>
