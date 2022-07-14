@@ -64,7 +64,6 @@ export default function Technology() {
 
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
         tempDoc = [...tempDoc, 
           {
             techName: doc.data().name,
@@ -72,7 +71,6 @@ export default function Technology() {
           }];
       });
 
-      console.log("tempDoc", tempDoc);
       setTechStackState(tempDoc);
       return tempDoc;
     } catch (error) {
