@@ -17,7 +17,6 @@ function MyApp({ Component, pageProps }) {
     <> 
       <ThemeProvider attribute="class">
         <Provider store={store}>
-          {/* <Navbar /> */}
           <AwesomeNavBar />
           <Component {...pageProps} />
           <Toaster />
