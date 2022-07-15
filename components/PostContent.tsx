@@ -70,9 +70,11 @@ export default function PostContent({ post, postRef }) {
 
               {/* USER NAME DETAIL */}
               <div className="flex gap-x-2">
-                <div className="font-extralight text-base md:text-lg">
-                  {`${post.username}`}
-                </div>
+                <Link href={`/${post.username}`}>
+                  <a className="font-extralight text-base md:text-lg">
+                      {`${post.username}`}
+                  </a>
+                </Link>
               </div>
 
               {/* DATE, MIN TO READ and WORD COUNT DETAIL */}
