@@ -94,7 +94,7 @@ function Post(props) {
       />
 
       <section className="p-3">
-        <PostContent post={post} />
+        <PostContent post={post} postRef={postRef}/>
       </section>
       
       <aside className="p-3 dark:bg-fun-blue-500 dark:text-blog-white">
