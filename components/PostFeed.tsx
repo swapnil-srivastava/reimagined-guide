@@ -57,8 +57,6 @@ function PostItem({ post, admin = false }) {
               <a>{post.title}</a>
             </Link>
 
-            {/* <span className="font-light">({wordCount} words</span>
-            <span className="font-light">{minutesToRead} min read)</span> */}
           </div>
 
           <div className="font-extralight">{contentTrimmed}</div>
@@ -105,75 +103,6 @@ function PostItem({ post, admin = false }) {
         </div>
       </div>
 
-      {/* New Design Option 1 */}
-      <div
-        className="p-3 my-4 mx-4 
-                  bg-blog-white 
-                  dark:bg-fun-blue-600 dark:text-blog-white
-                  rounded-lg
-                  drop-shadow-lg
-                  hover:drop-shadow-xl"
-      >
-        <div>
-          <div className="flex justify-between">
-            <div className="flex items-center">
-              <div className="text-3xl font-light">Title</div>
-            </div>
-
-            <div className="flex flex-col">
-              <div className="flex">
-                <div
-                  className="flex items-center justify-center
-                        bg-fun-blue-300 text-blog-black
-                        dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-1 m-0.5 rounded-full transition-filter duration-500 hover:filter hover:brightness-125
-                        "
-                >
-                  <div>{post.heartCount || 0}</div>
-                  <HeartIcon className="h-5 w-5" />
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="flex items-center gap-x-2">
-            <Link href={`/${post.username}`}>
-              {post?.photoURL && post?.photoURL ? (
-                <div
-                  className="w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] 
-                                  rounded-full cursor-pointer flex items-center 
-                                  overflow-hidden"
-                >
-                  <Image width={200} height={200} src={post.photoURL} alt="" />
-                </div>
-              ) : (
-                <div className="text-xs font-thin">{` ${post.username}`}</div>
-              )}
-            </Link>
-            <div className="">
-              <div className="flex gap-x-2">
-                <div className="font-extralight text-xs">9 Min Read</div>
-                <div className="font-extralight text-xs">45 Words</div>
-              </div>
-              <div className="font-extralight text-xs">
-                {`${moment(post.createdAt).format("DD MMM YYYY hh:mm a")}`}
-              </div>
-            </div>
-          </div>
-
-          <div className="flex justify-between">
-            <div>Post</div>
-            <div className="flex">
-              {post.published ? (
-                <p className="text-success self-end">Live</p>
-              ) : (
-                <p className="text-danger self-end">Unpublished</p>
-              )}
-            </div>
-          </div>
-
-        </div>
-      </div>
-
       {/* New Design Option 2 */}
       <div className="p-3 my-4 mx-4 
                   bg-blog-white 
@@ -200,8 +129,8 @@ function PostItem({ post, admin = false }) {
             </Link>
             <div className="">
               <div className="flex gap-x-2">
-                <div className="font-extralight text-xs">9 Min Read</div>
-                <div className="font-extralight text-xs">45 Words</div>
+                <div className="font-extralight text-xs">{minutesToRead} min read</div>
+                <div className="font-extralight text-xs">{wordCount} words</div>
               </div>
               <div className="font-extralight text-xs">
                 {`${moment(post.createdAt).format("DD MMM YYYY hh:mm a")}`}
@@ -226,11 +155,11 @@ function PostItem({ post, admin = false }) {
           </div>
           
           <div>
-            <div className="text-2xl font-light">Title</div>
+            <div className="text-2xl font-extralight">{post.title}</div>
           </div>
 
           <div className="flex justify-between">
-            <div className="text-md font-light">Post</div>
+            <div className="text-xl font-thin">{contentTrimmed}</div>
             <div className="flex">
               {post.published ? (
                 <p className="text-success self-end">Live</p>
@@ -255,10 +184,10 @@ function PostItem({ post, admin = false }) {
         <div>
           <div className="flex justify-between">
             <div className="flex items-center">
-              <div className="text-3xl font-light">Title</div>
+              <div className="text-sm font-light">{post.title}</div>
               <div className="flex flex-col m-2">
-                <div className="font-extralight text-xs">9 Min Read</div>
-                <div className="font-extralight text-xs">45 Words</div>
+                <div className="font-extralight text-xs">{minutesToRead} mins read</div>
+                <div className="font-extralight text-xs">{wordCount} words</div>
               </div>
             </div>
 
@@ -268,8 +197,7 @@ function PostItem({ post, admin = false }) {
                   className="flex items-center justify-center
                         bg-fun-blue-300 text-blog-black
                         dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-1 m-0.5 rounded-full transition-filter duration-500 hover:filter hover:brightness-125
-                        "
-                >
+                        ">
                   <div>{post.heartCount || 0}</div>
                   <HeartIcon className="h-5 w-5" />
                 </div>
@@ -282,7 +210,7 @@ function PostItem({ post, admin = false }) {
             </div>
           </div>
           <div className="flex justify-between">
-            <div>Post</div>
+            <div className="text-sm font-thin">{contentTrimmed}</div>
             <div className="flex">
               {post.published ? (
                 <p className="text-success self-end">Live</p>
