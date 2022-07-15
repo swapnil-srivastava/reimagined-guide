@@ -44,14 +44,17 @@ export default function PostContent({ post, postRef }) {
       <div className="bg-blog-white dark:bg-fun-blue-500 
                     dark:text-blog-white p-3">
         <div className="flex items-center justify justify-between gap-x-2">
+          {/* USER DETAIL INFO : User Image with username and details about the post */}
           <div className="flex items-center gap-x-2">
+
+            {/*  USER NAME SECTION */}
             <div>
               <Link href={`/${post.username}`}>
                 {post?.photoURL && post?.photoURL ? (
                   <div
-                    className="w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] 
+                    className="w-12 h-12
                                rounded-full cursor-pointer flex items-center 
-                               overflow-hidden p-0.5 m-0.5"
+                               overflow-hidden"
                   >
                     <Image width={200} height={200} src={post.photoURL} alt="" />
                   </div>
@@ -60,6 +63,8 @@ export default function PostContent({ post, postRef }) {
                 )}
               </Link>
             </div>
+
+            {/* POST DETAIL SECTION  */}
             <div className="flex flex-col">
               <div className="flex gap-x-2">
                 <div className="font-extralight text-xs">
@@ -79,6 +84,7 @@ export default function PostContent({ post, postRef }) {
             </div>
           </div>
           
+          {/* EDIT BUTTON : edit button icon visible only when user has authentication to edit */}
           {currentUser?.uid === post.uid && ( 
             <div>
               <Link href={`/admin/${post.slug}`}>
@@ -95,6 +101,8 @@ export default function PostContent({ post, postRef }) {
             </div>
           )}
         </div>
+
+        {/* HEART SECTION : logged in user to heart the post and sign up button redirect to login in page */}
         <div className="flex items-center mt-1 gap-x-2">
           <AuthCheck
             fallback={
@@ -164,6 +172,7 @@ export default function PostContent({ post, postRef }) {
                 transition-filter duration-500 hover:filter hover:brightness-125" />
           </button>
         </div>
+
       </div>
       <div className="bg-blog-white dark:bg-fun-blue-500 
                     dark:text-blog-white p-3 flex flex-col gap-3">
