@@ -195,7 +195,6 @@ function DropdownMenu() {
                   <Image width={200} height={200} src={user?.photoURL} alt="" />
                 </Link>
               </div>
-              
               My Profile
             </DropdownItem>)
           }
@@ -273,7 +272,7 @@ function NavBarItem(props) {
     <div className="flex">
       <div className="w-[calc(4rem_*_0.8)] flex items-center justify-center" {...props}>
          {props.nextRouteUrl && props.children}
-         {!props.nextRouteUrl && <div onClick={() => setOpen(!open)}>{props.icon}</div>}
+         {!props.nextRouteUrl && <div className="w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)]" onClick={() => setOpen(!open)}>{props.icon}</div>}
          {open && props.children}
       </div>
     </div>
