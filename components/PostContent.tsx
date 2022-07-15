@@ -70,19 +70,19 @@ export default function PostContent({ post, postRef }) {
 
               {/* USER NAME DETAIL */}
               <div className="flex gap-x-2">
-                <div className="font-extralight text-sm md:text-base">
+                <div className="font-extralight text-base md:text-lg">
                   {`${post.username}`}
                 </div>
               </div>
 
               {/* DATE, MIN TO READ and WORD COUNT DETAIL */}
               <div className="flex gap-x-2">
-                <div className="font-extralight text-sm md:text-base">{`${dateFormat}`}</div> 
-                <div className="font-extralight text-sm md:text-base">
+                <div className="font-extralight text-base md:text-lg">{`${dateFormat}`}</div> 
+                <div className="font-extralight text-base md:text-lg">
                     {minutesToRead} min read
                 </div>
-                <div className="font-extralight text-sm md:text-base">{wordCount} words</div>
-                <div className="font-extralight text-sm md:text-base">
+                <div className="font-extralight text-base md:text-lg">{wordCount} words</div>
+                <div className="font-extralight text-base md:text-lg">
                   <strong>{post.heartCount || 0} 🤍</strong>
                 </div>
               </div>
@@ -114,8 +114,8 @@ export default function PostContent({ post, postRef }) {
             fallback={
               <div className='flex items-center'>
                 <Link href="/enter">
-                  <button className="bg-hit-pink-500 dark:text-blog-black px-2 py-1 mx-1 
-                                      rounded-lg flex items-center justify-center 
+                  <button className="bg-hit-pink-500 dark:text-blog-black px-3 py-2 mx-1 
+                                      rounded-3xl flex items-center justify-center 
                                       transition-filter duration-500 hover:filter hover:brightness-125
                                       focus:outline-none focus:ring-2 
                                       focus:ring-fun-blue-400 

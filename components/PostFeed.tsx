@@ -43,8 +43,7 @@ function PostItem({ post, admin = false }) {
                   dark:bg-fun-blue-600 dark:text-blog-white
                   rounded-lg
                   drop-shadow-lg
-                  hover:drop-shadow-xl"
-      >
+                  hover:drop-shadow-xl">
         <div>
           <div className="flex justify-between">
             <div className="flex items-center">
