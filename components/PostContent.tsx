@@ -41,7 +41,8 @@ export default function PostContent({ post, postRef }) {
 
   return (
     <>
-      <div className="dark:text-blog-white p-3">
+      <div className="bg-blog-white dark:bg-fun-blue-500 
+                    dark:text-blog-white p-3">
         <div className="flex items-center justify justify-between gap-x-2">
           <div className="flex items-center gap-x-2">
             <div>
@@ -164,16 +165,12 @@ export default function PostContent({ post, postRef }) {
           </button>
         </div>
       </div>
-      <div className="bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white">
-        <h1>{post?.title}</h1>
-        <span className="text-sm">
-          Written by{" "}
-          <Link href={`/${post.username}/`}>
-            <a className="text-info">@{post.username}</a>
-          </Link>{" "}
-          on {createdAt.toISOString()}
-        </span>
-        <ReactMarkdown>{post?.content}</ReactMarkdown>
+      <div className="bg-blog-white dark:bg-fun-blue-500 
+                    dark:text-blog-white p-3 flex flex-col gap-3">
+        <div className="text-3xl font-extrabold">{post?.title}</div>
+        {/* <div className="text-xl font-light"> */}
+          <ReactMarkdown>{post?.content}</ReactMarkdown>
+        {/* </div> */}
       </div>
     </>
   );
