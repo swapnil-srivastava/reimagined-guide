@@ -51,7 +51,7 @@ function AwesomeNavBar() {
         }
       />
 
-      <NavBarItem nextRouteUrl>
+      <NavBarItem nextrouteurl>
         <Link href="/technology"> 
             <LightningBoltIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
         </Link>
@@ -59,7 +59,7 @@ function AwesomeNavBar() {
 
       {/* user is not signed-in or has not created username */}
       {!username && (
-        <NavBarItem nextRouteUrl>
+        <NavBarItem nextrouteurl>
           <Link href="/enter"> 
               <LoginIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
           </Link>
@@ -69,14 +69,14 @@ function AwesomeNavBar() {
       {/* user is signed-in and has username */}
       {username && (
         <>
-          <NavBarItem nextRouteUrl>
+          <NavBarItem nextrouteurl>
             <Link href="/admin"> 
               <PencilIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
             </Link>
           </NavBarItem>
 
         {/* user condition is ther because image src url is missing when clicking on sign out */}
-          {user && <NavBarItem nextRouteUrl>
+          {user && <NavBarItem nextrouteurl>
             <div className="w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] rounded-full cursor-pointer flex items-center overflow-hidden">
               <Link href={`/${username}`} >
                 <Image width={200} height={200} src={user?.photoURL} alt="" />
@@ -271,8 +271,8 @@ function NavBarItem(props) {
   return (
     <div className="flex">
       <div className="w-[calc(4rem_*_0.8)] flex items-center justify-center" {...props}>
-         {props.nextRouteUrl && props.children}
-         {!props.nextRouteUrl && <div className="w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)]" onClick={() => setOpen(!open)}>{props.icon}</div>}
+         {props.nextrouteurl && props.children}
+         {!props.nextrouteurl && <div className="w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)]" onClick={() => setOpen(!open)}>{props.icon}</div>}
          {open && props.children}
       </div>
     </div>

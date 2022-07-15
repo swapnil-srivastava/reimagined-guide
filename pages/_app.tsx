@@ -1,12 +1,17 @@
+
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'next-themes'
 import { useStore } from '../redux/store';
+
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
 import { Toaster } from 'react-hot-toast';
-import Navbar from '../components/Navbar';
 
 import '../styles/globals.css';
 import { useUserData } from '../lib/hooks';
 import AwesomeNavBar from '../components/AwesomeNavBar';
+
+config.autoAddCss = false;
 
 function MyApp({ Component, pageProps }) {
   
