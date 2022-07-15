@@ -168,9 +168,9 @@ export default function PostContent({ post, postRef }) {
       <div className="bg-blog-white dark:bg-fun-blue-500 
                     dark:text-blog-white p-3 flex flex-col gap-3">
         <div className="text-3xl font-extrabold">{post?.title}</div>
-        {/* <div className="text-xl font-light"> */}
+        <div className="text-xl font-light">
           <ReactMarkdown>{post?.content}</ReactMarkdown>
-        {/* </div> */}
+        </div>
       </div>
     </>
   );
