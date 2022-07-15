@@ -23,7 +23,9 @@ function PostItem({ post, admin = false }) {
   const wordCount = post?.content.trim().split(/\s+/g).length;
   const contentTrimmed = generateContent(post?.content);
   const minutesToRead = (wordCount / 100 + 1).toFixed(0);
-  const dateFormat = (moment(post.createdAt).isValid() ? moment(post.createdAt).format("DD MMM YYYY hh:mm a") : moment(post.createdAt.toMillis()).format("DD MMM YYYY hh:mm a"));
+  const dateFormat = moment(post.createdAt).isValid()
+    ? moment(post.createdAt).format("DD MMM YYYY hh:mm a")
+    : moment(post.createdAt.toMillis()).format("DD MMM YYYY hh:mm a");
 
   function generateContent(input) {
     if (!input) return;
