@@ -49,6 +49,7 @@ export default function PostContent({ post, postRef }) {
 
             {/*  USER NAME SECTION */}
             <div>
+              {/* USER IMAGE ICON and REDIRECT to PROFILE page */}
               <Link href={`/${post.username}`}>
                 {post?.photoURL && post?.photoURL ? (
                   <div
@@ -66,18 +67,22 @@ export default function PostContent({ post, postRef }) {
 
             {/* POST DETAIL SECTION  */}
             <div className="flex flex-col">
+
+              {/* USER NAME DETAIL */}
               <div className="flex gap-x-2">
-                <div className="font-extralight text-xs">
+                <div className="font-extralight text-sm md:text-base">
                   {`${post.username}`}
                 </div>
               </div>
+
+              {/* DATE, MIN TO READ and WORD COUNT DETAIL */}
               <div className="flex gap-x-2">
-                <div className="font-extralight text-xs">{`${dateFormat}`}</div> 
-                <div className="font-extralight text-xs">
+                <div className="font-extralight text-sm md:text-base">{`${dateFormat}`}</div> 
+                <div className="font-extralight text-sm md:text-base">
                     {minutesToRead} min read
                 </div>
-                <div className="font-extralight text-xs">{wordCount} words</div>
-                <div className="font-extralight text-xs">
+                <div className="font-extralight text-sm md:text-base">{wordCount} words</div>
+                <div className="font-extralight text-sm md:text-base">
                   <strong>{post.heartCount || 0} 🤍</strong>
                 </div>
               </div>
@@ -103,7 +108,8 @@ export default function PostContent({ post, postRef }) {
         </div>
 
         {/* HEART SECTION : logged in user to heart the post and sign up button redirect to login in page */}
-        <div className="flex items-center mt-1 gap-x-2">
+        <div className="flex items-center mt-3 md:mt-5 gap-x-2">
+          {/* AUTH CHECK SECTION - SIGN UP BUTTON */}
           <AuthCheck
             fallback={
               <div className='flex items-center'>
@@ -126,8 +132,11 @@ export default function PostContent({ post, postRef }) {
               </div>
             }
           >
+            {/* HEART BUTTON / REMOVE HEART BUTTON */}
             <HeartButton postRef={postRef} />
           </AuthCheck>
+
+          {/* LINKEDIN BUTTON */}
           <button className="rounded-full
               focus:outline-none focus:ring-2
               focus:ring-fun-blue-400 
@@ -137,6 +146,8 @@ export default function PostContent({ post, postRef }) {
               >
                 <LoginIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
           </button>
+
+          {/* TWITTER BUTTON */}
           <button className="rounded-full
               focus:outline-none focus:ring-2
               focus:ring-fun-blue-400 
@@ -146,6 +157,8 @@ export default function PostContent({ post, postRef }) {
               >
                 <LoginIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
           </button>
+
+          {/* FACEBOOK ICON */}
           <button className="rounded-full
               focus:outline-none focus:ring-2
               focus:ring-fun-blue-400 
@@ -159,6 +172,8 @@ export default function PostContent({ post, postRef }) {
                 transition-filter duration-500 hover:filter hover:brightness-125
                 " />
           </button>
+
+          {/* THREE DOT BUTTON */}
           <button className="rounded-full
               focus:outline-none focus:ring-2
               focus:ring-fun-blue-400 
@@ -174,9 +189,13 @@ export default function PostContent({ post, postRef }) {
         </div>
 
       </div>
+
+      {/* ARTICLE SECTION */}
       <div className="bg-blog-white dark:bg-fun-blue-500 
                     dark:text-blog-white p-3 flex flex-col gap-3">
+        {/* TITLE SECTION */}
         <div className="text-3xl font-extrabold">{post?.title}</div>
+        {/* POST SECTION */}
         <div className="text-xl font-light">
           <ReactMarkdown>{post?.content}</ReactMarkdown>
         </div>
