@@ -51,11 +51,9 @@ function PostItem({ post, admin = false }) {
               <div className="flex items-center gap-x-2">
                 <Link href={`/${post.username}`}>
                   {post?.photoURL && post?.photoURL ? (
-                    <div
-                      className="w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] 
+                    <div className="w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] 
                                   rounded-full cursor-pointer flex items-center 
-                                  overflow-hidden"
-                    >
+                                  overflow-hidden p-0.5 m-0.5">
                       <Image
                         width={200}
                         height={200}
@@ -84,27 +82,23 @@ function PostItem({ post, admin = false }) {
             </div>
 
             <div className="flex flex-col">
-              <div className="flex">
+              <div className="flex gap-x-1">
                 {admin && (
                   <>
                     <Link href={`/admin/${post.slug}`}>
-                      <button
-                        className="
+                      <button className="
                           bg-hit-pink-500 text-blog-black
                           dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-1 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125
-                          "
-                      >
+                          ">
                         <PencilAltIcon className="h-5 w-5" />
                       </button>
                     </Link>
                   </>
                 )}
-                <div
-                  className="flex items-center justify-center
+                <div className="flex items-center justify-center
                         bg-fun-blue-300 text-blog-black
                         dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-1 m-0.5 rounded-full transition-filter duration-500 hover:filter hover:brightness-125
-                        "
-                >
+                        ">
                   <div>{post.heartCount || 0}</div>
                   <HeartIcon className="h-5 w-5" />
                 </div>
