@@ -177,7 +177,7 @@ export default function PostContent({ post, postRef }) {
               font-semibold"
             onClick={() => alert("work in progress : linkedin")}
           >
-            <FontAwesomeIcon icon={faLinkedin} className="w-8 h-8" />
+            <FontAwesomeIcon icon={faLinkedin} size="lg" style={{ color: '#0072b1' }}/>
           </button>
 
           {/* TWITTER BUTTON */}
@@ -190,7 +190,7 @@ export default function PostContent({ post, postRef }) {
               font-semibold"
             onClick={() => alert("work in progress : twitter")}
           >
-            <FontAwesomeIcon icon={faTwitter} className="w-8 h-8"/>
+            <FontAwesomeIcon icon={faTwitter} size="lg" style={{ color: '#00acee' }}/>
           </button>
 
           {/* FACEBOOK ICON */}
@@ -200,10 +200,11 @@ export default function PostContent({ post, postRef }) {
               focus:ring-fun-blue-400 
               focus:ring-offset-2
               flex
-              font-semibold"
+              font-semibold
+              "
             onClick={() => alert("work in progress : facebook")}
           >
-            <FontAwesomeIcon icon={faFacebook} className="w-8 h-8"/>
+            <FontAwesomeIcon icon={faFacebook} size="lg" style={{ color: '#4267B2' }}/>
           </button>
 
           {/* THREE DOT BUTTON */}
@@ -218,7 +219,7 @@ export default function PostContent({ post, postRef }) {
           >
             <DotsHorizontalIcon
               className="bg-fun-blue-300 dark:text-blog-black 
-                w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] 
+                w-6 h-6
                 p-0.5 m-0.5 rounded-full flex items-center justify-center 
                 transition-filter duration-500 hover:filter hover:brightness-125"
             />
