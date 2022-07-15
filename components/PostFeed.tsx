@@ -50,7 +50,7 @@ function PostItem({ post, admin = false }) {
               <div className="flex items-center gap-x-2">
                 <Link href={`/${post.username}`}>
                   {post?.photoURL && post?.photoURL ? (
-                    <div className="w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] 
+                    <div className="w-12 h-12 
                                   rounded-full cursor-pointer flex items-center 
                                   overflow-hidden p-0.5 m-0.5">
                       <Image
@@ -61,19 +61,19 @@ function PostItem({ post, admin = false }) {
                       />
                     </div>
                   ) : (
-                    <div className="text-xs font-thin">{` ${post.username}`}</div>
+                    <div className="text-base font-thin">{` ${post.username}`}</div>
                   )}
                 </Link>
                 <div className="">
                   <div className="flex gap-x-2">
-                    <div className="font-extralight text-xs">
+                    <div className="font-extralight text-base md:text-lg">
                       {minutesToRead} min read
                     </div>
-                    <div className="font-extralight text-xs">
+                    <div className="font-extralight text-base md:text-lg">
                       {wordCount} words
                     </div>
                   </div>
-                  <div className="font-extralight text-xs">
+                  <div className="font-extralight text-base md:text-lg">
                     {`${dateFormat}`}
                   </div>
                 </div>
@@ -106,7 +106,7 @@ function PostItem({ post, admin = false }) {
           </div>
 
           <div>
-            <div className="text-2xl font-extralight">
+            <div className="text-2xl font-semibold">
               <Link href={`/${post.username}/${post.slug}`}>
                 <a>{post.title}</a>
               </Link>
