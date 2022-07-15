@@ -172,55 +172,6 @@ function PostItem({ post, admin = false }) {
         </div>
       </div>
 
-      {/* New Design Option 3 */}
-      <div
-        className="p-3 my-4 mx-4 
-                  bg-blog-white 
-                  dark:bg-fun-blue-600 dark:text-blog-white
-                  rounded-lg
-                  drop-shadow-lg
-                  hover:drop-shadow-xl"
-      >
-        <div>
-          <div className="flex justify-between">
-            <div className="flex items-center">
-              <div className="text-sm font-light">{post.title}</div>
-              <div className="flex flex-col m-2">
-                <div className="font-extralight text-xs">{minutesToRead} mins read</div>
-                <div className="font-extralight text-xs">{wordCount} words</div>
-              </div>
-            </div>
-
-            <div className="flex flex-col">
-              <div className="flex">
-                <div
-                  className="flex items-center justify-center
-                        bg-fun-blue-300 text-blog-black
-                        dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-1 m-0.5 rounded-full transition-filter duration-500 hover:filter hover:brightness-125
-                        ">
-                  <div>{post.heartCount || 0}</div>
-                  <HeartIcon className="h-5 w-5" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="flex items-center gap-x-2">
-            <div className="font-extralight text-xs">
-              {`${moment(post.createdAt).format("DD MMM YYYY hh:mm a")}`}
-            </div>
-          </div>
-          <div className="flex justify-between">
-            <div className="text-sm font-thin">{contentTrimmed}</div>
-            <div className="flex">
-              {post.published ? (
-                <p className="text-success self-end">Live</p>
-              ) : (
-                <p className="text-danger self-end">Unpublished</p>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
     </>
   );
 }
