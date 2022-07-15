@@ -8,11 +8,11 @@ import {
   ChevronLeftIcon,
   MoonIcon,
   SunIcon,
-  LoginIcon,
   PencilIcon,
 } from "@heroicons/react/solid";
 import {
   LightningBoltIcon,
+  LoginIcon
 } from "@heroicons/react/outline";
 import { CSSTransition } from "react-transition-group";
 import { useSelector } from "react-redux";
