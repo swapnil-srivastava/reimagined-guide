@@ -17,6 +17,7 @@ import HeartButton from "./HeartButton";
 
 // Authentication Check Component
 import AuthCheck from "./AuthCheck";
+import axios from "axios";
 
 interface RootState {
   counter: Object;
@@ -38,15 +39,26 @@ export default function PostContent({ post, postRef }) {
   const selectUser = (state: RootState) => state.users;
   const { user: currentUser, username } = useSelector(selectUser);
 
-  const createdAt =
-    typeof post?.createdAt === "number"
-      ? new Date(post.createdAt)
-      : post.createdAt.toDate();
   const wordCount = post?.content.trim().split(/\s+/g).length;
   const minutesToRead = (wordCount / 100 + 1).toFixed(0);
   const dateFormat = moment(post.createdAt).isValid()
     ? moment(post.createdAt).format("MMM DD")
     : moment(post.createdAt.toMillis()).format("MMM DD");
+
+  function shareToLinkedIn() {
+    // alert("work in progress : linkedin");
+
+  }
+
+  function shareToTwitter() {
+    alert("work in progress : Twitter");
+  }
+
+  function shareToFacbook() {
+    alert("work in progress : Facebook");
+  }
+   
+
 
   return (
     <>
@@ -75,7 +87,7 @@ export default function PostContent({ post, postRef }) {
                     />
                   </div>
                 ) : (
-                  <div className="text-xs font-thin">{` ${post.username}`}</div>
+                  <div className="text-xs font-thin">{`${post.username}`}</div>
                 )}
               </Link>
             </div>
@@ -175,9 +187,11 @@ export default function PostContent({ post, postRef }) {
               focus:ring-offset-2
               flex
               font-semibold"
-            onClick={() => alert("work in progress : linkedin")}
-          >
-            <FontAwesomeIcon icon={faLinkedin} size="lg" style={{ color: '#0072b1' }}/>
+            onClick={shareToLinkedIn}
+          > 
+            <a href={`https://www.linkedin.com/sharing/share-offsite/?url=https://www.swapnilsrivastava.eu/${post.username}/${post.slug}`}>
+              <FontAwesomeIcon icon={faLinkedin} size="lg" style={{ color: '#0072b1' }}/>
+            </a>
           </button>
 
           {/* TWITTER BUTTON */}
@@ -188,7 +202,7 @@ export default function PostContent({ post, postRef }) {
               focus:ring-offset-2
               flex
               font-semibold"
-            onClick={() => alert("work in progress : twitter")}
+            onClick={shareToTwitter}
           >
             <FontAwesomeIcon icon={faTwitter} size="lg" style={{ color: '#00acee' }}/>
           </button>
@@ -202,7 +216,7 @@ export default function PostContent({ post, postRef }) {
               flex
               font-semibold
               "
-            onClick={() => alert("work in progress : facebook")}
+            onClick={shareToFacbook}
           >
             <FontAwesomeIcon icon={faFacebook} size="lg" style={{ color: '#4267B2' }}/>
           </button>
