@@ -49,6 +49,7 @@ export default function Home(props) {
       .startAfter(cursor)
       .limit(LIMIT);
 
+
     const newPosts = (await query.get()).docs.map((doc) => doc.data());
 
     setPosts(posts.concat(newPosts));
