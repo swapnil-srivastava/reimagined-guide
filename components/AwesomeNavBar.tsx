@@ -197,7 +197,6 @@ function DropdownMenu() {
         onEnter={(el) => calcHeight(el)}
         onEntered={(el) => calcHeight(el)}
         onEntering={(el) => calcHeight(el)}
-        onExit={(el) => calcHeight(el)}
       >
         <div className="menu p-4">
         {username && 
@@ -238,7 +237,6 @@ function DropdownMenu() {
         onEnter={(el) => calcHeight(el)}
         onEntered={(el) => calcHeight(el)}
         onEntering={(el) => calcHeight(el)}
-        onExit={(el) => calcHeight(el)}
       >
         <div className="menu p-4">
           <DropdownItem goToMenu="main" leftIcon={<ChevronLeftIcon className="w-5 h-5"/>}>
@@ -261,7 +259,6 @@ function DropdownMenu() {
         onEnter={(el) => calcHeight(el)}
         onEntered={(el) => calcHeight(el)}
         onEntering={(el) => calcHeight(el)}
-        onExit={(el) => calcHeight(el)}
       >
         <div className="menu p-4">
           <DropdownItem goToMenu="main" leftIcon={<ChevronLeftIcon className="w-5 h-5"/>}>
