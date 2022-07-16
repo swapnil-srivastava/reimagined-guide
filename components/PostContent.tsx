@@ -45,21 +45,6 @@ export default function PostContent({ post, postRef }) {
     ? moment(post.createdAt).format("MMM DD")
     : moment(post.createdAt.toMillis()).format("MMM DD");
 
-  function shareToLinkedIn() {
-    // alert("work in progress : linkedin");
-
-  }
-
-  function shareToTwitter() {
-    // alert("work in progress : Twitter");
-  }
-
-  function shareToFacbook() {
-    alert("work in progress : Facebook");
-  }
-   
-
-
   return (
     <>
       <div
@@ -215,10 +200,10 @@ export default function PostContent({ post, postRef }) {
               focus:ring-offset-2
               flex
               font-semibold
-              "
-            onClick={shareToFacbook}
-          >
-            <FontAwesomeIcon icon={faFacebook} size="lg" style={{ color: '#4267B2' }}/>
+              ">
+            <a href={`https://facebook.com/sharer/sharer.php?u=https://www.swapnilsrivastava.eu/${post.username}/${post.slug}`}>
+              <FontAwesomeIcon icon={faFacebook} size="lg" style={{ color: '#4267B2' }}/>
+            </a>
           </button>
 
           {/* THREE DOT BUTTON */}
