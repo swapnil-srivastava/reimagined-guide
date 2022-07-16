@@ -51,7 +51,7 @@ export default function PostContent({ post, postRef }) {
   }
 
   function shareToTwitter() {
-    alert("work in progress : Twitter");
+    // alert("work in progress : Twitter");
   }
 
   function shareToFacbook() {
@@ -187,7 +187,6 @@ export default function PostContent({ post, postRef }) {
               focus:ring-offset-2
               flex
               font-semibold"
-            onClick={shareToLinkedIn}
           > 
             <a href={`https://www.linkedin.com/sharing/share-offsite/?url=https://www.swapnilsrivastava.eu/${post.username}/${post.slug}`}>
               <FontAwesomeIcon icon={faLinkedin} size="lg" style={{ color: '#0072b1' }}/>
@@ -202,9 +201,10 @@ export default function PostContent({ post, postRef }) {
               focus:ring-offset-2
               flex
               font-semibold"
-            onClick={shareToTwitter}
           >
-            <FontAwesomeIcon icon={faTwitter} size="lg" style={{ color: '#00acee' }}/>
+            <a href={`https://twitter.com/intent/tweet?url=https://www.swapnilsrivastava.eu/${post.username}/${post.slug}`}>
+              <FontAwesomeIcon icon={faTwitter} size="lg" style={{ color: '#00acee' }}/>
+            </a>
           </button>
 
           {/* FACEBOOK ICON */}
