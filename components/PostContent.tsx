@@ -202,7 +202,7 @@ export default function PostContent({ post, postRef }) {
               flex
               font-semibold"
           >
-            <a href={`https://twitter.com/intent/tweet?url=https://www.swapnilsrivastava.eu/${post.username}/${post.slug}`}>
+            <a href={`https://twitter.com/intent/tweet?text=Hi%2C%20checkout%20this%20post%20&url=https://www.swapnilsrivastava.eu/${post.username}/${post.slug}&via=swapnil_sri&hashtags=reactjs,nextjs,blog`}>
               <FontAwesomeIcon icon={faTwitter} size="lg" style={{ color: '#00acee' }}/>
             </a>
           </button>
