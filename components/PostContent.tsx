@@ -54,7 +54,7 @@ export default function PostContent({ post, postRef }) {
         <div className="flex items-center justify justify-between gap-x-2">
           {/* USER DETAIL INFO : User Image with username and details about the post */}
           <div className="flex items-center gap-x-2">
-            {/*  USER NAME SECTION */}
+            {/*  USER NAME SECTION  */}
             <div>
               {/* USER IMAGE ICON and REDIRECT to PROFILE page */}
               <Link href={`/${post.username}`}>
