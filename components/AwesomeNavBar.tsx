@@ -19,7 +19,7 @@ import { useSelector } from "react-redux";
 import { useTheme } from "next-themes";
 
 import "../styles/AwesomeNavBar.module.css";
-import { BasicTooltip } from "./Tooltip";
+import BasicTooltip from "./Tooltip";
 
 interface RootState {
   counter: Object
