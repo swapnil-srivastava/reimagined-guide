@@ -19,6 +19,8 @@ import { useSelector } from "react-redux";
 import { useTheme } from "next-themes";
 
 import "../styles/AwesomeNavBar.module.css";
+import { BasicTooltip } from "./Tooltip";
+
 interface RootState {
   counter: Object
   users: UserState,
@@ -44,16 +46,22 @@ function AwesomeNavBar() {
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         icon={
           theme === "dark" ? (
-            <MoonIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
+            <BasicTooltip title="Dark Mode" placement="bottom">
+              <MoonIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
+            </BasicTooltip>
           ) : (
-            <SunIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
+            <BasicTooltip title="Light Mode" placement="bottom">
+              <SunIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
+            </BasicTooltip>
           )
         }
       />
 
       <NavBarItem nextrouteurl>
         <Link href="/technology"> 
+          <BasicTooltip title="Tech Stack" placement="bottom">
             <LightningBoltIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
+          </BasicTooltip>
         </Link>
       </NavBarItem>
 
@@ -61,7 +69,9 @@ function AwesomeNavBar() {
       {!username && (
         <NavBarItem nextrouteurl>
           <Link href="/enter"> 
-              <LoginIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
+              <BasicTooltip title="Login" placement="bottom">
+                <LoginIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
+              </BasicTooltip>
           </Link>
         </NavBarItem>
       )}
@@ -71,7 +81,9 @@ function AwesomeNavBar() {
         <>
           <NavBarItem nextrouteurl>
             <Link href="/admin"> 
-              <PencilIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
+              <BasicTooltip title="Write a post" placement="bottom">
+                <PencilIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
+              </BasicTooltip>
             </Link>
           </NavBarItem>
 
@@ -111,9 +123,9 @@ function NavBar({ children }) {
             flex-row
           ">
       <div className="basis-1/2 md:basis-1/3 self-strech flex items-center md:text-2xl m-1">
-        <Link href="/">     
-          <a className="py-4">{`Swapnil's Notes`}</a>
-        </Link>
+          <Link href="/">     
+            <a className="py-4">{`Swapnil's Notes`}</a>
+          </Link>
       </div>
       <ul className="w-full h-full flex justify-end">{children}</ul>
     </nav>

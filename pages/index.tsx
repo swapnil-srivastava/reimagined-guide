@@ -78,7 +78,6 @@ export default function Home(props) {
                         transition-opacity 
                         duration-300 
                         opacity-100">
-          {/* <button className="p-2 bg-hit-pink-500 text-blog-black rounded-lg" onClick={getMorePosts}>Load More</button> */}
           <button className="relative 
                             bg-hit-pink-500
                             focus:outline-none focus:ring-2 
