@@ -1,11 +1,23 @@
-import Tooltip from '@mui/material/Tooltip';
+import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
+import { styled } from '@mui/material/styles';
 
-export function BasicTooltip(props) {
+function BasicTooltip(props) {
   return (
-    <Tooltip {...props}>
+    <Tooltip {...props} >
       {props.children}
     </Tooltip>
   );
 }
 
-export default BasicTooltip;
+const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
+        <Tooltip {...props} classes={{ popper: className }} />
+      ))(({ theme }) => ({
+        [`& .${tooltipClasses.tooltip}`]: {
+          backgroundColor: '#00539c',
+          color: '#fbfbfb',
+          boxShadow: theme.shadows[1],
+          fontSize: 10,
+        },
+      }));
+
+export default LightTooltip;
