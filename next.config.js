@@ -5,5 +5,9 @@ const nextConfig = {
   images: {
     domains: ['lh3.googleusercontent.com'],
   },
+  env: {
+    TWILIO_ACCOUNT_SID : "ACaab467cfee563421ed66bdec52b27698",
+    TWILIO_AUTH_TOKEN : "2b6791369810873238e661fd101dd23b"
+  },
 }
 module.exports = nextConfig

@@ -39,7 +39,8 @@
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
-    "tailwindcss": "^3.1.4"
+    "tailwindcss": "^3.1.4",
+    "twilio": "^3.79.0"
   },
   "devDependencies": {
     "@types/node": "^18.0.0",
