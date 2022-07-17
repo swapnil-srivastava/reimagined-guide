@@ -188,7 +188,7 @@ function SendSMS() {
   async function sendSMS(object) {
 
     const phoneMessage = {
-      phone: "+4915124706630",
+      phone: "+4915163579215",
       message: "Hello World from NextJS App by Swapnil Srivastava"
     }
 
@@ -201,7 +201,7 @@ function SendSMS() {
         }
       );
 
-      toast.success("SMS sent");
+      toast.success(`SMS sent to ${phoneMessage.phone}`);
 
     } catch (error) {
       if (axios.isAxiosError(error)) {
