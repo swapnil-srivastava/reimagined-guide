@@ -188,7 +188,7 @@ function SendSMS() {
   async function sendSMS(object) {
 
     const phoneMessage = {
-      phone: "+4915163579215",
+      phone: "+4915124706630",
       message: "Hello World from NextJS App by Swapnil Srivastava"
     }
 
@@ -206,9 +206,11 @@ function SendSMS() {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log('error message: ', error.message);
+        toast.success("Axios Error SMS");
         return error.message;
       } else {
         console.log('unexpected error: ', error);
+        toast.success("Error SMS");
         return 'An unexpected error occurred';
       }
     }
