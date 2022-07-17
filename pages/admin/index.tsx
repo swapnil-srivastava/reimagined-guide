@@ -180,7 +180,6 @@ function CreateNewPost() {
 function SendSMS() {
 
   function onlySwapnilCanSee() {
-    // if(auth.currentUser?.uid === "WYrropAdLKWaNdQDtkl64Anuthf2") return true;
     if(auth.currentUser?.uid === process.env.SWAPNIL_UID) return true;
     
     return false;
