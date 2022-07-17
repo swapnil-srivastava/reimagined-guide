@@ -54,35 +54,7 @@ export default function Technology() {
     }
   }
 
-  async function sendSMS(object) {
 
-    const phoneMessage = {
-      phone: "+4915163579215",
-      message: "Hello World from NextJS"
-    }
-
-    try {
-      const { data, status } = await axios.post(
-        '/api/sendmessage', phoneMessage , {
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        }
-      );
-
-      console.log(status, data, "twillio response post call");
-      
-
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.log('error message: ', error.message);
-        return error.message;
-      } else {
-        console.log('unexpected error: ', error);
-        return 'An unexpected error occurred';
-      }
-    }
-  }
   
   async function getBleedingTechFirebase() {
 
@@ -149,9 +121,6 @@ export default function Technology() {
         <div className="flex py-10 px-10 pt-2 flex-wrap">
             {bleedingTechState && bleedingTechState.map(({techName, colorTechStack}) => <TechBox key={techName} techStackName={techName} techStackColor={colorTechStack}/>)}
         </div>
-
-        
-        <button type="button" className="" onClick={sendSMS}>send message</button>
         
     </>
   );

@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { useCollection } from "react-firebase-hooks/firestore";
 import kebabCase from "lodash.kebabcase";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 import AuthCheck from "../../components/AuthCheck";
 import PostFeed from "../../components/PostFeed";
@@ -33,6 +34,7 @@ function Admin() {
   return (
     <AuthCheck>
       <CreateNewPost></CreateNewPost>
+      <SendSMS></SendSMS>
       <PostList></PostList>
     </AuthCheck>
   );
@@ -173,6 +175,61 @@ function CreateNewPost() {
       </p>
     </form>
   );
+}
+
+function SendSMS() {
+
+  function onlySwapnilCanSee() {
+    // if(auth.currentUser?.uid === "WYrropAdLKWaNdQDtkl64Anuthf2") return true;
+    if(auth.currentUser?.uid === process.env.SWAPNIL_UID) return true;
+    
+    return false;
+  }
+
+  async function sendSMS(object) {
+
+    const phoneMessage = {
+      phone: "+4915163579215",
+      message: "Hello World from NextJS App by Swapnil Srivastava"
+    }
+
+    try {
+      const { data, status } = await axios.post(
+        '/api/sendmessage', phoneMessage , {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }
+      );
+
+      toast.success("SMS sent");
+
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log('error message: ', error.message);
+        return error.message;
+      } else {
+        console.log('unexpected error: ', error);
+        return 'An unexpected error occurred';
+      }
+    }
+  }
+
+  return onlySwapnilCanSee() ? (
+        <div className="flex items-center justify-center">
+          <button className="
+                py-1 px-2
+                font-light
+                text-sm
+                bg-hit-pink-500 
+                border-4 border-hit-pink-500 
+                rounded
+                hover:filter hover:brightness-125
+                ml-1"
+                onClick={sendSMS}
+                >SEND SMS</button>
+        </div> 
+    ) : ""
 }
 
 export default Admin;
