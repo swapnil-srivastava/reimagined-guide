@@ -228,7 +228,9 @@ function SendSMS() {
                 onClick={sendSMS}
                 >SEND SMS</button>
         </div> 
-    ) : ""
+    ) : (
+      <></>
+    )
 }
 
 export default Admin;
