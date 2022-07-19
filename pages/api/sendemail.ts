@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import postmark from "postmark";
+const postmark = require("postmark");
 
 const client = new postmark.ServerClient("2d92b8f0-fcc5-46e0-b368-98a4b9186755");
 
