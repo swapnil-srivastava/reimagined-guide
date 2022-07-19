@@ -216,6 +216,41 @@ function SendSMS() {
     }
   }
 
+  async function sendEmail(object) {
+
+    const emailMessage = {
+      from : "contact@swapnilsrivastava.eu",
+      to: "contact@swapnilsrivastava.eu",
+      subject: "Hello from Postmark",
+      htmlBody : "<strong>Hello</strong> dear Postmark user.",
+      textBody : "Hello from Postmark!",
+      messageStream : "outbound"
+    }
+
+    try {
+      const { data, status } = await axios.post(
+        '/api/sendemail',{
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }
+      );
+
+      toast.success(`Email sent`);
+
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log('error message: ', error.message);
+        toast.success("Axios Error SMS");
+        return error.message;
+      } else {
+        console.log('unexpected error: ', error);
+        toast.success("Error SMS");
+        return 'An unexpected error occurred';
+      }
+    }
+  }
+
   return onlySwapnilCanSee() ? (
         <div className="flex items-center justify-center">
           <button className="
@@ -227,8 +262,21 @@ function SendSMS() {
                 rounded
                 hover:filter hover:brightness-125
                 ml-1"
-                onClick={sendSMS}
-                >SEND SMS</button>
+                onClick={sendSMS}>
+                SEND SMS
+          </button>
+          <button className="
+                py-1 px-2
+                font-light
+                text-sm
+                bg-hit-pink-500 
+                border-4 border-hit-pink-500 
+                rounded
+                hover:filter hover:brightness-125
+                ml-1"
+                onClick={sendEmail}>
+                SEND Email
+          </button>
         </div> 
     ) : (
       <></>
