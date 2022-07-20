@@ -210,3 +210,9 @@ button.btn-logo {
   transform: translateX(110%);
   transition: all var(--speed) ease;
 }
+
+/* iframe */
+
+iframe {
+  @apply dark:bg-fun-blue-500
+}
