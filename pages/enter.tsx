@@ -161,18 +161,24 @@ function UsernameForm() {
         <form onSubmit={onSubmit}>
           <input name="username" placeholder="myname" value={formValue} onChange={onChange} />
           <UsernameMessage username={formValue} isValid={isValid} loading={loading} />
-          <button type="submit" className="btn-green" disabled={!isValid}>
-            Choose
+          <button type="submit" className="bg-hit-pink-500 text-blog-black
+              rounded-lg px-4 py-2 m-2
+              transition-filter duration-500 hover:filter hover:brightness-125 
+              focus:outline-none focus:ring-2 
+              focus:ring-fun-blue-400 
+              focus:ring-offset-2 text-sm
+              font-semibold" disabled={!isValid}>
+            Choose Username
           </button>
 
-          <h3>Debug State</h3>
+          {/* <h3>Debug State</h3>
           <div>
             Username: {formValue}
             <br />
             Loading: {loading.toString()}
             <br />
             Username Valid: {isValid.toString()}
-          </div>
+          </div> */}
         </form>
       </section>
     )
