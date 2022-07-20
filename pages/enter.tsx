@@ -50,7 +50,10 @@ function SignInButton() {
   return (
     <div className='flex items-center'>
       <button className="flex items-center bg-white rounded-lg px-4 m-2
-              transition-filter duration-500 hover:filter hover:brightness-125 
+              transition-filter duration-500 hover:filter hover:brightness-125
+              border
+              border-fun-blue-200
+              dark:border-0
               focus:outline-none focus:ring-2 
               focus:ring-fun-blue-400 
               focus:ring-offset-2 text-sm 
