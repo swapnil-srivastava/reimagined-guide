@@ -1,6 +1,7 @@
 import { firestore, auth, increment } from '../lib/firebase';
 import { useEffect, useState } from 'react';
 import { DocumentSnapshot, getDoc } from "firebase/firestore";
+import BasicTooltip from "./Tooltip";
 
 // Allows user to heart or like a post
 export default function Heart({ postRef }) {
@@ -49,23 +50,26 @@ export default function Heart({ postRef }) {
   };
 
   return docRefState?.exists() ? (
-    <div className='flex items-center'>
-      <button className="bg-hit-pink-500 dark:text-blog-black px-3 py-2 mx-1 
-              rounded-3xl flex items-center justify-center 
-              transition-filter duration-500 hover:filter hover:brightness-125
-              focus:outline-none focus:ring-2 
-              focus:ring-fun-blue-400 
-              focus:ring-offset-2
-              font-semibold" onClick={removeHeart}>
-         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 stroke-1 hover:stroke-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-        </svg>
-        <div className='ml-2 text-sm md:text-md font-light'>
-          Remove 
-        </div>
-      </button>
-    </div>
+    <BasicTooltip title="Not good enough" placement="bottom">
+      <div className='flex items-center'>
+        <button className="bg-hit-pink-500 dark:text-blog-black px-3 py-2 mx-1 
+                rounded-3xl flex items-center justify-center 
+                transition-filter duration-500 hover:filter hover:brightness-125
+                focus:outline-none focus:ring-2 
+                focus:ring-fun-blue-400 
+                focus:ring-offset-2
+                font-semibold" onClick={removeHeart}>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 stroke-1 hover:stroke-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+          <div className='ml-2 text-sm md:text-md font-light'>
+            Remove 
+          </div>
+        </button>
+      </div>
+    </BasicTooltip>
     ) : (
+    <BasicTooltip title="Do you like the post?" placement="bottom">
       <div className='flex items-center'>
         <button className="bg-hit-pink-500 dark:text-blog-black px-3 py-2 mx-1 
                           rounded-3xl flex items-center justify-center 
@@ -82,5 +86,6 @@ export default function Heart({ postRef }) {
           </div>
         </button>
       </div>
+    </BasicTooltip>
     );
 }

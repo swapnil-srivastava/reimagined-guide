@@ -14,6 +14,7 @@ import {
 
 // Component
 import HeartButton from "./HeartButton";
+import BasicTooltip from "./Tooltip";
 
 // Authentication Check Component
 import AuthCheck from "./AuthCheck";
@@ -164,64 +165,75 @@ export default function PostContent({ post, postRef }) {
           </AuthCheck>
 
           {/* LINKEDIN BUTTON */}
-          <button
-            className="rounded-full
-              focus:outline-none focus:ring-2
-              focus:ring-fun-blue-400 
-              focus:ring-offset-2
-              flex
-              font-semibold"
-          > 
-            <a href={`https://www.linkedin.com/sharing/share-offsite/?url=https://www.swapnilsrivastava.eu/${post.username}/${post.slug}`}>
-              <FontAwesomeIcon icon={faLinkedin} size="lg" style={{ color: '#0072b1' }}/>
-            </a>
-          </button>
+          <BasicTooltip title="Share on LinkedIn" placement="bottom">
+            <button
+              className="rounded-full
+                focus:outline-none focus:ring-2
+                focus:ring-fun-blue-400 
+                focus:ring-offset-2
+                flex
+                font-semibold"
+            > 
+              <a href={`https://www.linkedin.com/sharing/share-offsite/?url=https://www.swapnilsrivastava.eu/${post.username}/${post.slug}`}>
+                <FontAwesomeIcon icon={faLinkedin} size="lg" style={{ color: '#0072b1' }}/>
+              </a>
+            </button>
+          </BasicTooltip>
 
           {/* TWITTER BUTTON */}
-          <button
-            className="rounded-full
-              focus:outline-none focus:ring-2
-              focus:ring-fun-blue-400 
-              focus:ring-offset-2
-              flex
-              font-semibold"
-          >
-            <a href={`https://twitter.com/intent/tweet?text=Hi%2C%20checkout%20this%20post%20&url=https://www.swapnilsrivastava.eu/${post.username}/${post.slug}&via=swapnil_sri&hashtags=reactjs,nextjs,blog`}>
-              <FontAwesomeIcon icon={faTwitter} size="lg" style={{ color: '#00acee' }}/>
-            </a>
-          </button>
+          <BasicTooltip title="Share on twitter" placement="bottom">
+            <button
+              className="rounded-full
+                focus:outline-none focus:ring-2
+                focus:ring-fun-blue-400 
+                focus:ring-offset-2
+                flex
+                font-semibold"
+            >
+              <a href={`https://twitter.com/intent/tweet?text=Hi%2C%20checkout%20this%20post%20&url=https://www.swapnilsrivastava.eu/${post.username}/${post.slug}&via=swapnil_sri&hashtags=reactjs,nextjs,blog`}>
+                <FontAwesomeIcon icon={faTwitter} size="lg" style={{ color: '#00acee' }}/>
+              </a>
+            </button>
+          </BasicTooltip>
 
           {/* FACEBOOK ICON */}
-          <button
-            className="rounded-full
-              focus:outline-none focus:ring-2
-              focus:ring-fun-blue-400 
-              focus:ring-offset-2
-              flex
-              font-semibold
-              ">
-            <a href={`https://facebook.com/sharer/sharer.php?u=https://www.swapnilsrivastava.eu/${post.username}/${post.slug}`}>
-              <FontAwesomeIcon icon={faFacebook} size="lg" style={{ color: '#4267B2' }}/>
-            </a>
-          </button>
+          <BasicTooltip title="Share on facebook" placement="bottom">
+            <button
+              className="rounded-full
+                focus:outline-none focus:ring-2
+                focus:ring-fun-blue-400 
+                focus:ring-offset-2
+                flex
+                font-semibold
+                ">
+              <a href={`https://facebook.com/sharer/sharer.php?u=https://www.swapnilsrivastava.eu/${post.username}/${post.slug}`}>
+                <FontAwesomeIcon icon={faFacebook} size="lg" style={{ color: '#4267B2' }}/>
+              </a>
+            </button>
+          </BasicTooltip>
+          
 
           {/* THREE DOT BUTTON */}
-          <button
-            className="rounded-full
-              focus:outline-none focus:ring-2
-              focus:ring-fun-blue-400 
-              focus:ring-offset-2
-              flex
-              font-semibold"
-            onClick={() => alert("work in progress: share a post")}
-          >
-            <DotsHorizontalIcon
-              className="bg-fun-blue-300 dark:text-blog-black 
-                w-6 h-6
-                p-0.5 m-0.5 rounded-full flex items-center justify-center 
-                transition-filter duration-500 hover:filter hover:brightness-125"
-            />
-          </button>
+
+          <BasicTooltip title="Share" placement="bottom">
+            <button
+              className="rounded-full
+                focus:outline-none focus:ring-2
+                focus:ring-fun-blue-400 
+                focus:ring-offset-2
+                flex
+                font-semibold"
+              onClick={() => alert("work in progress: share a post")}
+            >
+              <DotsHorizontalIcon
+                className="bg-fun-blue-300 dark:text-blog-black 
+                  w-6 h-6
+                  p-0.5 m-0.5 rounded-full flex items-center justify-center 
+                  transition-filter duration-500 hover:filter hover:brightness-125"
+              />
+            </button>
+          </BasicTooltip>
+
         </div>
       </div>
 
