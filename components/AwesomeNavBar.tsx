@@ -221,13 +221,6 @@ function DropdownMenu() {
           >
             Settings
           </DropdownItem>
-          <DropdownItem
-            leftIcon="🦧"
-            rightIcon={<ChevronRightIcon className="w-5 h-5"/>}
-            goToMenu="animals"
-          >
-            Animals
-          </DropdownItem>
         </div>
       </CSSTransition>
 
@@ -250,26 +243,6 @@ function DropdownMenu() {
             JavaScript
           </DropdownItem>
           <DropdownItem leftIcon={<LightningBoltIcon className="w-5 h-5"/>}>Awesome!</DropdownItem>
-        </div>
-      </CSSTransition>
-
-      <CSSTransition
-        in={activeMenu === "animals"}
-        timeout={500}
-        classNames="menu-secondary"
-        unmountOnExit
-        onEnter={(el) => calcHeight(el)}
-        onEntered={(el) => calcHeight(el)}
-        onEntering={(el) => calcHeight(el)}
-      >
-        <div className="menu p-4">
-          <DropdownItem goToMenu="main" leftIcon={<ChevronLeftIcon className="w-5 h-5"/>}>
-            <h2>Animals</h2>
-          </DropdownItem>
-          <DropdownItem leftIcon="🦘">Kangaroo</DropdownItem>
-          <DropdownItem leftIcon="🐸">Frog</DropdownItem>
-          <DropdownItem leftIcon="🦋">Horse?</DropdownItem>
-          <DropdownItem leftIcon="🦔">Hedgehog</DropdownItem>
         </div>
       </CSSTransition>
     </div>
