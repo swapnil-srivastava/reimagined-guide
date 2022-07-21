@@ -10,7 +10,7 @@ import axios from "axios";
 
 import AuthCheck from "../../components/AuthCheck";
 import PostFeed from "../../components/PostFeed";
-import { firestore, auth, serverTimestamp } from "../../lib/firebase";
+import { firestore, auth, serverTimestamp, onlySwapnilCanSee } from "../../lib/firebase";
 
 interface RootState {
   counter: Object;
@@ -178,12 +178,6 @@ function CreateNewPost() {
 }
 
 function SendSMS() {
-
-  function onlySwapnilCanSee() {
-    if(auth.currentUser?.uid === process.env.SWAPNIL_UID) return true;
-    
-    return false;
-  }
 
   async function sendSMS(object) {
 

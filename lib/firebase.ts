@@ -67,3 +67,10 @@ export const serverTimestamp = firebase.firestore.FieldValue.serverTimestamp;
 // Storage exports
 export const storage = firebase.storage();
 export const STATE_CHANGED = firebase.storage.TaskEvent.STATE_CHANGED;
+
+
+export function onlySwapnilCanSee() {
+  if(auth.currentUser?.uid === process.env.SWAPNIL_UID) return true;
+  
+  return false;
+}

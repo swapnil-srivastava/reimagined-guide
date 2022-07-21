@@ -17,7 +17,6 @@ import HeartButton from "./HeartButton";
 
 // Authentication Check Component
 import AuthCheck from "./AuthCheck";
-import axios from "axios";
 
 interface RootState {
   counter: Object;
