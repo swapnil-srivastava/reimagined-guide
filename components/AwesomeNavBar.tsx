@@ -201,12 +201,14 @@ function DropdownMenu() {
         <div className="menu p-4">
         {username && 
             (<DropdownItem>
-              <div className="w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] rounded-full cursor-pointer flex items-center overflow-hidden">
-                <Link href={`/${username}`}>
-                  <Image width={200} height={200} src={user?.photoURL} alt="" />
-                </Link>
-              </div>
-              My Profile
+              <Link href={`/${username}`}>
+                <div className="flex items-center gap-x-1">
+                  <div className="w-9 h-9 rounded-full cursor-pointer flex items-center overflow-hidden">
+                    <Image width={200} height={200} src={user?.photoURL} alt="" />
+                  </div>
+                  My Profile
+                </div>
+              </Link>
             </DropdownItem>)
           }
           <DropdownItem leftIcon={<LoginIcon className="w-5 h-5"/>}>
