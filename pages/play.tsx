@@ -25,7 +25,7 @@ function Play() {
 
   return (
     <>
-        <div className="">
+        <div>
             <Script src="https://open.spotify.com/embed-podcast/iframe-api/v1" strategy="lazyOnload" />
             <div id="embed-iframe"></div>
         </div>
