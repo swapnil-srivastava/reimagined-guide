@@ -31,6 +31,7 @@ interface UserState {
 }
 interface User {
   photoURL: string,
+  displayName: string
 }
 
 function AwesomeNavBar() {
@@ -89,11 +90,13 @@ function AwesomeNavBar() {
 
         {/* user condition is ther because image src url is missing when clicking on sign out */}
           {user && <NavBarItem nextrouteurl>
-            <div className="w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] rounded-full cursor-pointer flex items-center overflow-hidden">
-              <Link href={`/${username}`} >
-                <Image width={200} height={200} src={user?.photoURL} alt="" />
-              </Link>
-            </div>
+            <BasicTooltip title={user?.displayName} placement="bottom">
+              <div className="w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] rounded-full cursor-pointer flex items-center overflow-hidden">
+                <Link href={`/${username}`} >
+                  <Image width={200} height={200} src={user?.photoURL} alt="" />
+                </Link>
+              </div>
+            </BasicTooltip>
           </NavBarItem> 
           }
 

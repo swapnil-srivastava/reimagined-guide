@@ -37,8 +37,8 @@ function PostItem({ post, admin = false }) {
 
   return (
     <>
-      <div
-        className="p-3 my-4 mx-4 
+    <Link href={`/${post.username}/${post.slug}`}>
+      <div className="p-3 my-4 mx-4 
                   bg-blog-white 
                   dark:bg-fun-blue-600 dark:text-blog-white
                   rounded-lg
@@ -123,6 +123,7 @@ function PostItem({ post, admin = false }) {
           </div>
         </div>
       </div>
+    </Link>
     </>
   );
 }
