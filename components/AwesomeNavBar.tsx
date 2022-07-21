@@ -214,9 +214,17 @@ function DropdownMenu() {
               </Link>
             </DropdownItem>)
           }
+
           <DropdownItem leftIcon={<LoginIcon className="w-5 h-5"/>}>
-            <Link href="/enter">Login Page</Link>
+            <Link href="/enter">
+               {username && username ? (
+                 "Sign Out"
+                 ) : (
+                 "Login Page"
+                )}
+            </Link>
           </DropdownItem>
+          
           <DropdownItem
             leftIcon={<CogIcon className="w-5 h-5"/>}
             rightIcon={<ChevronRightIcon className="w-5 h-5"/>}
