@@ -22,6 +22,7 @@ export function PostFeed({ posts, admin = false }) {
 function PostItem({ post, admin = false }) {
   const wordCount = post?.content.trim().split(/\s+/g).length;
   const contentTrimmed = generateContent(post?.content);
+  const titleTrimmed = generateContent(post?.title);
   const minutesToRead = (wordCount / 100 + 1).toFixed(0);
   const dateFormat = moment(post.createdAt).isValid()
     ? moment(post.createdAt).format("DD MMM YYYY hh:mm a")
@@ -29,8 +30,8 @@ function PostItem({ post, admin = false }) {
 
   function generateContent(input) {
     if (!input) return;
-    if (input.length > 50) {
-      return input.substring(0, 50) + "...";
+    if (input.length > 25) {
+      return input.substring(0, 25) + "...";
     }
     return input;
   }
@@ -44,9 +45,9 @@ function PostItem({ post, admin = false }) {
                   rounded-lg
                   drop-shadow-lg
                   hover:drop-shadow-xl">
-        <div>
-          <div className="flex justify-between">
-            <div className="flex items-center">
+        <div className="flex flex-col">
+          <div className="flex justify-between gap-x-4">
+            <div className="flex items-center shrink-0">
               <div className="flex items-center gap-x-2">
                 <Link href={`/${post.username}`}>
                   {post?.photoURL && post?.photoURL ? (
@@ -62,16 +63,16 @@ function PostItem({ post, admin = false }) {
                     <div className="text-base font-thin">{` ${post.username}`}</div>
                   )}
                 </Link>
-                <div className="">
+                <div className="flex flex-col">
                   <div className="flex gap-x-2">
-                    <div className="font-extralight text-base md:text-lg">
+                    <div className="font-extralight text-base md:text-lg shrink-0">
                       {minutesToRead} min read
                     </div>
-                    <div className="font-extralight text-base md:text-lg">
+                    <div className="font-extralight text-base md:text-lg shrink-0">
                       {wordCount} words
                     </div>
                   </div>
-                  <div className="font-extralight text-base md:text-lg">
+                  <div className="font-extralight text-base md:text-lg shrink-0">
                     {`${dateFormat}`}
                   </div>
                 </div>
@@ -103,14 +104,16 @@ function PostItem({ post, admin = false }) {
             </div>
           </div>
 
+          {/* Trimmed Title of the Blog Post */}
           <div>
             <div className="text-2xl font-semibold">
               <Link href={`/${post.username}/${post.slug}`}>
-                <a>{post.title}</a>
+                <a>{titleTrimmed}</a>
               </Link>
             </div>
           </div>
 
+          {/* Trimmed Content of the Blog Post */}
           <div className="flex justify-between">
             <div className="text-xl font-thin">{contentTrimmed}</div>
             <div className="flex">
