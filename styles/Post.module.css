@@ -3,11 +3,6 @@
     display: flex;
 }
 
-.container section {
-    width: 80%;
-    margin-right: 1rem;
-}
-
 .container aside {
     align-items: center;
     display: flex;
