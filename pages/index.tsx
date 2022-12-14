@@ -63,7 +63,7 @@ export default function Home(props) {
   return (
     <main>
       <Metatags />
-      <div className="lg:flex lg:flex-row flex-wrap">
+      <div className="lg:flex lg:flex-row flex-wrap gap-x-4 ml-4 mr-4">
         <PostFeed posts={posts} />
       </div>
 
