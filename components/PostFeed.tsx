@@ -25,7 +25,7 @@ function PostItem({ post, admin = false }) {
   const minutesToRead = (wordCount / 100 + 1).toFixed(0);
   const dateFormat = moment(post.createdAt).isValid()
     ? moment(post.createdAt).format("DD MMM YYYY hh:mm a")
-    : moment(post.createdAt.toMillis()).format("DD MMM YYYY hh:mm a");
+    : moment(post.createdAt?.toMillis()).format("DD MMM YYYY hh:mm a");
 
   function generateContent(input) {
     if (!input) return;
