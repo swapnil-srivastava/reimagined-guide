@@ -118,10 +118,10 @@ export default function PostContent({ post, postRef }) {
                   >
                     <PencilAltIcon
                       className="bg-fun-blue-300 dark:text-blog-black 
-                    w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] 
-                    p-1 m-1 rounded-full flex items-center justify-center 
-                    transition-filter duration-500 hover:filter hover:brightness-125"
-                    />
+                        w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] 
+                        p-1 m-1 rounded-full flex items-center justify-center 
+                        transition-filter duration-500 hover:filter hover:brightness-125"
+                        />
                   </button>
                 </Link>
               </div>
