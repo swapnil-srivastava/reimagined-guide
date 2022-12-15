@@ -5,9 +5,6 @@ import { useDocumentData } from "react-firebase-hooks/firestore";
 import { firestore, getUserWithUsername, postToJSON } from "../../lib/firebase";
 import PostContent from "../../components/PostContent";
 import Metatags from "../../components/Metatags";
-import AuthCheck from "../../components/AuthCheck";
-import Link from "next/link";
-import HeartButton from "../../components/HeartButton";
 
 interface RootState {
   counter: Object;
