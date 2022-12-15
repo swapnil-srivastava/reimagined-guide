@@ -13,10 +13,9 @@ interface UserState {
 
 // Component's children only shown to logged-in users
 export default function AuthCheck(props) {
-
-// TS infers type: (state: RootState) => boolean
-const selectUser = (state: RootState) => state.users; 
-const { username } = useSelector(selectUser);
+  // TS infers type: (state: RootState) => boolean
+  const selectUser = (state: RootState) => state.users; 
+  const { username } = useSelector(selectUser);
 
   return username ? props.children : props.fallback || <Link href="/enter">You must be signed in</Link>;
 }
