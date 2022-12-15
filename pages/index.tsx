@@ -68,38 +68,66 @@ export default function Home(props) {
       </div>
 
       {!loading && !postsEnd && (
-        <div className="inset-x-0 bottom-0 
-                        flex justify-center 
-                        bg-gradient-to-t 
-                        from-white 
-                        pt-32 
-                        pb-8 
-                        pointer-events-none 
-                        dark:from-slate-900 
-                        sticky 
-                        -mt-52 
-                        transition-opacity 
-                        duration-300 
-                        opacity-100">
-          <button className="relative 
-                            bg-hit-pink-500
-                            focus:outline-none focus:ring-2 
-                            focus:ring-fun-blue-400 
-                            focus:ring-offset-2 text-sm 
-                            text-blog-black
-                            font-semibold 
-                            h-12 px-6 rounded-lg flex items-center 
-                            dark:bg-hit-pink-500
-                            transition-transform pointer-events-auto
-                            transition-filter duration-500 hover:filter hover:brightness-125
-                            " onClick={getMorePosts}>Load More</button>
-        </div>
+        <>
+          <div className="inset-x-0 bottom-0 
+                          flex justify-center 
+                          bg-gradient-to-t 
+                          from-white 
+                          pt-32 
+                          pb-8 
+                          pointer-events-none 
+                          dark:from-slate-900 
+                          sticky 
+                          -mt-52 
+                          transition-opacity 
+                          duration-300 
+                          lg:invisible
+                          opacity-100">
+            <button className="relative 
+                              bg-hit-pink-500
+                              focus:outline-none focus:ring-2 
+                              focus:ring-fun-blue-400 
+                              focus:ring-offset-2 text-sm 
+                              text-blog-black
+                              font-semibold 
+                              h-12 px-6 rounded-lg flex items-center 
+                              dark:bg-hit-pink-500
+                              transition-transform pointer-events-auto
+                              transition-filter duration-500 hover:filter hover:brightness-125
+                              " onClick={getMorePosts}>Load More</button>
+          </div>
+
+          <div className="p-3 my-4
+                bg-blog-white 
+                dark:bg-fun-blue-600 dark:text-blog-white
+                rounded-lg
+                drop-shadow-lg
+                hover:drop-shadow-xl
+                lg:visible
+                md:invisible
+                ">
+            <div className="flex justify-center">
+              <button className="bg-hit-pink-500
+                        focus:outline-none focus:ring-2 
+                        focus:ring-fun-blue-400 
+                        focus:ring-offset-2 text-sm 
+                        text-blog-black
+                        font-semibold 
+                        h-12 px-6 rounded-lg flex items-center 
+                        dark:bg-hit-pink-500
+                        transition-transform pointer-events-auto
+                        transition-filter duration-500 hover:filter hover:brightness-125
+              "onClick={getMorePosts}>Load More </button>
+            </div>
+          </div>
+        </>
+
       )}
 
       <div className="flex items-center justify-center">
         <Loader show={loading} />
       </div>
-      
+
       {postsEnd && <div className="flex items-center justify-center dark:text-blog-white"> You have reached the end!</div>}
 
 
