@@ -7,14 +7,42 @@ import moment from "moment";
 // Auth
 import { auth } from "../lib/firebase";
 
-export function PostFeed({ posts, admin = false }) {
+export function PostFeed({ posts, admin = false, parentFunction, loading, postsEnd }) {
   return posts
-    ? posts.map((post) => (
+    ? posts.map((post, index, array) => (
+      <>
         <PostItem
           post={post}
           key={post.slug}
           admin={post && post.uid === auth.currentUser?.uid ? true : false}
         />
+        
+        {index === array.length - 1 && !loading && !postsEnd &&
+        <div className="p-3 my-4 bg-blog-white 
+            dark:bg-fun-blue-600 dark:text-blog-white
+            rounded-lg 
+            drop-shadow-lg
+            hover:drop-shadow-xl
+            flex items-center justify-center
+            lg:visible
+            sm:invisible
+            ">
+          <button className="bg-hit-pink-500
+                focus:outline-none focus:ring-2 
+                focus:ring-fun-blue-400 
+                focus:ring-offset-2 text-sm 
+                text-blog-black
+                font-semibold 
+                h-12 px-6 rounded-lg
+                dark:bg-hit-pink-500
+                transition-transform pointer-events-auto
+                transition-filter duration-500 hover:filter hover:brightness-125"
+                onClick={() => parentFunction()}
+                > 
+            Load More 
+          </button>
+        </div>}
+      </>
       ))
     : "";
 }
