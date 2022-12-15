@@ -7,7 +7,7 @@ import moment from "moment";
 // Auth
 import { auth } from "../lib/firebase";
 
-export function PostFeed({ posts, admin = false, parentFunction, loading, postsEnd }) {
+export function PostFeed({ posts, admin = false, parentFunction?, loading?, postsEnd? }) {
   return posts
     ? posts.map((post, index, array) => (
       <>
