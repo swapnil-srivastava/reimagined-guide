@@ -64,7 +64,7 @@ export default function Home(props) {
     <main>
       <Metatags />
       <div className="lg:flex lg:flex-row flex-wrap gap-x-4 ml-4 mr-4">
-        <PostFeed posts={posts} parentFunction={getMorePosts} loading={loading} postsEnd={postsEnd}/>
+        <PostFeed posts={posts} parentFunction={getMorePosts} loading={loading} postsEnd={postsEnd} enableLoadMore={true}/>
       </div>
 
       {!loading && !postsEnd && (
@@ -99,7 +99,6 @@ export default function Home(props) {
             </button>
           </div>
         </>
-
       )}
 
       <div className="flex items-center justify-center">

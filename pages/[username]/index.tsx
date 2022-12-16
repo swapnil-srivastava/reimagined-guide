@@ -27,7 +27,7 @@ export async function getServerSideProps({query}) {
       .collection('posts')
       .where('published', '==', true)
       .orderBy('createdAt', 'desc')
-      .limit(5);
+
     posts = (await postsQuery.get()).docs.map(postToJSON);
     
   }
@@ -41,7 +41,7 @@ function UserProfilePage({user, posts}) {
   return (
     <>
       <UserProfile user={user}></UserProfile>
-      <PostFeed posts={posts} admin></PostFeed>
+      <PostFeed posts={posts} admin enableLoadMore={false}></PostFeed>
     </>
   )
 }
