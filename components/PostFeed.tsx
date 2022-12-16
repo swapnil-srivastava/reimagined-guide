@@ -2,6 +2,8 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { PencilAltIcon, HeartIcon } from "@heroicons/react/solid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAnglesRight } from "@fortawesome/free-solid-svg-icons"
 import moment from "moment";
 
 // Auth
@@ -18,26 +20,35 @@ export function PostFeed({ posts, admin = false, parentFunction = () => alert('N
         />
 
         {index === array.length - 1 && !loading && !postsEnd && enableLoadMore &&
-          <div className="p-3 my-4 bg-blog-white 
-            dark:bg-fun-blue-600 dark:text-blog-white
+          <div className="p-3 my-4 
+            bg-fun-blue-600
+            dark:bg-hit-pink-500 dark:text-blog-white
             rounded-lg 
             drop-shadow-lg
             hover:drop-shadow-xl
             flex items-center justify-center
             lg:visible
             sm:invisible">
-            <button className="bg-hit-pink-500
+            <button className="
                 focus:outline-none focus:ring-2 
                 focus:ring-fun-blue-400 
                 focus:ring-offset-2 text-sm 
                 text-blog-black
                 font-semibold 
-                h-12 px-6 rounded-lg
-                dark:bg-hit-pink-500
+                h-12 px-3 rounded-lg
+                bg-hit-pink-500
+                dark:bg-fun-blue-600 dark:text-blog-white
                 transition-transform pointer-events-auto
-                transition-filter duration-500 hover:filter hover:brightness-125"
+                transition-filter duration-500 hover:filter hover:brightness-125
+                flex items-center
+                "
               onClick={() => parentFunction()}>
-              Load More
+                <div>Load More</div>
+                <FontAwesomeIcon
+                  icon={faAnglesRight}
+                  size={'xl'}
+                  className="h-10 w-10 px-2 pt-1"
+              />
             </button>
           </div>}
       </>
