@@ -20,7 +20,7 @@ export function PostFeed({ posts, admin = false, parentFunction = () => alert('N
         />
 
         {index === array.length - 1 && !loading && !postsEnd && enableLoadMore &&
-          <div className="p-3 my-4 
+          <div className="p-3 px-16 my-4 
             bg-fun-blue-600
             dark:bg-hit-pink-500 dark:text-blog-white
             rounded-lg 
