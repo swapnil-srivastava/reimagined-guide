@@ -46,7 +46,7 @@ export function PostFeed({ posts, admin = false, parentFunction = () => alert('N
                 <div>Load More</div>
                 <FontAwesomeIcon
                   icon={faAnglesRight}
-                  size={'xl'}
+                  size={'lg'}
                   className="h-10 w-10 px-2 pt-1"
               />
             </button>
