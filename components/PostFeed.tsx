@@ -38,8 +38,6 @@ export function PostFeed({
             drop-shadow-lg
             hover:drop-shadow-xl
             flex items-center justify-center
-            lg:visible
-            sm:invisible
             hover:brightness-125"
               >
                 <button
