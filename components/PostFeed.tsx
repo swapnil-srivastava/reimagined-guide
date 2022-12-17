@@ -43,11 +43,10 @@ export function PostFeed({ posts, admin = false, parentFunction = () => alert('N
                 flex items-center
                 "
               onClick={() => parentFunction()}>
-                <div>Load More</div>
+                <div className="pr-2">Load More</div>
                 <FontAwesomeIcon
                   icon={faAnglesRight}
-                  size={'lg'}
-                  className="h-10 w-10 px-2 pt-1"
+                  size={'2x'}
               />
             </button>
           </div>}
