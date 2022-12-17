@@ -39,7 +39,8 @@ export function PostFeed({
             hover:drop-shadow-xl
             flex items-center justify-center
             lg:visible
-            sm:invisible"
+            sm:invisible
+            hover:brightness-125"
               >
                 <button
                   className="
@@ -93,7 +94,8 @@ function PostItem({ post, admin = false }) {
                   dark:bg-fun-blue-600 dark:text-blog-white
                   rounded-lg
                   drop-shadow-lg
-                  hover:drop-shadow-xl"
+                  hover:drop-shadow-xl
+                  hover:brightness-125"
         >
           <div className="flex flex-col">
             <div className="flex justify-between gap-x-4">
