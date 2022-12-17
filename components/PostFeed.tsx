@@ -3,24 +3,35 @@ import Link from "next/link";
 import Image from "next/image";
 import { PencilAltIcon, HeartIcon } from "@heroicons/react/solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAnglesRight } from "@fortawesome/free-solid-svg-icons"
+import { faAnglesRight } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 
 // Auth
 import { auth } from "../lib/firebase";
 
-export function PostFeed({ posts, admin = false, parentFunction = () => alert('No Parent Function'), loading = false, postsEnd = false, enableLoadMore = false }) {
+export function PostFeed({
+  posts,
+  admin = false,
+  parentFunction = () => alert("No Parent Function"),
+  loading = false,
+  postsEnd = false,
+  enableLoadMore = false,
+}) {
   return posts
     ? posts.map((post, index, array) => (
-      <>
-        <PostItem
-          post={post}
-          key={post.slug}
-          admin={post && post.uid === auth.currentUser?.uid ? true : false}
-        />
+        <>
+          <PostItem
+            post={post}
+            key={post.slug}
+            admin={post && post.uid === auth.currentUser?.uid ? true : false}
+          />
 
-        {index === array.length - 1 && !loading && !postsEnd && enableLoadMore &&
-          <div className="p-3 px-16 my-4 
+          {index === array.length - 1 &&
+            !loading &&
+            !postsEnd &&
+            enableLoadMore && (
+              <div
+                className="p-3 px-16 my-4 
             bg-fun-blue-600
             dark:bg-hit-pink-500 dark:text-blog-white
             rounded-lg 
@@ -28,8 +39,10 @@ export function PostFeed({ posts, admin = false, parentFunction = () => alert('N
             hover:drop-shadow-xl
             flex items-center justify-center
             lg:visible
-            sm:invisible">
-            <button className="
+            sm:invisible"
+              >
+                <button
+                  className="
                 focus:outline-none focus:ring-2 
                 focus:ring-fun-blue-400 
                 focus:ring-offset-2 text-sm 
@@ -42,16 +55,15 @@ export function PostFeed({ posts, admin = false, parentFunction = () => alert('N
                 transition-filter duration-500 hover:filter hover:brightness-125
                 flex items-center
                 "
-              onClick={() => parentFunction()}>
-                <div className="pr-2">Load More</div>
-                <FontAwesomeIcon
-                  icon={faAnglesRight}
-                  size={'2x'}
-              />
-            </button>
-          </div>}
-      </>
-    ))
+                  onClick={() => parentFunction()}
+                >
+                  <div className="pr-2">Load More</div>
+                  <FontAwesomeIcon icon={faAnglesRight} size={"3x"} />
+                </button>
+              </div>
+            )}
+        </>
+      ))
     : "";
 }
 
@@ -75,12 +87,14 @@ function PostItem({ post, admin = false }) {
   return (
     <>
       <Link href={`/${post.username}/${post.slug}`}>
-        <div className="p-3 my-4
+        <div
+          className="p-3 my-4
                   bg-blog-white 
                   dark:bg-fun-blue-600 dark:text-blog-white
                   rounded-lg
                   drop-shadow-lg
-                  hover:drop-shadow-xl">
+                  hover:drop-shadow-xl"
+        >
           <div className="flex flex-col">
             <div className="flex justify-between gap-x-4">
               <div className="flex items-center shrink-0">
@@ -120,19 +134,23 @@ function PostItem({ post, admin = false }) {
                   {admin && (
                     <>
                       <Link href={`/admin/${post.slug}`}>
-                        <button className="
+                        <button
+                          className="
                           bg-hit-pink-500 text-blog-black
                           dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-1 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125
-                          ">
+                          "
+                        >
                           <PencilAltIcon className="h-5 w-5" />
                         </button>
                       </Link>
                     </>
                   )}
-                  <div className="flex items-center justify-center
+                  <div
+                    className="flex items-center justify-center
                         bg-fun-blue-300 text-blog-black
                         dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-1 m-0.5 rounded-full transition-filter duration-500 hover:filter hover:brightness-125
-                        ">
+                        "
+                  >
                     <div>{post.heartCount || 0}</div>
                     <HeartIcon className="h-5 w-5" />
                   </div>

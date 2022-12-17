@@ -49,7 +49,6 @@ export default function Home(props) {
       .startAfter(cursor)
       .limit(LIMIT);
 
-
     const newPosts = (await query.get()).docs.map((doc) => doc.data());
 
     setPosts(posts.concat(newPosts));
@@ -64,12 +63,19 @@ export default function Home(props) {
     <main>
       <Metatags />
       <div className="lg:flex lg:flex-row flex-wrap gap-x-4 ml-4 mr-4">
-        <PostFeed posts={posts} parentFunction={getMorePosts} loading={loading} postsEnd={postsEnd} enableLoadMore={true}/>
+        <PostFeed
+          posts={posts}
+          parentFunction={getMorePosts}
+          loading={loading}
+          postsEnd={postsEnd}
+          enableLoadMore={true}
+        />
       </div>
 
       {!loading && !postsEnd && (
         <>
-          <div className="inset-x-0 bottom-0 
+          <div
+            className="inset-x-0 bottom-0 
                 flex justify-center 
                 bg-gradient-to-t 
                 from-white 
@@ -82,8 +88,10 @@ export default function Home(props) {
                 transition-opacity 
                 duration-300 
                 lg:invisible
-                opacity-100">
-            <button className="relative 
+                opacity-100"
+          >
+            <button
+              className="relative 
                     bg-hit-pink-500
                     focus:outline-none focus:ring-2 
                     focus:ring-fun-blue-400 
@@ -93,9 +101,10 @@ export default function Home(props) {
                     h-12 px-6 rounded-lg flex items-center 
                     dark:bg-hit-pink-500
                     transition-transform pointer-events-auto
-                    transition-filter duration-500 hover:filter hover:brightness-125" 
-                    onClick={getMorePosts}>
-                      Load More
+                    transition-filter duration-500 hover:filter hover:brightness-125"
+              onClick={getMorePosts}
+            >
+              Load More
             </button>
           </div>
         </>
@@ -105,9 +114,12 @@ export default function Home(props) {
         <Loader show={loading} />
       </div>
 
-      {postsEnd && <div className="flex items-center justify-center dark:text-blog-white"> You have reached the end!</div>}
-
-
+      {postsEnd && (
+        <div className="flex items-center justify-center dark:text-blog-white">
+          {" "}
+          You have reached the end!
+        </div>
+      )}
     </main>
   );
 }
