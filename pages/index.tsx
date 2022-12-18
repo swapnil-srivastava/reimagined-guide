@@ -1,7 +1,5 @@
-import Head from "next/head";
-import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import toast from "react-hot-toast";
+import { FormattedMessage } from "react-intl";
 
 import PostFeed from "../components/PostFeed";
 import Loader from "../components/Loader";
@@ -82,6 +80,12 @@ export default function Home(props) {
           You have reached the end!
         </div>
       )}
+
+      <FormattedMessage
+        id="swapnil_intro"
+        description="A message" // Description should be a string literal
+        defaultMessage="My name is Swapnil Srivastava" // Message should be a string literal
+      />
     </main>
   );
 }

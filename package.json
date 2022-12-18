@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "extract": "formatjs extract",
+    "extract:i18n": "formatjs extract '{pages,components,sections}/**/*.{js,ts,tsx}' --ignore='**/*.d.ts' --out-file content/locales/en-US.json --format simple --id-interpolation-pattern '[sha512:contenthash:base64:6]'",
+    "compile:i18n": "formatjs compile-folder --ast --format simple content/locales content/compiled-locales",
+    "i18n": "yarn extract:i18n && yarn compile:i18n"
   },
   "dependencies": {
     "@emotion/react": "^11.9.3",
@@ -34,6 +38,7 @@
     "react-firebase-hooks": "^5.0.3",
     "react-hook-form": "^7.32.2",
     "react-hot-toast": "^2.2.0",
+    "react-intl": "^6.2.5",
     "react-markdown": "^8.0.3",
     "react-redux": "^8.0.2",
     "react-transition-group": "^4.4.2",
@@ -44,6 +49,7 @@
     "twilio": "^3.79.0"
   },
   "devDependencies": {
+    "@formatjs/cli": "^5.1.10",
     "@types/node": "^18.0.0",
     "@types/react": "^18.0.14",
     "eslint": "8.18.0",
