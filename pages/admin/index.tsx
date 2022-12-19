@@ -270,10 +270,10 @@ function SendSMS() {
     }
   }
 
-  async function callExpressApi() {
+  async function callExpressApi(value: string) {
     try {
       const { data, status } = await axios.get(
-        "https://miniature-giggle-five.vercel.app/hello",
+        `https://miniature-giggle-five.vercel.app/${value}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -349,7 +349,21 @@ function SendSMS() {
                 rounded
                 hover:filter hover:brightness-125
                 ml-1"
-        onClick={callExpressApi}
+        onClick={callExpressApi("healthcheck")}
+      >
+        ExpressJS Health Check
+      </button>
+      <button
+        className="
+                py-1 px-2
+                font-light
+                text-sm
+                bg-hit-pink-500 
+                border-4 border-hit-pink-500 
+                rounded
+                hover:filter hover:brightness-125
+                ml-1"
+        onClick={callExpressApi("hello")}
       >
         ExpressJS Hello
       </button>
