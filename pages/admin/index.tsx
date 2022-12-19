@@ -349,7 +349,7 @@ function SendSMS() {
                 rounded
                 hover:filter hover:brightness-125
                 ml-1"
-        onClick={callExpressApi("healthcheck")}
+        onClick={() => callExpressApi("healthcheck")}
       >
         ExpressJS Health Check
       </button>
@@ -363,7 +363,7 @@ function SendSMS() {
                 rounded
                 hover:filter hover:brightness-125
                 ml-1"
-        onClick={callExpressApi("hello")}
+        onClick={() => callExpressApi("hello")}
       >
         ExpressJS Hello
       </button>
