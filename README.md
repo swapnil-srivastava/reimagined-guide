@@ -2,6 +2,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## NextJS + Supabase project
 
+Integration of Supabase Auth and Supabase DB (removing firebase auth and firebase cloud firestore from the project)
 ## Getting Started
 
 First, run the development server:
