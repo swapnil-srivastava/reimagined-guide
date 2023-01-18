@@ -174,7 +174,7 @@ function NavBar({ children }) {
             width={50}
             height={50}
             src="/swapnilsrivastava_logo_Letter_S.png"
-            alt="Swapnil's Notes"
+            alt="Srivastava's Notes"
           />
         </Link>
       </div>
