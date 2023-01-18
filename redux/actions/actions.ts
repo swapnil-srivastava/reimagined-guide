@@ -14,3 +14,6 @@ export const userUpdate = (payload) => ({ type: types.USER_UPDATE, user: payload
 
 // UPDATE THE USERNAME
 export const usernameUpdate = (payload) => ({ type: types.USERNAME_UPDATE, username: payload });
+
+// UPDATE THE SUPABASE USER
+export const supabaseUser = (payload) => ({ type: types.SUPABASE_USER, supbaseUser: payload });
