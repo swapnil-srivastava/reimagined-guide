@@ -66,6 +66,7 @@ function SignInButton() {
     const { data, error } = await supaClient.auth.signInWithOAuth({
       provider: "google",
     });
+    console.log("data", data, "error", error);
   }
 
   return (
