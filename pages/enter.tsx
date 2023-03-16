@@ -1,55 +1,77 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { auth, firestore, googleAuthProvider } from '../lib/firebase';
-import debounce from 'lodash.debounce';
+import React, { useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { supaClient } from "../supa-client";
+import { auth, firestore, googleAuthProvider } from "../lib/firebase";
+import debounce from "lodash.debounce";
 
 interface RootState {
-  counter: Object
-  users: UserState,
+  counter: Object;
+  users: UserState;
 }
 
 interface UserState {
-  user: User,
-  username: any
+  user: User;
+  username: any;
 }
 
 interface User {
-  uid: String
-  photoURL: String, 
-  displayName: String
+  uid: String;
+  photoURL: String;
+  displayName: String;
 }
 
 // e.g. localhost:3000/enter
 function Enter() {
-  
   // TS infers type: (state: RootState) => boolean
-  const selectUser = (state: RootState) => state.users; 
+  const selectUser = (state: RootState) => state.users;
   const { user, username } = useSelector(selectUser);
 
+  useEffect(() => {});
+
+  async function callSupabase() {
+    let { data: users, error } = await supaClient.from("users").select("*");
+
+    // const { data, error } = await supaClient
+    //   .from("users")
+    //   .insert([{ uid: "5", username: "Mudrika" }]);
+
+    console.log("users", users, error);
+  }
 
   // 1. user signed out <SignInButton />
   // 2. user signed in, but missing username <UsernameForm />
   // 3. user signed in, has username <SignOutButton />
   return (
-    <main className='flex items-center justify-center'>
-      {user ? 
-        !username ? <UsernameForm /> : <SignOutButton /> 
-        : 
+    <main className="flex items-center justify-center">
+      {user ? (
+        !username ? (
+          <UsernameForm />
+        ) : (
+          <SignOutButton />
+        )
+      ) : (
         <SignInButton />
-      }
+      )}
     </main>
   );
 }
 
 // Sign in with Google button
 function SignInButton() {
-  const signInWithGoogle = async () => {
+  const signInWithGoogleFirebase = async () => {
     await auth.signInWithPopup(googleAuthProvider);
   };
 
+  async function signInWithGoogleSupabase() {
+    const { data, error } = await supaClient.auth.signInWithOAuth({
+      provider: "google",
+    });
+  }
+
   return (
-    <div className='flex items-center'>
-      <button className="flex items-center bg-white rounded-lg px-4 m-2
+    <div className="flex items-center">
+      <button
+        className="flex items-center bg-white rounded-lg px-4 m-2
               transition-filter duration-500 hover:filter hover:brightness-125
               border
               border-fun-blue-200
@@ -60,43 +82,51 @@ function SignInButton() {
               text-blog-black
               font-semibold 
               dark:text-fun-blue-500
-              " onClick={signInWithGoogle}>
-        <img className="h-10 w-10" src={'/google.png'} /> 
-        <div>
-        Sign in with Google
-        </div>
+              "
+        onClick={signInWithGoogleSupabase}
+      >
+        <img className="h-10 w-10" src={"/google.png"} />
+        <div>Sign in with Google</div>
       </button>
-      {/* Add another button here */}
     </div>
-
   );
 }
 
 // Sign out button
 function SignOutButton() {
-  function signout() {
-    
+  function signoutFirebase() {
     auth.signOut();
   }
 
-  return <button className="bg-hit-pink-500 text-blog-black
+  async function signoutSupa() {
+    const { error } = await supaClient.auth.signOut();
+  }
+
+  return (
+    <button
+      className="bg-hit-pink-500 text-blog-black
               rounded-lg px-4 py-2 m-2
               transition-filter duration-500 hover:filter hover:brightness-125 
               focus:outline-none focus:ring-2 
               focus:ring-fun-blue-400 
               focus:ring-offset-2 text-sm
               font-semibold 
-  " onClick={() => signout()}>Sign Out</button>;
+  "
+      onClick={() => signoutSupa()}
+    >
+      Sign Out
+    </button>
+  );
 }
 
 // Username form
 function UsernameForm() {
-  const [formValue, setFormValue] = useState('');
+  const [formValue, setFormValue] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [loading, setLoading] = useState(false);
 
   // TS infers type: (state: RootState) => boolean
-  const selectUser = (state: RootState) => state.users; 
+  const selectUser = (state: RootState) => state.users;
   const { user, username } = useSelector(selectUser);
 
   const onSubmit = async (e) => {
@@ -108,7 +138,11 @@ function UsernameForm() {
 
     // Commit both docs together as a batch write.
     const batch = firestore.batch();
-    batch.set(userDoc, { username: formValue, photoURL: user.photoURL, displayName: user.displayName });
+    batch.set(userDoc, {
+      username: formValue,
+      photoURL: user.photoURL,
+      displayName: user.displayName,
+    });
     batch.set(usernameDoc, { uid: user.uid });
 
     await batch.commit();
@@ -146,7 +180,7 @@ function UsernameForm() {
       if (username.length >= 3) {
         const ref = firestore.doc(`usernames/${username}`);
         const { exists } = await ref.get();
-        console.log('Firestore read executed!');
+        console.log("Firestore read executed!");
         setIsValid(!exists);
         setLoading(false);
       }
@@ -159,15 +193,28 @@ function UsernameForm() {
       <section>
         <h3>Choose Username</h3>
         <form onSubmit={onSubmit}>
-          <input name="username" placeholder="myname" value={formValue} onChange={onChange} />
-          <UsernameMessage username={formValue} isValid={isValid} loading={loading} />
-          <button type="submit" className="bg-hit-pink-500 text-blog-black
+          <input
+            name="username"
+            placeholder="myname"
+            value={formValue}
+            onChange={onChange}
+          />
+          <UsernameMessage
+            username={formValue}
+            isValid={isValid}
+            loading={loading}
+          />
+          <button
+            type="submit"
+            className="bg-hit-pink-500 text-blog-black
               rounded-lg px-4 py-2 m-2
               transition-filter duration-500 hover:filter hover:brightness-125 
               focus:outline-none focus:ring-2 
               focus:ring-fun-blue-400 
               focus:ring-offset-2 text-sm
-              font-semibold" disabled={!isValid}>
+              font-semibold"
+            disabled={!isValid}
+          >
             Choose Username
           </button>
 
@@ -197,4 +244,4 @@ function UsernameMessage({ username, isValid, loading }) {
   }
 }
 
-export default Enter
+export default Enter;
