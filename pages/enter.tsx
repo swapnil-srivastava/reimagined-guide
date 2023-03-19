@@ -105,6 +105,8 @@ function SignOutButton() {
 
   async function signoutSupa() {
     const { error } = await supaClient.auth.signOut();
+
+    console.log("logout", error);
   }
 
   return (
