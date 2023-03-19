@@ -65,11 +65,9 @@ function SignInButton() {
   async function signInWithGoogleSupabase() {
     const { data, error } = await supaClient.auth.signInWithOAuth({
       provider: "google",
-      options: {
-        redirectTo: "https://www.srivastava.website/technology",
-      }
     });
-    console.log("data", data, "error", error);
+
+    console.log("data=====>", data, "error====>", error);
   }
 
   return (
