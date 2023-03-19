@@ -50,7 +50,10 @@ function Enter() {
           <SignOutButton />
         )
       ) : (
-        <SignInButton />
+        <>
+          <SignInButton />
+          <SignOutButton />
+        </>
       )}
     </main>
   );
