@@ -26,22 +26,6 @@ function Enter() {
   const selectUser = (state: RootState) => state.users;
   const { user, username } = useSelector(selectUser);
 
-  async function getSupabaseSession() {
-    const { data, error } = await supaClient.auth.getSession();
-    return data;
-  }
-
-  useEffect(() => {
-    supaClient.auth.getSession().then(({ data: { session } }) => {
-      // setUserInfo({ ...userInfo, session });
-      console.log("session getSession", session);
-      supaClient.auth.onAuthStateChange((_event, session) => {
-        console.log("session onAuthStateChange", session);
-        // setUserInfo({ session, profile: null });
-      });
-    });
-  });
-
   // 1. user signed out <SignInButton />
   // 2. user signed in, but missing username <UsernameForm />
   // 3. user signed in, has username <SignOutButton />
