@@ -23,11 +23,12 @@ config.autoAddCss = false;
 function MyApp({ Component, pageProps }) {
   const userData = useUserData();
   const userSupabase = useSession();
+  console.log("userSupabase", userSupabase);
   const { locale: nextLocale, defaultLocale: nextDefaultLocale } = useRouter();
   const store = useStore({
     ...pageProps.initialReduxState,
     users: userData,
-    supabaseUser: userSupabase,
+    supabase: userSupabase,
   });
 
   const messages = useMemo(() => {
