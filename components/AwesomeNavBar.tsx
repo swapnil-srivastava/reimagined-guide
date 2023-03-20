@@ -128,7 +128,7 @@ function AwesomeNavBar() {
           </NavBarItem>
 
           {/* user condition is ther because image src url is missing when clicking on sign out */}
-          {user && (
+          {profile?.id && (
             <NavBarItem nextrouteurl>
               <BasicTooltip title={profile?.full_name} placement="bottom">
                 <div className="w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] rounded-full cursor-pointer flex items-center overflow-hidden">
