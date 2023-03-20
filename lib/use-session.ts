@@ -45,21 +45,21 @@ export function useSession(): SupashipUserInfo {
 
   async function listenToUserProfileChanges(userId: string) {
     const { data } = await supaClient
-      .from("user_profiles")
+      .from("profiles")
       .select("*")
-      .filter("user_id", "eq", userId);
+      .filter("id", "eq", userId);
     if (data?.[0]) {
       setUserInfo({ ...userInfo, profile: data?.[0] });
     }
     return supaClient
-      .channel(`public:user_profiles`)
+      .channel(`public:profiles`)
       .on(
         "postgres_changes",
         {
           event: "*",
           schema: "public",
-          table: "user_profiles",
-          filter: `user_id=eq.${userId}`,
+          table: "profiles",
+          filter: `id=eq.${userId}`,
         },
         (payload) => {
           setUserInfo({ ...userInfo, profile: payload.new as UserProfile });
