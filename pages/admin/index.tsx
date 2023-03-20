@@ -115,9 +115,10 @@ function CreateNewPost() {
 
     // await ref.set(data);
 
-    // let { data: profiles, error } = await supaClient
-    // .from('profiles')
-    // .select('id')
+    const {
+      data: { user },
+    } = await supaClient.auth.getUser();
+    console.log("user ====> ", user);
 
     const { data, error } = await supaClient
       .from("posts")
