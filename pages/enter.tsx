@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { supaClient } from "../supa-client";
 import { auth, firestore, googleAuthProvider } from "../lib/firebase";
+import { SupashipUserInfo } from "../lib/hooks";
 import debounce from "lodash.debounce";
 
 interface RootState {
@@ -12,6 +13,7 @@ interface RootState {
 interface UserState {
   user: User;
   username: any;
+  userInfo: SupashipUserInfo;
 }
 
 interface User {
@@ -24,15 +26,16 @@ interface User {
 function Enter() {
   // TS infers type: (state: RootState) => boolean
   const selectUser = (state: RootState) => state.users;
-  const { user, username } = useSelector(selectUser);
+  const { user, username, userInfo } = useSelector(selectUser);
+  const { profile, session } = userInfo;
 
   // 1. user signed out <SignInButton />
   // 2. user signed in, but missing username <UsernameForm />
   // 3. user signed in, has username <SignOutButton />
   return (
     <main className="flex items-center justify-center">
-      {user ? (
-        !username ? (
+      {profile?.id ? (
+        !profile?.id ? ( // TODO: replace it with username
           <UsernameForm />
         ) : (
           <SignOutButton />
@@ -40,7 +43,6 @@ function Enter() {
       ) : (
         <>
           <SignInButton />
-          <SignOutButton />
         </>
       )}
     </main>
@@ -57,8 +59,6 @@ function SignInButton() {
     const { data, error } = await supaClient.auth.signInWithOAuth({
       provider: "google",
     });
-
-    console.log("data=====>", data, "error====>", error);
   }
 
   return (

@@ -13,6 +13,7 @@ import PostFeed from "../../components/PostFeed";
 
 // supabase instance in the app
 import { supaClient } from "../../supa-client";
+import { SupashipUserInfo } from "../../lib/hooks";
 
 import {
   firestore,
@@ -29,6 +30,7 @@ interface RootState {
 interface UserState {
   user: User;
   username: any;
+  userInfo: SupashipUserInfo;
 }
 
 interface User {
@@ -42,8 +44,8 @@ interface User {
 function Admin() {
   return (
     <>
-      <CreateNewPost></CreateNewPost>
       <AuthCheck>
+        <CreateNewPost></CreateNewPost>
         <SendSMS></SendSMS>
         <PostList></PostList>
       </AuthCheck>
@@ -76,7 +78,8 @@ function CreateNewPost() {
 
   // TS infers type: (state: RootState) => boolean
   const selectUser = (state: RootState) => state.users;
-  const { user, username } = useSelector(selectUser);
+  const { user, username, userInfo } = useSelector(selectUser);
+  const { profile, session } = userInfo;
 
   const [title, setTitle] = useState("");
 
@@ -99,23 +102,13 @@ function CreateNewPost() {
     //   .collection("posts")
     //   .doc(slug);
 
-    const {
-      data: { user },
-    } = await supaClient.auth.getUser();
-    
-    const {
-      user_metadata: { avatar_url },
-    } = user;
-    
-    console.log("user =====>", user?.id);
-    
     // // Tip: give all fields a default value here
     const { data, error } = await supaClient
       .from("posts")
       .insert([
         {
-          uid: user?.id,
-          photo_url: avatar_url,
+          uid: profile?.id,
+          photo_url: profile?.avatar_url,
           content: "# hello world!",
           title: title,
           slug: slug,
