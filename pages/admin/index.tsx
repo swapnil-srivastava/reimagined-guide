@@ -122,6 +122,9 @@ function CreateNewPost() {
     const { data, error } = await supaClient.from("posts").insert([
       {
         content: "# hello world!",
+        uid: "",
+        photo_url: "",
+        username: "",
         title: title,
         slug: slug,
         approved: false,
