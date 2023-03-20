@@ -43,12 +43,6 @@ function AwesomeNavBar() {
   const selectUser = (state: RootState) => state.users;
   const { user, username, userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
-  const {
-    id: supaId,
-    avatar_url: supaAvatar,
-    username: supaUsername,
-    full_name: supaFullName,
-  } = profile;
   const { theme, setTheme } = useTheme();
   const { locales, asPath, locale: nextLocale } = useRouter();
   const [currentLocale, setCurrentLocale] = useState(nextLocale);
@@ -112,7 +106,7 @@ function AwesomeNavBar() {
       </NavBarItem>
 
       {/* user is not signed-in or has not created username */}
-      {!supaId && (
+      {!profile?.id && (
         <NavBarItem nextrouteurl>
           <Link href="/enter">
             <BasicTooltip title="Login" placement="bottom">
@@ -123,7 +117,7 @@ function AwesomeNavBar() {
       )}
 
       {/* user is signed-in and has username */}
-      {supaId && (
+      {profile?.id && (
         <>
           <NavBarItem nextrouteurl>
             <Link href="/admin">
@@ -136,10 +130,15 @@ function AwesomeNavBar() {
           {/* user condition is ther because image src url is missing when clicking on sign out */}
           {user && (
             <NavBarItem nextrouteurl>
-              <BasicTooltip title={supaFullName} placement="bottom">
+              <BasicTooltip title={profile?.full_name} placement="bottom">
                 <div className="w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] rounded-full cursor-pointer flex items-center overflow-hidden">
-                  <Link href={`/${supaId}`}>
-                    <Image width={200} height={200} src={supaAvatar} alt="" />
+                  <Link href={`/${profile?.id}`}>
+                    <Image
+                      width={200}
+                      height={200}
+                      src={profile?.avatar_url}
+                      alt=""
+                    />
                   </Link>
                 </div>
               </BasicTooltip>
@@ -191,7 +190,8 @@ function NavBar({ children }) {
 
 function DropdownMenu() {
   const selectUser = (state: RootState) => state.users;
-  const { user, username } = useSelector(selectUser);
+  const { user, username, userInfo } = useSelector(selectUser);
+  const { profile, session } = userInfo;
 
   const [activeMenu, setActiveMenu] = useState("main");
   const [menuHeight, setMenuHeight] = useState(null);
@@ -257,15 +257,15 @@ function DropdownMenu() {
         onEntering={(el) => calcHeight(el)}
       >
         <div className="menu p-4">
-          {username && (
+          {profile?.id && (
             <DropdownItem>
-              <Link href={`/${username}`}>
+              <Link href={`/${profile?.id}`}>
                 <div className="flex items-center gap-x-1">
                   <div className="w-9 h-9 rounded-full cursor-pointer flex items-center overflow-hidden">
                     <Image
                       width={200}
                       height={200}
-                      src={user?.photoURL}
+                      src={profile?.avatar_url}
                       alt=""
                     />
                   </div>
@@ -277,7 +277,7 @@ function DropdownMenu() {
 
           <DropdownItem leftIcon={<LoginIcon className="w-5 h-5" />}>
             <Link href="/enter">
-              {username && username ? "Sign Out" : "Login Page"}
+              {profile?.id && profile?.id ? "Sign Out" : "Login Page"}
             </Link>
           </DropdownItem>
 
