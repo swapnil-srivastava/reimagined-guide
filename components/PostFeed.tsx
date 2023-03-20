@@ -63,7 +63,7 @@ export function PostFeed({
             )}
         </>
       ))
-    : "<span>No Post</span>";
+    : "No Post";
 }
 
 function PostItem({ post, admin = false }) {

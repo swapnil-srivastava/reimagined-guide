@@ -53,7 +53,7 @@ function PostList() {
   useEffect(() => {
     posts = getAllPost();
     console.log("post ==> postlist", posts);
-  }, []);
+  }, [posts]);
 
   async function getAllPost() {
     // TODO
