@@ -41,7 +41,7 @@ function Admin() {
       <AuthCheck>
         <CreateNewPost></CreateNewPost>
         <SendSMS></SendSMS>
-        {/* <PostList></PostList> */}
+        <PostList></PostList>
       </AuthCheck>
     </>
   );
