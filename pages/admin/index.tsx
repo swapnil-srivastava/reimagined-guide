@@ -10,6 +10,7 @@ import axios from "axios";
 
 import AuthCheck from "../../components/AuthCheck";
 import PostFeed from "../../components/PostFeed";
+
 import {
   firestore,
   auth,
@@ -37,11 +38,13 @@ interface User {
 
 function Admin() {
   return (
-    <AuthCheck>
+    <>
       <CreateNewPost></CreateNewPost>
-      <SendSMS></SendSMS>
-      <PostList></PostList>
-    </AuthCheck>
+      <AuthCheck>
+        <SendSMS></SendSMS>
+        <PostList></PostList>
+      </AuthCheck>
+    </>
   );
 }
 
