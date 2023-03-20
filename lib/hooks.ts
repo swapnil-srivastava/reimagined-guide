@@ -15,7 +15,7 @@ export function useUserData() {
 
     supaClient.auth.getSession().then(({ data: { session } }) => {
       // setUserInfo({ ...userInfo, session });
-      console.log("session getSession", session);
+      console.log("session getSession hook.ts", session);
       supaClient.auth.onAuthStateChange((_event, session) => {
         console.log("session onAuthStateChange", session);
         // setUserInfo({ session, profile: null });
