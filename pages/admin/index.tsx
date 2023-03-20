@@ -11,6 +11,9 @@ import axios from "axios";
 import AuthCheck from "../../components/AuthCheck";
 import PostFeed from "../../components/PostFeed";
 
+// supabase instance in the app
+import { supaClient } from "../../supa-client";
+
 import {
   firestore,
   auth,
@@ -86,34 +89,53 @@ function CreateNewPost() {
   // Create a new post in firestore
   const createPost = async (e) => {
     e.preventDefault();
+
     const uid = auth.currentUser.uid;
     const { photoURL } = user;
-    const ref = firestore
-      .collection("users")
-      .doc(uid)
-      .collection("posts")
-      .doc(slug);
 
-    // Tip: give all fields a default value here
-    const data = {
-      title,
-      slug,
-      uid,
-      username,
-      photoURL,
-      published: false,
-      content: "# hello world!",
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp(),
-      heartCount: 0,
-    };
+    // const ref = firestore
+    //   .collection("users")
+    //   .doc(uid)
+    //   .collection("posts")
+    //   .doc(slug);
 
-    await ref.set(data);
+    // // Tip: give all fields a default value here
+    // const data = {
+    //   title,
+    //   slug,
+    //   uid,
+    //   username,
+    //   photoURL,
+    //   published: false,
+    //   content: "# hello world!",
+    //   createdAt: serverTimestamp(),
+    //   updatedAt: serverTimestamp(),
+    //   heartCount: 0,
+    // };
+
+    // await ref.set(data);
+
+    // let { data: profiles, error } = await supaClient
+    // .from('profiles')
+    // .select('id')
+
+    const { data, error } = await supaClient.from("posts").insert([
+      {
+        content: "# hello world!",
+        title: title,
+        slug: slug,
+        approved: false,
+        published: false,
+      },
+    ]);
+
+    // let { data: posts, error } = await supaClient.from("posts").select("*");
+    console.log("posts =====> ", data, error);
 
     toast.success("Post created!");
 
-    // Imperative navigation after doc is set
-    router.push(`/admin/${slug}`);
+    // // Imperative navigation after doc is set
+    // router.push(`/admin/${slug}`);
   };
 
   const clearTitle = async (e) => {
