@@ -22,7 +22,7 @@ config.autoAddCss = false;
 
 function MyApp({ Component, pageProps }) {
   const userData = useUserData();
-  const userSupabase = useSession;
+  const userSupabase = useSession();
   const { locale: nextLocale, defaultLocale: nextDefaultLocale } = useRouter();
   const store = useStore({
     ...pageProps.initialReduxState,
