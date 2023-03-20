@@ -38,7 +38,7 @@ export default function Home(props) {
 
   async function getAllPosts() {
     let { data: posts, error } = await supaClient.from("posts").select("*");
-    console.log("post", posts);
+    console.log("post ===>", posts);
   }
 
   const getMorePosts = async () => {
