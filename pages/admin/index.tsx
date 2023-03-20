@@ -1,9 +1,8 @@
 import styles from "../../styles/Admin.module.css";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import { useCollection } from "react-firebase-hooks/firestore";
 import kebabCase from "lodash.kebabcase";
 import toast from "react-hot-toast";
 import axios from "axios";
@@ -15,12 +14,7 @@ import PostFeed from "../../components/PostFeed";
 import { supaClient } from "../../supa-client";
 import { SupashipUserInfo } from "../../lib/hooks";
 
-import {
-  firestore,
-  auth,
-  serverTimestamp,
-  onlySwapnilCanSee,
-} from "../../lib/firebase";
+import { onlySwapnilCanSee } from "../../lib/firebase";
 
 interface RootState {
   counter: Object;
@@ -47,21 +41,17 @@ function Admin() {
       <AuthCheck>
         <CreateNewPost></CreateNewPost>
         <SendSMS></SendSMS>
-        <PostList></PostList>
+        {/* <PostList></PostList> */}
       </AuthCheck>
     </>
   );
 }
 
-function PostList() {
-  const ref = firestore
-    .collection("users")
-    .doc(auth.currentUser.uid)
-    .collection("posts");
-  const query = ref.orderBy("createdAt");
-  const [querySnapshot] = useCollection(query as any);
-
-  const posts = querySnapshot?.docs.map((doc) => doc.data());
+async function PostList() {
+  // TODO
+  // 1. query for created_at column and order the list of post based on it.
+  // 2. query for the current user only.
+  let { data: posts, error } = await supaClient.from("posts").select("*");
 
   return (
     <>
@@ -93,37 +83,22 @@ function CreateNewPost() {
   const createPost = async (e) => {
     e.preventDefault();
 
-    // const uid = auth.currentUser.uid;
-    // const { photoURL } = user;
-
-    // const ref = firestore
-    //   .collection("users")
-    //   .doc(uid)
-    //   .collection("posts")
-    //   .doc(slug);
-
-    // // Tip: give all fields a default value here
-    const { data, error } = await supaClient
-      .from("posts")
-      .insert([
-        {
-          uid: profile?.id,
-          photo_url: profile?.avatar_url,
-          content: "# hello world!",
-          title: title,
-          slug: slug,
-          approved: false,
-          published: false,
-        },
-      ])
-      .select();
-
-    // let { data: posts, error } = await supaClient.from("posts").select("*");
-    console.log("posts =====> ", data, error);
+    // Tip: give all fields a default value here
+    const { data, error } = await supaClient.from("posts").insert([
+      {
+        uid: profile?.id,
+        photo_url: profile?.avatar_url,
+        content: "# hello world!",
+        title: title,
+        slug: slug,
+        approved: false,
+        published: false,
+      },
+    ]);
 
     toast.success("Post created!");
 
-    // // Imperative navigation after doc is set
+    // Imperative navigation after doc is set
     // router.push(`/admin/${slug}`);
   };
 
@@ -131,6 +106,15 @@ function CreateNewPost() {
     e.preventDefault();
     setTitle("");
   };
+
+  useEffect(() => {
+    getPost();
+  });
+
+  async function getPost() {
+    let { data: posts, error } = await supaClient.from("posts").select("*");
+    console.log("post ===> create new post", posts);
+  }
 
   return (
     <form onSubmit={createPost}>
