@@ -5,8 +5,9 @@ import PostFeed from "../components/PostFeed";
 import Loader from "../components/Loader";
 import { firestore, fromMillis, postToJSON } from "../lib/firebase";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Metatags from "../components/Metatags";
+import { supaClient } from "../supa-client";
 
 // Max post to query per page
 const LIMIT = 5;
@@ -30,6 +31,15 @@ export default function Home(props) {
   const [loading, setLoading] = useState(false);
 
   const [postsEnd, setPostsEnd] = useState(false);
+
+  useEffect(() => {
+    getAllPosts();
+  });
+
+  async function getAllPosts() {
+    let { data: posts, error } = await supaClient.from("posts").select("*");
+    console.log("post", posts);
+  }
 
   const getMorePosts = async () => {
     setLoading(true);
