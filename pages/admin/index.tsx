@@ -52,6 +52,7 @@ function PostList() {
 
   useEffect(() => {
     posts = getAllPost();
+    console.log("post ==> postlist", posts);
   }, []);
 
   async function getAllPost() {
@@ -115,15 +116,6 @@ function CreateNewPost() {
     e.preventDefault();
     setTitle("");
   };
-
-  useEffect(() => {
-    getPost();
-  }, []);
-
-  async function getPost() {
-    let { data: posts, error } = await supaClient.from("posts").select("*");
-    console.log("post ===> create new post", posts);
-  }
 
   return (
     <form onSubmit={createPost}>
