@@ -109,7 +109,7 @@ function CreateNewPost() {
 
   useEffect(() => {
     getPost();
-  });
+  }, []);
 
   async function getPost() {
     let { data: posts, error } = await supaClient.from("posts").select("*");
