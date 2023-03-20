@@ -22,6 +22,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 import "../styles/AwesomeNavBar.module.css";
 import BasicTooltip from "./Tooltip";
+import { SupashipUserInfo } from "../lib/hooks";
 
 interface RootState {
   counter: Object;
@@ -30,6 +31,7 @@ interface RootState {
 interface UserState {
   user: User;
   username: any;
+  userInfo: SupashipUserInfo;
 }
 interface User {
   photoURL: string;
@@ -39,7 +41,14 @@ interface User {
 function AwesomeNavBar() {
   // TS infers type: (state: RootState) => boolean
   const selectUser = (state: RootState) => state.users;
-  const { user, username } = useSelector(selectUser);
+  const { user, username, userInfo } = useSelector(selectUser);
+  const { profile, session } = userInfo;
+  const {
+    id: supaId,
+    avatar_url: supaAvatar,
+    username: supaUsername,
+    full_name: supaFullName,
+  } = profile;
   const { theme, setTheme } = useTheme();
   const { locales, asPath, locale: nextLocale } = useRouter();
   const [currentLocale, setCurrentLocale] = useState(nextLocale);
@@ -103,7 +112,7 @@ function AwesomeNavBar() {
       </NavBarItem>
 
       {/* user is not signed-in or has not created username */}
-      {!username && (
+      {!supaId && (
         <NavBarItem nextrouteurl>
           <Link href="/enter">
             <BasicTooltip title="Login" placement="bottom">
@@ -114,7 +123,7 @@ function AwesomeNavBar() {
       )}
 
       {/* user is signed-in and has username */}
-      {username && (
+      {supaId && (
         <>
           <NavBarItem nextrouteurl>
             <Link href="/admin">
@@ -127,15 +136,10 @@ function AwesomeNavBar() {
           {/* user condition is ther because image src url is missing when clicking on sign out */}
           {user && (
             <NavBarItem nextrouteurl>
-              <BasicTooltip title={user?.displayName} placement="bottom">
+              <BasicTooltip title={supaFullName} placement="bottom">
                 <div className="w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] rounded-full cursor-pointer flex items-center overflow-hidden">
-                  <Link href={`/${username}`}>
-                    <Image
-                      width={200}
-                      height={200}
-                      src={user?.photoURL}
-                      alt=""
-                    />
+                  <Link href={`/${supaId}`}>
+                    <Image width={200} height={200} src={supaAvatar} alt="" />
                   </Link>
                 </div>
               </BasicTooltip>

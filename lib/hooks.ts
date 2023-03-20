@@ -6,7 +6,9 @@ import { supaClient } from "../supa-client";
 
 export interface UserProfile {
   username: string;
-  avatarUrl?: string;
+  avatar_url?: string;
+  full_name?: string;
+  id?: string;
 }
 
 export interface SupashipUserInfo {
@@ -27,9 +29,7 @@ export function useUserData() {
   useEffect(() => {
     supaClient.auth.getSession().then(({ data: { session } }) => {
       setUserInfo({ ...userInfo, session });
-      console.log("session getSession hook.ts", session);
       supaClient.auth.onAuthStateChange((_event, session) => {
-        console.log("session onAuthStateChange", session);
         setUserInfo({ session, profile: null });
       });
     });
@@ -79,15 +79,6 @@ export function useUserData() {
   useEffect(() => {
     // turn off realtime subscription
     let unsubscribe;
-
-    // supaClient.auth.getSession().then(({ data: { session } }) => {
-    //   setUserInfo({ ...userInfo, session });
-    //   console.log("session getSession hook.ts", session);
-    //   supaClient.auth.onAuthStateChange((_event, session) => {
-    //     console.log("session onAuthStateChange", session);
-    //     setUserInfo({ session, profile: null });
-    //   });
-    // });
 
     if (user) {
       const ref = firestore.collection("users").doc(user.uid);
