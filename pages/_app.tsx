@@ -22,10 +22,7 @@ config.autoAddCss = false;
 function MyApp({ Component, pageProps }) {
   const userData = useUserData();
   const { locale: nextLocale, defaultLocale: nextDefaultLocale } = useRouter();
-  const store = useStore({
-    ...pageProps.initialReduxState,
-    users: userData,
-  });
+  const store = useStore({ ...pageProps.initialReduxState, users: userData });
 
   const messages = useMemo(() => {
     switch (nextLocale) {

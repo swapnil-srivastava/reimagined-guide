@@ -2,7 +2,6 @@ import { auth, firestore } from "../lib/firebase";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { supaClient } from "../supa-client";
-import { useDispatch } from "react-redux";
 
 // Custom hook to read  auth record and user profile doc
 export function useUserData() {
@@ -12,8 +11,6 @@ export function useUserData() {
     profile: null,
     session: null,
   });
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     supaClient.auth.getSession().then(({ data: { session } }) => {
