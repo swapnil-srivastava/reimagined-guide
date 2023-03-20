@@ -119,12 +119,18 @@ function CreateNewPost() {
       data: { user },
     } = await supaClient.auth.getUser();
 
-    console.log("user =====>", user);
+    const {
+      user_metadata: { avatar_url },
+    } = user;
+
+    console.log("user =====>", user?.id);
 
     const { data, error } = await supaClient
       .from("posts")
       .insert([
         {
+          uid: user?.id,
+          photo_url: avatar_url,
           content: "# hello world!",
           title: title,
           slug: slug,
