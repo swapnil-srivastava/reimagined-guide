@@ -16,19 +16,15 @@ import Hindi from "../content/compiled-locales/hi-IN.json";
 import German from "../content/compiled-locales/de-DE.json";
 import French from "../content/compiled-locales/fr-FR.json";
 import AwesomeNavBar from "../components/AwesomeNavBar";
-import { useSession } from "../lib/use-session";
 
 config.autoAddCss = false;
 
 function MyApp({ Component, pageProps }) {
   const userData = useUserData();
-  const userSupabase = useSession();
-  console.log("userSupabase", userSupabase);
   const { locale: nextLocale, defaultLocale: nextDefaultLocale } = useRouter();
   const store = useStore({
     ...pageProps.initialReduxState,
     users: userData,
-    supabase: userSupabase,
   });
 
   const messages = useMemo(() => {

@@ -19,13 +19,6 @@ export async function getServerSideProps(context) {
     .orderBy("createdAt", "desc")
     .limit(LIMIT);
 
-  async function getAllPosts() {
-    let { data: posts, error } = await supaClient.from("posts").select("*");
-    console.log("post ===>", posts);
-  }
-
-  getAllPosts();
-
   const posts = (await postsQuery.get()).docs.map(postToJSON);
 
   return {
@@ -38,8 +31,6 @@ export default function Home(props) {
   const [loading, setLoading] = useState(false);
 
   const [postsEnd, setPostsEnd] = useState(false);
-
-  useEffect(() => {}, []);
 
   const getMorePosts = async () => {
     setLoading(true);

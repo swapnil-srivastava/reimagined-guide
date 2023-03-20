@@ -99,32 +99,17 @@ function CreateNewPost() {
     //   .collection("posts")
     //   .doc(slug);
 
-    // // Tip: give all fields a default value here
-    // const data = {
-    //   title,
-    //   slug,
-    //   uid,
-    //   username,
-    //   photoURL,
-    //   published: false,
-    //   content: "# hello world!",
-    //   createdAt: serverTimestamp(),
-    //   updatedAt: serverTimestamp(),
-    //   heartCount: 0,
-    // };
-
-    // await ref.set(data);
-
     const {
       data: { user },
     } = await supaClient.auth.getUser();
-
+    
     const {
       user_metadata: { avatar_url },
     } = user;
-
+    
     console.log("user =====>", user?.id);
-
+    
+    // // Tip: give all fields a default value here
     const { data, error } = await supaClient
       .from("posts")
       .insert([
