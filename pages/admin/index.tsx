@@ -90,8 +90,8 @@ function CreateNewPost() {
   const createPost = async (e) => {
     e.preventDefault();
 
-    const uid = auth.currentUser.uid;
-    const { photoURL } = user;
+    // const uid = auth.currentUser.uid;
+    // const { photoURL } = user;
 
     // const ref = firestore
     //   .collection("users")
@@ -122,9 +122,6 @@ function CreateNewPost() {
     const { data, error } = await supaClient.from("posts").insert([
       {
         content: "# hello world!",
-        uid: "",
-        photo_url: "",
-        username: "",
         title: title,
         slug: slug,
         approved: false,
