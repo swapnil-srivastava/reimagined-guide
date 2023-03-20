@@ -119,15 +119,18 @@ function CreateNewPost() {
     // .from('profiles')
     // .select('id')
 
-    const { data, error } = await supaClient.from("posts").insert([
-      {
-        content: "# hello world!",
-        title: title,
-        slug: slug,
-        approved: false,
-        published: false,
-      },
-    ]);
+    const { data, error } = await supaClient
+      .from("posts")
+      .insert([
+        {
+          content: "# hello world!",
+          title: title,
+          slug: slug,
+          approved: false,
+          published: false,
+        },
+      ])
+      .select();
 
     // let { data: posts, error } = await supaClient.from("posts").select("*");
     console.log("posts =====> ", data, error);
