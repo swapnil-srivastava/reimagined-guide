@@ -32,8 +32,14 @@ function Enter() {
   }
 
   useEffect(() => {
-    const data = getSupabaseSession;
-    console.log("use effect", data);
+    supaClient.auth.getSession().then(({ data: { session } }) => {
+      // setUserInfo({ ...userInfo, session });
+      console.log("session getSession", session);
+      supaClient.auth.onAuthStateChange((_event, session) => {
+        console.log("session onAuthStateChange", session);
+        // setUserInfo({ session, profile: null });
+      });
+    });
   });
 
   // 1. user signed out <SignInButton />
