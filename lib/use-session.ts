@@ -21,8 +21,10 @@ export function useSession(): SupashipUserInfo {
   useEffect(() => {
     supaClient.auth.getSession().then(({ data: { session } }) => {
       setUserInfo({ ...userInfo, session });
+      console.log("session getSession use-session.ts", session);
       supaClient.auth.onAuthStateChange((_event, session) => {
         setUserInfo({ session, profile: null });
+        console.log("session getSession use-session.ts", session);
       });
     });
   }, []);
