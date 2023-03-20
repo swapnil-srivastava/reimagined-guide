@@ -48,19 +48,18 @@ function Admin() {
 }
 
 function PostList() {
-  let posts;
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    posts = getAllPost();
-    console.log("post ==> postlist", posts);
-  }, [posts]);
+    getAllPost();
+  }, []);
 
   async function getAllPost() {
     // TODO
     // 1. query for created_at column and order the list of post based on it.
     // 2. query for the current user only.
     let { data: posts, error } = await supaClient.from("posts").select("*");
-    return posts;
+    setPosts(posts);
   }
 
   return (
