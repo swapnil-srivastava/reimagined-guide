@@ -115,11 +115,6 @@ function CreateNewPost() {
 
     // await ref.set(data);
 
-    const {
-      data: { user },
-    } = await supaClient.auth.getUser();
-    console.log("user ====> ", user);
-
     const { data, error } = await supaClient
       .from("posts")
       .insert([

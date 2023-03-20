@@ -26,17 +26,15 @@ function Enter() {
   const selectUser = (state: RootState) => state.users;
   const { user, username } = useSelector(selectUser);
 
-  useEffect(() => {});
-
-  async function callSupabase() {
-    let { data: users, error } = await supaClient.from("users").select("*");
-
-    // const { data, error } = await supaClient
-    //   .from("users")
-    //   .insert([{ uid: "5", username: "Mudrika" }]);
-
-    console.log("users", users, error);
+  async function getSupabaseSession() {
+    const { data, error } = await supaClient.auth.getSession();
+    return data;
   }
+
+  useEffect(() => {
+    const data = getSupabaseSession;
+    console.log("use effect", data);
+  });
 
   // 1. user signed out <SignInButton />
   // 2. user signed in, but missing username <UsernameForm />
