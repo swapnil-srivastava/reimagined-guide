@@ -130,8 +130,8 @@ function UsernameForm() {
 
     const { data, error } = await supaClient
       .from("profiles")
-      .update({ username: "otherValue" })
-      // .eq("some_column", "someValue");
+      .update({ username: formValue })
+      .eq("id", profile?.id);
 
     console.log("updated ==> onsubmit", data);
   };
