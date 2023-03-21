@@ -106,7 +106,7 @@ function AwesomeNavBar() {
       </NavBarItem>
 
       {/* user is not signed-in or has not created username */}
-      {!profile?.id && (
+      {!profile?.username && (
         <NavBarItem nextrouteurl>
           <Link href="/enter">
             <BasicTooltip title="Login" placement="bottom">
