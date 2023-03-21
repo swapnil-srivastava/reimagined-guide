@@ -36,6 +36,18 @@ interface User {
 // e.g. localhost:3000/admin
 
 function Admin() {
+  return (
+    <>
+      <AuthCheck>
+        <CreateNewPost></CreateNewPost>
+        <SendSMS></SendSMS>
+        <PostList></PostList>
+      </AuthCheck>
+    </>
+  );
+}
+
+function PostList() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -49,22 +61,10 @@ function Admin() {
 
   return (
     <>
-      <AuthCheck>
-        <CreateNewPost></CreateNewPost>
-        <SendSMS></SendSMS>
-        <PostList postlist={posts}></PostList>
-      </AuthCheck>
-    </>
-  );
-}
-
-function PostList({ postlist }) {
-  return (
-    <>
       <div className="flex items-center justify-center">
         <h1 className="dark:text-blog-white">Manage your Posts</h1>
       </div>
-      <PostFeed posts={postlist} admin enableLoadMore={false} />
+      <PostFeed posts={posts} admin enableLoadMore={false} />
     </>
   );
 }
