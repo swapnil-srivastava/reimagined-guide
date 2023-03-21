@@ -189,7 +189,7 @@ function UsernameForm() {
                 placeholder-slate-400 focus:outline-none focus:border-sky-500 
                 focus:ring-sky-500 block w-full rounded-md focus:ring-1
                 text-blog-black dark:text-blog-black
-                placeholder:italic placeholder:dark:text-blog-black
+                placeholder:dark:text-blog-black
                 placeholder:text-blog-black
                 "
                 placeholder="Check username......"
