@@ -170,7 +170,7 @@ function UsernameForm() {
         // .eq("username", "Equal to") // "Equal to"
 
         console.log("profiles ===>", profiles, error);
-        setIsValid(profiles?.length !== 0);
+        setIsValid(profiles?.length === 0);
         setLoading(false);
       }
     }, 500),
