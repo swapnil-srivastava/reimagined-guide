@@ -166,42 +166,55 @@ function UsernameForm() {
   return (
     !profile?.username && (
       <section>
-        <h3>Choose Username</h3>
-        <form onSubmit={onSubmit}>
-          <input
-            name="username"
-            placeholder="myname"
-            value={formValue}
-            onChange={onChange}
-          />
-          <UsernameMessage
-            username={formValue}
-            isValid={isValid}
-            loading={loading}
-          />
-          <button
-            type="submit"
-            className="bg-hit-pink-500 text-blog-black
+        <div className="flex flex-col justify-center h-screen w-screen text-blog-black dark:text-blog-white">
+          <form
+            onSubmit={onSubmit}
+            className="self-center flex flex-col text-blog-black dark:text-blog-white 
+                      font-mono text-3xl lg:text-6xl
+                      px-5 py-5
+          "
+          >
+            <label className="block">
+              <span
+                className="after:content-['*'] after:ml-0.5 after:text-red-500 block font-medium
+            text-blog-black dark:text-blog-white"
+              >
+                Username
+              </span>
+              <input
+                name="username"
+                value={formValue}
+                onChange={onChange}
+                className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 
+                placeholder-slate-400 focus:outline-none focus:border-sky-500 
+                focus:ring-sky-500 block w-full rounded-md focus:ring-1
+                text-blog-black dark:text-blog-black
+                placeholder:italic placeholder:dark:text-blog-black
+                placeholder:text-blog-black
+                "
+                placeholder="Check username......"
+              />
+            </label>
+            <UsernameMessage
+              username={formValue}
+              isValid={isValid}
+              loading={loading}
+            />
+            <button
+              type="submit"
+              className="bg-hit-pink-500 text-blog-black
               rounded-lg px-4 py-2 m-2
               transition-filter duration-500 hover:filter hover:brightness-125 
               focus:outline-none focus:ring-2 
               focus:ring-fun-blue-400 
-              focus:ring-offset-2 text-sm
-              font-semibold"
-            disabled={!isValid}
-          >
-            Choose Username
-          </button>
-
-          <h3>Debug State</h3>
-          <div>
-            Username: {formValue}
-            <br />
-            Loading: {loading.toString()}
-            <br />
-            Username Valid: {isValid.toString()}
-          </div>
-        </form>
+              focus:ring-offset-2
+              dark:text-blog-black"
+              disabled={!isValid}
+            >
+              Choose Username
+            </button>
+          </form>
+        </div>
       </section>
     )
   );
