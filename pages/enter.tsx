@@ -115,20 +115,25 @@ function UsernameForm() {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    // Create refs for both documents
-    const userDoc = firestore.doc(`users/${user.uid}`);
-    const usernameDoc = firestore.doc(`usernames/${formValue}`);
+    // // Create refs for both documents
+    // const userDoc = firestore.doc(`users/${user.uid}`);
+    // const usernameDoc = firestore.doc(`usernames/${formValue}`);
+    // // Commit both docs together as a batch write.
+    // const batch = firestore.batch();
+    // batch.set(userDoc, {
+    //   username: formValue,
+    //   photoURL: user.photoURL,
+    //   displayName: user.displayName,
+    // });
+    // batch.set(usernameDoc, { uid: user.uid });
+    // await batch.commit();
 
-    // Commit both docs together as a batch write.
-    const batch = firestore.batch();
-    batch.set(userDoc, {
-      username: formValue,
-      photoURL: user.photoURL,
-      displayName: user.displayName,
-    });
-    batch.set(usernameDoc, { uid: user.uid });
+    const { data, error } = await supaClient
+      .from("profiles")
+      .update({ username: "otherValue" })
+      // .eq("some_column", "someValue");
 
-    await batch.commit();
+    console.log("updated ==> onsubmit", data);
   };
 
   const onChange = (e) => {
@@ -165,7 +170,6 @@ function UsernameForm() {
           .from("profiles")
           .select("username")
           .like("username", username); // "%CaseSensitive%"
-
         // .ilike("username", "%CaseInsensitive%") // "%CaseInsensitive%"
         // .eq("username", "Equal to") // "Equal to"
 
