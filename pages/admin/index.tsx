@@ -50,8 +50,6 @@ function Admin() {
 function PostList() {
   const [posts, setPosts] = useState([]);
 
-  getAllPost();
-
   async function getAllPost() {
     // TODO
     // 1. query for created_at column and order the list of post based on it.
