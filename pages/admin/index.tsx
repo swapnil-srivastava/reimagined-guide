@@ -94,6 +94,7 @@ function CreateNewPost() {
       {
         uid: profile?.id,
         photo_url: profile?.avatar_url,
+        username: profile?.username,
         content: "# hello world!",
         title: title,
         slug: slug,
