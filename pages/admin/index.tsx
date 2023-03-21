@@ -52,7 +52,7 @@ function PostList() {
 
   useEffect(() => {
     getAllPost();
-  }, []);
+  }, [posts]);
 
   async function getAllPost() {
     // TODO
