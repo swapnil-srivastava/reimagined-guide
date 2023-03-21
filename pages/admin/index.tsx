@@ -50,9 +50,7 @@ function Admin() {
 function PostList() {
   const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
-    getAllPost();
-  }, [posts]);
+  getAllPost();
 
   async function getAllPost() {
     // TODO
