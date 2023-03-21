@@ -192,7 +192,7 @@ function UsernameForm() {
                 placeholder:dark:text-blog-black
                 placeholder:text-blog-black
                 "
-                placeholder="Check username......"
+                placeholder="Choose a name"
               />
             </label>
             <UsernameMessage
