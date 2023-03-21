@@ -120,7 +120,6 @@ function UsernameForm() {
       .update({ username: formValue })
       .eq("id", profile?.id)
       .select();
-    console.log("updated ==> onsubmit", data);
   };
 
   const onChange = (e) => {
@@ -157,10 +156,6 @@ function UsernameForm() {
           .from("profiles")
           .select("username")
           .like("username", username); // "%CaseSensitive%"
-        // .ilike("username", "%CaseInsensitive%") // "%CaseInsensitive%"
-        // .eq("username", "Equal to") // "Equal to"
-
-        console.log("profiles ===>", profiles, error);
         setIsValid(profiles?.length === 0);
         setLoading(false);
       }
