@@ -117,7 +117,7 @@ function AwesomeNavBar() {
       )}
 
       {/* user is signed-in and has username */}
-      {profile?.id && (
+      {profile?.username && (
         <>
           <NavBarItem nextrouteurl>
             <Link href="/admin">

@@ -51,10 +51,6 @@ function Enter() {
 
 // Sign in with Google button
 function SignInButton() {
-  const signInWithGoogleFirebase = async () => {
-    await auth.signInWithPopup(googleAuthProvider);
-  };
-
   async function signInWithGoogleSupabase() {
     const { data, error } = await supaClient.auth.signInWithOAuth({
       provider: "google",
@@ -87,16 +83,9 @@ function SignInButton() {
 
 // Sign out button
 function SignOutButton() {
-  function signoutFirebase() {
-    auth.signOut();
-  }
-
   async function signoutSupa() {
     const { error } = await supaClient.auth.signOut();
-
-    console.log("logout", error);
   }
-
   return (
     <button
       className="bg-hit-pink-500 text-blog-black
@@ -105,8 +94,7 @@ function SignOutButton() {
               focus:outline-none focus:ring-2 
               focus:ring-fun-blue-400 
               focus:ring-offset-2 text-sm
-              font-semibold 
-  "
+              font-semibold"
       onClick={() => signoutSupa()}
     >
       Sign Out
@@ -122,7 +110,8 @@ function UsernameForm() {
 
   // TS infers type: (state: RootState) => boolean
   const selectUser = (state: RootState) => state.users;
-  const { user, username } = useSelector(selectUser);
+  const { user, username, userInfo } = useSelector(selectUser);
+  const { profile, session } = userInfo;
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -175,7 +164,6 @@ function UsernameForm() {
       if (username.length >= 3) {
         const ref = firestore.doc(`usernames/${username}`);
         const { exists } = await ref.get();
-        console.log("Firestore read executed!");
         setIsValid(!exists);
         setLoading(false);
       }
@@ -184,7 +172,7 @@ function UsernameForm() {
   );
 
   return (
-    !username && (
+    !profile?.username && (
       <section>
         <h3>Choose Username</h3>
         <form onSubmit={onSubmit}>
@@ -213,14 +201,14 @@ function UsernameForm() {
             Choose Username
           </button>
 
-          {/* <h3>Debug State</h3>
+          <h3>Debug State</h3>
           <div>
             Username: {formValue}
             <br />
             Loading: {loading.toString()}
             <br />
             Username Valid: {isValid.toString()}
-          </div> */}
+          </div>
         </form>
       </section>
     )
