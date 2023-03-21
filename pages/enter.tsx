@@ -4,6 +4,7 @@ import { supaClient } from "../supa-client";
 import { firestore } from "../lib/firebase";
 import { SupashipUserInfo } from "../lib/hooks";
 import debounce from "lodash.debounce";
+import { now } from "moment";
 
 interface RootState {
   counter: Object;
@@ -130,8 +131,9 @@ function UsernameForm() {
 
     const { data, error } = await supaClient
       .from("profiles")
-      .update({ username: formValue })
-      .eq("id", profile?.id);
+      .update({ username: formValue, updated_at: "" })
+      .eq("id", profile?.id)
+      .select();
 
     console.log("updated ==> onsubmit", data);
   };
