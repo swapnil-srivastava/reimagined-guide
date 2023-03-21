@@ -5,6 +5,8 @@ import { useDocumentData } from "react-firebase-hooks/firestore";
 import { firestore, getUserWithUsername, postToJSON } from "../../lib/firebase";
 import PostContent from "../../components/PostContent";
 import Metatags from "../../components/Metatags";
+import { SupashipUserInfo } from "../../lib/hooks";
+import { supaClient } from "../../supa-client";
 
 interface RootState {
   counter: Object;
@@ -14,6 +16,7 @@ interface RootState {
 interface UserState {
   user: User;
   username: any;
+  userInfo: SupashipUserInfo;
 }
 
 interface User {
@@ -23,18 +26,35 @@ interface User {
 // e.g. localhost:3000/swapnil/page1
 // e.g. localhost:3000/swapnil/page2
 
+/**`
+ * Gets a users/{uid} document with username
+ * @param  {string} username
+ */
+export async function getUserWithUsernameSupabase(username) {
+  let { data: posts, error } = await supaClient
+    .from("posts")
+    .select("*")
+    .like("username", username);
+
+  return posts;
+}
+
 export async function getStaticProps({ params }) {
   const { username, slug } = params;
-  const userDoc = await getUserWithUsername(username);
+  const userPosts = await getUserWithUsernameSupabase(username);
 
   let post;
   let path;
 
-  if (userDoc) {
-    const postRef = userDoc.ref.collection("posts").doc(slug);
-    post = postToJSON(await postRef.get());
+  if (userPosts) {
+    let { data: posts, error } = await supaClient
+      .from("posts")
+      .select("*")
+      .like("slug", slug);
+    const [firstPost] = posts;
 
-    path = postRef.path;
+    post = firstPost;
+    path = firstPost && firstPost?.slug;
   }
 
   return {
@@ -44,11 +64,13 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  // Improve my using Admin SDK to select empty docs
-  const snapshot = await firestore.collectionGroup("posts").get();
+  let { data: posts, error } = await supaClient
+    .from("posts")
+    .select("username, slug")
+    .neq("username", null);
 
-  const paths = snapshot.docs.map((doc) => {
-    const { slug, username } = doc.data();
+  const paths = posts.map((post) => {
+    const { slug, username } = post;
     return {
       params: { username, slug },
     };
@@ -65,16 +87,16 @@ export async function getStaticPaths() {
 }
 
 function Post(props) {
-  const postRef: any = firestore.doc(props.path);
+  // const postRef: any = firestore.doc(props.path);
 
-  const [realtimePost] = useDocumentData(postRef);
+  // const [realtimePost] = useDocumentData(postRef);
 
-  const post = realtimePost || props.post;
+  const post = props.post;
 
   // TS infers type: (state: RootState) => boolean
   const selectUser = (state: RootState) => state.users;
-  const { user: currentUser, username } = useSelector(selectUser);
-  // const { user: currentUser } = useContext(UserContext);
+  const { user: currentUser, username, userInfo } = useSelector(selectUser);
+  const { profile, session } = userInfo;
 
   function generateMetaDescription(input) {
     if (input.length > 100) {
@@ -91,9 +113,8 @@ function Post(props) {
       />
 
       <section className="p-3 lg:px-60">
-        <PostContent post={post} postRef={postRef}/>
+        <PostContent post={post} />
       </section>
-      
     </main>
   );
 }

@@ -18,6 +18,7 @@ import BasicTooltip from "./Tooltip";
 
 // Authentication Check Component
 import AuthCheck from "./AuthCheck";
+import { SupashipUserInfo } from "../lib/hooks";
 
 interface RootState {
   counter: Object;
@@ -27,6 +28,7 @@ interface RootState {
 interface UserState {
   user: User;
   username: any;
+  userInfo: SupashipUserInfo;
 }
 
 interface User {
@@ -34,7 +36,7 @@ interface User {
 }
 
 // UI component for main post content
-export default function PostContent({ post, postRef }) {
+export default function PostContent({ post }) {
   // TS infers type: (state: RootState) => boolean
   const selectUser = (state: RootState) => state.users;
   const { user: currentUser, username } = useSelector(selectUser);
@@ -121,7 +123,7 @@ export default function PostContent({ post, postRef }) {
                         w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] 
                         p-1 m-1 rounded-full flex items-center justify-center 
                         transition-filter duration-500 hover:filter hover:brightness-125"
-                        />
+                    />
                   </button>
                 </Link>
               </div>
@@ -163,7 +165,7 @@ export default function PostContent({ post, postRef }) {
               }
             >
               {/* HEART BUTTON / REMOVE HEART BUTTON */}
-              <HeartButton postRef={postRef} />
+              {/* <HeartButton postRef={postRef} /> */}
             </AuthCheck>
 
             {/* LINKEDIN BUTTON */}
