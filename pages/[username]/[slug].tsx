@@ -1,5 +1,5 @@
 import styles from "../../styles/Post.module.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import { firestore, getUserWithUsername, postToJSON } from "../../lib/firebase";
@@ -87,11 +87,21 @@ export async function getStaticPaths() {
 }
 
 function Post(props) {
-  // const postRef: any = firestore.doc(props.path);
+  const [post, setPost] = useState(props.post);
 
-  // const [realtimePost] = useDocumentData(postRef);
+  const fetchPost = async () => {
+    let { data: posts, error } = await supaClient
+      .from("posts")
+      .select("*")
+      .like("slug", props.path);
 
-  const post = props.post;
+    const [firstPost] = posts;
+    setPost(firstPost);
+  };
+
+  useEffect(() => {
+    fetchPost();
+  }, []);
 
   // TS infers type: (state: RootState) => boolean
   const selectUser = (state: RootState) => state.users;
