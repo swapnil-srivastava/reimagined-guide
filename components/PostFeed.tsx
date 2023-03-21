@@ -85,7 +85,7 @@ function PostItem({ post, admin = false }) {
 
   return (
     <>
-      <Link href={`/${post.username}/${post.slug}`}>
+      <Link href={`/${post.uid}/${post.slug}`}>
         <div
           className="p-3 my-4
                   bg-blog-white 
