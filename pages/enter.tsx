@@ -35,7 +35,7 @@ function Enter() {
   return (
     <main className="flex items-center justify-center">
       {profile?.id ? (
-        !profile?.id ? ( // TODO: replace it with username
+        !profile?.username ? ( // TODO: replace it with username
           <UsernameForm />
         ) : (
           <SignOutButton />
