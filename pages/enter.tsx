@@ -68,7 +68,7 @@ function SignInButton() {
               focus:outline-none focus:ring-2 
               focus:ring-fun-blue-400 
               focus:ring-offset-2
-              text-3xl lg:text-6xl
+              text-2xl
               text-blog-black
               font-semibold 
               dark:text-fun-blue-500
@@ -95,7 +95,7 @@ function SignOutButton() {
               focus:outline-none focus:ring-2 
               focus:ring-fun-blue-400 
               focus:ring-offset-2
-              text-3xl lg:text-6xl
+              text-2xl
               font-semibold"
       onClick={() => signoutSupa()}
     >
