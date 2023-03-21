@@ -115,26 +115,11 @@ function UsernameForm() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
-    // // Create refs for both documents
-    // const userDoc = firestore.doc(`users/${user.uid}`);
-    // const usernameDoc = firestore.doc(`usernames/${formValue}`);
-    // // Commit both docs together as a batch write.
-    // const batch = firestore.batch();
-    // batch.set(userDoc, {
-    //   username: formValue,
-    //   photoURL: user.photoURL,
-    //   displayName: user.displayName,
-    // });
-    // batch.set(usernameDoc, { uid: user.uid });
-    // await batch.commit();
-
     const { data, error } = await supaClient
       .from("profiles")
-      .update({ username: formValue, updated_at: "" })
+      .update({ username: formValue })
       .eq("id", profile?.id)
       .select();
-
     console.log("updated ==> onsubmit", data);
   };
 
