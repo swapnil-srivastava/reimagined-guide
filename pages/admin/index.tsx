@@ -115,7 +115,11 @@ function CreateNewPost() {
 
   return (
     <form onSubmit={createPost}>
-      <div className="flex item-center border-b border-fun-blue-500 dark:border-fun-blue-300 py-2">
+      <div
+        className="flex item-center border-b border-fun-blue-500 dark:border-fun-blue-300 py-4
+        dark:bg-blog-white
+        "
+      >
         <span className="sr-only">
           Add a new article title and create the post
         </span>
@@ -126,10 +130,10 @@ function CreateNewPost() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Not supposed to be seen"
-            className="peer dark:bg-transparent
+            className="peer dark:bg-blog-white
             dark:bg-slate-500
             text-fun-blue-500
-            dark:text-slate-50
+            dark:text-fun-blue-500
             bg-blog-white
             border-none 
             focus:outline-none
@@ -163,7 +167,12 @@ function CreateNewPost() {
           Create
         </button>
         <button
-          className="border border-fun-blue-500 dark:border-blog-white text-fun-blue-500 dark:text-blog-white hover:text-fun-blue-400 dark:hover:text-slate-300 text-sm rounded py-1 px-2 mx-1 mr-4"
+          className="border border-fun-blue-500 dark:border-fun-blue-500
+          text-fun-blue-500 
+          dark:text-fun-blue-500
+          hover:text-fun-blue-400 
+          dark:hover:text-slate-300 
+          text-sm rounded py-1 px-2 mx-1 mr-4"
           type="button"
           onClick={clearTitle}
         >
