@@ -169,12 +169,9 @@ function UsernameForm() {
         // .ilike("username", "%CaseInsensitive%") // "%CaseInsensitive%"
         // .eq("username", "Equal to") // "Equal to"
 
-        // const ref = firestore.doc(`usernames/${username}`);
-        // const { exists } = await ref.get();
-
         console.log("profiles ===>", profiles, error);
-        // setIsValid(!profiles);
-        // setLoading(false);
+        setIsValid(profiles?.length !== 0);
+        setLoading(false);
       }
     }, 500),
     []
