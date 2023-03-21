@@ -72,7 +72,6 @@ function PostList() {
 function CreateNewPost() {
   const router = useRouter();
 
-  // TS infers type: (state: RootState) => boolean
   const selectUser = (state: RootState) => state.users;
   const { user, username, userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
@@ -85,7 +84,7 @@ function CreateNewPost() {
   // Validate length
   const isValid = title.length > 3 && title.length < 100;
 
-  // Create a new post in firestore
+  // Create a new post in supabase postgres
   const createPost = async (e) => {
     e.preventDefault();
 
