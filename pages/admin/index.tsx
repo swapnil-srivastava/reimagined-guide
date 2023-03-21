@@ -38,8 +38,8 @@ interface User {
 function Admin() {
   return (
     <>
+      <CreateNewPost></CreateNewPost>
       <AuthCheck>
-        <CreateNewPost></CreateNewPost>
         <SendSMS></SendSMS>
         <PostList></PostList>
       </AuthCheck>
@@ -130,8 +130,7 @@ function CreateNewPost() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Not supposed to be seen"
-            className="peer dark:bg-white
-            dark:bg-slate-500
+            className="peer dark:bg-blog-white
             text-fun-blue-500
             dark:text-fun-blue-500
             bg-blog-white
