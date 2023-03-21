@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { supaClient } from "../supa-client";
-import { auth, firestore, googleAuthProvider } from "../lib/firebase";
+import { firestore } from "../lib/firebase";
 import { SupashipUserInfo } from "../lib/hooks";
 import debounce from "lodash.debounce";
 
@@ -24,7 +24,6 @@ interface User {
 
 // e.g. localhost:3000/enter
 function Enter() {
-  // TS infers type: (state: RootState) => boolean
   const selectUser = (state: RootState) => state.users;
   const { user, username, userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
@@ -35,7 +34,7 @@ function Enter() {
   return (
     <main className="flex items-center justify-center">
       {profile?.id ? (
-        !profile?.username ? ( // TODO: replace it with username
+        !profile?.username ? (
           <UsernameForm />
         ) : (
           <SignOutButton />
@@ -162,10 +161,20 @@ function UsernameForm() {
   const checkUsername = useCallback(
     debounce(async (username) => {
       if (username.length >= 3) {
-        const ref = firestore.doc(`usernames/${username}`);
-        const { exists } = await ref.get();
-        setIsValid(!exists);
-        setLoading(false);
+        let { data: profiles, error } = await supaClient
+          .from("profiles")
+          .select("username")
+          .like("username", username); // "%CaseSensitive%"
+
+        // .ilike("username", "%CaseInsensitive%") // "%CaseInsensitive%"
+        // .eq("username", "Equal to") // "Equal to"
+
+        // const ref = firestore.doc(`usernames/${username}`);
+        // const { exists } = await ref.get();
+
+        console.log("profiles ===>", profiles, error);
+        // setIsValid(!profiles);
+        // setLoading(false);
       }
     }, 500),
     []
