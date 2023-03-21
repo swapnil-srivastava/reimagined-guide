@@ -130,7 +130,7 @@ function CreateNewPost() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Not supposed to be seen"
-            className="peer dark:bg-blog-white
+            className="peer dark:bg-white
             dark:bg-slate-500
             text-fun-blue-500
             dark:text-fun-blue-500
