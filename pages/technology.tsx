@@ -5,124 +5,102 @@ import axios from "axios";
 import { collection, query, getDocs } from "firebase/firestore";
 import { firestore } from "../lib/firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faLinkedin
-} from "@fortawesome/free-brands-svg-icons";
+import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { LEADINGTECH, TECHNOLOGIES } from "../database.types";
+import { supaClient } from "../supa-client";
 
 type TechStack = {
-    techName: number;
-    colorTechStack: string;
+  techName: number;
+  colorTechStack: string;
 };
 
-type TechStackResponse = { 
-    techStack : TechStack[]; 
-}
-  
+type TechStackResponse = {
+  techStack: TechStack[];
+};
+
 export default function Technology() {
-  const [techStackState, setTechStackState] = useState<TechStack[]>();
-  const [bleedingTechState, setBleedingTechState] = useState<TechStack[]>();
+  const [techStackState, setTechStackState] = useState<TECHNOLOGIES[]>();
+  const [leadingTechState, setLeadingTechState] = useState<LEADINGTECH[]>();
 
   useEffect(() => {
     // getTechStack();
     getTechStackFirebase();
-    getBleedingTechFirebase();
-  },[])
+    getLeadingTechFirebase();
+  }, []);
 
   async function getTechStack() {
-
     try {
       // 👇️ const data: GetTechStackResponse
       const { data, status } = await axios.get<TechStackResponse>(
-        '/api/techstack',
+        "/api/techstack",
         {
           headers: {
-            Accept: 'application/json',
+            Accept: "application/json",
           },
-        },
+        }
       );
 
       const { techStack } = data;
-  
-      setTechStackState(techStack);
-  
-      return data;
 
+      // setTechStackState(techStack); // change data based on TECHNOLOGIES type
+
+      return data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.log('error message: ', error.message);
+        console.log("error message: ", error.message);
         return error.message;
       } else {
-        console.log('unexpected error: ', error);
-        return 'An unexpected error occurred';
+        console.log("unexpected error: ", error);
+        return "An unexpected error occurred";
       }
     }
   }
 
-
-  
-  async function getBleedingTechFirebase() {
-
+  async function getLeadingTechFirebase() {
     try {
-      // 👇️ const data: GetTechStackResponse
-      const q = query(collection(firestore, "technologies"));
+      let { data: leadingtech, error } = await supaClient
+        .from("leadingtech")
+        .select("*");
 
-      const querySnapshot = await getDocs(q);
+      setTechStackState(leadingtech);
 
-      let tempDoc: TechStack[] = []
-
-      querySnapshot.forEach((doc) => {
-        tempDoc = [...tempDoc, 
-          {
-            techName: doc.data().name,
-            colorTechStack: doc.data().techColor
-          }];
-      });
-
-      setTechStackState(tempDoc);
-      return tempDoc;
+      return leadingtech;
     } catch (error) {
-      console.log('unexpected error: ', error);
-      return 'An unexpected error occurred';
+    } finally {
     }
   }
 
   async function getTechStackFirebase() {
-
     try {
-      // 👇️ const data: GetTechStackResponse
-      const q = query(collection(firestore, "leadingtech"));
-      const querySnapshot = await getDocs(q);
+      let { data: technologies, error } = await supaClient
+        .from("technologies")
+        .select("*");
 
-      let tempDoc: TechStack[] = []
+      setLeadingTechState(technologies);
 
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        tempDoc = [...tempDoc, 
-          {
-            techName: doc.data().name,
-            colorTechStack: doc.data().techColor
-          }];
-      });
-
-      setBleedingTechState(tempDoc);
-      return tempDoc;
+      return technologies;
     } catch (error) {
-      console.log('unexpected error: ', error);
-      return 'An unexpected error occurred';
+    } finally {
     }
   }
 
   return (
     <>
       <Metatags description={`Technology stack that I am fluent in`} />
-      <div className="px-10 pb-2 text-2xl font-extralight dark:text-blog-white">Tech Stack</div>
-
+      <div className="px-10 pb-2 text-2xl font-extralight dark:text-blog-white">
+        Tech Stack
+      </div>
 
       <div className="flex py-10 px-10 pt-2 flex-wrap">
-        {techStackState && techStackState.map(({ techName, colorTechStack }) => 
-        <TechBox key={techName} techStackName={techName} techStackColor={colorTechStack}> 
-            {/* if font awesome icon is to used */}
-            {/* <a href={`https://www.linkedin.com/sharing/share-offsite/?url=https://www.swapnilsrivastava.eu/`}>
+        {techStackState &&
+          techStackState.map(({ id, tech_color: colorTechStack, name: techName}) => (
+            <TechBox
+              key={techName}
+              techStackName={techName}
+              techStackColor={colorTechStack}
+            >
+              {/* if font awesome icon is to used */}
+              {/* <a href={`https://www.linkedin.com/sharing/share-offsite/?url=https://www.swapnilsrivastava.eu/`}>
               <FontAwesomeIcon
                   icon={faLinkedin}
                   size={'2xl'}
@@ -130,15 +108,23 @@ export default function Technology() {
                   className="h-20 w-20 px-2 pt-1"
               />
             </a> */}
-        </TechBox>)}
+            </TechBox>
+          ))}
       </div>
 
-      <div className="px-10 pb-0 text-2xl font-extralight dark:text-blog-white">Bleeding Tech</div>
+      <div className="px-10 pb-0 text-2xl font-extralight dark:text-blog-white">
+        Bleeding Tech
+      </div>
       <div className="flex py-10 px-10 pt-2 flex-wrap">
-        {bleedingTechState && bleedingTechState.map(({ techName, colorTechStack }) => 
-        <TechBox key={techName} techStackName={techName} techStackColor={colorTechStack}>  
-            {/* if svg is to be used then  */}
-            {/* <svg xmlns="http://www.w3.org/2000/svg"
+        {leadingTechState &&
+          leadingTechState.map(({ id, tech_color: colorTechStack, name: techName}) => (
+            <TechBox
+              key={id}
+              techStackName={techName}
+              techStackColor={colorTechStack}
+            >
+              {/* if svg is to be used then  */}
+              {/* <svg xmlns="http://www.w3.org/2000/svg"
                 className="h-20 w-20 stroke-1 hover:stroke-2 px-2 pt-1"
                 viewBox="0 0 20 20"
                 fill="currentColor">
@@ -148,11 +134,9 @@ export default function Technology() {
                     clipRule="evenodd"
                 />
             </svg> */}
-        </TechBox>)}
+            </TechBox>
+          ))}
       </div>
-
     </>
   );
 }
-
-

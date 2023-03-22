@@ -128,25 +128,25 @@ export interface Database {
           website?: string | null;
         };
       };
-      "technologies ": {
+      technologies: {
         Row: {
           created_at: string | null;
           id: string;
-          "name ": string;
+          name: string;
           tech_color: string | null;
           uid: string | null;
         };
         Insert: {
           created_at?: string | null;
           id: string;
-          "name ": string;
+          name: string;
           tech_color?: string | null;
           uid?: string | null;
         };
         Update: {
           created_at?: string | null;
           id?: string;
-          "name "?: string;
+          name?: string;
           tech_color?: string | null;
           uid?: string | null;
         };
@@ -186,4 +186,20 @@ export type POST = Pick<
   | "uid"
   | "updated_at"
   | "username"
+>;
+
+type LEADINGTECH_TABLE = Pick<TABLES["Tables"], "leadingtech">;
+type LEADINGTECH_ROW = Pick<LEADINGTECH_TABLE["leadingtech"], "Row">;
+
+export type LEADINGTECH = Pick<
+  LEADINGTECH_ROW["Row"],
+  "id" | "uid" | "created_at" | "name" | "tech_color"
+>;
+
+type TECHNOLOGIES_TABLE = Pick<TABLES["Tables"], "technologies">;
+type TECHNOLOGIES_ROW = Pick<TECHNOLOGIES_TABLE["technologies"], "Row">;
+
+export type TECHNOLOGIES = Pick<
+  TECHNOLOGIES_ROW["Row"],
+  "id" | "uid" | "created_at" | "name" | "tech_color"
 >;
