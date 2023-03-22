@@ -79,19 +79,13 @@ function PostManager() {
 
     setUser(user);
 
-    console.log("fetchUserAndAdminPost user", user);
-
     let { data: adminPosts, error } = await supaClient
       .from("posts")
       .select("*")
       .eq("uid", user?.id)
       .like("slug", slug as string);
 
-    console.log("fetchUserAndAdminPost adminPosts", adminPosts);
-
     const [adminPost] = adminPosts;
-
-    console.log("fetchUserAndAdminPost adminPost", adminPost);
 
     setPost(adminPost);
 
@@ -186,7 +180,7 @@ function PostForm({ defaultValues, preview }) {
           <p className="text-danger">{errors.content.message}</p>
         )}
 
-        <fieldset>
+        <fieldset className="flex gap-x-0.5">
           <input
             name="published"
             type="checkbox"
