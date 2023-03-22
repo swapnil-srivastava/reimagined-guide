@@ -63,7 +63,7 @@ export default function PostContent({ post }) {
               <div>
                 {/* USER IMAGE ICON and REDIRECT to PROFILE page */}
                 <Link href={`/${post.username}`}>
-                  {post?.photoURL && post?.photoURL ? (
+                  {post?.photo_url && post?.photo_url ? (
                     <div
                       className="w-12 h-12
                                rounded-full cursor-pointer flex items-center 
@@ -72,7 +72,7 @@ export default function PostContent({ post }) {
                       <Image
                         width={200}
                         height={200}
-                        src={post.photoURL}
+                        src={post.photo_url}
                         alt=""
                       />
                     </div>
