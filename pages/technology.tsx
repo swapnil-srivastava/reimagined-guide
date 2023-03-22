@@ -124,12 +124,12 @@ export default function Technology() {
     <>
       <Metatags description={`Technology stack that I am fluent in`} />
 
+      {/* CREATE Tech Stack */}
+      {profile?.id === userAuth?.id ? <CreateNewTechStack /> : ""}
+      
       <div className="px-10 pb-2 text-2xl font-extralight dark:text-blog-white">
         Tech Stack
       </div>
-
-      {/* CREATE Tech Stack */}
-      {profile?.id === userAuth?.id ? <CreateNewTechStack /> : ""}
 
       <div className="flex py-10 px-10 pt-2 flex-wrap">
         {techStackState &&
