@@ -152,7 +152,7 @@ function PostForm({ defaultValues, preview }) {
         published: published,
         updated_at: new Date().toISOString(),
       })
-      .eq("id", profile?.id)
+      .eq("uid", profile?.id)
       .eq("slug", slug);
 
     reset({ content, published });
