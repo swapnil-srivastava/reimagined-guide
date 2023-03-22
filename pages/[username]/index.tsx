@@ -36,8 +36,6 @@ export async function getServerSideProps({ query }) {
       .select("*")
       .like("username", username);
 
-    console.log("hello == profile", profiles);
-
     const [userProfile] = profiles;
 
     user = userProfile;
@@ -48,8 +46,6 @@ export async function getServerSideProps({ query }) {
       .like("username", username)
       .is("published", true);
 
-    console.log("hello == published supaPosts", supaPosts);
-
     posts = supaPosts;
   }
 
@@ -59,8 +55,6 @@ export async function getServerSideProps({ query }) {
 }
 
 function UserProfilePage({ user, posts }) {
-  console.log("UserProfilePage ====> user", user);
-  console.log("UserProfilePage ====> posts", posts);
   return (
     <>
       <UserProfile user={user}></UserProfile>
