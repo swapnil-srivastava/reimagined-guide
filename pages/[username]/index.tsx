@@ -7,20 +7,20 @@ import { supaClient } from "../../supa-client";
 // e.g. localhost:3000/ria
 
 export async function getUserWithSupabaseforUserPage(username) {
-  let { data: posts, error } = await supaClient
-    .from("posts")
+  let { data: supaUsers, error } = await supaClient
+    .from("profiles")
     .select("*")
     .like("username", username);
 
-  return posts;
+  return supaUsers;
 }
 
 export async function getServerSideProps({ query }) {
   const { username } = query;
-  const userPosts = await getUserWithSupabaseforUserPage(username);
+  const users = await getUserWithSupabaseforUserPage(username);
 
   // If no user, short circuit to 404 page
-  if (userPosts.length === 0) {
+  if (users.length === 0) {
     return {
       notFound: true,
     };
@@ -30,13 +30,8 @@ export async function getServerSideProps({ query }) {
   let user = null;
   let posts = null;
 
-  if (userPosts) {
-    let { data: profiles } = await supaClient
-      .from("profiles")
-      .select("*")
-      .like("username", username);
-
-    const [userProfile] = profiles;
+  if (users.length > 0) {
+    const [userProfile] = users;
 
     user = userProfile;
 
