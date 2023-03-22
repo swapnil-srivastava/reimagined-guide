@@ -52,7 +52,6 @@ export default function Technology() {
     // getTechStack();
     getLeadingTechSupabase();
     getTechStackSupabase();
-    getAuthenticatedUser();
   }, []);
 
   async function getTechStack() {
@@ -96,25 +95,22 @@ export default function Technology() {
 
   async function getTechStackSupabase() {
     try {
+      const {
+        data: { user },
+      } = await supaClient.auth.getUser();
+
+      console.log("user =====>", user?.id);
+      console.log("profile =====>", profile?.id);
+
+      setUserAuth(user);
+
       let { data: technologies, error } = await supaClient
         .from("technologies")
         .select("*");
 
       setTechStackState(technologies);
+
       return technologies;
-    } catch (error) {
-    } finally {
-    }
-  }
-
-  async function getAuthenticatedUser() {
-    try {
-      const {
-        data: { user },
-      } = await supaClient.auth.getUser();
-
-      setUserAuth(user);
-      return user;
     } catch (error) {
     } finally {
     }
@@ -126,7 +122,6 @@ export default function Technology() {
 
       {/* CREATE Tech Stack */}
       {profile?.id === userAuth?.id ? <CreateNewTechStack /> : ""}
-      
       <div className="px-10 pb-2 text-2xl font-extralight dark:text-blog-white">
         Tech Stack
       </div>
