@@ -121,7 +121,7 @@ function CreateNewPost() {
     toast.success("Post created!");
 
     // Imperative navigation after doc is set
-    // router.push(`/admin/${slug}`);
+    router.push(`/admin/${slug}`);
   };
 
   const clearTitle = async (e) => {
