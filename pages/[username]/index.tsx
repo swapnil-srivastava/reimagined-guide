@@ -20,7 +20,7 @@ export async function getServerSideProps({ query }) {
   const userPosts = await getUserWithSupabaseforUserPage(username);
 
   // If no user, short circuit to 404 page
-  if (!userPosts) {
+  if (userPosts.length === 0) {
     return {
       notFound: true,
     };
