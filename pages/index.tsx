@@ -13,13 +13,10 @@ import { supaClient } from "../supa-client";
 const LIMIT = 5;
 
 export async function getServerSideProps(context) {
-  const postsQuery = firestore
-    .collectionGroup("posts")
-    .where("published", "==", true)
-    .orderBy("createdAt", "desc")
-    .limit(LIMIT);
-
-  const posts = (await postsQuery.get()).docs.map(postToJSON);
+  let { data: posts } = await supaClient
+    .from("posts")
+    .select("*")
+    .is("published", true);
 
   return {
     props: { posts }, // will be passed to the page component as props
@@ -64,10 +61,10 @@ export default function Home(props) {
       <div className="lg:flex lg:flex-row flex-wrap gap-x-4 ml-4 mr-4">
         <PostFeed
           posts={posts}
-          parentFunction={getMorePosts}
+          parentFunction={() => getMorePosts()}
           loading={loading}
           postsEnd={postsEnd}
-          enableLoadMore={true}
+          enableLoadMore={false}
         />
       </div>
 
