@@ -72,16 +72,15 @@ function PostManager() {
     fetchUser();
   }, []);
 
-  useEffect(() => {
-    fetchAdminPost();
-  }, [user]);
-
   async function fetchUser() {
     const {
       data: { user },
     } = await supaClient.auth.getUser();
 
     setUser(user);
+
+    fetchAdminPost();
+
     return user;
   }
 
