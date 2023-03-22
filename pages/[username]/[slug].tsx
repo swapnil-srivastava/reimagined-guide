@@ -1,8 +1,6 @@
 import styles from "../../styles/Post.module.css";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useDocumentData } from "react-firebase-hooks/firestore";
-import { firestore, getUserWithUsername, postToJSON } from "../../lib/firebase";
 import PostContent from "../../components/PostContent";
 import Metatags from "../../components/Metatags";
 import { SupashipUserInfo } from "../../lib/hooks";
