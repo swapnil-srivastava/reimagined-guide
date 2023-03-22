@@ -84,11 +84,11 @@ function PostManager() {
     let { data: adminPosts, error } = await supaClient
       .from("posts")
       .select("*")
-      .like("uid", user?.id)
+      .eq("uid", user?.id)
       .like("slug", slug as string);
 
     console.log("fetchUserAndAdminPost adminPosts", adminPosts);
-      
+
     const [adminPost] = adminPosts;
 
     console.log("fetchUserAndAdminPost adminPost", adminPost);
