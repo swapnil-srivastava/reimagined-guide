@@ -27,13 +27,13 @@ export async function getServerSideProps({ query }) {
   }
 
   // JSON serializable data
-  let user = null;
+  let userProfile = null;
   let posts = null;
 
   if (users.length > 0) {
-    const [userProfile] = users;
+    const [userProf] = users;
 
-    user = userProfile;
+    userProfile = userProf;
 
     let { data: supaPosts } = await supaClient
       .from("posts")
@@ -45,15 +45,15 @@ export async function getServerSideProps({ query }) {
   }
 
   return {
-    props: { user, posts }, // will be passed as props to the component
+    props: { userProfile, posts }, // will be passed as props to the component
   };
 }
 
-function UserProfilePage({ user, posts }) {
+function UserProfilePage({ userProfile, posts }) {
   return (
     <>
-      <UserProfile user={user}></UserProfile>
-      <PostFeed posts={posts} admin enableLoadMore={false}></PostFeed>
+      <UserProfile user={userProfile}></UserProfile>
+      <PostFeed posts={posts}></PostFeed>
     </>
   );
 }

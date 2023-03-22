@@ -8,7 +8,7 @@ import moment from "moment";
 
 export function PostFeed({
   posts,
-  user,
+  user = undefined,
   admin = false,
   parentFunction = () => alert("No Parent Function"),
   loading = false,
@@ -21,7 +21,7 @@ export function PostFeed({
           <PostItem
             post={post}
             key={post.slug}
-            admin={post && post.uid === user?.id ? true : false}
+            admin={post && post.uid === (user && user?.id) ? true : false}
           />
 
           {index === array.length - 1 &&
