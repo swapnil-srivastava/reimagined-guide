@@ -69,31 +69,33 @@ function PostManager() {
   const { slug } = router.query;
 
   useEffect(() => {
-    fetchUser();
+    fetchUserAndAdminPost();
   }, []);
 
-  async function fetchUser() {
+  async function fetchUserAndAdminPost() {
     const {
       data: { user },
     } = await supaClient.auth.getUser();
 
     setUser(user);
 
-    fetchAdminPost();
+    console.log("fetchUserAndAdminPost user", user);
 
-    return user;
-  }
-
-  async function fetchAdminPost() {
     let { data: adminPosts, error } = await supaClient
       .from("posts")
       .select("*")
       .like("uid", user?.id)
       .like("slug", slug as string);
 
+    console.log("fetchUserAndAdminPost adminPosts", adminPosts);
+      
     const [adminPost] = adminPosts;
 
+    console.log("fetchUserAndAdminPost adminPost", adminPost);
+
     setPost(adminPost);
+
+    return user;
   }
 
   return (
