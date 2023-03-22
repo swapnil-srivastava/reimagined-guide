@@ -47,25 +47,28 @@ export default function Home(props) {
 
     console.log("cursor ===> ", cursor);
 
-    const query = firestore
-      .collectionGroup("posts")
-      .where("published", "==", true)
-      .orderBy("createdAt", "desc")
-      .startAfter(cursor)
-      .limit(LIMIT);
+    // const query = firestore
+    //   .collectionGroup("posts")
+    //   .where("published", "==", true)
+    //   .orderBy("createdAt", "desc")
+    //   .startAfter(cursor)
+    //   .limit(LIMIT);
 
-    // let { data: posts } = await supaClient
-    //   .from("posts")
-    //   .select("*")
-    //   .is("published", true)
-    //   .range(0, LIMIT);
+    let { data: oldPosts } = await supaClient
+      .from("posts")
+      .select("*")
+      .is("published", true)
+      .lt("created_at", cursor)
+      .order("created_at", { ascending: false })
+      .range(0, LIMIT);
 
-    const newPosts = (await query.get()).docs.map((doc) => doc.data());
+    // const newPosts = (await query.get()).docs.map((doc) => doc.data());
 
-    // setPosts(posts.concat(newPosts));
+    setPosts(posts.concat(oldPosts));
+
     setLoading(false);
 
-    if (newPosts.length < LIMIT) {
+    if (oldPosts.length < LIMIT) {
       setPostsEnd(true);
     }
   };
