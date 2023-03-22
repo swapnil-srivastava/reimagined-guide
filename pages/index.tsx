@@ -18,6 +18,7 @@ export async function getServerSideProps(context) {
     .from("posts")
     .select("*")
     .is("published", true)
+    .order("created_at", { ascending: false })
     .range(0, LIMIT);
 
   return {
