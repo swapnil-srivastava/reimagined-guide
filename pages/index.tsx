@@ -3,9 +3,8 @@ import { FormattedMessage } from "react-intl";
 
 import PostFeed from "../components/PostFeed";
 import Loader from "../components/Loader";
-import { firestore, fromMillis, postToJSON } from "../lib/firebase";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Metatags from "../components/Metatags";
 import { supaClient } from "../supa-client";
 import { POST } from "../database.types";
@@ -37,22 +36,7 @@ export default function Home(props) {
 
     const last = posts[posts.length - 1];
 
-    console.log("last getmoreposts ====> ", last);
-    console.log("last.created_at getmoreposts ====> ", last.created_at);
-
-    const cursor =
-      typeof last.created_at === "number"
-        ? fromMillis(last.created_at)
-        : last.created_at;
-
-    console.log("cursor ===> ", cursor);
-
-    // const query = firestore
-    //   .collectionGroup("posts")
-    //   .where("published", "==", true)
-    //   .orderBy("createdAt", "desc")
-    //   .startAfter(cursor)
-    //   .limit(LIMIT);
+    const { created_at: cursor } = last;
 
     let { data: oldPosts } = await supaClient
       .from("posts")
@@ -61,11 +45,6 @@ export default function Home(props) {
       .lt("created_at", cursor)
       .order("created_at", { ascending: false })
       .range(0, LIMIT);
-
-    console.log("oldPosts ===> ", oldPosts);
-
-    // const newPosts = (await query.get()).docs.map((doc) => doc.data());
-
     setPosts(posts.concat(oldPosts));
 
     setLoading(false);
@@ -94,7 +73,6 @@ export default function Home(props) {
 
       {postsEnd && (
         <div className="flex items-center justify-center dark:text-blog-white">
-          {" "}
           You have reached the end!
         </div>
       )}
