@@ -98,12 +98,12 @@ function PostItem({ post, admin = false }) {
               <div className="flex items-center shrink-0">
                 <div className="flex items-center gap-x-2">
                   <Link href={`/${post.username}`}>
-                    {post?.photoURL && post?.photoURL ? (
+                    {post?.photo_url && post?.photo_url ? (
                       <div className="w-12 h-12 rounded-full cursor-pointer flex items-center overflow-hidden">
                         <Image
                           width={200}
                           height={200}
-                          src={post.photoURL}
+                          src={post.photo_url}
                           alt=""
                         />
                       </div>
