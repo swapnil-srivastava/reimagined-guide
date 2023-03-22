@@ -2,21 +2,10 @@ import { useEffect, useState } from "react";
 import Metatags from "../components/Metatags";
 import TechBox from "../components/TechBox";
 import axios from "axios";
-import { collection, query, getDocs } from "firebase/firestore";
-import { firestore } from "../lib/firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { LEADINGTECH, TECHNOLOGIES } from "../database.types";
 import { supaClient } from "../supa-client";
-
-type TechStack = {
-  techName: number;
-  colorTechStack: string;
-};
-
-type TechStackResponse = {
-  techStack: TechStack[];
-};
 
 export default function Technology() {
   const [techStackState, setTechStackState] = useState<TECHNOLOGIES[]>();
@@ -31,14 +20,11 @@ export default function Technology() {
   async function getTechStack() {
     try {
       // 👇️ const data: GetTechStackResponse
-      const { data, status } = await axios.get<TechStackResponse>(
-        "/api/techstack",
-        {
-          headers: {
-            Accept: "application/json",
-          },
-        }
-      );
+      const { data, status } = await axios.get("/api/techstack", {
+        headers: {
+          Accept: "application/json",
+        },
+      });
 
       const { techStack } = data;
 
@@ -62,7 +48,7 @@ export default function Technology() {
         .from("leadingtech")
         .select("*");
 
-      setTechStackState(leadingtech);
+      setLeadingTechState(leadingtech);
 
       return leadingtech;
     } catch (error) {
@@ -76,7 +62,7 @@ export default function Technology() {
         .from("technologies")
         .select("*");
 
-      setLeadingTechState(technologies);
+      setTechStackState(technologies);
 
       return technologies;
     } catch (error) {
