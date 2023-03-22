@@ -39,7 +39,8 @@ interface User {
 export default function PostContent({ post }) {
   // TS infers type: (state: RootState) => boolean
   const selectUser = (state: RootState) => state.users;
-  const { user: currentUser, username } = useSelector(selectUser);
+  const { userInfo } = useSelector(selectUser);
+  const { profile, session } = userInfo;
 
   const wordCount = post?.content.trim().split(/\s+/g).length;
   const minutesToRead = (wordCount / 100 + 1).toFixed(0);
@@ -109,7 +110,7 @@ export default function PostContent({ post }) {
             </div>
 
             {/* EDIT BUTTON : edit button icon visible only when user has authentication to edit */}
-            {currentUser?.uid === post.uid && (
+            {profile?.id === post.uid && (
               <div>
                 <Link href={`/admin/${post.slug}`}>
                   <button
