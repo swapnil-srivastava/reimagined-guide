@@ -134,6 +134,9 @@ function PostForm({ defaultValues, preview }) {
     mode: "onChange",
   });
 
+  const router = useRouter();
+  const { slug } = router.query;
+
   // TS infers type: (state: RootState) => boolean
   const selectUser = (state: RootState) => state.users;
   const { user: currentUser, username, userInfo } = useSelector(selectUser);
@@ -149,7 +152,8 @@ function PostForm({ defaultValues, preview }) {
         published: published,
         updated_at: new Date().toISOString(),
       })
-      .eq("id", profile?.id);
+      .eq("id", profile?.id)
+      .eq("slug", slug);
 
     reset({ content, published });
 
