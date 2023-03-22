@@ -102,7 +102,7 @@ function PostManager() {
     <main className={styles.container}>
       {post && (
         <>
-          <section className="p-3">
+          <section className="p-3 dark:text-blog-white">
             <p className="text-3xl font-sans">{post?.title}</p>
             <p className="p-1 text-md font-mono">Article ID: {post?.slug}</p>
 
@@ -174,6 +174,7 @@ function PostForm({ defaultValues, preview }) {
 
         <textarea
           name="content"
+          className="dark:bg-blog-white dark:text-blog-black"
           {...register("content", {
             maxLength: { value: 20000, message: "content is too long" },
             minLength: { value: 10, message: "content is too short" },
