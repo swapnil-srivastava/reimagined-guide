@@ -1,14 +1,23 @@
 import React from "react";
 import PostFeed from "../../components/PostFeed";
 import UserProfile from "../../components/UserProfile";
-import { getUserWithUsernameSupabase } from "./[slug]";
 import { supaClient } from "../../supa-client";
 
 // e.g. localhost:3000/swapnil
 // e.g. localhost:3000/ria
+
+export async function getUserWithSupabaseforUserPage(username) {
+  let { data: posts, error } = await supaClient
+    .from("posts")
+    .select("*")
+    .like("username", username);
+
+  return posts;
+}
+
 export async function getServerSideProps({ query }) {
   const { username } = query;
-  const userPosts = await getUserWithUsernameSupabase(username);
+  const userPosts = await getUserWithSupabaseforUserPage(username);
 
   // If no user, short circuit to 404 page
   if (!userPosts) {
@@ -27,6 +36,8 @@ export async function getServerSideProps({ query }) {
       .select("*")
       .like("username", username);
 
+    console.log("hello == profile", profiles);
+
     user = profiles;
 
     let { data: supaPosts } = await supaClient
@@ -34,6 +45,8 @@ export async function getServerSideProps({ query }) {
       .select("*")
       .like("username", username)
       .is("published", true);
+
+    console.log("hello == published supaPosts", supaPosts);
 
     posts = supaPosts;
   }
@@ -44,6 +57,8 @@ export async function getServerSideProps({ query }) {
 }
 
 function UserProfilePage({ user, posts }) {
+  console.log("UserProfilePage ====> user", user);
+  console.log("UserProfilePage ====> posts", posts);
   return (
     <>
       <UserProfile user={user}></UserProfile>
