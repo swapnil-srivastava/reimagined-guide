@@ -62,6 +62,8 @@ export default function Home(props) {
       .order("created_at", { ascending: false })
       .range(0, LIMIT);
 
+    console.log("oldPosts ===> ", oldPosts);
+
     // const newPosts = (await query.get()).docs.map((doc) => doc.data());
 
     setPosts(posts.concat(oldPosts));
