@@ -65,7 +65,7 @@ export default function Home(props) {
           parentFunction={() => getMorePosts()}
           loading={loading}
           postsEnd={postsEnd}
-          enableLoadMore={false}
+          enableLoadMore={true}
         />
       </div>
 
