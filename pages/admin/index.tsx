@@ -38,8 +38,8 @@ interface User {
 function Admin() {
   return (
     <>
-      <CreateNewPost></CreateNewPost>
       <AuthCheck>
+        <CreateNewPost></CreateNewPost>
         <SendSMS></SendSMS>
         <PostList></PostList>
       </AuthCheck>
@@ -49,13 +49,20 @@ function Admin() {
 
 function PostList() {
   const [posts, setPosts] = useState([]);
+  const selectUser = (state: RootState) => state.users;
+  const { user, username, userInfo } = useSelector(selectUser);
+  const { profile, session } = userInfo;
 
   useEffect(() => {
     fetchPost();
   }, []);
 
   const fetchPost = async () => {
-    let { data: posts, error } = await supaClient.from("posts").select("*");
+    let { data: posts, error } = await supaClient
+      .from("posts")
+      .select("*")
+      .like("username", profile?.username);
+
     setPosts(posts);
   };
 
