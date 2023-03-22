@@ -42,7 +42,6 @@ interface UserState {
 export default function Technology() {
   const [techStackState, setTechStackState] = useState<TECHNOLOGIES[]>();
   const [leadingTechState, setLeadingTechState] = useState<LEADINGTECH[]>();
-  const [userAuth, setUserAuth] = useState<User>();
 
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
@@ -95,15 +94,6 @@ export default function Technology() {
 
   async function getTechStackSupabase() {
     try {
-      const {
-        data: { user },
-      } = await supaClient.auth.getUser();
-
-      console.log("user =====>", user?.id);
-      console.log("profile =====>", profile?.id);
-
-      setUserAuth(user);
-
       let { data: technologies, error } = await supaClient
         .from("technologies")
         .select("*");
@@ -121,7 +111,7 @@ export default function Technology() {
       <Metatags description={`Technology stack that I am fluent in`} />
 
       {/* CREATE Tech Stack */}
-      {profile?.id === userAuth?.id ? <CreateNewTechStack /> : ""}
+      {profile?.id ? <CreateNewTechStack /> : ""}
       <div className="px-10 pb-2 text-2xl font-extralight dark:text-blog-white">
         Tech Stack
       </div>
