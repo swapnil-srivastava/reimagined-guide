@@ -16,7 +16,8 @@ export async function getServerSideProps(context) {
   let { data: posts } = await supaClient
     .from("posts")
     .select("*")
-    .is("published", true);
+    .is("published", true)
+    .range(0, LIMIT);
 
   return {
     props: { posts }, // will be passed to the page component as props
