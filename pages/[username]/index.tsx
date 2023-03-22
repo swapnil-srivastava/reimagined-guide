@@ -38,7 +38,9 @@ export async function getServerSideProps({ query }) {
 
     console.log("hello == profile", profiles);
 
-    user = profiles;
+    const [userProfile] = profiles;
+
+    user = userProfile;
 
     let { data: supaPosts } = await supaClient
       .from("posts")
