@@ -117,7 +117,7 @@ function AwesomeNavBar() {
       )}
 
       {/* user is signed-in and has username */}
-      {profile?.id && (
+      {profile?.username && (
         <>
           <NavBarItem nextrouteurl>
             <Link href="/admin">
@@ -128,11 +128,11 @@ function AwesomeNavBar() {
           </NavBarItem>
 
           {/* user condition is ther because image src url is missing when clicking on sign out */}
-          {profile?.id && (
+          {profile?.username && (
             <NavBarItem nextrouteurl>
               <BasicTooltip title={profile?.full_name} placement="bottom">
                 <div className="w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] rounded-full cursor-pointer flex items-center overflow-hidden">
-                  <Link href={`/${profile?.id}`}>
+                  <Link href={`/${profile?.username}`}>
                     <Image
                       width={200}
                       height={200}
