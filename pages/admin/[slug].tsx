@@ -180,7 +180,7 @@ function PostForm({ defaultValues, preview }) {
           <p className="text-danger">{errors.content.message}</p>
         )}
 
-        <fieldset className="flex gap-x-0.5">
+        <fieldset className="flex gap-x-2">
           <input
             name="published"
             type="checkbox"
