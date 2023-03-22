@@ -93,14 +93,15 @@ export default function Technology() {
 
       <div className="flex py-10 px-10 pt-2 flex-wrap">
         {techStackState &&
-          techStackState.map(({ id, tech_color: colorTechStack, name: techName}) => (
-            <TechBox
-              key={techName}
-              techStackName={techName}
-              techStackColor={colorTechStack}
-            >
-              {/* if font awesome icon is to used */}
-              {/* <a href={`https://www.linkedin.com/sharing/share-offsite/?url=https://www.swapnilsrivastava.eu/`}>
+          techStackState.map(
+            ({ id, tech_color: colorTechStack, name: techName }) => (
+              <TechBox
+                key={techName}
+                techStackName={techName}
+                techStackColor={colorTechStack}
+              >
+                {/* if font awesome icon is to used */}
+                {/* <a href={`https://www.linkedin.com/sharing/share-offsite/?url=https://www.swapnilsrivastava.eu/`}>
               <FontAwesomeIcon
                   icon={faLinkedin}
                   size={'2xl'}
@@ -108,23 +109,25 @@ export default function Technology() {
                   className="h-20 w-20 px-2 pt-1"
               />
             </a> */}
-            </TechBox>
-          ))}
+              </TechBox>
+            )
+          )}
       </div>
 
       <div className="px-10 pb-0 text-2xl font-extralight dark:text-blog-white">
-        Bleeding Tech
+        Leading Tech
       </div>
       <div className="flex py-10 px-10 pt-2 flex-wrap">
         {leadingTechState &&
-          leadingTechState.map(({ id, tech_color: colorTechStack, name: techName}) => (
-            <TechBox
-              key={id}
-              techStackName={techName}
-              techStackColor={colorTechStack}
-            >
-              {/* if svg is to be used then  */}
-              {/* <svg xmlns="http://www.w3.org/2000/svg"
+          leadingTechState.map(
+            ({ id, tech_color: colorTechStack, name: techName }) => (
+              <TechBox
+                key={id}
+                techStackName={techName}
+                techStackColor={colorTechStack}
+              >
+                {/* if svg is to be used then  */}
+                {/* <svg xmlns="http://www.w3.org/2000/svg"
                 className="h-20 w-20 stroke-1 hover:stroke-2 px-2 pt-1"
                 viewBox="0 0 20 20"
                 fill="currentColor">
@@ -134,8 +137,9 @@ export default function Technology() {
                     clipRule="evenodd"
                 />
             </svg> */}
-            </TechBox>
-          ))}
+              </TechBox>
+            )
+          )}
       </div>
     </>
   );
