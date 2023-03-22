@@ -166,3 +166,24 @@ export interface Database {
     };
   };
 }
+
+type TABLES = Pick<Database["public"], "Tables">;
+type POST_TABLE = Pick<TABLES["Tables"], "posts">;
+type POST_ROW = Pick<POST_TABLE["posts"], "Row">;
+
+export type POST = Pick<
+  POST_ROW["Row"],
+  | "approved"
+  | "content"
+  | "created_at"
+  | "heartcount"
+  | "heartid"
+  | "id"
+  | "photo_url"
+  | "published"
+  | "slug"
+  | "title"
+  | "uid"
+  | "updated_at"
+  | "username"
+>;

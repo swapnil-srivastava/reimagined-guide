@@ -6,11 +6,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesRight } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 
-// Auth
-import { auth } from "../lib/firebase";
-
 export function PostFeed({
   posts,
+  user,
   admin = false,
   parentFunction = () => alert("No Parent Function"),
   loading = false,
@@ -23,7 +21,7 @@ export function PostFeed({
           <PostItem
             post={post}
             key={post.slug}
-            admin={post && post.uid === auth.currentUser?.uid ? true : false}
+            admin={post && post.uid === user?.id ? true : false}
           />
 
           {index === array.length - 1 &&

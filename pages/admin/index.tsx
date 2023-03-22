@@ -16,21 +16,22 @@ import { SupashipUserInfo } from "../../lib/hooks";
 
 import { onlySwapnilCanSee } from "../../lib/firebase";
 
+import { POST } from "../../database.types";
+import { User } from "@supabase/supabase-js";
+
 interface RootState {
   counter: Object;
   users: UserState;
 }
 
 interface UserState {
-  user: User;
+  user: {
+    uid: string;
+    displayName: string;
+    photoURL: string;
+  };
   username: any;
   userInfo: SupashipUserInfo;
-}
-
-interface User {
-  uid: string;
-  displayName: string;
-  photoURL: string;
 }
 
 // e.g. localhost:3000/admin
@@ -48,30 +49,38 @@ function Admin() {
 }
 
 function PostList() {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<POST[]>([]);
+  const [userAuth, setUserAuth] = useState<User>();
+
   const selectUser = (state: RootState) => state.users;
-  const { user, username, userInfo } = useSelector(selectUser);
+  const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
 
   useEffect(() => {
     fetchPost();
   }, []);
 
-  const fetchPost = async () => {
+  async function fetchPost() {
+    const {
+      data: { user },
+    } = await supaClient.auth.getUser();
+
+    setUserAuth(user);
+
     let { data: posts, error } = await supaClient
       .from("posts")
       .select("*")
       .like("username", profile?.username);
 
     setPosts(posts);
-  };
+  }
 
   return (
     <>
       <div className="flex items-center justify-center">
         <h1 className="dark:text-blog-white">Manage your Posts</h1>
       </div>
-      <PostFeed posts={posts} admin enableLoadMore={false} />
+      <PostFeed posts={posts} user={userAuth} />
     </>
   );
 }

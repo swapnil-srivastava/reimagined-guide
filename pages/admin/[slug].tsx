@@ -14,27 +14,7 @@ import ImageUploader from "../../components/ImageUploader";
 import { supaClient } from "../../supa-client";
 import { SupashipUserInfo } from "../../lib/hooks";
 import { User } from "@supabase/supabase-js";
-import { Database } from "../../database.types";
-
-type TABLES = Pick<Database["public"], "Tables">;
-type POST_TABLE = Pick<TABLES["Tables"], "posts">;
-type POST_ROW = Pick<POST_TABLE["posts"], "Row">;
-type POST = Pick<
-  POST_ROW["Row"],
-  | "approved"
-  | "content"
-  | "created_at"
-  | "heartcount"
-  | "heartid"
-  | "id"
-  | "photo_url"
-  | "published"
-  | "slug"
-  | "title"
-  | "uid"
-  | "updated_at"
-  | "username"
->;
+import { POST } from "../../database.types";
 
 interface RootState {
   counter: Object;
