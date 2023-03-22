@@ -8,6 +8,7 @@ import { firestore, fromMillis, postToJSON } from "../lib/firebase";
 import { useState, useEffect } from "react";
 import Metatags from "../components/Metatags";
 import { supaClient } from "../supa-client";
+import { POST } from "../database.types";
 
 // Max post to query per page
 const LIMIT = 5;
@@ -25,19 +26,23 @@ export async function getServerSideProps(context) {
 }
 
 export default function Home(props) {
-  const [posts, setPosts] = useState(props.posts);
-  const [loading, setLoading] = useState(false);
+  const [posts, setPosts] = useState<POST[]>(props.posts);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const [postsEnd, setPostsEnd] = useState(false);
 
   const getMorePosts = async () => {
     setLoading(true);
+
     const last = posts[posts.length - 1];
 
+    console.log("last getmoreposts ====> ", last);
+    console.log("last.created_at getmoreposts ====> ", last.created_at);
+
     const cursor =
-      typeof last.createdAt === "number"
-        ? fromMillis(last.createdAt)
-        : last.createdAt;
+      typeof last.created_at === "number"
+        ? fromMillis(last.created_at)
+        : last.created_at;
 
     const query = firestore
       .collectionGroup("posts")
@@ -46,9 +51,15 @@ export default function Home(props) {
       .startAfter(cursor)
       .limit(LIMIT);
 
+    // let { data: posts } = await supaClient
+    //   .from("posts")
+    //   .select("*")
+    //   .is("published", true)
+    //   .range(0, LIMIT);
+
     const newPosts = (await query.get()).docs.map((doc) => doc.data());
 
-    setPosts(posts.concat(newPosts));
+    // setPosts(posts.concat(newPosts));
     setLoading(false);
 
     if (newPosts.length < LIMIT) {
