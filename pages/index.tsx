@@ -44,6 +44,8 @@ export default function Home(props) {
         ? fromMillis(last.created_at)
         : last.created_at;
 
+    console.log("cursor ===> ", cursor);
+
     const query = firestore
       .collectionGroup("posts")
       .where("published", "==", true)
