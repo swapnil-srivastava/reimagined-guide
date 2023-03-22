@@ -42,7 +42,7 @@ export interface Database {
         };
         Insert: {
           created_at?: string | null;
-          id: string;
+          id?: string;
           name: string;
           tech_color?: string | null;
           uid: string;
@@ -134,21 +134,21 @@ export interface Database {
           id: string;
           name: string;
           tech_color: string | null;
-          uid: string | null;
+          uid: string;
         };
         Insert: {
           created_at?: string | null;
-          id: string;
+          id?: string;
           name: string;
           tech_color?: string | null;
-          uid?: string | null;
+          uid: string;
         };
         Update: {
           created_at?: string | null;
           id?: string;
           name?: string;
           tech_color?: string | null;
-          uid?: string | null;
+          uid?: string;
         };
       };
     };
