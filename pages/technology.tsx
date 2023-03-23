@@ -97,7 +97,7 @@ export default function Technology() {
       let { data: technologies, error } = await supaClient
         .from("technologies")
         .select("*")
-        .eq("uid", process.env.SWAPNIL_UID);
+        .eq("uid", process.env.NEXT_PUBLIC_SWAPNIL_ID);
 
       setTechStackState(technologies);
 
