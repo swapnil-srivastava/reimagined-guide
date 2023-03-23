@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import axios from "axios";
-import kebabCase from "lodash.kebabcase";
+import Switch from "@mui/material/Switch";
 import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
@@ -185,6 +185,7 @@ function CreateNewTechStack() {
 
   const [techStack, setTechStack] = useState<TECHNAME>("");
   const [techColor, setTechColor] = useState<TECHCOLOR>("");
+  const [isTechStack, setIsTechStack] = useState<boolean>(true);
 
   // Validate length
   const isValidTechStack = techStack.length > 3 && techStack.length < 100;
@@ -198,10 +199,12 @@ function CreateNewTechStack() {
 
     // Tip: give all fields a default value here
     const { data, error } = await supaClient
-      .from("technologies")
+      .from(isTechStack ? "technologies" : "leadingtech")
       .insert([{ name: techStack, uid: profile?.id, tech_color: techColor }]);
 
-    toast.success("Tech Stack created!");
+    toast.success(
+      isTechStack ? "Tech Stack created!" : "Leading Tech Stack created"
+    );
 
     // Imperative navigation after doc is set
     router.push(`/technology`);
@@ -210,6 +213,7 @@ function CreateNewTechStack() {
   const clearTechStack = async (e) => {
     e.preventDefault();
     setTechStack("");
+    setTechColor("");
   };
 
   return (
@@ -219,7 +223,8 @@ function CreateNewTechStack() {
         dark:bg-blog-white"
       >
         <span className="sr-only">
-          Add a new tech stack and create the tech stack
+          Add a new {isTechStack ? "" : "leading"}tech stack and create the{" "}
+          {isTechStack ? "" : "leading"} tech stack
         </span>
 
         <div className="flex flex-col w-full mx-3">
@@ -257,7 +262,7 @@ function CreateNewTechStack() {
                     peer-focus:text-fun-blue-600
                     peer-focus:text-sm"
             >
-              Enter Your Next Tech Stack Name!!
+              Enter Your Next {isTechStack ? "" : "Leading"} Tech Stack Name!!
             </label>
           </div>
 
@@ -298,6 +303,13 @@ function CreateNewTechStack() {
             </label>
           </div>
         </div>
+
+        <Switch
+          className="self-center"
+          checked={isTechStack}
+          onChange={() => setIsTechStack(!isTechStack)}
+          inputProps={{ "aria-label": "controlled" }}
+        />
 
         <button
           type="submit"
