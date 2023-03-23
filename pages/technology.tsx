@@ -96,7 +96,8 @@ export default function Technology() {
     try {
       let { data: technologies, error } = await supaClient
         .from("technologies")
-        .select("*");
+        .select("*")
+        .eq("uid", process.env.SWAPNIL_UID);
 
       setTechStackState(technologies);
 
@@ -143,11 +144,6 @@ export default function Technology() {
         Leading Tech
       </div>
 
-      {/* CREATE LEADING Tech Stack */}
-      {/* <AuthCheck>
-        <CreateLeadingTech />
-      </AuthCheck> */}
-
       <div className="flex py-10 px-10 pt-2 flex-wrap">
         {leadingTechState &&
           leadingTechState.map(
@@ -177,8 +173,9 @@ export default function Technology() {
 }
 
 function CreateNewTechStack() {
-  type TECHNAME_OBJ = Pick<TECHNOLOGIES, "name">;
+  type TECHNAME_OBJ = Pick<TECHNOLOGIES, "name" | "tech_color">;
   type TECHNAME = TECHNAME_OBJ["name"];
+  type TECHCOLOR = TECHNAME_OBJ["tech_color"];
 
   const router = useRouter();
 
@@ -187,9 +184,13 @@ function CreateNewTechStack() {
   const { profile, session } = userInfo;
 
   const [techStack, setTechStack] = useState<TECHNAME>("");
+  const [techColor, setTechColor] = useState<TECHCOLOR>("");
 
   // Validate length
   const isValidTechStack = techStack.length > 3 && techStack.length < 100;
+  // Validate length
+  const isValidTechColor =
+    (techColor.length > 3 && techColor.length < 100) || techColor.length === 0;
 
   // Create a new post in supabase postgres
   const createTechStack = async (e) => {
@@ -198,7 +199,7 @@ function CreateNewTechStack() {
     // Tip: give all fields a default value here
     const { data, error } = await supaClient
       .from("technologies")
-      .insert([{ name: techStack, uid: profile?.id }]);
+      .insert([{ name: techStack, uid: profile?.id, tech_color: techColor }]);
 
     toast.success("Tech Stack created!");
 
@@ -221,13 +222,52 @@ function CreateNewTechStack() {
           Add a new tech stack and create the tech stack
         </span>
 
-        <div className="relative w-full mx-3">
-          <input
-            id="techStack"
-            value={techStack}
-            onChange={(e) => setTechStack(e.target.value)}
-            placeholder="Not supposed to be seen"
-            className="peer dark:bg-blog-white
+        <div className="flex flex-col w-full mx-3">
+          <div className="relative">
+            <input
+              id="techStack"
+              value={techStack}
+              onChange={(e) => setTechStack(e.target.value)}
+              placeholder="Not supposed to be seen"
+              className="peer 
+                    dark:bg-blog-white
+                    bg-blog-white
+                    text-fun-blue-500
+                    dark:text-fun-blue-500
+                    border-none 
+                    focus:outline-none
+                    block 
+                    w-full 
+                    rounded-sm
+                    text-sm 
+                    md:text-lg
+                    leading-tight
+                    h-10
+                    placeholder-transparent"
+            />
+            <label
+              htmlFor="techStack"
+              className="absolute left-0 -top-3.5 
+                    text-fun-blue-600 text-sm 
+                    transition-all 
+                    peer-placeholder-shown:text-base 
+                    peer-placeholder-shown:text-fun-blue-400 
+                    peer-placeholder-shown:top-2 
+                    peer-focus:-top-3.5 
+                    peer-focus:text-fun-blue-600
+                    peer-focus:text-sm"
+            >
+              Enter Your Next Tech Stack Name!!
+            </label>
+          </div>
+
+          <div className="relative">
+            <input
+              id="techcolor"
+              value={techColor}
+              onChange={(e) => setTechColor(e.target.value)}
+              placeholder="Not supposed to be seen"
+              className="peer dark:bg-blog-white
                     text-fun-blue-500
                     dark:text-fun-blue-500
                     bg-blog-white
@@ -241,10 +281,10 @@ function CreateNewTechStack() {
                     leading-tight
                     h-10
                     placeholder-transparent"
-          />
-          <label
-            htmlFor="techStack"
-            className="absolute left-0 -top-3.5 
+            />
+            <label
+              htmlFor="techcolor"
+              className="absolute left-0 -top-3.5 
                     text-fun-blue-600 text-sm 
                     transition-all 
                     peer-placeholder-shown:text-base 
@@ -253,14 +293,15 @@ function CreateNewTechStack() {
                     peer-focus:-top-3.5 
                     peer-focus:text-fun-blue-600
                     peer-focus:text-sm"
-          >
-            Enter Your Next Tech Stack Name!!
-          </label>
+            >
+              Enter Tailwind CSS!!
+            </label>
+          </div>
         </div>
 
         <button
           type="submit"
-          disabled={!isValidTechStack}
+          disabled={!isValidTechStack && !isValidTechColor}
           className={adminStyles.btnAdmin}
         >
           Create
