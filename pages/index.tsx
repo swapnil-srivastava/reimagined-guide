@@ -96,9 +96,9 @@ export default function Home(props) {
         </blockquote>
       </div>
       <div className="relative">
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 bottom-16">
           <FontAwesomeIcon
-            className="animate-bounce h-15 w-15 mb-10 dark:text-blog-white text-fun-blue-500"
+            className="animate-bounce h-15 w-15 dark:text-blog-white text-fun-blue-500"
             icon={faAnglesDown}
             size={"3x"}
           />
