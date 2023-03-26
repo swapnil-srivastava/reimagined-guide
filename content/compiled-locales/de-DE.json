@@ -5,10 +5,34 @@
       "value": "Ich heiße Avni Srivastava"
     }
   ],
+  "swapnil_architect": [
+    {
+      "type": 0,
+      "value": "Architekt"
+    }
+  ],
+  "swapnil_architect_an": [
+    {
+      "type": 0,
+      "value": "ein"
+    }
+  ],
+  "swapnil_architect_hello": [
+    {
+      "type": 0,
+      "value": "Hallo, ich bin"
+    }
+  ],
   "swapnil_intro": [
     {
       "type": 0,
       "value": "Ich heiße Swapnil Srivastava"
+    }
+  ],
+  "swapnil_name": [
+    {
+      "type": 0,
+      "value": "Swapnil Srivastava"
     }
   ]
 }

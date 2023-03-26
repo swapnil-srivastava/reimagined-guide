@@ -1,14 +1,26 @@
 {
-  "avni_intro": [
+  "swapnil_architect": [
     {
       "type": 0,
-      "value": "My name is Avni Srivastava"
+      "value": "Architect"
     }
   ],
-  "swapnil_intro": [
+  "swapnil_architect_an": [
     {
       "type": 0,
-      "value": "My name is Swapnil Srivastava"
+      "value": "an"
+    }
+  ],
+  "swapnil_architect_hello": [
+    {
+      "type": 0,
+      "value": "Hi, I'm"
+    }
+  ],
+  "swapnil_name": [
+    {
+      "type": 0,
+      "value": "Swapnil Srivastava"
     }
   ]
 }

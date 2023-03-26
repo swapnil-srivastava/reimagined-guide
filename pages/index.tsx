@@ -57,6 +57,55 @@ export default function Home(props) {
   return (
     <main>
       <Metatags />
+      {/* <div className="flex items-center p-3">
+        <blockquote className="lg:text-8xl text-5xl font-semibold italic text-center text-slate-900">
+          When you look
+          <span className="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500 relative inline-block mx-2">
+            <span className="relative text-white">annoyed</span>
+          </span>
+          all the time, people think that you're busy. -{" "}
+          <FormattedMessage
+            id="swapnil_name"
+            description="Name of the Author" // Description should be a string literal
+            defaultMessage="Swapnil Srivastava" // Message should be a string literal
+          />
+        </blockquote>
+      </div> */}
+      <div className="p-3 flex justify-center items-center h-screen">
+        <blockquote className="lg:text-8xl text-5xl font-semibold italic text-center text-slate-90 dark:text-blog-white text-blog-black">
+          <FormattedMessage
+            id="swapnil_architect_hello"
+            description="an" // Description should be a string literal
+            defaultMessage="Hi, I'm" // Message should be a string literal
+          />{" "}
+          <span className="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500 relative inline-block mx-2 dark:text-blog-white text-blog-white">
+            <span className="relative text-white">
+              <FormattedMessage
+                id="swapnil_name"
+                description="Name of the Author" // Description should be a string literal
+                defaultMessage="Swapnil Srivastava" // Message should be a string literal
+              />
+            </span>
+          </span>
+          <br />
+          <span>
+            <span>
+              <FormattedMessage
+                id="swapnil_architect_an"
+                description="an" // Description should be a string literal
+                defaultMessage="an" // Message should be a string literal
+              />{" "}
+            </span>
+            <span className="underline decoration-fun-blue-500 dark:decoration-hit-pink-500 underline-offset-auto">
+              <FormattedMessage
+                id="swapnil_architect"
+                description="Architect" // Description should be a string literal
+                defaultMessage="Architect" // Message should be a string literal
+              />
+            </span>
+          </span>
+        </blockquote>
+      </div>
       <div className="lg:flex lg:flex-row flex-wrap gap-x-4 ml-4 mr-4">
         <PostFeed
           posts={posts}
@@ -76,12 +125,6 @@ export default function Home(props) {
           You have reached the end!
         </div>
       )}
-
-      <FormattedMessage
-        id="swapnil_intro"
-        description="A message" // Description should be a string literal
-        defaultMessage="My name is Swapnil Srivastava" // Message should be a string literal
-      />
     </main>
   );
 }

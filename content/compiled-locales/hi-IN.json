@@ -5,10 +5,34 @@
       "value": "मेरा नाम अवनी श्रीवास्तव है"
     }
   ],
+  "swapnil_architect": [
+    {
+      "type": 0,
+      "value": "सॉफ्टवेयर आर्किटेक्ट हूं"
+    }
+  ],
+  "swapnil_architect_an": [
+    {
+      "type": 0,
+      "value": "एक"
+    }
+  ],
+  "swapnil_architect_hello": [
+    {
+      "type": 0,
+      "value": "नमस्ते, मैं"
+    }
+  ],
   "swapnil_intro": [
     {
       "type": 0,
       "value": "मेरा नाम स्वप्निल श्रीवास्तव है"
+    }
+  ],
+  "swapnil_name": [
+    {
+      "type": 0,
+      "value": "स्वप्निल श्रीवास्तव"
     }
   ]
 }
