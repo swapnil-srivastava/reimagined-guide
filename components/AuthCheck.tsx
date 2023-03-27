@@ -17,7 +17,7 @@ interface UserState {
 export default function AuthCheck(props) {
   // TS infers type: (state: RootState) => boolean
   const selectUser = (state: RootState) => state.users;
-  const { username, userInfo } = useSelector(selectUser);
+  const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
 
   return profile?.id

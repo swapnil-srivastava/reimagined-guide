@@ -41,7 +41,7 @@ interface User {
 function AwesomeNavBar() {
   // TS infers type: (state: RootState) => boolean
   const selectUser = (state: RootState) => state.users;
-  const { user, username, userInfo } = useSelector(selectUser);
+  const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
   const { theme, setTheme } = useTheme();
   const { locales, asPath, locale: nextLocale } = useRouter();
@@ -190,7 +190,7 @@ function NavBar({ children }) {
 
 function DropdownMenu() {
   const selectUser = (state: RootState) => state.users;
-  const { user, username, userInfo } = useSelector(selectUser);
+  const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
 
   const [activeMenu, setActiveMenu] = useState("main");
@@ -202,7 +202,6 @@ function DropdownMenu() {
   }, []);
 
   function calcHeight(el) {
-    // const { height } = el.getBoundingClientRect();
     const height = el.offsetHeight;
     setMenuHeight(height);
   }
