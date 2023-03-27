@@ -4,8 +4,9 @@ import { faAnglesRight } from "@fortawesome/free-solid-svg-icons";
 function Profile() {
   return (
     <>
-      <div
-        className="p-3 px-16 m-4 
+      <div className="flex flex-col flex-wrap h-screen">
+        <div
+          className="p-3 px-16 m-4 
             bg-fun-blue-600
             dark:bg-hit-pink-500 dark:text-blog-white
             rounded-lg 
@@ -13,9 +14,9 @@ function Profile() {
             hover:drop-shadow-xl
             flex items-center justify-center
             hover:brightness-125"
-      >
-        <button
-          className="
+        >
+          <button
+            className="
                 focus:outline-none focus:ring-2 
                 focus:ring-fun-blue-400 
                 focus:ring-offset-2 text-sm 
@@ -28,11 +29,12 @@ function Profile() {
                 transition-filter duration-500 hover:filter hover:brightness-125
                 flex items-center
                 "
-          onClick={() => console.log("Hello")}
-        >
-          <div className="pr-2">Load More</div>
-          <FontAwesomeIcon icon={faAnglesRight} size={"3x"} />
-        </button>
+            onClick={() => console.log("Hello")}
+          >
+            <div className="pr-2">Load More</div>
+            <FontAwesomeIcon icon={faAnglesRight} size={"3x"} />
+          </button>
+        </div>
       </div>
     </>
   );
