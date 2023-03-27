@@ -1,10 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { supaClient } from "../supa-client";
-import { firestore } from "../lib/firebase";
 import { SupashipUserInfo } from "../lib/hooks";
 import debounce from "lodash.debounce";
-import { now } from "moment";
 
 interface RootState {
   counter: Object;
@@ -26,7 +24,7 @@ interface User {
 // e.g. localhost:3000/enter
 function Enter() {
   const selectUser = (state: RootState) => state.users;
-  const { user, username, userInfo } = useSelector(selectUser);
+  const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
 
   // 1. user signed out <SignInButton />
@@ -112,7 +110,7 @@ function UsernameForm() {
 
   // TS infers type: (state: RootState) => boolean
   const selectUser = (state: RootState) => state.users;
-  const { user, username, userInfo } = useSelector(selectUser);
+  const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
 
   const onSubmit = async (e) => {
