@@ -48,8 +48,10 @@ function MyApp({ Component, pageProps }) {
             locale={nextLocale}
             defaultLocale={nextDefaultLocale}
           >
-            <AwesomeNavBar />
-            <Component {...pageProps} />
+            <div>
+              <AwesomeNavBar />
+              <Component {...pageProps} />
+            </div>
             <Toaster />
           </IntlProvider>
         </Provider>
