@@ -1,8 +1,6 @@
 import { useState, useMemo } from "react";
 import { JsonForms } from "@jsonforms/react";
 
-import Button from "@mui/material/Button";
-
 import schema from "../lib/schema.json";
 import uischema from "../lib/uischema.json";
 
@@ -41,9 +39,6 @@ const Profile = () => {
           onChange={({ errors, data }) => setData(data)}
         />
       </div>
-      <Button onClick={clearData} color="primary" variant="contained">
-        Clear data
-      </Button>
     </>
   );
 };
