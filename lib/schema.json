@@ -1,7 +1,11 @@
 {
   "type": "object",
   "properties": {
-    "name": {
+    "tech_stack_name": {
+      "type": "string",
+      "minLength": 2
+    },
+    "tech_stack_css": {
       "type": "string",
       "minLength": 1
     },
@@ -21,5 +25,5 @@
       "description": "The \"toggle\" option renders boolean values as a toggle."
     }
   },
-  "required": ["name", "due_date"]
+  "required": ["tech_stack_name", "due_date", "toggle"]
 }

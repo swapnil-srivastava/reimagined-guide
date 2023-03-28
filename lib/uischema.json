@@ -3,7 +3,11 @@
   "elements": [
     {
       "type": "Control",
-      "scope": "#/properties/name"
+      "scope": "#/properties/tech_stack_name"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/tech_stack_css"
     },
     {
       "type": "Control",

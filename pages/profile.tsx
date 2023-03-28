@@ -10,8 +10,8 @@ import {
 } from "@jsonforms/material-renderers";
 
 const initialData = {
-  name: "Send email to Adrian",
-  description: "Confirm if you have passed the subject\nHereby ...",
+  tech_stack_name: "Send email to Adrian",
+  tech_stack_css: "Confirm if you have passed the subject\nHereby ...",
   done: true,
   recurrence: "Daily",
 };
