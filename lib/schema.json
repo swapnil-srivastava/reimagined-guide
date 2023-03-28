@@ -16,10 +16,6 @@
         "type": "string",
         "format": "date"
       },
-      "rating": {
-        "type": "integer",
-        "maximum": 5
-      },
       "recurrence": {
         "type": "string",
         "enum": ["Never", "Daily", "Weekly", "Monthly"]

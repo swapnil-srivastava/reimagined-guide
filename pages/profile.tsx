@@ -11,9 +11,6 @@ import {
   materialRenderers,
 } from "@jsonforms/material-renderers";
 
-import RatingControl from "../components/RatingControl";
-import ratingControlTester from "../components/ratingControlTester";
-
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
@@ -47,14 +44,9 @@ const initialData = {
   description: "Confirm if you have passed the subject\nHereby ...",
   done: true,
   recurrence: "Daily",
-  rating: 3,
 };
 
-const renderers = [
-  ...materialRenderers,
-  //register custom renderers
-  { tester: ratingControlTester, renderer: RatingControl },
-];
+const renderers = [...materialRenderers];
 
 const Profile = () => {
   const classes = useStyles();
@@ -67,13 +59,6 @@ const Profile = () => {
 
   return (
     <Fragment>
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to JSON Forms with React</h1>
-          <p className="App-intro">More Forms. Less Code.</p>
-        </header>
-      </div>
-
       <Grid
         container
         justifyContent={"center"}
