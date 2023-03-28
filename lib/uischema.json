@@ -11,13 +11,8 @@
       "scope": "#/properties/name"
     },
     {
-      "type": "HorizontalLayout",
-      "elements": [
-        {
-          "type": "Control",
-          "scope": "#/properties/due_date"
-        }
-      ]
+      "type": "Control",
+      "scope": "#/properties/due_date"
     },
     {
       "type": "HorizontalLayout",
