@@ -3,11 +3,6 @@
   "elements": [
     {
       "type": "Control",
-      "label": "Completed",
-      "scope": "#/properties/done"
-    },
-    {
-      "type": "Control",
       "scope": "#/properties/name"
     },
     {
