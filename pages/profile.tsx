@@ -1,4 +1,4 @@
-import { Fragment, useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { JsonForms } from "@jsonforms/react";
 
 import Button from "@mui/material/Button";
@@ -27,7 +27,7 @@ const Profile = () => {
   };
 
   return (
-    <Fragment>
+    <>
       <div>
         <pre id="boundData">{stringifiedData}</pre>
       </div>
@@ -45,7 +45,7 @@ const Profile = () => {
           onChange={({ errors, data }) => setData(data)}
         />
       </div>
-    </Fragment>
+    </>
   );
 };
 
