@@ -12,8 +12,7 @@ import {
 const initialData = {
   tech_stack_name: "Send email to Adrian",
   tech_stack_css: "Confirm if you have passed the subject\nHereby ...",
-  done: true,
-  recurrence: "Daily",
+  toggle: true,
 };
 
 const Profile = () => {

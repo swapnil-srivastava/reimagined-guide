@@ -9,17 +9,6 @@
       "type": "string",
       "minLength": 1
     },
-    "due_date": {
-      "type": "string",
-      "format": "date"
-    },
-    "recurrence": {
-      "type": "string",
-      "enum": ["Never", "Daily", "Weekly", "Monthly"]
-    },
-    "recurrence_interval": {
-      "type": "integer"
-    },
     "toggle": {
       "type": "boolean",
       "description": "The \"toggle\" option renders boolean values as a toggle."
