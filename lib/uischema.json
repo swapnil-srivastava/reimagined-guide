@@ -37,13 +37,6 @@
     },
     {
       "type": "Control",
-      "scope": "#/properties/description",
-      "options": {
-        "multi": true
-      }
-    },
-    {
-      "type": "Control",
       "scope": "#/properties/toggle",
       "label": "Boolean as Toggle",
       "options": {
