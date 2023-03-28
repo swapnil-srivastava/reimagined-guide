@@ -11,34 +11,6 @@ import {
   materialRenderers,
 } from "@jsonforms/material-renderers";
 
-import { makeStyles } from "@mui/styles";
-
-const useStyles = makeStyles({
-  container: {
-    padding: "1em",
-    width: "100%",
-  },
-  title: {
-    textAlign: "center",
-    padding: "0.25em",
-  },
-  dataContent: {
-    display: "flex",
-    justifyContent: "center",
-    borderRadius: "0.25em",
-    backgroundColor: "#cecece",
-    marginBottom: "1rem",
-  },
-  resetButton: {
-    margin: "auto !important",
-    display: "block !important",
-  },
-  demoform: {
-    margin: "auto",
-    padding: "1rem",
-  },
-});
-
 const initialData = {
   name: "Send email to Adrian",
   description: "Confirm if you have passed the subject\nHereby ...",
@@ -49,7 +21,6 @@ const initialData = {
 const renderers = [...materialRenderers];
 
 const Profile = () => {
-  const classes = useStyles();
   const [data, setData] = useState<any>(initialData);
   const stringifiedData = useMemo(() => JSON.stringify(data, null, 2), [data]);
 
@@ -59,33 +30,19 @@ const Profile = () => {
 
   return (
     <Fragment>
-      <Grid
-        container
-        justifyContent={"center"}
-        spacing={1}
-        className={classes.container}
-      >
+      <Grid container justifyContent={"center"} spacing={1}>
         <Grid item sm={6}>
-          <Typography variant={"h4"} className={classes.title}>
-            Bound data
-          </Typography>
-          <div className={classes.dataContent}>
+          <Typography variant={"h4"}>Bound data</Typography>
+          <div>
             <pre id="boundData">{stringifiedData}</pre>
           </div>
-          <Button
-            className={classes.resetButton}
-            onClick={clearData}
-            color="primary"
-            variant="contained"
-          >
+          <Button onClick={clearData} color="primary" variant="contained">
             Clear data
           </Button>
         </Grid>
         <Grid item sm={6}>
-          <Typography variant={"h4"} className={classes.title}>
-            Rendered form
-          </Typography>
-          <div className={classes.demoform}>
+          <Typography variant={"h4"}>Rendered form</Typography>
+          <div>
             <JsonForms
               schema={schema}
               uischema={uischema}
