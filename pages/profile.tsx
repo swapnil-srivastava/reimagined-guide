@@ -1,43 +1,119 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAnglesRight } from "@fortawesome/free-solid-svg-icons";
+import { Fragment, useState, useMemo } from "react";
+import { JsonForms } from "@jsonforms/react";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
 
-function Profile() {
+import Typography from "@mui/material/Typography";
+import schema from "../lib/schema.json";
+import uischema from "../lib/uischema.json";
+import {
+  materialCells,
+  materialRenderers,
+} from "@jsonforms/material-renderers";
+
+import RatingControl from "../components/RatingControl";
+import ratingControlTester from "../components/ratingControlTester";
+
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles({
+  container: {
+    padding: "1em",
+    width: "100%",
+  },
+  title: {
+    textAlign: "center",
+    padding: "0.25em",
+  },
+  dataContent: {
+    display: "flex",
+    justifyContent: "center",
+    borderRadius: "0.25em",
+    backgroundColor: "#cecece",
+    marginBottom: "1rem",
+  },
+  resetButton: {
+    margin: "auto !important",
+    display: "block !important",
+  },
+  demoform: {
+    margin: "auto",
+    padding: "1rem",
+  },
+});
+
+const initialData = {
+  name: "Send email to Adrian",
+  description: "Confirm if you have passed the subject\nHereby ...",
+  done: true,
+  recurrence: "Daily",
+  rating: 3,
+};
+
+const renderers = [
+  ...materialRenderers,
+  //register custom renderers
+  { tester: ratingControlTester, renderer: RatingControl },
+];
+
+const Profile = () => {
+  const classes = useStyles();
+  const [data, setData] = useState<any>(initialData);
+  const stringifiedData = useMemo(() => JSON.stringify(data, null, 2), [data]);
+
+  const clearData = () => {
+    setData({});
+  };
+
   return (
-    <>
-      <div className="flex flex-col flex-wrap h-screen">
-        <div
-          className="p-3 px-16 m-4 
-            bg-fun-blue-600
-            dark:bg-hit-pink-500 dark:text-blog-white
-            rounded-lg 
-            drop-shadow-lg
-            hover:drop-shadow-xl
-            flex items-center justify-center
-            hover:brightness-125"
-        >
-          <button
-            className="
-                focus:outline-none focus:ring-2 
-                focus:ring-fun-blue-400 
-                focus:ring-offset-2 text-sm 
-                text-blog-black
-                font-semibold 
-                h-12 px-3 rounded-lg
-                bg-hit-pink-500
-                dark:bg-fun-blue-600 dark:text-blog-white
-                transition-transform pointer-events-auto
-                transition-filter duration-500 hover:filter hover:brightness-125
-                flex items-center
-                "
-            onClick={() => console.log("Hello")}
-          >
-            <div className="pr-2">Load More</div>
-            <FontAwesomeIcon icon={faAnglesRight} size={"3x"} />
-          </button>
-        </div>
+    <Fragment>
+      <div className="App">
+        <header className="App-header">
+          <h1 className="App-title">Welcome to JSON Forms with React</h1>
+          <p className="App-intro">More Forms. Less Code.</p>
+        </header>
       </div>
-    </>
+
+      <Grid
+        container
+        justifyContent={"center"}
+        spacing={1}
+        className={classes.container}
+      >
+        <Grid item sm={6}>
+          <Typography variant={"h4"} className={classes.title}>
+            Bound data
+          </Typography>
+          <div className={classes.dataContent}>
+            <pre id="boundData">{stringifiedData}</pre>
+          </div>
+          <Button
+            className={classes.resetButton}
+            onClick={clearData}
+            color="primary"
+            variant="contained"
+          >
+            Clear data
+          </Button>
+        </Grid>
+        <Grid item sm={6}>
+          <Typography variant={"h4"} className={classes.title}>
+            Rendered form
+          </Typography>
+          <div className={classes.demoform}>
+            <JsonForms
+              schema={schema}
+              uischema={uischema}
+              data={data}
+              renderers={renderers}
+              cells={materialCells}
+              onChange={({ errors, data }) => setData(data)}
+            />
+          </div>
+        </Grid>
+      </Grid>
+    </Fragment>
   );
-}
+};
 
 export default Profile;
