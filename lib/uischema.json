@@ -41,6 +41,14 @@
       "options": {
         "multi": true
       }
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/toggle",
+      "label": "Boolean as Toggle",
+      "options": {
+        "toggle": true
+      }
     }
   ]
 }
