@@ -18,7 +18,6 @@ const initialData = {
 
 const Profile = () => {
   const [data, setData] = useState<any>(initialData);
-  const stringifiedData = useMemo(() => JSON.stringify(data, null, 2), [data]);
 
   const clearData = () => {
     setData({});
@@ -26,9 +25,6 @@ const Profile = () => {
 
   return (
     <>
-      <div>
-        <pre id="boundData">{stringifiedData}</pre>
-      </div>
       <div>
         <JsonForms
           schema={schema}
