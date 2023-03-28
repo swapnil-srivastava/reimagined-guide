@@ -31,10 +31,6 @@ const Profile = () => {
       <div>
         <pre id="boundData">{stringifiedData}</pre>
       </div>
-      <Button onClick={clearData} color="primary" variant="contained">
-        Clear data
-      </Button>
-
       <div>
         <JsonForms
           schema={schema}
@@ -45,6 +41,9 @@ const Profile = () => {
           onChange={({ errors, data }) => setData(data)}
         />
       </div>
+      <Button onClick={clearData} color="primary" variant="contained">
+        Clear data
+      </Button>
     </>
   );
 };
