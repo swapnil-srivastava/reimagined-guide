@@ -1,11 +1,12 @@
 import { Fragment, useState, useMemo } from "react";
 import { JsonForms } from "@jsonforms/react";
+
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 
-import Typography from "@mui/material/Typography";
 import schema from "../lib/schema.json";
 import uischema from "../lib/uischema.json";
+
 import {
   materialCells,
   materialRenderers,
@@ -32,7 +33,6 @@ const Profile = () => {
     <Fragment>
       <Grid container justifyContent={"center"} spacing={1}>
         <Grid item sm={6}>
-          <Typography variant={"h4"}>Bound data</Typography>
           <div>
             <pre id="boundData">{stringifiedData}</pre>
           </div>
@@ -41,7 +41,6 @@ const Profile = () => {
           </Button>
         </Grid>
         <Grid item sm={6}>
-          <Typography variant={"h4"}>Rendered form</Typography>
           <div>
             <JsonForms
               schema={schema}
