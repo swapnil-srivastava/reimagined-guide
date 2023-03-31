@@ -48,7 +48,7 @@ function MyApp({ Component, pageProps }) {
             locale={nextLocale}
             defaultLocale={nextDefaultLocale}
           >
-            <div>
+            <div className="flex flex-col">
               <AwesomeNavBar />
               <Component {...pageProps} />
             </div>

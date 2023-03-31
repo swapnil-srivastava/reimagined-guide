@@ -161,7 +161,7 @@ function AwesomeNavBar() {
 function NavBar({ children }) {
   return (
     <nav
-      className="fixed top-0 w-full h-20 py-0 px-4
+      className="w-full h-20 py-0 px-4
             bg-blog-white 
             dark:bg-fun-blue-600 dark:text-blog-white
             drop-shadow-lg
