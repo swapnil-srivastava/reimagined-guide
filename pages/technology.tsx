@@ -204,7 +204,7 @@ function CreateNewTechStack() {
 
   return (
     <>
-      <div className="flex flex-col gap-2 m-4">
+      <div className="flex flex-col gap-2 my-4 px-4 py-2 text-blog-black dark:bg-blog-white">
         <JsonForms
           schema={schema}
           uischema={uischema}
@@ -219,29 +219,29 @@ function CreateNewTechStack() {
             type="submit"
             disabled={!isValidTechStack && !isValidTechColor}
             className="
-          py-1 px-2
-          font-light
-          text-sm
-          bg-hit-pink-500 
-          border-4 border-hit-pink-500 
-          rounded
-          hover:filter hover:brightness-125
-          flex-shrink-0 
-          self-center
-        "
+            py-1 px-2
+            font-light
+            text-sm
+            dark:text-blog-black
+            bg-hit-pink-500 
+            border-2 border-hit-pink-500 
+            rounded
+            hover:filter hover:brightness-125
+            flex-shrink-0 
+            self-center"
             onClick={() => createTechStack()}
           >
             Create
           </button>
           <button
             className="
-        border border-fun-blue-500 dark:border-fun-blue-500
-        text-fun-blue-500 
-        dark:text-fun-blue-500
-        hover:text-fun-blue-400 
-        dark:hover:text-slate-300 
-        text-sm rounded py-1 px-2
-        self-center"
+            py-1 px-2
+            font-light
+            border
+            border-fun-blue-500
+            text-fun-blue-500
+            text-sm rounded 
+            self-center"
             type="button"
             onClick={clearTechStack}
           >
