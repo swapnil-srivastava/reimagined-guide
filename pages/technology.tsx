@@ -22,7 +22,17 @@ import AuthCheck from "../components/AuthCheck";
 import { LEADINGTECH, TECHNOLOGIES } from "../database.types";
 import { supaClient } from "../supa-client";
 import { SupashipUserInfo } from "../lib/hooks";
-import { randomUUID } from "crypto";
+
+// JSON Forms 
+import { JsonForms } from "@jsonforms/react";
+
+import schema from "../lib/techStack/techStackSchema.json";
+import uischema from "../lib/techStack/uiTechStackSchema.json";
+
+import {
+  materialCells,
+  materialRenderers,
+} from "@jsonforms/material-renderers";
 
 interface RootState {
   counter: Object;
@@ -173,6 +183,12 @@ export default function Technology() {
   );
 }
 
+interface TechStackJSON {
+  tech_stack_name: string;
+  tech_stack_css: string;
+  toggle: boolean
+}
+
 function CreateNewTechStack() {
   type TECHNAME_OBJ = Pick<TECHNOLOGIES, "name" | "tech_color">;
   type TECHNAME = TECHNAME_OBJ["name"];
@@ -184,27 +200,32 @@ function CreateNewTechStack() {
   const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
 
-  const [techStack, setTechStack] = useState<TECHNAME>("");
-  const [techColor, setTechColor] = useState<TECHCOLOR>("");
-  const [isTechStack, setIsTechStack] = useState<boolean>(true);
+  const [data, setData] = useState<TechStackJSON>();
+
+  const clearData = () => {
+    setData({
+      tech_stack_css: '',
+      tech_stack_name: '',
+      toggle: false
+    });
+  };
 
   // Validate length
-  const isValidTechStack = techStack.length > 3 && techStack.length < 100;
+  const isValidTechStack = data?.tech_stack_name?.length > 3 && data?.tech_stack_name?.length < 100;
   // Validate length
   const isValidTechColor =
-    (techColor.length > 3 && techColor.length < 100) || techColor.length === 0;
+    ( data?.tech_stack_css?.length > 2 && data?.tech_stack_css?.length < 100) || data?.tech_stack_css?.length === 0;
 
   // Create a new post in supabase postgres
-  const createTechStack = async (e) => {
-    e.preventDefault();
+  const createTechStack = async () => {
 
     // Tip: give all fields a default value here
-    const { data, error } = await supaClient
-      .from(isTechStack ? "technologies" : "leadingtech")
-      .insert([{ name: techStack, uid: profile?.id, tech_color: techColor }]);
+    const { data: supaData, error } = await supaClient
+      .from(data?.toggle ? "technologies" : "leadingtech")
+      .insert([{ name: data?.tech_stack_name, uid: profile?.id, tech_color: data?.tech_stack_css }]);
 
     toast.success(
-      isTechStack ? "Tech Stack created!" : "Leading Tech Stack created"
+      data?.toggle ? "Tech Stack created!" : "Leading Tech Stack created"
     );
 
     // Imperative navigation after doc is set
@@ -213,125 +234,57 @@ function CreateNewTechStack() {
 
   const clearTechStack = async (e) => {
     e.preventDefault();
-    setTechStack("");
-    setTechColor("");
+    clearData();
   };
 
   return (
-    <form onSubmit={createTechStack}>
-      <div
-        className="flex item-center border-b border-fun-blue-500 dark:border-fun-blue-300 py-4
-        dark:bg-blog-white"
+    <>
+      <div className="flex flex-col gap-2 m-4">
+
+      <JsonForms
+        schema={schema}
+        uischema={uischema}
+        data={data}
+        renderers={materialRenderers}
+        cells={materialCells}
+        onChange={({ errors, data }) => setData(data)}
+      />
+
+      <div className="flex self-center gap-2">
+      <button
+        type="submit"
+        disabled={!isValidTechStack && !isValidTechColor}
+        className="
+          py-1 px-2
+          font-light
+          text-sm
+          bg-hit-pink-500 
+          border-4 border-hit-pink-500 
+          rounded
+          hover:filter hover:brightness-125
+          flex-shrink-0 
+          self-center
+        "
+        onClick={() => createTechStack()}>
+            Create
+      </button>
+      <button
+        className="
+        border border-fun-blue-500 dark:border-fun-blue-500
+        text-fun-blue-500 
+        dark:text-fun-blue-500
+        hover:text-fun-blue-400 
+        dark:hover:text-slate-300 
+        text-sm rounded py-1 px-2
+        self-center"
+        type="button"
+        onClick={clearTechStack}
       >
-        <span className="sr-only">
-          Add a new {isTechStack ? "" : "leading"}tech stack and create the{" "}
-          {isTechStack ? "" : "leading"} tech stack
-        </span>
-
-        <div className="flex flex-col w-full mx-3">
-          <div className="relative">
-            <input
-              id="techStack"
-              value={techStack}
-              onChange={(e) => setTechStack(e.target.value)}
-              placeholder="Not supposed to be seen"
-              className="peer 
-                    dark:bg-blog-white
-                    bg-blog-white
-                    text-fun-blue-500
-                    dark:text-fun-blue-500
-                    border-none 
-                    focus:outline-none
-                    block 
-                    w-full 
-                    rounded-sm
-                    text-sm 
-                    md:text-lg
-                    leading-tight
-                    h-10
-                    placeholder-transparent"
-            />
-            <label
-              htmlFor="techStack"
-              className="absolute left-0 -top-3.5 
-                    text-fun-blue-600 text-sm 
-                    transition-all 
-                    peer-placeholder-shown:text-base 
-                    peer-placeholder-shown:text-fun-blue-400 
-                    peer-placeholder-shown:top-2 
-                    peer-focus:-top-3.5 
-                    peer-focus:text-fun-blue-600
-                    peer-focus:text-sm"
-            >
-              Enter Your Next {isTechStack ? "" : "Leading"} Tech Stack Name!!
-            </label>
-          </div>
-
-          <div className="relative">
-            <input
-              id="techcolor"
-              value={techColor}
-              onChange={(e) => setTechColor(e.target.value)}
-              placeholder="Not supposed to be seen"
-              className="peer dark:bg-blog-white
-                    text-fun-blue-500
-                    dark:text-fun-blue-500
-                    bg-blog-white
-                    border-none 
-                    focus:outline-none
-                    block 
-                    w-full 
-                    rounded-sm
-                    text-sm 
-                    md:text-lg
-                    leading-tight
-                    h-10
-                    placeholder-transparent"
-            />
-            <label
-              htmlFor="techcolor"
-              className="absolute left-0 -top-3.5 
-                    text-fun-blue-600 text-sm 
-                    transition-all 
-                    peer-placeholder-shown:text-base 
-                    peer-placeholder-shown:text-fun-blue-400 
-                    peer-placeholder-shown:top-2 
-                    peer-focus:-top-3.5 
-                    peer-focus:text-fun-blue-600
-                    peer-focus:text-sm"
-            >
-              Enter Tailwind CSS!!
-            </label>
-          </div>
-        </div>
-
-        <Switch
-          className="self-center"
-          checked={isTechStack}
-          onChange={() => setIsTechStack(!isTechStack)}
-          inputProps={{ "aria-label": "controlled" }}
-        />
-
-        <button
-          type="submit"
-          disabled={!isValidTechStack && !isValidTechColor}
-          className={adminStyles.btnAdmin}
-        >
-          Create
-        </button>
-        <button
-          className="border border-fun-blue-500 dark:border-fun-blue-500
-          text-fun-blue-500 
-          dark:text-fun-blue-500
-          hover:text-fun-blue-400 
-          dark:hover:text-slate-300 
-          text-sm rounded py-1 px-2 mx-1 mr-4"
-          type="button"
-          onClick={clearTechStack}
-        >
-          Cancel
-        </button>
+        Cancel
+      </button>
       </div>
-    </form>
+      
+      </div>
+   </>
   );
 }

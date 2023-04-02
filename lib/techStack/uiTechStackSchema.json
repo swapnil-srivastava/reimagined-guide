@@ -1,0 +1,30 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+     {
+      "type": "Label",
+      "text": "Enter the Tech Stack"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/tech_stack_name"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/tech_stack_css"
+    },
+    {
+      "type": "HorizontalLayout",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/toggle",
+          "label": "Leading Tech Stack or Tech Stack",
+          "options": {
+            "toggle": true
+          }
+        }
+      ]
+    }
+  ]
+}

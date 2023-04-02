@@ -14,5 +14,5 @@
       "description": "The \"toggle\" option renders boolean values as a toggle."
     }
   },
-  "required": ["tech_stack_name", "toggle"]
+  "required": ["tech_stack_name", "due_date", "toggle"]
 }
