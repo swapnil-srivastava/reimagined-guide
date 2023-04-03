@@ -1,0 +1,40 @@
+{
+  "type": "object",
+  "properties": {
+    "company": {
+      "type": "string",
+      "minLength": 2
+    },
+    "location": {
+      "type": "string",
+      "minLength": 2
+    },
+    "position": {
+      "type": "string",
+      "minLength": 2
+    },
+    "isPresent": {
+      "type": "boolean"
+    },
+    "position_start_time": {
+      "type": "string",
+      "format": "date"
+    },
+    "position_end_time": {
+      "type": "string",
+      "format": "date"
+    },
+    "position_description": {
+      "type": "string",
+      "minLength": 2
+    }
+  },
+  "required": [
+    "company",
+    "location",
+    "position",
+    "position_start_time",
+    "position_description",
+    "isPresent"
+  ]
+}

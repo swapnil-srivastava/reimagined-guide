@@ -9,6 +9,41 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      experiences: {
+        Row: {
+          company: string;
+          created_at: string;
+          id: string;
+          isPresent: boolean;
+          location: string;
+          position: string;
+          position_description: string;
+          position_end_time?: string;
+          position_start_time: string;
+        };
+        Insert: {
+          company: string;
+          created_at?: string;
+          id?: string;
+          isPresent: boolean;
+          location: string;
+          position: string;
+          position_description: string;
+          position_end_time?: string;
+          position_start_time: string;
+        };
+        Update: {
+          company?: string;
+          created_at?: string;
+          id?: string;
+          isPresent?: boolean;
+          location?: string;
+          position?: string;
+          position_description?: string;
+          position_end_time?: string;
+          position_start_time?: string;
+        };
+      };
       hearts: {
         Row: {
           created_at: string;
@@ -202,4 +237,33 @@ type TECHNOLOGIES_ROW = Pick<TECHNOLOGIES_TABLE["technologies"], "Row">;
 export type TECHNOLOGIES = Pick<
   TECHNOLOGIES_ROW["Row"],
   "id" | "uid" | "created_at" | "name" | "tech_color"
+>;
+
+type EXPERIENCES_TABLE = Pick<TABLES["Tables"], "experiences">;
+type EXPERIENCES_ROW = Pick<EXPERIENCES_TABLE["experiences"], "Row">;
+type EXPERIENCES_INSERT = Pick<EXPERIENCES_TABLE["experiences"], "Insert">;
+
+export type EXPERIENCES = Pick<
+  EXPERIENCES_ROW["Row"],
+  | "company"
+  | "created_at"
+  | "isPresent"
+  | "id"
+  | "location"
+  | "position"
+  | "position_description"
+  | "position_end_time"
+  | "position_start_time"
+>;
+
+export type EXPERIENCES_INSERT_DATA = Pick<
+  EXPERIENCES_INSERT["Insert"],
+  | "company"
+  | "created_at"
+  | "isPresent"
+  | "location"
+  | "position"
+  | "position_description"
+  | "position_end_time"
+  | "position_start_time"
 >;

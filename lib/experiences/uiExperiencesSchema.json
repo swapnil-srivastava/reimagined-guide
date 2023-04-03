@@ -1,0 +1,59 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Label",
+      "text": "Enter the Experience"
+    },
+    {
+      "type": "HorizontalLayout",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/company"
+        },
+        {
+          "type": "Control",
+          "label": "Is this your current company",
+          "scope": "#/properties/isPresent"
+        }
+      ]
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/location"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/position"
+    },
+    {
+      "type": "HorizontalLayout",
+      "elements": [
+        {
+          "type": "Control",
+          "label": "Start Time",
+          "scope": "#/properties/position_start_time"
+        },
+        {
+          "type": "Control",
+          "label": "End Date",
+          "scope": "#/properties/position_end_time",
+          "rule": {
+            "effect": "DISABLE",
+            "condition": {
+              "scope": "#/properties/isPresent",
+              "schema": {
+                "const": true
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/position_description"
+    }
+  ]
+}
