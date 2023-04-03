@@ -105,10 +105,10 @@ const Profile = () => {
                     {company}
                   </Typography>
                   <Typography sx={{ color: "text.secondary" }}>
-                    {moment(position_start_time).format("MMM DD")} -{" "}
+                    {moment(position_start_time).format("MMM YYYY")} -{" "}
                     {isPresent
                       ? "Present"
-                      : moment(position_end_time).format("MMM DD")}{" "}
+                      : moment(position_end_time).format("MMM YYYY")}{" "}
                     - {position}
                   </Typography>
                 </AccordionSummary>
