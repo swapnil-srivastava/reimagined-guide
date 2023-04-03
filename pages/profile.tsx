@@ -63,7 +63,8 @@ const Profile = () => {
   async function getExperiences() {
     let { data: experiences, error } = await supaClient
       .from("experiences")
-      .select("*");
+      .select("*")
+      .order("created_at", { ascending: false });
 
     setExperiences(experiences);
   }
