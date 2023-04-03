@@ -26,6 +26,7 @@ import { supaClient } from "../supa-client";
 import { SupashipUserInfo } from "../lib/hooks";
 
 import Metatags from "../components/Metatags";
+import { IntlProvider } from "react-intl";
 
 interface RootState {
   counter: Object;
@@ -74,99 +75,46 @@ const Profile = () => {
       />
       <div className="m-4">
         {profile?.id ? <CreateExperience /> : ""}
-        <Accordion
-          expanded={expanded === "panel1"}
-          onChange={handleChange("panel1")}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1bh-content"
-            id="panel1bh-header"
-          >
-            <Typography sx={{ width: "33%", flexShrink: 0 }}>
-              HCL Tech Gmbh. - {experiences && experiences[0].company}
-            </Typography>
-            <Typography sx={{ color: "text.secondary" }}>
-              March 2020 - Present - (Years)
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Nulla facilisi. Phasellus sollicitudin nulla et quam mattis
-              feugiat. Aliquam eget maximus est, id dignissim quam.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel2"}
-          onChange={handleChange("panel2")}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2bh-content"
-            id="panel2bh-header"
-          >
-            <Typography sx={{ width: "33%", flexShrink: 0 }}>
-              IBM Pvt. Ltd.
-            </Typography>
-            <Typography sx={{ color: "text.secondary" }}>
-              March 2019 - March 2020
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Donec placerat, lectus sed mattis semper, neque lectus feugiat
-              lectus, varius pulvinar diam eros in elit. Pellentesque convallis
-              laoreet laoreet.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel3"}
-          onChange={handleChange("panel3")}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel3bh-content"
-            id="panel3bh-header"
-          >
-            <Typography sx={{ width: "33%", flexShrink: 0 }}>
-              L & T Technonlogy Services
-            </Typography>
-            <Typography sx={{ color: "text.secondary" }}>
-              Nov 2016 - Feb 2019
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer
-              sit amet egestas eros, vitae egestas augue. Duis vel est augue.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel4"}
-          onChange={handleChange("panel4")}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel4bh-content"
-            id="panel4bh-header"
-          >
-            <Typography sx={{ width: "33%", flexShrink: 0 }}>
-              Software Paradigm Infotech Pvt. Ltd.
-            </Typography>
-            <Typography sx={{ color: "text.secondary" }}>
-              April 2014 - October 2016
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer
-              sit amet egestas eros, vitae egestas augue. Duis vel est augue.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
+
+        {experiences &&
+          experiences.map(
+            (
+              {
+                company,
+                position,
+                position_start_time,
+                position_end_time,
+                isPresent,
+                location,
+                position_description,
+              },
+              index
+            ) => (
+              <Accordion
+                expanded={expanded === `panel-${index + 1}`}
+                onChange={() => handleChange(`panel-${index + 1}`)}
+                key={index}
+              >
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1bh-content"
+                  id="panel1bh-header"
+                >
+                  <Typography sx={{ width: "33%", flexShrink: 0 }}>
+                    {company}
+                  </Typography>
+                  <Typography sx={{ color: "text.secondary" }}>
+                    {position_start_time} -{" "}
+                    {isPresent ? "Present" : position_end_time} - {position}
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>{location}</Typography>
+                  <Typography>{position_description}</Typography>
+                </AccordionDetails>
+              </Accordion>
+            )
+          )}
       </div>
     </>
   );
