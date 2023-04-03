@@ -188,7 +188,7 @@ function CreateExperience() {
           position_start_time: data?.position_start_time,
           position_end_time: data?.position_end_time,
           position_description: data?.position_description,
-          isPresent: data?.isPresent,
+          isPresent: data?.isPresent ?? false,
         },
       ]);
 
