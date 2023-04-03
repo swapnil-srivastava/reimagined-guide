@@ -110,8 +110,8 @@ const Profile = () => {
                       ? "Present"
                       : moment(position_end_time).format("MMM YYYY")}{" "}
                     -{" "}
-                    {moment(position_end_time).diff(
-                      moment(position_start_time),
+                    {moment(position_start_time).diff(
+                      moment(position_end_time),
                       "months"
                     )}{" "}
                     years
