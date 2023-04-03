@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 
@@ -42,6 +42,7 @@ interface UserState {
 
 const Profile = () => {
   const [expanded, setExpanded] = useState<string | false>(false);
+  const [experiences, setExperiences] = useState<EXPERIENCES[]>();
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
@@ -51,7 +52,17 @@ const Profile = () => {
       setExpanded(isExpanded ? panel : false);
     };
 
-  async function getExperiences() {}
+  useEffect(() => {
+    getExperiences();
+  }, []);
+
+  async function getExperiences() {
+    let { data: experiences, error } = await supaClient
+      .from("experiences")
+      .select("*");
+
+    setExperiences(experiences);
+  }
 
   return (
     <>
@@ -67,7 +78,7 @@ const Profile = () => {
             id="panel1bh-header"
           >
             <Typography sx={{ width: "33%", flexShrink: 0 }}>
-              HCL Tech Gmbh.
+              HCL Tech Gmbh. - {experiences[0].company}
             </Typography>
             <Typography sx={{ color: "text.secondary" }}>
               March 2020 - Present - (Years)
