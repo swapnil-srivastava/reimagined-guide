@@ -102,14 +102,17 @@ const Profile = () => {
                   id="panel1bh-header"
                 >
                   <Typography sx={{ width: "33%", flexShrink: 0 }}>
-                    {company}
+                    {company} - {position}
                   </Typography>
                   <Typography sx={{ color: "text.secondary" }}>
                     {moment(position_start_time).format("MMM YYYY")} -{" "}
                     {isPresent
                       ? "Present"
                       : moment(position_end_time).format("MMM YYYY")}{" "}
-                    - {position}
+                    -{" "}
+                    {moment(position_start_time).diff(
+                      moment(position_end_time)
+                    )}
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
