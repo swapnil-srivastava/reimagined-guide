@@ -110,11 +110,11 @@ const Profile = () => {
                       ? "Present"
                       : moment(position_end_time).format("MMM YYYY")}{" "}
                     -{" "}
-                    {moment(position_start_time).diff(
-                      moment(position_end_time),
-                      "years",
-                      true
-                    )}
+                    {moment(position_end_time).diff(
+                      moment(position_start_time),
+                      "months"
+                    )}{" "}
+                    years
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
