@@ -18,11 +18,11 @@
     },
     "position_start_time": {
       "type": "string",
-      "format": "date"
+      "format": "date-time"
     },
     "position_end_time": {
       "type": "string",
-      "format": "date"
+      "format": "date-time"
     },
     "position_description": {
       "type": "string",
