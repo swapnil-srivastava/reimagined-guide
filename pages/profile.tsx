@@ -113,7 +113,7 @@ const Profile = () => {
                     {moment
                       .duration(
                         moment(position_end_time).diff(
-                          moment(position_start_time)
+                          moment(isPresent ? moment() : position_start_time)
                         )
                       )
                       .asMonths()}
