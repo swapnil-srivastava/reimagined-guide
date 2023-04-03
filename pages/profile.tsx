@@ -121,7 +121,9 @@ const Profile = () => {
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography>{location}</Typography>
-                  <Typography>{position_description}</Typography>
+                  <Typography className="whitespace-pre-wrap">
+                    {position_description}
+                  </Typography>
                 </AccordionDetails>
               </Accordion>
             )
