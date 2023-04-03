@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import moment from "moment";
 
 // Accordion
 import Accordion from "@mui/material/Accordion";
@@ -104,8 +105,11 @@ const Profile = () => {
                     {company}
                   </Typography>
                   <Typography sx={{ color: "text.secondary" }}>
-                    {position_start_time} -{" "}
-                    {isPresent ? "Present" : position_end_time} - {position}
+                    {moment(position_start_time).format("MMM DD")} -{" "}
+                    {isPresent
+                      ? "Present"
+                      : moment(position_end_time).format("MMM DD")}{" "}
+                    - {position}
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
