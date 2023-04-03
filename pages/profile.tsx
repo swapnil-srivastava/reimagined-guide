@@ -25,6 +25,8 @@ import { EXPERIENCES, EXPERIENCES_INSERT_DATA } from "../database.types";
 import { supaClient } from "../supa-client";
 import { SupashipUserInfo } from "../lib/hooks";
 
+import Metatags from "../components/Metatags";
+
 interface RootState {
   counter: Object;
   users: UserState;
@@ -66,6 +68,10 @@ const Profile = () => {
 
   return (
     <>
+      <Metatags
+        title={"Swapnil Srivastava's Profile"}
+        description={"Here is the list of experiences"}
+      />
       <div className="m-4">
         {profile?.id ? <CreateExperience /> : ""}
         <Accordion

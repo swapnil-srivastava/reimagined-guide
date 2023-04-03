@@ -1,4 +1,3 @@
-import styles from "../styles/Home.module.css";
 import { FormattedMessage } from "react-intl";
 
 import PostFeed from "../components/PostFeed";
