@@ -78,7 +78,7 @@ const Profile = () => {
             id="panel1bh-header"
           >
             <Typography sx={{ width: "33%", flexShrink: 0 }}>
-              HCL Tech Gmbh. - {experiences[0].company}
+              HCL Tech Gmbh. - {experiences && experiences[0].company}
             </Typography>
             <Typography sx={{ color: "text.secondary" }}>
               March 2020 - Present - (Years)
