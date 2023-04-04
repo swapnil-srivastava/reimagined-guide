@@ -266,9 +266,17 @@ function CreateSkill(props) {
   const createSkill = async () => {
     if (!data) return;
 
-    const { data: supaData, error } = await supaClient
+    let { data: experiences, error: experiencesSelectError } = await supaClient
       .from("experiences")
-      .update({ skills: Array.of(data?.skill) })
+      .select("skills")
+      .eq("id", props.experienceId);
+
+    const [experienceSkill] = experiences;
+    const { skills: experienceSkills } = experienceSkill;
+
+    const { data: supaData, error: experiencesUpdateError } = await supaClient
+      .from("experiences")
+      .update({ skills: [...experienceSkills, data?.skill] })
       .eq("id", props.experienceId);
 
     toast.success("Skill Succesfully Created");
