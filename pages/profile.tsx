@@ -107,29 +107,31 @@ const Profile = () => {
                   aria-controls="panel1bh-content"
                   id="panel1bh-header"
                 >
-                  <p className="font-bold">{company}</p>
-                  <Typography sx={{ color: "text.secondary" }}>
-                    {moment(position_start_time).format("MMM YYYY")} -{" "}
-                    {isPresent
-                      ? "Present"
-                      : moment(position_end_time).format("MMM YYYY")}{" "}
-                    -{" "}
-                    {isPresent
-                      ? moment(position_start_time).fromNow(true)
-                      : `${Math.floor(
-                          moment(position_end_time).diff(
-                            position_start_time,
-                            "years",
-                            true
-                          )
-                        )} years ${Math.floor(
-                          moment(position_end_time).diff(
-                            position_start_time,
-                            "months",
-                            true
-                          ) % 12
-                        )} months`}
-                  </Typography>
+                  <div className="flex justify-around">
+                    <p className="font-bold">{company}</p>
+                    <p className="font-light">
+                      {moment(position_start_time).format("MMM YYYY")} -{" "}
+                      {isPresent
+                        ? "Present"
+                        : moment(position_end_time).format("MMM YYYY")}{" "}
+                      -{" "}
+                      {isPresent
+                        ? moment(position_start_time).fromNow(true)
+                        : `${Math.floor(
+                            moment(position_end_time).diff(
+                              position_start_time,
+                              "years",
+                              true
+                            )
+                          )} years ${Math.floor(
+                            moment(position_end_time).diff(
+                              position_start_time,
+                              "months",
+                              true
+                            ) % 12
+                          )} months`}
+                    </p>
+                  </div>
                 </AccordionSummary>
                 <AccordionDetails>
                   <p className="font-bold">{position}</p>
