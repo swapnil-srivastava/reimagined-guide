@@ -18,8 +18,9 @@ export interface Database {
           location: string;
           position: string;
           position_description: string;
-          position_end_time?: string;
+          position_end_time: string | null;
           position_start_time: string;
+          skills: string[] | null;
         };
         Insert: {
           company: string;
@@ -29,8 +30,9 @@ export interface Database {
           location: string;
           position: string;
           position_description: string;
-          position_end_time?: string;
+          position_end_time?: string | null;
           position_start_time: string;
+          skills?: string[] | null;
         };
         Update: {
           company?: string;
@@ -40,8 +42,9 @@ export interface Database {
           location?: string;
           position?: string;
           position_description?: string;
-          position_end_time?: string;
+          position_end_time?: string | null;
           position_start_time?: string;
+          skills?: string[] | null;
         };
       };
       hearts: {

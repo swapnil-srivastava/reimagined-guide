@@ -16,6 +16,9 @@ import { JsonForms } from "@jsonforms/react";
 import schema from "../lib/experiences/experiencesSchema.json";
 import uischema from "../lib/experiences/uiExperiencesSchema.json";
 
+import skillSchema from "../lib/skills/skillsSchema.json";
+import uiSkillSchema from "../lib/skills/uiSkillsSchema.json";
+
 import {
   materialCells,
   materialRenderers,
@@ -77,7 +80,8 @@ const Profile = () => {
       />
       <div className="m-4">
         {profile?.id ? <CreateExperience /> : ""}
-
+        {/* Overall All Experience :{" "}
+        {moment("2014-04-01 10:00:00+00").fromNow(true)} */}
         {experiences &&
           experiences.map(
             (
@@ -89,6 +93,7 @@ const Profile = () => {
                 isPresent,
                 location,
                 position_description,
+                id,
               },
               index
             ) => (
@@ -102,7 +107,10 @@ const Profile = () => {
                   aria-controls="panel1bh-content"
                   id="panel1bh-header"
                 >
-                  <Typography sx={{ width: "33%", flexShrink: 0 }}>
+                  <Typography
+                    sx={{ width: "33%", flexShrink: 0 }}
+                    className="font-bold"
+                  >
                     {company}
                   </Typography>
                   <Typography sx={{ color: "text.secondary" }}>
@@ -129,10 +137,12 @@ const Profile = () => {
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography>Position : {position}</Typography>
-                  <Typography>Location : {location}</Typography>
+                  <Typography className="font-bold">{position}</Typography>
+                  <Typography className="font-bold">{location}</Typography>
                   <Typography className="whitespace-pre-wrap">
                     {position_description}
+                    <CreateSkill experienceId={id} />
+                    <DisplaySkillChips />
                   </Typography>
                 </AccordionDetails>
               </Accordion>
@@ -235,6 +245,110 @@ function CreateExperience() {
           </button>
         </div>
       </div>
+    </>
+  );
+}
+
+function CreateSkill(props) {
+  const [data, setData] = useState<{ skill: string }>();
+
+  const clearData = () => {
+    setData({
+      skill: "",
+    });
+  };
+
+  // Validate for Company
+  const isValidSkill = data?.skill?.length > 3 && data?.skill?.length < 100;
+
+  // Create a new post in supabase postgres
+  const createSkill = async () => {
+    if (!data) return;
+
+    const { data: supaData, error } = await supaClient
+      .from("experiences")
+      .update({ skills: Array.of(data?.skill) })
+      .eq("id", props.experienceId);
+
+    toast.success("Skill Succesfully Created");
+  };
+
+  const clearSkill = async (e) => {
+    e.preventDefault();
+    clearData();
+  };
+
+  return (
+    <>
+      <div className="flex flex-col gap-2 my-4 px-4 py-2 text-blog-black dark:bg-blog-white">
+        <JsonForms
+          schema={skillSchema}
+          uischema={uiSkillSchema}
+          data={data}
+          renderers={materialRenderers}
+          cells={materialCells}
+          onChange={({ errors, data }) => setData(data)}
+        />
+
+        <pre>{JSON.stringify(data)}</pre>
+
+        <div className="flex self-center gap-2">
+          <button
+            type="submit"
+            disabled={!isValidSkill}
+            className="
+            py-1 px-2
+            font-light
+            text-sm
+            dark:text-blog-black
+            bg-hit-pink-500 
+            border-2 border-hit-pink-500 
+            rounded
+            hover:filter hover:brightness-125
+            flex-shrink-0 
+            self-center"
+            onClick={() => createSkill()}
+          >
+            Create
+          </button>
+          <button
+            className="
+            py-1 px-2
+            font-light
+            border
+            border-fun-blue-500
+            text-fun-blue-500
+            text-sm rounded 
+            self-center"
+            type="button"
+            onClick={clearSkill}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function DisplaySkillChips() {
+  const [skills, setSkills] = useState<string>();
+
+  useEffect(() => {
+    getSkills();
+  }, []);
+
+  async function getSkills() {
+    let { data: skills, error } = await supaClient
+      .from("experiences")
+      .select("skills");
+
+    console.log("skills ======>", skills);
+    // setSkills(skills);
+  }
+  return (
+    <>
+      <div className="flex flex-col gap-2 my-4 px-4 py-2 text-blog-black dark:bg-blog-white"></div>
     </>
   );
 }

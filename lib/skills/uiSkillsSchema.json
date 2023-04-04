@@ -1,0 +1,13 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Label",
+      "text": "Enter the skill for this experience"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/skill"
+    }
+  ]
+}
