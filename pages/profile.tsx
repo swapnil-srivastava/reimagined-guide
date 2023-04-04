@@ -9,6 +9,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Chip from "@mui/material/Chip";
 
 // JSON FORMS
 import { JsonForms } from "@jsonforms/react";
@@ -350,10 +351,16 @@ function DisplaySkillChips(props) {
   }
   return (
     <>
-      <div className="flex flex-col gap-2 my-4 px-4 py-2 text-blog-black dark:bg-blog-white">
-        <pre>{JSON.stringify(displaySkills)}</pre>
-
-        {displaySkills && displaySkills.map((_value, index) => <>{_value}</>)}
+      <pre>{JSON.stringify(displaySkills)}</pre>
+      <div className="flex gap-2 my-4 px-4 py-2 text-blog-black dark:bg-blog-white">
+        {displaySkills &&
+          displaySkills.map((_value, index) => {
+            return (
+              <>
+                <Chip key={index} label={_value} />
+              </>
+            );
+          })}
       </div>
     </>
   );
