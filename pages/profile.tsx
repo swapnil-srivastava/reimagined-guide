@@ -64,7 +64,7 @@ const Profile = () => {
     let { data: experiences, error } = await supaClient
       .from("experiences")
       .select("*")
-      .order("created_at", { ascending: false });
+      .order("position_start_time", { ascending: false });
 
     setExperiences(experiences);
   }
