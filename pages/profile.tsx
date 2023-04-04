@@ -142,7 +142,7 @@ const Profile = () => {
                   <Typography className="whitespace-pre-wrap">
                     {position_description}
                     <CreateSkill experienceId={id} />
-                    <DisplaySkillChips />
+                    <DisplaySkillChips experienceId={id} />
                   </Typography>
                 </AccordionDetails>
               </Accordion>
@@ -331,8 +331,8 @@ function CreateSkill(props) {
   );
 }
 
-function DisplaySkillChips() {
-  const [skills, setSkills] = useState<string>();
+function DisplaySkillChips(props) {
+  const [skills, setSkills] = useState<{ skills: string[] }>();
 
   useEffect(() => {
     getSkills();
@@ -341,14 +341,19 @@ function DisplaySkillChips() {
   async function getSkills() {
     let { data: skills, error } = await supaClient
       .from("experiences")
-      .select("skills");
+      .select("skills")
+      .eq("id", props.experienceId);
 
     console.log("skills ======>", skills);
     // setSkills(skills);
   }
   return (
     <>
-      <div className="flex flex-col gap-2 my-4 px-4 py-2 text-blog-black dark:bg-blog-white"></div>
+      <div className="flex flex-col gap-2 my-4 px-4 py-2 text-blog-black dark:bg-blog-white">
+        {/* {skills.map(() => {
+          <>S</>;
+        })} */}
+      </div>
     </>
   );
 }
