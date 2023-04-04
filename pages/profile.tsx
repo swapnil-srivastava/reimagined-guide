@@ -353,9 +353,7 @@ function DisplaySkillChips(props) {
       <div className="flex flex-col gap-2 my-4 px-4 py-2 text-blog-black dark:bg-blog-white">
         <pre>{JSON.stringify(displaySkills)}</pre>
 
-        {displaySkills.map((_value, index) => (
-          <>{_value}</>
-        ))}
+        {displaySkills && displaySkills.map((_value, index) => <>{_value}</>)}
       </div>
     </>
   );
