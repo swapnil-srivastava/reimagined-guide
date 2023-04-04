@@ -107,7 +107,7 @@ const Profile = () => {
                   aria-controls="panel1bh-content"
                   id="panel1bh-header"
                 >
-                  <div className="flex justify-around">
+                  <div className="flex justify-between w-full">
                     <p className="font-bold">{company}</p>
                     <p className="font-light">
                       {moment(position_start_time).format("MMM YYYY")} -{" "}
