@@ -332,27 +332,26 @@ function CreateSkill(props) {
 }
 
 function DisplaySkillChips(props) {
-  const [skills, setSkills] = useState<{ skills: string[] }>();
+  const [skills, setSkills] = useState<string[]>();
 
   useEffect(() => {
     getSkills();
   }, []);
 
   async function getSkills() {
-    let { data: skills, error } = await supaClient
+    let { data: experiences, error } = await supaClient
       .from("experiences")
       .select("skills")
       .eq("id", props.experienceId);
 
-    console.log("skills ======>", skills);
-    // setSkills(skills);
+    const [experiencedSkill] = experiences;
+    const { skills } = experiencedSkill;
+    setSkills(skills);
   }
   return (
     <>
       <div className="flex flex-col gap-2 my-4 px-4 py-2 text-blog-black dark:bg-blog-white">
-        {/* {skills.map(() => {
-          <>S</>;
-        })} */}
+        <pre>{JSON.stringify(skills)}</pre>
       </div>
     </>
   );
