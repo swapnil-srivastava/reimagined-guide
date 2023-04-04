@@ -360,7 +360,7 @@ function DisplaySkillChips(props) {
   }
   return (
     <>
-      <div className="flex gap-2 my-4 px-4 py-2">
+      <div className="flex flex-wrap gap-2 my-4 px-4 py-2">
         {displaySkills &&
           displaySkills.map((_value, index) => {
             return (
