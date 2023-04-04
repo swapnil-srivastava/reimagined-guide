@@ -365,11 +365,12 @@ function DisplaySkillChips(props) {
           displaySkills.map((_value, index) => {
             return (
               <>
-                <Chip
-                  className="font-mono bg-fun-blue-500 text-blog-white"
+                <div
                   key={index}
-                  label={_value}
-                />
+                  className="font-mono bg-fun-blue-500 text-blog-white"
+                >
+                  <Chip label={_value} />
+                </div>
               </>
             );
           })}
