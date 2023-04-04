@@ -113,11 +113,19 @@ const Profile = () => {
                     -{" "}
                     {isPresent
                       ? moment(position_start_time).fromNow(true)
-                      : moment
-                          .duration(
-                            moment(position_end_time).diff(position_start_time)
+                      : `${Math.floor(
+                          moment(position_end_time).diff(
+                            position_start_time,
+                            "years",
+                            true
                           )
-                          .humanize()}
+                        )} years ${Math.floor(
+                          moment(position_end_time).diff(
+                            position_start_time,
+                            "months",
+                            true
+                          ) % 12
+                        )} months`}
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
