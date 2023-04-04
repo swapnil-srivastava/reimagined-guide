@@ -136,7 +136,7 @@ const Profile = () => {
                   <p className="font-bold">{location}</p>
                   <Typography className="whitespace-pre-wrap">
                     {position_description}
-                    <CreateSkill experienceId={id} />
+                    {profile?.id ? <CreateSkill experienceId={id} /> : ""}
                     <DisplaySkillChips experienceId={id} />
                   </Typography>
                 </AccordionDetails>
