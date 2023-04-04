@@ -103,7 +103,7 @@ const Profile = () => {
                   id="panel1bh-header"
                 >
                   <Typography sx={{ width: "33%", flexShrink: 0 }}>
-                    {company} - {position}
+                    {company}
                   </Typography>
                   <Typography sx={{ color: "text.secondary" }}>
                     {moment(position_start_time).format("MMM YYYY")} -{" "}
@@ -129,7 +129,8 @@ const Profile = () => {
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography>{location}</Typography>
+                  <Typography>Position : {position}</Typography>
+                  <Typography>Location : {location}</Typography>
                   <Typography className="whitespace-pre-wrap">
                     {position_description}
                   </Typography>
