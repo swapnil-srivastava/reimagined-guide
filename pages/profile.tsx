@@ -332,7 +332,7 @@ function CreateSkill(props) {
 }
 
 function DisplaySkillChips(props) {
-  const [skills, setSkills] = useState<string[]>();
+  const [displaySkills, setDisplaySkills] = useState<string[]>([]);
 
   useEffect(() => {
     getSkills();
@@ -344,14 +344,18 @@ function DisplaySkillChips(props) {
       .select("skills")
       .eq("id", props.experienceId);
 
-    const [experiencedSkill] = experiences;
-    const { skills } = experiencedSkill;
-    setSkills(skills);
+    const [experienceSkill] = experiences;
+    const { skills } = experienceSkill;
+    setDisplaySkills(skills);
   }
   return (
     <>
       <div className="flex flex-col gap-2 my-4 px-4 py-2 text-blog-black dark:bg-blog-white">
-        <pre>{JSON.stringify(skills)}</pre>
+        <pre>{JSON.stringify(displaySkills)}</pre>
+
+        {displaySkills.map((_value, index) => (
+          <>{_value}</>
+        ))}
       </div>
     </>
   );
