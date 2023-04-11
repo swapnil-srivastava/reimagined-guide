@@ -175,7 +175,7 @@ function PostForm({ defaultValues, preview, editor }) {
             disabled={!editor.can().chain().focus().toggleBold().run()}
             className={
               editor.isActive("bold")
-                ? "is-active font-bold"
+                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
                 : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
             }
           >
@@ -184,21 +184,33 @@ function PostForm({ defaultValues, preview, editor }) {
           <button
             onClick={() => editor.chain().focus().toggleItalic().run()}
             disabled={!editor.can().chain().focus().toggleItalic().run()}
-            className={editor.isActive("italic") ? "is-active font-bold" : ""}
+            className={
+              editor.isActive("italic")
+                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
+                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
+            }
           >
             italic
           </button>
           <button
             onClick={() => editor.chain().focus().toggleStrike().run()}
             disabled={!editor.can().chain().focus().toggleStrike().run()}
-            className={editor.isActive("strike") ? "is-active font-bold" : ""}
+            className={
+              editor.isActive("strike")
+                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
+                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
+            }
           >
             strike
           </button>
           <button
             onClick={() => editor.chain().focus().toggleCode().run()}
             disabled={!editor.can().chain().focus().toggleCode().run()}
-            className={editor.isActive("code") ? "is-active font-bold" : ""}
+            className={
+              editor.isActive("code")
+                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
+                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
+            }
           >
             code
           </button>
@@ -211,7 +223,9 @@ function PostForm({ defaultValues, preview, editor }) {
           <button
             onClick={() => editor.chain().focus().setParagraph().run()}
             className={
-              editor.isActive("paragraph") ? "is-active font-bold" : ""
+              editor.isActive("paragraph")
+                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
+                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
             }
           >
             paragraph
@@ -222,8 +236,8 @@ function PostForm({ defaultValues, preview, editor }) {
             }
             className={
               editor.isActive("heading", { level: 1 })
-                ? "is-active font-bold"
-                : ""
+                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
+                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
             }
           >
             h1
@@ -234,8 +248,8 @@ function PostForm({ defaultValues, preview, editor }) {
             }
             className={
               editor.isActive("heading", { level: 2 })
-                ? "is-active font-bold"
-                : ""
+                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
+                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
             }
           >
             h2
@@ -246,8 +260,8 @@ function PostForm({ defaultValues, preview, editor }) {
             }
             className={
               editor.isActive("heading", { level: 3 })
-                ? "is-active font-bold"
-                : ""
+                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
+                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
             }
           >
             h3
@@ -258,8 +272,8 @@ function PostForm({ defaultValues, preview, editor }) {
             }
             className={
               editor.isActive("heading", { level: 4 })
-                ? "is-active font-bold"
-                : ""
+                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
+                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
             }
           >
             h4
@@ -270,8 +284,8 @@ function PostForm({ defaultValues, preview, editor }) {
             }
             className={
               editor.isActive("heading", { level: 5 })
-                ? "is-active font-bold"
-                : ""
+                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
+                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
             }
           >
             h5
@@ -282,8 +296,8 @@ function PostForm({ defaultValues, preview, editor }) {
             }
             className={
               editor.isActive("heading", { level: 6 })
-                ? "is-active font-bold"
-                : ""
+                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
+                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
             }
           >
             h6
@@ -291,7 +305,9 @@ function PostForm({ defaultValues, preview, editor }) {
           <button
             onClick={() => editor.chain().focus().toggleBulletList().run()}
             className={
-              editor.isActive("bulletList") ? "is-active font-bold" : ""
+              editor.isActive("bulletList")
+                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
+                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
             }
           >
             bullet list
@@ -299,7 +315,9 @@ function PostForm({ defaultValues, preview, editor }) {
           <button
             onClick={() => editor.chain().focus().toggleOrderedList().run()}
             className={
-              editor.isActive("orderedList") ? "is-active font-bold" : ""
+              editor.isActive("orderedList")
+                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
+                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
             }
           >
             ordered list
@@ -307,7 +325,9 @@ function PostForm({ defaultValues, preview, editor }) {
           <button
             onClick={() => editor.chain().focus().toggleCodeBlock().run()}
             className={
-              editor.isActive("codeBlock") ? "is-active font-bold" : ""
+              editor.isActive("codeBlock")
+                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
+                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
             }
           >
             code block
@@ -315,7 +335,9 @@ function PostForm({ defaultValues, preview, editor }) {
           <button
             onClick={() => editor.chain().focus().toggleBlockquote().run()}
             className={
-              editor.isActive("blockquote") ? "is-active font-bold" : ""
+              editor.isActive("blockquote")
+                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
+                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
             }
           >
             blockquote
@@ -350,7 +372,7 @@ function PostForm({ defaultValues, preview, editor }) {
             onClick={() => editor.chain().focus().setColor("#958DF1").run()}
             className={
               editor.isActive("textStyle", { color: "#958DF1" })
-                ? "is-active font-bold"
+                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
                 : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
             }
           >
