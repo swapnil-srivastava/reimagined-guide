@@ -7,9 +7,10 @@ import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import { useEditor, EditorContent } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
 
 import AuthCheck from "../../components/AuthCheck";
-import { serverTimestamp } from "../../lib/firebase";
 import ImageUploader from "../../components/ImageUploader";
 import { supaClient } from "../../supa-client";
 import { SupashipUserInfo } from "../../lib/hooks";
@@ -109,6 +110,11 @@ function PostForm({ defaultValues, preview }) {
     mode: "onChange",
   });
 
+  const editor = useEditor({
+    extensions: [StarterKit],
+    content: "<p>Hello World! 🌎️</p>",
+  });
+
   const router = useRouter();
   const { slug } = router.query;
 
@@ -140,6 +146,7 @@ function PostForm({ defaultValues, preview }) {
       {preview && (
         <div className="drop-shadow-xl">
           <ReactMarkdown>{watch("content")}</ReactMarkdown>
+          <EditorContent editor={editor} />
         </div>
       )}
 
