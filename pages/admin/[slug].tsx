@@ -48,7 +48,7 @@ function PostManager() {
 
   const editor = useEditor({
     extensions: [StarterKit],
-    content: post.content,
+    content: post?.content,
   });
 
   const router = useRouter();
