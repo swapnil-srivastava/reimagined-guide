@@ -169,7 +169,7 @@ function PostForm({ defaultValues, preview, editor }) {
           <p className="text-danger">{errors.content.message}</p>
         )}
 
-        <div className="flex flex-row">
+        <div className="flex flex-row gap-2 flex-wrap">
           <button
             onClick={() => editor.chain().focus().toggleBold().run()}
             disabled={!editor.can().chain().focus().toggleBold().run()}
