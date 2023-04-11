@@ -118,9 +118,8 @@ function PostForm({ defaultValues, preview }) {
   const router = useRouter();
   const { slug } = router.query;
 
-  // TS infers type: (state: RootState) => boolean
   const selectUser = (state: RootState) => state.users;
-  const { user: currentUser, username, userInfo } = useSelector(selectUser);
+  const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
 
   const { isValid, isDirty, errors } = formState;
@@ -146,7 +145,6 @@ function PostForm({ defaultValues, preview }) {
       {preview && (
         <div className="drop-shadow-xl">
           <ReactMarkdown>{watch("content")}</ReactMarkdown>
-          <EditorContent editor={editor} />
         </div>
       )}
 
@@ -166,6 +164,15 @@ function PostForm({ defaultValues, preview }) {
         {errors && errors.content && (
           <p className="text-danger">{errors.content.message}</p>
         )}
+
+        <button
+          onClick={() => editor.chain().focus().toggleBold().run()}
+          disabled={!editor.can().chain().focus().toggleBold().run()}
+          className={editor.isActive("bold") ? "is-active" : ""}
+        >
+          bold
+        </button>
+        <EditorContent editor={editor} />
 
         <fieldset className="flex gap-x-2">
           <input
