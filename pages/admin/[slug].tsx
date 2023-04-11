@@ -173,28 +173,32 @@ function PostForm({ defaultValues, preview, editor }) {
           <button
             onClick={() => editor.chain().focus().toggleBold().run()}
             disabled={!editor.can().chain().focus().toggleBold().run()}
-            className={editor.isActive("bold") ? "is-active" : ""}
+            className={
+              editor.isActive("bold")
+                ? "is-active font-bold"
+                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
+            }
           >
             Bold
           </button>
           <button
             onClick={() => editor.chain().focus().toggleItalic().run()}
             disabled={!editor.can().chain().focus().toggleItalic().run()}
-            className={editor.isActive("italic") ? "is-active" : ""}
+            className={editor.isActive("italic") ? "is-active font-bold" : ""}
           >
             italic
           </button>
           <button
             onClick={() => editor.chain().focus().toggleStrike().run()}
             disabled={!editor.can().chain().focus().toggleStrike().run()}
-            className={editor.isActive("strike") ? "is-active" : ""}
+            className={editor.isActive("strike") ? "is-active font-bold" : ""}
           >
             strike
           </button>
           <button
             onClick={() => editor.chain().focus().toggleCode().run()}
             disabled={!editor.can().chain().focus().toggleCode().run()}
-            className={editor.isActive("code") ? "is-active" : ""}
+            className={editor.isActive("code") ? "is-active font-bold" : ""}
           >
             code
           </button>
@@ -206,7 +210,9 @@ function PostForm({ defaultValues, preview, editor }) {
           </button>
           <button
             onClick={() => editor.chain().focus().setParagraph().run()}
-            className={editor.isActive("paragraph") ? "is-active" : ""}
+            className={
+              editor.isActive("paragraph") ? "is-active font-bold" : ""
+            }
           >
             paragraph
           </button>
@@ -215,7 +221,9 @@ function PostForm({ defaultValues, preview, editor }) {
               editor.chain().focus().toggleHeading({ level: 1 }).run()
             }
             className={
-              editor.isActive("heading", { level: 1 }) ? "is-active" : ""
+              editor.isActive("heading", { level: 1 })
+                ? "is-active font-bold"
+                : ""
             }
           >
             h1
@@ -225,7 +233,9 @@ function PostForm({ defaultValues, preview, editor }) {
               editor.chain().focus().toggleHeading({ level: 2 }).run()
             }
             className={
-              editor.isActive("heading", { level: 2 }) ? "is-active" : ""
+              editor.isActive("heading", { level: 2 })
+                ? "is-active font-bold"
+                : ""
             }
           >
             h2
@@ -235,7 +245,9 @@ function PostForm({ defaultValues, preview, editor }) {
               editor.chain().focus().toggleHeading({ level: 3 }).run()
             }
             className={
-              editor.isActive("heading", { level: 3 }) ? "is-active" : ""
+              editor.isActive("heading", { level: 3 })
+                ? "is-active font-bold"
+                : ""
             }
           >
             h3
@@ -245,7 +257,9 @@ function PostForm({ defaultValues, preview, editor }) {
               editor.chain().focus().toggleHeading({ level: 4 }).run()
             }
             className={
-              editor.isActive("heading", { level: 4 }) ? "is-active" : ""
+              editor.isActive("heading", { level: 4 })
+                ? "is-active font-bold"
+                : ""
             }
           >
             h4
@@ -255,7 +269,9 @@ function PostForm({ defaultValues, preview, editor }) {
               editor.chain().focus().toggleHeading({ level: 5 }).run()
             }
             className={
-              editor.isActive("heading", { level: 5 }) ? "is-active" : ""
+              editor.isActive("heading", { level: 5 })
+                ? "is-active font-bold"
+                : ""
             }
           >
             h5
@@ -265,52 +281,68 @@ function PostForm({ defaultValues, preview, editor }) {
               editor.chain().focus().toggleHeading({ level: 6 }).run()
             }
             className={
-              editor.isActive("heading", { level: 6 }) ? "is-active" : ""
+              editor.isActive("heading", { level: 6 })
+                ? "is-active font-bold"
+                : ""
             }
           >
             h6
           </button>
           <button
             onClick={() => editor.chain().focus().toggleBulletList().run()}
-            className={editor.isActive("bulletList") ? "is-active" : ""}
+            className={
+              editor.isActive("bulletList") ? "is-active font-bold" : ""
+            }
           >
             bullet list
           </button>
           <button
             onClick={() => editor.chain().focus().toggleOrderedList().run()}
-            className={editor.isActive("orderedList") ? "is-active" : ""}
+            className={
+              editor.isActive("orderedList") ? "is-active font-bold" : ""
+            }
           >
             ordered list
           </button>
           <button
             onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-            className={editor.isActive("codeBlock") ? "is-active" : ""}
+            className={
+              editor.isActive("codeBlock") ? "is-active font-bold" : ""
+            }
           >
             code block
           </button>
           <button
             onClick={() => editor.chain().focus().toggleBlockquote().run()}
-            className={editor.isActive("blockquote") ? "is-active" : ""}
+            className={
+              editor.isActive("blockquote") ? "is-active font-bold" : ""
+            }
           >
             blockquote
           </button>
           <button
+            className="p-2 bg-hit-pink-500 text-blog-black rounded-lg"
             onClick={() => editor.chain().focus().setHorizontalRule().run()}
           >
             horizontal rule
           </button>
-          <button onClick={() => editor.chain().focus().setHardBreak().run()}>
+          <button
+            className="p-2 bg-hit-pink-500 text-blog-black rounded-lg"
+            onClick={() => editor.chain().focus().setHardBreak().run()}
+          >
             hard break
           </button>
           <button
             onClick={() => editor.chain().focus().undo().run()}
             disabled={!editor.can().chain().focus().undo().run()}
+            className="p-2 bg-hit-pink-500 text-blog-black rounded-lg"
           >
             undo
           </button>
           <button
             onClick={() => editor.chain().focus().redo().run()}
             disabled={!editor.can().chain().focus().redo().run()}
+            className="p-2 bg-hit-pink-500 text-blog-black rounded-lg"
           >
             redo
           </button>
@@ -318,8 +350,8 @@ function PostForm({ defaultValues, preview, editor }) {
             onClick={() => editor.chain().focus().setColor("#958DF1").run()}
             className={
               editor.isActive("textStyle", { color: "#958DF1" })
-                ? "is-active"
-                : ""
+                ? "is-active font-bold"
+                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
             }
           >
             purple
