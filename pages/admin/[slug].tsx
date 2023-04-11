@@ -48,7 +48,7 @@ function PostManager() {
 
   const editor = useEditor({
     extensions: [StarterKit],
-    content: "<p>Hello World! 🌎️</p>",
+    content: post.content,
   });
 
   const router = useRouter();
