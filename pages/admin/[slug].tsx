@@ -46,6 +46,11 @@ function PostManager() {
   const [user, setUser] = useState<User>();
   const [post, setPost] = useState<POST>();
 
+  const editor = useEditor({
+    extensions: [StarterKit],
+    content: "<p>Hello World! 🌎️</p>",
+  });
+
   const router = useRouter();
   const { slug } = router.query;
 
@@ -81,7 +86,7 @@ function PostManager() {
             <p className="text-3xl font-sans">{post?.title}</p>
             <p className="p-1 text-md font-mono">Article ID: {post?.slug}</p>
 
-            <PostForm defaultValues={post} preview={preview} />
+            <PostForm defaultValues={post} preview={preview} editor={editor} />
           </section>
 
           <aside className="p-3">
@@ -104,15 +109,10 @@ function PostManager() {
   );
 }
 
-function PostForm({ defaultValues, preview }) {
+function PostForm({ defaultValues, preview, editor }) {
   const { register, handleSubmit, reset, watch, formState } = useForm({
     defaultValues,
     mode: "onChange",
-  });
-
-  const editor = useEditor({
-    extensions: [StarterKit],
-    content: "<p>Hello World! 🌎️</p>",
   });
 
   const router = useRouter();
@@ -121,6 +121,10 @@ function PostForm({ defaultValues, preview }) {
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
+
+  if (!editor) {
+    return null;
+  }
 
   const { isValid, isDirty, errors } = formState;
 
@@ -170,7 +174,7 @@ function PostForm({ defaultValues, preview }) {
           disabled={!editor.can().chain().focus().toggleBold().run()}
           className={editor.isActive("bold") ? "is-active" : ""}
         >
-          bold
+          Bold
         </button>
         <EditorContent editor={editor} />
 
