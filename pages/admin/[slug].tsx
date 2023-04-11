@@ -214,10 +214,16 @@ function PostForm({ defaultValues, preview, editor }) {
           >
             code
           </button>
-          <button onClick={() => editor.chain().focus().unsetAllMarks().run()}>
+          <button
+            onClick={() => editor.chain().focus().unsetAllMarks().run()}
+            className="p-2 bg-hit-pink-500 text-blog-black rounded-lg"
+          >
             clear marks
           </button>
-          <button onClick={() => editor.chain().focus().clearNodes().run()}>
+          <button
+            onClick={() => editor.chain().focus().clearNodes().run()}
+            className="p-2 bg-hit-pink-500 text-blog-black rounded-lg"
+          >
             clear nodes
           </button>
           <button
