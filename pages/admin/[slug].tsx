@@ -51,8 +51,8 @@ function PostManager() {
     extensions: [StarterKit],
     content: contentTipTap,
     onCreate({ editor }) {
-      console.log("onCreate editor.getText()", editor.getText());
-      console.log("onCreate editor.getHTML()", editor.getHTML());
+      // console.log("onCreate editor.getText()", editor.getText());
+      // console.log("onCreate editor.getHTML()", editor.getHTML());
     },
     onUpdate({ editor }) {
       // The content has changed.
@@ -61,11 +61,11 @@ function PostManager() {
     },
     onTransaction({ editor, transaction }) {
       // The editor state has changed.
-      console.log(
-        "onTransaction editor.getText() transaction",
-        editor.getText(),
-        transaction
-      );
+      // console.log(
+      //   "onTransaction editor.getText() transaction",
+      //   editor.getText(),
+      //   transaction
+      // );
     },
   });
 
@@ -147,7 +147,7 @@ function PostForm({ defaultValues, preview, editor }) {
       return null;
     }
     editor.commands.setContent(defaultValues?.content);
-  });
+  }, []);
 
   if (!editor) {
     return null;
