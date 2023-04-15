@@ -45,10 +45,16 @@ function PostManager() {
   const [preview, setPreview] = useState(false);
   const [user, setUser] = useState<User>();
   const [post, setPost] = useState<POST>();
+  const [content, setContent] = useState("");
 
   const editor = useEditor({
     extensions: [StarterKit],
-    content: post?.content,
+    content: content,
+    onUpdate({ editor }) {
+      // The content has changed.
+      console.log("onUpdate", editor.getText());
+      console.log("onUpdate", editor.getHTML());
+    },
   });
 
   const router = useRouter();
@@ -74,6 +80,7 @@ function PostManager() {
     const [adminPost] = adminPosts;
 
     setPost(adminPost);
+    setContent(adminPost?.content);
 
     return user;
   }
