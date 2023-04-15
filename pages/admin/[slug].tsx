@@ -45,28 +45,9 @@ function PostManager() {
   const [preview, setPreview] = useState(false);
   const [user, setUser] = useState<User>();
   const [post, setPost] = useState<POST>();
-  const [contentTipTap, setContentTipTap] = useState("");
 
   const editor = useEditor({
     extensions: [StarterKit],
-    content: contentTipTap,
-    onCreate({ editor }) {
-      // console.log("onCreate editor.getText()", editor.getText());
-      // console.log("onCreate editor.getHTML()", editor.getHTML());
-    },
-    onUpdate({ editor }) {
-      // The content has changed.
-      console.log("onUpdate editor.getText()", editor.getText());
-      console.log("onUpdate editor.getHTML()", editor.getHTML());
-    },
-    onTransaction({ editor, transaction }) {
-      // The editor state has changed.
-      // console.log(
-      //   "onTransaction editor.getText() transaction",
-      //   editor.getText(),
-      //   transaction
-      // );
-    },
   });
 
   const router = useRouter();
@@ -92,7 +73,6 @@ function PostManager() {
     const [adminPost] = adminPosts;
 
     setPost(adminPost);
-    setContentTipTap(adminPost?.content);
 
     return user;
   }
@@ -152,8 +132,6 @@ function PostForm({ defaultValues, preview, editor }) {
   if (!editor) {
     return null;
   }
-
-  // editor.commands.insertContent(defaultValues?.content);
 
   const { isValid, isDirty, errors } = formState;
 
