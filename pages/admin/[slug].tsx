@@ -146,7 +146,7 @@ function PostForm({ defaultValues, preview, editor }) {
     return null;
   }
 
-  editor.commands.insertContent(defaultValues?.content);
+  // editor.commands.insertContent(defaultValues?.content);
 
   const { isValid, isDirty, errors } = formState;
 
