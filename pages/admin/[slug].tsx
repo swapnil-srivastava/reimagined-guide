@@ -55,6 +55,10 @@ function PostManager() {
       console.log("onUpdate", editor.getText());
       console.log("onUpdate", editor.getHTML());
     },
+    onTransaction({ editor, transaction }) {
+      // The editor state has changed.
+      console.log("onUpdate", editor.getText(), transaction);
+    },
   });
 
   const router = useRouter();
