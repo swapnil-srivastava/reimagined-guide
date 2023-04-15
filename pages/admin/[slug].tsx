@@ -93,7 +93,6 @@ function PostManager() {
 
     setPost(adminPost);
     setContentTipTap(adminPost?.content);
-    editor.commands.setContent("<p>Example Text</p>");
 
     return user;
   }
@@ -146,6 +145,8 @@ function PostForm({ defaultValues, preview, editor }) {
   if (!editor) {
     return null;
   }
+
+  editor.commands.setContent("<p>Example Text</p>");
 
   const { isValid, isDirty, errors } = formState;
 
