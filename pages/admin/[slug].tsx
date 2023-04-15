@@ -49,14 +49,23 @@ function PostManager() {
 
   const editor = useEditor({
     extensions: [StarterKit],
+    content: contentTipTap,
+    onCreate({ editor }) {
+      console.log("onCreate editor.getText()", editor.getText());
+      console.log("onCreate editor.getHTML()", editor.getHTML());
+    },
     onUpdate({ editor }) {
       // The content has changed.
-      console.log("onUpdate", editor.getText());
-      console.log("onUpdate", editor.getHTML());
+      console.log("onUpdate editor.getText()", editor.getText());
+      console.log("onUpdate editor.getHTML()", editor.getHTML());
     },
     onTransaction({ editor, transaction }) {
       // The editor state has changed.
-      console.log("onTransaction", editor.getText(), transaction);
+      console.log(
+        "onTransaction editor.getText() transaction",
+        editor.getText(),
+        transaction
+      );
     },
   });
 
@@ -84,6 +93,7 @@ function PostManager() {
 
     setPost(adminPost);
     setContentTipTap(adminPost?.content);
+    editor.commands.setContent("<p>Example Text</p>");
 
     return user;
   }
@@ -96,7 +106,7 @@ function PostManager() {
             <p className="text-3xl font-sans">{post?.title}</p>
             <p className="p-1 text-md font-mono">Article ID: {post?.slug}</p>
 
-            <EditorContent editor={editor} content={contentTipTap} />
+            <EditorContent editor={editor} />
             <PostForm defaultValues={post} preview={preview} editor={editor} />
           </section>
 
