@@ -97,6 +97,7 @@ function PostManager() {
             <p className="text-3xl font-sans">{post?.title}</p>
             <p className="p-1 text-md font-mono">Article ID: {post?.slug}</p>
 
+            <EditorContent editor={editor} content={post?.content} />
             <PostForm defaultValues={post} preview={preview} editor={editor} />
           </section>
 
@@ -396,8 +397,6 @@ function PostForm({ defaultValues, preview, editor }) {
             purple
           </button>
         </div>
-
-        <EditorContent editor={editor} />
 
         <fieldset className="flex gap-x-2">
           <input
