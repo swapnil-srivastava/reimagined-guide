@@ -85,7 +85,6 @@ function PostManager() {
             <p className="text-3xl font-sans">{post?.title}</p>
             <p className="p-1 text-md font-mono">Article ID: {post?.slug}</p>
 
-            <EditorContent editor={editor} />
             <PostForm defaultValues={post} preview={preview} editor={editor} />
           </section>
 
@@ -175,6 +174,8 @@ function PostForm({ defaultValues, preview, editor }) {
         {errors && errors.content && (
           <p className="text-danger">{errors.content.message}</p>
         )}
+
+        <EditorContent editor={editor} />
 
         <div className="flex flex-row gap-2 flex-wrap">
           <button
