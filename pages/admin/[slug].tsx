@@ -142,6 +142,13 @@ function PostForm({ defaultValues, preview, editor }) {
   const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
 
+  useEffect(() => {
+    if (!editor) {
+      return null;
+    }
+    editor.commands.setContent(defaultValues?.content);
+  });
+
   if (!editor) {
     return null;
   }
