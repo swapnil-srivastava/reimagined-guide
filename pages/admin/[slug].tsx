@@ -45,11 +45,10 @@ function PostManager() {
   const [preview, setPreview] = useState(false);
   const [user, setUser] = useState<User>();
   const [post, setPost] = useState<POST>();
-  const [content, setContent] = useState("");
+  const [contentTipTap, setContentTipTap] = useState("");
 
   const editor = useEditor({
     extensions: [StarterKit],
-    content: content,
     onUpdate({ editor }) {
       // The content has changed.
       console.log("onUpdate", editor.getText());
@@ -84,7 +83,7 @@ function PostManager() {
     const [adminPost] = adminPosts;
 
     setPost(adminPost);
-    setContent(adminPost?.content);
+    setContentTipTap(adminPost?.content);
 
     return user;
   }
@@ -97,7 +96,7 @@ function PostManager() {
             <p className="text-3xl font-sans">{post?.title}</p>
             <p className="p-1 text-md font-mono">Article ID: {post?.slug}</p>
 
-            <EditorContent editor={editor} content={post?.content} />
+            <EditorContent editor={editor} content={contentTipTap} />
             <PostForm defaultValues={post} preview={preview} editor={editor} />
           </section>
 
