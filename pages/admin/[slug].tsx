@@ -57,7 +57,7 @@ function PostManager() {
     },
     onTransaction({ editor, transaction }) {
       // The editor state has changed.
-      console.log("onUpdate", editor.getText(), transaction);
+      console.log("onTransaction", editor.getText(), transaction);
     },
   });
 
