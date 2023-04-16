@@ -79,10 +79,6 @@ pre > code {
   @apply p-0 text-white text-inherit text-sm bg-inherit;
 }
 
-blockquote {
-  @apply pl-2 border-l-4 border-indigo-500;
-}
-
 hr {
   @apply border-none border-t-2 border-fun-blue-500 m-2;
 }
@@ -96,8 +92,16 @@ fieldset {
   @apply my-2;
 }
 
+.post-content > blockquote {
+  @apply pl-2 border-l-4 border-indigo-500;
+}
+
 .admin-content > p {
   @apply my-2;
+}
+
+.admin-content > blockquote {
+  @apply pl-2 border-l-4 border-indigo-500;
 }
 
 /* Navbar */
