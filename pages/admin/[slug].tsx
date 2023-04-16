@@ -17,6 +17,29 @@ import { SupashipUserInfo } from "../../lib/hooks";
 import { User } from "@supabase/supabase-js";
 import { POST } from "../../database.types";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faItalic,
+  faBold,
+  faStrikethrough,
+  faCode,
+  faHeading,
+  fa1,
+  fa2,
+  fa3,
+  fa4,
+  fa5,
+  fa6,
+  faListUl,
+  faListOl,
+  faWindowMinimize,
+  faRotateLeft,
+  faRotateRight,
+  faLaptopCode,
+  faQuoteLeft,
+  faQuoteRight,
+} from "@fortawesome/free-solid-svg-icons";
+
 interface RootState {
   counter: Object;
   users: UserState;
@@ -35,9 +58,9 @@ interface UserState {
 
 function AdminSlug() {
   return (
-    <AuthCheck>
-      <PostManager />
-    </AuthCheck>
+    // <AuthCheck>
+    <PostManager />
+    // </AuthCheck>
   );
 }
 
@@ -81,9 +104,11 @@ function PostManager() {
     <main className={styles.container}>
       {post && (
         <>
-          <section className="p-3 dark:text-blog-white">
-            <p className="text-3xl font-sans">{post?.title}</p>
-            <p className="p-1 text-md font-mono">Article ID: {post?.slug}</p>
+          <section className="p-3 flex flex-col dark:text-blog-white gap-2">
+            <p className="text-3xl font-sans self-center">{post?.title}</p>
+            <p className="p-1 text-md font-mono self-center">
+              Article ID: {post?.slug}
+            </p>
 
             <PostForm defaultValues={post} preview={preview} editor={editor} />
           </section>
@@ -135,10 +160,12 @@ function PostForm({ defaultValues, preview, editor }) {
   const { isValid, isDirty, errors } = formState;
 
   const updatePost = async ({ content, published }) => {
+    const contentEditor = editor.getHTML();
+
     const { data, error } = await supaClient
       .from("posts")
       .update({
-        content: content,
+        content: contentEditor,
         published: published,
         updated_at: new Date().toISOString(),
       })
@@ -154,264 +181,270 @@ function PostForm({ defaultValues, preview, editor }) {
     <form onSubmit={handleSubmit(updatePost)}>
       {preview && (
         <div className="drop-shadow-xl">
-          <ReactMarkdown>{watch("content")}</ReactMarkdown>
+          <p>Hello Preview</p>
         </div>
       )}
 
-      <div className={preview ? styles.hidden : styles.controls}>
-        <ImageUploader />
+      {!preview && (
+        <div className="flex flex-col gap-2 lg:px-36">
+          {/* <ImageUploader /> */}
 
-        <textarea
-          name="content"
-          className="dark:bg-blog-white dark:text-blog-black"
-          {...register("content", {
-            maxLength: { value: 20000, message: "content is too long" },
-            minLength: { value: 10, message: "content is too short" },
-            required: { value: true, message: "content is required" },
-          })}
-        ></textarea>
+          <div className="flex flex-wrap gap-2 text-sm font-light">
+            <button
+              type="button"
+              onClick={() => editor.chain().focus().toggleBold().run()}
+              disabled={!editor.can().chain().focus().toggleBold().run()}
+              className={
+                editor.isActive("bold")
+                  ? `is-active ${styles.btnEditorActive}`
+                  : styles.btnEditor
+              }
+            >
+              <FontAwesomeIcon icon={faBold} />
+            </button>
+            <button
+              type="button"
+              onClick={() => editor.chain().focus().toggleItalic().run()}
+              disabled={!editor.can().chain().focus().toggleItalic().run()}
+              className={
+                editor.isActive("italic")
+                  ? `is-active ${styles.btnEditorActive}`
+                  : styles.btnEditor
+              }
+            >
+              <FontAwesomeIcon icon={faItalic} />
+            </button>
+            <button
+              type="button"
+              onClick={() => editor.chain().focus().toggleStrike().run()}
+              disabled={!editor.can().chain().focus().toggleStrike().run()}
+              className={
+                editor.isActive("strike")
+                  ? `is-active ${styles.btnEditorActive}`
+                  : styles.btnEditor
+              }
+            >
+              <FontAwesomeIcon icon={faStrikethrough} />
+            </button>
+            <button
+              type="button"
+              onClick={() => editor.chain().focus().toggleCode().run()}
+              disabled={!editor.can().chain().focus().toggleCode().run()}
+              className={
+                editor.isActive("code")
+                  ? `is-active ${styles.btnEditorActive}`
+                  : styles.btnEditor
+              }
+            >
+              <FontAwesomeIcon icon={faCode} />
+            </button>
+            <button
+              type="button"
+              onClick={() => editor.chain().focus().unsetAllMarks().run()}
+              className={styles.btnEditor}
+            >
+              clear marks
+            </button>
+            <button
+              type="button"
+              onClick={() => editor.chain().focus().clearNodes().run()}
+              className={styles.btnEditor}
+            >
+              clear nodes
+            </button>
+            <button
+              type="button"
+              onClick={() => editor.chain().focus().setParagraph().run()}
+              className={
+                editor.isActive("paragraph")
+                  ? `is-active ${styles.btnEditorActive}`
+                  : styles.btnEditor
+              }
+            >
+              P
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                editor.chain().focus().toggleHeading({ level: 1 }).run()
+              }
+              className={
+                editor.isActive("heading", { level: 1 })
+                  ? `is-active ${styles.btnEditorActive}`
+                  : styles.btnEditor
+              }
+            >
+              <FontAwesomeIcon icon={faHeading} />
+              <FontAwesomeIcon icon={fa1} />
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                editor.chain().focus().toggleHeading({ level: 2 }).run()
+              }
+              className={
+                editor.isActive("heading", { level: 2 })
+                  ? `is-active ${styles.btnEditorActive}`
+                  : styles.btnEditor
+              }
+            >
+              <FontAwesomeIcon icon={faHeading} />
+              <FontAwesomeIcon icon={fa2} />
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                editor.chain().focus().toggleHeading({ level: 3 }).run()
+              }
+              className={
+                editor.isActive("heading", { level: 3 })
+                  ? `is-active ${styles.btnEditorActive}`
+                  : styles.btnEditor
+              }
+            >
+              <FontAwesomeIcon icon={faHeading} />
+              <FontAwesomeIcon icon={fa3} />
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                editor.chain().focus().toggleHeading({ level: 4 }).run()
+              }
+              className={
+                editor.isActive("heading", { level: 4 })
+                  ? `is-active ${styles.btnEditorActive}`
+                  : styles.btnEditor
+              }
+            >
+              <FontAwesomeIcon icon={faHeading} />
+              <FontAwesomeIcon icon={fa4} />
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                editor.chain().focus().toggleHeading({ level: 5 }).run()
+              }
+              className={
+                editor.isActive("heading", { level: 5 })
+                  ? `is-active ${styles.btnEditorActive}`
+                  : styles.btnEditor
+              }
+            >
+              <FontAwesomeIcon icon={faHeading} />
+              <FontAwesomeIcon icon={fa5} />
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                editor.chain().focus().toggleHeading({ level: 6 }).run()
+              }
+              className={
+                editor.isActive("heading", { level: 6 })
+                  ? `is-active ${styles.btnEditorActive}`
+                  : styles.btnEditor
+              }
+            >
+              <FontAwesomeIcon icon={faHeading} />
+              <FontAwesomeIcon icon={fa6} />
+            </button>
+            <button
+              type="button"
+              onClick={() => editor.chain().focus().toggleBulletList().run()}
+              className={
+                editor.isActive("bulletList")
+                  ? `is-active ${styles.btnEditorActive}`
+                  : styles.btnEditor
+              }
+            >
+              <FontAwesomeIcon icon={faListUl} />
+            </button>
+            <button
+              type="button"
+              onClick={() => editor.chain().focus().toggleOrderedList().run()}
+              className={
+                editor.isActive("orderedList")
+                  ? `is-active ${styles.btnEditorActive}`
+                  : styles.btnEditor
+              }
+            >
+              <FontAwesomeIcon icon={faListOl} />
+            </button>
+            <button
+              type="button"
+              onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+              className={
+                editor.isActive("codeBlock")
+                  ? `is-active ${styles.btnEditorActive}`
+                  : styles.btnEditor
+              }
+            >
+              <FontAwesomeIcon icon={faLaptopCode} />
+            </button>
+            <button
+              type="button"
+              onClick={() => editor.chain().focus().toggleBlockquote().run()}
+              className={
+                editor.isActive("blockquote")
+                  ? `is-active ${styles.btnEditorActive}`
+                  : styles.btnEditor
+              }
+            >
+              <div className="flex gap-1">
+                <FontAwesomeIcon icon={faQuoteLeft} />
+                <FontAwesomeIcon icon={faQuoteRight} />
+              </div>
+            </button>
 
-        {errors && errors.content && (
-          <p className="text-danger">{errors.content.message}</p>
-        )}
+            <button
+              type="button"
+              className={styles.btnEditor}
+              onClick={() => editor.chain().focus().setHorizontalRule().run()}
+            >
+              <FontAwesomeIcon icon={faWindowMinimize} />
+            </button>
+            <button
+              type="button"
+              className={styles.btnEditor}
+              onClick={() => editor.chain().focus().setHardBreak().run()}
+            >
+              br
+            </button>
+            <button
+              type="button"
+              onClick={() => editor.chain().focus().undo().run()}
+              disabled={!editor.can().chain().focus().undo().run()}
+              className={styles.btnEditor}
+            >
+              <FontAwesomeIcon icon={faRotateLeft} />
+            </button>
+            <button
+              onClick={() => editor.chain().focus().redo().run()}
+              disabled={!editor.can().chain().focus().redo().run()}
+              className={styles.btnEditor}
+            >
+              <FontAwesomeIcon icon={faRotateRight} />
+            </button>
+          </div>
 
-        <EditorContent editor={editor} />
+          <EditorContent editor={editor} />
 
-        <div className="flex flex-row gap-2 flex-wrap">
+          <fieldset className="flex gap-x-2">
+            <input
+              name="published"
+              type="checkbox"
+              {...register("published", { required: true })}
+            />
+            <label>Published</label>
+          </fieldset>
+
           <button
-            onClick={() => editor.chain().focus().toggleBold().run()}
-            disabled={!editor.can().chain().focus().toggleBold().run()}
-            className={
-              editor.isActive("bold")
-                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-            }
+            type="submit"
+            className="p-2 bg-hit-pink-500 text-blog-black rounded-lg self-center"
           >
-            Bold
-          </button>
-          <button
-            onClick={() => editor.chain().focus().toggleItalic().run()}
-            disabled={!editor.can().chain().focus().toggleItalic().run()}
-            className={
-              editor.isActive("italic")
-                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-            }
-          >
-            italic
-          </button>
-          <button
-            onClick={() => editor.chain().focus().toggleStrike().run()}
-            disabled={!editor.can().chain().focus().toggleStrike().run()}
-            className={
-              editor.isActive("strike")
-                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-            }
-          >
-            strike
-          </button>
-          <button
-            onClick={() => editor.chain().focus().toggleCode().run()}
-            disabled={!editor.can().chain().focus().toggleCode().run()}
-            className={
-              editor.isActive("code")
-                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-            }
-          >
-            code
-          </button>
-          <button
-            onClick={() => editor.chain().focus().unsetAllMarks().run()}
-            className="p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-          >
-            clear marks
-          </button>
-          <button
-            onClick={() => editor.chain().focus().clearNodes().run()}
-            className="p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-          >
-            clear nodes
-          </button>
-          <button
-            onClick={() => editor.chain().focus().setParagraph().run()}
-            className={
-              editor.isActive("paragraph")
-                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-            }
-          >
-            paragraph
-          </button>
-          <button
-            onClick={() =>
-              editor.chain().focus().toggleHeading({ level: 1 }).run()
-            }
-            className={
-              editor.isActive("heading", { level: 1 })
-                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-            }
-          >
-            h1
-          </button>
-          <button
-            onClick={() =>
-              editor.chain().focus().toggleHeading({ level: 2 }).run()
-            }
-            className={
-              editor.isActive("heading", { level: 2 })
-                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-            }
-          >
-            h2
-          </button>
-          <button
-            onClick={() =>
-              editor.chain().focus().toggleHeading({ level: 3 }).run()
-            }
-            className={
-              editor.isActive("heading", { level: 3 })
-                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-            }
-          >
-            h3
-          </button>
-          <button
-            onClick={() =>
-              editor.chain().focus().toggleHeading({ level: 4 }).run()
-            }
-            className={
-              editor.isActive("heading", { level: 4 })
-                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-            }
-          >
-            h4
-          </button>
-          <button
-            onClick={() =>
-              editor.chain().focus().toggleHeading({ level: 5 }).run()
-            }
-            className={
-              editor.isActive("heading", { level: 5 })
-                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-            }
-          >
-            h5
-          </button>
-          <button
-            onClick={() =>
-              editor.chain().focus().toggleHeading({ level: 6 }).run()
-            }
-            className={
-              editor.isActive("heading", { level: 6 })
-                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-            }
-          >
-            h6
-          </button>
-          <button
-            onClick={() => editor.chain().focus().toggleBulletList().run()}
-            className={
-              editor.isActive("bulletList")
-                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-            }
-          >
-            bullet list
-          </button>
-          <button
-            onClick={() => editor.chain().focus().toggleOrderedList().run()}
-            className={
-              editor.isActive("orderedList")
-                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-            }
-          >
-            ordered list
-          </button>
-          <button
-            onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-            className={
-              editor.isActive("codeBlock")
-                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-            }
-          >
-            code block
-          </button>
-          <button
-            onClick={() => editor.chain().focus().toggleBlockquote().run()}
-            className={
-              editor.isActive("blockquote")
-                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-            }
-          >
-            blockquote
-          </button>
-          <button
-            className="p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-            onClick={() => editor.chain().focus().setHorizontalRule().run()}
-          >
-            horizontal rule
-          </button>
-          <button
-            className="p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-            onClick={() => editor.chain().focus().setHardBreak().run()}
-          >
-            hard break
-          </button>
-          <button
-            onClick={() => editor.chain().focus().undo().run()}
-            disabled={!editor.can().chain().focus().undo().run()}
-            className="p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-          >
-            undo
-          </button>
-          <button
-            onClick={() => editor.chain().focus().redo().run()}
-            disabled={!editor.can().chain().focus().redo().run()}
-            className="p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-          >
-            redo
-          </button>
-          <button
-            onClick={() => editor.chain().focus().setColor("#958DF1").run()}
-            className={
-              editor.isActive("textStyle", { color: "#958DF1" })
-                ? "is-active font-bold p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-                : "p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-            }
-          >
-            purple
+            Save Changes
           </button>
         </div>
-
-        <fieldset className="flex gap-x-2">
-          <input
-            name="published"
-            type="checkbox"
-            {...register("published", { required: true })}
-          />
-          <label>Published</label>
-        </fieldset>
-
-        <button
-          type="submit"
-          className="
-          p-2 bg-hit-pink-500 text-blog-black rounded-lg"
-          disabled={!isDirty || !isValid}
-        >
-          Save Changes
-        </button>
-      </div>
+      )}
     </form>
   );
 }

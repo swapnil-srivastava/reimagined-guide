@@ -43,9 +43,32 @@ img {
   max-width: 100%;
 }
 
+.ProseMirror {
+  @apply px-5 pt-2 pb-2 bg-white text-blog-black;
+}
+
+.ProseMirror code {
+  @apply bg-blog-white text-[#616161];
+}
+
+.ProseMirror pre {
+  @apply bg-blog-black text-blog-white font-mono p-2 rounded;
+}
+
+.ProseMirror pre code {
+  @apply p-0 text-inherit text-sm bg-none;
+}
+
+.ProseMirror blockquote {
+  @apply pl-2 border-l-4 border-indigo-500;
+}
+
+.ProseMirror hr {
+  @apply border-none border-t-2 border-fun-blue-500 m-2;
+}
+
 fieldset {
   border: none;
-  padding: 1rem 0;
   font-size: 1.25rem;
 }
 

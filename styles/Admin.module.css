@@ -1,19 +1,17 @@
+.inputAndLabel {
+  @apply flex flex-col;
+}
 
-  .inputAndLabel {
-    @apply flex flex-col;
-  }
+.inputLabel {
+  @apply text-sm md:text-lg dark:text-blog-white;
+}
 
-  .inputLabel {
-    @apply text-sm md:text-lg dark:text-blog-white
-  }
+.adminAddArticle {
+  @apply mx-4 flex flex-col;
+}
 
-  .adminAddArticle {
-    @apply mx-4 flex flex-col
-  }
-
-  .btnAdmin {
-    @apply 
-    py-1 px-2
+.btnAdmin {
+  @apply py-1 px-2
     font-light
     text-sm
     bg-hit-pink-500 
@@ -21,60 +19,16 @@
     rounded
     hover:filter hover:brightness-125
     ml-1
-    flex-shrink-0 
-  }
+    flex-shrink-0;
+}
 
-  .container {
-    min-height: 100vh;
-    display: flex;
-  }
-  
-  .container section {
-    width: 60vw;
-    margin-right: 1rem;
-  }
-  
-  .container aside {
-    display: flex;
-    flex-direction: column;
-    width: 20%;
-    min-width: 250px;
-    min-height: 200px;
-    text-align: center;
-    position: sticky;
-    top: 80px;
-    height: 0;
-  }
-  
-  .hidden {
-    display: none;
-  }
-  
-  .controls {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .controls textarea {
-    height: 60vh;
-    border: none;
-    outline: none;
-    padding: 0.5rem;
-    font-size: 1.25rem;
-  }
-  
-  
-  @media only screen and (max-width: 768px) {
-    .container {
-      flex-direction: column;
-    }
-  
-    .container section {
-      width: 100%;
-    }
-  
-    .container aside {
-      width: 100%;
-      position: relative;
-    }
-  }
+.btnEditorActive {
+  @apply font-bold px-2 bg-hit-pink-500 text-blog-black rounded;
+}
+
+.btnEditor {
+  @apply font-light px-2 bg-hit-pink-500 text-blog-black rounded;
+}
+
+@media only screen and (max-width: 768px) {
+}
