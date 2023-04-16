@@ -268,6 +268,7 @@ export default function PostContent({ post }) {
           <div className="text-3xl font-extrabold">{post?.title}</div>
           {/* POST SECTION */}
           <div className="text-xl font-light">
+            {post?.content}
             <ReactMarkdown>{post?.content}</ReactMarkdown>
           </div>
         </div>
