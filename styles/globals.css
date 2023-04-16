@@ -47,16 +47,16 @@ img {
   @apply px-5 pt-2 pb-2 bg-white text-blog-black;
 }
 
-.ProseMirror code {
+.ProseMirror > code {
   @apply bg-blog-white text-[#616161];
 }
 
-.ProseMirror pre {
-  @apply bg-blog-black text-blog-white font-mono p-2 rounded;
+.ProseMirror > pre {
+  @apply bg-blog-black text-white font-mono p-2 rounded;
 }
 
-.ProseMirror pre code {
-  @apply p-0 text-inherit text-sm bg-none;
+.ProseMirror > pre > code {
+  @apply p-0 text-white text-inherit text-sm bg-inherit;
 }
 
 .ProseMirror blockquote {
@@ -67,13 +67,37 @@ img {
   @apply border-none border-t-2 border-fun-blue-500 m-2;
 }
 
+code {
+  @apply bg-blog-white text-[#616161];
+}
+
+pre {
+  @apply bg-blog-black text-white font-mono p-2 rounded;
+}
+
+pre > code {
+  @apply p-0 text-white text-inherit text-sm bg-inherit;
+}
+
+blockquote {
+  @apply pl-2 border-l-4 border-indigo-500;
+}
+
+hr {
+  @apply border-none border-t-2 border-fun-blue-500 m-2;
+}
+
 fieldset {
   border: none;
   font-size: 1.25rem;
 }
 
-code {
-  overflow-x: scroll;
+.post-content > p {
+  @apply my-2;
+}
+
+.admin-content > p {
+  @apply my-2;
 }
 
 /* Navbar */

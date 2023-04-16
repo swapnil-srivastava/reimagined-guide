@@ -180,9 +180,10 @@ function PostForm({ defaultValues, preview, editor }) {
   return (
     <form onSubmit={handleSubmit(updatePost)}>
       {preview && (
-        <div className="drop-shadow-xl">
-          <p>Hello Preview</p>
-        </div>
+        <div
+          className="drop-shadow-xl admin-content"
+          dangerouslySetInnerHTML={{ __html: defaultValues?.content }}
+        ></div>
       )}
 
       {!preview && (

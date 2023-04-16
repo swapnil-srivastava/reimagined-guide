@@ -267,10 +267,10 @@ export default function PostContent({ post }) {
           {/* TITLE SECTION */}
           <div className="text-3xl font-extrabold">{post?.title}</div>
           {/* POST SECTION */}
-          <div className="text-xl font-light">
-            {post?.content}
-            <ReactMarkdown>{post?.content}</ReactMarkdown>
-          </div>
+          <div
+            className="text-xl font-ligh post-content"
+            dangerouslySetInnerHTML={{ __html: post?.content }}
+          ></div>
         </div>
       </div>
     </>
