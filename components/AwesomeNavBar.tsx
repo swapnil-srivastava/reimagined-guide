@@ -2,16 +2,18 @@ import Link from "next/link";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  ChevronDownIcon,
-  CogIcon,
-  ChevronRightIcon,
-  ChevronLeftIcon,
-  MoonIcon,
-  SunIcon,
-  PencilIcon,
-} from "@heroicons/react/solid";
-import { LightningBoltIcon, LoginIcon } from "@heroicons/react/outline";
+  faBolt,
+  faSun,
+  faMoon,
+  faArrowRightToBracket,
+  faPencil,
+  faChevronDown,
+  faCog,
+  faChevronRight,
+  faChevronLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import { CSSTransition } from "react-transition-group";
 import { useSelector } from "react-redux";
 import { useTheme } from "next-themes";
@@ -87,11 +89,15 @@ function AwesomeNavBar() {
         icon={
           theme === "dark" ? (
             <BasicTooltip title="Dark Mode" placement="bottom">
-              <MoonIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
+              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+                <FontAwesomeIcon icon={faMoon} size="lg" />
+              </div>
             </BasicTooltip>
           ) : (
             <BasicTooltip title="Light Mode" placement="bottom">
-              <SunIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
+              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+                <FontAwesomeIcon icon={faSun} size="lg" />
+              </div>
             </BasicTooltip>
           )
         }
@@ -100,7 +106,9 @@ function AwesomeNavBar() {
       <NavBarItem nextrouteurl>
         <Link href="/technology">
           <BasicTooltip title="Tech Stack" placement="bottom">
-            <LightningBoltIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
+            <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+              <FontAwesomeIcon icon={faBolt} size="lg" />
+            </div>
           </BasicTooltip>
         </Link>
       </NavBarItem>
@@ -110,7 +118,9 @@ function AwesomeNavBar() {
         <NavBarItem nextrouteurl>
           <Link href="/enter">
             <BasicTooltip title="Login" placement="bottom">
-              <LoginIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
+              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+                <FontAwesomeIcon icon={faArrowRightToBracket} size="lg" />
+              </div>
             </BasicTooltip>
           </Link>
         </NavBarItem>
@@ -122,7 +132,9 @@ function AwesomeNavBar() {
           <NavBarItem nextrouteurl>
             <Link href="/admin">
               <BasicTooltip title="Write a post" placement="bottom">
-                <PencilIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
+                <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+                  <FontAwesomeIcon icon={faPencil} size="lg" />
+                </div>
               </BasicTooltip>
             </Link>
           </NavBarItem>
@@ -149,7 +161,9 @@ function AwesomeNavBar() {
 
       <NavBarItem
         icon={
-          <ChevronDownIcon className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125" />
+          <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+            <FontAwesomeIcon icon={faChevronDown} size="lg" />
+          </div>
         }
       >
         <DropdownMenu />
@@ -274,15 +288,29 @@ function DropdownMenu() {
             </DropdownItem>
           )}
 
-          <DropdownItem leftIcon={<LoginIcon className="w-5 h-5" />}>
+          <DropdownItem
+            leftIcon={
+              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+                <FontAwesomeIcon icon={faArrowRightToBracket} size="lg" />
+              </div>
+            }
+          >
             <Link href="/enter">
               {profile?.id && profile?.id ? "Sign Out" : "Login Page"}
             </Link>
           </DropdownItem>
 
           <DropdownItem
-            leftIcon={<CogIcon className="w-5 h-5" />}
-            rightIcon={<ChevronRightIcon className="w-5 h-5" />}
+            leftIcon={
+              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+                <FontAwesomeIcon icon={faCog} size="lg" />
+              </div>
+            }
+            rightIcon={
+              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+                <FontAwesomeIcon icon={faChevronRight} size="lg" />
+              </div>
+            }
             goToMenu="settings"
           >
             Settings
@@ -302,20 +330,48 @@ function DropdownMenu() {
         <div className="menu p-4">
           <DropdownItem
             goToMenu="main"
-            leftIcon={<ChevronLeftIcon className="w-5 h-5" />}
+            leftIcon={
+              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+                <FontAwesomeIcon icon={faChevronLeft} size="lg" />
+              </div>
+            }
           >
             <h2>My Tutorial</h2>
           </DropdownItem>
-          <DropdownItem leftIcon={<LightningBoltIcon className="w-5 h-5" />}>
+          <DropdownItem
+            leftIcon={
+              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+                <FontAwesomeIcon icon={faBolt} size="lg" />
+              </div>
+            }
+          >
             HTML
           </DropdownItem>
-          <DropdownItem leftIcon={<LightningBoltIcon className="w-5 h-5" />}>
+          <DropdownItem
+            leftIcon={
+              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+                <FontAwesomeIcon icon={faBolt} size="lg" />
+              </div>
+            }
+          >
             CSS
           </DropdownItem>
-          <DropdownItem leftIcon={<LightningBoltIcon className="w-5 h-5" />}>
+          <DropdownItem
+            leftIcon={
+              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+                <FontAwesomeIcon icon={faBolt} size="lg" />
+              </div>
+            }
+          >
             JavaScript
           </DropdownItem>
-          <DropdownItem leftIcon={<LightningBoltIcon className="w-5 h-5" />}>
+          <DropdownItem
+            leftIcon={
+              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+                <FontAwesomeIcon icon={faBolt} size="lg" />
+              </div>
+            }
+          >
             Awesome!
           </DropdownItem>
         </div>
