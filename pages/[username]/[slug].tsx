@@ -120,7 +120,7 @@ function Post(props) {
         description={generateMetaDescription(post.content)}
       />
 
-      <section className="p-3 lg:px-60">
+      <section className="basis-2/3 p-3">
         <PostContent post={post} />
       </section>
     </main>
