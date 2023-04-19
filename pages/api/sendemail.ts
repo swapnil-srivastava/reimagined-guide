@@ -5,14 +5,14 @@ const client = new postmark.ServerClient(process.env.EMAIL_KEY);
 
 export default function handler(req, res) {
   console.log("process.env.EMAIL_KEY", process.env.EMAIL_KEY);
+
   client.sendEmail({
-    From: "support@swapnilsrivastava.eu",
-    To: "swapnilsrivastava68@hotmail.com",
-    Subject: "Hello from Swapnil's Note",
-    HtmlBody:
-      "<strong>Hello</strong> dear Swapnil's Notes user, please visit https://swapnilsrivastava.eu for more info.",
-    TextBody: "Hello from Swapnil's Notes!",
-    MessageStream: "outbound",
+    "From": "contact@swapnilsrivastava.eu",
+    "To": "contact@swapnilsrivastava.eu",
+    "Subject": "Hello from Postmark",
+    "HtmlBody": "<strong>Hello</strong> dear Postmark user.",
+    "TextBody": "Hello from Postmark!",
+    "MessageStream": "broadcast"
   });
 
   res.status(200).json("Email had been sent");
