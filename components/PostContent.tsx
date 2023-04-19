@@ -1,16 +1,15 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useSelector } from "react-redux";
-import ReactMarkdown from "react-markdown";
 import moment from "moment";
-import { DotsHorizontalIcon } from "@heroicons/react/outline";
-import { PencilAltIcon } from "@heroicons/react/solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLinkedin,
   faFacebook,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
+
+import { faPenToSquare, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 
 // Component
 import HeartButton from "./HeartButton";
@@ -113,20 +112,19 @@ export default function PostContent({ post }) {
 
             {/* EDIT BUTTON : edit button icon visible only when user has authentication to edit */}
             {profile?.id === post.uid && (
-              <div>
+              <div className="self-end">
                 <Link href={`/admin/${post.slug}`}>
                   <button
+                    type="button"
                     className="focus:outline-none focus:ring-2 
-                focus:ring-fun-blue-400 
-                focus:ring-offset-2 text-sm
-                font-semibold"
+                              focus:ring-fun-blue-400 
+                              focus:ring-offset-2 text-sm
+                              font-semibold bg-fun-blue-300 dark:text-blog-black 
+                              p-2 m-1 flex rounded items-center justify-center gap-x-2
+                              transition-filter duration-500 hover:filter hover:brightness-125"
                   >
-                    <PencilAltIcon
-                      className="bg-fun-blue-300 dark:text-blog-black 
-                        w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] 
-                        p-1 m-1 rounded-full flex items-center justify-center 
-                        transition-filter duration-500 hover:filter hover:brightness-125"
-                    />
+                    <FontAwesomeIcon icon={faPenToSquare} size="lg" />
+                    <div className="font-light">Edit</div>
                   </button>
                 </Link>
               </div>
@@ -240,24 +238,23 @@ export default function PostContent({ post }) {
 
             {/* THREE DOT BUTTON */}
 
-            <BasicTooltip title="Share" placement="bottom">
+            {/* <BasicTooltip title="Share" placement="bottom">
               <button
                 className="rounded-full
                 focus:outline-none focus:ring-2
                 focus:ring-fun-blue-400 
                 focus:ring-offset-2
                 flex
-                font-semibold"
-                onClick={() => alert("work in progress: share a post")}
-              >
-                <DotsHorizontalIcon
-                  className="bg-fun-blue-300 dark:text-blog-black 
+                font-semibold 
+                bg-fun-blue-300 dark:text-blog-black 
                   w-6 h-6
                   p-0.5 m-0.5 rounded-full flex items-center justify-center 
                   transition-filter duration-500 hover:filter hover:brightness-125"
-                />
+                onClick={() => alert("work in progress: share a post")}
+              >
+                <FontAwesomeIcon icon={faEllipsis} size="lg" />
               </button>
-            </BasicTooltip>
+            </BasicTooltip> */}
           </div>
         </div>
 
