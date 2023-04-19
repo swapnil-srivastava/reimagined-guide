@@ -37,7 +37,6 @@ interface User {
 
 // UI component for main post content
 export default function PostContent({ post }) {
-  // TS infers type: (state: RootState) => boolean
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
@@ -54,12 +53,15 @@ export default function PostContent({ post }) {
         {/* User Image and Sharing Button SECTION */}
         <div
           className="bg-blog-white dark:bg-fun-blue-500 
-                    dark:text-blog-white p-3"
+                    flex flex-col lg:flex-row justify-between
+                    dark:text-blog-white p-3 gap-5"
         >
-          <div className="flex items-center justify justify-between gap-x-2">
+          <div className="flex items-center justify-between gap-x-2">
             {/* USER DETAIL INFO : User Image with username and details about the post */}
+
             <div className="flex items-center gap-x-2">
               {/*  USER NAME SECTION  */}
+
               <div>
                 {/* USER IMAGE ICON and REDIRECT to PROFILE page */}
                 <Link href={`/${post.username}`}>
@@ -132,7 +134,7 @@ export default function PostContent({ post }) {
           </div>
 
           {/* HEART SECTION : logged in user to heart the post and sign up button redirect to login in page */}
-          <div className="flex items-center mt-3 md:mt-5 gap-x-2">
+          <div className="flex items-center gap-x-2">
             {/* AUTH CHECK SECTION - SIGN UP BUTTON */}
             <AuthCheck
               fallback={
@@ -262,13 +264,13 @@ export default function PostContent({ post }) {
         {/* ARTICLE SECTION */}
         <div
           className="bg-blog-white dark:bg-fun-blue-500 
-                    dark:text-blog-white p-3 flex flex-col gap-3"
+                    dark:text-blog-white p-3 flex flex-col gap-5"
         >
           {/* TITLE SECTION */}
           <div className="text-3xl font-extrabold">{post?.title}</div>
           {/* POST SECTION */}
           <div
-            className="text-xl font-ligh post-content"
+            className="post-content"
             dangerouslySetInnerHTML={{ __html: post?.content }}
           ></div>
         </div>
