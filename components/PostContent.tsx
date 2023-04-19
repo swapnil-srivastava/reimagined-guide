@@ -267,7 +267,9 @@ export default function PostContent({ post }) {
                     dark:text-blog-white p-3 flex flex-col gap-5"
         >
           {/* TITLE SECTION */}
-          <div className="text-3xl font-extrabold">{post?.title}</div>
+          <div className="text-3xl font-extrabold self-center">
+            {post?.title}
+          </div>
           {/* POST SECTION */}
           <div
             className="post-content"
