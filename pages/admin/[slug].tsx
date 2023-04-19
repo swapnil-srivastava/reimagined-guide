@@ -40,6 +40,8 @@ import {
   faQuoteRight,
 } from "@fortawesome/free-solid-svg-icons";
 
+import axios from "axios";
+
 interface RootState {
   counter: Object;
   users: UserState;
@@ -157,6 +159,46 @@ function PostForm({ defaultValues, preview, editor }) {
     return null;
   }
 
+  async function sendEmail() {
+    const emailMessage = {
+      from: "contact@swapnilsrivastava.eu",
+      to: "contact@swapnilsrivastava.eu",
+      subject: "Hello from Postmark",
+      htmlBody: "<strong>Hello</strong> dear Postmark user.",
+      textBody: "Hello from Postmark!",
+      messageStream: "outbound",
+    };
+
+    try {
+      const { data, status } = await axios.post(
+        "/api/sendemail",
+        emailMessage,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      toast.success(`Email sent`);
+
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+
+        console.log("error message: ", error.message);
+        toast.success("Axios Error SMS");
+
+        return error.message;
+      } else {
+
+        console.log("unexpected error: ", error);
+        toast.success("Error SMS");
+
+        return "An unexpected error occurred";
+      }
+    }
+  }
+
   const { isValid, isDirty, errors } = formState;
 
   const updatePost = async ({ content, published }) => {
@@ -173,6 +215,8 @@ function PostForm({ defaultValues, preview, editor }) {
       .eq("slug", slug);
 
     reset({ content, published });
+
+    sendEmail();
 
     toast.success("Post updated successfully!");
   };
