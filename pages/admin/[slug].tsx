@@ -197,9 +197,15 @@ function PostForm({ defaultValues, preview, editor }) {
   }
 
   async function callNestApi() {
+    const email = {
+      to: "contact@swapnilsrivastava.eu",
+      subject: "Hello from Swapnil",
+      htmlBody: "<strong>Hello</strong> dear notes user.",
+    };
     try {
       const { data, status } = await axios.post(
         "https://reimagined-octo-potato-smoky.vercel.app/sendemail",
+        email,
         {
           headers: {
             "Content-Type": "application/json",
