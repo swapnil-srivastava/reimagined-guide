@@ -1,12 +1,12 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-const postmark = require("postmark");
-
-// Send an email:
-const client = new postmark.ServerClient(
-  "2e7cd3fe-f589-4fa6-b0d5-2c1459e2af88"
-);
+import * as postmark from "postmark";
 
 export default function handler(req, res) {
+  // Send an email:
+  const client = new postmark.ServerClient(
+    "2e7cd3fe-f589-4fa6-b0d5-2c1459e2af88"
+  );
+
   client.sendEmail({
     From: "contact@swapnilsrivastava.eu",
     To: "contact@swapnilsrivastava.eu",
