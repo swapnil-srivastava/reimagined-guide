@@ -60,9 +60,9 @@ interface UserState {
 
 function AdminSlug() {
   return (
-    // <AuthCheck>
-    <PostManager />
-    // </AuthCheck>
+    <AuthCheck>
+      <PostManager />
+    </AuthCheck>
   );
 }
 
@@ -146,7 +146,7 @@ function PostForm({ defaultValues, preview, editor }) {
 
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
-  const { profile, session } = userInfo;
+  const { profile } = userInfo;
 
   useEffect(() => {
     if (!editor) {
@@ -181,19 +181,41 @@ function PostForm({ defaultValues, preview, editor }) {
       );
 
       toast.success(`Email sent`);
-
     } catch (error) {
       if (axios.isAxiosError(error)) {
-
         console.log("error message: ", error.message);
         toast.success("Axios Error SMS");
 
         return error.message;
       } else {
-
         console.log("unexpected error: ", error);
         toast.success("Error SMS");
 
+        return "An unexpected error occurred";
+      }
+    }
+  }
+
+  async function callNestApi() {
+    try {
+      const { data, status } = await axios.get(
+        "https://reimagined-octo-potato-smoky.vercel.app/helloworld",
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      toast.success(`Called Nest JS Hello World ${data}`);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log("error message: ", error.message);
+        toast.error("Axios Nest JS ");
+        return error.message;
+      } else {
+        console.log("unexpected error: ", error);
+        toast.error("Error Nest JS");
         return "An unexpected error occurred";
       }
     }
@@ -217,6 +239,8 @@ function PostForm({ defaultValues, preview, editor }) {
     reset({ content, published });
 
     sendEmail();
+
+    callNestApi();
 
     toast.success("Post updated successfully!");
   };
