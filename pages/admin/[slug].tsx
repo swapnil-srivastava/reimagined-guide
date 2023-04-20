@@ -198,7 +198,7 @@ function PostForm({ defaultValues, preview, editor }) {
 
   async function callNestApi() {
     try {
-      const { data, status } = await axios.get(
+      const { data, status } = await axios.post(
         "https://reimagined-octo-potato-smoky.vercel.app/sendemail",
         {
           headers: {
