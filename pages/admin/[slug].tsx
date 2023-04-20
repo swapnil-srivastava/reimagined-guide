@@ -199,7 +199,7 @@ function PostForm({ defaultValues, preview, editor }) {
   async function callNestApi() {
     try {
       const { data, status } = await axios.get(
-        "https://reimagined-octo-potato-smoky.vercel.app/helloworld",
+        "https://reimagined-octo-potato-smoky.vercel.app/sendemail",
         {
           headers: {
             "Content-Type": "application/json",
