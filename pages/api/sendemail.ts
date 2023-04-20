@@ -10,7 +10,7 @@ export default function handler(req, res) {
   client.sendEmail({
     From: "contact@swapnilsrivastava.eu",
     To: "contact@swapnilsrivastava.eu",
-    Subject: "Hello from Postmark",
+    Subject: "Hello from nextjs api",
     HtmlBody: "<strong>Hello</strong> dear Postmark user.",
     TextBody: "Hello from Postmark!",
     MessageStream: "outbound",

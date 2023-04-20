@@ -14,21 +14,120 @@ import { faAnglesDown } from "@fortawesome/free-solid-svg-icons";
 // Max post to query per page
 const LIMIT = 5;
 
-export async function getServerSideProps(context) {
-  let { data: posts } = await supaClient
-    .from("posts")
-    .select("*")
-    .is("published", true)
-    .order("created_at", { ascending: false })
-    .range(0, LIMIT);
+// export async function getServerSideProps(context) {
+//   let { data: posts } = await supaClient
+//     .from("posts")
+//     .select("*")
+//     .is("published", true)
+//     .order("created_at", { ascending: false })
+//     .range(0, LIMIT);
 
-  return {
-    props: { posts }, // will be passed to the page component as props
-  };
-}
+//   return {
+//     props: { posts }, // will be passed to the page component as props
+//   };
+// }
 
 export default function Home(props) {
-  const [posts, setPosts] = useState<POST[]>(props.posts);
+  const [posts, setPosts] = useState<POST[]>([
+    {
+      id: "48acf818-b482-4b38-8c0c-358673530c80",
+      uid: "6c574880-fe71-42c6-a290-8df7e53d2685",
+      photo_url:
+        "https://lh3.googleusercontent.com/a/AGNmyxbjCBwPcqKxF9AsZNW8Rl7T4c1oF9uTL_IUKKBJ4g=s96-c",
+      username: "mudrikamishra",
+      created_at: "2023-03-21T18:52:05.34801+00:00",
+      updated_at: null,
+      published: true,
+      approved: false,
+      slug: "my-first-article",
+      title: "My first article ",
+      content: "# hello world!",
+      heartcount: 0,
+      heartid: null,
+    },
+    {
+      id: "e7222684-ef0c-4f0e-8891-cd9827950f1a",
+      uid: "6c574880-fe71-42c6-a290-8df7e53d2685",
+      photo_url:
+        "https://lh3.googleusercontent.com/a/AGNmyxbjCBwPcqKxF9AsZNW8Rl7T4c1oF9uTL_IUKKBJ4g=s96-c",
+      username: "mudrikamishra",
+      created_at: "2023-03-21T18:49:49.791164+00:00",
+      updated_at: "2023-03-22T16:21:04.02+00:00",
+      published: true,
+      approved: false,
+      slug: "hello-post",
+      title: "Hello post ",
+      content:
+        "# hello world!\n\nHello Again, as usual u are not listening \n\nmore things more things ",
+      heartcount: 0,
+      heartid: null,
+    },
+    {
+      id: "c5a24dd9-6042-45a2-add1-99962b4a5670",
+      uid: "c8ae336b-5fc3-43e7-8c33-d253b8361d79",
+      photo_url:
+        "https://lh3.googleusercontent.com/a/AGNmyxYZ2HY0eAHIq91gA00DDlQXa5DNGsbY5EuJAdGuYg=s96-c",
+      username: "swapnil",
+      created_at: "2023-03-21T18:48:04.044298+00:00",
+      updated_at: "2023-03-22T17:38:43.084+00:00",
+      published: true,
+      approved: false,
+      slug: "one-more-article",
+      title: "One more article ",
+      content:
+        "hello supabase \n\nadding lines in the supabase\n\nmaking changes in the website again \n\nseeing changes that update_at is also working \n\nmore document",
+      heartcount: 0,
+      heartid: null,
+    },
+    {
+      id: "bdf70bbf-4a68-412e-8a87-b332b82bd4fe",
+      uid: "c8ae336b-5fc3-43e7-8c33-d253b8361d79",
+      photo_url:
+        "https://lh3.googleusercontent.com/a/AGNmyxYZ2HY0eAHIq91gA00DDlQXa5DNGsbY5EuJAdGuYg=s96-c",
+      username: "swapnil",
+      created_at: "2023-03-21T18:47:42.523943+00:00",
+      updated_at: null,
+      published: true,
+      approved: false,
+      slug: "one-more",
+      title: "one more",
+      content: "# hello world!",
+      heartcount: 0,
+      heartid: null,
+    },
+    {
+      id: "d8651f25-7bb6-4a31-a40a-1b4596ac73ff",
+      uid: "c8ae336b-5fc3-43e7-8c33-d253b8361d79",
+      photo_url:
+        "https://lh3.googleusercontent.com/a/AGNmyxYZ2HY0eAHIq91gA00DDlQXa5DNGsbY5EuJAdGuYg=s96-c",
+      username: "swapnil",
+      created_at: "2023-03-21T18:46:57.753949+00:00",
+      updated_at: "2023-03-25T15:26:52.761+00:00",
+      published: true,
+      approved: true,
+      slug: "hello-supbase-with-logged-in-user",
+      title: "Hello Supbase with logged in user",
+      content: "# hello world!\n\nnnnm\n\nHello\n\nGghg",
+      heartcount: 0,
+      heartid: null,
+    },
+    {
+      id: "3cf8ade3-90f2-42ad-bc3a-333b860da5f8",
+      uid: "c8ae336b-5fc3-43e7-8c33-d253b8361d79",
+      photo_url:
+        "https://lh3.googleusercontent.com/a/AGNmyxYZ2HY0eAHIq91gA00DDlQXa5DNGsbY5EuJAdGuYg=s96-c",
+      username: null,
+      created_at: "2023-03-20T17:40:00.749193+00:00",
+      updated_at: "2023-03-22T20:37:43.202+00:00",
+      published: true,
+      approved: false,
+      slug: "hello-mudrika",
+      title: "hello mudrika",
+      content: "# hello world!\n\nthis is the place where we write something ",
+      heartcount: 0,
+      heartid: null,
+    },
+  ]);
   const [loading, setLoading] = useState<boolean>(false);
 
   const [postsEnd, setPostsEnd] = useState(false);

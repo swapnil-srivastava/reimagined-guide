@@ -244,11 +244,15 @@ function SendSMS() {
     };
 
     try {
-      const { data, status } = await axios.post("/api/sendemail", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const { data, status } = await axios.post(
+        "/api/sendemail",
+        emailMessage,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       toast.success(`Email sent`);
     } catch (error) {
