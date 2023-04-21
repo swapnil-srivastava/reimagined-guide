@@ -205,12 +205,7 @@ function PostForm({ defaultValues, preview, editor }) {
     try {
       const { data, status } = await axios.post(
         "https://reimagined-octo-potato-smoky.vercel.app/sendemail",
-        email,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        email
       );
 
       toast.success(`Called Nest JS Hello World ${data}`);
