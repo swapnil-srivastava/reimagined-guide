@@ -163,7 +163,7 @@ function PostForm({ defaultValues, preview, editor }) {
     const emailMessage = {
       from: "contact@swapnilsrivastava.eu",
       to: "contact@swapnilsrivastava.eu",
-      subject: "Hello from Postmark",
+      subject: "Hello from sendEmail",
       htmlBody: "<strong>Hello</strong> dear Postmark user.",
       textBody: "Hello from Postmark!",
       messageStream: "outbound",
