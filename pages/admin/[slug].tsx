@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
-import ReactMarkdown from "react-markdown";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 
@@ -209,6 +208,8 @@ function PostForm({ defaultValues, preview, editor }) {
         {
           headers: {
             "Content-Type": "application/json",
+            "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+            "Access-Control-Allow-Headers": "Authorization, Content-Type",
             "Access-Control-Allow-Origin": "https://swapnilsrivastava.eu",
           },
         }
