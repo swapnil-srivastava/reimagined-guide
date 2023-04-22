@@ -209,6 +209,7 @@ function PostForm({ defaultValues, preview, editor }) {
         {
           headers: {
             "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "https://swapnilsrivastava.eu",
           },
         }
       );
