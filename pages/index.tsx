@@ -11,6 +11,9 @@ import { POST } from "../database.types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesDown } from "@fortawesome/free-solid-svg-icons";
 
+import axios from "axios";
+import toast from "react-hot-toast";
+
 // Max post to query per page
 const LIMIT = 5;
 
@@ -56,6 +59,37 @@ export default function Home(props) {
     }
   };
 
+  async function callNestSendApi() {
+    const email = {
+      to: "contact@swapnilsrivastava.eu",
+      subject: "Hello from Swapnil",
+      htmlBody: "<strong>Hello</strong> dear notes user.",
+    };
+    try {
+      const { data, status } = await axios.post(
+        "https://api.swapnilsrivastava.eu/sendemail",
+        email,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      toast.success(`Called Nest JS sendemail ${data}`);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log("error message: ", error.message);
+        toast.error("Axios Nest JS SendEmail POST");
+        return error.message;
+      } else {
+        console.log("unexpected error: ", error);
+        toast.error("Error Nest JS");
+        return "An unexpected error occurred";
+      }
+    }
+  }
+
   return (
     <main>
       <Metatags />
@@ -67,7 +101,10 @@ export default function Home(props) {
             defaultMessage="Hi, I'm" // Message should be a string literal
           />{" "}
           <span className="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500 relative inline-block mx-2 dark:text-blog-white text-blog-white">
-            <span className="relative text-white">
+            <span
+              className="relative text-white"
+              onClick={() => callNestSendApi()}
+            >
               <FormattedMessage
                 id="swapnil_name"
                 description="Name of the Author" // Description should be a string literal
