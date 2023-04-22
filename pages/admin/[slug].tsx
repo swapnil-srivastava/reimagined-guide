@@ -204,7 +204,7 @@ function PostForm({ defaultValues, preview, editor }) {
     };
     try {
       const { data, status } = await axios.post(
-        "https://reimagined-octo-potato-smoky.vercel.app/sendemail",
+        "https://api.swapnilsrivastava.eu/sendemail",
         email
       );
 
