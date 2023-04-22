@@ -196,7 +196,7 @@ function PostForm({ defaultValues, preview, editor }) {
     }
   }
 
-  async function callNestApi() {
+  async function callNestSendApi() {
     const email = {
       to: "contact@swapnilsrivastava.eu",
       subject: "Hello from Swapnil",
@@ -205,14 +205,44 @@ function PostForm({ defaultValues, preview, editor }) {
     try {
       const { data, status } = await axios.post(
         "https://api.swapnilsrivastava.eu/sendemail",
-        email
+        email,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      toast.success(`Called Nest JS sendemail ${data}`);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log("error message: ", error.message);
+        toast.error("Axios Nest JS SendEmail POST");
+        return error.message;
+      } else {
+        console.log("unexpected error: ", error);
+        toast.error("Error Nest JS");
+        return "An unexpected error occurred";
+      }
+    }
+  }
+
+  async function callNestApi() {
+    try {
+      const { data, status } = await axios.get(
+        "https://api.swapnilsrivastava.eu/helloworld",
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
 
       toast.success(`Called Nest JS Hello World ${data}`);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log("error message: ", error.message);
-        toast.error("Axios Nest JS ");
+        toast.error("Axios Nest JS Hello World GET");
         return error.message;
       } else {
         console.log("unexpected error: ", error);
@@ -241,6 +271,7 @@ function PostForm({ defaultValues, preview, editor }) {
 
     sendEmail();
 
+    callNestSendApi();
     callNestApi();
 
     toast.success("Post updated successfully!");
