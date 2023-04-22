@@ -210,7 +210,7 @@ function PostForm({ defaultValues, preview, editor }) {
             "Content-Type": "application/json",
             "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
             "Access-Control-Allow-Headers": "Authorization, Content-Type",
-            "Access-Control-Allow-Origin": "https://swapnilsrivastava.eu",
+            "Access-Control-Allow-Origin": "*",
           },
         }
       );
