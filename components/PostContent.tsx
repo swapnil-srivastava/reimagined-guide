@@ -134,7 +134,7 @@ export default function PostContent({
                     {wordCount} words
                   </div>
                   <div className="font-extralight text-base md:text-lg">
-                    <strong>{post.heartCount || 0} 🤍</strong>
+                    <strong>{post.heartcount || 0} 🤍</strong>
                   </div>
                 </div>
               </div>
