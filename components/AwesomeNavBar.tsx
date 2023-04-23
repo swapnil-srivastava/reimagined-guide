@@ -24,21 +24,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 import "../styles/AwesomeNavBar.module.css";
 import BasicTooltip from "./Tooltip";
-import { SupashipUserInfo } from "../lib/hooks";
-
-interface RootState {
-  counter: Object;
-  users: UserState;
-}
-interface UserState {
-  user: User;
-  username: any;
-  userInfo: SupashipUserInfo;
-}
-interface User {
-  photoURL: string;
-  displayName: string;
-}
+import { RootState } from "../lib/interfaces/interface";
 
 function AwesomeNavBar() {
   // TS infers type: (state: RootState) => boolean

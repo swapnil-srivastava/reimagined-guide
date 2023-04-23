@@ -17,22 +17,7 @@ import BasicTooltip from "./Tooltip";
 
 // Authentication Check Component
 import AuthCheck from "./AuthCheck";
-import { SupashipUserInfo } from "../lib/hooks";
-
-interface RootState {
-  counter: Object;
-  users: UserState;
-}
-
-interface UserState {
-  user: User;
-  username: any;
-  userInfo: SupashipUserInfo;
-}
-
-interface User {
-  uid: String;
-}
+import { RootState } from "../lib/interfaces/interface";
 
 // UI component for main post content
 export default function PostContent({ post }) {
