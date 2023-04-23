@@ -20,7 +20,6 @@ export default async function handler(
       TextBody: "Hello from Swapnil's Notes!",
       MessageStream: "outbound",
     });
-    console.log(response);
     res.status(200).json("Email had been sent");
   } catch (error) {
     console.error(error);
