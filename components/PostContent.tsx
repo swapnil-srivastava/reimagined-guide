@@ -45,8 +45,8 @@ export default function PostContent({
 
   const wordCount = post?.content.trim().split(/\s+/g).length;
   const minutesToRead = (wordCount / 100 + 1).toFixed(0);
-  const dateFormat = moment(post.created_at).isValid()
-    ? moment(post.created_at).format("MMM DD")
+  const dateFormat = moment(post?.created_at).isValid()
+    ? moment(post?.created_at).format("MMM DD")
     : "";
 
   const approvePost = async (post: POST) => {
