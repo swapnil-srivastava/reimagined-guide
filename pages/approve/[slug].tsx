@@ -59,7 +59,7 @@ function ApproveSlug() {
 function PostApprover({ post, isSwapnil }: { post: POST; isSwapnil: User }) {
   return (
     <>
-      <main>
+      <main className="flex">
         <Metatags
           title={post?.title}
           description={generateMetaDescription(post?.content)}
