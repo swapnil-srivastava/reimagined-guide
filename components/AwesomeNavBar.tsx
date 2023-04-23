@@ -272,14 +272,14 @@ function DropdownMenu() {
         <div className="menu p-4">
           {profile?.id && (
             <DropdownItem>
-              <Link href={`/${profile?.id}`}>
+              <Link href={`/${profile?.username}`}>
                 <div className="flex items-center gap-x-1">
                   <div className="w-9 h-9 rounded-full cursor-pointer flex items-center overflow-hidden">
                     <Image
                       width={200}
                       height={200}
                       src={profile?.avatar_url}
-                      alt=""
+                      alt={profile?.full_name}
                     />
                   </div>
                   My Profile
