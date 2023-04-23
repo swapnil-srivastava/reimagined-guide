@@ -10,6 +10,7 @@ export default async function handler(
     "2d92b8f0-fcc5-46e0-b368-98a4b9186755"
   );
 
+  console.log("client=====>", client);
   try {
     const response = await client.sendEmail({
       From: "contact@swapnilsrivastava.eu",
