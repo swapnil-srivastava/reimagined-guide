@@ -11,7 +11,7 @@ export default async function handler(
   try {
     const response = await client.sendEmail({
       From: "support@swapnilsrivastava.eu",
-      To: "contact@swapnilsrivastava.eu",
+      To: "swapnilsrivastava68@hotmail.com",
       Subject: "Hello from Swapnil's Note",
       HtmlBody:
         "<strong>Hello</strong> dear Swapnil's Notes user, please visit https://swapnilsrivastava.eu for more info.",
