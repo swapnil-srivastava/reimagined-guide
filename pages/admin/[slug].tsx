@@ -183,7 +183,7 @@ function PostForm({ defaultValues, preview, editor }) {
     const articleURL = `https://swapnilsrivastava.eu/${profile?.username}/${defaultValues?.slug}`;
 
     const emailMessage: Partial<postmark.Message> = {
-      To: "contact@swapnilsrivastava.com",
+      To: "contact@swapnilsrivastava.eu",
       Subject: "Hello new article has been created / updated",
       HtmlBody: `<strong>Hello</strong> Swapnil Srivastava, new article is updated or published on your website, navigate to ${articleURL}`,
     };
