@@ -161,8 +161,8 @@ function PostForm({ defaultValues, preview, editor }) {
   async function sendEmail() {
     const emailMessage = {
       to: "swapnilsrivastava68@gmail.com",
-      subject: "Hello from sendEmail",
-      htmlBody: "<strong>Hello</strong> dear Postmark user.",
+      subject: "Hello from sendEmail nextjs",
+      htmlBody: "<strong>Hello</strong> dear swapnil's notes user.",
       textBody: "Hello from Postmark!",
       messageStream: "outbound",
     };
