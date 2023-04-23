@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { DocumentSnapshot, getDoc } from "firebase/firestore";
 import BasicTooltip from "./Tooltip";
 
 // Allows user to heart or like a post
@@ -7,9 +6,7 @@ export default function Heart({ postRef }) {
   // Listen to heart document for currently logged in user
   const heartRef = postRef.collection("hearts").doc();
 
-  const [docRefState, setDocRefState] = useState<
-    DocumentSnapshot | undefined
-  >();
+  const [docRefState, setDocRefState] = useState();
 
   useEffect(() => {}, []);
 
@@ -24,7 +21,8 @@ export default function Heart({ postRef }) {
     const batch = "";
   };
 
-  return docRefState?.exists() ? (
+  // TODO: adding the logic
+  return true ? (
     <BasicTooltip title="Not good enough" placement="bottom">
       <div className="flex items-center">
         <button

@@ -14,8 +14,6 @@ import PostFeed from "../../components/PostFeed";
 import { supaClient } from "../../supa-client";
 import { SupashipUserInfo } from "../../lib/hooks";
 
-import { onlySwapnilCanSee } from "../../lib/firebase";
-
 import { POST } from "../../database.types";
 import { User } from "@supabase/supabase-js";
 
@@ -318,7 +316,8 @@ function SendSMS() {
     }
   }
 
-  return onlySwapnilCanSee() ? (
+  // TODO: add logic so only Swapnil can see
+  return false ? (
     <div className="flex items-center justify-center">
       <button
         className="

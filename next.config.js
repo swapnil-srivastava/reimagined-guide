@@ -9,10 +9,6 @@ const nextConfig = {
     locales: ["en-US", "de-DE", "fr-FR", "hi-IN"],
     defaultLocale: "en-US",
   },
-  env: {
-    TWILIO_ACCOUNT_SID: "ACaab467cfee563421ed66bdec52b27698",
-    TWILIO_AUTH_TOKEN: "2b6791369810873238e661fd101dd23b",
-    SWAPNIL_UID: "WYrropAdLKWaNdQDtkl64Anuthf2",
-  },
+  env: {},
 };
 module.exports = nextConfig;

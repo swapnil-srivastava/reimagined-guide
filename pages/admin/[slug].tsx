@@ -269,9 +269,6 @@ function PostForm({ defaultValues, preview, editor }) {
 
     sendEmail();
 
-    callNestSendApi();
-    callNestApi();
-
     toast.success("Post updated successfully!");
   };
 

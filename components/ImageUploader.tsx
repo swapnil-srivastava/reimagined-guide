@@ -6,7 +6,7 @@ export default function ImageUploader() {
   const [progress] = useState<String>("");
   const [downloadURL] = useState(null);
 
-  // Creates a Firebase Upload Task
+  // Creates a Supabase Upload Task
   const uploadFile = async (e) => {
     const target = e.target as HTMLInputElement;
     // Get the file
