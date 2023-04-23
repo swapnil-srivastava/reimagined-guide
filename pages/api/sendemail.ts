@@ -9,14 +9,20 @@ export default async function handler(
   const client = new postmark.ServerClient(process.env.EMAIL_KEY);
 
   try {
-    const { to, subject, htmlBody, textBody, messageStream } = req.body;
+    const {
+      To: emailTo,
+      Subject: emailSubject,
+      HtmlBody: emailHtmlBody,
+      TextBody: textHtmlBody,
+      MessageStream: emailMessageStream,
+    } = req.body;
 
     const response = await client.sendEmail({
       From: process.env.EMAIL,
-      To: to,
-      Subject: subject,
-      HtmlBody: htmlBody,
-      TextBody: textBody,
+      To: emailTo,
+      Subject: emailSubject,
+      HtmlBody: emailHtmlBody,
+      TextBody: textHtmlBody,
       MessageStream: "outbound",
     });
 

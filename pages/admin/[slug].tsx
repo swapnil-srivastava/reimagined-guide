@@ -29,6 +29,7 @@ import {
   faQuoteLeft,
   faQuoteRight,
 } from "@fortawesome/free-solid-svg-icons";
+import * as postmark from "postmark";
 
 import styles from "../../styles/Admin.module.css";
 
@@ -179,12 +180,10 @@ function PostForm({ defaultValues, preview, editor }) {
 
     reset({ content, published });
 
-    const emailMessage = {
-      to: "swapnilsrivastava68@gmail.com",
-      subject: "Hello from sendEmail nextjs",
-      htmlBody: "<strong>Hello</strong> dear swapnil's notes user.",
-      textBody: "Hello from Postmark!",
-      messageStream: "outbound",
+    const emailMessage: Partial<postmark.Message> = {
+      To: "swapnilsrivastava68@gmail.com",
+      Subject: "Hello from nextjs admin",
+      HtmlBody: "<strong>Hello</strong> dear swapnil's notes user.",
     };
 
     sendEmail(emailMessage);

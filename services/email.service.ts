@@ -1,7 +1,8 @@
 import axios from "axios";
 import toast from "react-hot-toast";
+import * as postmark from "postmark";
 
-export async function sendEmail(emailMessage) {
+export async function sendEmail(emailMessage: Partial<postmark.Message>) {
   try {
     const { data, status } = await axios.post("/api/sendemail", emailMessage, {
       headers: {
