@@ -48,9 +48,11 @@ export default function Home(props) {
       .from("posts")
       .select("*")
       .is("published", true)
+      .is("approved", true)
       .lt("created_at", cursor)
       .order("created_at", { ascending: false })
       .range(0, LIMIT);
+
     setPosts(posts.concat(oldPosts));
 
     setLoading(false);
