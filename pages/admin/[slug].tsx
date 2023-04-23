@@ -180,10 +180,12 @@ function PostForm({ defaultValues, preview, editor }) {
 
     reset({ content, published });
 
+    const articleURL = `https://swapnilsrivastava.eu/${profile?.username}/${defaultValues?.slug}`;
+
     const emailMessage: Partial<postmark.Message> = {
-      To: "swapnilsrivastava68@gmail.com",
-      Subject: "Hello from nextjs admin",
-      HtmlBody: "<strong>Hello</strong> dear swapnil's notes user.",
+      To: "contact@swapnilsrivastava.com",
+      Subject: "Hello new article has been created / updated",
+      HtmlBody: `<strong>Hello</strong> Swapnil Srivastava, new article is updated or published on your website, navigate to ${articleURL}`,
     };
 
     sendEmail(emailMessage);
