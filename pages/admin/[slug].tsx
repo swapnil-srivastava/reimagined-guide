@@ -39,6 +39,8 @@ import {
   faQuoteRight,
 } from "@fortawesome/free-solid-svg-icons";
 
+import Metatags from "../../components/Metatags";
+
 import axios from "axios";
 
 // e.g. localhost:3000/admin/page1
@@ -88,36 +90,53 @@ function PostManager() {
     return user;
   }
 
+  function generateMetaDescription(input) {
+    if (input.length > 100) {
+      return input.substring(0, 100) + "...";
+    }
+    return input;
+  }
+
   return (
-    <main className={styles.container}>
-      {post && (
-        <>
-          <section className="p-3 flex flex-col dark:text-blog-white gap-2">
-            <p className="text-3xl font-sans self-center">{post?.title}</p>
-            <p className="p-1 text-md font-mono self-center">
-              Article ID: {post?.slug}
-            </p>
+    <>
+      <Metatags
+        title={post.title}
+        description={generateMetaDescription(post.content)}
+      />
+      <main className={styles.container}>
+        {post && (
+          <>
+            <section className="p-3 flex flex-col dark:text-blog-white gap-2">
+              <p className="text-3xl font-sans self-center">{post?.title}</p>
+              <p className="p-1 text-md font-mono self-center">
+                Article ID: {post?.slug}
+              </p>
 
-            <PostForm defaultValues={post} preview={preview} editor={editor} />
-          </section>
+              <PostForm
+                defaultValues={post}
+                preview={preview}
+                editor={editor}
+              />
+            </section>
 
-          <aside className="p-3">
-            <p className="text-xl font-light dark:text-blog-white">Tools</p>
-            <button
-              className="p-2 m-1 bg-hit-pink-500 text-blog-black rounded-lg"
-              onClick={() => setPreview(!preview)}
-            >
-              {preview ? "Edit" : "Preview"}
-            </button>
-            <Link href={`/${post.username}/${post.slug}`}>
-              <button className="p-2 m-1 bg-hit-pink-500 text-blog-black rounded-lg">
-                Live view
+            <aside className="p-3">
+              <p className="text-xl font-light dark:text-blog-white">Tools</p>
+              <button
+                className="p-2 m-1 bg-hit-pink-500 text-blog-black rounded-lg"
+                onClick={() => setPreview(!preview)}
+              >
+                {preview ? "Edit" : "Preview"}
               </button>
-            </Link>
-          </aside>
-        </>
-      )}
-    </main>
+              <Link href={`/${post.username}/${post.slug}`}>
+                <button className="p-2 m-1 bg-hit-pink-500 text-blog-black rounded-lg">
+                  Live view
+                </button>
+              </Link>
+            </aside>
+          </>
+        )}
+      </main>
+    </>
   );
 }
 
