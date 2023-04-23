@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { PencilAltIcon, HeartIcon } from "@heroicons/react/solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAnglesRight } from "@fortawesome/free-solid-svg-icons";
+import { faAnglesRight, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 
 export function PostFeed({
@@ -14,6 +14,8 @@ export function PostFeed({
   loading = false,
   postsEnd = false,
   enableLoadMore = false,
+  approve = false,
+  isSwapnil = undefined,
 }) {
   return posts
     ? posts.map((post, index, array) => (
@@ -22,6 +24,11 @@ export function PostFeed({
             post={post}
             key={post.slug}
             admin={post && post.uid === (user && user?.id) ? true : false}
+            approve={
+              isSwapnil && isSwapnil?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID
+                ? true
+                : false
+            }
           />
 
           {index === array.length - 1 &&
@@ -64,7 +71,7 @@ export function PostFeed({
     : "No Post";
 }
 
-function PostItem({ post, admin = false }) {
+function PostItem({ post, admin = false, approve = false }) {
   const wordCount = post?.content.trim().split(/\s+/g).length;
   const contentTrimmed = generateContent(post?.content);
   const titleTrimmed = generateContent(post?.title);
@@ -139,6 +146,20 @@ function PostItem({ post, admin = false }) {
                           "
                         >
                           <PencilAltIcon className="h-5 w-5" />
+                        </button>
+                      </Link>
+                    </>
+                  )}
+                  {approve && (
+                    <>
+                      <Link href={`/approve/${post.slug}`}>
+                        <button
+                          className="
+                          bg-hit-pink-500 text-blog-black
+                          dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-1 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125
+                          "
+                        >
+                          <FontAwesomeIcon icon={faThumbsUp} />
                         </button>
                       </Link>
                     </>
