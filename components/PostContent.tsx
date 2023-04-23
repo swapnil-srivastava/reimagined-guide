@@ -37,7 +37,7 @@ export default function PostContent({
   approve = false,
 }: {
   post: POST;
-  approve: boolean;
+  approve?: boolean;
 }) {
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
