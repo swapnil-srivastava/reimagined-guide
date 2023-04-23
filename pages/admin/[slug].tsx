@@ -183,12 +183,12 @@ function PostForm({ defaultValues, preview, editor }) {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log("error message: ", error.message);
-        toast.success("Axios Error SMS");
+        toast.error("Axios Error SMS");
 
         return error.message;
       } else {
         console.log("unexpected error: ", error);
-        toast.success("Error SMS");
+        toast.error("Error SMS");
 
         return "An unexpected error occurred";
       }
