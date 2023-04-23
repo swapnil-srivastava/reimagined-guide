@@ -1,0 +1,50 @@
+import axios from "axios";
+import toast from "react-hot-toast";
+
+export async function sendEmail(emailMessage) {
+  try {
+    const { data, status } = await axios.post("/api/sendemail", emailMessage, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    toast.success(`Email sent`);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log("error message: ", error.message);
+      toast.error("Axios Error SMS");
+      return error.message;
+    } else {
+      console.log("unexpected error: ", error);
+      toast.error("Error SMS");
+      return "An unexpected error occurred";
+    }
+  }
+}
+
+export async function callNestSendEmail(emailMessage) {
+  try {
+    const { data, status } = await axios.post(
+      "https://api.swapnilsrivastava.eu/sendemail",
+      emailMessage,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    toast.success(`Called Nest JS sendemail ${data}`);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log("error message: ", error.message);
+      toast.error("Axios Nest JS SendEmail POST");
+      return error.message;
+    } else {
+      console.log("unexpected error: ", error);
+      toast.error("Error Nest JS");
+      return "An unexpected error occurred";
+    }
+  }
+}

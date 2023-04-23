@@ -1,5 +1,3 @@
-import styles from "../../styles/Admin.module.css";
-
 import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
@@ -8,14 +6,7 @@ import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-
-import AuthCheck from "../../components/AuthCheck";
-import ImageUploader from "../../components/ImageUploader";
-import { supaClient } from "../../supa-client";
-import { RootState } from "../../lib/interfaces/interface";
 import { User } from "@supabase/supabase-js";
-import { POST } from "../../database.types";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faItalic,
@@ -39,9 +30,15 @@ import {
   faQuoteRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-import Metatags from "../../components/Metatags";
+import styles from "../../styles/Admin.module.css";
 
-import axios from "axios";
+import Metatags from "../../components/Metatags";
+import { POST } from "../../database.types";
+import { supaClient } from "../../supa-client";
+import { RootState } from "../../lib/interfaces/interface";
+import AuthCheck from "../../components/AuthCheck";
+import ImageUploader from "../../components/ImageUploader";
+import { sendEmail } from "../../services/email.service";
 
 // e.g. localhost:3000/admin/page1
 // e.g. localhost:3000/admin/page2
@@ -165,98 +162,6 @@ function PostForm({ defaultValues, preview, editor }) {
     return null;
   }
 
-  async function sendEmail() {
-    const emailMessage = {
-      to: "swapnilsrivastava68@gmail.com",
-      subject: "Hello from sendEmail nextjs",
-      htmlBody: "<strong>Hello</strong> dear swapnil's notes user.",
-      textBody: "Hello from Postmark!",
-      messageStream: "outbound",
-    };
-
-    try {
-      const { data, status } = await axios.post(
-        "/api/sendemail",
-        emailMessage,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      toast.success(`Email sent`);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.log("error message: ", error.message);
-        toast.error("Axios Error SMS");
-
-        return error.message;
-      } else {
-        console.log("unexpected error: ", error);
-        toast.error("Error SMS");
-
-        return "An unexpected error occurred";
-      }
-    }
-  }
-
-  async function callNestSendApi() {
-    const email = {
-      to: "contact@swapnilsrivastava.eu",
-      subject: "Hello from Swapnil",
-      htmlBody: "<strong>Hello</strong> dear notes user.",
-    };
-    try {
-      const { data, status } = await axios.post(
-        "https://api.swapnilsrivastava.eu/sendemail",
-        email,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      toast.success(`Called Nest JS sendemail ${data}`);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.log("error message: ", error.message);
-        toast.error("Axios Nest JS SendEmail POST");
-        return error.message;
-      } else {
-        console.log("unexpected error: ", error);
-        toast.error("Error Nest JS");
-        return "An unexpected error occurred";
-      }
-    }
-  }
-
-  async function callNestApi() {
-    try {
-      const { data, status } = await axios.get(
-        "https://api.swapnilsrivastava.eu/helloworld",
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      toast.success(`Called Nest JS Hello World ${data}`);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.log("error message: ", error.message);
-        toast.error("Axios Nest JS Hello World GET");
-        return error.message;
-      } else {
-        console.log("unexpected error: ", error);
-        toast.error("Error Nest JS");
-        return "An unexpected error occurred";
-      }
-    }
-  }
-
   const { isValid, isDirty, errors } = formState;
 
   const updatePost = async ({ content, published }) => {
@@ -274,7 +179,15 @@ function PostForm({ defaultValues, preview, editor }) {
 
     reset({ content, published });
 
-    sendEmail();
+    const emailMessage = {
+      to: "swapnilsrivastava68@gmail.com",
+      subject: "Hello from sendEmail nextjs",
+      htmlBody: "<strong>Hello</strong> dear swapnil's notes user.",
+      textBody: "Hello from Postmark!",
+      messageStream: "outbound",
+    };
+
+    sendEmail(emailMessage);
 
     toast.success("Post updated successfully!");
   };
