@@ -6,9 +6,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const client = new postmark.ServerClient(
-    "2e7cd3fe-f589-4fa6-b0d5-2c1459e2af88"
-  );
+  const client = new postmark.ServerClient(process.env.EMAIL_KEY);
 
   try {
     const response = await client.sendEmail({
