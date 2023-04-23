@@ -32,16 +32,22 @@ import { supaClient } from "../supa-client";
 import { sendEmail } from "../services/email.service";
 
 // UI component for main post content
-export default function PostContent({ post, approve = false }) {
+export default function PostContent({
+  post,
+  approve = false,
+}: {
+  post: POST;
+  approve: boolean;
+}) {
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
 
   const wordCount = post?.content.trim().split(/\s+/g).length;
   const minutesToRead = (wordCount / 100 + 1).toFixed(0);
-  const dateFormat = moment(post.createdAt).isValid()
-    ? moment(post.createdAt).format("MMM DD")
-    : moment(post.createdAt.toMillis()).format("MMM DD");
+  const dateFormat = moment(post.created_at).isValid()
+    ? moment(post.created_at).format("MMM DD")
+    : "";
 
   const approvePost = async (post: POST) => {
     const {
