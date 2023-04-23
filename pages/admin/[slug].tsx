@@ -100,8 +100,8 @@ function PostManager() {
   return (
     <>
       <Metatags
-        title={post.title}
-        description={generateMetaDescription(post.content)}
+        title={post?.title}
+        description={generateMetaDescription(post?.content)}
       />
       <main className={styles.container}>
         {post && (
