@@ -160,8 +160,7 @@ function PostForm({ defaultValues, preview, editor }) {
 
   async function sendEmail() {
     const emailMessage = {
-      from: "contact@swapnilsrivastava.eu",
-      to: "contact@swapnilsrivastava.eu",
+      to: "swapnilsrivastava68@gmail.com",
       subject: "Hello from sendEmail",
       htmlBody: "<strong>Hello</strong> dear Postmark user.",
       textBody: "Hello from Postmark!",

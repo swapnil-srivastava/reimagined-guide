@@ -9,6 +9,8 @@ export default async function handler(
   const client = new postmark.ServerClient(process.env.EMAIL_KEY);
 
   try {
+    const { to, subject, htmlBody, textBody, messageStream } = req.body;
+    console.log("to ======>", to);
     const response = await client.sendEmail({
       From: process.env.EMAIL,
       To: "swapnilsrivastava68@hotmail.com",
