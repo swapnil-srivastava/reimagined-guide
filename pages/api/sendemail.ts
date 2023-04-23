@@ -10,7 +10,7 @@ export default async function handler(
 
   try {
     const response = await client.sendEmail({
-      From: "support@swapnilsrivastava.eu",
+      From: process.env.EMAIL,
       To: "swapnilsrivastava68@hotmail.com",
       Subject: "Hello from Swapnil's Note",
       HtmlBody:
