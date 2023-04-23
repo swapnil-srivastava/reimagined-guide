@@ -11,6 +11,8 @@ import PostFeed from "../../components/PostFeed";
 import { POST } from "../../database.types";
 import { User } from "@supabase/supabase-js";
 
+// e.g. localhost:3000/approve
+
 function ApprovalPage() {
   return (
     <>
@@ -27,10 +29,10 @@ function ApprovePostList() {
   const [isSwapnil, setIsSwapnil] = useState<User>();
 
   useEffect(() => {
-    fetchPost();
+    fetchApprovalPost();
   }, []);
 
-  async function fetchPost() {
+  async function fetchApprovalPost() {
     const {
       data: { user },
     } = await supaClient.auth.getUser();

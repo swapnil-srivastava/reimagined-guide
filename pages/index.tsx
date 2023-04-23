@@ -21,6 +21,7 @@ export async function getServerSideProps(context) {
   let { data: posts } = await supaClient
     .from("posts")
     .select("*")
+    .is("approved", true)
     .is("published", true)
     .order("created_at", { ascending: false })
     .range(0, LIMIT);

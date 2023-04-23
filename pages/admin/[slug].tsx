@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
+import * as postmark from "postmark";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { User } from "@supabase/supabase-js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faItalic,
@@ -29,18 +29,29 @@ import {
   faQuoteLeft,
   faQuoteRight,
 } from "@fortawesome/free-solid-svg-icons";
-import * as postmark from "postmark";
 
+// Styles
 import styles from "../../styles/Admin.module.css";
 
-import Metatags from "../../components/Metatags";
-import BasicTooltip from "../../components/Tooltip";
-import { POST } from "../../database.types";
-import { supaClient } from "../../supa-client";
-import { RootState } from "../../lib/interfaces/interface";
+// React Components
 import AuthCheck from "../../components/AuthCheck";
 import ImageUploader from "../../components/ImageUploader";
+import Metatags from "../../components/Metatags";
+import BasicTooltip from "../../components/Tooltip";
+
+// Supabase
+import { supaClient } from "../../supa-client";
+
+// Interfaces
+import { User } from "@supabase/supabase-js";
+import { POST } from "../../database.types";
+import { RootState } from "../../lib/interfaces/interface";
+
+// Services
 import { sendEmail } from "../../services/email.service";
+
+// Library
+import { generateMetaDescription } from "../../lib/library";
 
 // e.g. localhost:3000/admin/page1
 // e.g. localhost:3000/admin/page2
@@ -87,14 +98,6 @@ function PostManager() {
     setPost(adminPost);
 
     return user;
-  }
-
-  function generateMetaDescription(input) {
-    if (input && input?.length === 0) return;
-    if (input?.length > 100) {
-      return input?.substring(0, 100) + "...";
-    }
-    return input;
   }
 
   return (
@@ -181,12 +184,12 @@ function PostForm({ defaultValues, preview, editor }) {
 
     reset({ content, published });
 
-    const articleURL = `https://swapnilsrivastava.eu/${profile?.username}/${defaultValues?.slug}`;
+    const articleURL = `https://swapnilsrivastava.eu/approve/${defaultValues?.slug}`;
 
     const emailMessage: Partial<postmark.Message> = {
       To: "contact@swapnilsrivastava.eu",
       Subject: "Hello new article has been created / updated",
-      HtmlBody: `<strong>Hello</strong> Swapnil Srivastava, new article is updated or published on your website, navigate to ${articleURL}`,
+      HtmlBody: `<strong>Hello</strong> Swapnil Srivastava, new article is updated or published on your website, navigate to approve the article ${articleURL}`,
     };
 
     sendEmail(emailMessage);

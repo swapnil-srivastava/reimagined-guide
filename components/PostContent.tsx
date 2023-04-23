@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import * as postmark from "postmark";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,19 +9,30 @@ import {
   faFacebook,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
+import {
+  faPenToSquare,
+  faEllipsis,
+  faThumbsUp,
+} from "@fortawesome/free-solid-svg-icons";
+import toast from "react-hot-toast";
 
-import { faPenToSquare, faEllipsis } from "@fortawesome/free-solid-svg-icons";
-
-// Component
+// React Components
 import HeartButton from "./HeartButton";
 import BasicTooltip from "./Tooltip";
-
-// Authentication Check Component
 import AuthCheck from "./AuthCheck";
+
+// Interface
 import { RootState } from "../lib/interfaces/interface";
+import { POST } from "../database.types";
+
+// Supabase
+import { supaClient } from "../supa-client";
+
+// Email Service
+import { sendEmail } from "../services/email.service";
 
 // UI component for main post content
-export default function PostContent({ post }) {
+export default function PostContent({ post, approve = false }) {
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
@@ -30,6 +42,33 @@ export default function PostContent({ post }) {
   const dateFormat = moment(post.createdAt).isValid()
     ? moment(post.createdAt).format("MMM DD")
     : moment(post.createdAt.toMillis()).format("MMM DD");
+
+  const approvePost = async (post: POST) => {
+    const {
+      data: { user },
+    } = await supaClient.auth.getUser();
+
+    if (user?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID) {
+      const { data, error } = await supaClient
+        .from("posts")
+        .update({ approved: true })
+        .eq("slug", post?.slug);
+
+      toast.success("Post approved successfully!");
+
+      const articleURL = `https://swapnilsrivastava.eu/${post?.username}/${post?.slug}`;
+
+      const emailMessage: Partial<postmark.Message> = {
+        To: "contact@swapnilsrivastava.eu",
+        Subject: "Article Approved",
+        HtmlBody: `<strong>Hello</strong> Swapnil Srivastava, new article is approved on your website and visible, navigate to ${articleURL}`,
+      };
+
+      sendEmail(emailMessage);
+
+      toast.success("Email confirmation sent!");
+    }
+  };
 
   return (
     <>
@@ -110,6 +149,27 @@ export default function PostContent({ post }) {
                   >
                     <FontAwesomeIcon icon={faPenToSquare} size="lg" />
                     <div className="font-light">Edit</div>
+                  </button>
+                </Link>
+              </div>
+            )}
+
+            {/* Approve BUTTON : Approve button icon visible only when user has authentication to aprrove */}
+            {approve && (
+              <div className="self-end">
+                <Link href={`/admin/${post.slug}`}>
+                  <button
+                    type="button"
+                    onClick={() => approvePost(post)}
+                    className="focus:outline-none focus:ring-2 
+                              focus:ring-fun-blue-400 
+                              focus:ring-offset-2 text-sm
+                              font-semibold bg-fun-blue-300 dark:text-blog-black 
+                              p-2 m-1 flex rounded items-center justify-center gap-x-2
+                              transition-filter duration-500 hover:filter hover:brightness-125"
+                  >
+                    <FontAwesomeIcon icon={faThumbsUp} size="lg" />
+                    <div className="font-light">Approve</div>
                   </button>
                 </Link>
               </div>

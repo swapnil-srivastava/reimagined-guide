@@ -1,10 +1,19 @@
-import styles from "../../styles/Post.module.css";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+
+// Styles
+import styles from "../../styles/Post.module.css";
+
+// React Components
 import PostContent from "../../components/PostContent";
 import Metatags from "../../components/Metatags";
+
+// Interfaces
 import { RootState } from "../../lib/interfaces/interface";
 import { supaClient } from "../../supa-client";
+
+// Library
+import { generateMetaDescription } from "../../lib/library";
 
 // e.g. localhost:3000/swapnil/page1
 // e.g. localhost:3000/swapnil/page2
@@ -90,13 +99,6 @@ function Post(props) {
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
-
-  function generateMetaDescription(input) {
-    if (input.length > 100) {
-      return input.substring(0, 100) + "...";
-    }
-    return input;
-  }
 
   return (
     <main className={styles.container}>
