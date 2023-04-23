@@ -11,7 +11,7 @@ import TechBox from "../components/TechBox";
 // Local Interface
 import { LEADINGTECH, TECHNOLOGIES } from "../database.types";
 import { supaClient } from "../supa-client";
-import { SupashipUserInfo } from "../lib/hooks";
+import { RootState } from "../lib/interfaces/interface";
 
 // JSON Forms
 import { JsonForms } from "@jsonforms/react";
@@ -23,21 +23,6 @@ import {
   materialCells,
   materialRenderers,
 } from "@jsonforms/material-renderers";
-
-interface RootState {
-  counter: Object;
-  users: UserState;
-}
-
-interface UserState {
-  user: {
-    uid: string;
-    displayName: string;
-    photoURL: string;
-  };
-  username: any;
-  userInfo: SupashipUserInfo;
-}
 
 export async function getServerSideProps(context) {
   let { data: leadingTechState, error: leadingTechError } = await supaClient

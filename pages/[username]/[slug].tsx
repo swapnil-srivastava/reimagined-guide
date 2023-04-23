@@ -3,23 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import PostContent from "../../components/PostContent";
 import Metatags from "../../components/Metatags";
-import { SupashipUserInfo } from "../../lib/hooks";
+import { RootState } from "../../lib/interfaces/interface";
 import { supaClient } from "../../supa-client";
-
-interface RootState {
-  counter: Object;
-  users: UserState;
-}
-
-interface UserState {
-  user: User;
-  username: any;
-  userInfo: SupashipUserInfo;
-}
-
-interface User {
-  uid: String;
-}
 
 // e.g. localhost:3000/swapnil/page1
 // e.g. localhost:3000/swapnil/page2

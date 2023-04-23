@@ -1,25 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { supaClient } from "../supa-client";
-import { SupashipUserInfo } from "../lib/hooks";
+import { RootState } from "../lib/interfaces/interface";
 import debounce from "lodash.debounce";
-
-interface RootState {
-  counter: Object;
-  users: UserState;
-}
-
-interface UserState {
-  user: User;
-  username: any;
-  userInfo: SupashipUserInfo;
-}
-
-interface User {
-  uid: String;
-  photoURL: String;
-  displayName: String;
-}
 
 // e.g. localhost:3000/enter
 function Enter() {

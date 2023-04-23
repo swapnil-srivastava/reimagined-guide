@@ -12,7 +12,7 @@ import StarterKit from "@tiptap/starter-kit";
 import AuthCheck from "../../components/AuthCheck";
 import ImageUploader from "../../components/ImageUploader";
 import { supaClient } from "../../supa-client";
-import { SupashipUserInfo } from "../../lib/hooks";
+import { RootState } from "../../lib/interfaces/interface";
 import { User } from "@supabase/supabase-js";
 import { POST } from "../../database.types";
 
@@ -40,19 +40,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import axios from "axios";
-
-interface RootState {
-  counter: Object;
-  users: UserState;
-}
-
-interface UserState {
-  user: {
-    uid: String;
-  };
-  username: any;
-  userInfo: SupashipUserInfo;
-}
 
 // e.g. localhost:3000/admin/page1
 // e.g. localhost:3000/admin/page2

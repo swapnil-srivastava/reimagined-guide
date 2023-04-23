@@ -28,24 +28,9 @@ import {
 // Supabase Interfaces
 import { EXPERIENCES, EXPERIENCES_INSERT_DATA } from "../database.types";
 import { supaClient } from "../supa-client";
-import { SupashipUserInfo } from "../lib/hooks";
+import { RootState } from "../lib/interfaces/interface";
 
 import Metatags from "../components/Metatags";
-
-interface RootState {
-  counter: Object;
-  users: UserState;
-}
-
-interface UserState {
-  user: {
-    uid: string;
-    displayName: string;
-    photoURL: string;
-  };
-  username: any;
-  userInfo: SupashipUserInfo;
-}
 
 const Profile = () => {
   const [expanded, setExpanded] = useState<string | false>(false);

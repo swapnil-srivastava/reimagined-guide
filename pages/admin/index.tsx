@@ -12,25 +12,10 @@ import PostFeed from "../../components/PostFeed";
 
 // supabase instance in the app
 import { supaClient } from "../../supa-client";
-import { SupashipUserInfo } from "../../lib/hooks";
+import { RootState } from "../../lib/interfaces/interface";
 
 import { POST } from "../../database.types";
 import { User } from "@supabase/supabase-js";
-
-interface RootState {
-  counter: Object;
-  users: UserState;
-}
-
-interface UserState {
-  user: {
-    uid: string;
-    displayName: string;
-    photoURL: string;
-  };
-  username: any;
-  userInfo: SupashipUserInfo;
-}
 
 // e.g. localhost:3000/admin
 
