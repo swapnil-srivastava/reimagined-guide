@@ -81,7 +81,7 @@ function Navbar() {
               </li>
               <li className="pr-0 md:pr-3">
                 <Link href={`/${username}`}>
-                  <img src={user?.photoURL} alt="" />
+                  {/* <img src={user?.photoURL} alt="" /> */}
                 </Link>
               </li>
             </>
