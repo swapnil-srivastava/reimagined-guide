@@ -10,11 +10,9 @@ export default async function handler(
     "2e7cd3fe-f589-4fa6-b0d5-2c1459e2af88"
   );
 
-  console.log("client=====>", client);
-
   try {
     const response = await client.sendEmail({
-      From: "contact@swapnilsrivastava.eu",
+      From: "support@swapnilsrivastava.eu",
       To: "contact@swapnilsrivastava.eu",
       Subject: "Hello from Swapnil's Note",
       HtmlBody:
@@ -24,6 +22,6 @@ export default async function handler(
     });
     res.status(200).json("Email had been sent");
   } catch (error) {
-    res.status(501).json({ message: "Failed to send email." });
+    res.status(500).json({ message: "Failed to send email." });
   }
 }
