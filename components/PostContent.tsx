@@ -93,7 +93,7 @@ export default function PostContent({
 
               <div>
                 {/* USER IMAGE ICON and REDIRECT to PROFILE page */}
-                <Link href={`/${post.username}`}>
+                <Link href={`/${post?.username}`}>
                   {post?.photo_url && post?.photo_url ? (
                     <div
                       className="w-12 h-12
@@ -103,12 +103,12 @@ export default function PostContent({
                       <Image
                         width={200}
                         height={200}
-                        src={post.photo_url}
+                        src={post?.photo_url}
                         alt=""
                       />
                     </div>
                   ) : (
-                    <div className="text-xs font-thin">{`${post.username}`}</div>
+                    <div className="text-xs font-thin">{`${post?.username}`}</div>
                   )}
                 </Link>
               </div>
@@ -117,9 +117,9 @@ export default function PostContent({
               <div className="flex flex-col">
                 {/* USER NAME DETAIL */}
                 <div className="flex gap-x-2">
-                  <Link href={`/${post.username}`}>
+                  <Link href={`/${post?.username}`}>
                     <a className="font-extralight text-base md:text-lg">
-                      {`${post.username}`}
+                      {`${post?.username}`}
                     </a>
                   </Link>
                 </div>
@@ -134,16 +134,16 @@ export default function PostContent({
                     {wordCount} words
                   </div>
                   <div className="font-extralight text-base md:text-lg">
-                    <strong>{post.heartcount || 0} 🤍</strong>
+                    <strong>{post?.heartcount || 0} 🤍</strong>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* EDIT BUTTON : edit button icon visible only when user has authentication to edit */}
-            {profile?.id === post.uid && (
+            {profile?.id === post?.uid && (
               <div className="self-end">
-                <Link href={`/admin/${post.slug}`}>
+                <Link href={`/admin/${post?.slug}`}>
                   <button
                     type="button"
                     className="focus:outline-none focus:ring-2 
@@ -163,21 +163,19 @@ export default function PostContent({
             {/* Approve BUTTON : Approve button icon visible only when user has authentication to aprrove */}
             {approve && (
               <div className="self-end">
-                <Link href={`/admin/${post.slug}`}>
-                  <button
-                    type="button"
-                    onClick={() => approvePost(post)}
-                    className="focus:outline-none focus:ring-2 
+                <button
+                  type="button"
+                  onClick={() => approvePost(post)}
+                  className="focus:outline-none focus:ring-2 
                               focus:ring-fun-blue-400 
                               focus:ring-offset-2 text-sm
                               font-semibold bg-fun-blue-300 dark:text-blog-black 
                               p-2 m-1 flex rounded items-center justify-center gap-x-2
                               transition-filter duration-500 hover:filter hover:brightness-125"
-                  >
-                    <FontAwesomeIcon icon={faThumbsUp} size="lg" />
-                    <div className="font-light">Approve</div>
-                  </button>
-                </Link>
+                >
+                  <FontAwesomeIcon icon={faThumbsUp} size="lg" />
+                  <div className="font-light">Approve</div>
+                </button>
               </div>
             )}
           </div>
@@ -231,7 +229,7 @@ export default function PostContent({
                 font-semibold"
               >
                 <a
-                  href={`https://www.linkedin.com/sharing/share-offsite/?url=https://www.swapnilsrivastava.eu/${post.username}/${post.slug}`}
+                  href={`https://www.linkedin.com/sharing/share-offsite/?url=https://www.swapnilsrivastava.eu/${post?.username}/${post?.slug}`}
                 >
                   <FontAwesomeIcon
                     icon={faLinkedin}
@@ -253,7 +251,7 @@ export default function PostContent({
                 font-semibold"
               >
                 <a
-                  href={`https://twitter.com/intent/tweet?text=Hi%2C%20checkout%20this%20post%20&url=https://www.swapnilsrivastava.eu/${post.username}/${post.slug}&via=swapnil_sri&hashtags=reactjs,nextjs,blog`}
+                  href={`https://twitter.com/intent/tweet?text=Hi%2C%20checkout%20this%20post%20&url=https://www.swapnilsrivastava.eu/${post?.username}/${post?.slug}&via=swapnil_sri&hashtags=reactjs,nextjs,blog`}
                 >
                   <FontAwesomeIcon
                     icon={faTwitter}
@@ -276,7 +274,7 @@ export default function PostContent({
                 "
               >
                 <a
-                  href={`https://facebook.com/sharer/sharer.php?u=https://www.swapnilsrivastava.eu/${post.username}/${post.slug}`}
+                  href={`https://facebook.com/sharer/sharer.php?u=https://www.swapnilsrivastava.eu/${post?.username}/${post?.slug}`}
                 >
                   <FontAwesomeIcon
                     icon={faFacebook}
