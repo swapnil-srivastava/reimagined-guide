@@ -21,6 +21,16 @@ import { generateMetaDescription } from "../../lib/library";
 // e.g. localhost:3000/approve/articleid
 
 function ApproveSlug() {
+  return (
+    <>
+      <AuthCheck>
+        <PostApprover />
+      </AuthCheck>
+    </>
+  );
+}
+
+function PostApprover() {
   const [approvalPost, setApprovalPost] = useState<POST>();
   const [isSwapnil, setIsSwapnil] = useState<User>();
 
@@ -53,25 +63,15 @@ function ApproveSlug() {
 
   return (
     <>
-      <AuthCheck>
-        <PostApprover post={approvalPost} isSwapnil={isSwapnil}></PostApprover>
-      </AuthCheck>
-    </>
-  );
-}
-
-function PostApprover({ post, isSwapnil }: { post: POST; isSwapnil: User }) {
-  return (
-    <>
       <main className="flex">
         <Metatags
-          title={post?.title}
-          description={generateMetaDescription(post?.content)}
+          title={approvalPost?.title}
+          description={generateMetaDescription(approvalPost?.content)}
         />
-        {post && (
+        {approvalPost && (
           <section className="basis-3/4 p-3">
             <PostContent
-              post={post}
+              post={approvalPost}
               approve={
                 isSwapnil?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID
                   ? true
