@@ -64,16 +64,18 @@ function PostApprover({ post, isSwapnil }: { post: POST; isSwapnil: User }) {
           title={post?.title}
           description={generateMetaDescription(post?.content)}
         />
-        <section className="basis-3/4 p-3">
-          <PostContent
-            post={post}
-            approve={
-              isSwapnil?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID
-                ? true
-                : false
-            }
-          />
-        </section>
+        {post && (
+          <section className="basis-3/4 p-3">
+            <PostContent
+              post={post}
+              approve={
+                isSwapnil?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID
+                  ? true
+                  : false
+              }
+            />
+          </section>
+        )}
       </main>
     </>
   );
