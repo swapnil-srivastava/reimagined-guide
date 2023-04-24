@@ -63,13 +63,13 @@ function PostApprover() {
 
   return (
     <>
-      <main className="flex">
+      <main className="flex justify-center">
         <Metatags
           title={approvalPost?.title}
           description={generateMetaDescription(approvalPost?.content)}
         />
         {approvalPost && (
-          <section className="basis-3/4 p-3">
+          <section className="basis-2/3 p-3">
             <PostContent
               post={approvalPost}
               approve={
