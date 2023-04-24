@@ -63,7 +63,9 @@ function PostList() {
       <div className="flex items-center justify-center">
         <h1 className="dark:text-blog-white">Manage your Posts</h1>
       </div>
-      <PostFeed posts={posts} user={userAuth} />
+      <div className="flex flex-col gap-2">
+        <PostFeed posts={posts} user={userAuth} />
+      </div>
     </>
   );
 }
