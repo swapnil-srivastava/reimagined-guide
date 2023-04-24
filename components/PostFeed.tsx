@@ -92,7 +92,7 @@ function PostItem({ post, admin = false, approve = false }) {
     <>
       <Link href={`/${post.username}/${post.slug}`}>
         <div
-          className="p-3 my-4
+          className="p-3 mx-3
                   bg-blog-white 
                   dark:bg-fun-blue-600 dark:text-blog-white
                   rounded-lg
