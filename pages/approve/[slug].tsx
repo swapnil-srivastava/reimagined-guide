@@ -38,6 +38,7 @@ function ApproveSlug() {
     if (user?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID) setIsSwapnil(user);
 
     if (user?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID) {
+      if (!slug) return;
       let { data: posts, error } = await supaClient
         .from("posts")
         .select("*")
