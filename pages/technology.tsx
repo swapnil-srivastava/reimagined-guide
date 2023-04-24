@@ -84,11 +84,11 @@ export default function Technology(props) {
       {/* CREATE Tech Stack */}
       {profile?.id ? <CreateNewTechStack /> : ""}
 
-      <div className="px-10 pb-2 text-2xl font-extralight dark:text-blog-white">
+      <div className="px-10 pb-2 pt-2 text-2xl font-extralight dark:text-blog-white">
         Tech Stack
       </div>
 
-      <div className="flex py-10 px-5 pt-2 flex-wrap">
+      <div className="flex py-10 px-5 pt-2 flex-wrap justify-center">
         {techStackState &&
           techStackState.map(
             ({ id, tech_color: colorTechStack, name: techName }) => (
@@ -103,11 +103,11 @@ export default function Technology(props) {
           )}
       </div>
 
-      <div className="px-10 pb-0 text-2xl font-extralight dark:text-blog-white">
+      <div className="px-10 pb-0 pt-2 text-2xl font-extralight dark:text-blog-white">
         Leading Tech
       </div>
 
-      <div className="flex py-10 px-10 pt-2 flex-wrap">
+      <div className="flex py-10 px-10 pt-2 flex-wrap justify-center">
         {leadingTechState &&
           leadingTechState.map(
             ({ id, tech_color: colorTechStack, name: techName }) => (
