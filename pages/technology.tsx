@@ -88,7 +88,7 @@ export default function Technology(props) {
         Tech Stack
       </div>
 
-      <div className="flex py-10 px-10 pt-2 flex-wrap">
+      <div className="flex py-10 px-5 pt-2 flex-wrap">
         {techStackState &&
           techStackState.map(
             ({ id, tech_color: colorTechStack, name: techName }) => (
