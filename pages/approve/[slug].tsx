@@ -7,6 +7,7 @@ import { supaClient } from "../../supa-client";
 
 // React Components
 import Metatags from "../../components/Metatags";
+import AuthCheck from "../../components/AuthCheck";
 import PostContent from "../../components/PostContent";
 
 // Interfaces
@@ -52,7 +53,9 @@ function ApproveSlug() {
 
   return (
     <>
-      <PostApprover post={approvalPost} isSwapnil={isSwapnil}></PostApprover>
+      <AuthCheck>
+        <PostApprover post={approvalPost} isSwapnil={isSwapnil}></PostApprover>
+      </AuthCheck>
     </>
   );
 }
