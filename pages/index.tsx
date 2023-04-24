@@ -109,7 +109,7 @@ export default function Home(props) {
           />
         </div>
       </div>
-      <div className="lg:flex lg:flex-row flex-wrap gap-x-4 gap-y-2 ml-4 mr-4">
+      <div className="lg:flex lg:flex-row flex-wrap gap-x-4 gap-y-3 ml-2 mr-2">
         <PostFeed
           posts={posts}
           parentFunction={() => getMorePosts()}
