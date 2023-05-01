@@ -78,7 +78,7 @@ export default function PostContent({
 
   return (
     <>
-      <div>
+      <div className="p-3 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white rounded-lg drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
         {/* User Image and Sharing Button SECTION */}
         <div
           className="bg-blog-white dark:bg-fun-blue-500 
