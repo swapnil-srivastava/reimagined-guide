@@ -313,12 +313,12 @@ export default function PostContent({
                     dark:text-blog-white p-3 flex flex-col gap-5"
         >
           {/* TITLE SECTION */}
-          <div className="text-3xl font-extrabold self-center">
+          <div className="lg:text-3xl text-xl font-extrabold self-center">
             {post?.title}
           </div>
           {/* POST SECTION */}
           <div
-            className="post-content"
+            className="post-content lg:text-xl"
             dangerouslySetInnerHTML={{ __html: post?.content }}
           ></div>
         </div>
