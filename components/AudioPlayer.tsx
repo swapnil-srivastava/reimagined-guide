@@ -68,6 +68,28 @@ export default function AudioPlayer() {
     return `${returnedMins}:${returnedSecs}`;
   }
 
+  function forward5Seconds() {
+    if (audioPlayer.current as HTMLAudioElement) {
+      const newTime = Math.min(
+        (audioPlayer.current as HTMLAudioElement).currentTime + 5,
+        duration
+      );
+      (audioPlayer.current as HTMLAudioElement).currentTime = newTime;
+      setCurrentTime(newTime);
+    }
+  }
+
+  function backward5Seconds() {
+    if ((audioPlayer.current as HTMLAudioElement).currentTime) {
+      const newTime = Math.max(
+        (audioPlayer.current as HTMLAudioElement).currentTime - 5,
+        0
+      );
+      (audioPlayer.current as HTMLAudioElement).currentTime = newTime;
+      setCurrentTime(newTime);
+    }
+  }
+
   function togglePlayPause() {
     if (audioPlayer.current) {
       if (!isPlaying) {
@@ -129,7 +151,10 @@ export default function AudioPlayer() {
           </audio>
 
           {/* Backwards 5 Seconds */}
-          <button className="flex flex-row items-center">
+          <button
+            className="flex flex-row items-center"
+            onClick={() => backward5Seconds()}
+          >
             <BasicTooltip title={"Backwards 5 seconds"} placement="bottom">
               <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(3rem_*_0.5)] h-[calc(3rem_*_0.5)] rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
                 <div className="flex flex-row items-center">
@@ -140,7 +165,10 @@ export default function AudioPlayer() {
           </button>
 
           {/* Forward 5 Seconds */}
-          <button className="flex flex-row gap-1 items-center">
+          <button
+            className="flex flex-row gap-1 items-center"
+            onClick={() => forward5Seconds()}
+          >
             <BasicTooltip title={"Forward 5 seconds"} placement="bottom">
               <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(3rem_*_0.5)] h-[calc(3rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
                 <FontAwesomeIcon icon={faForward} size="xs" />
