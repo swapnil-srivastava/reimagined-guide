@@ -15,7 +15,11 @@ import { Slider } from "@mui/material";
 
 import BasicTooltip from "./Tooltip";
 
-export default function AudioPlayer() {
+interface AudioPlayerProps {
+  audioSource: string;
+}
+
+const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioSource }) => {
   // state of play or pause
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
@@ -146,7 +150,7 @@ export default function AudioPlayer() {
       <div className="flex flex-col dark:bg-slate-900 dark:text-white ring-1 ring-black/5 dark:ring-white/10 shadow-lg p-2 rounded-lg">
         <div className="flex flex-row justify-center items-center gap-1 ">
           {/* Audio Player */}
-          <audio ref={audioPlayer} src="/tadaa.mp3">
+          <audio ref={audioPlayer} src={audioSource}>
             Your browser does not support the audio element.
           </audio>
 
@@ -242,4 +246,6 @@ export default function AudioPlayer() {
       </div>
     </>
   );
-}
+};
+
+export default AudioPlayer;

@@ -51,7 +51,7 @@ function Play() {
       </div>
 
       <div className="flex justify-center">
-        <AudioPlayer></AudioPlayer>
+        <AudioPlayer audioSource="/tadaa.mp3"></AudioPlayer>
       </div>
     </>
   );
