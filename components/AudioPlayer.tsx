@@ -147,8 +147,9 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioSource }) => {
 
   return (
     <>
-      <div className="flex flex-col dark:bg-slate-900 dark:text-white ring-1 ring-black/5 dark:ring-white/10 shadow-lg p-2 rounded-lg">
-        <div className="flex flex-row justify-center items-center gap-1 ">
+      <div className="flex flex-col dark:bg-slate-900 dark:text-white ring-1 ring-black/5 dark:ring-white/10 shadow-lg p-4 rounded-lg">
+        {/* Forward 5 second // Backward 5 second // Play/Pause // currentTime // Progress Slider // Duration // Mute */}
+        <div className="flex flex-row justify-center items-center gap-2">
           {/* Audio Player */}
           <audio ref={audioPlayer} src={audioSource}>
             Your browser does not support the audio element.
@@ -193,6 +194,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioSource }) => {
               )}
             </div>
           </button>
+
           <div className="flex flex-row items-center gap-2">
             {/* Current time */}
             <div className="text-sm">{calculateTime(currentTime)}</div>
@@ -230,7 +232,9 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioSource }) => {
             </BasicTooltip>
           </button>
         </div>
-        <div className="flex flex-row gap-1 items-center">
+
+        {/* Volume Slider */}
+        <div className="flex flex-row items-center gap-2">
           <div className="flex flex-row items-center mr-2">
             <FontAwesomeIcon icon={faVolumeLow} size="xs" />
           </div>
