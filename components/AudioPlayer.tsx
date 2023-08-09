@@ -161,9 +161,9 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioSource }) => {
             onClick={() => backward5Seconds()}
           >
             <BasicTooltip title={"Backwards 5 seconds"} placement="bottom">
-              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(3rem_*_0.5)] h-[calc(3rem_*_0.5)] rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
                 <div className="flex flex-row items-center">
-                  <FontAwesomeIcon icon={faBackward} size="xs" />
+                  <FontAwesomeIcon icon={faBackward} size="lg" />
                 </div>
               </div>
             </BasicTooltip>
@@ -175,8 +175,8 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioSource }) => {
             onClick={() => forward5Seconds()}
           >
             <BasicTooltip title={"Forward 5 seconds"} placement="bottom">
-              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(3rem_*_0.5)] h-[calc(3rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
-                <FontAwesomeIcon icon={faForward} size="xs" />
+              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+                <FontAwesomeIcon icon={faForward} size="lg" />
               </div>
             </BasicTooltip>
           </button>
@@ -186,11 +186,11 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioSource }) => {
             className="flex flex-row gap-1 items-center"
             onClick={() => togglePlayPause()}
           >
-            <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(3rem_*_0.5)] h-[calc(3rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+            <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
               {isPlaying ? (
-                <FontAwesomeIcon icon={faPause} size="xs" />
+                <FontAwesomeIcon icon={faPause} size="lg" />
               ) : (
-                <FontAwesomeIcon icon={faPlay} size="xs" />
+                <FontAwesomeIcon icon={faPlay} size="lg" />
               )}
             </div>
           </button>
@@ -202,7 +202,6 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioSource }) => {
             <div className="flex flex-row items-center w-20 ml-1">
               <Slider
                 aria-label="Volume"
-                size="small"
                 value={(currentTime / duration) * 100}
                 onChange={(e, newValue) => handleSliderChange(e, newValue)}
               />
@@ -222,11 +221,11 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioSource }) => {
               title={isMuted ? "Unmute" : "Mute"}
               placement="bottom"
             >
-              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(3rem_*_0.5)] h-[calc(3rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
                 {isMuted ? (
-                  <FontAwesomeIcon icon={faVolumeHigh} size="xs" />
+                  <FontAwesomeIcon icon={faVolumeHigh} size="lg" />
                 ) : (
-                  <FontAwesomeIcon icon={faVolumeXmark} size="xs" />
+                  <FontAwesomeIcon icon={faVolumeXmark} size="lg" />
                 )}
               </div>
             </BasicTooltip>
@@ -234,9 +233,9 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioSource }) => {
         </div>
 
         {/* Volume Slider */}
-        <div className="flex flex-row items-center gap-2">
+        <div className="flex flex-row items-center gap-2 mt-2">
           <div className="flex flex-row items-center mr-2">
-            <FontAwesomeIcon icon={faVolumeLow} size="xs" />
+            <FontAwesomeIcon icon={faVolumeLow} size="lg" />
           </div>
           <Slider
             aria-label="Volume"
@@ -244,7 +243,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioSource }) => {
             onChange={(e) => handleVolumeChange(e)}
           />
           <div className="flex flex-row items-center ml-2">
-            <FontAwesomeIcon icon={faVolumeHigh} size="xs" />
+            <FontAwesomeIcon icon={faVolumeHigh} size="lg" />
           </div>
         </div>
       </div>
