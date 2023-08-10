@@ -26,14 +26,17 @@ import { supaClient } from "../supa-client";
 
 // Email Service
 import { sendEmail } from "../services/email.service";
+import AudioPlayer from "./AudioPlayer";
 
 // UI component for main post content
 export default function PostContent({
   post,
   approve = false,
+  audioUrl = "",
 }: {
   post: POST;
   approve?: boolean;
+  audioUrl?: string;
 }) {
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
@@ -312,6 +315,18 @@ export default function PostContent({
           <div className="lg:text-3xl text-xl font-extrabold self-center">
             {post?.title}
           </div>
+
+          {/* Audio Player // Only show if the URL exists */}
+          <div>
+            {audioUrl ? (
+              <>
+                <AudioPlayer audioSource={audioUrl} />
+              </>
+            ) : (
+              <></>
+            )}
+          </div>
+
           {/* POST SECTION */}
           <div
             className="post-content lg:text-xl"

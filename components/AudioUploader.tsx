@@ -4,28 +4,33 @@ import { useState } from "react";
 import { supaClient } from "../supa-client";
 import Loader from "./Loader";
 
-export default function AudioUploader() {
+export default function AudioUploader({ getAudioFileName }) {
   const [uploading, setUploading] = useState(false);
   const [progress] = useState<String>("");
-  const [downloadURL] = useState(null);
+  const [downloadURL, setDownloadURL] = useState(null);
 
   // Creates a Supabase Upload Task
-  const uploadFile = async (e) => {
+  const uploadFile = async (e: { target: HTMLInputElement }) => {
     const target = e.target as HTMLInputElement;
     // Get the file
     const file: File = Array.from(target.files)[0];
+
     if (!file) return;
 
     const extension = file.type.split("/")[1];
 
-    setUploading(true);
+    setUploading(true); // Show Loader
+
+    // Note: cannot upload duplicate file
+    // file.name = adding the file with prefix "audio_{filename}"
     const { data, error } = await supaClient.storage
       .from("audio")
-      .upload("audio_1", file);
+      .upload(`audio_${file.name}`, file, {
+        cacheControl: "3600",
+        upsert: false,
+      });
 
-    setUploading(false);
-
-    console.log("data after upload", data);
+    setUploading(false); // Hide Loader
 
     // TODO: calculate the percentage if you get something in return
 
@@ -39,7 +44,7 @@ export default function AudioUploader() {
     //   ).toFixed(0);
     //   setProgress(pct);
 
-    // TODO: Set the URL of the Audio file to be traced and shown to the user
+    getAudioFileName(`audio_${file.name}`); // Calling parent function to access the file name and add it to the database
   };
 
   return (
@@ -67,10 +72,6 @@ export default function AudioUploader() {
             />
           </label>
         </>
-      )}
-
-      {downloadURL && (
-        <code className="upload-snippet">{`![alt](${downloadURL})`}</code>
       )}
     </div>
   );

@@ -80,12 +80,22 @@ export async function getStaticPaths() {
 
 function Post(props) {
   const [post, setPost] = useState(props.post);
+  const [postAudioUrl, setPostAudioUrl] = useState("");
 
   const fetchPost = async () => {
-    let { data: posts, error } = await supaClient
+    const { data: posts, error } = await supaClient
       .from("posts")
       .select("*")
       .like("slug", props.path);
+
+    // Get the audio URL of the post.
+    // Note Url only valid for 10 mins.
+    const { data: dataUrl, error: errorUrl } = await supaClient.storage
+      .from("audio")
+      .createSignedUrl(props?.post?.audio, 600); // Valid for 600 seconds = 10 mins
+
+    const { signedUrl } = dataUrl;
+    setPostAudioUrl(signedUrl);
 
     const [firstPost] = posts;
     setPost(firstPost);
@@ -108,7 +118,7 @@ function Post(props) {
       />
 
       <section className="basis-3/5 p-3">
-        <PostContent post={post} />
+        <PostContent post={post} audioUrl={postAudioUrl} />
       </section>
     </main>
   );

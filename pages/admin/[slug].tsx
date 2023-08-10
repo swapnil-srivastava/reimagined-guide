@@ -150,6 +150,8 @@ function PostForm({ defaultValues, preview, editor }) {
     mode: "onChange",
   });
 
+  const [audioFileName, setAudioFileName] = useState(""); // If no audio file then set empty string
+
   const router = useRouter();
   const { slug } = router.query;
 
@@ -178,6 +180,7 @@ function PostForm({ defaultValues, preview, editor }) {
       .update({
         content: contentEditor,
         published: published,
+        audio: audioFileName,
         updated_at: new Date().toISOString(),
       })
       .eq("uid", profile?.id)
@@ -210,6 +213,7 @@ function PostForm({ defaultValues, preview, editor }) {
       {!preview && (
         <>
           <div className="flex flex-col gap-2 lg:px-36">
+            {/* Tiptap buttons bar to edit the text */}
             <div className="flex flex-wrap gap-2 text-sm font-light">
               <BasicTooltip title="Bold" placement="top">
                 <button
@@ -498,9 +502,12 @@ function PostForm({ defaultValues, preview, editor }) {
 
             {/*  Audio Player */}
             <div className="flex flex-row items-center justify-center">
-              <AudioUploader />
+              <AudioUploader
+                getAudioFileName={(fileName) => setAudioFileName(fileName)}
+              />
             </div>
 
+            {/*  Editor Content which is changed by tiptap controls  */}
             <EditorContent editor={editor} />
 
             <fieldset className="flex gap-x-2">
