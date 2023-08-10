@@ -30,7 +30,7 @@ export default function AudioUploader({ getAudioFileName }) {
       // file.name = adding the file with prefix "audio_{filename}"
       const { data, error } = await supaClient.storage
         .from("audio")
-        .upload(fileNameWithoutExtension, selectedFile, {
+        .upload(fileNameWithExtension, selectedFile, {
           cacheControl: "3600",
           upsert: false,
         });
@@ -49,7 +49,7 @@ export default function AudioUploader({ getAudioFileName }) {
       //   ).toFixed(0);
       //   setProgress(pct);
 
-      getAudioFileName(fileNameWithoutExtension); // Calling parent function to access the file name and add it to the database
+      getAudioFileName(fileNameWithExtension); // Calling parent function to access the file name and add it to the database
     }
   };
 
