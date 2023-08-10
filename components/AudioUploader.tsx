@@ -1,7 +1,10 @@
+// Audio Uploader is exactly similar to ImageUploader // TODO: need to reformat it based on usage
+
 import { useState } from "react";
+import { supaClient } from "../supa-client";
 import Loader from "./Loader";
 
-export default function ImageUploader() {
+export default function AudioUploader() {
   const [uploading, setUploading] = useState(false);
   const [progress] = useState<String>("");
   const [downloadURL] = useState(null);
@@ -11,25 +14,48 @@ export default function ImageUploader() {
     const target = e.target as HTMLInputElement;
     // Get the file
     const file: File = Array.from(target.files)[0];
+    if (!file) return;
+
     const extension = file.type.split("/")[1];
 
     setUploading(true);
+    const { data, error } = await supaClient.storage
+      .from("audio")
+      .upload("audio_1", file);
+
+    setUploading(false);
+
+    console.log("data after upload", data);
+
+    // TODO: calculate the percentage if you get something in return
+
+    // example code of calculating percentage
+    // ======================================
+    // Listen to updates to upload task
+    // task.on(STATE_CHANGED, (snapshot) => {
+    //   const pct: String = (
+    //     (snapshot.bytesTransferred / snapshot.totalBytes) *
+    //     100
+    //   ).toFixed(0);
+    //   setProgress(pct);
+
+    // TODO: Set the URL of the Audio file to be traced and shown to the user
   };
 
   return (
-    <div className="box">
+    <div className="">
       <Loader show={uploading} />
       {uploading && <h3>{progress}%</h3>}
 
       {!uploading && (
         <>
-          <label htmlFor="image-upload" className="block p-1">
-            <span className="sr-only">Choose Image</span>
+          <label htmlFor="audio-upload" className="block p-1">
+            <span className="sr-only">Choose Audio</span>
             <input
               type="file"
-              id="image-upload"
+              id="audio-upload"
               onChange={uploadFile}
-              accept="image/x-png,image/gif,image/jpeg"
+              accept="audio/mpeg,audio/wav"
               className="block w-full
                 text-sm text-slate-500
                 file:mr-4 file:py-2 file:px-4

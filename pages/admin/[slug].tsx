@@ -36,6 +36,7 @@ import styles from "../../styles/Admin.module.css";
 // React Components
 import AuthCheck from "../../components/AuthCheck";
 import ImageUploader from "../../components/ImageUploader";
+import AudioUploader from "../../components/AudioUploader";
 import Metatags from "../../components/Metatags";
 import BasicTooltip from "../../components/Tooltip";
 
@@ -207,305 +208,318 @@ function PostForm({ defaultValues, preview, editor }) {
       )}
 
       {!preview && (
-        <div className="flex flex-col gap-2 lg:px-36">
-          {/* <ImageUploader /> */}
+        <>
+          <div className="flex flex-col gap-2 lg:px-36">
+            <div className="flex flex-wrap gap-2 text-sm font-light">
+              <BasicTooltip title="Bold" placement="top">
+                <button
+                  type="button"
+                  onClick={() => editor.chain().focus().toggleBold().run()}
+                  disabled={!editor.can().chain().focus().toggleBold().run()}
+                  className={
+                    editor.isActive("bold")
+                      ? `is-active ${styles.btnEditorActive}`
+                      : styles.btnEditor
+                  }
+                >
+                  <FontAwesomeIcon icon={faBold} />
+                </button>
+              </BasicTooltip>
+              <BasicTooltip title="Italic" placement="top">
+                <button
+                  type="button"
+                  onClick={() => editor.chain().focus().toggleItalic().run()}
+                  disabled={!editor.can().chain().focus().toggleItalic().run()}
+                  className={
+                    editor.isActive("italic")
+                      ? `is-active ${styles.btnEditorActive}`
+                      : styles.btnEditor
+                  }
+                >
+                  <FontAwesomeIcon icon={faItalic} />
+                </button>
+              </BasicTooltip>
+              <BasicTooltip title="Strikethrough" placement="top">
+                <button
+                  type="button"
+                  onClick={() => editor.chain().focus().toggleStrike().run()}
+                  disabled={!editor.can().chain().focus().toggleStrike().run()}
+                  className={
+                    editor.isActive("strike")
+                      ? `is-active ${styles.btnEditorActive}`
+                      : styles.btnEditor
+                  }
+                >
+                  <FontAwesomeIcon icon={faStrikethrough} />
+                </button>
+              </BasicTooltip>
+              <BasicTooltip title="Code" placement="top">
+                <button
+                  type="button"
+                  onClick={() => editor.chain().focus().toggleCode().run()}
+                  disabled={!editor.can().chain().focus().toggleCode().run()}
+                  className={
+                    editor.isActive("code")
+                      ? `is-active ${styles.btnEditorActive}`
+                      : styles.btnEditor
+                  }
+                >
+                  <FontAwesomeIcon icon={faCode} />
+                </button>
+              </BasicTooltip>
+              <BasicTooltip title="clear marks" placement="top">
+                <button
+                  type="button"
+                  onClick={() => editor.chain().focus().unsetAllMarks().run()}
+                  className={styles.btnEditor}
+                >
+                  clear marks
+                </button>
+              </BasicTooltip>
+              <BasicTooltip title="clear nodes" placement="top">
+                <button
+                  type="button"
+                  onClick={() => editor.chain().focus().clearNodes().run()}
+                  className={styles.btnEditor}
+                >
+                  clear nodes
+                </button>
+              </BasicTooltip>
+              <BasicTooltip title="Paragraph" placement="top">
+                <button
+                  type="button"
+                  onClick={() => editor.chain().focus().setParagraph().run()}
+                  className={
+                    editor.isActive("paragraph")
+                      ? `is-active ${styles.btnEditorActive}`
+                      : styles.btnEditor
+                  }
+                >
+                  P
+                </button>
+              </BasicTooltip>
+              <BasicTooltip title="Heading 1" placement="top">
+                <button
+                  type="button"
+                  onClick={() =>
+                    editor.chain().focus().toggleHeading({ level: 1 }).run()
+                  }
+                  className={
+                    editor.isActive("heading", { level: 1 })
+                      ? `is-active ${styles.btnEditorActive}`
+                      : styles.btnEditor
+                  }
+                >
+                  <FontAwesomeIcon icon={faHeading} />
+                  <FontAwesomeIcon icon={fa1} />
+                </button>
+              </BasicTooltip>
+              <BasicTooltip title="Heading 2" placement="top">
+                <button
+                  type="button"
+                  onClick={() =>
+                    editor.chain().focus().toggleHeading({ level: 2 }).run()
+                  }
+                  className={
+                    editor.isActive("heading", { level: 2 })
+                      ? `is-active ${styles.btnEditorActive}`
+                      : styles.btnEditor
+                  }
+                >
+                  <FontAwesomeIcon icon={faHeading} />
+                  <FontAwesomeIcon icon={fa2} />
+                </button>
+              </BasicTooltip>
+              <BasicTooltip title="Heading 3" placement="top">
+                <button
+                  type="button"
+                  onClick={() =>
+                    editor.chain().focus().toggleHeading({ level: 3 }).run()
+                  }
+                  className={
+                    editor.isActive("heading", { level: 3 })
+                      ? `is-active ${styles.btnEditorActive}`
+                      : styles.btnEditor
+                  }
+                >
+                  <FontAwesomeIcon icon={faHeading} />
+                  <FontAwesomeIcon icon={fa3} />
+                </button>
+              </BasicTooltip>
+              <BasicTooltip title="Heading 4" placement="top">
+                <button
+                  type="button"
+                  onClick={() =>
+                    editor.chain().focus().toggleHeading({ level: 4 }).run()
+                  }
+                  className={
+                    editor.isActive("heading", { level: 4 })
+                      ? `is-active ${styles.btnEditorActive}`
+                      : styles.btnEditor
+                  }
+                >
+                  <FontAwesomeIcon icon={faHeading} />
+                  <FontAwesomeIcon icon={fa4} />
+                </button>
+              </BasicTooltip>
+              <BasicTooltip title="Heading 5" placement="top">
+                <button
+                  type="button"
+                  onClick={() =>
+                    editor.chain().focus().toggleHeading({ level: 5 }).run()
+                  }
+                  className={
+                    editor.isActive("heading", { level: 5 })
+                      ? `is-active ${styles.btnEditorActive}`
+                      : styles.btnEditor
+                  }
+                >
+                  <FontAwesomeIcon icon={faHeading} />
+                  <FontAwesomeIcon icon={fa5} />
+                </button>
+              </BasicTooltip>
+              <BasicTooltip title="Heading 6" placement="top">
+                <button
+                  type="button"
+                  onClick={() =>
+                    editor.chain().focus().toggleHeading({ level: 6 }).run()
+                  }
+                  className={
+                    editor.isActive("heading", { level: 6 })
+                      ? `is-active ${styles.btnEditorActive}`
+                      : styles.btnEditor
+                  }
+                >
+                  <FontAwesomeIcon icon={faHeading} />
+                  <FontAwesomeIcon icon={fa6} />
+                </button>
+              </BasicTooltip>
+              <BasicTooltip title="Unordered List" placement="top">
+                <button
+                  type="button"
+                  onClick={() =>
+                    editor.chain().focus().toggleBulletList().run()
+                  }
+                  className={
+                    editor.isActive("bulletList")
+                      ? `is-active ${styles.btnEditorActive}`
+                      : styles.btnEditor
+                  }
+                >
+                  <FontAwesomeIcon icon={faListUl} />
+                </button>
+              </BasicTooltip>
+              <BasicTooltip title="Ordered List" placement="top">
+                <button
+                  type="button"
+                  onClick={() =>
+                    editor.chain().focus().toggleOrderedList().run()
+                  }
+                  className={
+                    editor.isActive("orderedList")
+                      ? `is-active ${styles.btnEditorActive}`
+                      : styles.btnEditor
+                  }
+                >
+                  <FontAwesomeIcon icon={faListOl} />
+                </button>
+              </BasicTooltip>
+              <BasicTooltip title="Code Block" placement="top">
+                <button
+                  type="button"
+                  onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+                  className={
+                    editor.isActive("codeBlock")
+                      ? `is-active ${styles.btnEditorActive}`
+                      : styles.btnEditor
+                  }
+                >
+                  <FontAwesomeIcon icon={faLaptopCode} />
+                </button>
+              </BasicTooltip>
+              <BasicTooltip title="Block Quote" placement="top">
+                <button
+                  type="button"
+                  onClick={() =>
+                    editor.chain().focus().toggleBlockquote().run()
+                  }
+                  className={
+                    editor.isActive("blockquote")
+                      ? `is-active ${styles.btnEditorActive}`
+                      : styles.btnEditor
+                  }
+                >
+                  <div className="flex gap-1">
+                    <FontAwesomeIcon icon={faQuoteLeft} />
+                    <FontAwesomeIcon icon={faQuoteRight} />
+                  </div>
+                </button>
+              </BasicTooltip>
+              <BasicTooltip title="Horizontal Rule" placement="top">
+                <button
+                  type="button"
+                  className={styles.btnEditor}
+                  onClick={() =>
+                    editor.chain().focus().setHorizontalRule().run()
+                  }
+                >
+                  <FontAwesomeIcon icon={faWindowMinimize} />
+                </button>
+              </BasicTooltip>
+              <BasicTooltip title="Break" placement="top">
+                <button
+                  type="button"
+                  className={styles.btnEditor}
+                  onClick={() => editor.chain().focus().setHardBreak().run()}
+                >
+                  br
+                </button>
+              </BasicTooltip>
+              <BasicTooltip title="Undo" placement="top">
+                <button
+                  type="button"
+                  onClick={() => editor.chain().focus().undo().run()}
+                  disabled={!editor.can().chain().focus().undo().run()}
+                  className={styles.btnEditor}
+                >
+                  <FontAwesomeIcon icon={faRotateLeft} />
+                </button>
+              </BasicTooltip>
+              <BasicTooltip title="Redo" placement="top">
+                <button
+                  onClick={() => editor.chain().focus().redo().run()}
+                  disabled={!editor.can().chain().focus().redo().run()}
+                  className={styles.btnEditor}
+                >
+                  <FontAwesomeIcon icon={faRotateRight} />
+                </button>
+              </BasicTooltip>
+            </div>
 
-          <div className="flex flex-wrap gap-2 text-sm font-light">
-            <BasicTooltip title="Bold" placement="top">
-              <button
-                type="button"
-                onClick={() => editor.chain().focus().toggleBold().run()}
-                disabled={!editor.can().chain().focus().toggleBold().run()}
-                className={
-                  editor.isActive("bold")
-                    ? `is-active ${styles.btnEditorActive}`
-                    : styles.btnEditor
-                }
-              >
-                <FontAwesomeIcon icon={faBold} />
-              </button>
-            </BasicTooltip>
-            <BasicTooltip title="Italic" placement="top">
-              <button
-                type="button"
-                onClick={() => editor.chain().focus().toggleItalic().run()}
-                disabled={!editor.can().chain().focus().toggleItalic().run()}
-                className={
-                  editor.isActive("italic")
-                    ? `is-active ${styles.btnEditorActive}`
-                    : styles.btnEditor
-                }
-              >
-                <FontAwesomeIcon icon={faItalic} />
-              </button>
-            </BasicTooltip>
-            <BasicTooltip title="Strikethrough" placement="top">
-              <button
-                type="button"
-                onClick={() => editor.chain().focus().toggleStrike().run()}
-                disabled={!editor.can().chain().focus().toggleStrike().run()}
-                className={
-                  editor.isActive("strike")
-                    ? `is-active ${styles.btnEditorActive}`
-                    : styles.btnEditor
-                }
-              >
-                <FontAwesomeIcon icon={faStrikethrough} />
-              </button>
-            </BasicTooltip>
-            <BasicTooltip title="Code" placement="top">
-              <button
-                type="button"
-                onClick={() => editor.chain().focus().toggleCode().run()}
-                disabled={!editor.can().chain().focus().toggleCode().run()}
-                className={
-                  editor.isActive("code")
-                    ? `is-active ${styles.btnEditorActive}`
-                    : styles.btnEditor
-                }
-              >
-                <FontAwesomeIcon icon={faCode} />
-              </button>
-            </BasicTooltip>
-            <BasicTooltip title="clear marks" placement="top">
-              <button
-                type="button"
-                onClick={() => editor.chain().focus().unsetAllMarks().run()}
-                className={styles.btnEditor}
-              >
-                clear marks
-              </button>
-            </BasicTooltip>
-            <BasicTooltip title="clear nodes" placement="top">
-              <button
-                type="button"
-                onClick={() => editor.chain().focus().clearNodes().run()}
-                className={styles.btnEditor}
-              >
-                clear nodes
-              </button>
-            </BasicTooltip>
-            <BasicTooltip title="Paragraph" placement="top">
-              <button
-                type="button"
-                onClick={() => editor.chain().focus().setParagraph().run()}
-                className={
-                  editor.isActive("paragraph")
-                    ? `is-active ${styles.btnEditorActive}`
-                    : styles.btnEditor
-                }
-              >
-                P
-              </button>
-            </BasicTooltip>
-            <BasicTooltip title="Heading 1" placement="top">
-              <button
-                type="button"
-                onClick={() =>
-                  editor.chain().focus().toggleHeading({ level: 1 }).run()
-                }
-                className={
-                  editor.isActive("heading", { level: 1 })
-                    ? `is-active ${styles.btnEditorActive}`
-                    : styles.btnEditor
-                }
-              >
-                <FontAwesomeIcon icon={faHeading} />
-                <FontAwesomeIcon icon={fa1} />
-              </button>
-            </BasicTooltip>
-            <BasicTooltip title="Heading 2" placement="top">
-              <button
-                type="button"
-                onClick={() =>
-                  editor.chain().focus().toggleHeading({ level: 2 }).run()
-                }
-                className={
-                  editor.isActive("heading", { level: 2 })
-                    ? `is-active ${styles.btnEditorActive}`
-                    : styles.btnEditor
-                }
-              >
-                <FontAwesomeIcon icon={faHeading} />
-                <FontAwesomeIcon icon={fa2} />
-              </button>
-            </BasicTooltip>
-            <BasicTooltip title="Heading 3" placement="top">
-              <button
-                type="button"
-                onClick={() =>
-                  editor.chain().focus().toggleHeading({ level: 3 }).run()
-                }
-                className={
-                  editor.isActive("heading", { level: 3 })
-                    ? `is-active ${styles.btnEditorActive}`
-                    : styles.btnEditor
-                }
-              >
-                <FontAwesomeIcon icon={faHeading} />
-                <FontAwesomeIcon icon={fa3} />
-              </button>
-            </BasicTooltip>
-            <BasicTooltip title="Heading 4" placement="top">
-              <button
-                type="button"
-                onClick={() =>
-                  editor.chain().focus().toggleHeading({ level: 4 }).run()
-                }
-                className={
-                  editor.isActive("heading", { level: 4 })
-                    ? `is-active ${styles.btnEditorActive}`
-                    : styles.btnEditor
-                }
-              >
-                <FontAwesomeIcon icon={faHeading} />
-                <FontAwesomeIcon icon={fa4} />
-              </button>
-            </BasicTooltip>
-            <BasicTooltip title="Heading 5" placement="top">
-              <button
-                type="button"
-                onClick={() =>
-                  editor.chain().focus().toggleHeading({ level: 5 }).run()
-                }
-                className={
-                  editor.isActive("heading", { level: 5 })
-                    ? `is-active ${styles.btnEditorActive}`
-                    : styles.btnEditor
-                }
-              >
-                <FontAwesomeIcon icon={faHeading} />
-                <FontAwesomeIcon icon={fa5} />
-              </button>
-            </BasicTooltip>
-            <BasicTooltip title="Heading 6" placement="top">
-              <button
-                type="button"
-                onClick={() =>
-                  editor.chain().focus().toggleHeading({ level: 6 }).run()
-                }
-                className={
-                  editor.isActive("heading", { level: 6 })
-                    ? `is-active ${styles.btnEditorActive}`
-                    : styles.btnEditor
-                }
-              >
-                <FontAwesomeIcon icon={faHeading} />
-                <FontAwesomeIcon icon={fa6} />
-              </button>
-            </BasicTooltip>
-            <BasicTooltip title="Unordered List" placement="top">
-              <button
-                type="button"
-                onClick={() => editor.chain().focus().toggleBulletList().run()}
-                className={
-                  editor.isActive("bulletList")
-                    ? `is-active ${styles.btnEditorActive}`
-                    : styles.btnEditor
-                }
-              >
-                <FontAwesomeIcon icon={faListUl} />
-              </button>
-            </BasicTooltip>
-            <BasicTooltip title="Ordered List" placement="top">
-              <button
-                type="button"
-                onClick={() => editor.chain().focus().toggleOrderedList().run()}
-                className={
-                  editor.isActive("orderedList")
-                    ? `is-active ${styles.btnEditorActive}`
-                    : styles.btnEditor
-                }
-              >
-                <FontAwesomeIcon icon={faListOl} />
-              </button>
-            </BasicTooltip>
-            <BasicTooltip title="Code Block" placement="top">
-              <button
-                type="button"
-                onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-                className={
-                  editor.isActive("codeBlock")
-                    ? `is-active ${styles.btnEditorActive}`
-                    : styles.btnEditor
-                }
-              >
-                <FontAwesomeIcon icon={faLaptopCode} />
-              </button>
-            </BasicTooltip>
-            <BasicTooltip title="Block Quote" placement="top">
-              <button
-                type="button"
-                onClick={() => editor.chain().focus().toggleBlockquote().run()}
-                className={
-                  editor.isActive("blockquote")
-                    ? `is-active ${styles.btnEditorActive}`
-                    : styles.btnEditor
-                }
-              >
-                <div className="flex gap-1">
-                  <FontAwesomeIcon icon={faQuoteLeft} />
-                  <FontAwesomeIcon icon={faQuoteRight} />
-                </div>
-              </button>
-            </BasicTooltip>
-            <BasicTooltip title="Horizontal Rule" placement="top">
-              <button
-                type="button"
-                className={styles.btnEditor}
-                onClick={() => editor.chain().focus().setHorizontalRule().run()}
-              >
-                <FontAwesomeIcon icon={faWindowMinimize} />
-              </button>
-            </BasicTooltip>
-            <BasicTooltip title="Break" placement="top">
-              <button
-                type="button"
-                className={styles.btnEditor}
-                onClick={() => editor.chain().focus().setHardBreak().run()}
-              >
-                br
-              </button>
-            </BasicTooltip>
-            <BasicTooltip title="Undo" placement="top">
-              <button
-                type="button"
-                onClick={() => editor.chain().focus().undo().run()}
-                disabled={!editor.can().chain().focus().undo().run()}
-                className={styles.btnEditor}
-              >
-                <FontAwesomeIcon icon={faRotateLeft} />
-              </button>
-            </BasicTooltip>
-            <BasicTooltip title="Redo" placement="top">
-              <button
-                onClick={() => editor.chain().focus().redo().run()}
-                disabled={!editor.can().chain().focus().redo().run()}
-                className={styles.btnEditor}
-              >
-                <FontAwesomeIcon icon={faRotateRight} />
-              </button>
-            </BasicTooltip>
+            {/*  Audio Player */}
+            <div className="flex flex-row items-center justify-center">
+              <AudioUploader />
+            </div>
+
+            <EditorContent editor={editor} />
+
+            <fieldset className="flex gap-x-2">
+              <input
+                name="published"
+                type="checkbox"
+                {...register("published", { required: true })}
+              />
+              <label>Published</label>
+            </fieldset>
+
+            <button
+              type="submit"
+              className="p-2 bg-hit-pink-500 text-blog-black rounded-lg self-center"
+            >
+              Save Changes
+            </button>
           </div>
-
-          <EditorContent editor={editor} />
-
-          <fieldset className="flex gap-x-2">
-            <input
-              name="published"
-              type="checkbox"
-              {...register("published", { required: true })}
-            />
-            <label>Published</label>
-          </fieldset>
-
-          <button
-            type="submit"
-            className="p-2 bg-hit-pink-500 text-blog-black rounded-lg self-center"
-          >
-            Save Changes
-          </button>
-        </div>
+        </>
       )}
     </form>
   );

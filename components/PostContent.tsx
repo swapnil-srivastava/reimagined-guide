@@ -9,11 +9,7 @@ import {
   faFacebook,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
-import {
-  faPenToSquare,
-  faEllipsis,
-  faThumbsUp,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
 
 // React Components
