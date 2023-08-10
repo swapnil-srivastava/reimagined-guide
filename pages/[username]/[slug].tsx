@@ -95,7 +95,7 @@ function Post(props) {
     // Note Url only valid for 10 mins.
     const { data: dataUrl, error: errorUrl } = await supaClient.storage
       .from("audio")
-      .createSignedUrl(post?.audio, 600); // Valid for 600 seconds = 10 mins
+      .createSignedUrl(firstPost?.audio, 600); // Valid for 600 seconds = 10 mins
 
     const { signedUrl } = dataUrl;
     setPostAudioUrl(signedUrl);
