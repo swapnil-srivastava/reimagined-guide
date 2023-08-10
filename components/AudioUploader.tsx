@@ -13,38 +13,44 @@ export default function AudioUploader({ getAudioFileName }) {
   const uploadFile = async (e: { target: HTMLInputElement }) => {
     const target = e.target as HTMLInputElement;
     // Get the file
-    const file: File = Array.from(target.files)[0];
+    const selectedFile = Array.from(target.files)[0];
+    if (!selectedFile) return;
+    if (selectedFile) {
+      const fileNameWithExtension = selectedFile.name;
+      const fileNameWithoutExtension: string = fileNameWithExtension.replace(
+        /\.[^/.]+$/,
+        ""
+      );
 
-    if (!file) return;
+      const extension = selectedFile.type.split("/")[1];
 
-    const extension = file.type.split("/")[1];
+      setUploading(true); // Show Loader
 
-    setUploading(true); // Show Loader
+      // Note: cannot upload duplicate file
+      // file.name = adding the file with prefix "audio_{filename}"
+      const { data, error } = await supaClient.storage
+        .from("audio")
+        .upload(fileNameWithoutExtension, selectedFile, {
+          cacheControl: "3600",
+          upsert: false,
+        });
 
-    // Note: cannot upload duplicate file
-    // file.name = adding the file with prefix "audio_{filename}"
-    const { data, error } = await supaClient.storage
-      .from("audio")
-      .upload(`audio_${file.name}`, file, {
-        cacheControl: "3600",
-        upsert: false,
-      });
+      setUploading(false); // Hide Loader
 
-    setUploading(false); // Hide Loader
+      // TODO: calculate the percentage if you get something in return
 
-    // TODO: calculate the percentage if you get something in return
+      // example code of calculating percentage
+      // ======================================
+      // Listen to updates to upload task
+      // task.on(STATE_CHANGED, (snapshot) => {
+      //   const pct: String = (
+      //     (snapshot.bytesTransferred / snapshot.totalBytes) *
+      //     100
+      //   ).toFixed(0);
+      //   setProgress(pct);
 
-    // example code of calculating percentage
-    // ======================================
-    // Listen to updates to upload task
-    // task.on(STATE_CHANGED, (snapshot) => {
-    //   const pct: String = (
-    //     (snapshot.bytesTransferred / snapshot.totalBytes) *
-    //     100
-    //   ).toFixed(0);
-    //   setProgress(pct);
-
-    getAudioFileName(`audio_${file.name}`); // Calling parent function to access the file name and add it to the database
+      getAudioFileName(fileNameWithoutExtension); // Calling parent function to access the file name and add it to the database
+    }
   };
 
   return (

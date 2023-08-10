@@ -3,7 +3,7 @@ export type Json =
   | number
   | boolean
   | null
-  | { [key: string]: Json }
+  | { [key: string]: Json | undefined }
   | Json[];
 
 export interface Database {
@@ -46,6 +46,7 @@ export interface Database {
           position_start_time?: string;
           skills?: string[] | null;
         };
+        Relationships: [];
       };
       hearts: {
         Row: {
@@ -69,6 +70,14 @@ export interface Database {
           pid?: string | null;
           updated_at?: string | null;
         };
+        Relationships: [
+          {
+            foreignKeyName: "hearts_pid_fkey";
+            columns: ["pid"];
+            referencedRelation: "posts";
+            referencedColumns: ["id"];
+          }
+        ];
       };
       leadingtech: {
         Row: {
@@ -92,10 +101,19 @@ export interface Database {
           tech_color?: string | null;
           uid?: string;
         };
+        Relationships: [
+          {
+            foreignKeyName: "leadingtech_uid_fkey";
+            columns: ["uid"];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          }
+        ];
       };
       posts: {
         Row: {
           approved: boolean | null;
+          audio: string | null;
           content: string | null;
           created_at: string | null;
           heartcount: number | null;
@@ -111,6 +129,7 @@ export interface Database {
         };
         Insert: {
           approved?: boolean | null;
+          audio?: string | null;
           content?: string | null;
           created_at?: string | null;
           heartcount?: number | null;
@@ -126,6 +145,7 @@ export interface Database {
         };
         Update: {
           approved?: boolean | null;
+          audio?: string | null;
           content?: string | null;
           created_at?: string | null;
           heartcount?: number | null;
@@ -139,6 +159,32 @@ export interface Database {
           updated_at?: string | null;
           username?: string | null;
         };
+        Relationships: [
+          {
+            foreignKeyName: "posts_heartid_fkey";
+            columns: ["heartid"];
+            referencedRelation: "hearts";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "posts_photo_url_fkey";
+            columns: ["photo_url"];
+            referencedRelation: "profiles";
+            referencedColumns: ["avatar_url"];
+          },
+          {
+            foreignKeyName: "posts_uid_fkey";
+            columns: ["uid"];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "posts_username_fkey";
+            columns: ["username"];
+            referencedRelation: "profiles";
+            referencedColumns: ["username"];
+          }
+        ];
       };
       profiles: {
         Row: {
@@ -165,6 +211,14 @@ export interface Database {
           username?: string | null;
           website?: string | null;
         };
+        Relationships: [
+          {
+            foreignKeyName: "profiles_id_fkey";
+            columns: ["id"];
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          }
+        ];
       };
       technologies: {
         Row: {
@@ -188,6 +242,14 @@ export interface Database {
           tech_color?: string | null;
           uid?: string;
         };
+        Relationships: [
+          {
+            foreignKeyName: "technologies_uid_fkey";
+            columns: ["uid"];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          }
+        ];
       };
     };
     Views: {
@@ -224,6 +286,7 @@ export type POST = Pick<
   | "uid"
   | "updated_at"
   | "username"
+  | "audio"
 >;
 
 type LEADINGTECH_TABLE = Pick<TABLES["Tables"], "leadingtech">;

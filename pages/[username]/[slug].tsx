@@ -88,17 +88,17 @@ function Post(props) {
       .select("*")
       .like("slug", props.path);
 
+    const [firstPost] = posts;
+    setPost(firstPost);
+
     // Get the audio URL of the post.
     // Note Url only valid for 10 mins.
     const { data: dataUrl, error: errorUrl } = await supaClient.storage
       .from("audio")
-      .createSignedUrl(props?.post?.audio, 600); // Valid for 600 seconds = 10 mins
+      .createSignedUrl(post?.audio, 600); // Valid for 600 seconds = 10 mins
 
     const { signedUrl } = dataUrl;
     setPostAudioUrl(signedUrl);
-
-    const [firstPost] = posts;
-    setPost(firstPost);
   };
 
   useEffect(() => {
