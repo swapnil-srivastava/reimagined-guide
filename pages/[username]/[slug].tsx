@@ -95,14 +95,7 @@ function Post(props) {
       .from("audio")
       .getPublicUrl(firstPost?.audio);
 
-    // Get the audio URL of the post.
-    // // Note Url only valid for 10 mins.
-    // const { data: dataUrl, error: errorUrl } = await supaClient.storage
-    //   .from("audio")
-    //   .createSignedUrl(firstPost?.audio, 600); // Valid for 600 seconds = 10 mins
-
-    // const { signedUrl } = dataUrl;
-    // setPostAudioUrl(signedUrl);
+    console.log("public URL ----", dataUrl);
 
     const { publicUrl } = dataUrl;
     setPostAudioUrl(publicUrl);
