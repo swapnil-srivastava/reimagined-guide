@@ -16,6 +16,7 @@ import { RootState } from "../lib/interfaces/interface";
 // JSON Forms
 import { JsonForms } from "@jsonforms/react";
 
+// Technology Schema
 import schema from "../lib/techStack/techStackSchema.json";
 import uischema from "../lib/techStack/uiTechStackSchema.json";
 

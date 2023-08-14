@@ -1,0 +1,14 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "label": "Pubished",
+      "scope": "#/properties/published"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/videoLink"
+    }
+  ]
+}

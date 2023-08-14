@@ -126,6 +126,7 @@ export interface Database {
           uid: string | null;
           updated_at: string | null;
           username: string | null;
+          videoLink: string | null;
         };
         Insert: {
           approved?: boolean | null;
@@ -142,6 +143,7 @@ export interface Database {
           uid?: string | null;
           updated_at?: string | null;
           username?: string | null;
+          videoLink?: string | null;
         };
         Update: {
           approved?: boolean | null;
@@ -158,6 +160,7 @@ export interface Database {
           uid?: string | null;
           updated_at?: string | null;
           username?: string | null;
+          videoLink?: string | null;
         };
         Relationships: [
           {
@@ -287,6 +290,7 @@ export type POST = Pick<
   | "updated_at"
   | "username"
   | "audio"
+  | "videoLink"
 >;
 
 type LEADINGTECH_TABLE = Pick<TABLES["Tables"], "leadingtech">;

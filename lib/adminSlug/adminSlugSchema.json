@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "properties": {
+    "videoLink": {
+      "type": "string"
+    },
+    "published": {
+      "type": "boolean"
+    }
+  },
+  "required": ["published"]
+}

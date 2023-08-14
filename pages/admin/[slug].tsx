@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
-import toast from "react-hot-toast";
-import * as postmark from "postmark";
+
+// Next
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
 import Link from "next/link";
+
+// React Toast
+import toast from "react-hot-toast";
+
+// Redux
+import { useSelector } from "react-redux";
+
+// TipTap
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+
+// Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faItalic,
@@ -29,6 +37,9 @@ import {
   faQuoteLeft,
   faQuoteRight,
 } from "@fortawesome/free-solid-svg-icons";
+
+// Postmark
+import * as postmark from "postmark";
 
 // Styles
 import styles from "../../styles/Admin.module.css";
@@ -53,6 +64,17 @@ import { sendEmail } from "../../services/email.service";
 
 // Library
 import { generateMetaDescription } from "../../lib/library";
+
+// Admin Slug Schema
+import schema from "../../lib/adminSlug/adminSlugSchema.json";
+import uischema from "../../lib/adminSlug/uiAdminSlugSchema.json";
+
+// JSON Forms
+import { JsonForms } from "@jsonforms/react";
+import {
+  materialCells,
+  materialRenderers,
+} from "@jsonforms/material-renderers";
 
 // e.g. localhost:3000/admin/page1
 // e.g. localhost:3000/admin/page2
@@ -144,12 +166,14 @@ function PostManager() {
   );
 }
 
-function PostForm({ defaultValues, preview, editor }) {
-  const { register, handleSubmit, reset, watch, formState } = useForm({
-    defaultValues,
-    mode: "onChange",
-  });
+interface JSON_TECH {
+  published: boolean;
+  videoLink: string;
+}
 
+function PostForm({ defaultValues, preview, editor }) {
+  const [data, setData] = useState<JSON_TECH>();
+  const [jsonErrors, setJsonErrors] = useState([]);
   const [audioFileName, setAudioFileName] = useState(""); // If no audio file then set empty string
 
   const router = useRouter();
@@ -164,30 +188,36 @@ function PostForm({ defaultValues, preview, editor }) {
       return null;
     }
     editor.commands.setContent(defaultValues?.content);
+
+    setData({
+      published: defaultValues?.published,
+      videoLink: defaultValues?.videoLink ?? "",
+    });
   }, []);
 
   if (!editor) {
     return null;
   }
 
-  const { isValid, isDirty, errors } = formState;
+  const changedJsonSchema = async (jsonData, jsonError) => {
+    setJsonErrors(jsonError);
+    setData(jsonData);
+  };
 
-  const updatePost = async ({ content, published }) => {
+  const updatePost = async () => {
     const contentEditor = editor.getHTML();
 
-    const { data, error } = await supaClient
+    const { data: dataUpdate, error } = await supaClient
       .from("posts")
       .update({
         content: contentEditor,
-        published: published,
+        published: data?.published,
         audio: audioFileName,
+        videoLink: data?.videoLink,
         updated_at: new Date().toISOString(),
       })
       .eq("uid", profile?.id)
       .eq("slug", slug);
-
-    reset({ content, published });
-
     const articleURL = `https://swapnilsrivastava.eu/approve/${defaultValues?.slug}`;
 
     const emailMessage: Partial<postmark.Message> = {
@@ -202,7 +232,7 @@ function PostForm({ defaultValues, preview, editor }) {
   };
 
   return (
-    <form onSubmit={handleSubmit(updatePost)}>
+    <>
       {preview && (
         <div
           className="drop-shadow-xl admin-content"
@@ -510,25 +540,31 @@ function PostForm({ defaultValues, preview, editor }) {
             {/*  Editor Content which is changed by tiptap controls  */}
             <EditorContent editor={editor} />
 
-            <fieldset className="flex gap-x-2">
-              <input
-                name="published"
-                type="checkbox"
-                {...register("published", { required: true })}
-              />
-              <label>Published</label>
-            </fieldset>
+            <JsonForms
+              schema={schema}
+              uischema={uischema}
+              data={data}
+              renderers={materialRenderers}
+              cells={materialCells}
+              onChange={({ errors, data }) => changedJsonSchema(data, errors)}
+            />
 
             <button
-              type="submit"
+              type="button"
               className="p-2 bg-hit-pink-500 text-blog-black rounded-lg self-center"
+              disabled={
+                Array.isArray(jsonErrors) &&
+                jsonErrors !== undefined &&
+                jsonErrors.length !== 0
+              }
+              onClick={() => updatePost()}
             >
               Save Changes
             </button>
           </div>
         </>
       )}
-    </form>
+    </>
   );
 }
 

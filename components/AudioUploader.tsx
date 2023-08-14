@@ -13,8 +13,6 @@ export default function AudioUploader({ getAudioFileName }) {
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
 
-  console.log("user", userInfo);
-
   const [uploading, setUploading] = useState(false);
   const [progress] = useState<String>("");
   const [downloadURL, setDownloadURL] = useState(null);
