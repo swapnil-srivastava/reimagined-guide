@@ -500,8 +500,8 @@ function PostForm({ defaultValues, preview, editor }) {
               </BasicTooltip>
             </div>
 
-            {/*  Audio Player */}
-            <div className="flex flex-row items-center justify-center">
+            {/*  Audio Upload */}
+            <div className="">
               <AudioUploader
                 getAudioFileName={(fileName) => setAudioFileName(fileName)}
               />

@@ -96,38 +96,7 @@ export default function AudioUploader({ getAudioFileName }) {
                 "
             />
           </label> */}
-          Option 1
-          {/* <label
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            htmlFor="file_input"
-          >
-            Upload Audio
-          </label>
-          <input
-            className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-            id="file_input"
-            type="file"
-          ></input>
 
-          <label
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            htmlFor="file_input1"
-          >
-            Upload file
-          </label> */}
-          {/* Option 2 */}
-          {/* <input
-            className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-            aria-describedby="file_input_help"
-            id="file_input1"
-            type="file"
-          />
-          <p
-            className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-            id="file_input_help"
-          >
-            SVG, PNG, JPG or GIF (MAX. 800x400px).
-          </p> */}
           {/* Option 3  */}
           <div className="flex items-center justify-center w-full">
             <label
@@ -151,14 +120,22 @@ export default function AudioUploader({ getAudioFileName }) {
                   />
                 </svg>
                 <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                  <span className="font-semibold">Click to upload</span> or drag
-                  and drop
+                  <span className="font-semibold">
+                    Click to upload audio file{" "}
+                  </span>
+                  or drag and drop
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
-                  SVG, PNG, JPG or GIF (MAX. 800x400px)
+                  MPEG WAV MP3
                 </p>
               </div>
-              <input id="dropzone-file" type="file" className="hidden" />
+              <input
+                id="dropzone-file"
+                type="file"
+                onChange={uploadFile}
+                accept="audio/mpeg,audio/wav"
+                className="hidden"
+              />
             </label>
           </div>
         </>
