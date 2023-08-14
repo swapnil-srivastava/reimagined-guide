@@ -1,10 +1,20 @@
 // Audio Uploader is exactly similar to ImageUploader // TODO: need to reformat it based on usage
 
 import { useState } from "react";
+import { useSelector } from "react-redux";
+
 import { supaClient } from "../supa-client";
 import Loader from "./Loader";
 
+// Root Interface
+import { RootState } from "../lib/interfaces/interface";
+
 export default function AudioUploader({ getAudioFileName }) {
+  const selectUser = (state: RootState) => state.users;
+  const { user, username } = useSelector(selectUser);
+
+  console.log("user", user);
+
   const [uploading, setUploading] = useState(false);
   const [progress] = useState<String>("");
   const [downloadURL, setDownloadURL] = useState(null);
@@ -30,7 +40,7 @@ export default function AudioUploader({ getAudioFileName }) {
       // file.name = adding the file with prefix "audio_{filename}"
       const { data, error } = await supaClient.storage
         .from("audio")
-        .upload(`public/${fileNameWithExtension}`, selectedFile, {
+        .upload(`${user.uid}/${fileNameWithExtension}`, selectedFile, {
           cacheControl: "3600",
           upsert: false,
         });
@@ -49,14 +59,14 @@ export default function AudioUploader({ getAudioFileName }) {
       //   ).toFixed(0);
       //   setProgress(pct);
 
-      getAudioFileName(`public/${fileNameWithExtension}`); // Calling parent function to access the file name and add it to the database
+      getAudioFileName(`${user.uid}/${fileNameWithExtension}`); // Calling parent function to access the file name and add it to the database
     }
   };
 
   return (
     <div className="">
       <Loader show={uploading} />
-      {uploading && <h3>{progress}%</h3>}
+      {uploading && <h3>{progress}</h3>}
 
       {!uploading && (
         <>

@@ -503,10 +503,7 @@ function PostForm({ defaultValues, preview, editor }) {
             {/*  Audio Player */}
             <div className="flex flex-row items-center justify-center">
               <AudioUploader
-                getAudioFileName={(fileName) => {
-                  console.log("filename===>", fileName);
-                  return setAudioFileName(fileName);
-                }}
+                getAudioFileName={(fileName) => setAudioFileName(fileName)}
               />
             </div>
 
