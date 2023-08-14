@@ -91,6 +91,7 @@ function Post(props) {
     const [firstPost] = posts;
     setPost(firstPost);
 
+    // Get the audio URL of the Post
     const { data: dataUrl } = supaClient.storage
       .from("audio")
       .getPublicUrl(firstPost?.audio);
@@ -105,11 +106,11 @@ function Post(props) {
 
     console.log("dataSignedUrl ==>", dataSignedUrl);
 
-    // const { signedUrl } = dataUrl;
-    // setPostAudioUrl(signedUrl);
+    const { signedUrl } = dataSignedUrl;
+    setPostAudioUrl(signedUrl);
 
-    const { publicUrl } = dataUrl;
-    setPostAudioUrl(publicUrl);
+    // const { publicUrl } = dataUrl;
+    // setPostAudioUrl(publicUrl);
   };
 
   useEffect(() => {
