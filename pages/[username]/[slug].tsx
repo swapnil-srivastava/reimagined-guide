@@ -7,6 +7,7 @@ import styles from "../../styles/Post.module.css";
 // React Components
 import PostContent from "../../components/PostContent";
 import Metatags from "../../components/Metatags";
+import Video from "../../components/Video";
 
 // Interfaces
 import { RootState } from "../../lib/interfaces/interface";
@@ -127,6 +128,10 @@ function Post(props) {
 
       <section className="basis-3/5 p-3">
         <PostContent post={post} audioUrl={postAudioUrl} />
+      </section>
+
+      <section className="basis-3/5 p-3">
+        <Video />
       </section>
     </main>
   );
