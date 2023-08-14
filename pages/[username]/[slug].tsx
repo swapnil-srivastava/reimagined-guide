@@ -129,10 +129,6 @@ function Post(props) {
       <section className="basis-3/5 p-3">
         <PostContent post={post} audioUrl={postAudioUrl} />
       </section>
-
-      <section className="basis-3/5 p-3">
-        <Video />
-      </section>
     </main>
   );
 }

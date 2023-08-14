@@ -16,6 +16,7 @@ import toast from "react-hot-toast";
 import HeartButton from "./HeartButton";
 import BasicTooltip from "./Tooltip";
 import AuthCheck from "./AuthCheck";
+import Video from "./Video";
 
 // Interface
 import { RootState } from "../lib/interfaces/interface";
@@ -333,6 +334,8 @@ export default function PostContent({
             dangerouslySetInnerHTML={{ __html: post?.content }}
           ></div>
         </div>
+
+        <Video />
       </div>
     </>
   );
