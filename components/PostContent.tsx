@@ -335,7 +335,7 @@ export default function PostContent({
           ></div>
         </div>
 
-        <Video />
+        <Video videoSrc={post?.videoLink} />
       </div>
     </>
   );
