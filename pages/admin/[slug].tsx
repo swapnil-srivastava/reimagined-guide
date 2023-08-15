@@ -172,7 +172,10 @@ interface JSON_TECH {
 }
 
 function PostForm({ defaultValues, preview, editor }) {
-  const [data, setData] = useState<JSON_TECH>();
+  const [data, setData] = useState<JSON_TECH>({
+    published: defaultValues?.published,
+    videoLink: defaultValues.videoLink,
+  });
   const [jsonErrors, setJsonErrors] = useState([]);
   const [audioFileName, setAudioFileName] = useState(""); // If no audio file then set empty string
 
@@ -189,15 +192,6 @@ function PostForm({ defaultValues, preview, editor }) {
     }
     editor.commands.setContent(defaultValues?.content);
   }, []);
-
-  useEffect(() => {
-    setData({
-      published: defaultValues?.published,
-      videoLink: defaultValues?.videoLink ?? "",
-    });
-
-    return () => {};
-  }, [data?.published, data?.videoLink]);
 
   if (!editor) {
     return null;
