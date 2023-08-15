@@ -188,12 +188,16 @@ function PostForm({ defaultValues, preview, editor }) {
       return null;
     }
     editor.commands.setContent(defaultValues?.content);
+  }, []);
 
+  useEffect(() => {
     setData({
       published: defaultValues?.published,
       videoLink: defaultValues?.videoLink ?? "",
     });
-  }, []);
+
+    return () => {};
+  }, [data?.published, data?.videoLink]);
 
   if (!editor) {
     return null;
