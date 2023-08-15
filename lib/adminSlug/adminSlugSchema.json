@@ -4,6 +4,9 @@
     "videoLink": {
       "type": "string"
     },
+    "youtubeEmbeds": {
+      "type": "string"
+    },
     "published": {
       "type": "boolean"
     }

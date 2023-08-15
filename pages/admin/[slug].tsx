@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 // TipTap
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import Youtube from "@tiptap/extension-youtube";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -37,6 +38,7 @@ import {
   faQuoteLeft,
   faQuoteRight,
 } from "@fortawesome/free-solid-svg-icons";
+import { faYoutube } from "@fortawesome/free-brands-svg-icons";
 
 // Postmark
 import * as postmark from "postmark";
@@ -93,7 +95,12 @@ function PostManager() {
   const [post, setPost] = useState<POST>();
 
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [
+      StarterKit,
+      Youtube.configure({
+        controls: false,
+      }),
+    ],
   });
 
   const router = useRouter();
@@ -166,13 +173,14 @@ function PostManager() {
   );
 }
 
-interface JSON_TECH {
+interface JSON_ADMIN_SLUG {
   published: boolean;
   videoLink: string;
+  youtubeEmbeds?: string;
 }
 
 function PostForm({ defaultValues, preview, editor }) {
-  const [data, setData] = useState<JSON_TECH>({
+  const [data, setData] = useState<JSON_ADMIN_SLUG>({
     published: defaultValues?.published,
     videoLink: defaultValues.videoLink,
   });
@@ -200,6 +208,16 @@ function PostForm({ defaultValues, preview, editor }) {
   const changedJsonSchema = async (jsonData, jsonError) => {
     setJsonErrors(jsonError);
     setData(jsonData);
+  };
+
+  const addYoutubeVideoInEditor = () => {
+    if (data?.youtubeEmbeds) {
+      editor.commands.setYoutubeVideo({
+        src: data?.youtubeEmbeds,
+        width: 640,
+        height: 480,
+      });
+    }
   };
 
   const updatePost = async () => {
@@ -525,6 +543,14 @@ function PostForm({ defaultValues, preview, editor }) {
                   className={styles.btnEditor}
                 >
                   <FontAwesomeIcon icon={faRotateRight} />
+                </button>
+              </BasicTooltip>
+              <BasicTooltip title="Youtube" placement="top">
+                <button
+                  onClick={() => addYoutubeVideoInEditor()}
+                  className={styles.btnEditor}
+                >
+                  <FontAwesomeIcon icon={faYoutube} />
                 </button>
               </BasicTooltip>
             </div>

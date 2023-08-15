@@ -9,6 +9,10 @@
     {
       "type": "Control",
       "scope": "#/properties/videoLink"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/youtubeEmbeds"
     }
   ]
 }
