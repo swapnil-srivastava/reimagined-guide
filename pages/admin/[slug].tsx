@@ -211,11 +211,12 @@ function PostForm({ defaultValues, preview, editor }) {
         content: contentEditor,
         published: data?.published,
         audio: audioFileName,
-        videoLink: data?.videoLink,
+        videoLink: data?.videoLink ?? "",
         updated_at: new Date().toISOString(),
       })
       .eq("uid", profile?.id)
       .eq("slug", slug);
+
     const articleURL = `https://swapnilsrivastava.eu/approve/${defaultValues?.slug}`;
 
     const emailMessage: Partial<postmark.Message> = {
