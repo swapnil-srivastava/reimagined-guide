@@ -210,6 +210,8 @@ function PostForm({ defaultValues, preview, editor }) {
     setData(jsonData);
   };
 
+  // Adding the youtube link through the button in the top bar but the link must be part of the
+  // input field called youtube embeds
   const addYoutubeVideoInEditor = () => {
     if (data?.youtubeEmbeds) {
       editor.commands.setYoutubeVideo({
