@@ -8,8 +8,14 @@ const ChooseYourDoctor = () => {
         <div className="mt-10 text-3xl dark:text-blog-white text-blog-black font-bold leading-none tracking-tight md:text-5xl lg:text-6xl">
           Choose your doctor
         </div>
-        <div className="mb-4 md:text-xl lg:text-2xl text-base dark:text-blog-white text-blog-black font-thin leading-none tracking-tight">
-          Click on the row to proceed
+        <div className="md:text-xl lg:text-2xl text-base dark:text-blog-white text-blog-black font-thin leading-none tracking-tight">
+          Search
+        </div>
+        <div className="md:text-xl lg:text-2xl text-base dark:text-blog-white text-blog-black font-thin leading-none tracking-tight">
+          Chips of refining the list
+        </div>
+        <div className="md:text-xl lg:text-2xl text-base dark:text-blog-white text-blog-black font-thin leading-none tracking-tight">
+          Row of doctors
         </div>
       </div>
       <div className="flex flex-row mb-10">
