@@ -28,13 +28,15 @@ const ChooseYourDoctor = () => {
   return (
     <div className="flex flex-col h-screen justify-between">
       <div className="flex flex-col justify-between">
-        <div className="self-start flex gap-2 items-center ml-5 mt-10 text-3xl dark:text-blog-white text-blog-black font-bold leading-none tracking-tight md:text-5xl lg:text-6xl">
+        <div className="self-start flex gap-2 items-center ml-5 mt-10">
           <Link href="/book-appointment">
-            <div className="bg-fun-blue-300 dark:text-blog-black w-8 h-8 p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
-              <FontAwesomeIcon icon={faChevronLeft} size="sm" />
+            <div className="bg-fun-blue-300 dark:text-blog-black w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 p-0.5 m-0.5 flex items-center justify-center rounded-full transition-filter duration-500 hover:filter hover:brightness-125">
+              <FontAwesomeIcon icon={faChevronLeft} size="lg" />
             </div>
           </Link>
-          <div>Doctors</div>
+          <div className="text-3xl md:text-5xl lg:text-6xl dark:text-blog-white text-blog-black font-bold leading-none tracking-tight ">
+            Doctors
+          </div>
         </div>
         <div className="dark:bg-blog-white my-2">
           <div className="mx-5 mb-2">
