@@ -5,17 +5,22 @@ import Link from "next/link";
 
 // JSON Forms
 import { JsonForms } from "@jsonforms/react";
-
-// Technology Schema
-import schema from "../../lib/chooseYourDoctor/chooseYourDoctorSchema.json";
-import uischema from "../../lib/chooseYourDoctor/uiChooseYourDoctorSchema.json";
-
 import {
   materialCells,
   materialRenderers,
 } from "@jsonforms/material-renderers";
 
+// Technology Schema
+import schema from "../../lib/chooseYourDoctor/chooseYourDoctorSchema.json";
+import uischema from "../../lib/chooseYourDoctor/uiChooseYourDoctorSchema.json";
+
 import { Chip } from "@mui/material";
+
+// Font Awesome
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+// Font Icons
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 const ChooseYourDoctor = () => {
   const [data, setData] = useState();
@@ -23,8 +28,13 @@ const ChooseYourDoctor = () => {
   return (
     <div className="flex flex-col h-screen justify-between">
       <div className="flex flex-col justify-between">
-        <div className="self-start ml-5 mt-10 text-3xl dark:text-blog-white text-blog-black font-bold leading-none tracking-tight md:text-5xl lg:text-6xl">
-          Doctors
+        <div className="self-start flex gap-2 items-center ml-5 mt-10 text-3xl dark:text-blog-white text-blog-black font-bold leading-none tracking-tight md:text-5xl lg:text-6xl">
+          <Link href="/book-appointment">
+            <div className="bg-fun-blue-300 dark:text-blog-black w-8 h-8 p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+              <FontAwesomeIcon icon={faChevronLeft} size="sm" />
+            </div>
+          </Link>
+          <div>Doctors</div>
         </div>
         <div className="dark:bg-blog-white my-2">
           <div className="mx-5 mb-2">
