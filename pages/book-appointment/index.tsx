@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const BookAppointment = () => {
   return (
-    <div className="flex flex-col h-screen justify-between items-center">
+    <div className="flex flex-col h-screen justify-between">
       <div className="flex flex-col justify-between items-center">
         <div className="mt-10 text-3xl dark:text-blog-white text-blog-black font-bold leading-none tracking-tight md:text-5xl lg:text-6xl">
           Schedule Appointment with Ease
@@ -13,7 +13,7 @@ const BookAppointment = () => {
           clicks
         </div>
       </div>
-      <div className="flex flex-row mb-10">
+      <div className="flex flex-row mb-10 mr-5 self-end">
         <Link href="/choose-your-doctor">
           <button
             className="focus:outline-none focus:ring-2 
