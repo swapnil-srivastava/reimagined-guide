@@ -125,7 +125,11 @@ export default function Home(props) {
 
       {postsEnd && (
         <div className="flex items-center justify-center dark:text-blog-white">
-          You have reached the end!
+          <FormattedMessage
+            id="end_of_articles"
+            description="End of articles" // Description should be a string literal
+            defaultMessage="End of articles" // Message should be a string literal
+          />
         </div>
       )}
     </main>

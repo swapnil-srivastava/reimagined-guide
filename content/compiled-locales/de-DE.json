@@ -5,6 +5,12 @@
       "value": "Ich heiße Avni Srivastava"
     }
   ],
+  "end_of_articles": [
+    {
+      "type": 0,
+      "value": "Sie haben das Ende erreicht"
+    }
+  ],
   "swapnil_architect": [
     {
       "type": 0,
