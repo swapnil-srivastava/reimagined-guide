@@ -277,9 +277,9 @@ function DropdownMenu() {
 
           <DropdownItem
             leftIcon={
-              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+              <RoundButton>
                 <FontAwesomeIcon icon={faArrowRightToBracket} size="lg" />
-              </div>
+              </RoundButton>
             }
           >
             <Link href="/enter" legacyBehavior>
@@ -289,14 +289,14 @@ function DropdownMenu() {
 
           <DropdownItem
             leftIcon={
-              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+              <RoundButton>
                 <FontAwesomeIcon icon={faCog} size="lg" />
-              </div>
+              </RoundButton>
             }
             rightIcon={
-              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+              <RoundButton>
                 <FontAwesomeIcon icon={faChevronRight} size="lg" />
-              </div>
+              </RoundButton>
             }
             goToMenu="settings"
           >
@@ -318,45 +318,45 @@ function DropdownMenu() {
           <DropdownItem
             goToMenu="main"
             leftIcon={
-              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+              <RoundButton>
                 <FontAwesomeIcon icon={faChevronLeft} size="lg" />
-              </div>
+              </RoundButton>
             }
           >
             <h2>My Tutorial</h2>
           </DropdownItem>
           <DropdownItem
             leftIcon={
-              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+              <RoundButton>
                 <FontAwesomeIcon icon={faBolt} size="lg" />
-              </div>
+              </RoundButton>
             }
           >
             HTML
           </DropdownItem>
           <DropdownItem
             leftIcon={
-              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+              <RoundButton>
                 <FontAwesomeIcon icon={faBolt} size="lg" />
-              </div>
+              </RoundButton>
             }
           >
             CSS
           </DropdownItem>
           <DropdownItem
             leftIcon={
-              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+              <RoundButton>
                 <FontAwesomeIcon icon={faBolt} size="lg" />
-              </div>
+              </RoundButton>
             }
           >
             JavaScript
           </DropdownItem>
           <DropdownItem
             leftIcon={
-              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+              <RoundButton>
                 <FontAwesomeIcon icon={faBolt} size="lg" />
-              </div>
+              </RoundButton>
             }
           >
             Awesome!
