@@ -91,7 +91,7 @@ function AwesomeNavBar() {
       />
 
       <NavBarItem nextrouteurl>
-        <Link href="/technology" legacyBehavior>
+        <Link href="/technology">
           <BasicTooltip title="Tech Stack" placement="bottom">
             <RoundButton>
               <FontAwesomeIcon icon={faBolt} size="lg" />
@@ -103,7 +103,7 @@ function AwesomeNavBar() {
       {/* user is not signed-in or has not created username */}
       {!profile?.username && (
         <NavBarItem nextrouteurl>
-          <Link href="/enter" legacyBehavior>
+          <Link href="/enter">
             <BasicTooltip title="Login" placement="bottom">
               <RoundButton>
                 <FontAwesomeIcon icon={faArrowRightToBracket} size="lg" />
