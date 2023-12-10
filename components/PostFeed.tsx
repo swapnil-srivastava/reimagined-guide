@@ -88,120 +88,118 @@ function PostItem({ post, admin = false, approve = false }) {
     return input;
   }
 
-  return (
-    <>
-      <Link href={`/${post.username}/${post.slug}`}>
-        <div
-          className="p-3 lg:mx-0 mx-3
-                  bg-blog-white 
-                  dark:bg-fun-blue-600 dark:text-blog-white
-                  rounded-lg
-                  drop-shadow-lg
-                  hover:drop-shadow-xl
-                  hover:brightness-125"
-        >
-          <div className="flex flex-col">
-            <div className="flex justify-between gap-x-4">
-              <div className="flex items-center shrink-0">
-                <div className="flex items-center gap-x-2">
-                  <Link href={`/${post.username}`}>
-                    {post?.photo_url && post?.photo_url ? (
-                      <div className="w-12 h-12 rounded-full cursor-pointer flex items-center overflow-hidden">
-                        <Image
-                          width={200}
-                          height={200}
-                          src={post.photo_url}
-                          alt=""
-                        />
-                      </div>
-                    ) : (
-                      <div className="text-base font-thin">{` ${post.username}`}</div>
-                    )}
-                  </Link>
-                  <div className="flex flex-col">
-                    <div className="flex gap-x-2">
-                      <div className="font-extralight text-base md:text-lg shrink-0">
-                        {minutesToRead} min read
-                      </div>
-                      <div className="font-extralight text-base md:text-lg shrink-0">
-                        {wordCount} words
-                      </div>
+  return <>
+    <Link href={`/${post.username}/${post.slug}`} legacyBehavior>
+      <div
+        className="p-3 lg:mx-0 mx-3
+                bg-blog-white 
+                dark:bg-fun-blue-600 dark:text-blog-white
+                rounded-lg
+                drop-shadow-lg
+                hover:drop-shadow-xl
+                hover:brightness-125"
+      >
+        <div className="flex flex-col">
+          <div className="flex justify-between gap-x-4">
+            <div className="flex items-center shrink-0">
+              <div className="flex items-center gap-x-2">
+                <Link href={`/${post.username}`} legacyBehavior>
+                  {post?.photo_url && post?.photo_url ? (
+                    <div className="w-12 h-12 rounded-full cursor-pointer flex items-center overflow-hidden">
+                      <Image
+                        width={200}
+                        height={200}
+                        src={post.photo_url}
+                        alt=""
+                      />
+                    </div>
+                  ) : (
+                    <div className="text-base font-thin">{` ${post.username}`}</div>
+                  )}
+                </Link>
+                <div className="flex flex-col">
+                  <div className="flex gap-x-2">
+                    <div className="font-extralight text-base md:text-lg shrink-0">
+                      {minutesToRead} min read
                     </div>
                     <div className="font-extralight text-base md:text-lg shrink-0">
-                      {`${dateFormat}`}
+                      {wordCount} words
                     </div>
                   </div>
-                </div>
-              </div>
-
-              <div className="flex flex-col">
-                <div className="flex gap-x-1">
-                  {admin && (
-                    <>
-                      <Link href={`/admin/${post.slug}`}>
-                        <button
-                          className="
-                          bg-hit-pink-500 text-blog-black
-                          dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-1 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125
-                          "
-                        >
-                          <PencilAltIcon className="h-5 w-5" />
-                        </button>
-                      </Link>
-                    </>
-                  )}
-                  {approve && (
-                    <>
-                      <Link href={`/approve/${post.slug}`}>
-                        <button
-                          className="
-                          bg-hit-pink-500 text-blog-black
-                          dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-1 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125
-                          "
-                        >
-                          <FontAwesomeIcon icon={faThumbsUp} />
-                        </button>
-                      </Link>
-                    </>
-                  )}
-                  <div
-                    className="flex items-center justify-center
-                        bg-fun-blue-300 text-blog-black
-                        dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-1 m-0.5 rounded-full transition-filter duration-500 hover:filter hover:brightness-125
-                        "
-                  >
-                    <div>{post.heartCount || 0}</div>
-                    <HeartIcon className="h-5 w-5" />
+                  <div className="font-extralight text-base md:text-lg shrink-0">
+                    {`${dateFormat}`}
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Trimmed Title of the Blog Post */}
-            <div>
-              <div className="text-2xl font-semibold">
-                <Link href={`/${post.username}/${post.slug}`}>
-                  <a>{titleTrimmed}</a>
-                </Link>
-              </div>
-            </div>
-
-            {/* Trimmed Content of the Blog Post */}
-            <div className="flex justify-between">
-              <div className="text-xl font-thin">{contentTrimmed}</div>
-              <div className="flex">
-                {post.published ? (
-                  <p className="text-success self-end">Live</p>
-                ) : (
-                  <p className="text-danger self-end">Unpublished</p>
+            <div className="flex flex-col">
+              <div className="flex gap-x-1">
+                {admin && (
+                  <>
+                    <Link href={`/admin/${post.slug}`} legacyBehavior>
+                      <button
+                        className="
+                        bg-hit-pink-500 text-blog-black
+                        dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-1 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125
+                        "
+                      >
+                        <PencilAltIcon className="h-5 w-5" />
+                      </button>
+                    </Link>
+                  </>
                 )}
+                {approve && (
+                  <>
+                    <Link href={`/approve/${post.slug}`} legacyBehavior>
+                      <button
+                        className="
+                        bg-hit-pink-500 text-blog-black
+                        dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-1 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125
+                        "
+                      >
+                        <FontAwesomeIcon icon={faThumbsUp} />
+                      </button>
+                    </Link>
+                  </>
+                )}
+                <div
+                  className="flex items-center justify-center
+                      bg-fun-blue-300 text-blog-black
+                      dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-1 m-0.5 rounded-full transition-filter duration-500 hover:filter hover:brightness-125
+                      "
+                >
+                  <div>{post.heartCount || 0}</div>
+                  <HeartIcon className="h-5 w-5" />
+                </div>
               </div>
             </div>
           </div>
+
+          {/* Trimmed Title of the Blog Post */}
+          <div>
+            <div className="text-2xl font-semibold">
+              <Link href={`/${post.username}/${post.slug}`}>
+                {titleTrimmed}
+              </Link>
+            </div>
+          </div>
+
+          {/* Trimmed Content of the Blog Post */}
+          <div className="flex justify-between">
+            <div className="text-xl font-thin">{contentTrimmed}</div>
+            <div className="flex">
+              {post.published ? (
+                <p className="text-success self-end">Live</p>
+              ) : (
+                <p className="text-danger self-end">Unpublished</p>
+              )}
+            </div>
+          </div>
         </div>
-      </Link>
-    </>
-  );
+      </div>
+    </Link>
+  </>;
 }
 
 export default PostFeed;

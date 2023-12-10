@@ -11,7 +11,7 @@ export default function Custom404() {
         frameBorder="0"
         allowFullScreen
       ></iframe>
-      <Link href="/">
+      <Link href="/" legacyBehavior>
         <button className="
         bg-hit-pink-500 text-blog-black
         rounded-lg px-4 py-2 m-2

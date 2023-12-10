@@ -23,7 +23,7 @@ function Navbar() {
       <ul className="flex items-center justify-around md:justify-between">
         <div className="flex">
           <li className="pl-2 md:pl-0">
-            <Link href="/">
+            <Link href="/" legacyBehavior>
               <button className="bg-hit-pink-500 text-blog-black">FEED</button>
             </Link>
           </li>
@@ -66,7 +66,7 @@ function Navbar() {
           {username && (
             <>
               <li>
-                <Link href="/admin">
+                <Link href="/admin" legacyBehavior>
                   <button className="bg-hit-pink-500 text-blog-black">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +80,7 @@ function Navbar() {
                 </Link>
               </li>
               <li className="pr-0 md:pr-3">
-                <Link href={`/${username}`}>
+                <Link href={`/${username}`} legacyBehavior>
                   {/* <img src={user?.photoURL} alt="" /> */}
                 </Link>
               </li>
@@ -91,7 +91,7 @@ function Navbar() {
           {!username && (
             <>
               <li>
-                <Link href="/enter">
+                <Link href="/enter" legacyBehavior>
                   <button className="bg-hit-pink-500 text-blog-black">
                     Log In
                   </button>

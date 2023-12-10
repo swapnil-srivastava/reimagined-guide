@@ -14,7 +14,7 @@ const BookAppointment = () => {
         </div>
       </div>
       <div className="flex flex-row mb-10 mr-5 self-end">
-        <Link href="/choose-your-doctor">
+        <Link href="/choose-your-doctor" legacyBehavior>
           <button
             className="focus:outline-none focus:ring-2 
                       focus:ring-hit-pink-400 

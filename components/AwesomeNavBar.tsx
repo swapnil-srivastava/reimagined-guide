@@ -62,7 +62,7 @@ function AwesomeNavBar() {
               key={locale}
               className="dark:text-blog-white dark:bg-fun-blue-600 hover:brightness-125"
             >
-              <Link href={asPath} locale={locale}>
+              <Link href={asPath} locale={locale} legacyBehavior>
                 {locale}
               </Link>
             </MenuItem>
@@ -90,7 +90,7 @@ function AwesomeNavBar() {
       />
 
       <NavBarItem nextrouteurl>
-        <Link href="/technology">
+        <Link href="/technology" legacyBehavior>
           <BasicTooltip title="Tech Stack" placement="bottom">
             <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
               <FontAwesomeIcon icon={faBolt} size="lg" />
@@ -102,7 +102,7 @@ function AwesomeNavBar() {
       {/* user is not signed-in or has not created username */}
       {!profile?.username && (
         <NavBarItem nextrouteurl>
-          <Link href="/enter">
+          <Link href="/enter" legacyBehavior>
             <BasicTooltip title="Login" placement="bottom">
               <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
                 <FontAwesomeIcon icon={faArrowRightToBracket} size="lg" />
@@ -116,7 +116,7 @@ function AwesomeNavBar() {
       {profile?.username && (
         <>
           <NavBarItem nextrouteurl>
-            <Link href="/admin">
+            <Link href="/admin" legacyBehavior>
               <BasicTooltip title="Write a post" placement="bottom">
                 <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
                   <FontAwesomeIcon icon={faPencil} size="lg" />
@@ -130,7 +130,7 @@ function AwesomeNavBar() {
             <NavBarItem nextrouteurl>
               <BasicTooltip title={profile?.full_name} placement="bottom">
                 <div className="w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] rounded-full cursor-pointer flex items-center overflow-hidden">
-                  <Link href={`/${profile?.username}`}>
+                  <Link href={`/${profile?.username}`} legacyBehavior>
                     <Image
                       width={200}
                       height={200}
@@ -172,7 +172,7 @@ function NavBar({ children }) {
           "
     >
       <div className="basis-1/2 md:basis-1/3 self-strech flex items-center md:text-2xl m-1">
-        <Link href="/">
+        <Link href="/" legacyBehavior>
           <Image
             width={50}
             height={50}
@@ -258,7 +258,7 @@ function DropdownMenu() {
         <div className="menu p-4">
           {profile?.id && (
             <DropdownItem>
-              <Link href={`/${profile?.username}`}>
+              <Link href={`/${profile?.username}`} legacyBehavior>
                 <div className="flex items-center gap-x-1">
                   <div className="w-9 h-9 rounded-full cursor-pointer flex items-center overflow-hidden">
                     <Image
@@ -281,7 +281,7 @@ function DropdownMenu() {
               </div>
             }
           >
-            <Link href="/enter">
+            <Link href="/enter" legacyBehavior>
               {profile?.id && profile?.id ? "Sign Out" : "Login Page"}
             </Link>
           </DropdownItem>

@@ -19,7 +19,7 @@ const AppointmentPage = () => {
         </div>
       </div>
       <div className="flex flex-row mb-10">
-        <Link href="/appointment-confirmed">
+        <Link href="/appointment-confirmed" legacyBehavior>
           <button
             className="focus:outline-none focus:ring-2 
                       focus:ring-hit-pink-400 

@@ -18,13 +18,13 @@ const DoctorPage = () => {
                   rounded-lg drop-shadow-lg hover:drop-shadow-xl hover:brightness-125 
                   flex flex-row gap-2 justify-between items-center w-11/12"
         >
-          <Link href="/choose-your-doctor">
+          <Link href="/choose-your-doctor" legacyBehavior>
             <div className="bg-fun-blue-300 dark:text-blog-black w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 p-0.5 m-0.5 flex items-center justify-center rounded-full transition-filter duration-500 hover:filter hover:brightness-125">
               <FontAwesomeIcon icon={faChevronLeft} size="lg" />
             </div>
           </Link>
           <div className="text-3xl md:text-5xl lg:text-6xl">Doctor name</div>
-          <Link href="/choose-your-doctor">
+          <Link href="/choose-your-doctor" legacyBehavior>
             <div className="bg-fun-blue-300 dark:text-blog-black w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 p-0.5 m-0.5 flex items-center justify-center rounded-full transition-filter duration-500 hover:filter hover:brightness-125">
               <FontAwesomeIcon icon={faUser} />
             </div>
@@ -38,7 +38,7 @@ const DoctorPage = () => {
         </div>
       </div>
       <div className="flex flex-row mb-10 self-center">
-        <Link href="/appointment-page">
+        <Link href="/appointment-page" legacyBehavior>
           <button
             className="focus:outline-none focus:ring-2 
                       focus:ring-hit-pink-400 

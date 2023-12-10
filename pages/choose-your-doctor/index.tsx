@@ -29,7 +29,7 @@ const ChooseYourDoctor = () => {
     <div className="flex flex-col h-screen justify-between">
       <div className="flex flex-col justify-between">
         <div className="self-start flex gap-2 items-center ml-5 mt-10">
-          <Link href="/book-appointment">
+          <Link href="/book-appointment" legacyBehavior>
             <div className="bg-fun-blue-300 dark:text-blog-black w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 p-0.5 m-0.5 flex items-center justify-center rounded-full transition-filter duration-500 hover:filter hover:brightness-125">
               <FontAwesomeIcon icon={faChevronLeft} size="lg" />
             </div>
@@ -59,7 +59,7 @@ const ChooseYourDoctor = () => {
         </div>
 
         <div className="ml-5 mt-4 lg:flex lg:flex-row flex flex-col flex-wrap gap-3 lg:gap-y-2 mr-2 dark:text-blog-white text-blog-black">
-          <Link href="/doctor-page">
+          <Link href="/doctor-page" legacyBehavior>
             <div
               className="p-3
                   bg-blog-white 
@@ -72,7 +72,7 @@ const ChooseYourDoctor = () => {
               <div>Row of Doctor</div>
             </div>
           </Link>
-          <Link href="/doctor-page">
+          <Link href="/doctor-page" legacyBehavior>
             <div
               className="p-3
                   bg-blog-white 
