@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import * as postmark from "postmark";
 import { useSelector } from "react-redux";
 import moment from "moment";

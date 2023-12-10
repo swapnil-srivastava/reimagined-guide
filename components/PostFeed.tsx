@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { PencilAltIcon, HeartIcon } from "@heroicons/react/solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesRight, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
