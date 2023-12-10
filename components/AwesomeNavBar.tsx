@@ -24,6 +24,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 import "../styles/AwesomeNavBar.module.css";
 import BasicTooltip from "./Tooltip";
+import RoundButton from "./RoundButton";
 import { RootState } from "../lib/interfaces/interface";
 
 function AwesomeNavBar() {
@@ -75,15 +76,15 @@ function AwesomeNavBar() {
         icon={
           theme === "dark" ? (
             <BasicTooltip title="Dark Mode" placement="bottom">
-              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+              <RoundButton>
                 <FontAwesomeIcon icon={faMoon} size="lg" />
-              </div>
+              </RoundButton>
             </BasicTooltip>
           ) : (
             <BasicTooltip title="Light Mode" placement="bottom">
-              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
-                <FontAwesomeIcon icon={faSun} size="lg" />
-              </div>
+              <RoundButton>
+                  <FontAwesomeIcon icon={faSun} size="lg" />
+              </RoundButton>
             </BasicTooltip>
           )
         }
@@ -92,9 +93,9 @@ function AwesomeNavBar() {
       <NavBarItem nextrouteurl>
         <Link href="/technology" legacyBehavior>
           <BasicTooltip title="Tech Stack" placement="bottom">
-            <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+            <RoundButton>
               <FontAwesomeIcon icon={faBolt} size="lg" />
-            </div>
+            </RoundButton>
           </BasicTooltip>
         </Link>
       </NavBarItem>
@@ -104,9 +105,9 @@ function AwesomeNavBar() {
         <NavBarItem nextrouteurl>
           <Link href="/enter" legacyBehavior>
             <BasicTooltip title="Login" placement="bottom">
-              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+              <RoundButton>
                 <FontAwesomeIcon icon={faArrowRightToBracket} size="lg" />
-              </div>
+              </RoundButton>
             </BasicTooltip>
           </Link>
         </NavBarItem>
@@ -118,9 +119,9 @@ function AwesomeNavBar() {
           <NavBarItem nextrouteurl>
             <Link href="/admin" legacyBehavior>
               <BasicTooltip title="Write a post" placement="bottom">
-                <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+                <RoundButton>
                   <FontAwesomeIcon icon={faPencil} size="lg" />
-                </div>
+                </RoundButton>
               </BasicTooltip>
             </Link>
           </NavBarItem>
@@ -147,9 +148,9 @@ function AwesomeNavBar() {
 
       <NavBarItem
         icon={
-          <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+          <RoundButton>
             <FontAwesomeIcon icon={faChevronDown} size="lg" />
-          </div>
+          </RoundButton>
         }
       >
         <DropdownMenu />
