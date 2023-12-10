@@ -117,7 +117,7 @@ function AwesomeNavBar() {
       {profile?.username && (
         <>
           <NavBarItem nextrouteurl>
-            <Link href="/admin" legacyBehavior>
+            <Link href="/admin">
               <BasicTooltip title="Write a post" placement="bottom">
                 <RoundButton>
                   <FontAwesomeIcon icon={faPencil} size="lg" />
