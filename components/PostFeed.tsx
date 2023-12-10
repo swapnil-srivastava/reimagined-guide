@@ -186,8 +186,7 @@ function PostItem({ post, admin = false, approve = false }) {
           </div>
 
           {/* Trimmed Content of the Blog Post */}
-          <div className="flex justify-between">
-            <div className="text-xl font-thin">{contentTrimmed}</div>
+          <div className="flex justify-end">
             <div className="flex">
               {post.published ? (
                 <p className="text-success self-end">Live</p>
