@@ -11,6 +11,12 @@
       "value": "Sie haben das Ende erreicht"
     }
   ],
+  "load_more_button": [
+    {
+      "type": 0,
+      "value": "Mehr laden"
+    }
+  ],
   "swapnil_architect": [
     {
       "type": 0,

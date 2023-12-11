@@ -4,6 +4,7 @@ import Image from "next/legacy/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesRight, faHeart, faPenToSquare, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
+import { FormattedMessage } from "react-intl";
 
 import RoundButton from "./RoundButton";
 
@@ -47,14 +48,9 @@ export function PostFeed({
                         hover:brightness-125"
               >
                 <button
-                  className="
-                focus:outline-none focus:ring-2 
-                focus:ring-fun-blue-400 
-                focus:ring-offset-2 text-sm 
-                text-blog-black
-                font-semibold 
-                h-12 px-3 rounded-lg
-                bg-hit-pink-500
+                  className=" focus:outline-none focus:ring-2 focus:ring-fun-blue-400 
+                focus:ring-offset-2 text-sm text-blog-black font-semibold 
+                h-12 px-3 rounded-lg bg-hit-pink-500
                 dark:bg-fun-blue-600 dark:text-blog-white
                 transition-transform pointer-events-auto
                 transition-filter duration-500 hover:filter hover:brightness-125
@@ -62,7 +58,11 @@ export function PostFeed({
                 "
                   onClick={() => parentFunction()}
                 >
-                  <div className="pr-2">Load More</div>
+                   <FormattedMessage
+                    id="load_more_button"
+                    description="Load More" // Description should be a string literal
+                    defaultMessage="Load More" // Message should be a string literal
+                  />
                   <FontAwesomeIcon icon={faAnglesRight} size={"3x"} />
                 </button>
               </div>

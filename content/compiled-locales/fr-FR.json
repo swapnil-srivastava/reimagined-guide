@@ -11,6 +11,12 @@
       "value": "Vous avez atteint la fin"
     }
   ],
+  "load_more_button": [
+    {
+      "type": 0,
+      "value": "En savoir plus"
+    }
+  ],
   "swapnil_architect": [
     {
       "type": 0,
