@@ -141,7 +141,7 @@ function PostItem({ post, admin = false, approve = false }) {
                 {admin && (
                   <>
                     <Link href={`/admin/${post.slug}`} >
-                      <RoundButton>
+                      <RoundButton pink={true}>
                         <PencilAltIcon className="h-5 w-5" />
                       </RoundButton>
                     </Link>
@@ -152,14 +152,9 @@ function PostItem({ post, admin = false, approve = false }) {
                 {approve && (
                   <>
                     <Link href={`/approve/${post.slug}`} legacyBehavior>
-                      <button
-                        className="
-                         text-blog-black
-                        dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-1 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125
-                        "
-                      >
-                        <FontAwesomeIcon icon={faThumbsUp} />
-                      </button>
+                      <RoundButton pink={true}>
+                          <FontAwesomeIcon icon={faThumbsUp} />
+                      </RoundButton>
                     </Link>
                   </>
                 )}
