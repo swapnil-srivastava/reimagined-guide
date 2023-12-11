@@ -160,15 +160,10 @@ function PostItem({ post, admin = false, approve = false }) {
                 )}
 
                 {/* Heart Count Number and Heart Icon for the article */}
-                <div
-                  className="flex items-center justify-center
-                      bg-fun-blue-300 text-blog-black
-                      dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-1 m-0.5 rounded-full transition-filter duration-500 hover:filter hover:brightness-125
-                      "
-                >
+                <RoundButton>
                   <div>{post.heartCount || 0}</div>
                   <HeartIcon className="h-5 w-5" />
-                </div>
+                </RoundButton>
               </div>
             </div>
           </div>
