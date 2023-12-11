@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesRight, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 
+import RoundButton from "./RoundButton";
+
 export function PostFeed({
   posts,
   user = undefined,
@@ -37,13 +39,13 @@ export function PostFeed({
             enableLoadMore && (
               <div
                 className="p-3 px-16 my-4 
-            bg-fun-blue-600
-            dark:bg-hit-pink-500 dark:text-blog-white
-            rounded-lg 
-            drop-shadow-lg
-            hover:drop-shadow-xl
-            flex items-center justify-center
-            hover:brightness-125"
+                        bg-fun-blue-600
+                        dark:bg-hit-pink-500 dark:text-blog-white
+                        rounded-lg 
+                        drop-shadow-lg
+                        hover:drop-shadow-xl
+                        flex items-center justify-center
+                        hover:brightness-125"
               >
                 <button
                   className="
@@ -135,26 +137,24 @@ function PostItem({ post, admin = false, approve = false }) {
 
             <div className="flex flex-col">
               <div className="flex gap-x-1">
+                {/* Edit Button for the article */}
                 {admin && (
                   <>
-                    <Link href={`/admin/${post.slug}`} legacyBehavior>
-                      <button
-                        className="
-                        bg-hit-pink-500 text-blog-black
-                        dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-1 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125
-                        "
-                      >
+                    <Link href={`/admin/${post.slug}`} >
+                      <RoundButton>
                         <PencilAltIcon className="h-5 w-5" />
-                      </button>
+                      </RoundButton>
                     </Link>
                   </>
                 )}
+
+                {/* Approve Button for the Article */}
                 {approve && (
                   <>
                     <Link href={`/approve/${post.slug}`} legacyBehavior>
                       <button
                         className="
-                        bg-hit-pink-500 text-blog-black
+                         text-blog-black
                         dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-1 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125
                         "
                       >
@@ -163,6 +163,8 @@ function PostItem({ post, admin = false, approve = false }) {
                     </Link>
                   </>
                 )}
+
+                {/* Heart Count Number and Heart Icon for the article */}
                 <div
                   className="flex items-center justify-center
                       bg-fun-blue-300 text-blog-black
