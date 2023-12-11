@@ -14,6 +14,7 @@ import {
 import { Slider } from "@mui/material";
 
 import BasicTooltip from "./Tooltip";
+import RoundButton from "./RoundButton";
 
 interface AudioPlayerProps {
   audioSource: string;
@@ -161,11 +162,11 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioSource }) => {
             onClick={() => backward5Seconds()}
           >
             <BasicTooltip title={"Backwards 5 seconds"} placement="bottom">
-              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+              <RoundButton audioPlayer={true}>
                 <div className="flex flex-row items-center">
                   <FontAwesomeIcon icon={faBackward} size="lg" />
                 </div>
-              </div>
+              </RoundButton>
             </BasicTooltip>
           </button>
 
@@ -175,9 +176,9 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioSource }) => {
             onClick={() => forward5Seconds()}
           >
             <BasicTooltip title={"Forward 5 seconds"} placement="bottom">
-              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+              <RoundButton audioPlayer={true}>
                 <FontAwesomeIcon icon={faForward} size="lg" />
-              </div>
+              </RoundButton>
             </BasicTooltip>
           </button>
 
@@ -186,13 +187,13 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioSource }) => {
             className="flex flex-row gap-1 items-center"
             onClick={() => togglePlayPause()}
           >
-            <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+            <RoundButton audioPlayer={true}>
               {isPlaying ? (
                 <FontAwesomeIcon icon={faPause} size="lg" />
               ) : (
                 <FontAwesomeIcon icon={faPlay} size="lg" />
               )}
-            </div>
+            </RoundButton>
           </button>
 
           <div className="flex flex-row items-center gap-2">
@@ -221,13 +222,13 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioSource }) => {
               title={isMuted ? "Unmute" : "Mute"}
               placement="bottom"
             >
-              <div className="bg-fun-blue-300 dark:text-blog-black w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+              <RoundButton audioPlayer={true}>
                 {isMuted ? (
                   <FontAwesomeIcon icon={faVolumeHigh} size="lg" />
                 ) : (
                   <FontAwesomeIcon icon={faVolumeXmark} size="lg" />
                 )}
-              </div>
+              </RoundButton>
             </BasicTooltip>
           </button>
         </div>
