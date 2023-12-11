@@ -20,7 +20,6 @@
     "@fortawesome/free-regular-svg-icons": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@heroicons/react": "^1.0.6",
     "@jsonforms/core": "^3.0.0",
     "@jsonforms/material-renderers": "^3.0.0",
     "@jsonforms/react": "^3.0.0",

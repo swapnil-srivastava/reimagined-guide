@@ -1,9 +1,8 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/legacy/image";
-import { PencilAltIcon, HeartIcon } from "@heroicons/react/solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAnglesRight, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { faAnglesRight, faHeart, faPenToSquare, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 
 import RoundButton from "./RoundButton";
@@ -93,13 +92,9 @@ function PostItem({ post, admin = false, approve = false }) {
   return <>
     <Link href={`/${post.username}/${post.slug}`} legacyBehavior>
       <div
-        className="p-3 lg:mx-0 mx-3
-                bg-blog-white 
-                dark:bg-fun-blue-600 dark:text-blog-white
-                rounded-lg
-                drop-shadow-lg
-                hover:drop-shadow-xl
-                hover:brightness-125"
+        className="p-3 lg:mx-0 mx-3 bg-blog-white 
+         dark:bg-fun-blue-600 dark:text-blog-white rounded-lg
+         drop-shadow-lg hover:drop-shadow-xl hover:brightness-125"
       >
         <div className="flex flex-col">
           <div className="flex justify-between gap-x-4">
@@ -142,7 +137,7 @@ function PostItem({ post, admin = false, approve = false }) {
                   <>
                     <Link href={`/admin/${post.slug}`} >
                       <RoundButton pink={true}>
-                        <PencilAltIcon className="h-5 w-5" />
+                        <FontAwesomeIcon icon={faPenToSquare} />
                       </RoundButton>
                     </Link>
                   </>
@@ -162,7 +157,7 @@ function PostItem({ post, admin = false, approve = false }) {
                 {/* Heart Count Number and Heart Icon for the article */}
                 <RoundButton>
                   <div>{post.heartCount || 0}</div>
-                  <HeartIcon className="h-5 w-5" />
+                  <FontAwesomeIcon icon={faHeart} />
                 </RoundButton>
               </div>
             </div>
