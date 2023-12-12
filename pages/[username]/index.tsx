@@ -53,7 +53,7 @@ function UserProfilePage({ userProfile, posts }) {
   return (
     <>
       <UserProfile user={userProfile}></UserProfile>
-      <div className="mx-3 lg:mx-0">
+      <div className="mx-0 lg:mx-3">
         <PostFeed posts={posts}></PostFeed>
       </div>
     </>
