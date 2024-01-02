@@ -1,18 +1,17 @@
 import { FormattedMessage } from "react-intl";
 
+// Components 
 import PostFeed from "../components/PostFeed";
 import Loader from "../components/Loader";
+import BuyMeCoffee from "../components/BuyMeCoffee";
 
+// Library
 import { useState } from "react";
 import Metatags from "../components/Metatags";
 import { supaClient } from "../supa-client";
 import { POST } from "../database.types";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesDown } from "@fortawesome/free-solid-svg-icons";
-
-import axios from "axios";
-import toast from "react-hot-toast";
 
 // Max post to query per page
 const LIMIT = 5;
@@ -132,6 +131,7 @@ export default function Home(props) {
           />
         </div>
       )}
+      <BuyMeCoffee></BuyMeCoffee>
     </main>
   );
 }
