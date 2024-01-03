@@ -3,13 +3,15 @@ import { faFingerprint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FormattedMessage } from "react-intl";
 
+// https://www.cookiebot.com/ Refer this link in the future
+
 const CookiesBanner = ({  }) => {
     
     const [ cookiesVisible, setCookiesVisible] = useState(false);
 
     return (
       <>
-       <div className="fixed left-0 bottom-0 z-40 ">
+       <div className="fixed left-0 bottom-0 z-40">
             {/* Advise  */}
             <div className={`fixed sm:left-4 bottom-20 rounded-lg bg-white shadow-2xl w-full sm:w-1/2 xl:w-1/4 max-w-[450px] overflow-hidden ${cookiesVisible ? 'visible' : 'hidden'}`}>
 
@@ -78,7 +80,7 @@ const CookiesBanner = ({  }) => {
             <button className="fixed left-4 bottom-2 uppercase text-sm px-4 py-4 bg-gray-900 text-white rounded-full" onClick={() => setCookiesVisible(!cookiesVisible)}>
                 <FontAwesomeIcon icon={faFingerprint} size="2x" />
             </button>
-        </div>
+       </div>
       </>
     );
   };
