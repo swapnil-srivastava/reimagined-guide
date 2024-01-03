@@ -11,6 +11,7 @@ import { Toaster } from "react-hot-toast";
 
 import "../styles/globals.css";
 import { useUserData } from "../lib/hooks";
+
 import English from "../content/compiled-locales/en-US.json";
 import Hindi from "../content/compiled-locales/hi-IN.json";
 import German from "../content/compiled-locales/de-DE.json";
@@ -29,13 +30,13 @@ function MyApp({ Component, pageProps }) {
 
   const messages = useMemo(() => {
     switch (nextLocale) {
-      case "de-DE":
+      case "de_DE":
         return German;
-      case "en-US":
+      case "en_US":
         return English;
-      case "fr-FR":
+      case "fr_FR":
         return French;
-      case "hi-IN":
+      case "hi_IN":
         return Hindi;
       default:
         return English;

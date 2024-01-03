@@ -6,8 +6,8 @@ const nextConfig = {
     domains: ["lh3.googleusercontent.com"],
   },
   i18n: {
-    locales: ["en-US", "de-DE", "fr-FR", "hi-IN"],
-    defaultLocale: "en-US",
+    locales: ["en_US", "de_DE", "fr_FR", "hi_IN"],
+    defaultLocale: "en_US",
   },
   env: {},
 };
