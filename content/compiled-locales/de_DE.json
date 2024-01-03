@@ -1,10 +1,4 @@
 {
-  "avni_intro": [
-    {
-      "type": 0,
-      "value": "Ich heiße Avni Srivastava"
-    }
-  ],
   "cookies_accept_button": [
     {
       "type": 0,
@@ -14,7 +8,7 @@
   "cookies_deny_button": [
     {
       "type": 0,
-      "value": "Nein danke !"
+      "value": "Nein danke!"
     }
   ],
   "cookies_description": [
@@ -32,13 +26,13 @@
   "cookies_small_text": [
     {
       "type": 0,
-      "value": "Hallo zusammen ..."
+      "value": "Hallo ..."
     }
   ],
   "end_of_articles": [
     {
       "type": 0,
-      "value": "Sie haben das Ende erreicht"
+      "value": "Ende der Artikel"
     }
   ],
   "load_more_button": [
@@ -56,19 +50,13 @@
   "swapnil_architect_an": [
     {
       "type": 0,
-      "value": "ein"
+      "value": "eine"
     }
   ],
   "swapnil_architect_hello": [
     {
       "type": 0,
       "value": "Hallo, ich bin"
-    }
-  ],
-  "swapnil_intro": [
-    {
-      "type": 0,
-      "value": "Ich heiße Swapnil Srivastava"
     }
   ],
   "swapnil_name": [

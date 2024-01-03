@@ -1,10 +1,4 @@
 {
-  "avni_intro": [
-    {
-      "type": 0,
-      "value": "मेरा नाम अवनी श्रीवास्तव है"
-    }
-  ],
   "cookies_accept_button": [
     {
       "type": 0,
@@ -32,13 +26,13 @@
   "cookies_small_text": [
     {
       "type": 0,
-      "value": "नमस्ते .."
+      "value": "नमस्ते ..."
     }
   ],
   "end_of_articles": [
     {
       "type": 0,
-      "value": "आप अंत तक पहुंच गए हैं"
+      "value": "लेखों का अंत"
     }
   ],
   "load_more_button": [
@@ -50,7 +44,7 @@
   "swapnil_architect": [
     {
       "type": 0,
-      "value": "सॉफ्टवेयर आर्किटेक्ट हूं"
+      "value": "आर्किटेक्ट"
     }
   ],
   "swapnil_architect_an": [
@@ -62,13 +56,7 @@
   "swapnil_architect_hello": [
     {
       "type": 0,
-      "value": "नमस्ते, मैं"
-    }
-  ],
-  "swapnil_intro": [
-    {
-      "type": 0,
-      "value": "मेरा नाम स्वप्निल श्रीवास्तव है"
+      "value": "हाय मैं हूँ"
     }
   ],
   "swapnil_name": [

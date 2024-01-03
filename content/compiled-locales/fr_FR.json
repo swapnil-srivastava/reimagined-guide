@@ -1,10 +1,4 @@
 {
-  "avni_intro": [
-    {
-      "type": 0,
-      "value": "Je m'appelle Avni Srivastava"
-    }
-  ],
   "cookies_accept_button": [
     {
       "type": 0,
@@ -20,7 +14,7 @@
   "cookies_description": [
     {
       "type": 0,
-      "value": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, accusamus aliquid aperiam beatae consectetur culpa dolores eum expedita, ipsam iure laboriosam nobis odit quos, sed sunt veritatis voluptas voluptate voluptatum!"
+      "value": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, accusamus aliquid aperiam beatae consectetur culpa dolores eum expedita, ipsam iure laboriosam nobis odit quos, sed sunt veritatis voluptas voluptate voluptatum !"
     }
   ],
   "cookies_heading": [
@@ -38,7 +32,7 @@
   "end_of_articles": [
     {
       "type": 0,
-      "value": "Vous avez atteint la fin"
+      "value": "Fin des articles"
     }
   ],
   "load_more_button": [
@@ -50,21 +44,19 @@
   "swapnil_architect": [
     {
       "type": 0,
-      "value": "architecte"
+      "value": "Architecte"
     }
   ],
   "swapnil_architect_an": [
+    {
+      "type": 0,
+      "value": "un"
+    }
   ],
   "swapnil_architect_hello": [
     {
       "type": 0,
       "value": "Bonjour, je suis"
-    }
-  ],
-  "swapnil_intro": [
-    {
-      "type": 0,
-      "value": "Je m'appelle Swapnil Srivastava"
     }
   ],
   "swapnil_name": [
