@@ -5,6 +5,36 @@
       "value": "Ich heiße Avni Srivastava"
     }
   ],
+  "cookies_accept_button": [
+    {
+      "type": 0,
+      "value": "Außer Kurs"
+    }
+  ],
+  "cookies_deny_button": [
+    {
+      "type": 0,
+      "value": "Nein danke !"
+    }
+  ],
+  "cookies_description": [
+    {
+      "type": 0,
+      "value": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, accusamus aliquid aperiam beatae consectetur culpa dolores eum expedita, ipsam iure laboriosam nobis odit quos, sed sunt veritatis voluptas voluptate voluptatum!"
+    }
+  ],
+  "cookies_heading": [
+    {
+      "type": 0,
+      "value": "Wir sind die Cookies!"
+    }
+  ],
+  "cookies_small_text": [
+    {
+      "type": 0,
+      "value": "Hallo zusammen ..."
+    }
+  ],
   "end_of_articles": [
     {
       "type": 0,

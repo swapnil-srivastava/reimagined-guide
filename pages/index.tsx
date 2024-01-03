@@ -4,6 +4,7 @@ import { FormattedMessage } from "react-intl";
 import PostFeed from "../components/PostFeed";
 import Loader from "../components/Loader";
 import BuyMeCoffee from "../components/BuyMeCoffee";
+import CookiesBanner from "../components/CookiesBanner";
 
 // Library
 import { useState } from "react";
@@ -132,6 +133,7 @@ export default function Home(props) {
         </div>
       )}
       <BuyMeCoffee></BuyMeCoffee>
+      <CookiesBanner></CookiesBanner>
     </main>
   );
 }
