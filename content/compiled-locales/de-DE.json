@@ -1,4 +1,28 @@
 {
+  "card_live": [
+    {
+      "type": 0,
+      "value": "Live"
+    }
+  ],
+  "card_mins_read": [
+    {
+      "type": 0,
+      "value": " min lesen"
+    }
+  ],
+  "card_unpublished": [
+    {
+      "type": 0,
+      "value": "Unveröffentlicht"
+    }
+  ],
+  "card_words": [
+    {
+      "type": 0,
+      "value": " Wörter"
+    }
+  ],
   "cookies_accept_button": [
     {
       "type": 0,

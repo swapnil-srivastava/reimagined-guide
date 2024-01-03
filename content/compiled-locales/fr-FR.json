@@ -1,4 +1,28 @@
 {
+  "card_live": [
+    {
+      "type": 0,
+      "value": "Vivre"
+    }
+  ],
+  "card_mins_read": [
+    {
+      "type": 0,
+      "value": " min lire"
+    }
+  ],
+  "card_unpublished": [
+    {
+      "type": 0,
+      "value": "Non publié"
+    }
+  ],
+  "card_words": [
+    {
+      "type": 0,
+      "value": " mots"
+    }
+  ],
   "cookies_accept_button": [
     {
       "type": 0,
