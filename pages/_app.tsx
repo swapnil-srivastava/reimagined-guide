@@ -12,10 +12,10 @@ import { Toaster } from "react-hot-toast";
 import "../styles/globals.css";
 import { useUserData } from "../lib/hooks";
 
-import English from "../content/compiled-locales/en_US.json";
-import Hindi from "../content/compiled-locales/hi_IN.json";
-import German from "../content/compiled-locales/de_DE.json";
-import French from "../content/compiled-locales/fr_FR.json";
+import English from "../content/compiled-locales/en-US.json";
+import Hindi from "../content/compiled-locales/hi-IN.json";
+import German from "../content/compiled-locales/de-DE.json";
+import French from "../content/compiled-locales/fr-FR.json";
 
 import AwesomeNavBar from "../components/AwesomeNavBar";
 import BuyMeCoffee from "../components/BuyMeCoffee";
@@ -30,13 +30,13 @@ function MyApp({ Component, pageProps }) {
 
   const messages = useMemo(() => {
     switch (nextLocale) {
-      case "de_DE":
+      case "de-DE":
         return German;
-      case "en_US":
+      case "en-US":
         return English;
-      case "fr_FR":
+      case "fr-FR":
         return French;
-      case "hi_IN":
+      case "hi-IN":
         return Hindi;
       default:
         return English;
