@@ -8,7 +8,7 @@
   "card_mins_read": [
     {
       "type": 0,
-      "value": "मिनट पढ़ा"
+      "value": " मिनट पढ़ा"
     }
   ],
   "card_unpublished": [
@@ -20,7 +20,7 @@
   "card_words": [
     {
       "type": 0,
-      "value": "शब्द"
+      "value": " शब्द"
     }
   ],
   "cookies_accept_button": [
