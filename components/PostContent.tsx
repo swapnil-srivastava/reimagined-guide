@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLinkedin,
   faFacebook,
-  faTwitter,
+  faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import { faPenToSquare, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
@@ -254,11 +254,8 @@ export default function PostContent({
               <a
                 href={`https://twitter.com/intent/tweet?text=Hi%2C%20checkout%20this%20post%20&url=https://www.swapnilsrivastava.eu/${post?.username}/${post?.slug}&via=swapnil_sri&hashtags=reactjs,nextjs,blog`}
               >
-                <FontAwesomeIcon
-                  icon={faTwitter}
-                  size="lg"
-                  style={{ color: "#00acee" }}
-                />
+              <FontAwesomeIcon icon={faXTwitter} size="lg"
+              style={{ color: "#00acee" }}/>
               </a>
             </button>
           </BasicTooltip>

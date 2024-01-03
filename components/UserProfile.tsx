@@ -1,7 +1,7 @@
 import {
   faLinkedin,
-  faTwitter,
   faGithub,
+  faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -32,7 +32,7 @@ export default function UserProfile({ user }) {
             rel="noreferrer"
           >
             <FontAwesomeIcon
-              icon={faTwitter}
+              icon={faXTwitter}
               size="2x"
               style={{ color: "#00acee" }}
             />
