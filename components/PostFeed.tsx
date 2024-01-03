@@ -117,10 +117,17 @@ function PostItem({ post, admin = false, approve = false }) {
                 <div className="flex flex-col">
                   <div className="flex gap-x-2">
                     <div className="font-extralight text-base md:text-lg shrink-0">
-                      {minutesToRead} min read
+                      {minutesToRead}
+                      <FormattedMessage id="card_mins_read" 
+                      description="Card Minutes to Read" // Description should be a string literal 
+                      defaultMessage=" min read" // Message should be a string literal 
+                      />
                     </div>
                     <div className="font-extralight text-base md:text-lg shrink-0">
-                      {wordCount} words
+                      {wordCount} <FormattedMessage id="card_words" 
+                      description="Card Word Cound" // Description should be a string literal 
+                      defaultMessage=" words" // Message should be a string literal 
+                      />
                     </div>
                   </div>
                   <div className="font-extralight text-base md:text-lg shrink-0">
@@ -176,9 +183,17 @@ function PostItem({ post, admin = false, approve = false }) {
           <div className="flex justify-end">
             <div className="flex">
               {post.published ? (
-                <p className="text-success self-end">Live</p>
+                <p className="text-success self-end">
+                  <FormattedMessage id="card_live" 
+                  description="Card Live" // Description should be a string literal 
+                  defaultMessage="Live" // Message should be a string literal 
+                  />
+                </p>
               ) : (
-                <p className="text-danger self-end">Unpublished</p>
+                <p className="text-danger self-end"><FormattedMessage id="card_unpublished" 
+                description="Card Unpublished" // Description should be a string literal 
+                defaultMessage="Unpublished" // Message should be a string literal 
+                /></p>
               )}
             </div>
           </div>
