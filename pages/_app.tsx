@@ -15,7 +15,10 @@ import English from "../content/compiled-locales/en-US.json";
 import Hindi from "../content/compiled-locales/hi-IN.json";
 import German from "../content/compiled-locales/de-DE.json";
 import French from "../content/compiled-locales/fr-FR.json";
+
 import AwesomeNavBar from "../components/AwesomeNavBar";
+import BuyMeCoffee from "../components/BuyMeCoffee";
+import CookiesBanner from "../components/CookiesBanner";
 
 config.autoAddCss = false;
 
@@ -51,6 +54,8 @@ function MyApp({ Component, pageProps }) {
             <div className="flex flex-col gap-2">
               <AwesomeNavBar />
               <Component {...pageProps} />
+              <BuyMeCoffee></BuyMeCoffee>
+              <CookiesBanner></CookiesBanner>
             </div>
             <Toaster />
           </IntlProvider>
