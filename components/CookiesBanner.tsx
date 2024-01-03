@@ -1,16 +1,53 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { faFingerprint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FormattedMessage } from "react-intl";
 
+import { getLocalStorage, setLocalStorage } from "../lib/library";
+
 // https://www.cookiebot.com/ Refer this link in the future
 
-const CookiesBanner = ({  }) => {
+const CookiesBanner = () => {
     
-    const [ cookiesVisible, setCookiesVisible] = useState(false);
+    const [ cookiesVisible, setCookiesVisible] = useState<boolean>(true);
+
+    const [ cookieConsent, setCookieConsent] = useState<null | boolean>();
+
+    // if cookies is not present in the local storage then set it to null 
+    useEffect (() => {
+        const storedCookieConsent = getLocalStorage("cookie_consent", null)
+        setCookieConsent(storedCookieConsent)
+
+    }, [setCookieConsent])
+
+
+    // if the cookies consent is given then don'T show the modal
+    useEffect (() => {
+        const storedCookieConsent = getLocalStorage("cookie_consent", null)
+        
+        if (storedCookieConsent !== null) {
+            setCookiesVisible(false);
+        }
+
+    }, [cookieConsent])
+
+
+    // whenever the cookie consent value is changed then update the value in the local stroage
+    useEffect(() => {
+        const newValue = cookieConsent ? 'granted' : 'denied'
+
+        // window.gtag("consent", 'update', {
+        //     'analytics_storage': newValue
+        // });
+
+        setLocalStorage("cookie_consent", cookieConsent)
+
+    }, [cookieConsent]);
+    
 
     return (
       <>
+
        <div className="fixed left-0 bottom-0 z-40">
             {/* Advise  */}
             <div className={`fixed sm:left-4 bottom-20 rounded-lg bg-white shadow-2xl w-full sm:w-1/2 xl:w-1/4 max-w-[450px] overflow-hidden ${cookiesVisible ? 'visible' : 'hidden'}`}>
@@ -58,14 +95,14 @@ const CookiesBanner = ({  }) => {
 
                 {/* Button */}
                 <div className="w-full flex justify-center items-center border-t border-solid border-gray-200">
-                    <button className="border-r border-gray-200 flex-1 px-4 py-3 text-gray-500 hover:text-white hover:bg-red-400 duration-150" >
+                    <button className="border-r border-gray-200 flex-1 px-4 py-3 text-gray-500 hover:text-white hover:bg-red-400 duration-150" onClick={() =>{ setCookieConsent(false); setCookiesVisible(!cookiesVisible); }}>
                         <FormattedMessage
                         id="cookies_deny_button"
                         description="Cookies Deny Button" // Description should be a string literal
                         defaultMessage="No thanks !" // Message should be a string literal
                         />
                     </button>
-                    <button className="flex-1 px-4 py-3 text-gray-500 hover:text-white hover:bg-green-400 duration-150">
+                    <button className="flex-1 px-4 py-3 text-gray-500 hover:text-white hover:bg-green-400 duration-150" onClick={() => { setCookieConsent(true); setCookiesVisible(!cookiesVisible); }}>
                         <FormattedMessage
                         id="cookies_accept_button"
                         description="Cookies Accept Button" // Description should be a string literal
