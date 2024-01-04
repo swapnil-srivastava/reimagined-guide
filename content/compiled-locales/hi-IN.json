@@ -2,13 +2,13 @@
   "card_live": [
     {
       "type": 0,
-      "value": "रहना"
+      "value": "प्रकाशित"
     }
   ],
   "card_mins_read": [
     {
       "type": 0,
-      "value": " मिनट पढ़ा"
+      "value": " मिनट पढ़े"
     }
   ],
   "card_unpublished": [
@@ -32,13 +32,13 @@
   "cookies_deny_button": [
     {
       "type": 0,
-      "value": "जी नहीं, धन्यवाद !"
+      "value": "जी नहीं, धन्यवाद"
     }
   ],
   "cookies_description": [
     {
       "type": 0,
-      "value": "लोरेम इप्सम डोलर सिट अमेट, कंसेक्टेचर एडिपिसिसिंग एलीट। एब, एक्यूसमस एलिक्विड एपेरियम बीटा कंसेक्टेतुर कल्पा डोलोरेस ईम एक्सपेडिटा, इप्सम यूरे लेबोरियोसम नोबिस ओडिट क्वोस, सेड संट वेरिटैटिस वोलुप्टास वोलुप्टेट वोलुप्टैटम!"
+      "value": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, accusamus aliquid aperiam beatae consectetur culpa dolores eum expedita, ipsam iure laboriosam nobis odit quos, sed sunt veritatis voluptas voluptate voluptatum!"
     }
   ],
   "cookies_heading": [
@@ -56,7 +56,7 @@
   "end_of_articles": [
     {
       "type": 0,
-      "value": "लेखों का अंत"
+      "value": "ब्लॉग पोस्ट का अंत"
     }
   ],
   "load_more_button": [
@@ -80,7 +80,7 @@
   "swapnil_architect_hello": [
     {
       "type": 0,
-      "value": "हाय मैं हूँ"
+      "value": "नमस्ते, मैं हूँ"
     }
   ],
   "swapnil_name": [

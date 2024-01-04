@@ -8,7 +8,7 @@
   "card_mins_read": [
     {
       "type": 0,
-      "value": " moins lire"
+      "value": "lecture min."
     }
   ],
   "card_unpublished": [
@@ -26,7 +26,7 @@
   "cookies_accept_button": [
     {
       "type": 0,
-      "value": "Hors cours"
+      "value": "Oui"
     }
   ],
   "cookies_deny_button": [
@@ -38,31 +38,31 @@
   "cookies_description": [
     {
       "type": 0,
-      "value": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, accusamus aliquid aperiam beatae consectetur culpa dolores eum expedita, ipsam iure laboriosam nobis odit quos, sed sunt veritatis voluptas voluptate voluptatum !"
+      "value": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, accusamus aliquid aperiam beatae consectetur culpa dolores eum expedita, ipsam iure laboriosam nobis odit quos, sed sunt veritatis voluptas voluptate voluptatum!"
     }
   ],
   "cookies_heading": [
     {
       "type": 0,
-      "value": "Nous sommes les Cookies !"
+      "value": "Nous sommes les cookies !"
     }
   ],
   "cookies_small_text": [
     {
       "type": 0,
-      "value": "Bonjour à tous ..."
+      "value": "Bonjour ..."
     }
   ],
   "end_of_articles": [
     {
       "type": 0,
-      "value": "Fin des articles"
+      "value": "Fin de l'article"
     }
   ],
   "load_more_button": [
     {
       "type": 0,
-      "value": "En savoir plus"
+      "value": "Afficher Plus"
     }
   ],
   "swapnil_architect": [
@@ -80,7 +80,7 @@
   "swapnil_architect_hello": [
     {
       "type": 0,
-      "value": "Bonjour, je suis"
+      "value": "Salut, je m'appe-"
     }
   ],
   "swapnil_name": [

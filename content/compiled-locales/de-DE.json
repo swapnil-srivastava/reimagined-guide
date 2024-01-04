@@ -2,13 +2,13 @@
   "card_live": [
     {
       "type": 0,
-      "value": "Live"
+      "value": " Wörter"
     }
   ],
   "card_mins_read": [
     {
       "type": 0,
-      "value": " Minen lesen"
+      "value": " Min. lesen"
     }
   ],
   "card_unpublished": [
@@ -26,13 +26,13 @@
   "cookies_accept_button": [
     {
       "type": 0,
-      "value": "Außer Kurs"
+      "value": "Off-Kurs"
     }
   ],
   "cookies_deny_button": [
     {
       "type": 0,
-      "value": "Nein danke!"
+      "value": "Nein, danke!"
     }
   ],
   "cookies_description": [
@@ -50,7 +50,7 @@
   "cookies_small_text": [
     {
       "type": 0,
-      "value": "Hallo ..."
+      "value": "Hallo da ..."
     }
   ],
   "end_of_articles": [
@@ -74,13 +74,13 @@
   "swapnil_architect_an": [
     {
       "type": 0,
-      "value": "eine"
+      "value": "ein"
     }
   ],
   "swapnil_architect_hello": [
     {
       "type": 0,
-      "value": "Hallo, ich bin"
+      "value": "Hallo, Ich bin"
     }
   ],
   "swapnil_name": [
