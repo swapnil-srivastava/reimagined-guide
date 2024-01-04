@@ -1,17 +1,17 @@
 {
     "cookies_accept_button": "बिल्कुल",
-    "cookies_deny_button": "जी नहीं, धन्यवाद !",
-    "cookies_description": "लोरेम इप्सम डोलर सिट अमेट, कंसेक्टेचर एडिपिसिसिंग एलीट। एब, एक्यूसमस एलिक्विड एपेरियम बीटा कंसेक्टेतुर कल्पा डोलोरेस ईम एक्सपेडिटा, इप्सम यूरे लेबोरियोसम नोबिस ओडिट क्वोस, सेड संट वेरिटैटिस वोलुप्टास वोलुप्टेट वोलुप्टैटम!",
+    "cookies_deny_button": "जी नहीं, धन्यवाद",
+    "cookies_description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, accusamus aliquid aperiam beatae consectetur culpa dolores eum expedita, ipsam iure laboriosam nobis odit quos, sed sunt veritatis voluptas voluptate voluptatum!",
     "cookies_heading": "हम कुकीज़ हैं!",
     "cookies_small_text": "नमस्ते ...",
-    "end_of_articles": "लेखों का अंत",
+    "end_of_articles": "ब्लॉग पोस्ट का अंत",
     "load_more_button": "और लोड करें",
     "swapnil_architect": "आर्किटेक्ट",
     "swapnil_architect_an": "एक",
-    "swapnil_architect_hello": "हाय मैं हूँ",
+    "swapnil_architect_hello": "नमस्ते, मैं हूँ",
     "swapnil_name": "स्वप्निल श्रीवास्तव",
-    "card_live": "रहना",
-    "card_mins_read": " मिनट पढ़ा",
+    "card_live": "प्रकाशित",
+    "card_mins_read": " मिनट पढ़े",
     "card_unpublished": "अप्रकाशित",
     "card_words": " शब्द"
 }
