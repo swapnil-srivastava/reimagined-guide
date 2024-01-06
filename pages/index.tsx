@@ -12,6 +12,8 @@ import { POST } from "../database.types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesDown } from "@fortawesome/free-solid-svg-icons";
 
+import { TypeAnimation } from 'react-type-animation';
+
 // Max post to query per page
 const LIMIT = 5;
 
@@ -63,6 +65,8 @@ export default function Home(props) {
   return (
     <main>
       <Metatags />
+
+      {/* Block Quote */}
       <div className="p-3 flex justify-center items-center h-screen">
         <blockquote className="lg:text-8xl text-5xl font-semibold italic text-center text-slate-90 dark:text-blog-white text-blog-black">
           <FormattedMessage
@@ -81,23 +85,36 @@ export default function Home(props) {
           </span>
           <br />
           <span>
-            <span>
-              <FormattedMessage
-                id="swapnil_architect_an"
-                description="an" // Description should be a string literal
-                defaultMessage="an" // Message should be a string literal
-              />{" "}
-            </span>
-            <span className="underline decoration-fun-blue-500 dark:decoration-hit-pink-500 underline-offset-auto">
-              <FormattedMessage
-                id="swapnil_architect"
-                description="Architect" // Description should be a string literal
-                defaultMessage="Architect" // Message should be a string literal
+            <span className="underline decoration-fun-blue-500 dark:decoration-hit-pink-500 underline-offset-auto font-mono">
+              <TypeAnimation
+                sequence={[
+                  // Same substring at the start will only be typed out once, initially
+                  'an Engineer',
+                  1000, // wait 1s before replacing "Mice" with "Hamsters"
+                  'a Frontend Engineer',
+                  1000,
+                  'a Backend Engineer',
+                  1000,
+                  'a Full Stack Engineer',
+                  1000,
+                  'a Tech Lead',
+                  1000,
+                  'an Architect',
+                  1000,
+                  'a Solution Architect',
+                  1000
+                ]}
+                wrapper="span"
+                speed={50}
+                style={{ display: 'inline-block'}}
+                repeat={Infinity}
               />
             </span>
           </span>
         </blockquote>
       </div>
+
+      {/* Down Arrow Bounching */}
       <div className="relative">
         <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 bottom-16">
           <FontAwesomeIcon
@@ -107,6 +124,8 @@ export default function Home(props) {
           />
         </div>
       </div>
+
+      {/* Post Feed  */}
       <div className="lg:flex lg:flex-row flex flex-col flex-wrap gap-3 lg:gap-y-2 ml-2 mr-2">
         <PostFeed
           posts={posts}
@@ -117,10 +136,12 @@ export default function Home(props) {
         />
       </div>
 
+      {/* Loading spinner */}
       <div className="flex items-center justify-center">
         <Loader show={loading} />
       </div>
 
+      {/* End of Post Text */}
       {postsEnd && (
         <div className="flex items-center justify-center dark:text-blog-white">
           <FormattedMessage
@@ -130,6 +151,7 @@ export default function Home(props) {
           />
         </div>
       )}
+
     </main>
   );
 }

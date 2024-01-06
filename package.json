@@ -51,6 +51,7 @@
     "react-intl": "^6.2.5",
     "react-redux": "^8.0.2",
     "react-transition-group": "^4.4.5",
+    "react-type-animation": "^3.2.0",
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
