@@ -126,22 +126,13 @@ export default function Home(props) {
         </div>
       </div> */}
 
-      <div className="bg-blog-white p-5">
+      <div className="bg-blog-white p-5 w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
         <HorizontalScrollTech />
       </div>
     
-      <div className="bg-blog-white p-5">
+      <div className="bg-blog-white p-5 w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
         <HorizontalScrollTech reverse={true} />
       </div>
-
-      <div className="bg-blog-white p-5">
-        <HorizontalScrollTech />
-      </div>
-
-      <div className="bg-blog-white p-5">
-        <HorizontalScrollTech reverse={true} />
-      </div>
-
 
       {/* Post Feed  */}
       <div className="lg:flex lg:flex-row flex flex-col flex-wrap gap-3 lg:gap-y-2 ml-2 mr-2">
