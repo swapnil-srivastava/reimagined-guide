@@ -86,7 +86,7 @@ export default function Home(props) {
           </span>
           <br />
           <span>
-            <span className="underline decoration-fun-blue-500 dark:decoration-hit-pink-500 underline-offset-auto font-mono">
+            <span className="underline decoration-fun-blue-500 dark:decoration-hit-pink-500 underline-offset-auto">
               <TypeAnimation
                 sequence={[
                   // Same substring at the start will only be typed out once, initially
