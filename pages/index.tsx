@@ -101,7 +101,7 @@ export default function Home(props) {
                   1000,
                   'an Architect',
                   1000,
-                  'a Solution Architect',
+                  'a Solutions Architect',
                   1000
                 ]}
                 wrapper="span"
