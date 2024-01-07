@@ -126,19 +126,19 @@ export default function Home(props) {
         </div>
       </div> */}
 
-      <div>
+      <div className="bg-blog-white p-5">
         <HorizontalScrollTech />
       </div>
     
-      <div>
+      <div className="bg-blog-white p-5">
         <HorizontalScrollTech reverse={true} />
       </div>
 
-      <div>
+      <div className="bg-blog-white p-5">
         <HorizontalScrollTech />
       </div>
 
-      <div>
+      <div className="bg-blog-white p-5">
         <HorizontalScrollTech reverse={true} />
       </div>
 
