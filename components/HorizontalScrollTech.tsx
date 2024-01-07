@@ -351,13 +351,6 @@ const HorizontalScrollTech = ({ reverse = false }) => {
         alt="image of Firebase logo"
       />
 
-      <Image
-        src={firebase}
-        width={80}
-        height={80}
-        alt="image of Supabase logo"
-      />
-
       <FontAwesomeIcon icon={faGithub} size="8x" className={'text-blog-black'}/>
       <FontAwesomeIcon icon={faYarn} size="8x" className={'text-[#3592bd]'} /> 
       <FontAwesomeIcon icon={faNpm} size="8x" className={'text-[#c3292f]'} />
