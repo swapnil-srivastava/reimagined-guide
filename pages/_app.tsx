@@ -21,6 +21,19 @@ import AwesomeNavBar from "../components/AwesomeNavBar";
 import BuyMeCoffee from "../components/BuyMeCoffee";
 import CookiesBanner from "../components/CookiesBanner";
 
+import { Inter, Roboto } from 'next/font/google'
+ 
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+})
+
+const roboto = Roboto({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-roboto',
+})
+
 config.autoAddCss = false;
 
 function MyApp({ Component, pageProps }) {
@@ -45,23 +58,25 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
-      <ThemeProvider attribute="class">
-        <Provider store={store}>
-          <IntlProvider
-            messages={messages}
-            locale={nextLocale}
-            defaultLocale={nextDefaultLocale}
-          >
-            <div className="flex flex-col gap-2">
-              <AwesomeNavBar />
-              <Component {...pageProps} />
-              <BuyMeCoffee></BuyMeCoffee>
-              <CookiesBanner></CookiesBanner>
-            </div>
-            <Toaster />
-          </IntlProvider>
-        </Provider>
-      </ThemeProvider>
+       <main className={`${inter.variable} ${roboto.variable}`}>
+        <ThemeProvider attribute="class">
+          <Provider store={store}>
+            <IntlProvider
+              messages={messages}
+              locale={nextLocale}
+              defaultLocale={nextDefaultLocale}
+            >
+              <div className="flex flex-col gap-2">
+                <AwesomeNavBar />
+                <Component {...pageProps} />
+                <BuyMeCoffee></BuyMeCoffee>
+                <CookiesBanner></CookiesBanner>
+              </div>
+              <Toaster />
+            </IntlProvider>
+          </Provider>
+        </ThemeProvider>
+      </main>
     </>
   );
 }

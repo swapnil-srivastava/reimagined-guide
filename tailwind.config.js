@@ -8,9 +8,32 @@ module.exports = {
   theme: {
     typography: (theme) => ({}),
     extend: {
+      fontFamily: {
+        inter: ['var(--font-inter)'],
+        roboto: ['var(--font-roboto)'],
+      },
       transitionProperty: {
         'height': 'height',
         'spacing': 'margin, padding',
+      },
+      animation: {
+        'loop-scroll': 'loop-scroll 50s linear infinite',
+        'infinite-scroll': 'infinite-scroll 50s linear infinite',
+        'infinite-reverse': 'infinite-scroll 25s linear infinite reverse',
+      },
+      keyframes: {
+        'loop-scroll': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-100%)' },
+        },
+        'infinite-scroll': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-100%)' },
+        },
+        'infinite-reverse': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-100%)' },
+        }
       },
       colors : {
         'blog-black': '#0A0A0A',

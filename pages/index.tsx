@@ -9,9 +9,10 @@ import { useState } from "react";
 import Metatags from "../components/Metatags";
 import { supaClient } from "../supa-client";
 import { POST } from "../database.types";
+import HorizontalScrollTech from "../components/HorizontalScrollTech";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesDown } from "@fortawesome/free-solid-svg-icons";
-
 import { TypeAnimation } from 'react-type-animation';
 
 // Max post to query per page
@@ -68,7 +69,7 @@ export default function Home(props) {
 
       {/* Block Quote */}
       <div className="p-3 flex justify-center items-center h-screen">
-        <blockquote className="lg:text-8xl text-5xl font-semibold italic text-center text-slate-90 dark:text-blog-white text-blog-black">
+        <blockquote className="lg:text-9xl text-5xl font-roboto text-center font-bold text-slate-90 dark:text-blog-white text-blog-black">
           <FormattedMessage
             id="swapnil_architect_hello"
             description="an" // Description should be a string literal
@@ -115,7 +116,7 @@ export default function Home(props) {
       </div>
 
       {/* Down Arrow Bounching */}
-      <div className="relative">
+      {/* <div className="relative">
         <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 bottom-16">
           <FontAwesomeIcon
             className="animate-bounce h-15 w-15 dark:text-blog-white text-fun-blue-500"
@@ -123,7 +124,24 @@ export default function Home(props) {
             size={"3x"}
           />
         </div>
+      </div> */}
+
+      <div>
+        <HorizontalScrollTech />
       </div>
+    
+      <div>
+        <HorizontalScrollTech reverse={true} />
+      </div>
+
+      <div>
+        <HorizontalScrollTech />
+      </div>
+
+      <div>
+        <HorizontalScrollTech reverse={true} />
+      </div>
+
 
       {/* Post Feed  */}
       <div className="lg:flex lg:flex-row flex flex-col flex-wrap gap-3 lg:gap-y-2 ml-2 mr-2">
