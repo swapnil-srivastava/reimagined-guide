@@ -116,7 +116,7 @@ export default function Home(props) {
       </div>
 
       {/* Text before list of technolgies */}
-      <div className="flex justify-center">
+      <div className="flex justify-center bg-blog-white mt-4 pt-4 [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
           <p className="font-poppins text-xl font-thin">TECHNOLOGIES ... WHICH BUILD MY CHARACTER</p>
       </div>
 
@@ -131,13 +131,13 @@ export default function Home(props) {
       </div>
 
       {/* Section before blog post */}
-      <div className="flex flex-col justify-center items-center h-screen text-center">
+      <div className="flex flex-col justify-center items-center h-screen text-center dark:text-blog-white ">
         <h1 className="lg:text-7xl text-5xl font-poppins">WRITE .. CODE .. POST .. SLEEP .. REPEAT</h1>
         <p className="lg:text-3xl text-5xl font-thin">Writing the article ... coding the code ... posting the article ... finally sleeping ... and the cycle repeats</p>
       </div>
 
       {/* Section before blog post */}
-      <div className="h-screen">
+      <div className="h-screen dark:text-blog-white ">
         {/* Horizontal Text-1 Linear */}
         <div className="flex flex-row justify-center gap-2 text-center lg:text-7xl text-4xl [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
           <p className="uppercase animate-loop-scroll tracking-wide font-thin">Crack Debugger <strong className="font-poppins tracking-wide">Crack Debugger</strong></p>
