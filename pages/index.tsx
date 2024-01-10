@@ -115,23 +115,53 @@ export default function Home(props) {
         </blockquote>
       </div>
 
-      {/* Down Arrow Bounching */}
-      {/* <div className="relative">
-        <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 bottom-16">
-          <FontAwesomeIcon
-            className="animate-bounce h-15 w-15 dark:text-blog-white text-fun-blue-500"
-            icon={faAnglesDown}
-            size={"3x"}
-          />
-        </div>
-      </div> */}
+      {/* Text before list of technolgies */}
+      <div className="flex justify-center">
+          <p className="font-poppins text-xl font-thin">TECHNOLOGIES ... WHICH BUILD MY CHARACTER</p>
+      </div>
 
+      {/* Technolgies Forward Linear Animation*/}
       <div className="bg-blog-white p-5 w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
         <HorizontalScrollTech />
       </div>
     
+      {/* Technolgies Forward Linear Animation Reverse */}
       <div className="bg-blog-white p-5 mb-5 w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
         <HorizontalScrollTech reverse={true} />
+      </div>
+
+      {/* Section before blog post */}
+      <div className="flex flex-col justify-center items-center h-screen text-center">
+        <h1 className="lg:text-7xl text-5xl font-poppins">WRITE .. CODE .. POST .. SLEEP .. REPEAT</h1>
+        <p className="lg:text-3xl text-5xl font-thin">Writing the article ... coding the code ... posting the article ... finally sleeping ... and the cycle repeats</p>
+      </div>
+
+      {/* Section before blog post */}
+      <div className="h-screen">
+        {/* Horizontal Text-1 Linear */}
+        <div className="flex flex-row justify-center gap-2 text-center lg:text-7xl text-4xl [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
+          <p className="uppercase animate-loop-scroll tracking-wide font-thin">Crack Debugger <strong className="font-poppins tracking-wide">Crack Debugger</strong></p>
+        </div>
+
+        {/* Horizontal Text-2 Linear */}
+        <div className="flex flex-row justify-center gap-2 text-center lg:text-7xl text-4xl [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
+          <p className="uppercase animate-loop-reverse tracking-wide font-thin">INNOVATE <strong className="font-poppins tracking-wide">INNOVATE</strong></p>
+        </div>
+
+        {/* Horizontal Text-3 Linear */}
+        <div className="flex justify-center gap-2 text-center lg:text-7xl text-4xl [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
+          <p className="uppercase animate-loop-scroll tracking-wide font-thin">PERSISTANCE <strong className="font-poppins tracking-wide">PERSISTANCE</strong></p>
+        </div>
+
+        {/* Horizontal Text-4 Linear */}
+        <div className="flex justify-center gap-2 text-center lg:text-7xl text-4xl [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
+          <p className="uppercase animate-loop-reverse tracking-wide font-thin">HARDWORK <strong className="font-poppins tracking-wide">HARDWORK</strong></p>
+        </div>
+
+        {/* Horizontal Text-5 Linear */}
+        <div className="flex justify-center gap-2 text-center lg:text-7xl text-4xl [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
+          <p className="uppercase animate-loop-scroll tracking-wide font-thin">LEADER <strong className="font-poppins tracking-wide">LEADER</strong></p>
+        </div>
       </div>
 
       {/* Post Feed  */}

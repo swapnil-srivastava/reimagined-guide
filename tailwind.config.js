@@ -11,13 +11,17 @@ module.exports = {
       fontFamily: {
         inter: ['var(--font-inter)'],
         roboto: ['var(--font-roboto)'],
+        salsa: ['var(--font-salsa)'],
+        bungee: ['var(--font-bungee)'],
+        poppins: ['var(--font-poppins)'],
       },
       transitionProperty: {
         'height': 'height',
         'spacing': 'margin, padding',
       },
       animation: {
-        'loop-scroll': 'loop-scroll 50s linear infinite',
+        'loop-scroll': 'loop-scroll 5s linear infinite',
+        'loop-reverse': 'loop-scroll 5s linear infinite reverse',
         'infinite-scroll': 'infinite-scroll 50s linear infinite',
         'infinite-reverse': 'infinite-scroll 50s linear infinite reverse',
       },
