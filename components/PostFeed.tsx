@@ -124,7 +124,8 @@ function PostItem({ post, admin = false, approve = false }) {
                       />
                     </div>
                     <div className="font-extralight text-base md:text-lg shrink-0">
-                      {wordCount} <FormattedMessage id="card_words" 
+                      {wordCount} 
+                      <FormattedMessage id="card_words" 
                       description="Card Word Cound" // Description should be a string literal 
                       defaultMessage=" words" // Message should be a string literal 
                       />
@@ -190,10 +191,12 @@ function PostItem({ post, admin = false, approve = false }) {
                   />
                 </p>
               ) : (
-                <p className="text-danger self-end"><FormattedMessage id="card_unpublished" 
-                description="Card Unpublished" // Description should be a string literal 
-                defaultMessage="Unpublished" // Message should be a string literal 
-                /></p>
+                <p className="text-danger self-end">
+                  <FormattedMessage id="card_unpublished" 
+                  description="Card Unpublished" // Description should be a string literal 
+                  defaultMessage="Unpublished" // Message should be a string literal 
+                  />
+                </p>
               )}
             </div>
           </div>

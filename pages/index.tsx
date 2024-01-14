@@ -3,20 +3,21 @@ import { FormattedMessage } from "react-intl";
 // Components 
 import PostFeed from "../components/PostFeed";
 import Loader from "../components/Loader";
+import PostList from "../components/PostList";
+import HorizontalScrollTech from "../components/HorizontalScrollTech";
 
 // Library
 import { useState } from "react";
 import Metatags from "../components/Metatags";
 import { supaClient } from "../supa-client";
 import { POST } from "../database.types";
-import HorizontalScrollTech from "../components/HorizontalScrollTech";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesDown } from "@fortawesome/free-solid-svg-icons";
 import { TypeAnimation } from 'react-type-animation';
 
 // Max post to query per page
-const LIMIT = 5;
+const LIMIT = 3;
 
 export async function getServerSideProps(context) {
   let { data: posts } = await supaClient
@@ -137,7 +138,7 @@ export default function Home(props) {
       </div>
 
       {/* Section before blog post */}
-      <div className="h-screen dark:text-blog-white ">
+      <div className="h-screen dark:text-blog-white">
         {/* Horizontal Text-1 Linear */}
         <div className="flex flex-row justify-center gap-2 text-center lg:text-7xl text-4xl [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
           <p className="uppercase animate-loop-scroll tracking-wide font-thin">Crack Debugger <strong className="font-poppins tracking-wide">Crack Debugger</strong></p>
@@ -165,14 +166,10 @@ export default function Home(props) {
       </div>
 
       {/* Post Feed  */}
-      <div className="lg:flex lg:flex-row flex flex-col flex-wrap gap-3 lg:gap-y-2 ml-2 mr-2">
-        <PostFeed
-          posts={posts}
-          parentFunction={() => getMorePosts()}
-          loading={loading}
-          postsEnd={postsEnd}
-          enableLoadMore={true}
-        />
+      <div className="h-screen flex justify-center ml-96">
+        <div className="flex gap-5">
+          <PostList posts={posts} loading={loading} postsEnd={postsEnd} enableLoadMore={true}/>
+        </div>
       </div>
 
       {/* Loading spinner */}
