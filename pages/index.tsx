@@ -117,7 +117,7 @@ export default function Home(props) {
       </div>
 
       {/* Text before list of technolgies */}
-      <div className="flex justify-center bg-blog-white mt-4 pt-4 [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
+      <div className="flex justify-center text-center bg-blog-white mt-4 pt-4 [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
           <p className="font-poppins text-xl font-thin">TECHNOLOGIES ... WHICH BUILD MY CHARACTER</p>
       </div>
 
