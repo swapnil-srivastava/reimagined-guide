@@ -166,7 +166,7 @@ export default function Home(props) {
       </div>
 
       {/* Post Feed  */}
-      <div className="h-screen flex justify-center lg:ml-96">
+      <div className={`h-screen flex justify-center ${posts?.length < 3 ? "" : "lg:ml-96"}`}>
         <div className="flex gap-5">
           <PostList posts={posts} loading={loading} postsEnd={postsEnd} enableLoadMore={true}/>
         </div>
