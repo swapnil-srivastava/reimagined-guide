@@ -58,14 +58,16 @@ const PostList = ({  posts,  loading = false, postsEnd = false, enableLoadMore =
                                         {/* DATE Div */}
                                         <div className="flex gap-1 self-start">
                                             {/* Author Name */}
-                                            <div className="self-start">{` ${post.username}`}</div>                                      
+                                            <div className="self-start hover:underline">
+                                                <Link href={`/${post.username}`}>{`${post.username}`}</Link>
+                                            </div>                                      
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Post Title */}
                                 <div className="text-2xl font-semibold flex flex-col" >
-                                    <Link href={`/${post.username}/${post.slug}`} >
+                                    <Link href={`/${post.username}/${post.slug}`} className="hover:underline underline-offset-2" >
                                         {titleTrimmed}
                                     </Link>
                                     <div className="flex gap-2 text-xs self-end font-thin">
@@ -76,7 +78,7 @@ const PostList = ({  posts,  loading = false, postsEnd = false, enableLoadMore =
 
                                 {/* Read More */}
                                 <div className="text-lg flex items-center gap-2">
-                                    <Link href={`/${post.username}/${post.slug}`} >
+                                    <Link href={`/${post.username}/${post.slug}`} className="hover:underline">
                                         <p className="font-thin">Read more</p>
                                     </Link>
                                     <FontAwesomeIcon icon={faArrowRight} />
