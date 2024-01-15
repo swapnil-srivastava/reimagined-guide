@@ -56,13 +56,10 @@ const PostList = ({  posts,  loading = false, postsEnd = false, enableLoadMore =
                                         </Link>
 
                                         {/* DATE Div */}
-                                        <div className="flex gap-1">
+                                        <div className="flex gap-1 self-start">
                                             {/* Author Name */}
                                             <div className="self-start">{` ${post.username}`}</div>                                      
                                         </div>
-
-                                        
-
                                     </div>
                                 </div>
 
