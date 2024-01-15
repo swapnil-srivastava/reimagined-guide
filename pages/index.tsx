@@ -164,6 +164,8 @@ export default function Home(props) {
           <p className="uppercase animate-loop-scroll tracking-wide font-thin">LEADER <strong className="font-poppins tracking-wide">LEADER</strong></p>
         </div>
       </div>
+      
+      <div className="font-poppins text-5xl flex justify-center">Unveiling the Secrets: Dive into our Latest Article</div>
 
       {/* Post Feed  */}
       <div className={`h-screen flex justify-center ${posts?.length < 3 ? "" : "lg:ml-96"}`}>
