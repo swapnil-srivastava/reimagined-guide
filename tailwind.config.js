@@ -14,6 +14,7 @@ module.exports = {
         salsa: ['var(--font-salsa)'],
         bungee: ['var(--font-bungee)'],
         poppins: ['var(--font-poppins)'],
+        greatVibes: ['var(--font-greatVibes)'],
       },
       transitionProperty: {
         'height': 'height',

@@ -21,7 +21,7 @@ import AwesomeNavBar from "../components/AwesomeNavBar";
 import BuyMeCoffee from "../components/BuyMeCoffee";
 import CookiesBanner from "../components/CookiesBanner";
 
-import { Inter, Roboto, Salsa, Bungee_Spice, Poppins } from 'next/font/google'
+import { Inter, Roboto, Salsa, Bungee_Spice, Poppins, Great_Vibes } from 'next/font/google'
  
 const inter = Inter({
   subsets: ['latin'],
@@ -52,6 +52,12 @@ const poppins = Poppins({
   variable: '--font-poppins',
 })
 
+const greatVibes = Great_Vibes({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-greatVibes',
+})
+
 config.autoAddCss = false;
 
 function MyApp({ Component, pageProps }) {
@@ -76,7 +82,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
-       <main className={`${inter.variable} ${roboto.variable} ${salsa.variable} ${bungee.variable} ${poppins.variable}`}>
+       <main className={`${inter.variable} ${roboto.variable} ${salsa.variable} ${bungee.variable} ${poppins.variable} ${greatVibes.variable}`}>
         <ThemeProvider attribute="class">
           <Provider store={store}>
             <IntlProvider

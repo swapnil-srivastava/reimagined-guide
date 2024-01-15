@@ -24,8 +24,8 @@ const PostList = ({  posts,  loading = false, postsEnd = false, enableLoadMore =
         const titleTrimmed = generateContent(post?.title);
         const minutesToRead = (wordCount / 100 + 1).toFixed(0);
         const dateFormat = moment(post.created_at).isValid()
-          ? moment(post.created_at).format("DD MMM YYYY hh:mm a")
-          : moment(post.created_at?.toMillis()).format("DD MMM YYYY hh:mm a");
+          ? moment(post.created_at).format("DD MMM YYYY")
+          : moment(post.created_at?.toMillis()).format("DD MMM YYYY");
 
         return (<>
             {!loading &&
@@ -35,10 +35,9 @@ const PostList = ({  posts,  loading = false, postsEnd = false, enableLoadMore =
                     <Link className="flex py-24 hover:py-14 min-w-fit" href={`/${post.username}/${post.slug}`} key={post.slug}>
                         <div className="p-4 hover:px-8 flex lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
                             <div className="flex flex-col gap-2 justify-between">
+                                {/* DATE and Author */}
                                 <div>
-                                    {/* DATE */}
-                                    <div>{dateFormat}</div>
-
+                                    {/* author image and author name */}
                                     <div className="flex items-center gap-2">
                                         {/* Author Image */}
                                         <Link href={`/${post.username}`} legacyBehavior>
@@ -56,19 +55,30 @@ const PostList = ({  posts,  loading = false, postsEnd = false, enableLoadMore =
                                             )}
                                         </Link>
 
-                                        {/* Author Name */}
-                                        <div className="text-base font-thin">{` ${post.username}`}</div>
+                                        {/* DATE Div */}
+                                        <div className="flex gap-1">
+                                            {/* Author Name */}
+                                            <div className="self-start">{` ${post.username}`}</div>                                      
+                                        </div>
+
+                                        
+
                                     </div>
                                 </div>
 
                                 {/* Post Title */}
-                                <div className="text-2xl font-semibold" >
+                                <div className="text-2xl font-semibold flex flex-col" >
                                     <Link href={`/${post.username}/${post.slug}`} >
                                         {titleTrimmed}
                                     </Link>
+                                    <div className="flex gap-2 text-xs self-end font-thin">
+                                        <div>Published</div>
+                                        <div>{dateFormat}</div>
+                                    </div>
                                 </div>
 
-                                <div className="text-xl flex items-center gap-2" >
+                                {/* Read More */}
+                                <div className="text-xl flex items-center gap-2">
                                     <Link href={`/${post.username}/${post.slug}`} >
                                         <p className="font-thin">Read more</p>
                                     </Link>
