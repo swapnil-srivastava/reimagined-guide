@@ -75,7 +75,7 @@ const PostList = ({  posts,  loading = false, postsEnd = false, enableLoadMore =
                                 </div>
 
                                 {/* Read More */}
-                                <div className="text-xl flex items-center gap-2">
+                                <div className="text-lg flex items-center gap-2">
                                     <Link href={`/${post.username}/${post.slug}`} >
                                         <p className="font-thin">Read more</p>
                                     </Link>
