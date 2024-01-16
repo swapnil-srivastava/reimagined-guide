@@ -34,6 +34,7 @@ export async function getServerSideProps(context) {
 }
 
 export default function Home(props) {
+  // Note: add the data in props.posts for reflecting in local development use an array and then object of post inside it.
   const [posts, setPosts] = useState<POST[]>(props.posts);
   const [loading, setLoading] = useState<boolean>(false);
 
