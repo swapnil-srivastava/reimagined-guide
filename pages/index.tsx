@@ -222,7 +222,7 @@ export default function Home(props) {
 
       </div>
       
-      <div className="font-poppins text-5xl flex mt-10 justify-center dark:text-blog-white">Unveiling the Secrets: Dive into our Latest Article</div>
+      <div className="font-poppins text-5xl flex mt-10 justify-center text-center dark:text-blog-white">Unveiling the Secrets: Dive into our Latest Article</div>
 
       {/* Post Feed  */}
       <div className={`h-screen flex justify-center ${posts?.length < 3 ? "" : "lg:ml-96"}`}>
