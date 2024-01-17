@@ -139,34 +139,90 @@ export default function Home(props) {
       </div>
 
       {/* Section before blog post */}
-      <div className="h-screen dark:text-blog-white">
+      <div className="h-screen flex flex-col dark:text-blog-white overflow-clip text-[150px] leading-none">
         {/* Horizontal Text-1 Linear */}
-        <div className="flex flex-row justify-center gap-2 text-center lg:text-7xl text-4xl [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
-          <p className="uppercase animate-loop-scroll tracking-wide font-thin">Crack Debugger <strong className="font-poppins tracking-wide">Crack Debugger</strong></p>
+        <div className="quote-wrap gap-1">
+          <div className="quote-section gap-1 animate-infinite-scroll">
+            <div className="uppercase font-poppins">Crack Debugger</div>
+            <div className="uppercase font-poppins text-stroke-outline">Crack Debugger</div>
+          </div>
+          <div className="quote-section gap-1 animate-infinite-scroll">
+            <div className="uppercase font-poppins">Crack Debugger</div>
+            <div className="uppercase font-poppins text-stroke-outline">Crack Debugger</div>
+          </div>
+          <div className="quote-section gap-1 animate-infinite-scroll">
+            <div className="uppercase font-poppins">Crack Debugger</div>
+            <div className="uppercase font-poppins text-stroke-outline">Crack Debugger</div>
+          </div>
         </div>
 
         {/* Horizontal Text-2 Linear */}
-        <div className="flex flex-row justify-center gap-2 text-center lg:text-7xl text-4xl [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
-          <p className="uppercase animate-loop-reverse tracking-wide font-thin">INNOVATE <strong className="font-poppins tracking-wide">INNOVATE</strong></p>
+        <div className="quote-wrap gap-1">
+          <div className="quote-section gap-1 animate-infinite-reverse">
+            <div className="uppercase font-poppins">Innovate</div>
+            <div className="uppercase font-poppins text-stroke-outline">Innovate</div>
+          </div>
+          <div className="quote-section gap-1 animate-infinite-reverse">
+            <div className="uppercase font-poppins">Innovate</div>
+            <div className="uppercase font-poppins text-stroke-outline">Innovate</div>
+          </div>
+          <div className="quote-section gap-1 animate-infinite-reverse">
+            <div className="uppercase font-poppins">Innovate</div>
+            <div className="uppercase font-poppins text-stroke-outline">Innovate</div>
+          </div>
         </div>
 
         {/* Horizontal Text-3 Linear */}
-        <div className="flex justify-center gap-2 text-center lg:text-7xl text-4xl [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
-          <p className="uppercase animate-loop-scroll tracking-wide font-thin">PERSISTANCE <strong className="font-poppins tracking-wide">PERSISTANCE</strong></p>
+        <div className="quote-wrap gap-1">
+          <div className="quote-section gap-1 animate-infinite-scroll">
+            <div className="uppercase font-poppins">Persistance</div>
+            <div className="uppercase font-poppins text-stroke-outline">Persistance</div>
+          </div>
+          <div className="quote-section gap-1 animate-infinite-scroll">
+            <div className="uppercase font-poppins">Persistance</div>
+            <div className="uppercase font-poppins text-stroke-outline">Persistance</div>
+          </div>
+          <div className="quote-section gap-1 animate-infinite-scroll">
+            <div className="uppercase font-poppins">Persistance</div>
+            <div className="uppercase font-poppins text-stroke-outline">Persistance</div>
+          </div>
         </div>
 
         {/* Horizontal Text-4 Linear */}
-        <div className="flex justify-center gap-2 text-center lg:text-7xl text-4xl [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
-          <p className="uppercase animate-loop-reverse tracking-wide font-thin">HARDWORK <strong className="font-poppins tracking-wide">HARDWORK</strong></p>
+        <div className="quote-wrap gap-1">
+          <div className="quote-section gap-1 animate-infinite-reverse">
+            <div className="uppercase font-poppins">Hardwork</div>
+            <div className="uppercase font-poppins text-stroke-outline">Hardwork</div>
+          </div>
+          <div className="quote-section gap-1 animate-infinite-reverse">
+            <div className="uppercase font-poppins">Hardwork</div>
+            <div className="uppercase font-poppins text-stroke-outline">Hardwork</div>
+          </div>
+          <div className="quote-section gap-1 animate-infinite-reverse">
+            <div className="uppercase font-poppins">Hardwork</div>
+            <div className="uppercase font-poppins text-stroke-outline">Hardwork</div>
+          </div>
         </div>
 
         {/* Horizontal Text-5 Linear */}
-        <div className="flex justify-center gap-2 text-center lg:text-7xl text-4xl [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
-          <p className="uppercase animate-loop-scroll tracking-wide font-thin">LEADER <strong className="font-poppins tracking-wide">LEADER</strong></p>
+        <div className="quote-wrap gap-1">
+          <div className="quote-section gap-1 animate-infinite-scroll">
+            <div className="uppercase font-poppins">Leader</div>
+            <div className="uppercase font-poppins text-stroke-outline">Leader</div>
+          </div>
+          <div className="quote-section gap-1 animate-infinite-scroll">
+            <div className="uppercase font-poppins">Leader</div>
+            <div className="uppercase font-poppins text-stroke-outline">Leader</div>
+          </div>
+          <div className="quote-section gap-1 animate-infinite-scroll">
+            <div className="uppercase font-poppins">Leader</div>
+            <div className="uppercase font-poppins text-stroke-outline">Leader</div>
+          </div>
         </div>
+
       </div>
       
-      <div className="font-poppins text-5xl flex justify-center dark:text-blog-white">Unveiling the Secrets: Dive into our Latest Article</div>
+      <div className="font-poppins text-5xl flex mt-10 justify-center dark:text-blog-white">Unveiling the Secrets: Dive into our Latest Article</div>
 
       {/* Post Feed  */}
       <div className={`h-screen flex justify-center ${posts?.length < 3 ? "" : "lg:ml-96"}`}>

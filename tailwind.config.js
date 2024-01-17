@@ -21,23 +21,17 @@ module.exports = {
         'spacing': 'margin, padding',
       },
       animation: {
-        'loop-scroll': 'loop-scroll 5s linear infinite',
-        'loop-reverse': 'loop-scroll 5s linear infinite reverse',
-        'infinite-scroll': 'infinite-scroll 50s linear infinite',
-        'infinite-reverse': 'infinite-scroll 50s linear infinite reverse',
-      },
+        'infinite-scroll': 'infinite-scroll 26s linear infinite',
+        'infinite-reverse': 'infinite-scroll 35s linear infinite reverse',
+              },
       keyframes: {
-        'loop-scroll': {
-          from: { transform: 'translateX(0)' },
-          to: { transform: 'translateX(-100%)' },
-        },
         'infinite-scroll': {
-          from: { transform: 'translateX(0)' },
-          to: { transform: 'translateX(-100%)' },
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-100%)' },
         },
         'infinite-reverse': {
-          from: { transform: 'translateX(0)' },
-          to: { transform: 'translateX(-100%)' },
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0%)' },
         }
       },
       colors : {

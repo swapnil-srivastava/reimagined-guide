@@ -262,6 +262,24 @@ button.btn-logo {
   transition: all var(--speed) ease;
 }
 
+.text-stroke-outline {
+  color:  #FBFBFB;
+  -webkit-text-stroke-width: 0.075rem;
+  -webkit-text-stroke-color: #0A0A0A; 
+}
+
+.quote-section {
+  flex: none;
+  display: flex;
+}
+
+.quote-wrap {
+  width: 100%;
+  flex: none;
+  display: flex;
+}
+
+
 /* iframe */
 
 iframe {
