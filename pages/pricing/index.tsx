@@ -57,7 +57,7 @@ const Pricing = () => {
             </div>
 
             {/* Pricing card 2 */}
-            <div className="mx-10 p-10 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
+            <div className="mx-10 p-10 text-blog-white bg-fun-blue-600 dark:bg-blog-white dark:text-blog-black hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
               <div className="text-center font-thin leading-loose">Beginner</div>
               <div className="text-4xl text-center leading-loose">$ 10</div>
               <div className="text-center font-thin leading-loose">Payment</div>
