@@ -139,7 +139,8 @@ export default function Home(props) {
       </div>
 
       {/* Section before blog post */}
-      <div className="h-screen flex flex-col dark:text-blog-white overflow-clip lg:text-[150px] text-[80px] leading-none">
+      <div className="flex flex-col dark:text-blog-white overflow-clip lg:text-[150px] text-[80px] leading-none">
+
         {/* Horizontal Text-1 Linear */}
         <div className="quote-wrap gap-1">
           <div className="quote-section gap-1 animate-infinite-scroll">
