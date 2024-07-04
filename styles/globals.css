@@ -12,6 +12,7 @@
   --color-green: #3bdf72;
   --color-gray: #b5bdc4;
 }
+
 html,
 body {
   padding: 0;
@@ -268,6 +269,12 @@ button.btn-logo {
   -webkit-text-stroke-color: #0A0A0A; 
 }
 
+.dark .text-stroke-outline {
+  color: #00539c;
+  -webkit-text-stroke-width: 0.075rem;
+  -webkit-text-stroke-color: #FBFBFB;
+}
+
 .quote-section {
   flex: none;
   display: flex;
@@ -278,7 +285,6 @@ button.btn-logo {
   flex: none;
   display: flex;
 }
-
 
 /* iframe */
 
