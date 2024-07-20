@@ -10,19 +10,14 @@ export async function POST(request: Request) {
                 user_id: userId,
             },
             customer_email: email,
-            payment_method_types: ['card'],
             line_items: [
                 {
-                    // base subscription
-                    price: priceId,
-                },
-                {
                     // one-time setup fee
-                    price: 'price_1OtHdOBF7AptWZlcPmLotZgW',
+                    price: priceId,
                     quantity: 1,
                 },
             ],
-            mode: 'subscription',
+            mode: 'payment',
             success_url: `${request.headers.get('origin')}/success`,
             cancel_url: `${request.headers.get('origin')}/cancel`,
         });
