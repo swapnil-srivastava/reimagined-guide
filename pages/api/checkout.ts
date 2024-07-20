@@ -5,6 +5,8 @@ export async function POST(request: Request) {
     try {
         const { priceId, email, userId } = await request.json();
 
+        console.log("called the POST")
+
         const session = await stripe.checkout.sessions.create({
             metadata: {
                 user_id: userId,
@@ -24,6 +26,7 @@ export async function POST(request: Request) {
         return NextResponse.json({ id: session.id });
         
     } catch( error: any ) {
+        console.log("catch block")
         console.error(error);
         return NextResponse.json({ message: error.message }, { status: 500 });
     }
