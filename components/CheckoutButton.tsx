@@ -23,7 +23,6 @@ const CheckoutButton = ({  }) => {
         const stripe = await stripePromise;
 
         console.log("called the stripe");
-        debugger;
 
         const { data, status } = await axios.post(
             "/api/checkout",
