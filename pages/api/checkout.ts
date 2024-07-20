@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { stripe } from '../../lib/stripe/stripe';
 
-export async function POST(request: Request) { 
+export default async function POST(request: Request) { 
     try {
         const { priceId, email, userId } = await request.json();
 
