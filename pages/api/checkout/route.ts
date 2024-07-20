@@ -12,7 +12,6 @@ export async function POST(request: Request) {
             customer_email: email,
             line_items: [
                 {
-                    // one-time setup fee
                     price: priceId,
                     quantity: 1,
                 },
