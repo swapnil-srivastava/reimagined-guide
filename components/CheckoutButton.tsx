@@ -2,15 +2,16 @@
 
 import { loadStripe } from '@stripe/stripe-js';
 import toast from 'react-hot-toast';
+import axios from "axios";
 
 // supabase instance in the app
 import { supaClient } from "../supa-client";
 
 const CheckoutButton = ({  }) => {
     const handleCheckout = async() => {
-        const { data } = await supaClient.auth.getUser();
+        const { data: supabaseData } = await supaClient.auth.getUser();
     
-        if (!data?.user) {
+        if (!supabaseData?.user) {
           toast.error("Please log in to create a new Stripe Checkout session");
           return;
         }
@@ -24,8 +25,20 @@ const CheckoutButton = ({  }) => {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ priceId: 'price_1OtHkdBF7AptWZlcIjbBpS8r', userId: data.user?.id, email: data.user?.email }),
+            body: JSON.stringify({ priceId: 'prod_QV4GghJgMy0rNG', userId: supabaseData.user?.id, email: supabaseData.user?.email }),
           });
+
+        const { data, status } = await axios.post(
+            "/api/checkout",
+            { priceId: 'prod_QV4GghJgMy0rNG', userId: supabaseData.user?.id, email: supabaseData.user?.email },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+        console.log("data ===> stripe", data);
         
         const session = await response.json();
 
