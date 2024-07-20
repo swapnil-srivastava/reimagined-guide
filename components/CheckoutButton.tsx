@@ -13,7 +13,7 @@ const CheckoutButton = ({  }) => {
             focus:ring-offset-2
             dark:text-blog-black"
         >
-            {"Let\'s get started with payment"}
+            {"Let\'s get started"}
         </button>
       </>
     );
