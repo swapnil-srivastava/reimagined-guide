@@ -16,9 +16,14 @@ const CheckoutButton = ({  }) => {
           return;
         }
     
+        console.log("called the supabase");
+
         const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
         const stripe = await stripePromise;
+
+        console.log("called the stripe");
+        debugger;
 
         const { data, status } = await axios.post(
             "/api/checkout",
