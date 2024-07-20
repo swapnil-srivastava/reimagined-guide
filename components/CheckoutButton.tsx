@@ -26,7 +26,7 @@ const CheckoutButton = ({  }) => {
 
         const { data, status } = await axios.post(
             "/api/checkout",
-            { priceId: 'prod_QV4GghJgMy0rNG', userId: supabaseData.user?.id, email: supabaseData.user?.email },
+            { priceId: 'price_1Pe47VRomQdDoc7IzPHbnYkn', userId: supabaseData.user?.id, email: supabaseData.user?.email },
             {
               headers: {
                 "Content-Type": "application/json",
@@ -36,8 +36,7 @@ const CheckoutButton = ({  }) => {
 
         console.log("data ===> stripe", data);
     
-
-        // await stripe?.redirectToCheckout({ sessionId: session.id });
+        await stripe?.redirectToCheckout({ sessionId: data.id });
 
       }
 
