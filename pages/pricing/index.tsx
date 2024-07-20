@@ -2,6 +2,8 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
+import CheckoutButton from "../../components/CheckoutButton";
+
 const Pricing = () => {
   return (
     <div className="h-screen flex flex-col items-center gap-2 font-poppins mt-10">
@@ -19,18 +21,7 @@ const Pricing = () => {
                 <div className="text-center font-thin leading-loose">No Payment</div>
                 {/* button section */}
                 <div className="text-center font-thin flex items-center justify-center mb-3">
-                  <button
-                    type="button"
-                    className="bg-hit-pink-500 text-blog-black
-                    rounded-lg px-4 py-2 m-2
-                    transition-filter duration-500 hover:filter hover:brightness-125 
-                    focus:outline-none focus:ring-2 
-                    focus:ring-fun-blue-400 
-                    focus:ring-offset-2
-                    dark:text-blog-black"
-                  >
-                    {"Let\'s get started"}
-                  </button>
+                    <CheckoutButton />
                 </div>
               </div>
               <div className="flex flex-col leading-loose">
