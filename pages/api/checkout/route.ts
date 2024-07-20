@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
-import { stripe } from '../../lib/stripe/stripe';
+import { stripe } from '../../../lib/stripe/stripe';
 
-export default async function POST(request: Request) { 
+export async function POST(request: Request) { 
     try {
         const { priceId, email, userId } = await request.json();
 
-        console.log("called the POST")
+        console.log("called the POST", priceId, email, userId)
 
         const session = await stripe.checkout.sessions.create({
             metadata: {
