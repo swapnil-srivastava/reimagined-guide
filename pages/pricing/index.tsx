@@ -23,7 +23,7 @@ const Pricing = () => {
 
                 {/* button section */}
                 <div className="text-center font-thin flex items-center justify-center mb-3">
-                    <CheckoutButton priceId={'price_1Pe47VRomQdDoc7IzPHbnYkn'}/>
+                    <CheckoutButton priceId={'price_1PepBzRomQdDoc7IMPkYqS78'}/>
                 </div>
 
               </div>
@@ -57,7 +57,7 @@ const Pricing = () => {
                 <div className="text-4xl text-center leading-loose">€1,000</div>
                 {/* button section */}
                 <div className="text-center font-thin flex items-center justify-center mb-3">
-                    <CheckoutButton priceId={'price_1Pe47VRomQdDoc7IzPHbnYkn'}/>
+                    <CheckoutButton priceId={'price_1Pe4OYRomQdDoc7IJpfJFW8O'}/>
                 </div>
               </div>
               <div className="flex flex-col leading-loose text-sm lg:text-md">
@@ -81,7 +81,7 @@ const Pricing = () => {
             <div className="flex flex-col">
                 <div className="font-bold leading-loose">Standard Package</div>
                 <div className="font-thin text-xs leading-loose">Ideal For: Businesses with specific, large-scale projects</div>
-                <div className="text-4xl text-center leading-loose">€2,000</div>
+                <div className="text-4xl text-center leading-loose">€2,500</div>
                 {/* button section */}
                 <div className="text-center font-thin flex items-center justify-center mb-3">
                   <CheckoutButton priceId={'price_1Pe47VRomQdDoc7IzPHbnYkn'}/>
@@ -116,7 +116,7 @@ const Pricing = () => {
           </div>
           <div className="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
             <div className="p-8 sm:p-10 lg:flex-auto">
-              <h3 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-blog-white">Preminum Package</h3>
+              <h3 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-blog-white">Premium Package</h3>
               <p className="mt-6 text-base leading-7 text-gray-600 dark:text-blog-white">
                Unlock the expertise with a single investment - pay once, and your success is in good hands.
               </p>
@@ -144,7 +144,7 @@ const Pricing = () => {
                     <span className="text-5xl font-bold tracking-tight text-gray-900">€3500</span>
                     <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">EURO</span>
                   </p>
-                  <CheckoutButton priceId={'price_1Pe47VRomQdDoc7IzPHbnYkn'} text={'Get it now'}/>
+                  <CheckoutButton priceId={'price_1PepHnRomQdDoc7ILk13S3dE'} text={'Get it now'}/>
                   <p className="mt-6 text-xs leading-5 text-gray-600">
                     Invoices and receipts available for easy company reimbursement
                   </p>
