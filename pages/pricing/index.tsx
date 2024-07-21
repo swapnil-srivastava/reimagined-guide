@@ -84,7 +84,7 @@ const Pricing = () => {
                 <div className="text-4xl text-center leading-loose">€2,500</div>
                 {/* button section */}
                 <div className="text-center font-thin flex items-center justify-center mb-3">
-                  <CheckoutButton priceId={'price_1Pe47VRomQdDoc7IzPHbnYkn'}/>
+                  <CheckoutButton priceId={'price_1Pe4S4RomQdDoc7IvoWyNYt8'}/>
                 </div>
               </div>
               <div className="flex flex-col leading-loose text-sm lg:text-md">
