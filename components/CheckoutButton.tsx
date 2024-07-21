@@ -24,19 +24,30 @@ const CheckoutButton = ({  }) => {
 
         console.log("called the stripe");
 
-        const { data, status } = await axios.post(
-            "/api/checkout",
-            { priceId: 'price_1Pe47VRomQdDoc7IzPHbnYkn', userId: supabaseData.user?.id, email: supabaseData.user?.email },
-            {
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }
-          );
+        // const { data, status } = await axios.post(
+        //     "/api/checkout",
+        //     { priceId: 'price_1Pe47VRomQdDoc7IzPHbnYkn', userId: supabaseData.user?.id, email: supabaseData.user?.email },
+        //     {
+        //       headers: {
+        //         "Content-Type": "application/json",
+        //       },
+        //     }
+        //   );
 
-        console.log("data ===> stripe", data);
+        // console.log("data ===> stripe", data);
     
-        await stripe?.redirectToCheckout({ sessionId: data.id });
+        // await stripe?.redirectToCheckout({ sessionId: data.id });
+
+        const response = await fetch('/api/checkout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ priceId: 'price_1Pe47VRomQdDoc7IzPHbnYkn', userId: supabaseData.user?.id, email: supabaseData.user?.email }),
+        });
+
+        const session = await response.json();
+        await stripe?.redirectToCheckout({ sessionId: session.id });
 
       }
 
