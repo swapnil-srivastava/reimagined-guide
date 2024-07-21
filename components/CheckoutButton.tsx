@@ -18,15 +18,6 @@ const CheckoutButton = ({  }) => {
     
         const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
         const stripe = await stripePromise;
-        // const response = await fetch('/api/checkout', {
-        //     method: 'POST',
-        //     headers: {
-        //       'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({ priceId: 'price_1Pe47VRomQdDoc7IzPHbnYkn', userId: data.user?.id, email: data.user?.email }),
-        //   });
-        // const session = await response.json();
-        // await stripe?.redirectToCheckout({ sessionId: session.id });
 
         const { data: axiosData, status } = await axios.post(
             "/api/checkout",
@@ -37,10 +28,8 @@ const CheckoutButton = ({  }) => {
               },
             }
           );
-        console.log("data ===> stripe", axiosData);
+          
         await stripe?.redirectToCheckout({ sessionId: axiosData.id });
-
-
       }
 
 
