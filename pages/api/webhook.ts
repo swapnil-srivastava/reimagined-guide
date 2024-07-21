@@ -35,7 +35,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       
       const emailMessage: Partial<postmark.Message> = {
         To: "contact@swapnilsrivastava.eu",
-        Subject: "Payment received",
+        Subject: "Payment received hurray",
         HtmlBody: `<strong>Hello</strong> Swapnil Srivastava, payment has been received through webhook`,
       };
       
