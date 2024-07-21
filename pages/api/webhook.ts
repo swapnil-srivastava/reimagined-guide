@@ -2,7 +2,7 @@
 
 import Stripe from 'stripe';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { sendEmail } from "../../services/email.service";
+import { sendServerEmail } from "../../services/email.service";
 import * as postmark from "postmark";
 
 const handler = async (
@@ -13,11 +13,7 @@ const handler = async (
 
   const webhookSecret: string = process.env.STRIPE_WEBHOOK_SECRET;
 
-  const emailMessage: Partial<postmark.Message> = {
-    To: "contact@swapnilsrivastava.eu",
-    Subject: "Payment received hurray",
-    HtmlBody: `<strong>Hello</strong> Swapnil Srivastava, payment has been received through`,
-  };
+
   
 
   if (req.method === 'POST') {
@@ -30,8 +26,7 @@ const handler = async (
       event = stripe.webhooks.constructEvent(body, sig, webhookSecret);
     } catch (err) {
       // On error, log and return the error message
-      // console.error(`Webhook signature verification failed: ${err.message}`);
-      console.log(`❌ Error message: ${err.message}`);
+      console.log(`❌ Webhook signature verification failed: ${err.message}`);
       res.status(400).send(`Webhook Error: ${err.message}`);
       return;
     }
@@ -57,8 +52,14 @@ const handler = async (
     if (event.type === 'payment_intent.succeeded') {
       const stripeObject: Stripe.PaymentIntent = event.data
         .object as Stripe.PaymentIntent;
+
+        const emailMessage: Partial<postmark.Message> = {
+          To: "contact@swapnilsrivastava.eu",
+          Subject: "Payment received hurray - payment_intent.succeeded",
+          HtmlBody: `<strong>Hello</strong> Swapnil Srivastava, payment has been received through webhook`,
+        };
       
-        sendEmail(emailMessage);
+        sendServerEmail(emailMessage);
 
       console.log(`💰 PaymentIntent status: ${stripeObject.status}`);
     } else if (event.type === 'charge.succeeded') {
