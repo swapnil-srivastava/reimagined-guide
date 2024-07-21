@@ -2,7 +2,6 @@
 
 import Stripe from 'stripe';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { sendServerEmail } from "../../services/email.service";
 import * as postmark from "postmark";
 
 const handler = async (
@@ -50,19 +49,17 @@ const handler = async (
       const stripeObject: Stripe.PaymentIntent = event.data
         .object as Stripe.PaymentIntent;
 
-        const response = await postMarkClient.sendEmail({
-          From: process.env.EMAIL,
-          To: "contact@swapnilsrivastava.eu",
-          Subject: "Payment received hurray - payment_intent.succeeded",
-          HtmlBody: `<strong>Hello</strong> Swapnil Srivastava, payment has been received through webhook`,
-          TextBody: "Hello from Postmark!",
-          MessageStream: "outbound",
-        });
+      const response = await postMarkClient.sendEmail({
+        From: process.env.EMAIL,
+        To: "contact@swapnilsrivastava.eu",
+        Subject: "Payment received hurray - payment_intent.succeeded",
+        HtmlBody: `<strong>Hello</strong> Swapnil Srivastava, payment has been received through webhook`,
+        TextBody: "Hello from Postmark!",
+        MessageStream: "outbound",
+      });
 
-        console.log("response post email", response);
+      console.log("response post email", response);
       
-        // sendServerEmail(emailMessage);
-
       console.log(`💰 PaymentIntent status: ${stripeObject.status}`);
     } else if (event.type === 'charge.succeeded') {
       const charge = event.data.object as Stripe.Charge;

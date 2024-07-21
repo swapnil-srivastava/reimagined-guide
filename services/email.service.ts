@@ -24,25 +24,6 @@ export async function sendEmail(emailMessage: Partial<postmark.Message>) {
   }
 }
 
-export async function sendServerEmail(emailMessage: Partial<postmark.Message>) {
-  try {
-    const { data, status } = await axios.post("/api/sendemail", emailMessage, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.log("error server message : ", error.message);
-      return error.message;
-    } else {
-      console.log("unexpected error: ", error);
-      return "An unexpected error occurred";
-    }
-  }
-}
-
 export async function callNestSendEmail(emailMessage) {
   try {
     const { data, status } = await axios.post(
