@@ -5,6 +5,14 @@ import React from "react";
 import CheckoutButton from "../../components/CheckoutButton";
 
 const Pricing = () => {
+  const data = [
+    { listname: "Things to be mentioned from list" },
+    { listname: "Things to be mentioned" },
+    { listname: "Things to be mentioned" },
+    { listname: "Things to be mentioned" },
+    { listname: "Things to be mentioned" },
+
+  ]
   return (
     <div className="h-screen flex flex-col items-center gap-2 font-poppins mt-10">
         {/* Title */}
@@ -15,37 +23,26 @@ const Pricing = () => {
             {/* Pricing card 1 */}
             <div className="w-80 mx-10 p-10 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
               <div className="flex flex-col">
-                <div className="font-bold leading-loose">Freelancer</div>
+                <div className="font-bold leading-loose">Consultation</div>
                 <div className="font-thin text-xs leading-loose">The essentials to provide your best work for clients.</div>
-                <div className="text-4xl text-center leading-loose">$0</div>
+                <div className="text-4xl text-center leading-loose">$50</div>
                 <div className="text-center font-thin leading-loose">No Payment</div>
+
                 {/* button section */}
                 <div className="text-center font-thin flex items-center justify-center mb-3">
                     <CheckoutButton priceId={'price_1Pe47VRomQdDoc7IzPHbnYkn'}/>
                 </div>
               </div>
+
               <div className="flex flex-col leading-loose">
-                <div className="flex gap-2">
-                  <div><FontAwesomeIcon icon={faCheck} /></div>
-                  <div>Things to be mentioned</div>
-                </div>
-                <div className="flex gap-2">
-                  <div><FontAwesomeIcon icon={faCheck} /></div>
-                  <div>Things to be mentioned</div>
-                </div>
-                <div className="flex gap-2">
-                  <div><FontAwesomeIcon icon={faCheck} /></div>
-                  <div>Things to be mentioned</div>
-                </div>
-                <div className="flex gap-2">
-                  <div><FontAwesomeIcon icon={faCheck} /></div>
-                  <div>Things to be mentioned</div>
-                </div>
-                <div className="flex gap-2">
-                  <div><FontAwesomeIcon icon={faCheck} /></div>
-                  <div>Things to be mentioned</div>
-                </div>
+                {data.map(() => (
+                  <div className="flex gap-2">
+                    <div><FontAwesomeIcon icon={faCheck} /></div>
+                    <div>Things to be mentioned</div>
+                  </div>
+                ))}
               </div>
+              
             </div>
 
             {/* Pricing card 2 */}
