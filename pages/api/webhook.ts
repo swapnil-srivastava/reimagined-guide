@@ -1,97 +1,102 @@
 // pages/api/checkout.ts
-import type { NextApiRequest, NextApiResponse } from 'next';
+
 import Stripe from 'stripe';
+import { NextApiRequest, NextApiResponse } from 'next';
 import { sendEmail } from "../../services/email.service";
 import * as postmark from "postmark";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+const handler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> => {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+  const webhookSecret: string = process.env.STRIPE_WEBHOOK_SECRET;
+
+  const emailMessage: Partial<postmark.Message> = {
+    To: "contact@swapnilsrivastava.eu",
+    Subject: "Payment received hurray",
+    HtmlBody: `<strong>Hello</strong> Swapnil Srivastava, payment has been received through webhook`,
+  };
+  
+
+  if (req.method === 'POST') {
+    const sig = req.headers['stripe-signature'];
+
+    let event: Stripe.Event;
+
+    try {
+      const body = await buffer(req);
+      event = stripe.webhooks.constructEvent(body, sig, webhookSecret);
+    } catch (err) {
+      // On error, log and return the error message
+      // console.error(`Webhook signature verification failed: ${err.message}`);
+      console.log(`❌ Error message: ${err.message}`);
+      res.status(400).send(`Webhook Error: ${err.message}`);
+      return;
+    }
+
+    // Successfully constructed event
+    console.log('✅ Success:', event.id);
+
+    // Handle 'checkout.session.completed' logic here
+    if (event.type === 'checkout.session.completed') {
+      const session = event.data.object as Stripe.Checkout.Session;
+        
+      console.log("checkout session completed ===> ", session);
+    }
+
+    if (event.type === 'customer.subscription.updated') {
+      // Handle subscription update logic here
+    }
+
+    if (event.type === 'customer.subscription.deleted') {
+      // Handle subscription deletion logic here
+    }
+
+    // Cast event data to Stripe object
+    if (event.type === 'payment_intent.succeeded') {
+      const stripeObject: Stripe.PaymentIntent = event.data
+        .object as Stripe.PaymentIntent;
+      
+        sendEmail(emailMessage);
+
+      console.log(`💰 PaymentIntent status: ${stripeObject.status}`);
+    } else if (event.type === 'charge.succeeded') {
+      const charge = event.data.object as Stripe.Charge;
+      console.log(`💵 Charge id: ${charge.id}`);
+    } else {
+      console.warn(`🤷‍♀️ Unhandled event type: ${event.type}`);
+    }
+
+    // Return a response to acknowledge receipt of the event
+    res.json({received: true});
+  } else {
+    res.setHeader('Allow', 'POST');
+    res.status(405).end('Method Not Allowed');
+  }
+};
 
 export const config = {
-    api: {
-      bodyParser: false,
-    },
-};  
+  api: {
+    bodyParser: false,
+  },
+};
 
-function getRawBody(req: NextApiRequest): Promise<Buffer> {
-    return new Promise((resolve, reject) => {
-      const chunks: Buffer[] = [];
-      
-      req.on('data', (chunk: Buffer) => {
-        chunks.push(chunk);
-      });
-      
-      req.on('end', () => {
-        resolve(Buffer.concat(chunks));
-      });
-      
-      req.on('error', reject);
+const buffer = (req: NextApiRequest) => {
+  return new Promise<Buffer>((resolve, reject) => {
+    const chunks: Buffer[] = [];
+
+    req.on('data', (chunk: Buffer) => {
+      chunks.push(chunk);
     });
-}
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'POST') {
-      const buf = await getRawBody(req);
-      const sig = req.headers['stripe-signature'] as string;
-      
-      const emailMessage: Partial<postmark.Message> = {
-        To: "contact@swapnilsrivastava.eu",
-        Subject: "Webhook reached",
-        HtmlBody: `<strong>Hello</strong> Swapnil Srivastava, payment webhook has been received`,
-      };
-      
-      let event: Stripe.Event;
+    req.on('end', () => {
+      resolve(Buffer.concat(chunks));
+    });
 
-      sendEmail(emailMessage);
+    req.on('error', reject);
+  });
+};
 
-      try {
-        event = stripe.webhooks.constructEvent(buf, sig, process.env.STRIPE_WEBHOOK_SECRET!);
-      } catch (err: any) {
-        console.error(`Webhook signature verification failed: ${err.message}`);
-        return res.status(400).json({ message: 'Webhook Error' });
-      }
-  
-      // Handle 'checkout.session.completed' logic here
-      if (event.type === 'checkout.session.completed') {
-        const session = event.data.object as Stripe.Checkout.Session;
-        
-        console.log("checkout session completed ===> ", session);
-
-        const emailMessage: Partial<postmark.Message> = {
-          To: "contact@swapnilsrivastava.eu",
-          Subject: "Payment received hurray",
-          HtmlBody: `<strong>Hello</strong> Swapnil Srivastava, payment has been received through webhook`,
-        };
-        
-        const userId = session.metadata?.user_id;
-
-        sendEmail(emailMessage);
-  
-        // const { error } = await supabaseAdmin
-        //   .from('stripe_customers')
-        //   .upsert({ 
-        //     user_id: userId, 
-        //     stripe_customer_id: session.customer as string, 
-        //     plan_active: true, 
-        //     plan_expires: null 
-        //   });
-  
-        // if (error) {
-        //   console.error('Error updating stripe_customers:', error);
-        //   return res.status(500).json({ message: 'Internal Server Error' });
-        // }
-      }
-  
-      if (event.type === 'customer.subscription.updated') {
-        // Handle subscription update logic here
-      }
-  
-      if (event.type === 'customer.subscription.deleted') {
-        // Handle subscription deletion logic here
-      }
-  
-      return res.status(200).json({ message: 'success' });
-    } else {
-      res.setHeader('Allow', 'POST');
-      res.status(405).end('Method Not Allowed');
-    }
-}
+export default handler;
