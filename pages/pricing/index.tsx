@@ -121,7 +121,7 @@ const Pricing = () => {
                Unlock the expertise with a single investment - pay once, and your success is in good hands.
               </p>
               <div className="mt-10 flex items-center gap-x-4">
-                <h4 className="flex-none text-sm font-semibold leading-6 text-fun-blue-500 dark:text-blog-white">What's included</h4>
+                <h4 className="flex-none text-sm font-semibold leading-6 text-fun-blue-500 dark:text-blog-white">What&apos;s included</h4>
                 <div className="h-px flex-auto bg-gray-100" />
               </div>
               <ul
