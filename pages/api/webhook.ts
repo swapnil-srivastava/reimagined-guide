@@ -10,9 +10,7 @@ const handler = async (
   res: NextApiResponse
 ): Promise<void> => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-
   const webhookSecret: string = process.env.STRIPE_WEBHOOK_SECRET;
-
   const postMarkClient = new postmark.ServerClient(process.env.EMAIL_KEY);
 
   if (req.method === 'POST') {
