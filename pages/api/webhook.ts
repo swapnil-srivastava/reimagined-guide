@@ -13,8 +13,7 @@ const handler = async (
 
   const webhookSecret: string = process.env.STRIPE_WEBHOOK_SECRET;
 
-
-  
+  const postMarkClient = new postmark.ServerClient(process.env.EMAIL_KEY);
 
   if (req.method === 'POST') {
     const sig = req.headers['stripe-signature'];
@@ -53,13 +52,18 @@ const handler = async (
       const stripeObject: Stripe.PaymentIntent = event.data
         .object as Stripe.PaymentIntent;
 
-        const emailMessage: Partial<postmark.Message> = {
+        const response = await postMarkClient.sendEmail({
+          From: process.env.EMAIL,
           To: "contact@swapnilsrivastava.eu",
           Subject: "Payment received hurray - payment_intent.succeeded",
           HtmlBody: `<strong>Hello</strong> Swapnil Srivastava, payment has been received through webhook`,
-        };
+          TextBody: "Hello from Postmark!",
+          MessageStream: "outbound",
+        });
+
+        console.log("response post email", response);
       
-        sendServerEmail(emailMessage);
+        // sendServerEmail(emailMessage);
 
       console.log(`💰 PaymentIntent status: ${stripeObject.status}`);
     } else if (event.type === 'charge.succeeded') {
