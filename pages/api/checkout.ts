@@ -8,9 +8,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'POST') {
     try {
       const { priceId, email, userId } = req.body;
-
-      console.log("called the POST", priceId, email, userId);
-
       const session = await stripe.checkout.sessions.create({
         metadata: {
           user_id: userId,
@@ -27,7 +24,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         success_url: `${req.headers.origin}/success`,
         cancel_url: `${req.headers.origin}/cancel`,
       });
-
       res.status(200).json({ id: session.id });
     } catch (error: any) {
       console.error("Error creating checkout session:", error);
