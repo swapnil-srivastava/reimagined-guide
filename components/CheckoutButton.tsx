@@ -7,7 +7,7 @@ import axios from "axios";
 // supabase instance in the app
 import { supaClient } from "../supa-client";
 
-const CheckoutButton = ({ priceId }) => {
+const CheckoutButton = ({ priceId, text = "Let\'s get started" }) => {
     const handleCheckout = async() => {
         const { data } = await supaClient.auth.getUser();
 
@@ -46,7 +46,7 @@ const CheckoutButton = ({ priceId }) => {
             dark:text-blog-black"
             onClick={() => handleCheckout()}
         >
-            {"Let\'s get started"}
+            {text}
         </button>
       </>
     );
