@@ -16,7 +16,7 @@ const handler = async (
   const emailMessage: Partial<postmark.Message> = {
     To: "contact@swapnilsrivastava.eu",
     Subject: "Payment received hurray",
-    HtmlBody: `<strong>Hello</strong> Swapnil Srivastava, payment has been received through webhook`,
+    HtmlBody: `<strong>Hello</strong> Swapnil Srivastava, payment has been received through`,
   };
   
 
@@ -42,7 +42,6 @@ const handler = async (
     // Handle 'checkout.session.completed' logic here
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object as Stripe.Checkout.Session;
-        
       console.log("checkout session completed ===> ", session);
     }
 
