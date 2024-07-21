@@ -7,7 +7,7 @@ import axios from "axios";
 // supabase instance in the app
 import { supaClient } from "../supa-client";
 
-const CheckoutButton = ({  }) => {
+const CheckoutButton = ({ priceId }) => {
     const handleCheckout = async() => {
         const { data } = await supaClient.auth.getUser();
 
@@ -21,7 +21,7 @@ const CheckoutButton = ({  }) => {
 
         const { data: axiosData, status } = await axios.post(
             "/api/checkout",
-            { priceId: 'price_1Pe47VRomQdDoc7IzPHbnYkn', userId: data.user?.id, email: data.user?.email },
+            { priceId: priceId, userId: data.user?.id, email: data.user?.email },
             {
               headers: {
                 "Content-Type": "application/json",
