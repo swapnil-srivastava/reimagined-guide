@@ -5,10 +5,10 @@ import Link from 'next/link';
 function Success() {
     return (
         <main className='flex flex-col gap-y-10 items-center justify-center'>
-          <h1 className="dark:text-blog-black text-blog-white">Hurray ... </h1>
+          <h1 className="text-blog-black dark:text-blog-white">Hurray ... </h1>
           <iframe src="https://giphy.com/embed/3orif9xIMPE7NXflV6"             
-            width="480"
-            height="362" frameBorder="0" 
+            width="500"
+            height="500" frameBorder="0" 
             allowFullScreen></iframe>
           <Link href="/" legacyBehavior>
             <button className="
