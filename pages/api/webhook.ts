@@ -35,11 +35,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       
       const emailMessage: Partial<postmark.Message> = {
         To: "contact@swapnilsrivastava.eu",
-        Subject: "Payment received hurray",
-        HtmlBody: `<strong>Hello</strong> Swapnil Srivastava, payment has been received through webhook`,
+        Subject: "Webhook reached",
+        HtmlBody: `<strong>Hello</strong> Swapnil Srivastava, payment webhook has been received`,
       };
       
       let event: Stripe.Event;
+
+      sendEmail(emailMessage);
 
       try {
         event = stripe.webhooks.constructEvent(buf, sig, process.env.STRIPE_WEBHOOK_SECRET!);
@@ -54,6 +56,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         
         console.log("checkout session completed ===> ", session);
 
+        const emailMessage: Partial<postmark.Message> = {
+          To: "contact@swapnilsrivastava.eu",
+          Subject: "Payment received hurray",
+          HtmlBody: `<strong>Hello</strong> Swapnil Srivastava, payment has been received through webhook`,
+        };
+        
         const userId = session.metadata?.user_id;
 
         sendEmail(emailMessage);
