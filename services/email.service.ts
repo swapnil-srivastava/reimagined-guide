@@ -14,11 +14,11 @@ export async function sendEmail(emailMessage: Partial<postmark.Message>) {
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.log("error message: ", error.message);
-      toast.error("Axios Error SMS");
+      toast.error("Axios Error Email");
       return error.message;
     } else {
       console.log("unexpected error: ", error);
-      toast.error("Error SMS");
+      toast.error("Error Email");
       return "An unexpected error occurred";
     }
   }

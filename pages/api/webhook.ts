@@ -1,6 +1,8 @@
 // pages/api/checkout.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 import Stripe from 'stripe';
+import { sendEmail } from "../../services/email.service";
+import * as postmark from "postmark";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -31,6 +33,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const buf = await getRawBody(req);
       const sig = req.headers['stripe-signature'] as string;
       
+      const emailMessage: Partial<postmark.Message> = {
+        To: "contact@swapnilsrivastava.eu",
+        Subject: "Payment received",
+        HtmlBody: `<strong>Hello</strong> Swapnil Srivastava, payment has been received through webhook`,
+      };
+      
       let event: Stripe.Event;
 
       try {
@@ -47,6 +55,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         console.log("checkout session completed ===> ", session);
 
         const userId = session.metadata?.user_id;
+
+        sendEmail(emailMessage);
   
         // const { error } = await supabaseAdmin
         //   .from('stripe_customers')
