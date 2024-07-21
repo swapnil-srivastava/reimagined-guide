@@ -12,6 +12,7 @@ export async function POST(request: Request) {
                 user_id: userId,
             },
             customer_email: email,
+            payment_method_types: ['card'],
             line_items: [
                 {
                     // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
