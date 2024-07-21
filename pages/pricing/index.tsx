@@ -8,7 +8,7 @@ const Pricing = () => {
   return (
     <div className="h-screen flex flex-col items-center gap-2 font-poppins mt-10">
         {/* Title */}
-        <div className="text-5xl dark:text-blog-white text-center">Choose the right plan which is best for You!</div>
+        <div className="text-5xl dark:text-blog-white text-center">Choose the right package which is best for you!</div>
 
         {/* Pricing cards */}
         <div className="flex lg:flex-row flex-col gap-5 m-10">
@@ -21,7 +21,7 @@ const Pricing = () => {
                 <div className="text-center font-thin leading-loose">No Payment</div>
                 {/* button section */}
                 <div className="text-center font-thin flex items-center justify-center mb-3">
-                    <CheckoutButton />
+                    <CheckoutButton priceId={'price_1Pe47VRomQdDoc7IzPHbnYkn'}/>
                 </div>
               </div>
               <div className="flex flex-col leading-loose">
@@ -198,7 +198,8 @@ const Pricing = () => {
             </div>
           </div>
         </div>
-    </div>
+
+      </div>
     </div>
   );
 };
