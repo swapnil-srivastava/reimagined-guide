@@ -4,7 +4,7 @@ import Link from 'next/link';
 function Cancel() {
     return (
         <main className='flex flex-col gap-y-10 items-center justify-center'>
-          <h1>Cancelled</h1>
+          <h1 className="dark:text-blog-black text-blog-white">Cancelled</h1>
           <iframe src="https://giphy.com/embed/xT5LMFfQQJtiKQ2gCs"             
             width="480"
             height="362" frameBorder="0" 
