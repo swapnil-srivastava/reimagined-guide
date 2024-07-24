@@ -119,7 +119,13 @@ export default function Home(props) {
 
       {/* Text before list of technolgies */}
       <div className="flex justify-center text-center bg-blog-white mt-4 pt-4 [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
-          <p className="font-poppins text-xl font-thin">TECHNOLOGIES ... WHICH BUILD MY CHARACTER</p>
+          <p className="font-poppins text-xl font-thin">
+          <FormattedMessage
+                id="main_tagline"
+                description="the tagline on above the horizontal scroll" // Description should be a string literal
+                defaultMessage="TECHNOLOGIES ... WHICH BUILD MY CHARACTER" // Message should be a string literal
+              />
+          </p>
       </div>
 
       {/* Technolgies Forward Linear Animation*/}
@@ -134,8 +140,20 @@ export default function Home(props) {
 
       {/* Section before blog post */}
       <div className="flex flex-col justify-center items-center h-screen text-center dark:text-blog-white ">
-        <h1 className="lg:text-7xl text-5xl font-poppins">WRITE .. CODE .. POST .. SLEEP .. REPEAT</h1>
-        <p className="lg:text-3xl text-5xl font-thin">Writing the article ... coding the code ... posting the article ... finally sleeping ... and the cycle repeats</p>
+        <h1 className="lg:text-7xl text-5xl font-poppins">
+          <FormattedMessage
+            id="secondary_tagline"
+            description="Secondary tagline on mainpage" // Description should be a string literal
+            defaultMessage="WRITE .. CODE .. POST .. SLEEP .. REPEAT" // Message should be a string literal
+          />
+        </h1>
+        <p className="lg:text-3xl text-5xl font-thin">
+          <FormattedMessage
+            id="secondary_tagline_description"
+            description="Secondary tagline description on mainpage" // Description should be a string literal
+            defaultMessage="Writing the article ... coding the code ... posting the article ... finally sleeping ... and the cycle repeats" // Message should be a string literal
+          />  
+        </p>
       </div>
 
       {/* Section before blog post */}
@@ -144,86 +162,272 @@ export default function Home(props) {
         {/* Horizontal Text-1 Linear */}
         <div className="quote-wrap gap-1">
           <div className="quote-section gap-1 animate-infinite-scroll">
-            <div className="uppercase font-poppins">Crack Debugger</div>
-            <div className="uppercase font-poppins text-stroke-outline">Crack Debugger</div>
+            <div className="uppercase font-poppins">
+              <FormattedMessage
+                id="horizatal-one-tag-one-solid"
+                description="Horizontal Text-1 Linear one" // Description should be a string literal
+                defaultMessage="Crack Debugger" // Message should be a string literal
+              />  
+            </div>
+            <div className="uppercase font-poppins text-stroke-outline">              
+              <FormattedMessage
+                id="horizatal-one-tag-two-outline"
+                description="Horizontal Text-1 Linear two" // Description should be a string literal
+                defaultMessage="Crack Debugger" // Message should be a string literal
+              />
+            </div>
           </div>
           <div className="quote-section gap-1 animate-infinite-scroll">
-            <div className="uppercase font-poppins">Crack Debugger</div>
-            <div className="uppercase font-poppins text-stroke-outline">Crack Debugger</div>
+            <div className="uppercase font-poppins">
+              <FormattedMessage
+                id="horizatal-one-tag-three-solid"
+                description="Horizontal Text-1 Linear three" // Description should be a string literal
+                defaultMessage="Crack Debugger" // Message should be a string literal
+              />
+            </div>
+            <div className="uppercase font-poppins text-stroke-outline">
+              <FormattedMessage
+                id="horizatal-one-tag-four-outline"
+                description="Horizontal Text-1 Linear four" // Description should be a string literal
+                defaultMessage="Crack Debugger" // Message should be a string literal
+              />
+            </div>
           </div>
           <div className="quote-section gap-1 animate-infinite-scroll">
-            <div className="uppercase font-poppins">Crack Debugger</div>
-            <div className="uppercase font-poppins text-stroke-outline">Crack Debugger</div>
+            <div className="uppercase font-poppins">
+            <FormattedMessage
+                id="horizatal-one-tag-five-solid"
+                description="Horizontal Text-1 Linear five" // Description should be a string literal
+                defaultMessage="Crack Debugger" // Message should be a string literal
+              />
+            </div>
+            <div className="uppercase font-poppins text-stroke-outline">
+            <FormattedMessage
+                id="horizatal-one-tag-six-outline"
+                description="Horizontal Text-1 Linear six" // Description should be a string literal
+                defaultMessage="Crack Debugger" // Message should be a string literal
+              />
+            </div>
           </div>
         </div>
 
         {/* Horizontal Text-2 Linear */}
         <div className="quote-wrap gap-1">
           <div className="quote-section gap-1 animate-infinite-reverse">
-            <div className="uppercase font-poppins">Innovate</div>
-            <div className="uppercase font-poppins text-stroke-outline">Innovate</div>
+            <div className="uppercase font-poppins">
+              <FormattedMessage
+                id="horizatal-two-tag-one-solid"
+                description="Horizontal Text-2 Linear one" // Description should be a string literal
+                defaultMessage="Innovate" // Message should be a string literal
+              />  
+            </div>
+            <div className="uppercase font-poppins text-stroke-outline">
+              <FormattedMessage
+                id="horizatal-two-tag-two-outline"
+                description="Horizontal Text-2 Linear two" // Description should be a string literal
+                defaultMessage="Innovate" // Message should be a string literal
+              />
+            </div>
           </div>
           <div className="quote-section gap-1 animate-infinite-reverse">
-            <div className="uppercase font-poppins">Innovate</div>
-            <div className="uppercase font-poppins text-stroke-outline">Innovate</div>
+            <div className="uppercase font-poppins">
+              <FormattedMessage
+                id="horizatal-two-tag-three-solid"
+                description="Horizontal Text-2 Linear three" // Description should be a string literal
+                defaultMessage="Innovate" // Message should be a string literal
+              />
+            </div>
+            <div className="uppercase font-poppins text-stroke-outline">
+              <FormattedMessage
+                id="horizatal-two-tag-four-outline"
+                description="Horizontal Text-2 Linear four" // Description should be a string literal
+                defaultMessage="Innovate" // Message should be a string literal
+              />
+            </div>
           </div>
           <div className="quote-section gap-1 animate-infinite-reverse">
-            <div className="uppercase font-poppins">Innovate</div>
-            <div className="uppercase font-poppins text-stroke-outline">Innovate</div>
+            <div className="uppercase font-poppins">
+            <FormattedMessage
+                id="horizatal-two-tag-five-solid"
+                description="Horizontal Text-2 Linear five" // Description should be a string literal
+                defaultMessage="Innovate" // Message should be a string literal
+              />
+            </div>
+            <div className="uppercase font-poppins text-stroke-outline">
+              <FormattedMessage
+                id="horizatal-two-tag-six-outline"
+                description="Horizontal Text-2 Linear six" // Description should be a string literal
+                defaultMessage="Innovate" // Message should be a string literal
+              />
+            </div>
           </div>
         </div>
 
         {/* Horizontal Text-3 Linear */}
         <div className="quote-wrap gap-1">
           <div className="quote-section gap-1 animate-infinite-scroll">
-            <div className="uppercase font-poppins">Persistance</div>
-            <div className="uppercase font-poppins text-stroke-outline">Persistance</div>
+            <div className="uppercase font-poppins">
+              <FormattedMessage
+                id="horizatal-three-tag-one-solid"
+                description="Horizontal Text-3 Linear one" // Description should be a string literal
+                defaultMessage="Persistance" // Message should be a string literal
+              />
+            </div>
+            <div className="uppercase font-poppins text-stroke-outline">
+              <FormattedMessage
+                id="horizatal-three-tag-two-outline"
+                description="Horizontal Text-3 Linear two" // Description should be a string literal
+                defaultMessage="Persistance" // Message should be a string literal
+              />
+            </div>
           </div>
           <div className="quote-section gap-1 animate-infinite-scroll">
-            <div className="uppercase font-poppins">Persistance</div>
-            <div className="uppercase font-poppins text-stroke-outline">Persistance</div>
+            <div className="uppercase font-poppins">
+              <FormattedMessage
+                id="horizatal-three-tag-three-solid"
+                description="Horizontal Text-3 Linear three" // Description should be a string literal
+                defaultMessage="Persistance" // Message should be a string literal
+              />
+            </div>
+            <div className="uppercase font-poppins text-stroke-outline">
+              <FormattedMessage
+                id="horizatal-three-tag-four-outline"
+                description="Horizontal Text-3 Linear four" // Description should be a string literal
+                defaultMessage="Persistance" // Message should be a string literal
+              />
+            </div>
           </div>
           <div className="quote-section gap-1 animate-infinite-scroll">
-            <div className="uppercase font-poppins">Persistance</div>
-            <div className="uppercase font-poppins text-stroke-outline">Persistance</div>
+            <div className="uppercase font-poppins">
+              <FormattedMessage
+                id="horizatal-three-tag-five-solid"
+                description="Horizontal Text-3 Linear five" // Description should be a string literal
+                defaultMessage="Persistance" // Message should be a string literal
+              />
+            </div>
+            <div className="uppercase font-poppins text-stroke-outline">
+              <FormattedMessage
+                id="horizatal-three-tag-six-outline"
+                description="Horizontal Text-3 Linear six" // Description should be a string literal
+                defaultMessage="Persistance" // Message should be a string literal
+              />
+            </div>
           </div>
         </div>
 
         {/* Horizontal Text-4 Linear */}
         <div className="quote-wrap gap-1">
           <div className="quote-section gap-1 animate-infinite-reverse">
-            <div className="uppercase font-poppins">Hardwork</div>
-            <div className="uppercase font-poppins text-stroke-outline">Hardwork</div>
+            <div className="uppercase font-poppins">              
+              <FormattedMessage
+                id="horizatal-four-tag-one-solid"
+                description="Horizontal Text-4 Linear one" // Description should be a string literal
+                defaultMessage="Hardwork" // Message should be a string literal
+              />
+            </div>
+            <div className="uppercase font-poppins text-stroke-outline">
+              <FormattedMessage
+                id="horizatal-four-tag-two-outline"
+                description="Horizontal Text-4 Linear two" // Description should be a string literal
+                defaultMessage="Hardwork" // Message should be a string literal
+              />
+            </div>
           </div>
           <div className="quote-section gap-1 animate-infinite-reverse">
-            <div className="uppercase font-poppins">Hardwork</div>
-            <div className="uppercase font-poppins text-stroke-outline">Hardwork</div>
+            <div className="uppercase font-poppins">
+              <FormattedMessage
+                id="horizatal-four-tag-three-solid"
+                description="Horizontal Text-4 Linear three" // Description should be a string literal
+                defaultMessage="Hardwork" // Message should be a string literal
+              />
+            </div>
+            <div className="uppercase font-poppins text-stroke-outline">
+              <FormattedMessage
+                id="horizatal-four-tag-four-outline"
+                description="Horizontal Text-4 Linear four" // Description should be a string literal
+                defaultMessage="Hardwork" // Message should be a string literal
+              />
+            </div>
           </div>
           <div className="quote-section gap-1 animate-infinite-reverse">
-            <div className="uppercase font-poppins">Hardwork</div>
-            <div className="uppercase font-poppins text-stroke-outline">Hardwork</div>
+            <div className="uppercase font-poppins">
+              <FormattedMessage
+                id="horizatal-four-tag-five-solid"
+                description="Horizontal Text-4 Linear five" // Description should be a string literal
+                defaultMessage="Hardwork" // Message should be a string literal
+              />
+            </div>
+            <div className="uppercase font-poppins text-stroke-outline">
+              <FormattedMessage
+                id="horizatal-four-tag-six-outline"
+                description="Horizontal Text-4 Linear six" // Description should be a string literal
+                defaultMessage="Hardwork" // Message should be a string literal
+              />
+            </div>
           </div>
         </div>
 
         {/* Horizontal Text-5 Linear */}
         <div className="quote-wrap gap-1">
           <div className="quote-section gap-1 animate-infinite-scroll">
-            <div className="uppercase font-poppins">Leader</div>
-            <div className="uppercase font-poppins text-stroke-outline">Leader</div>
+            <div className="uppercase font-poppins">
+              <FormattedMessage
+                id="horizatal-five-tag-one-solid"
+                description="Horizontal Text-5 Linear one" // Description should be a string literal
+                defaultMessage="Leader" // Message should be a string literal
+              />
+            </div>
+            <div className="uppercase font-poppins text-stroke-outline">
+              <FormattedMessage
+                id="horizatal-five-tag-two-outline"
+                description="Horizontal Text-5 Linear two" // Description should be a string literal
+                defaultMessage="Leader" // Message should be a string literal
+              />
+            </div>
           </div>
           <div className="quote-section gap-1 animate-infinite-scroll">
-            <div className="uppercase font-poppins">Leader</div>
-            <div className="uppercase font-poppins text-stroke-outline">Leader</div>
+            <div className="uppercase font-poppins">
+              <FormattedMessage
+                id="horizatal-five-tag-three-solid"
+                description="Horizontal Text-5 Linear three" // Description should be a string literal
+                defaultMessage="Leader" // Message should be a string literal
+              />
+            </div>
+            <div className="uppercase font-poppins text-stroke-outline">
+              <FormattedMessage
+                id="horizatal-five-tag-four-outline"
+                description="Horizontal Text-5 Linear four" // Description should be a string literal
+                defaultMessage="Leader" // Message should be a string literal
+              />
+            </div>
           </div>
           <div className="quote-section gap-1 animate-infinite-scroll">
-            <div className="uppercase font-poppins">Leader</div>
-            <div className="uppercase font-poppins text-stroke-outline">Leader</div>
+            <div className="uppercase font-poppins">
+              <FormattedMessage
+                id="horizatal-five-tag-five-solid"
+                description="Horizontal Text-5 Linear five" // Description should be a string literal
+                defaultMessage="Leader" // Message should be a string literal
+              />
+            </div>
+            <div className="uppercase font-poppins text-stroke-outline">
+              <FormattedMessage
+                id="horizatal-five-tag-six-solid"
+                description="Horizontal Text-5 Linear six" // Description should be a string literal
+                defaultMessage="Leader" // Message should be a string literal
+              />
+            </div>
           </div>
         </div>
 
       </div>
       
-      <div className="font-poppins text-5xl flex mt-10 justify-center text-center dark:text-blog-white">Unveiling the Secrets: Dive into my latest article</div>
+      <div className="font-poppins text-5xl flex mt-10 justify-center text-center dark:text-blog-white">
+        <FormattedMessage
+          id="main-title-post"
+          description="main page title for before the post" // Description should be a string literal
+          defaultMessage="Unveiling the Secrets: Dive into my latest article" // Message should be a string literal
+        />
+      </div>
 
       {/* Post Feed  */}
       <div className={`h-screen flex justify-center ${posts?.length < 3 ? "" : "lg:ml-96"}`}>
