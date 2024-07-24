@@ -8,7 +8,7 @@
   "card_mins_read": [
     {
       "type": 0,
-      "value": " mins read"
+      "value": "min read"
     }
   ],
   "card_unpublished": [
@@ -20,7 +20,7 @@
   "card_words": [
     {
       "type": 0,
-      "value": " words"
+      "value": "words"
     }
   ],
   "cookies_accept_button": [
@@ -59,22 +59,220 @@
       "value": "End of articles"
     }
   ],
+  "horizatal-five-tag-five-solid": [
+    {
+      "type": 0,
+      "value": "Leader"
+    }
+  ],
+  "horizatal-five-tag-four-outline": [
+    {
+      "type": 0,
+      "value": "Leader"
+    }
+  ],
+  "horizatal-five-tag-one-solid": [
+    {
+      "type": 0,
+      "value": "Leader"
+    }
+  ],
+  "horizatal-five-tag-six-solid": [
+    {
+      "type": 0,
+      "value": "Leader"
+    }
+  ],
+  "horizatal-five-tag-three-solid": [
+    {
+      "type": 0,
+      "value": "Leader"
+    }
+  ],
+  "horizatal-five-tag-two-outline": [
+    {
+      "type": 0,
+      "value": "Leader"
+    }
+  ],
+  "horizatal-four-tag-five-solid": [
+    {
+      "type": 0,
+      "value": "Hardwork"
+    }
+  ],
+  "horizatal-four-tag-four-outline": [
+    {
+      "type": 0,
+      "value": "Hardwork"
+    }
+  ],
+  "horizatal-four-tag-one-solid": [
+    {
+      "type": 0,
+      "value": "Hardwork"
+    }
+  ],
+  "horizatal-four-tag-six-outline": [
+    {
+      "type": 0,
+      "value": "Hardwork"
+    }
+  ],
+  "horizatal-four-tag-three-solid": [
+    {
+      "type": 0,
+      "value": "Hardwork"
+    }
+  ],
+  "horizatal-four-tag-two-outline": [
+    {
+      "type": 0,
+      "value": "Hardwork"
+    }
+  ],
+  "horizatal-one-tag-five-solid": [
+    {
+      "type": 0,
+      "value": "Crack Debugger"
+    }
+  ],
+  "horizatal-one-tag-four-outline": [
+    {
+      "type": 0,
+      "value": "Crack Debugger"
+    }
+  ],
+  "horizatal-one-tag-one-solid": [
+    {
+      "type": 0,
+      "value": "Crack Debugger"
+    }
+  ],
+  "horizatal-one-tag-six-outline": [
+    {
+      "type": 0,
+      "value": "Crack Debugger"
+    }
+  ],
+  "horizatal-one-tag-three-solid": [
+    {
+      "type": 0,
+      "value": "Crack Debugger"
+    }
+  ],
+  "horizatal-one-tag-two-outline": [
+    {
+      "type": 0,
+      "value": "Crack Debugger"
+    }
+  ],
+  "horizatal-three-tag-five-solid": [
+    {
+      "type": 0,
+      "value": "Persistance"
+    }
+  ],
+  "horizatal-three-tag-four-outline": [
+    {
+      "type": 0,
+      "value": "Persistance"
+    }
+  ],
+  "horizatal-three-tag-one-solid": [
+    {
+      "type": 0,
+      "value": "Persistance"
+    }
+  ],
+  "horizatal-three-tag-six-outline": [
+    {
+      "type": 0,
+      "value": "Persistance"
+    }
+  ],
+  "horizatal-three-tag-three-solid": [
+    {
+      "type": 0,
+      "value": "Persistance"
+    }
+  ],
+  "horizatal-three-tag-two-outline": [
+    {
+      "type": 0,
+      "value": "Persistance"
+    }
+  ],
+  "horizatal-two-tag-five-solid": [
+    {
+      "type": 0,
+      "value": "Innovate"
+    }
+  ],
+  "horizatal-two-tag-four-outline": [
+    {
+      "type": 0,
+      "value": "Innovate"
+    }
+  ],
+  "horizatal-two-tag-one-solid": [
+    {
+      "type": 0,
+      "value": "Innovate"
+    }
+  ],
+  "horizatal-two-tag-six-outline": [
+    {
+      "type": 0,
+      "value": "Innovate"
+    }
+  ],
+  "horizatal-two-tag-three-solid": [
+    {
+      "type": 0,
+      "value": "Innovate"
+    }
+  ],
+  "horizatal-two-tag-two-outline": [
+    {
+      "type": 0,
+      "value": "Innovate"
+    }
+  ],
   "load_more_button": [
     {
       "type": 0,
       "value": "Load More"
     }
   ],
-  "swapnil_architect": [
+  "main-title-post": [
     {
       "type": 0,
-      "value": "Architect"
+      "value": "Unveiling the Secrets: Dive into my latest article"
     }
   ],
-  "swapnil_architect_an": [
+  "main_tagline": [
     {
       "type": 0,
-      "value": "an"
+      "value": "TECHNOLOGIES ... WHICH BUILD MY CHARACTER"
+    }
+  ],
+  "posts_list_end": [
+    {
+      "type": 0,
+      "value": "No more articles"
+    }
+  ],
+  "secondary_tagline": [
+    {
+      "type": 0,
+      "value": "WRITE .. CODE .. POST .. SLEEP .. REPEAT"
+    }
+  ],
+  "secondary_tagline_description": [
+    {
+      "type": 0,
+      "value": "Writing the article ... coding the code ... posting the article ... finally sleeping ... and the cycle repeats"
     }
   ],
   "swapnil_architect_hello": [
