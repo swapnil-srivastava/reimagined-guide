@@ -11,7 +11,7 @@ import { supaClient } from "../supa-client";
 export default function Heart({ post, userId }) {
 
   // emotion_type TEXT, -- e.g., 'like', 'dislike', 'heart', 'clap'
-  async function toggleEmotion(postId: string, userId: string, emotionType: string = 'heart') {
+  async function toggleEmotion(postId: POST, userId: string, emotionType: string = 'heart') {
 
     console.log("postId, ", postId, "userId", userId, "emotionType", emotionType);
 
@@ -19,7 +19,7 @@ export default function Heart({ post, userId }) {
     const { data: existingEmotion } = await supaClient
       .from('emotions')
       .select('*')
-      .eq('post_id', postId)
+      .eq('post_id', postId.id)
       .eq('user_id', userId)
       .eq('emotion_type', emotionType);
 
@@ -30,7 +30,7 @@ export default function Heart({ post, userId }) {
       await supaClient
         .from('emotions')
         .delete()
-        .eq('post_id', postId)
+        .eq('post_id', postId.id)
         .eq('user_id', userId)
         .eq('emotion_type', emotionType);
 
@@ -39,7 +39,7 @@ export default function Heart({ post, userId }) {
       // Add emotion
       await supaClient
         .from('emotions')
-        .insert({ post_id: postId, user_id: userId, emotion_type: emotionType });
+        .insert({ post_id: postId.id, user_id: userId, emotion_type: emotionType });
       console.log("existing emotion else - insert");
     }
   
@@ -47,25 +47,25 @@ export default function Heart({ post, userId }) {
     const { count: likeCount } = await supaClient
       .from('emotions')
       .select('*', { count: 'exact' })
-      .eq('post_id', postId)
+      .eq('post_id', postId.id)
       .eq('emotion_type', 'like');
   
     const { count: dislikeCount } = await supaClient
       .from('emotions')
       .select('*', { count: 'exact' })
-      .eq('post_id', postId)
+      .eq('post_id', postId.id)
       .eq('emotion_type', 'dislike');
   
     const { count: heartCount } = await supaClient
       .from('emotions')
       .select('*', { count: 'exact' })
-      .eq('post_id', postId)
+      .eq('post_id', postId.id)
       .eq('emotion_type', 'heart');
   
     const { count: clapCount } = await supaClient
       .from('emotions')
       .select('*', { count: 'exact' })
-      .eq('post_id', postId)
+      .eq('post_id', postId.id)
       .eq('emotion_type', 'clap');
   
     await supaClient
