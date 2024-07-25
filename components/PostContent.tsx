@@ -211,7 +211,7 @@ export default function PostContent({
             }
           >
             {/* HEART BUTTON / REMOVE HEART BUTTON */}
-            <HeartButton postRef={post} />
+            <HeartButton post={post} userId={profile?.id}/>
           </AuthCheck>
 
           {/* LINKEDIN BUTTON */}
