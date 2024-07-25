@@ -20,6 +20,8 @@ export default function Heart({ post, userId }) {
       .eq('user_id', userId)
       .eq('emotion_type', emotionType)
       .single();
+
+    console.log("existing emotion", existingEmotion);
   
     if (existingEmotion) {
       // Remove emotion
@@ -29,11 +31,13 @@ export default function Heart({ post, userId }) {
         .eq('post_id', postId)
         .eq('user_id', userId)
         .eq('emotion_type', emotionType);
+      console.log("existing emotion if");
     } else {
       // Add emotion
       await supaClient
         .from('emotions')
         .insert({ post_id: postId, user_id: userId, emotion_type: emotionType });
+      console.log("existing emotion else");
     }
   
     // Update emotion counts
@@ -70,6 +74,8 @@ export default function Heart({ post, userId }) {
         clap_count: clapCount,
       })
       .eq('id', postId);
+
+      console.log("likeCount", likeCount, "dislikeCount", dislikeCount, "heartCount", heartCount, "clapCount", clapCount)
   
     return {
       like_count: likeCount,
