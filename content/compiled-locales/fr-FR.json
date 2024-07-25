@@ -1,4 +1,10 @@
 {
+  "auth-check-fallback": [
+    {
+      "type": 0,
+      "value": "Vous devez être connecté"
+    }
+  ],
   "card_live": [
     {
       "type": 0,
@@ -57,6 +63,18 @@
     {
       "type": 0,
       "value": "Fin de l'article"
+    }
+  ],
+  "heart-button-heart": [
+    {
+      "type": 0,
+      "value": "Cœur"
+    }
+  ],
+  "heart-button-remove": [
+    {
+      "type": 0,
+      "value": "Retirer"
     }
   ],
   "horizatal-five-tag-five-solid": [
@@ -255,6 +273,12 @@
     {
       "type": 0,
       "value": "TECHNOLOGIES ... QUI FORGENT MON CARACTÈRE"
+    }
+  ],
+  "post-content-auth-check-signup": [
+    {
+      "type": 0,
+      "value": "Inscription"
     }
   ],
   "posts_list_end": [

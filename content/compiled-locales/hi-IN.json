@@ -1,4 +1,10 @@
 {
+  "auth-check-fallback": [
+    {
+      "type": 0,
+      "value": "आपको साइन इन करना होगा"
+    }
+  ],
   "card_live": [
     {
       "type": 0,
@@ -57,6 +63,18 @@
     {
       "type": 0,
       "value": "ब्लॉग पोस्ट का अंत"
+    }
+  ],
+  "heart-button-heart": [
+    {
+      "type": 0,
+      "value": "दिल"
+    }
+  ],
+  "heart-button-remove": [
+    {
+      "type": 0,
+      "value": "निकालना"
     }
   ],
   "horizatal-five-tag-five-solid": [
@@ -255,6 +273,12 @@
     {
       "type": 0,
       "value": "प्रौद्योगिकियों ... जो मेरे चरित्र का निर्माण करता है"
+    }
+  ],
+  "post-content-auth-check-signup": [
+    {
+      "type": 0,
+      "value": "साइन अप करें"
     }
   ],
   "posts_list_end": [
