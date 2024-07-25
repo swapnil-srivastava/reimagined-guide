@@ -1,4 +1,10 @@
 {
+  "auth-check-fallback": [
+    {
+      "type": 0,
+      "value": "You must be signed in"
+    }
+  ],
   "card_live": [
     {
       "type": 0,
@@ -57,6 +63,18 @@
     {
       "type": 0,
       "value": "End of articles"
+    }
+  ],
+  "heart-button-heart": [
+    {
+      "type": 0,
+      "value": "Heart"
+    }
+  ],
+  "heart-button-remove": [
+    {
+      "type": 0,
+      "value": "Remove"
     }
   ],
   "horizatal-five-tag-five-solid": [
@@ -255,6 +273,12 @@
     {
       "type": 0,
       "value": "TECHNOLOGIES ... WHICH BUILD MY CHARACTER"
+    }
+  ],
+  "post-content-auth-check-signup": [
+    {
+      "type": 0,
+      "value": "Sign up"
     }
   ],
   "posts_list_end": [

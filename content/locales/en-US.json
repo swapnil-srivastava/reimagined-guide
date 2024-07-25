@@ -1,4 +1,5 @@
 {
+  "auth-check-fallback": "You must be signed in",
   "card_live": "Live",
   "card_mins_read": "min read",
   "card_unpublished": "Unpublished",
@@ -9,6 +10,8 @@
   "cookies_heading": "We are the Cookies !",
   "cookies_small_text": "Hello There ...",
   "end_of_articles": "End of articles",
+  "heart-button-heart": "Heart",
+  "heart-button-remove": "Remove",
   "horizatal-five-tag-five-solid": "Leader",
   "horizatal-five-tag-four-outline": "Leader",
   "horizatal-five-tag-one-solid": "Leader",
@@ -42,6 +45,7 @@
   "load_more_button": "Load More",
   "main-title-post": "Unveiling the Secrets: Dive into my latest article",
   "main_tagline": "TECHNOLOGIES ... WHICH BUILD MY CHARACTER",
+  "post-content-auth-check-signup": "Sign up",
   "posts_list_end": "No more articles",
   "secondary_tagline": "WRITE .. CODE .. POST .. SLEEP .. REPEAT",
   "secondary_tagline_description": "Writing the article ... coding the code ... posting the article ... finally sleeping ... and the cycle repeats",
