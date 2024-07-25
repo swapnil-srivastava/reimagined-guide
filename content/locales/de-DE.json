@@ -1,4 +1,5 @@
 {
+  "auth-check-fallback": "Du musst eingeloggt sein",
   "card_live": " Wörter",
   "card_mins_read": "min. lesen",
   "card_unpublished": "Unveröffentlicht",
@@ -9,6 +10,8 @@
   "cookies_heading": "Wir sind die Cookies!",
   "cookies_small_text": "Hallo da ...",
   "end_of_articles": "Ende der Artikel",
+  "heart-button-heart": "Herz",
+  "heart-button-remove": "Löschen",
   "horizatal-five-tag-five-solid": "Führer",
   "horizatal-five-tag-four-outline": "Führer",
   "horizatal-five-tag-one-solid": "Führer",
@@ -42,6 +45,7 @@
   "load_more_button": "Mehr laden",
   "main-title-post": "Die Geheimnisse enthüllen: Tauchen Sie ein in meinen neuesten Artikel",
   "main_tagline": "TECHNOLOGIEN ... DIE MEINEN CHARAKTER BILDEN",
+  "post-content-auth-check-signup": "Registrieren",
   "posts_list_end": "Keine Artikel mehr",
   "secondary_tagline": "Schreiben.. Code.. Posten.. Schlafen.. Wiederholen",
   "secondary_tagline_description": "Schreiben des Artikels ... Kodierung des Codes ... Beitrag des Artikels ... endlich schlafen ... und der Zyklus wiederholt sich",
