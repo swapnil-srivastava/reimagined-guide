@@ -12,14 +12,16 @@ export default function Heart({ post, userId }) {
 
   // emotion_type TEXT, -- e.g., 'like', 'dislike', 'heart', 'clap'
   async function toggleEmotion(postId: string, userId: string, emotionType: string = 'heart') {
+
+    console.log("postId, ", postId, "userId", userId, "emotionType", emotionType);
+
     // Check if the user has already expressed this emotion
     const { data: existingEmotion } = await supaClient
       .from('emotions')
       .select('*')
       .eq('post_id', postId)
       .eq('user_id', userId)
-      .eq('emotion_type', emotionType)
-      .single();
+      .eq('emotion_type', emotionType);
 
     console.log("existing emotion", existingEmotion);
   
@@ -31,13 +33,14 @@ export default function Heart({ post, userId }) {
         .eq('post_id', postId)
         .eq('user_id', userId)
         .eq('emotion_type', emotionType);
-      console.log("existing emotion if");
+
+      console.log("existing emotion if - delete");
     } else {
       // Add emotion
       await supaClient
         .from('emotions')
         .insert({ post_id: postId, user_id: userId, emotion_type: emotionType });
-      console.log("existing emotion else");
+      console.log("existing emotion else - insert");
     }
   
     // Update emotion counts
