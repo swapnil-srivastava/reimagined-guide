@@ -9,8 +9,9 @@ import {
   faFacebook,
   faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
-import { faPenToSquare, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faPenToSquare, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
+import { FormattedMessage } from "react-intl";
 
 // React Components
 import HeartButton from "./HeartButton";
@@ -197,26 +198,20 @@ export default function PostContent({
                                     focus:ring-offset-2
                                     font-semibold"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 stroke-1 hover:stroke-2"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <div className="ml-2 text-xs font-light">Sign Up</div>
+                      <FontAwesomeIcon icon={faHeart} />
+                    <div className="ml-2 text-xs font-light">
+                            <FormattedMessage id="post-content-auth-check-signup"
+                                description="text on heart button when not signed in" // Description should be a string literal
+                                defaultMessage="Sign up" // Message should be a string literal
+                                />
+                    </div>
                   </button>
                 </Link>
               </div>
             }
           >
             {/* HEART BUTTON / REMOVE HEART BUTTON */}
-            {/* <HeartButton postRef={postRef} /> */}
+            <HeartButton postRef={post} />
           </AuthCheck>
 
           {/* LINKEDIN BUTTON */}
@@ -254,8 +249,7 @@ export default function PostContent({
               <a
                 href={`https://twitter.com/intent/tweet?text=Hi%2C%20checkout%20this%20post%20&url=https://www.swapnilsrivastava.eu/${post?.username}/${post?.slug}&via=swapnil_sri&hashtags=reactjs,nextjs,blog`}
               >
-              <FontAwesomeIcon icon={faXTwitter} size="lg"
-              style={{ color: "#00acee" }}/>
+              <FontAwesomeIcon icon={faXTwitter} size="lg" style={{ color: "#00acee" }}/>
               </a>
             </button>
           </BasicTooltip>

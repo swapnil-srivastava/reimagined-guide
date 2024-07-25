@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { FormattedMessage } from "react-intl";
+import { faHeart, faPenToSquare, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import BasicTooltip from "./Tooltip";
 
 // Allows user to heart or like a post
 export default function Heart({ postRef }) {
   // Listen to heart document for currently logged in user
-  const heartRef = postRef.collection("hearts").doc();
+  // const heartRef = postRef.collection("hearts").doc();
 
   const [docRefState, setDocRefState] = useState();
 
@@ -49,7 +51,12 @@ export default function Heart({ postRef }) {
               d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
             />
           </svg>
-          <div className="ml-2 text-sm md:text-md font-light">Remove</div>
+          <div className="ml-2 text-sm md:text-md font-light">
+            <FormattedMessage id="heart-button-remove"
+              description="text on heart button to remove" // Description should be a string literal
+              defaultMessage="Remove" // Message should be a string literal
+              />
+          </div>
         </button>
       </div>
     </BasicTooltip>
@@ -57,7 +64,7 @@ export default function Heart({ postRef }) {
     <BasicTooltip title="Do you like the post?" placement="bottom">
       <div className="flex items-center">
         <button
-          className="bg-hit-pink-500 dark:text-blog-black px-3 py-2 mx-1 
+         className="bg-hit-pink-500 dark:text-blog-black px-3 py-2 mx-1 
                           rounded-3xl flex items-center justify-center 
                           transition-filter duration-500 hover:filter hover:brightness-125
                           focus:outline-none focus:ring-2 
@@ -78,7 +85,12 @@ export default function Heart({ postRef }) {
               clipRule="evenodd"
             />
           </svg>
-          <div className="ml-2 text-sm md:text-md font-light">Heart</div>
+          <div className="ml-2 text-sm md:text-md font-light">
+            <FormattedMessage id="heart-button-heart"
+              description="text on heart button to heart" // Description should be a string literal
+              defaultMessage="Heart" // Message should be a string literal
+              />
+          </div>
         </button>
       </div>
     </BasicTooltip>
