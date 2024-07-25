@@ -8,7 +8,7 @@
   "card_mins_read": [
     {
       "type": 0,
-      "value": "lecture min."
+      "value": "lecture min"
     }
   ],
   "card_unpublished": [
@@ -20,7 +20,7 @@
   "card_words": [
     {
       "type": 0,
-      "value": " mots"
+      "value": "mots"
     }
   ],
   "cookies_accept_button": [
@@ -59,22 +59,220 @@
       "value": "Fin de l'article"
     }
   ],
+  "horizatal-five-tag-five-solid": [
+    {
+      "type": 0,
+      "value": "Leader"
+    }
+  ],
+  "horizatal-five-tag-four-outline": [
+    {
+      "type": 0,
+      "value": "Leader"
+    }
+  ],
+  "horizatal-five-tag-one-solid": [
+    {
+      "type": 0,
+      "value": "Leader"
+    }
+  ],
+  "horizatal-five-tag-six-solid": [
+    {
+      "type": 0,
+      "value": "Leader"
+    }
+  ],
+  "horizatal-five-tag-three-solid": [
+    {
+      "type": 0,
+      "value": "Leader"
+    }
+  ],
+  "horizatal-five-tag-two-outline": [
+    {
+      "type": 0,
+      "value": "Leader"
+    }
+  ],
+  "horizatal-four-tag-five-solid": [
+    {
+      "type": 0,
+      "value": "Travailleur acharné"
+    }
+  ],
+  "horizatal-four-tag-four-outline": [
+    {
+      "type": 0,
+      "value": "Travailleur acharné"
+    }
+  ],
+  "horizatal-four-tag-one-solid": [
+    {
+      "type": 0,
+      "value": "Travailleur acharné"
+    }
+  ],
+  "horizatal-four-tag-six-outline": [
+    {
+      "type": 0,
+      "value": "Travailleur acharné"
+    }
+  ],
+  "horizatal-four-tag-three-solid": [
+    {
+      "type": 0,
+      "value": "Travailleur acharné"
+    }
+  ],
+  "horizatal-four-tag-two-outline": [
+    {
+      "type": 0,
+      "value": "Travailleur acharné"
+    }
+  ],
+  "horizatal-one-tag-five-solid": [
+    {
+      "type": 0,
+      "value": "Débogueur de craquage"
+    }
+  ],
+  "horizatal-one-tag-four-outline": [
+    {
+      "type": 0,
+      "value": "Débogueur de craquage"
+    }
+  ],
+  "horizatal-one-tag-one-solid": [
+    {
+      "type": 0,
+      "value": "Débogueur de craquage"
+    }
+  ],
+  "horizatal-one-tag-six-outline": [
+    {
+      "type": 0,
+      "value": "Débogueur de craquage"
+    }
+  ],
+  "horizatal-one-tag-three-solid": [
+    {
+      "type": 0,
+      "value": "Débogueur de craquage"
+    }
+  ],
+  "horizatal-one-tag-two-outline": [
+    {
+      "type": 0,
+      "value": "Débogueur de craquage"
+    }
+  ],
+  "horizatal-three-tag-five-solid": [
+    {
+      "type": 0,
+      "value": "Persévérance"
+    }
+  ],
+  "horizatal-three-tag-four-outline": [
+    {
+      "type": 0,
+      "value": "Persévérance"
+    }
+  ],
+  "horizatal-three-tag-one-solid": [
+    {
+      "type": 0,
+      "value": "Persévérance"
+    }
+  ],
+  "horizatal-three-tag-six-outline": [
+    {
+      "type": 0,
+      "value": "Persévérance"
+    }
+  ],
+  "horizatal-three-tag-three-solid": [
+    {
+      "type": 0,
+      "value": "Persévérance"
+    }
+  ],
+  "horizatal-three-tag-two-outline": [
+    {
+      "type": 0,
+      "value": "Persévérance"
+    }
+  ],
+  "horizatal-two-tag-five-solid": [
+    {
+      "type": 0,
+      "value": "Innovez"
+    }
+  ],
+  "horizatal-two-tag-four-outline": [
+    {
+      "type": 0,
+      "value": "Innovez"
+    }
+  ],
+  "horizatal-two-tag-one-solid": [
+    {
+      "type": 0,
+      "value": "Innovez"
+    }
+  ],
+  "horizatal-two-tag-six-outline": [
+    {
+      "type": 0,
+      "value": "Innovez"
+    }
+  ],
+  "horizatal-two-tag-three-solid": [
+    {
+      "type": 0,
+      "value": "Innovez"
+    }
+  ],
+  "horizatal-two-tag-two-outline": [
+    {
+      "type": 0,
+      "value": "Innovez"
+    }
+  ],
   "load_more_button": [
     {
       "type": 0,
       "value": "Afficher Plus"
     }
   ],
-  "swapnil_architect": [
+  "main-title-post": [
     {
       "type": 0,
-      "value": "Architecte"
+      "value": "Dévoiler les secrets : plongez dans mon dernier article"
     }
   ],
-  "swapnil_architect_an": [
+  "main_tagline": [
     {
       "type": 0,
-      "value": "un"
+      "value": "TECHNOLOGIES ... QUI FORGENT MON CARACTÈRE"
+    }
+  ],
+  "posts_list_end": [
+    {
+      "type": 0,
+      "value": "Plus d'articles"
+    }
+  ],
+  "secondary_tagline": [
+    {
+      "type": 0,
+      "value": "ÉCRIRE.. CODE.. POSTER.. DORMIR.. RÉPÉTER"
+    }
+  ],
+  "secondary_tagline_description": [
+    {
+      "type": 0,
+      "value": "Écriture de l'article ... en codant le code ... poster l'article ... enfin dormir ... et le cycle se répète"
     }
   ],
   "swapnil_architect_hello": [

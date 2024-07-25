@@ -8,7 +8,7 @@
   "card_mins_read": [
     {
       "type": 0,
-      "value": " मिनट पढ़े"
+      "value": "मिनट मे पढ़ेंं"
     }
   ],
   "card_unpublished": [
@@ -20,7 +20,7 @@
   "card_words": [
     {
       "type": 0,
-      "value": " शब्द"
+      "value": "शब्द"
     }
   ],
   "cookies_accept_button": [
@@ -59,22 +59,220 @@
       "value": "ब्लॉग पोस्ट का अंत"
     }
   ],
+  "horizatal-five-tag-five-solid": [
+    {
+      "type": 0,
+      "value": "सरदार"
+    }
+  ],
+  "horizatal-five-tag-four-outline": [
+    {
+      "type": 0,
+      "value": "सरदार"
+    }
+  ],
+  "horizatal-five-tag-one-solid": [
+    {
+      "type": 0,
+      "value": "सरदार"
+    }
+  ],
+  "horizatal-five-tag-six-solid": [
+    {
+      "type": 0,
+      "value": "सरदार"
+    }
+  ],
+  "horizatal-five-tag-three-solid": [
+    {
+      "type": 0,
+      "value": "सरदार"
+    }
+  ],
+  "horizatal-five-tag-two-outline": [
+    {
+      "type": 0,
+      "value": "सरदार"
+    }
+  ],
+  "horizatal-four-tag-five-solid": [
+    {
+      "type": 0,
+      "value": "कड़ी मेहनत"
+    }
+  ],
+  "horizatal-four-tag-four-outline": [
+    {
+      "type": 0,
+      "value": "कड़ी मेहनत"
+    }
+  ],
+  "horizatal-four-tag-one-solid": [
+    {
+      "type": 0,
+      "value": "कड़ी मेहनत"
+    }
+  ],
+  "horizatal-four-tag-six-outline": [
+    {
+      "type": 0,
+      "value": "कड़ी मेहनत"
+    }
+  ],
+  "horizatal-four-tag-three-solid": [
+    {
+      "type": 0,
+      "value": "कड़ी मेहनत"
+    }
+  ],
+  "horizatal-four-tag-two-outline": [
+    {
+      "type": 0,
+      "value": "कड़ी मेहनत"
+    }
+  ],
+  "horizatal-one-tag-five-solid": [
+    {
+      "type": 0,
+      "value": "क्रैक डिबगर"
+    }
+  ],
+  "horizatal-one-tag-four-outline": [
+    {
+      "type": 0,
+      "value": "क्रैक डिबगर"
+    }
+  ],
+  "horizatal-one-tag-one-solid": [
+    {
+      "type": 0,
+      "value": "क्रैक डिबगर"
+    }
+  ],
+  "horizatal-one-tag-six-outline": [
+    {
+      "type": 0,
+      "value": "क्रैक डिबगर"
+    }
+  ],
+  "horizatal-one-tag-three-solid": [
+    {
+      "type": 0,
+      "value": "क्रैक डिबगर"
+    }
+  ],
+  "horizatal-one-tag-two-outline": [
+    {
+      "type": 0,
+      "value": "क्रैक डिबगर"
+    }
+  ],
+  "horizatal-three-tag-five-solid": [
+    {
+      "type": 0,
+      "value": "अटलता"
+    }
+  ],
+  "horizatal-three-tag-four-outline": [
+    {
+      "type": 0,
+      "value": "अटलता"
+    }
+  ],
+  "horizatal-three-tag-one-solid": [
+    {
+      "type": 0,
+      "value": "अटलता"
+    }
+  ],
+  "horizatal-three-tag-six-outline": [
+    {
+      "type": 0,
+      "value": "अटलता"
+    }
+  ],
+  "horizatal-three-tag-three-solid": [
+    {
+      "type": 0,
+      "value": "अटलता"
+    }
+  ],
+  "horizatal-three-tag-two-outline": [
+    {
+      "type": 0,
+      "value": "अटलता"
+    }
+  ],
+  "horizatal-two-tag-five-solid": [
+    {
+      "type": 0,
+      "value": "कुछ नया"
+    }
+  ],
+  "horizatal-two-tag-four-outline": [
+    {
+      "type": 0,
+      "value": "कुछ नया"
+    }
+  ],
+  "horizatal-two-tag-one-solid": [
+    {
+      "type": 0,
+      "value": "कुछ नया"
+    }
+  ],
+  "horizatal-two-tag-six-outline": [
+    {
+      "type": 0,
+      "value": "कुछ नया"
+    }
+  ],
+  "horizatal-two-tag-three-solid": [
+    {
+      "type": 0,
+      "value": "कुछ नया"
+    }
+  ],
+  "horizatal-two-tag-two-outline": [
+    {
+      "type": 0,
+      "value": "कुछ नया"
+    }
+  ],
   "load_more_button": [
     {
       "type": 0,
       "value": "और लोड करें"
     }
   ],
-  "swapnil_architect": [
+  "main-title-post": [
     {
       "type": 0,
-      "value": "आर्किटेक्ट"
+      "value": "रहस्य का खुलासा: मेरे नवीनतम लेख में गोता लगाएँ"
     }
   ],
-  "swapnil_architect_an": [
+  "main_tagline": [
     {
       "type": 0,
-      "value": "एक"
+      "value": "प्रौद्योगिकियों ... जो मेरे चरित्र का निर्माण करता है"
+    }
+  ],
+  "posts_list_end": [
+    {
+      "type": 0,
+      "value": "कोई और लेख नहीं"
+    }
+  ],
+  "secondary_tagline": [
+    {
+      "type": 0,
+      "value": "लिखें.. कोड.. पोस्ट करें.. सोएं.. दोहराएँ"
+    }
+  ],
+  "secondary_tagline_description": [
+    {
+      "type": 0,
+      "value": "लेख लिखना... कोड को कोड करना... लेख पोस्ट करना... अंततः सो जाना... और चक्र दोहराता है"
     }
   ],
   "swapnil_architect_hello": [
