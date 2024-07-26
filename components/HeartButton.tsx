@@ -25,7 +25,7 @@ export default function Heart({ post, userId }) {
 
     console.log("existing emotion", existingEmotion);
   
-    if (existingEmotion) {
+    if (existingEmotion.length > 0) {
       // Remove emotion
       await supaClient
         .from('emotions')
@@ -35,12 +35,15 @@ export default function Heart({ post, userId }) {
         .eq('emotion_type', emotionType);
 
       console.log("existing emotion if - delete");
+
     } else {
       // Add emotion
       await supaClient
         .from('emotions')
         .insert({ post_id: postId.id, user_id: userId, emotion_type: emotionType });
+
       console.log("existing emotion else - insert");
+
     }
   
     // Update emotion counts
