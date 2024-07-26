@@ -1,6 +1,9 @@
 import React from "react";
 import Image from "next/legacy/image";
 import mountains from "../../public/mountains.jpg";
+import { Button } from "@mui/material";
+import { callNest } from "../../services/helloWorld.service";
+
 
 function Pics() {
   return (
@@ -15,6 +18,7 @@ function Pics() {
           objectFit: "cover",
         }}
       />
+      <Button onClick={() => callNest()}>call nest</Button>
     </>
   );
 }
