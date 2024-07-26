@@ -27,7 +27,7 @@ export async function sendEmail(emailMessage: Partial<postmark.Message>) {
 export async function callNestSendEmail(emailMessage) {
   try {
     const { data, status } = await axios.post(
-      "https://api.swapnilsrivastava.eu/sendnestemail-hello",
+      "https://api.swapnilsrivastava.eu/helloworld/sendnestemail",
       emailMessage,
       {
         headers: {
