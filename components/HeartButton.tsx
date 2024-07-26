@@ -79,7 +79,7 @@ export default function Heart({ post, userId }) {
         heart_count: heartCount,
         clap_count: clapCount,
       })
-      .eq('id', postId);
+      .eq('id', postId.id);
 
       console.log("likeCount", likeCount, "dislikeCount", dislikeCount, "heartCount", heartCount, "clapCount", clapCount)
   
