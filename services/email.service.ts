@@ -32,6 +32,7 @@ export async function callNestSendEmail(emailMessage) {
       {
         headers: {
           "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "https://swapnilsrivastava.eu"
         },
         withCredentials: true,
       },
