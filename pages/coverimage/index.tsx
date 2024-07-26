@@ -7,10 +7,10 @@ import { callNestSendEmail } from "../../services/email.service";
 import * as postmark from "postmark";
 
 function Pics() {
-  const emailMessage: Partial<postmark.Message> = {
-    To: "contact@swapnilsrivastava.eu",
-    Subject: "nest email",
-    HtmlBody: `<strong>Hello</strong> Swapnil Srivastava, nest email check`,
+  const emailMessage = {
+    to: "contact@swapnilsrivastava.eu",
+    subject: "nest email",
+    htmlBody: `<strong>Hello</strong> Swapnil Srivastava, nest email check`,
   };
 
   return (
