@@ -33,7 +33,9 @@ export async function callNestSendEmail(emailMessage) {
         headers: {
           "Content-Type": "application/json",
         },
-      }
+        withCredentials: true,
+      },
+      
     );
 
     toast.success(`Called Nest JS sendemail ${data}`);
