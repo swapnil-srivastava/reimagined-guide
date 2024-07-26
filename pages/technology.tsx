@@ -80,7 +80,7 @@ export default function Technology(props) {
 
   return (
     <>
-      <Metatags description={`Technology stack that I am fluent in`} />
+      <Metatags/>
 
       {/* CREATE Tech Stack */}
       {profile?.id ? <CreateNewTechStack /> : ""}

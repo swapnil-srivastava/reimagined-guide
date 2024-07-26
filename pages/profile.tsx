@@ -59,10 +59,7 @@ const Profile = () => {
 
   return (
     <>
-      <Metatags
-        title={"Swapnil Srivastava's Profile"}
-        description={"Here is the list of experiences"}
-      />
+      <Metatags/>
       <div className="m-4">
         {profile?.id ? <CreateExperience /> : ""}
         {/* Overall All Experience :{" "}
