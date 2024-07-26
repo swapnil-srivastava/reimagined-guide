@@ -1,5 +1,5 @@
 import { FormattedMessage } from "react-intl";
-import { faHeart, faPenToSquare, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import BasicTooltip from "./Tooltip";
