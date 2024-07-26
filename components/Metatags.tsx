@@ -1,9 +1,9 @@
 import Head from 'next/head';
 
 export default function Metatags({
-  title = 'Swapnil Srivastava',
-  description = 'A Blogging App',
-  image = 'https://firebasestorage.googleapis.com/v0/b/didactic-guide.appspot.com/o/image.jpg?alt=media&token=efebcb25-458d-4e37-b046-6eda25124e86',
+  title = "Swapnil's Odyssey",
+  description = 'Discover insightful articles on technology. swapnilsrivastava.eu offers engaging content to inspire and inform, curated by Swapnil Srivastava.',
+  image = 'https://dbydvpdhbaqudqqjteoq.supabase.co/storage/v1/object/sign/avatars/profile.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJhdmF0YXJzL3Byb2ZpbGUucG5nIiwiaWF0IjoxNzIyMDMzMzMwLCJleHAiOjIwMzczOTMzMzB9.2fCp8-hDw_e05QacUp-MRSDYVp08Z-4TJzJ8RJqmyKo',
 }) {
   return (
     <Head>
