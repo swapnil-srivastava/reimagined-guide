@@ -175,10 +175,10 @@ function NavBar({ children }) {
       <div className="basis-1/2 md:basis-1/3 self-strech flex items-center md:text-2xl m-1">
         <Link href="/" legacyBehavior>
           <Image
-            width={50}
-            height={50}
-            src="/swapnilsrivastava_logo_Letter_S.png"
-            alt="Srivastava's Notes"
+            width={75}
+            height={75}
+            src="/swapnil-odyssey.svg"
+            alt="Swapnil's Odyssey"
           />
         </Link>
       </div>
