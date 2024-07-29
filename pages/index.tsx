@@ -154,7 +154,7 @@ export default function Home(props) {
       </div>
 
       {/* Section before blog post --- CRACK DEBUGGER INNOVATE PERSISTANCE HARDWORK LEADER*/}
-      <div className="flex flex-col dark:text-blog-white overflow-clip lg:text-[150px] text-[80px] leading-none">
+      <div className="flex flex-col dark:text-blog-white overflow-clip lg:text-[150px] text-[160px] min-[320px]:text-[130px] min-[390px]:text-[150px] leading-none">
 
         {/* Horizontal Text-1 Linear */}
         <div className="quote-wrap gap-1">
