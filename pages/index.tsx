@@ -418,7 +418,7 @@ export default function Home(props) {
 
       </div>
       
-      <div className="font-poppins text-5xl flex mt-10 justify-center text-center dark:text-blog-white">
+      <div className="font-poppins lg:text-8xl text-3xl flex mt-10 justify-center text-center dark:text-blog-white">
         <FormattedMessage
           id="main-title-post"
           description="main page title for before the post" // Description should be a string literal
