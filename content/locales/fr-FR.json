@@ -1,5 +1,11 @@
 {
   "animation.string1": "un Ingénieur",
+  "animation.string2": "un ingénieur de la Frontend",
+  "animation.string3": "un ingénieur du backend",
+  "animation.string4": "un ingénieur fullstack",
+  "animation.string5": "un Chef Technique",
+  "animation.string6": "un Architecte",
+  "animation.string7": "un Architecte de Solutions",
   "auth-check-fallback": "Vous devez être connecté",
   "card_live": "Vivre",
   "card_mins_read": "lecture min",

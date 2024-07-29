@@ -1,5 +1,11 @@
 {
   "animation.string1": "एक इंजीनियर",
+  "animation.string2": "एक फ्रंटएंड इंजीनियर",
+  "animation.string3": "एक बैकएंड इंजीनियर",
+  "animation.string4": "एक फुलस्टैक इंजीनियर",
+  "animation.string5": "एक टेक लीड",
+  "animation.string6": "एक वास्तुकार",
+  "animation.string7": "एक समाधान वास्तुकार",
   "auth-check-fallback": "आपको साइन इन करना होगा",
   "card_live": "प्रकाशित",
   "card_mins_read": "मिनट मे पढ़ेंं",

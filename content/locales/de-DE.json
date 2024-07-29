@@ -1,5 +1,11 @@
 {
   "animation.string1": "ein Ingenieur",
+  "animation.string2": "ein Frontend-Ingenieur",
+  "animation.string3": "ein Backend-Ingenieur",
+  "animation.string4": "ein Füllsack-Ingenieur",
+  "animation.string5": "Einen technischen Leiter",
+  "animation.string6": "Ein Architekt!",
+  "animation.string7": "ein Lösungsarchitekt",
   "auth-check-fallback": "Du musst eingeloggt sein",
   "card_live": " Wörter",
   "card_mins_read": "min. lesen",
