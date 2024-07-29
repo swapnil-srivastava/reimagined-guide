@@ -1,4 +1,10 @@
 {
+  "animation.string1": [
+    {
+      "type": 0,
+      "value": "एक इंजीनियर"
+    }
+  ],
   "auth-check-fallback": [
     {
       "type": 0,
@@ -69,12 +75,6 @@
     {
       "type": 0,
       "value": "दिल"
-    }
-  ],
-  "heart-button-remove": [
-    {
-      "type": 0,
-      "value": "निकालना"
     }
   ],
   "horizatal-five-tag-five-solid": [

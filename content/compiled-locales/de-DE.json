@@ -1,4 +1,10 @@
 {
+  "animation.string1": [
+    {
+      "type": 0,
+      "value": "ein Ingenieur"
+    }
+  ],
   "auth-check-fallback": [
     {
       "type": 0,
@@ -69,12 +75,6 @@
     {
       "type": 0,
       "value": "Herz"
-    }
-  ],
-  "heart-button-remove": [
-    {
-      "type": 0,
-      "value": "Löschen"
     }
   ],
   "horizatal-five-tag-five-solid": [
