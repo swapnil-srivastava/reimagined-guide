@@ -5,6 +5,42 @@
       "value": "ein Ingenieur"
     }
   ],
+  "animation.string2": [
+    {
+      "type": 0,
+      "value": "ein Frontend-Ingenieur"
+    }
+  ],
+  "animation.string3": [
+    {
+      "type": 0,
+      "value": "ein Backend-Ingenieur"
+    }
+  ],
+  "animation.string4": [
+    {
+      "type": 0,
+      "value": "ein Füllsack-Ingenieur"
+    }
+  ],
+  "animation.string5": [
+    {
+      "type": 0,
+      "value": "Einen technischen Leiter"
+    }
+  ],
+  "animation.string6": [
+    {
+      "type": 0,
+      "value": "Ein Architekt!"
+    }
+  ],
+  "animation.string7": [
+    {
+      "type": 0,
+      "value": "ein Lösungsarchitekt"
+    }
+  ],
   "auth-check-fallback": [
     {
       "type": 0,

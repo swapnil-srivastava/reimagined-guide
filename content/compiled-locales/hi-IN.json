@@ -5,6 +5,42 @@
       "value": "एक इंजीनियर"
     }
   ],
+  "animation.string2": [
+    {
+      "type": 0,
+      "value": "एक फ्रंटएंड इंजीनियर"
+    }
+  ],
+  "animation.string3": [
+    {
+      "type": 0,
+      "value": "एक बैकएंड इंजीनियर"
+    }
+  ],
+  "animation.string4": [
+    {
+      "type": 0,
+      "value": "एक फुलस्टैक इंजीनियर"
+    }
+  ],
+  "animation.string5": [
+    {
+      "type": 0,
+      "value": "एक टेक लीड"
+    }
+  ],
+  "animation.string6": [
+    {
+      "type": 0,
+      "value": "एक वास्तुकार"
+    }
+  ],
+  "animation.string7": [
+    {
+      "type": 0,
+      "value": "एक समाधान वास्तुकार"
+    }
+  ],
   "auth-check-fallback": [
     {
       "type": 0,
