@@ -34,10 +34,14 @@ export default function Home(props) {
   // Note: add the data in props.posts for reflecting in local development use an array and then object of post inside it.
   const [posts, setPosts] = useState<POST[]>(props.posts);
   const [loading, setLoading] = useState<boolean>(false);
-  // 'an Engineer',
   const intl = useIntl();
 
   const translatedString1 = intl.formatMessage({ id: 'animation.string1',  description:"an Engineer", defaultMessage:"an Engineer"});
+  const translatedString2 = intl.formatMessage({ id: 'animation.string2',  description:"a Frontend Engineer", defaultMessage:"a Frontend Engineer"});
+  const translatedString3 = intl.formatMessage({ id: 'animation.string3',  description:"a Backend Engineer", defaultMessage:"a Backend Engineer"});
+  const translatedString4 = intl.formatMessage({ id: 'animation.string4',  description:"a Tech Lead", defaultMessage:"a Tech Lead"});
+  const translatedString5 = intl.formatMessage({ id: 'animation.string5',  description:"an Architect", defaultMessage:"an Architect"});
+  const translatedString6 = intl.formatMessage({ id: 'animation.string6',  description:"a Solutions Architect", defaultMessage:"a Solutions Architect"});
 
   const [postsEnd, setPostsEnd] = useState(false);
 

@@ -5,6 +5,36 @@
       "value": "an Engineer"
     }
   ],
+  "animation.string2": [
+    {
+      "type": 0,
+      "value": "a Frontend Engineer"
+    }
+  ],
+  "animation.string3": [
+    {
+      "type": 0,
+      "value": "a Backend Engineer"
+    }
+  ],
+  "animation.string4": [
+    {
+      "type": 0,
+      "value": "a Tech Lead"
+    }
+  ],
+  "animation.string5": [
+    {
+      "type": 0,
+      "value": "an Architect"
+    }
+  ],
+  "animation.string6": [
+    {
+      "type": 0,
+      "value": "a Solutions Architect"
+    }
+  ],
   "auth-check-fallback": [
     {
       "type": 0,
