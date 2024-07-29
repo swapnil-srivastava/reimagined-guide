@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { FormattedMessage } from "react-intl";
+import { TypeAnimation } from 'react-type-animation';
 
 // Components 
 import PostFeed from "../components/PostFeed";
@@ -7,14 +9,9 @@ import PostList from "../components/PostList";
 import HorizontalScrollTech from "../components/HorizontalScrollTech";
 
 // Library
-import { useState } from "react";
 import Metatags from "../components/Metatags";
 import { supaClient } from "../supa-client";
 import { POST } from "../database.types";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAnglesDown } from "@fortawesome/free-solid-svg-icons";
-import { TypeAnimation } from 'react-type-animation';
 
 // Max post to query per page
 const LIMIT = 3;
@@ -118,8 +115,8 @@ export default function Home(props) {
       </div>
 
       {/* Text before list of technolgies */}
-      <div className="flex justify-center text-center bg-blog-white mt-4 pt-4 [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
-          <p className="font-poppins text-xl font-thin">
+      <div className="lg:text-xl text-sm flex justify-center text-center bg-blog-white mt-4 pt-4 [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
+          <p className="font-poppins font-thin">
           <FormattedMessage
                 id="main_tagline"
                 description="the tagline on above the horizontal scroll" // Description should be a string literal
@@ -140,14 +137,14 @@ export default function Home(props) {
 
       {/* Section before blog post */}
       <div className="flex flex-col justify-center items-center h-screen text-center dark:text-blog-white ">
-        <h1 className="lg:text-7xl text-5xl font-poppins">
+        <h1 className="lg:text-7xl text-xl font-poppins">
           <FormattedMessage
             id="secondary_tagline"
             description="Secondary tagline on mainpage" // Description should be a string literal
             defaultMessage="WRITE .. CODE .. POST .. SLEEP .. REPEAT" // Message should be a string literal
           />
         </h1>
-        <p className="lg:text-3xl text-5xl font-thin">
+        <p className="lg:text-3xl text-sm font-thin">
           <FormattedMessage
             id="secondary_tagline_description"
             description="Secondary tagline description on mainpage" // Description should be a string literal
