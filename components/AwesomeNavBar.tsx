@@ -172,12 +172,14 @@ function NavBar({ children }) {
             flex-row
           "
     >
+      {/* /swapnil-odyssey-4.svg with blue , /swapnil-odyssey-5.svg, /swapnil-odyssey-6.svg - with blue, 
+      /swapnil-odyssey-8.svg with white, /swapnil-odyssey-9.svg */}
       <div className="basis-1/2 md:basis-1/3 self-strech flex items-center md:text-2xl m-1">
         <Link href="/" legacyBehavior>
           <Image
             width={75}
             height={75}
-            src="/swapnil-odyssey.svg"
+            src="/swapnil-odyssey-5.svg"
             alt="Swapnil's Odyssey"
           />
         </Link>
