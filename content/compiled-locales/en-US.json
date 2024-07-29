@@ -20,16 +20,22 @@
   "animation.string4": [
     {
       "type": 0,
-      "value": "a Tech Lead"
+      "value": "a Full Stack Engineer"
     }
   ],
   "animation.string5": [
     {
       "type": 0,
-      "value": "an Architect"
+      "value": "a Tech Lead"
     }
   ],
   "animation.string6": [
+    {
+      "type": 0,
+      "value": "an Architect"
+    }
+  ],
+  "animation.string7": [
     {
       "type": 0,
       "value": "a Solutions Architect"
