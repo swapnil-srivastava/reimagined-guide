@@ -135,7 +135,7 @@ export default function Home(props) {
         <HorizontalScrollTech reverse={true} />
       </div>
 
-      {/* Section before blog post */}
+      {/* Section before blog post --- Write.. Code.. */}
       <div className="flex flex-col justify-center items-center h-screen text-center dark:text-blog-white ">
         <h1 className="lg:text-7xl text-xl font-poppins">
           <FormattedMessage
@@ -153,7 +153,7 @@ export default function Home(props) {
         </p>
       </div>
 
-      {/* Section before blog post */}
+      {/* Section before blog post --- CRACK DEBUGGER INNOVATE PERSISTANCE HARDWORK LEADER*/}
       <div className="flex flex-col dark:text-blog-white overflow-clip lg:text-[150px] text-[80px] leading-none">
 
         {/* Horizontal Text-1 Linear */}
@@ -418,6 +418,7 @@ export default function Home(props) {
 
       </div>
       
+      {/* Section before blog post --- Unveiling the Secrets: Dive into my latest article*/}
       <div className="font-poppins lg:text-8xl text-3xl flex mt-10 justify-center text-center dark:text-blog-white">
         <FormattedMessage
           id="main-title-post"
