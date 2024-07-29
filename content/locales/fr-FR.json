@@ -1,4 +1,5 @@
 {
+  "animation.string1": "un Ingénieur",
   "auth-check-fallback": "Vous devez être connecté",
   "card_live": "Vivre",
   "card_mins_read": "lecture min",
@@ -11,7 +12,6 @@
   "cookies_small_text": "Bonjour ...",
   "end_of_articles": "Fin de l'article",
   "heart-button-heart": "Cœur",
-  "heart-button-remove": "Retirer",
   "horizatal-five-tag-five-solid": "Leader",
   "horizatal-five-tag-four-outline": "Leader",
   "horizatal-five-tag-one-solid": "Leader",

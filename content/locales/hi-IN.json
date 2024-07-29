@@ -1,4 +1,5 @@
 {
+  "animation.string1": "एक इंजीनियर",
   "auth-check-fallback": "आपको साइन इन करना होगा",
   "card_live": "प्रकाशित",
   "card_mins_read": "मिनट मे पढ़ेंं",
@@ -11,7 +12,6 @@
   "cookies_small_text": "नमस्ते ...",
   "end_of_articles": "ब्लॉग पोस्ट का अंत",
   "heart-button-heart": "दिल",
-  "heart-button-remove": "निकालना",
   "horizatal-five-tag-five-solid": "सरदार",
   "horizatal-five-tag-four-outline": "सरदार",
   "horizatal-five-tag-one-solid": "सरदार",
