@@ -39,9 +39,10 @@ export default function Home(props) {
   const translatedString1 = intl.formatMessage({ id: 'animation.string1',  description:"an Engineer", defaultMessage:"an Engineer"});
   const translatedString2 = intl.formatMessage({ id: 'animation.string2',  description:"a Frontend Engineer", defaultMessage:"a Frontend Engineer"});
   const translatedString3 = intl.formatMessage({ id: 'animation.string3',  description:"a Backend Engineer", defaultMessage:"a Backend Engineer"});
-  const translatedString4 = intl.formatMessage({ id: 'animation.string4',  description:"a Tech Lead", defaultMessage:"a Tech Lead"});
-  const translatedString5 = intl.formatMessage({ id: 'animation.string5',  description:"an Architect", defaultMessage:"an Architect"});
-  const translatedString6 = intl.formatMessage({ id: 'animation.string6',  description:"a Solutions Architect", defaultMessage:"a Solutions Architect"});
+  const translatedString4 = intl.formatMessage({ id: 'animation.string4',  description:"a Full Stack Engineer", defaultMessage:"a Full Stack Engineer"});
+  const translatedString5 = intl.formatMessage({ id: 'animation.string5',  description:"a Tech Lead", defaultMessage:"a Tech Lead"});
+  const translatedString6 = intl.formatMessage({ id: 'animation.string6',  description:"an Architect", defaultMessage:"an Architect"});
+  const translatedString7 = intl.formatMessage({ id: 'animation.string7',  description:"a Solutions Architect", defaultMessage:"a Solutions Architect"});
 
   const [postsEnd, setPostsEnd] = useState(false);
 
@@ -99,17 +100,17 @@ export default function Home(props) {
                   // Same substring at the start will only be typed out once, initially
                   translatedString1,
                   1000, // wait 1s before replacing "Mice" with "Hamsters"
-                  'a Frontend Engineer',
+                  translatedString2,
                   1000,
-                  'a Backend Engineer',
+                  translatedString3,
                   1000,
-                  'a Full Stack Engineer',
+                  translatedString4,
                   1000,
-                  'a Tech Lead',
+                  translatedString5,
                   1000,
-                  'an Architect',
+                  translatedString6,
                   1000,
-                  'a Solutions Architect',
+                  translatedString7,
                   1000
                 ]}
                 wrapper="span"
