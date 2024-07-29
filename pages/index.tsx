@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { TypeAnimation } from 'react-type-animation';
 
 // Components 
@@ -34,6 +34,10 @@ export default function Home(props) {
   // Note: add the data in props.posts for reflecting in local development use an array and then object of post inside it.
   const [posts, setPosts] = useState<POST[]>(props.posts);
   const [loading, setLoading] = useState<boolean>(false);
+  // 'an Engineer',
+  const intl = useIntl();
+
+  const translatedString1 = intl.formatMessage({ id: 'animation.string1',  description:"an Engineer", defaultMessage:"an Engineer"});
 
   const [postsEnd, setPostsEnd] = useState(false);
 
@@ -89,7 +93,7 @@ export default function Home(props) {
               <TypeAnimation
                 sequence={[
                   // Same substring at the start will only be typed out once, initially
-                  'an Engineer',
+                  translatedString1,
                   1000, // wait 1s before replacing "Mice" with "Hamsters"
                   'a Frontend Engineer',
                   1000,
