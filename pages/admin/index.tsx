@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import kebabCase from "lodash.kebabcase";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { FormattedMessage } from "react-intl";
 
 import AuthCheck from "../../components/AuthCheck";
 import PostFeed from "../../components/PostFeed";
@@ -61,7 +62,14 @@ function PostList() {
   return (
     <>
       <div className="flex items-center justify-center">
-        <h1 className="dark:text-blog-white">Manage your Posts</h1>
+        <h1 className="dark:text-blog-white">
+          Manage your Posts
+          <FormattedMessage
+            id="admin-title"
+            description="Manage your Posts" // Description should be a string literal
+            defaultMessage="Manage your Posts" // Message should be a string literal
+            />
+        </h1>
       </div>
       <div className="flex flex-col gap-3 mx-2">
         <PostFeed posts={posts} user={userAuth} />
@@ -122,7 +130,11 @@ function CreateNewPost() {
         "
       >
         <span className="sr-only">
-          Add a new article title and create the post
+          <FormattedMessage
+            id="admin-article-sr-only-text"
+            description="Add a new article title and create the post" // Description should be a string literal
+            defaultMessage="Add a new article title and create the post" // Message should be a string literal
+          />
         </span>
 
         <div className="relative w-full mx-3">
@@ -159,12 +171,20 @@ function CreateNewPost() {
             peer-focus:text-fun-blue-600
             peer-focus:text-sm"
           >
-            Enter Your Next Big Article Title!
+            <FormattedMessage
+              id="admin-article-input-text"
+              description="Enter Your Next Big Article Title!" // Description should be a string literal
+              defaultMessage="Enter Your Next Big Article Title!" // Message should be a string literal
+              />
           </label>
         </div>
 
         <button type="submit" disabled={!isValid} className={styles.btnAdmin}>
-          Create
+          <FormattedMessage
+            id="admin-article-create-btn"
+            description="Create button while creating the article" // Description should be a string literal
+            defaultMessage="Create" // Message should be a string literal
+          />
         </button>
         <button
           className="border border-fun-blue-500 dark:border-fun-blue-500
@@ -176,11 +196,20 @@ function CreateNewPost() {
           type="button"
           onClick={clearTitle}
         >
-          Cancel
+          <FormattedMessage
+          id="admin-article-cancel-btn"
+          description="Cancel button while creating the article" // Description should be a string literal
+          defaultMessage="Cancel" // Message should be a string literal
+          />
         </button>
       </div>
       <p className="p-1 m-1 dark:text-blog-white text-sm md:text-lg">
-        Article URL : {slug || `your-next-big-article-title`}
+        <FormattedMessage
+          id="admin-article-url"
+          description="Article URL : " // Description should be a string literal
+          defaultMessage="Article URL : " // Message should be a string literal
+          />
+        {slug || `your-next-big-article-title`}
       </p>
     </form>
   );
