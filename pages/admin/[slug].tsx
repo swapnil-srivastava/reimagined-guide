@@ -575,7 +575,11 @@ function PostForm({ defaultValues, preview, editor }) {
               }
               onClick={() => updatePost()}
             >
-              Save Changes
+              <FormattedMessage
+                id="admin-slug-save-btn"
+                description="Save Changes" // Description should be a string literal
+                defaultMessage="Save Changes" // Message should be a string literal
+                />
             </button>
           </div>
         </>
