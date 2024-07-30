@@ -63,7 +63,6 @@ function PostList() {
     <>
       <div className="flex items-center justify-center">
         <h1 className="dark:text-blog-white">
-          Manage your Posts
           <FormattedMessage
             id="admin-title"
             description="Manage your Posts" // Description should be a string literal
