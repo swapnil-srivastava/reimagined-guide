@@ -29,10 +29,22 @@
       "value": "Article URL :"
     }
   ],
+  "admin-slug-save-btn": [
+    {
+      "type": 0,
+      "value": "Save Changes"
+    }
+  ],
   "admin-title": [
     {
       "type": 0,
       "value": "Manage your Posts"
+    }
+  ],
+  "admin-username-article-url": [
+    {
+      "type": 0,
+      "value": "Article URL :"
     }
   ],
   "animation.string1": [
