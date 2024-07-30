@@ -1,4 +1,10 @@
 {
+  "admin-article-cancel-btn": "Cancel",
+  "admin-article-create-btn": "Create",
+  "admin-article-input-text": "Enter Your Next Big Article Title!",
+  "admin-article-sr-only-text": "Add a new article title and create the post",
+  "admin-article-url": "Article URL :",
+  "admin-title": "Manage your Posts",
   "animation.string1": "ein Ingenieur",
   "animation.string2": "ein Frontend-Ingenieur",
   "animation.string3": "ein Backend-Ingenieur",
