@@ -1,4 +1,40 @@
 {
+  "admin-article-cancel-btn": [
+    {
+      "type": 0,
+      "value": "Annuler"
+    }
+  ],
+  "admin-article-create-btn": [
+    {
+      "type": 0,
+      "value": "Créer"
+    }
+  ],
+  "admin-article-input-text": [
+    {
+      "type": 0,
+      "value": "Entrez le titre de votre prochain gros article !"
+    }
+  ],
+  "admin-article-sr-only-text": [
+    {
+      "type": 0,
+      "value": "Ajouter un nouveau titre d'article et créer le message"
+    }
+  ],
+  "admin-article-url": [
+    {
+      "type": 0,
+      "value": "URL de l'article :"
+    }
+  ],
+  "admin-title": [
+    {
+      "type": 0,
+      "value": "Gérer vos messages"
+    }
+  ],
   "animation.string1": [
     {
       "type": 0,

@@ -1,4 +1,40 @@
 {
+  "admin-article-cancel-btn": [
+    {
+      "type": 0,
+      "value": "रद्द करें"
+    }
+  ],
+  "admin-article-create-btn": [
+    {
+      "type": 0,
+      "value": "बनाएँ"
+    }
+  ],
+  "admin-article-input-text": [
+    {
+      "type": 0,
+      "value": "अपना अगला बड़ा लेख शीर्षक दर्ज करें!"
+    }
+  ],
+  "admin-article-sr-only-text": [
+    {
+      "type": 0,
+      "value": "एक नया लेख शीर्षक जोड़ें और पोस्ट बनाएं"
+    }
+  ],
+  "admin-article-url": [
+    {
+      "type": 0,
+      "value": "अनुच्छेद यू आ रएल:"
+    }
+  ],
+  "admin-title": [
+    {
+      "type": 0,
+      "value": "अपनी पोस्ट प्रबंधित करें"
+    }
+  ],
   "animation.string1": [
     {
       "type": 0,
