@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { FormattedMessage } from "react-intl";
 
 // Next
 import { useRouter } from "next/router";
@@ -78,6 +79,7 @@ import {
   materialRenderers,
 } from "@jsonforms/material-renderers";
 
+
 // e.g. localhost:3000/admin/page1
 // e.g. localhost:3000/admin/page2
 
@@ -141,7 +143,11 @@ function PostManager() {
           <section className="p-3 flex flex-col dark:text-blog-white gap-2">
             <p className="text-3xl font-sans self-center">{post?.title}</p>
             <p className="p-1 text-md font-mono self-center">
-              Article ID: {post?.slug}
+            <FormattedMessage
+              id="admin-username-article-url"
+              description="Article URL : " // Description should be a string literal
+              defaultMessage="Article URL : " // Message should be a string literal
+              />{post?.slug}
             </p>
 
             <PostForm
