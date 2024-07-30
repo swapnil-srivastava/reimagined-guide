@@ -156,21 +156,6 @@ function PostManager() {
               editor={editor}
             />
           </section>
-
-          <aside className="p-3">
-            <p className="text-xl font-light dark:text-blog-white">Tools</p>
-            <button
-              className="p-2 m-1 bg-hit-pink-500 text-blog-black rounded-lg"
-              onClick={() => setPreview(!preview)}
-            >
-              {preview ? "Edit" : "Preview"}
-            </button>
-            <Link href={`/${post.username}/${post.slug}`} legacyBehavior>
-              <button className="p-2 m-1 bg-hit-pink-500 text-blog-black rounded-lg">
-                Live view
-              </button>
-            </Link>
-          </aside>
         </>
       )}
     </main>
