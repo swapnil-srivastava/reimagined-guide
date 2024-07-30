@@ -29,10 +29,22 @@
       "value": "अनुच्छेद यू आ रएल:"
     }
   ],
+  "admin-slug-save-btn": [
+    {
+      "type": 0,
+      "value": "बदलाव सेव करें"
+    }
+  ],
   "admin-title": [
     {
       "type": 0,
       "value": "अपनी पोस्ट प्रबंधित करें"
+    }
+  ],
+  "admin-username-article-url": [
+    {
+      "type": 0,
+      "value": "अनुच्छेद यू आ रएल:"
     }
   ],
   "animation.string1": [
