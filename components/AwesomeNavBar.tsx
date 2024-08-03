@@ -291,7 +291,7 @@ function DropdownMenu() {
               </RoundButton>
             }
           >
-            <Link href="/enter" legacyBehavior>
+            <Link href="/enter">
               {profile?.id && profile?.id ? 
                     <FormattedMessage
                       id="nav-bar-sign-out-text"
@@ -313,7 +313,7 @@ function DropdownMenu() {
               </RoundButton>
             }
           >
-            <Link href="/products" legacyBehavior>
+            <Link href="/products">
                 <FormattedMessage
                     id="nav-bar-products-text"
                     description="Products" // Description should be a string literal
@@ -329,7 +329,7 @@ function DropdownMenu() {
               </RoundButton>
             }
           >
-            <Link href="/store" legacyBehavior>
+            <Link href="/store">
                 <FormattedMessage
                     id="nav-bar-store-text"
                     description="Store" // Description should be a string literal
