@@ -13,6 +13,8 @@ import {
   faCog,
   faChevronRight,
   faChevronLeft,
+  faShoppingCart,
+  faBasketShopping,
 } from "@fortawesome/free-solid-svg-icons";
 import { CSSTransition } from "react-transition-group";
 import { useSelector } from "react-redux";
@@ -26,6 +28,7 @@ import "../styles/AwesomeNavBar.module.css";
 import BasicTooltip from "./Tooltip";
 import RoundButton from "./RoundButton";
 import { RootState } from "../lib/interfaces/interface";
+import { FormattedMessage } from "react-intl";
 
 function AwesomeNavBar() {
   // TS infers type: (state: RootState) => boolean
@@ -271,7 +274,11 @@ function DropdownMenu() {
                       alt={profile?.full_name}
                     />
                   </div>
-                  My Profile
+                    <FormattedMessage
+                      id="nav-bar-my-profile"
+                      description="My Profile" // Description should be a string literal
+                      defaultMessage="My Profile" // Message should be a string literal
+                      />
                 </div>
               </Link>
             </DropdownItem>
@@ -285,11 +292,53 @@ function DropdownMenu() {
             }
           >
             <Link href="/enter" legacyBehavior>
-              {profile?.id && profile?.id ? "Sign Out" : "Login Page"}
+              {profile?.id && profile?.id ? 
+                    <FormattedMessage
+                      id="nav-bar-sign-out-text"
+                      description="Sign Out" // Description should be a string literal
+                      defaultMessage="Sign Out" // Message should be a string literal
+                      /> : <FormattedMessage
+                      id="nav-bar-login-text"
+                      description="Login" // Description should be a string literal
+                      defaultMessage="Login" // Message should be a string literal
+                      />}
+            </Link>
+          </DropdownItem>
+
+
+          <DropdownItem
+            leftIcon={
+              <RoundButton>
+                <FontAwesomeIcon icon={faBasketShopping} size="lg" />
+              </RoundButton>
+            }
+          >
+            <Link href="/products" legacyBehavior>
+                <FormattedMessage
+                    id="nav-bar-products-text"
+                    description="Products" // Description should be a string literal
+                    defaultMessage="Products" // Message should be a string literal
+                    />
             </Link>
           </DropdownItem>
 
           <DropdownItem
+            leftIcon={
+              <RoundButton>
+                <FontAwesomeIcon icon={faShoppingCart} size="lg" />
+              </RoundButton>
+            }
+          >
+            <Link href="/store" legacyBehavior>
+                <FormattedMessage
+                    id="nav-bar-store-text"
+                    description="Store" // Description should be a string literal
+                    defaultMessage="Store" // Message should be a string literal
+                    />
+            </Link>
+          </DropdownItem>
+
+          {/* <DropdownItem
             leftIcon={
               <RoundButton>
                 <FontAwesomeIcon icon={faCog} size="lg" />
@@ -302,8 +351,13 @@ function DropdownMenu() {
             }
             goToMenu="settings"
           >
-            Settings
-          </DropdownItem>
+            <FormattedMessage
+                id="nav-bar-setting-text"
+                description="Settings" // Description should be a string literal
+                defaultMessage="Setting" // Message should be a string literal
+                />
+          </DropdownItem> */}
+
         </div>
       </CSSTransition>
 
