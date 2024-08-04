@@ -71,7 +71,13 @@ const PostList = ({  posts,  loading = false, postsEnd = false, enableLoadMore =
                                         {titleTrimmed}
                                     </Link>
                                     <div className="flex gap-2 text-xs self-end font-thin">
-                                        <div>Published</div>
+                                        <div>
+                                            <FormattedMessage
+                                                id="post-list-published"
+                                                description="Published" // Description should be a string literal
+                                                defaultMessage="Published" // Message should be a string literal
+                                            />
+                                        </div>
                                         <div>{dateFormat}</div>
                                     </div>
                                 </div>
