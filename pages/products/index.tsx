@@ -161,7 +161,7 @@ function Products() {
                 defaultMessage="Products" // Message should be a string literal
             />
         </div>
-        <div className="lg:px-14 lg:pl-20 lg:py-5 px-2 py-1 flex flex-wrap flex-row lg:gap-x-20 lg:gap-y-11 gap-y-10">
+        <div className="lg:px-14 lg:pl-20 lg:py-5 px-2 py-1 flex flex-wrap flex-row lg:gap-x-20 lg:gap-y-11 gap-y-10 md:justify-start justify-center">
           <ProductCard products={products} loading={false} postsEnd={false} enableLoadMore={true}/>
         </div>
       </div>
