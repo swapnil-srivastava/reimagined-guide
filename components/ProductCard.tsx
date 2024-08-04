@@ -7,6 +7,8 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
+import styles from "../styles/Admin.module.css";
+
 // Post list to be used only with homepage
 const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoadMore = false }) => {
     
@@ -31,7 +33,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
             enableLoadMore && (
                 <>
                     <Link className="flex h-96 lg:w-1/5 w-auto" href={`/${product.username}/${product.slug}`} key={product.id}>
-                        <div className="p-4 hover:px-5 flex h-full lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
+                        <div className="flex h-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
                             <div className="flex flex-col gap-2 justify-between">
                                 {/* DATE and Author */}
                                 <div>
@@ -48,29 +50,34 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                                     </div>
                                 </div>
 
-                                {/* Post Title */}
-                                <div className="text-2xl font-semibold flex flex-col" >
-                                    <Link href={`/${product.username}/${product.slug}`} className="hover:underline underline-offset-2" >
-                                        {nameTrimmed}
-                                    </Link>
-                                    <div className="flex gap-2 text-xs self-end font-thin">
-                                        <div>
-                                        <FormattedMessage
-                                                id="product-card-pub"
-                                                description="Products" // Description should be a string literal
-                                                defaultMessage="Products" // Message should be a string literal
-                                            />
+                                <div className="flex flex-col gap-2">
+                                    {/* Post Title */}
+                                    <div className="flex flex-col text-2xl font-semibold " >
+                                        <Link href={`/${product.username}/${product.slug}`} className="hover:underline underline-offset-2" >
+                                            {nameTrimmed}
+                                        </Link>
+                                        <div className="flex gap-2 text-xs self-end font-thin">
+                                            <div>
+                                                <FormattedMessage
+                                                    id="product-card-pub"
+                                                    description="Products" // Description should be a string literal
+                                                    defaultMessage="Products" // Message should be a string literal
+                                                />
+                                            </div>
+                                            <div>{dateFormat}</div>
                                         </div>
-                                        <div>{dateFormat}</div>
                                     </div>
-                                </div>
 
-                                {/* Read More */}
-                                <div className="text-lg flex items-center gap-2">
-                                    <Link href={`/${product.username}/${product.slug}`} className="hover:underline">
-                                        <p className="font-thin">Read more</p>
-                                    </Link>
-                                    <FontAwesomeIcon icon={faArrowRight} />
+                                    {/* Add to Cart button section */}
+                                    <div className="text-lg hover:text-xs flex items-center justify-end gap-2">
+                                        <button className={styles.btnAdmin}>
+                                            <FormattedMessage
+                                                id="product-card-add-to-cart"
+                                                description="Add to Cart" // Description should be a string literal
+                                                defaultMessage="Add to Cart" // Message should be a string literal 
+                                                />
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
