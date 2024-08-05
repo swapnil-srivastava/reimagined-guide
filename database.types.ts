@@ -63,6 +63,7 @@ export type Database = {
           position_end_time: string | null
           position_start_time: string
           skills: string[] | null
+          user_id: string | null
         }
         Insert: {
           company: string
@@ -75,6 +76,7 @@ export type Database = {
           position_end_time?: string | null
           position_start_time: string
           skills?: string[] | null
+          user_id?: string | null
         }
         Update: {
           company?: string
@@ -87,37 +89,14 @@ export type Database = {
           position_end_time?: string | null
           position_start_time?: string
           skills?: string[] | null
-        }
-        Relationships: []
-      }
-      hearts: {
-        Row: {
-          created_at: string
-          heart_users: string[] | null
-          id: string
-          pid: string | null
-          updated_at: string | null
-        }
-        Insert: {
-          created_at?: string
-          heart_users?: string[] | null
-          id?: string
-          pid?: string | null
-          updated_at?: string | null
-        }
-        Update: {
-          created_at?: string
-          heart_users?: string[] | null
-          id?: string
-          pid?: string | null
-          updated_at?: string | null
+          user_id?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "hearts_pid_fkey"
-            columns: ["pid"]
+            foreignKeyName: "experiences_user_id_fkey"
+            columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: "posts"
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -154,6 +133,80 @@ export type Database = {
           },
         ]
       }
+      order_items: {
+        Row: {
+          created_at: string | null
+          id: string
+          order_id: string | null
+          price: number
+          product_id: string | null
+          quantity: number
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          order_id?: string | null
+          price: number
+          product_id?: string | null
+          quantity: number
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          order_id?: string | null
+          price?: number
+          product_id?: string | null
+          quantity?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_items_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          created_at: string | null
+          id: string
+          status: string
+          total: number
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          status: string
+          total: number
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          status?: string
+          total?: number
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orders_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       posts: {
         Row: {
           approved: boolean | null
@@ -163,8 +216,6 @@ export type Database = {
           created_at: string | null
           dislike_count: number | null
           heart_count: number | null
-          heartcount: number | null
-          heartid: string | null
           id: string
           like_count: number | null
           photo_url: string | null
@@ -184,8 +235,6 @@ export type Database = {
           created_at?: string | null
           dislike_count?: number | null
           heart_count?: number | null
-          heartcount?: number | null
-          heartid?: string | null
           id?: string
           like_count?: number | null
           photo_url?: string | null
@@ -205,8 +254,6 @@ export type Database = {
           created_at?: string | null
           dislike_count?: number | null
           heart_count?: number | null
-          heartcount?: number | null
-          heartid?: string | null
           id?: string
           like_count?: number | null
           photo_url?: string | null
@@ -219,13 +266,6 @@ export type Database = {
           videoLink?: string | null
         }
         Relationships: [
-          {
-            foreignKeyName: "posts_heartid_fkey"
-            columns: ["heartid"]
-            isOneToOne: false
-            referencedRelation: "hearts"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "posts_photo_url_fkey"
             columns: ["photo_url"]
@@ -246,6 +286,44 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["username"]
+          },
+        ]
+      }
+      products: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          name: string
+          price: number
+          stock: number
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          name: string
+          price: number
+          stock: number
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          name?: string
+          price?: number
+          stock?: number
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "products_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -426,8 +504,6 @@ export type Enums<
       | "approved"
       | "content"
       | "created_at"
-      | "heartcount"
-      | "heartid"
       | "id"
       | "photo_url"
       | "clap_count"
@@ -487,4 +563,18 @@ export type Enums<
       | "position_description"
       | "position_end_time"
       | "position_start_time"
+    >;
+
+    type PRODUCTS_TABLE = Pick<TABLES["Tables"], "products">;
+    type PRODUCTS_ROW = Pick<PRODUCTS_TABLE["products"], "Row">;
+    type PRODUCT_INSERT = Pick<PRODUCTS_TABLE["products"], "Insert">;
+
+    export type PRODUCTS = Pick<
+      PRODUCTS_ROW["Row"],
+      | "name"
+      | "created_at"
+      | "id"
+      | "description"
+      | "price"
+      | "stock"
     >;

@@ -1,11 +1,17 @@
 'use client';
 
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import Link from "next/link";
 import { FormattedMessage } from "react-intl";
 import moment from "moment";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import toast from "react-hot-toast";
+
+// Supabase
+import { supaClient } from "../supa-client";
 
 // CSS
 import styles from "../styles/Admin.module.css";
@@ -14,8 +20,157 @@ import styles from "../styles/Admin.module.css";
 import CurrencyPriceComponent from "./CurrencyPriceComponent";
 import QuantityComponent from "./QuantityComponent";
 
-// Post list to be used only with homepage
+// Product Schema
+import schema from "../lib/product/productSchema.json";
+import uischema from "../lib/product/uiProductSchema.json";
+
+// Local Interface
+import { PRODUCTS } from "../database.types";
+import { RootState } from "../lib/interfaces/interface";
+
+// JSON Forms
+import { JsonForms } from "@jsonforms/react";
+
+import {
+    materialCells,
+    materialRenderers,
+  } from "@jsonforms/material-renderers";
+
+interface producJSON {
+    product_name: string;
+    product_decription: string;
+    product_price: number;
+    product_stock: number;
+}
+  
+function CreateProduct() {
+
+    type PRODUCT_OBJ = Pick<PRODUCTS, "name" | "price" | "description" | "stock">;
+    type PRODUCTNAME = PRODUCT_OBJ["name"];
+    type PRODUCTDESCRIPTION = PRODUCT_OBJ["description"];
+    type PRODUCTPRICE = PRODUCT_OBJ["price"];
+    type PRODUCTSTOCK = PRODUCT_OBJ["stock"];
+
+    const selectUser = (state: RootState) => state.users;
+    const { userInfo } = useSelector(selectUser);
+    const { profile, session } = userInfo;
+
+    const [data, setData] = useState<producJSON>();
+
+    const clearData = () => {
+        setData({
+            product_name: "",
+            product_decription: "",
+            product_price: 0,
+            product_stock: 0,
+        });
+    };
+
+    // Validate length
+    const isValidProductName =
+        data?.product_name?.length > 3 && data?.product_name?.length < 100;
+
+    // Validate length
+    const isValidProductDescription =
+        data?.product_decription?.length > 3 && data?.product_decription?.length < 100;
+
+    // // Validate Number
+    // const isValidProductPrice =
+    //     data?.product_price?.length > 3 && data?.product_name?.length < 100;
+
+    // // Validate Number
+    // const isValidProductStock =
+    //     data?.product_stock?.length > 3 && data?.product_stock?.length < 100;
+
+    // Create a new product in supabase postgres
+    const createProduct = async () => {
+        if (!data?.product_decription && !data?.product_name && !data?.product_price && !data.product_stock) return;
+
+        // Tip: give all fields a default value here
+        const { data: supaData, error } = await supaClient
+            .from("products")
+            .insert([
+                {
+                    name: data?.product_name,
+                    description: data?.product_decription,
+                    price: data?.product_price,
+                    stock: data?.product_stock,
+                    uid: profile?.id,
+                },
+            ]);
+
+        toast.success("Product Created!!");
+    };
+
+    const clearProduct = async (e) => {
+        e.preventDefault();
+        clearData();
+    };
+
+    return (
+        <>
+        <div className="flex flex-col gap-2 my-4 px-4 py-2 text-blog-black dark:bg-blog-white">
+
+            <JsonForms
+                schema={schema}
+                uischema={uischema}
+                data={data}
+                renderers={materialRenderers}
+                cells={materialCells}
+                onChange={({ errors, data }) => setData(data)}
+            />
+
+            <div className="flex self-center gap-2">
+            <button
+                type="submit"
+                disabled={!isValidProductName && !isValidProductDescription}
+                className="
+                    py-1 px-2
+                    font-light
+                    text-sm
+                    dark:text-blog-black
+                    bg-hit-pink-500 
+                    border-2 border-hit-pink-500 
+                    rounded
+                    hover:filter hover:brightness-125
+                    flex-shrink-0 
+                    self-center"
+                onClick={() => createProduct()}
+                >
+                <FormattedMessage
+                    id="create-product-create-btn"
+                    description="Create" // Description should be a string literal
+                    defaultMessage="Create" // Message should be a string literal
+                />
+            </button>
+            <button
+                className="
+                    py-1 px-2
+                    font-light
+                    border
+                    border-fun-blue-500
+                    text-fun-blue-500
+                    text-sm rounded 
+                    self-center"
+                type="button"
+                onClick={clearProduct}
+            >
+                <FormattedMessage
+                    id="create-product-cancel-btn"
+                    description="Cancel" // Description should be a string literal
+                    defaultMessage="Cancel" // Message should be a string literal
+                />
+            </button>
+            </div>
+        </div>
+        </>
+    );
+}
+
+// Product list to be used only with products page
 const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoadMore = false, onQuantityChange }) => {
+
+    const [ createProduct, setCreateProduct] = useState<boolean>(false);
 
     const handleQuantityChange = (productId, newQuantity) => {
         const updatedProduct = products.find(product => product.id === productId);
@@ -48,7 +203,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                         !postsEnd &&
                         enableLoadMore && (
                             <>
-                                <div className="flex h-96 lg:w-1/5 w-auto" key={product.id}>
+                                <div className="flex lg:h-96 h-auto lg:w-1/5 w-auto" key={product.id}>
                                     <div className="flex h-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
                                         <div className="flex flex-col gap-2 justify-between">
                                             {/* Product Image - TODO add the image url from the product list {product.imageUrl}*/} 
@@ -56,8 +211,8 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                                                 <Image
                                                         src={`/mountains.jpg`} 
                                                         alt={product.name}
-                                                        width={300}
-                                                        height={300}
+                                                        width={500}
+                                                        height={500}
                                                         className="rounded-lg"
                                                     />
                                             </div>
@@ -131,10 +286,10 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
             }
 
             {/* Create Product Card */}
-            <div className="flex h-96 lg:w-1/5 w-auto">
+            <div className="flex lg:h-96 h-auto lg:w-1/5 w-auto">
                 <div className="flex h-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
                 <div className="flex flex-col gap-2 justify-center items-center">
-                    <FontAwesomeIcon icon={faCirclePlus} size="3x" className="cursor-pointer" />
+                    <FontAwesomeIcon icon={faCirclePlus} size="3x" className="cursor-pointer" onClick={() => setCreateProduct(!createProduct)}/>
                     <div className="text-lg">
                     <FormattedMessage
                         id="product-card-create-product"
@@ -145,6 +300,14 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                 </div>
                 </div>
             </div>
+
+            {createProduct && <div className="flex lg:h-96 h-auto lg:w-1/5 w-auto">
+                <div className="flex h-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
+                <div className="flex flex-col gap-2 justify-center items-center">
+                    <CreateProduct />
+                </div>
+                </div>
+            </div>}
         </>
     )
     

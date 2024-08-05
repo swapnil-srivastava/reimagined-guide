@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import axios from "axios";
 import toast from "react-hot-toast";
 
 // Components
@@ -45,6 +44,7 @@ export default function Technology(props) {
   const [techStackState, setTechStackState] = useState<TECHNOLOGIES[]>(
     props.techStackState
   );
+
   const [leadingTechState, setLeadingTechState] = useState<LEADINGTECH[]>(
     props.leadingTechState
   );
@@ -52,31 +52,6 @@ export default function Technology(props) {
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
-
-  async function getTechStack() {
-    try {
-      // 👇️ const data: GetTechStackResponse
-      const { data, status } = await axios.get("/api/techstack", {
-        headers: {
-          Accept: "application/json",
-        },
-      });
-
-      const { techStack } = data;
-
-      // setTechStackState(techStack); // change data based on TECHNOLOGIES type
-
-      return data;
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.log("error message: ", error.message);
-        return error.message;
-      } else {
-        console.log("unexpected error: ", error);
-        return "An unexpected error occurred";
-      }
-    }
-  }
 
   return (
     <>
