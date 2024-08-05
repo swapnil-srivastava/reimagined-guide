@@ -61,26 +61,47 @@ function CreateProduct() {
         setData({
             product_name: "",
             product_decription: "",
-            product_price: 0,
-            product_stock: 0,
+            product_price: undefined,
+            product_stock: undefined,
         });
     };
 
     // Validate length
     const isValidProductName =
-        data?.product_name?.length > 3 && data?.product_name?.length < 100;
+        data?.product_name?.length > 2 && data?.product_name?.length < 30;
 
     // Validate length
     const isValidProductDescription =
-        data?.product_decription?.length > 3 && data?.product_decription?.length < 100;
+        data?.product_decription?.length > 2 && data?.product_decription?.length < 200;
 
-    // // Validate Number
-    // const isValidProductPrice =
-    //     data?.product_price?.length > 3 && data?.product_name?.length < 100;
+    // Validate Number
+    const isValidProductPrice = (price: string): boolean => {
+        // Check if price is numeric
+        if (!/^\d+(\.\d{1,2})?$/.test(price)) {
+          return false;
+        }
+      
+        // Convert price to a number
+        const priceValue = parseFloat(price);
+      
+        // Validate if price is greater than 0 and has valid length
+        return priceValue > 0 && price.length >= 3 && price.length <= 10;
+    }
+      
 
-    // // Validate Number
-    // const isValidProductStock =
-    //     data?.product_stock?.length > 3 && data?.product_stock?.length < 100;
+    // Validate Number
+    const isValidProductStock = (stock: string): boolean => {
+        // Check if stock is numeric
+        if (!/^\d+$/.test(stock)) {
+          return false;
+        }
+      
+        // Convert stock to a number
+        const stockValue = parseInt(stock, 10);
+      
+        // Validate if stock is a positive integer
+        return stockValue > 0 && stock.length <= 10;
+      }
 
     // Create a new product in supabase postgres
     const createProduct = async () => {
@@ -109,60 +130,37 @@ function CreateProduct() {
 
     return (
         <>
-        <div className="flex flex-col gap-2 my-4 px-4 py-2 text-blog-black dark:bg-blog-white">
-
-            <JsonForms
-                schema={schema}
-                uischema={uischema}
-                data={data}
-                renderers={materialRenderers}
-                cells={materialCells}
-                onChange={({ errors, data }) => setData(data)}
-            />
-
-            <div className="flex self-center gap-2">
-            <button
-                type="submit"
-                disabled={!isValidProductName && !isValidProductDescription}
-                className="
-                    py-1 px-2
-                    font-light
-                    text-sm
-                    dark:text-blog-black
-                    bg-hit-pink-500 
-                    border-2 border-hit-pink-500 
-                    rounded
-                    hover:filter hover:brightness-125
-                    flex-shrink-0 
-                    self-center"
-                onClick={() => createProduct()}
-                >
-                <FormattedMessage
-                    id="create-product-create-btn"
-                    description="Create" // Description should be a string literal
-                    defaultMessage="Create" // Message should be a string literal
+            <div className="flex flex-col gap-2 my-4 px-4 py-2 text-blog-black dark:bg-blog-white">
+                <JsonForms
+                    schema={schema}
+                    uischema={uischema}
+                    data={data}
+                    renderers={materialRenderers}
+                    cells={materialCells}
+                    onChange={({ errors, data }) => setData(data)}
                 />
-            </button>
-            <button
-                className="
-                    py-1 px-2
-                    font-light
-                    border
-                    border-fun-blue-500
-                    text-fun-blue-500
-                    text-sm rounded 
-                    self-center"
-                type="button"
-                onClick={clearProduct}
-            >
-                <FormattedMessage
-                    id="create-product-cancel-btn"
-                    description="Cancel" // Description should be a string literal
-                    defaultMessage="Cancel" // Message should be a string literal
-                />
-            </button>
+
+                {/* Button Section */}
+                <div className="flex self-center gap-2">
+                    <button type="submit"
+                        disabled={!isValidProductName && !isValidProductDescription}
+                        className={styles.btnAdmin}
+                        onClick={() => createProduct()}>
+                        <FormattedMessage
+                            id="create-product-create-btn"
+                            description="Create" // Description should be a string literal
+                            defaultMessage="Create" // Message should be a string literal
+                        />
+                    </button>
+                    <button className={styles.btnAdmin} type="button" onClick={clearProduct}>
+                        <FormattedMessage
+                            id="create-product-cancel-btn"
+                            description="Cancel" // Description should be a string literal
+                            defaultMessage="Cancel" // Message should be a string literal
+                        />
+                    </button>
+                </div>
             </div>
-        </div>
         </>
     );
 }
@@ -286,28 +284,30 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
             }
 
             {/* Create Product Card */}
-            <div className="flex lg:h-96 h-auto lg:w-1/5 w-auto">
-                <div className="flex h-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
-                <div className="flex flex-col gap-2 justify-center items-center">
-                    <FontAwesomeIcon icon={faCirclePlus} size="3x" className="cursor-pointer" onClick={() => setCreateProduct(!createProduct)}/>
-                    <div className="text-lg">
-                    <FormattedMessage
-                        id="product-card-create-product"
-                        description="Create Product"
-                        defaultMessage="Create Product"
-                    />
+            <div className="flex lg:h-96 lg:w-1/5 h-auto w-auto">
+                <div className="flex h-full w-full justify-center items-center p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
+                    <div className="flex flex-col gap-2 justify-center items-center">
+                        <FontAwesomeIcon icon={faCirclePlus} size="3x" className="cursor-pointer" onClick={() => setCreateProduct(!createProduct)}/>
+                        <div className="text-lg">
+                        <FormattedMessage
+                            id="product-card-create-product"
+                            description="Create Product"
+                            defaultMessage="Create Product"
+                        />
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
 
-            {createProduct && <div className="flex lg:h-96 h-auto lg:w-1/5 w-auto">
-                <div className="flex h-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
-                <div className="flex flex-col gap-2 justify-center items-center">
-                    <CreateProduct />
+            {createProduct && 
+            <div className="flex lg:h-96 lg:w-1/5 h-auto w-auto">
+                <div className="flex h-full w-full p-4 justify-center items-center hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
+                    <div className="flex flex-col gap-2 justify-center items-center">
+                        <CreateProduct />
+                    </div>
                 </div>
-                </div>
-            </div>}
+            </div>
+            }
         </>
     )
     
