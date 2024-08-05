@@ -48,24 +48,19 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                     <div className="flex h-96 lg:w-1/5 w-auto" key={product.id}>
                         <div className="flex h-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
                             <div className="flex flex-col gap-2 justify-between">
-                                {/* DATE and Author */}
+                                {/* Product Image - TODO add the image url from the product list {product.imageUrl}*/} 
                                 <div>
-                                    {/* author image and author name */}
-                                    <div className="flex items-center gap-2">
-
-                                        {/* DATE Div */}
-                                        <div className="flex gap-1 self-start">
-                                            {/* Author Name */}
-                                            <div className="self-start hover:underline">
-                                                <Link href={`/${product.username}`}>{`${product.username}`}</Link>
-                                            </div>                                      
-                                        </div>
-                                    </div>
+                                    <Image
+                                            src={`/mountains.jpg`} 
+                                            alt={product.name}
+                                            width={300}
+                                            height={300}
+                                            className="rounded-lg"
+                                        />
                                 </div>
 
                                 {/* Products Name, Price, Quantity, Add to Cart button */}
                                 <div className="flex flex-col gap-2">
-                                    
                                     {/* Product Name, Price and Quantity Section */}
                                     <div className="flex flex-col gap-1 text-2xl font-semibold">
                                         {/* Product Name */}
