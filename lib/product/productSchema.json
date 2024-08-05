@@ -8,6 +8,7 @@
       },
       "product_decription": {
         "type": "string",
+        "minLength": 2,
         "maxLength": 200
       },
       "product_price": {
