@@ -75,6 +75,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                                             </div>
 
                                             {/* Quantity */}
+                                            {/* Note: when the product.quantity should not coming the products but it should be handled in the website store integration pending */}
                                             <div>
                                                 <QuantityComponent
                                                     quantity={product.quantity ?? 0}
