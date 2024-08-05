@@ -95,7 +95,7 @@ function CreateProduct() {
                     description: data?.product_decription,
                     price: data?.product_price,
                     stock: data?.product_stock,
-                    uid: profile?.id,
+                    user_id: profile?.id,
                 },
             ]);
 
