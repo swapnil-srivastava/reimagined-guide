@@ -1,0 +1,26 @@
+{
+    "type": "VerticalLayout",
+    "elements": [
+       {
+        "type": "Label",
+        "text": "Add the Product"
+      },
+      {
+        "type": "Control",
+        "scope": "#/properties/product_name"
+      },
+      {
+        "type": "Control",
+        "scope": "#/properties/product_decription"
+      },
+      {
+        "type": "Control",
+        "scope": "#/properties/product_price"
+      },
+      {
+        "type": "Control",
+        "scope": "#/properties/product_stock"
+      }
+    ]
+  }
+  

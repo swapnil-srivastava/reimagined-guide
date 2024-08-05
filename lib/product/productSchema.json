@@ -1,0 +1,22 @@
+{
+    "type": "object",
+    "properties": {
+      "product_name": {
+        "type": "string",
+        "maxLength": 30,
+        "minLength": 2
+      },
+      "product_decription": {
+        "type": "string",
+        "maxLength": 200
+      },
+      "product_price": {
+        "type": "number"
+      },
+      "product_stock": {
+        "type": "number"
+      }
+    },
+    "required": ["product_name", "product_decription", "product_price", "product_stock"]
+  }
+  
