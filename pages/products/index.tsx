@@ -148,7 +148,7 @@ function Products() {
 
   return (
     <>
-      <div className="flex flex-wrap flex-col gap-4">
+      <div className="flex flex-wrap flex-col gap-4 pb-20">
         <div className="font-poppins lg:text-5xl text-3xl dark:text-blog-white text-blog-black p-10 self-center">
             <FormattedMessage
                 id="products-heading"
