@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { FormattedMessage } from "react-intl";
 import moment from "moment";
@@ -25,16 +25,20 @@ import schema from "../lib/product/productSchema.json";
 import uischema from "../lib/product/uiProductSchema.json";
 
 // Local Interface
-import { PRODUCTS } from "../database.types";
+import { PRODUCT } from "../database.types";
 import { RootState } from "../lib/interfaces/interface";
 
 // JSON Forms
 import { JsonForms } from "@jsonforms/react";
 
+// importing material for JSON Forms
 import {
     materialCells,
     materialRenderers,
   } from "@jsonforms/material-renderers";
+
+// Redux 
+import { addToStoreInsert } from '../redux/actions/actions';
 
 interface producJSON {
     product_name: string;
@@ -168,6 +172,8 @@ function CreateProduct() {
 // Product list to be used only with products page
 const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoadMore = false, onQuantityChange }) => {
 
+    const dispatch = useDispatch();
+
     const [ createProduct, setCreateProduct] = useState<boolean>(false);
 
     const handleQuantityChange = (productId, newQuantity) => {
@@ -176,7 +182,11 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
             onQuantityChange({ ...updatedProduct, quantity: newQuantity });
         }
     };
-    
+
+    const handleAddProduct = (product: PRODUCT) => {
+        dispatch(addToStoreInsert(product));
+    };
+
     function generateContent(input) {
         if (!input) return;
         if (input.length > 18) {
@@ -258,7 +268,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
 
                                                 {/* Add to Cart button section */}
                                                 <div className="text-lg hover:text-xs flex items-center justify-end gap-2">
-                                                    <button className={styles.btnAdmin}>
+                                                    <button className={styles.btnAdmin} onClick={() => handleAddProduct(product)}>
                                                         <FormattedMessage
                                                             id="product-card-add-to-cart"
                                                             description="Add to Cart" // Description should be a string literal

@@ -569,7 +569,7 @@ export type Enums<
     type PRODUCTS_ROW = Pick<PRODUCTS_TABLE["products"], "Row">;
     type PRODUCT_INSERT = Pick<PRODUCTS_TABLE["products"], "Insert">;
 
-    export type PRODUCTS = Pick<
+    export type PRODUCT = Pick<
       PRODUCTS_ROW["Row"],
       | "name"
       | "created_at"

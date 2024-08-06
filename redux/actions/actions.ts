@@ -1,3 +1,4 @@
+import { PRODUCT } from '../../database.types';
 import * as types from './types'
 
 // INCREMENT COUNTER BY 1
@@ -17,3 +18,12 @@ export const usernameUpdate = (payload) => ({ type: types.USERNAME_UPDATE, usern
 
 // UPDATE THE SUPABASE USER
 export const supabaseUser = (payload) => ({ type: types.SUPABASE_USER, supbaseUser: payload });
+
+// Add the product to the store
+export const addToStoreInsert = (payload: PRODUCT) => ({ type: types.ADD_TO_STORE_INSERT, product: payload });
+
+// Update the product to the store
+export const addToStoreUpdate = (payload) => ({ type: types.ADD_TO_STORE_INSERT, product: payload });
+
+// Delete the product to the store
+export const addToStoreDelete = (payload) => ({ type: types.ADD_TO_STORE_DELETE, product: payload });
