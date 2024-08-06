@@ -35,9 +35,12 @@ function AwesomeNavBar() {
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
+
   const { theme, setTheme } = useTheme();
+
   const { locales, asPath, locale: nextLocale } = useRouter();
-  const [currentLocale, setCurrentLocale] = useState(nextLocale);
+
+  const [ currentLocale, setCurrentLocale] = useState(nextLocale);
 
   const handleChange = (event: SelectChangeEvent) => {
     setCurrentLocale(event.target.value as string);

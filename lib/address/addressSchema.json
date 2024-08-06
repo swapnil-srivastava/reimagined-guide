@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "properties": {
+    "address_line1": {
+      "type": "string",
+      "maxLength": 255,
+      "minLength": 2
+    },
+    "address_line2": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 255
+    },
+    "postal_code": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 10
+    },
+    "city": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 100
+    },
+    "state": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 100
+    },
+    "country": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 100
+    }
+  },
+  "required": ["address_line1", "postal_code", "city", "country"]
+}

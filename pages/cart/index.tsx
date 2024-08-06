@@ -3,13 +3,17 @@ import { FormattedMessage } from "react-intl";
 import { useSelector } from "react-redux";
 
 // Components
-import StorePage from "../../components/CartPage";
+import CartPage from "../../components/CartPage";
 import { RootState } from "../../lib/interfaces/interface";
 
 function Cart() {
 
   const selectStore = (state: RootState) => state.cart;
   const { cartItems } = useSelector(selectStore);
+
+  const selectUser = (state: RootState) => state.users;
+  const { userInfo } = useSelector(selectUser);
+  const { profile, session } = userInfo;
 
   return (
     <>
@@ -21,7 +25,7 @@ function Cart() {
                 defaultMessage="Cart" // Message should be a string literal
             />
         </div>
-        <StorePage cartItems={cartItems} />
+        <CartPage cartItems={cartItems} profile={profile}/>
       </div>
     </>
   );

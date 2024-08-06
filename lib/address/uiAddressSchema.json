@@ -1,0 +1,39 @@
+{
+    "type": "VerticalLayout",
+    "elements": [
+       {
+        "type": "Label",
+        "text": "Add the Address"
+      },
+      {
+        "type": "Control",
+        "scope": "#/properties/address_line1"
+      },
+      {
+        "type": "Control",
+        "scope": "#/properties/address_line2"
+      },
+      {
+        "type": "HorizontalLayout",
+        "elements": [
+          {
+            "type": "Control",
+            "scope": "#/properties/postal_code"
+          },
+          {
+            "type": "Control",
+            "scope": "#/properties/city"
+          }
+        ]
+      },
+      {
+        "type": "Control",
+        "scope": "#/properties/state"
+      },
+      {
+        "type": "Control",
+        "scope": "#/properties/country"
+      }
+    ]
+  }
+  

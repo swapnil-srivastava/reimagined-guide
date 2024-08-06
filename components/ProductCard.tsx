@@ -18,7 +18,6 @@ import styles from "../styles/Admin.module.css";
 
 // Components
 import CurrencyPriceComponent from "./CurrencyPriceComponent";
-import QuantityComponent from "./QuantityComponent";
 
 // Product Schema
 import schema from "../lib/product/productSchema.json";
