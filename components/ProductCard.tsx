@@ -49,7 +49,7 @@ interface producJSON {
   
 function CreateProduct() {
 
-    type PRODUCT_OBJ = Pick<PRODUCTS, "name" | "price" | "description" | "stock">;
+    type PRODUCT_OBJ = Pick<PRODUCT, "name" | "price" | "description" | "stock">;
     type PRODUCTNAME = PRODUCT_OBJ["name"];
     type PRODUCTDESCRIPTION = PRODUCT_OBJ["description"];
     type PRODUCTPRICE = PRODUCT_OBJ["price"];
