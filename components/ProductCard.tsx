@@ -38,7 +38,7 @@ import {
   } from "@jsonforms/material-renderers";
 
 // Redux 
-import { addToStoreDelete, addToStoreInsert } from '../redux/actions/actions';
+import { addToCartDelete, addToCartInsert } from '../redux/actions/actions';
 
 interface producJSON {
     product_name: string;
@@ -184,12 +184,12 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
     };
 
     const handleAddProduct = (product: PRODUCT) => {
-        dispatch(addToStoreInsert(product));
+        dispatch(addToCartInsert(product));
     };
 
-    // TODO: remove from this component and mention in the store page
+    // TODO: remove from this component and mention in the cart page
     const handleRemoveProduct = (product: PRODUCT) => {
-        dispatch(addToStoreDelete(product))
+        dispatch(addToCartDelete(product))
     }
 
     function generateContent(input) {

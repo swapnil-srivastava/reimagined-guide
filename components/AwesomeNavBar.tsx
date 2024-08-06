@@ -329,11 +329,11 @@ function DropdownMenu() {
               </RoundButton>
             }
           >
-            <Link href="/store">
+            <Link href="/cart">
                 <FormattedMessage
-                    id="nav-bar-store-text"
-                    description="Store" // Description should be a string literal
-                    defaultMessage="Store" // Message should be a string literal
+                    id="nav-bar-cart-text"
+                    description="Cart" // Description should be a string literal
+                    defaultMessage="Cart" // Message should be a string literal
                     />
             </Link>
           </DropdownItem>

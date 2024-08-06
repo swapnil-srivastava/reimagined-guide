@@ -4,33 +4,31 @@ import React from 'react';
 import { faCircleMinus, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from 'react-redux';
-import { addToStoreProductQuantityDec, addToStoreProductQuantityInc } from '../redux/actions/actions';
+import { addToCartProductQuantityDec, addToCartProductQuantityInc } from '../redux/actions/actions';
 import { PRODUCT } from '../database.types';
 
+export interface ProductWithQuantity extends PRODUCT {
+  quantity: number;
+}
+
 interface QuantityComponentProps {
-  quantity: number | string;
-  product: PRODUCT
-  onQuantityChange: (newQuantity: number | string) => void;
+  product: ProductWithQuantity
   children : React.ReactNode
 }
 
-const QuantityComponent: React.FC<QuantityComponentProps> = ({ quantity, product, onQuantityChange, children })  => {
+const QuantityComponent: React.FC<QuantityComponentProps> = ({ product, children })  => {
 
     const dispatch = useDispatch();
 
     const increment = () => {
-      let currentQuantity = typeof quantity === 'string' ? parseInt(quantity, 10) : quantity;
-      if (!isNaN(currentQuantity)) {
-        dispatch(addToStoreProductQuantityInc(product))
-        onQuantityChange((currentQuantity + 1).toString());
+      if (!isNaN(product && product.quantity)) {
+        dispatch(addToCartProductQuantityInc(product));
       }
     }
 
     const decrement = () => {
-      let currentQuantity = typeof quantity === 'string' ? parseInt(quantity, 10) : quantity;
-      if (!isNaN(currentQuantity) && currentQuantity > 0) {
-        dispatch(addToStoreProductQuantityDec(product))
-        onQuantityChange((currentQuantity - 1).toString());
+      if (!isNaN(product && product.quantity) && (product && product.quantity) > 0) {
+        dispatch(addToCartProductQuantityDec(product));
       }
     }
 
