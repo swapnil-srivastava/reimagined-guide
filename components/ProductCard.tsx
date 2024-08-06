@@ -38,7 +38,7 @@ import {
   } from "@jsonforms/material-renderers";
 
 // Redux 
-import { addToStoreInsert } from '../redux/actions/actions';
+import { addToStoreDelete, addToStoreInsert } from '../redux/actions/actions';
 
 interface producJSON {
     product_name: string;
@@ -187,6 +187,11 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
         dispatch(addToStoreInsert(product));
     };
 
+    // TODO: remove from this component and mention in the store page
+    const handleRemoveProduct = (product: PRODUCT) => {
+        dispatch(addToStoreDelete(product))
+    }
+
     function generateContent(input) {
         if (!input) return;
         if (input.length > 18) {
@@ -239,31 +244,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                                                         <div className="text-sm">
                                                             <CurrencyPriceComponent price={product.price}/>
                                                         </div>
-
-                                                        {/* Quantity */}
-                                                        {/* Note: when the product.quantity should not coming the products but it should be handled in the website store integration pending */}
-                                                        <div>
-                                                            <QuantityComponent
-                                                                quantity={product.quantity ?? 0}
-                                                                onQuantityChange={(newQuantity) => handleQuantityChange(product.id, newQuantity)}
-                                                            >
-                                                                {product.quantity ?? 0}
-                                                            </QuantityComponent>
-                                                        </div>
                                                     </div>
-
-                                                    {/* Created At Date */}
-                                                    <div className="flex gap-1 text-xs self-start font-thin">
-                                                        <div>
-                                                            <FormattedMessage
-                                                                id="product-card-created-at"
-                                                                description="Created At" // Description should be a string literal
-                                                                defaultMessage="Created at" // Message should be a string literal
-                                                            />
-                                                        </div>
-                                                        <div>{createdAtDateFormat}</div>
-                                                    </div>
-
                                                 </div>
 
                                                 {/* Add to Cart button section */}

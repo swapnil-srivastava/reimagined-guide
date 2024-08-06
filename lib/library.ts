@@ -18,4 +18,11 @@ const setLocalStorage = (key: string, value:any) => {
   localStorage.setItem(key, JSON.stringify(value));
 }
 
-export { generateMetaDescription, getLocalStorage, setLocalStorage};
+const PRODUCT_INITIAL_QUANTITY = 1;
+const PRODUCT_QUANTITY_INCREMENT = 1;
+const PRODUCT_QUANTITY_DECREMENT = 1;
+
+export { generateMetaDescription, getLocalStorage, setLocalStorage, 
+  PRODUCT_INITIAL_QUANTITY, PRODUCT_QUANTITY_INCREMENT, 
+  PRODUCT_QUANTITY_DECREMENT
+};

@@ -27,3 +27,9 @@ export const addToStoreUpdate = (payload) => ({ type: types.ADD_TO_STORE_INSERT,
 
 // Delete the product to the store
 export const addToStoreDelete = (payload) => ({ type: types.ADD_TO_STORE_DELETE, product: payload });
+
+// Increment the Product quantity by one 
+export const addToStoreProductQuantityInc = (payload: PRODUCT) => ({ type: types.ADD_TO_STORE_PRODUCT_QUANTITY_INC, product: payload });
+
+// Decrement the Product quantity by 
+export const addToStoreProductQuantityDec = (payload: PRODUCT) => ({ type: types.ADD_TO_STORE_PRODUCT_QUANTITY_DEC, product: payload });
