@@ -93,9 +93,9 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
             </AddressCheck>   
         </AuthCheck>
 
-        {/* <div className="flex h-full w-full px-10">
+        <div className="flex h-full w-full px-10">
             <AddressForm profile={profile} />
-        </div> */}
+        </div>
 
         {/* Detail Summary */}
 

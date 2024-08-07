@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import toast from "react-hot-toast";
 
@@ -29,7 +29,7 @@ import {
     materialRenderers,
   } from "@jsonforms/material-renderers";
 
-interface addressJSON {
+export interface addressJSON {
     address_line1: string;
     address_line2: string;
     city: string;
@@ -40,10 +40,20 @@ interface addressJSON {
 
 interface AddressFormProps {
     profile: UserProfile | null
+    address?: addressJSON
+}
+
+const initialAddressState = {
+    address_line1: "",
+    address_line2: "",
+    city: "",
+    postal_code: "",
+    state: "",
+    country: "",
 }
 
 // Address Form
-const AddressForm : React.FC<AddressFormProps>= ({ profile }) => {
+const AddressForm : React.FC<AddressFormProps>= ({ profile, address = initialAddressState }) => {
     
     type ADDRESS_OBJ = Pick<ADDRESS, "address_line1" | "address_line2" | "city" | "postal_code" | "state" | "country">;
 
@@ -59,6 +69,10 @@ const AddressForm : React.FC<AddressFormProps>= ({ profile }) => {
             country: "",
         });
     };
+    
+    useEffect(() => {
+        setData(address);
+    }, [address]);
 
     // Validate Length
     const isValidAddressLine1 = data?.address_line1?.length > 2 && data?.address_line1?.length < 255;
