@@ -17,36 +17,36 @@ import { supaClient } from "../supa-client";
 // Component's children only shown to logged-in users
 export default function AddressCheck(props) {
   // TS infers type: (state: RootState) => boolean
-  const selectUser = (state: RootState) => state.users;
-  const { userInfo } = useSelector(selectUser);
-  const { profile, session } = userInfo;
+  // const selectUser = (state: RootState) => state.users;
+  // const { userInfo } = useSelector(selectUser);
+  // const { profile, session } = userInfo;
 
-  const [addressState , setAddressState] = useState<addressJSON>();
+  // const [addressState , setAddressState] = useState<addressJSON>();
 
-  useEffect(() => {
-    const checkAddress = async () => {
-      if (profile) {
-        const { data, error } = await supaClient
-          .from('addresses')
-          .select('*')
-          .eq('user_id', profile.id);
+  // useEffect(() => {
+  //   const checkAddress = async () => {
+  //     if (profile) {
+  //       const { data, error } = await supaClient
+  //         .from('addresses')
+  //         .select('*')
+  //         .eq('user_id', profile.id);
 
-        const [ address ] = data
-        setAddressState(address);
-      }
-    };
+  //       const [ address ] = data
+  //       setAddressState(address);
+  //     }
+  //   };
 
-    checkAddress();
-  }, []);
+  //   checkAddress();
+  // }, []);
 
 
   return (
-    <AuthCheck>
-        {
-            addressState
-            ? props.children
-            : props.fallback || <AddressForm profile={profile} />
-        }
-    </AuthCheck>
+    // <AuthCheck>
+    //     {
+    //         addressState
+    //         ? <AddressForm profile={profile} />
+    //         : props.fallback || <AddressForm profile={profile} />
+    //     }
+    // </AuthCheck>
   )
 }
