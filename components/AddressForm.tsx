@@ -53,7 +53,7 @@ const initialAddressState = {
 }
 
 // Address Form
-const AddressForm : React.FC<AddressFormProps>= ({ profile, address = initialAddressState }) => {
+const AddressForm : React.FC<AddressFormProps>= ({ profile }) => {
     
     type ADDRESS_OBJ = Pick<ADDRESS, "address_line1" | "address_line2" | "city" | "postal_code" | "state" | "country">;
 
@@ -69,10 +69,6 @@ const AddressForm : React.FC<AddressFormProps>= ({ profile, address = initialAdd
             country: "",
         });
     };
-    
-    useEffect(() => {
-        setData(address);
-    }, [address]);
 
     // Validate Length
     const isValidAddressLine1 = data?.address_line1?.length > 2 && data?.address_line1?.length < 255;

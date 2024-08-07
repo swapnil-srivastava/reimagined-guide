@@ -45,7 +45,7 @@ export default function AddressCheck(props) {
         {
             addressState
             ? props.children
-            : props.fallback || <AddressForm profile={profile} address={addressState}/>
+            : props.fallback || <AddressForm profile={profile} />
         }
     </AuthCheck>
   )
