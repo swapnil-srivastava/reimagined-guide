@@ -23,10 +23,6 @@ export default function AddressCheck(props) {
 
   const [addressState , setAddressState] = useState<addressJSON>();
 
-  const isEmptyObject = (obj) => {
-    return Object.keys(obj).length === 0 && obj.constructor === Object;
-  };
-
   useEffect(() => {
     const checkAddress = async () => {
       if (profile) {
@@ -47,7 +43,7 @@ export default function AddressCheck(props) {
   return (
     <AuthCheck>
         {
-            addressState && isEmptyObject(addressState)
+            addressState
             ? props.children
             : props.fallback || <AddressForm profile={profile} address={addressState}/>
         }
