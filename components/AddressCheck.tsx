@@ -47,7 +47,7 @@ export default function AddressCheck(props) {
   return (
     <AuthCheck>
         {
-            addressState ?? isEmptyObject(addressState)
+            addressState && isEmptyObject(addressState)
             ? props.children
             : props.fallback || <AddressForm profile={profile} address={addressState}/>
         }
