@@ -32,47 +32,46 @@ interface CartPageProps {
 
 const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
     return (
-      <>
-        {/* Cart Items */}
-        <div className="flex h-full w-full px-10">
-            <div className="flex h-full w-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
-                <div className="flex flex-col w-full h-full gap-2 justify-center items-center">
-                    {/* Product Row */}
-                    {cartItems && cartItems.map((cartItem) => (
-                        <div key={cartItem.id} className="flex h-full w-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
-                            <div className="flex flex-row gap-2 h-full w-full">
-                                <div className="flex">
-                                    <Image src={`/mountains.jpg`} 
-                                        alt={cartItem.name}
-                                        width={250}
-                                        height={250}
-                                        className="rounded-lg"
-                                    />
-                                </div>
-                                <div className="flex flex-col w-full justify-between">
-                                    <div>
-                                        <div>{cartItem.name}</div>
-                                        <div>{cartItem.description}</div>
+      <>        
+        <AuthCheck>  {/* if - signed in */ }
+            {/* Cart Items */}
+            <div className="flex h-full w-full px-10">
+                <div className="flex h-full w-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
+                    <div className="flex flex-col w-full h-full gap-2 justify-center items-center">
+                        {/* Product Row */}
+                        {cartItems && cartItems.map((cartItem) => (
+                            <div key={cartItem.id} className="flex h-full w-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
+                                <div className="flex flex-row gap-2 h-full w-full">
+                                    <div className="flex">
+                                        <Image src={`/mountains.jpg`} 
+                                            alt={cartItem.name}
+                                            width={250}
+                                            height={250}
+                                            className="rounded-lg"
+                                        />
                                     </div>
-                                    <div className="flex flex-row justify-between">
+                                    <div className="flex flex-col w-full justify-between">
                                         <div>
-                                            <QuantityComponent product={cartItem}>
-                                                {cartItem.quantity}
-                                            </QuantityComponent>
+                                            <div>{cartItem.name}</div>
+                                            <div>{cartItem.description}</div>
                                         </div>
-                                        <div>
-                                            <CurrencyPriceComponent price={cartItem.price}/>
+                                        <div className="flex flex-row justify-between">
+                                            <div>
+                                                <QuantityComponent product={cartItem}>
+                                                    {cartItem.quantity}
+                                                </QuantityComponent>
+                                            </div>
+                                            <div>
+                                                <CurrencyPriceComponent price={cartItem.price}/>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <AuthCheck>  {/* if - signed in */ }
             <AddressCheck> {/* if - address */}
                 {/* Cart delivery Type */}
                 {/* Replace it with delivery types */}
@@ -92,10 +91,6 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                 </div>
             </AddressCheck>   
         </AuthCheck>
-
-        {/* <div className="flex h-full w-full px-10">
-            <AddressForm profile={profile} />
-        </div> */}
 
         {/* Detail Summary */}
 
