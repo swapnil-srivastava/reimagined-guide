@@ -33,6 +33,7 @@ interface CartPageProps {
 
 const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
     const [addressState , setAddressState] = useState<addressJSON>();
+    const [editSavedAddress , setEditSavedAddress] = useState<boolean>(false);
 
     useEffect(() => {
       const checkAddress = async () => {
@@ -92,7 +93,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                     </div>
                 </div>
             </div>
-            { addressState 
+            { addressState && !editSavedAddress
                 ? <>
                  {/* Address Card */}
                     <div className="flex h-full w-full p-10">
@@ -120,13 +121,24 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                                     <div className="text-xs">{addressState?.country}</div>
                                 </div>
                                 <div>
-                                    <FontAwesomeIcon icon={faPenToSquare} className="cursor-pointer" size="lg"/>
+                                    <FontAwesomeIcon icon={faPenToSquare} className="cursor-pointer" size="lg" onClick={() => setEditSavedAddress(true)}/>
                                 </div>
                             </div>
                         </div>
                     </div>
-                 </>
-                : <AddressForm profile={profile} />
+                  </>
+                : 
+                <>
+                    (
+                        <AddressForm
+                            profile={profile}
+                            addressState={addressState}
+                            setAddressState={setAddressState}
+                            editSavedAddress={editSavedAddress}
+                            setEditSavedAddress={setEditSavedAddress}
+                        />
+                    )
+                </>
             }
         </AuthCheck>
       </>

@@ -39,8 +39,11 @@ export interface addressJSON {
 }
 
 interface AddressFormProps {
-    profile: UserProfile | null
-    address?: addressJSON
+    profile: UserProfile | null;
+    addressState?: addressJSON;
+    setAddressState: (address: addressJSON) => void;
+    editSavedAddress: boolean;
+    setEditSavedAddress: (edit: boolean) => void;
 }
 
 const initialAddressState = {
@@ -53,21 +56,14 @@ const initialAddressState = {
 }
 
 // Address Form
-const AddressForm : React.FC<AddressFormProps>= ({ profile }) => {
+const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, setAddressState, editSavedAddress, setEditSavedAddress }) => {
     
     type ADDRESS_OBJ = Pick<ADDRESS, "address_line1" | "address_line2" | "city" | "postal_code" | "state" | "country">;
 
-    const [data, setData] = useState<addressJSON>();
+    const [data, setData] = useState<addressJSON>(addressState || initialAddressState);
 
     const clearData = () => {
-        setData({
-            address_line1: "",
-            address_line2: "",
-            city: "",
-            postal_code: "",
-            state: "",
-            country: "",
-        });
+        setData(initialAddressState);
     };
 
     // Validate Length
@@ -96,22 +92,50 @@ const AddressForm : React.FC<AddressFormProps>= ({ profile }) => {
     const createAddress = async () => {
         if (!data?.address_line1 && !data?.address_line2 && !data?.city && !data.postal_code && !data.state && !data.country) return;
 
-        // Tip: give all fields a default value here
-        const { data: supaData, error } = await supaClient
-            .from("addresses")
-            .insert([
-                {
-                    user_id: profile?.id,
+        if (editSavedAddress) {
+            // Update existing address
+            const { data: supaData, error } = await supaClient
+                .from("addresses")
+                .update({
                     address_line1: data?.address_line1,
                     address_line2: data?.address_line2,
                     city: data?.city,
                     state: data?.state,
                     postal_code: data?.postal_code,
                     country: data?.country,
-                },
-            ]);
+                })
+                .eq('user_id', profile?.id);
 
-        toast.success("Address added!!");
+            if (!error) {
+                setAddressState(data);
+                setEditSavedAddress(false);
+                toast.success("Address updated!!");
+            } else {
+                toast.error("Failed to update address");
+            }
+        } else {
+            // Insert new address
+            const { data: supaData, error } = await supaClient
+                .from("addresses")
+                .insert([
+                    {
+                        user_id: profile?.id,
+                        address_line1: data?.address_line1,
+                        address_line2: data?.address_line2,
+                        city: data?.city,
+                        state: data?.state,
+                        postal_code: data?.postal_code,
+                        country: data?.country,
+                    },
+                ]);
+
+            if (!error) {
+                setAddressState(data);
+                toast.success("Address added!!");
+            } else {
+                toast.error("Failed to add address");
+            }
+        }
     };
 
     const clearAddress = async (e) => {
