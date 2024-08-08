@@ -16,7 +16,6 @@ import AddressForm, { addressJSON } from "./AddressForm";
 
 // Supabase User Profile
 import { UserProfile } from "../lib/hooks";
-import AddressCheck from "./AddressCheck";
 
 // CSS
 // import styles from "../styles/Admin.module.css";
@@ -78,7 +77,6 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, addressState }
                 : <AddressForm profile={profile} />
             }
             { /*
-                <AddressCheck> {/* if - address */}
                 {/* Cart delivery Type */}
                 {/* Replace it with delivery types */}
                 {/* <div className="flex lg:h-96 lg:w-1/5 h-auto w-auto">
@@ -95,7 +93,6 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, addressState }
                         </div>
                     </div>
                 </div> */}
-                {/* </AddressCheck>  */}
             {/* */}
             {/* Detail Summary */}
         </AuthCheck>
