@@ -105,8 +105,8 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                             </div>
                         ))}
                         {cartItems && cartItems.length === 0 &&
-                            <div className="flex flex-col gap-2 ">
-                                <div>
+                            <div className="flex flex-col items-center gap-2 justify-center h-full w-full">
+                                <div className="text-center">
                                     <FormattedMessage
                                         id="cart-page-empty-cart"
                                         description="Please add items into the shopping cart" // Description should be a string literal
