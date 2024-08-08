@@ -21,8 +21,6 @@ import { UserProfile } from "../lib/hooks";
 // Supabase
 import { supaClient } from "../supa-client";
 
-// CSS
-// import styles from "../styles/Admin.module.css";
 
 export interface ProductWithQuantity extends PRODUCT {
     quantity: number;
@@ -99,25 +97,6 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                 ? <h1>Address is there</h1>
                 : <AddressForm profile={profile} />
             }
-            { /*
-                {/* Cart delivery Type */}
-                {/* Replace it with delivery types */}
-                {/* <div className="flex lg:h-96 lg:w-1/5 h-auto w-auto">
-                    <div className="flex h-full w-full justify-center items-center p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
-                        <div className="flex flex-col gap-2 justify-center items-center">
-                            <FontAwesomeIcon icon={faCirclePlus} size="3x" className="cursor-pointer"/>
-                            <div className="text-lg">
-                            <FormattedMessage
-                                id="cart-page-delivery-type"
-                                description="Select Delivery Type"
-                                defaultMessage="Select Delivery Type"
-                            />
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
-            {/* */}
-            {/* Detail Summary */}
         </AuthCheck>
       </>
     );

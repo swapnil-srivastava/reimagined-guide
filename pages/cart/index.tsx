@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { useSelector } from "react-redux";
