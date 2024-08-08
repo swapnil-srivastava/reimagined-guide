@@ -67,7 +67,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
          {/*   if - signed in */ }  
          <AuthCheck>
             {/* Cart Items */}
-            <div className="flex justify-start w-full lg:px-12 px-10 pb-3 font-poppins dark:text-blog-white">Shopping Cart</div>
+            <div className="flex justify-start w-full lg:px-12 px-10 pb-3 font-poppins dark:text-blog-white lg:text-2xl text-lg">Shopping Cart</div>
             <div className="flex h-full w-full lg:px-10 px-5 font-poppins">
                 <div className="flex h-full w-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
                     <div className="flex flex-col w-full h-full gap-2 justify-center items-center">
