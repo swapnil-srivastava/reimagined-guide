@@ -1,6 +1,7 @@
 'use client';
 
 import { FormattedMessage } from "react-intl";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,6 +22,8 @@ import { UserProfile } from "../lib/hooks";
 // Supabase
 import { supaClient } from "../supa-client";
 
+// CSS
+import styles from "../styles/Admin.module.css";
 
 export interface ProductWithQuantity extends PRODUCT {
     quantity: number;
@@ -90,6 +93,23 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                                 </div>
                             </div>
                         ))}
+                        {cartItems && cartItems.length === 0 &&
+                            <div className="flex flex-col gap-2">
+                                <FormattedMessage
+                                    id="cart-page-empty-cart"
+                                    description="Please add items into the shopping cart" // Description should be a string literal
+                                    defaultMessage="Please add items into the shopping cart" // Message should be a string literal
+                                />
+                                <Link href="/products" className="flex justify-center pt-5">
+                                        <button className={styles.btnAdmin}>
+                                            <FormattedMessage id="cart-page-no-products-redirect-btn"
+                                            description="Go to products page" // Description should be a string literal
+                                            defaultMessage="Go to products page" // Message should be a string literal
+                                            />
+                                        </button>
+                                </Link>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
@@ -128,8 +148,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                         </div>
                     </div>
                   </>
-                : 
-                <>
+                : <>
                     <AddressForm
                         profile={profile}
                         addressState={addressState}
