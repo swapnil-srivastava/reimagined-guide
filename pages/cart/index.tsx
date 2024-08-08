@@ -19,12 +19,14 @@ function Cart() {
   return (
     <>
       <div className="flex flex-col flex-wrap justify-center items-center">
-        <div className="font-poppins lg:text-5xl text-3xl dark:text-blog-white text-blog-black p-10">
-            <FormattedMessage
-                id="cart-heading"
-                description="Cart" // Description should be a string literal
-                defaultMessage="Cart" // Message should be a string literal
-            />
+        <div className="font-poppins lg:text-5xl text-3xl dark:text-blog-white text-blog-black lg:p-10 p-5">
+            <div>
+              <FormattedMessage
+                  id="cart-heading"
+                  description="Cart" // Description should be a string literal
+                  defaultMessage="Cart" // Message should be a string literal
+              />
+            </div>
         </div>
         <CartPage cartItems={cartItems} profile={profile}/>
       </div>
