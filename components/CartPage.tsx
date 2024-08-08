@@ -1,6 +1,7 @@
 'use client';
 
 import { FormattedMessage } from "react-intl";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
@@ -17,6 +18,9 @@ import AddressForm, { addressJSON } from "./AddressForm";
 // Supabase User Profile
 import { UserProfile } from "../lib/hooks";
 
+// Supabase
+import { supaClient } from "../supa-client";
+
 // CSS
 // import styles from "../styles/Admin.module.css";
 
@@ -26,12 +30,30 @@ export interface ProductWithQuantity extends PRODUCT {
 
 interface CartPageProps {
     cartItems: ProductWithQuantity[];
-    profile: UserProfile | null
-    addressState: addressJSON
+    profile: UserProfile | null;
 }
 
-const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, addressState }) => {
-    console.log("CartPage ::: addressState :", addressState);
+const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
+    const [addressState , setAddressState] = useState<addressJSON>();
+
+    useEffect(() => {
+      const checkAddress = async () => {
+        if (profile) {
+          const { data, error } = await supaClient
+            .from('addresses')
+            .select('*')
+            .eq('user_id', profile.id);
+  
+          const [ address ] = data
+          
+          console.log("CartPage ::: addressState :", addressState);
+
+          setAddressState(address);
+        }
+      };
+      checkAddress();
+    }, []);
+
     return (
       <>        
         <AuthCheck>  {/* if - signed in */ }

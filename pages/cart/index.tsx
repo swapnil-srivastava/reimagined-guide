@@ -5,10 +5,6 @@ import { useSelector } from "react-redux";
 // Components
 import CartPage from "../../components/CartPage";
 import { RootState } from "../../lib/interfaces/interface";
-import { addressJSON } from "../../components/AddressForm";
-
-// Supabase
-import { supaClient } from "../../supa-client";
 
 function Cart() {
   const selectStore = (state: RootState) => state.cart;
@@ -17,23 +13,6 @@ function Cart() {
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
-
-  const [addressState , setAddressState] = useState<addressJSON>();
-
-  useEffect(() => {
-    const checkAddress = async () => {
-      if (profile) {
-        const { data, error } = await supaClient
-          .from('addresses')
-          .select('*')
-          .eq('user_id', profile.id);
-
-        const [ address ] = data
-        setAddressState(address);
-      }
-    };
-    checkAddress();
-  }, []);
 
   return (
     <>
@@ -45,7 +24,7 @@ function Cart() {
                 defaultMessage="Cart" // Message should be a string literal
             />
         </div>
-        <CartPage cartItems={cartItems} profile={profile} addressState={addressState}/>
+        <CartPage cartItems={cartItems} profile={profile}/>
       </div>
     </>
   );
