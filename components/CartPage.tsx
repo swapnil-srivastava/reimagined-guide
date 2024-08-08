@@ -129,7 +129,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
             { addressState && !editSavedAddress
                 ? <>
                  {/* Address Card */}
-                    <div className="flex h-full w-full lg:px-10 px-5 ">
+                    <div className="flex h-full w-full lg:px-10 px-5 pt-5">
                         <div className="flex h-full lg:w-1/5 w-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
                             <div className="flex flex-row  w-full h-full gap-2 justify-between items-start">
                                 {/* Address */}
