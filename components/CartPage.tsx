@@ -43,9 +43,6 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
             .eq('user_id', profile.id);
   
           const [ address ] = data
-          
-          console.log("CartPage ::: addressState :", addressState);
-
           setAddressState(address);
         }
       };
