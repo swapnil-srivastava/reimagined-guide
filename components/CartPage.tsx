@@ -31,6 +31,7 @@ interface CartPageProps {
 }
 
 const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, addressState }) => {
+    console.log("CartPage ::: addressState :", addressState);
     return (
       <>        
         <AuthCheck>  {/* if - signed in */ }
