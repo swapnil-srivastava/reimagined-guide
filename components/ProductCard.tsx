@@ -7,7 +7,7 @@ import { FormattedMessage } from "react-intl";
 import moment from "moment";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import { faCirclePlus, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
 
 // Supabase
@@ -133,7 +133,7 @@ function CreateProduct() {
 
     return (
         <>
-            <div className="flex flex-col gap-2 my-4 px-4 py-2 text-blog-black dark:bg-blog-white">
+            <div className="flex flex-col gap-2 my-2 px-4 py-2 text-blog-black dark:bg-blog-white">
                 <JsonForms
                     schema={schema}
                     uischema={uischema}
@@ -290,9 +290,10 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
             </div>
 
             {createProduct && 
-            <div className="flex lg:h-96 lg:w-1/5 h-auto w-auto">
+            <div className="flex lg:w-1/5 h-auto w-auto">
                 <div className="flex h-full w-full p-4 justify-center items-center hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
-                    <div className="flex flex-col gap-2 justify-center items-center">
+                    <div className="flex flex-col justify-center items-center">
+                        <FontAwesomeIcon icon={faCircleXmark} className="cursor-pointer self-end pt-2" size="lg" onClick={() => setCreateProduct(!createProduct)}/>
                         <CreateProduct />
                     </div>
                 </div>
