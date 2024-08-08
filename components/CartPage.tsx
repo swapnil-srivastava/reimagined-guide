@@ -67,7 +67,13 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
          {/*   if - signed in */ }  
          <AuthCheck>
             {/* Cart Items */}
-            <div className="flex justify-start w-full lg:px-12 px-10 pb-3 font-poppins dark:text-blog-white lg:text-2xl text-lg">Shopping Cart</div>
+            <div className="flex justify-start w-full lg:px-12 px-10 pb-3 font-poppins dark:text-blog-white lg:text-2xl text-lg">
+                <FormattedMessage
+                    id="cart-page-shopping-cart-card-heading"
+                    description="Shopping Cart" // Description should be a string literal
+                    defaultMessage="Shopping Cart" // Message should be a string literal
+                />
+            </div>
             <div className="flex h-full w-full lg:px-10 px-5 font-poppins">
                 <div className="flex h-full w-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
                     <div className="flex flex-col w-full h-full gap-2 justify-center items-center">
@@ -130,18 +136,18 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
             { addressState && !editSavedAddress
                 ? <>
                  {/* Address Card */}
+                    <div className="flex justify-start w-full lg:px-12 px-10 pb-3 font-poppins dark:text-blog-white lg:text-2xl text-lg">
+                        <FormattedMessage
+                            id="cart-page-address-card-heading"
+                            description="Address" // Description should be a string literal
+                            defaultMessage="Address" // Message should be a string literal
+                        />
+                    </div>
                     <div className="flex h-full w-full lg:px-10 px-5 pt-5">
                         <div className="flex h-full lg:w-1/5 w-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
                             <div className="flex flex-row  w-full h-full gap-2 justify-between items-start">
                                 {/* Address */}
                                 <div className="font-poppins">
-                                    <div>
-                                        <FormattedMessage
-                                            id="cart-page-address-card"
-                                            description="Address" // Description should be a string literal
-                                            defaultMessage="Address" // Message should be a string literal
-                                        />
-                                    </div>
                                     <div className="text-xs">{addressState?.address_line1}</div>
                                     <div className="text-xs">{addressState?.address_line2}</div>
                                     <div className="flex flex-row gap-1 text-xs">
