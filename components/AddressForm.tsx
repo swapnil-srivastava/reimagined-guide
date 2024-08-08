@@ -147,7 +147,7 @@ const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, setAdd
 
     return (
       <>
-        <div className="flex flex-col gap-2 my-4 px-4 py-2 pt-5 w-full h-full text-blog-black dark:bg-blog-white">
+        <div className="flex flex-col gap-2 my-4 px-4 py-2 w-full h-full text-blog-black dark:bg-blog-white">
             <FontAwesomeIcon icon={faCircleXmark} className="cursor-pointer self-end" size="lg" onClick={() => setEditSavedAddress(false)}/>
             <JsonForms
                 schema={schema}
