@@ -4,7 +4,7 @@ import { FormattedMessage } from "react-intl";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 // Interfaces
 import { PRODUCT } from "../database.types";
@@ -52,7 +52,8 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
 
     return (
       <>        
-        <AuthCheck>  {/* if - signed in */ }
+         {/*   if - signed in */ }  
+         <AuthCheck>
             {/* Cart Items */}
             <div className="flex h-full w-full px-10">
                 <div className="flex h-full w-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
@@ -92,7 +93,39 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                 </div>
             </div>
             { addressState 
-                ? <h1>Address is there</h1>
+                ? <>
+                 {/* Address Card */}
+                    <div className="flex h-full w-full p-10">
+                        <div className="flex h-full lg:w-1/5 w-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
+                            <div className="flex flex-row  w-full h-full gap-2 justify-between items-start">
+                                {/* Address */}
+                                <div className="font-poppins">
+                                    <div>
+                                        <FormattedMessage
+                                            id="cart-page-address-card"
+                                            description="Address" // Description should be a string literal
+                                            defaultMessage="Address" // Message should be a string literal
+                                        />
+                                    </div>
+                                    <div className="text-xs">{addressState?.address_line1}</div>
+                                    <div className="text-xs">{addressState?.address_line2}</div>
+                                    <div className="flex flex-row gap-1 text-xs">
+                                        <div className="flex flex-row">
+                                            <div>{addressState?.postal_code}</div>
+                                            <div>,</div>
+                                        </div>
+                                        <div>{addressState?.city}</div>
+                                    </div>
+                                    <div className="text-xs">{addressState?.state}</div>
+                                    <div className="text-xs">{addressState?.country}</div>
+                                </div>
+                                <div>
+                                    <FontAwesomeIcon icon={faPenToSquare} className="cursor-pointer" size="lg"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </>
                 : <AddressForm profile={profile} />
             }
         </AuthCheck>
@@ -101,3 +134,4 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
   };
   
   export default CartPage;
+
