@@ -65,7 +65,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
     return (
       <>        
          {/*   if - signed in */ }  
-         {/* <AuthCheck> */}
+         <AuthCheck>
             {/* Cart Items */}
             <div className="flex h-full w-full lg:px-10 px-5 font-poppins">
                 <div className="flex h-full w-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
@@ -105,7 +105,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                             </div>
                         ))}
                         {cartItems && cartItems.length === 0 &&
-                            <div className="flex flex-col gap-2">
+                            <div className="flex flex-col gap-2 ">
                                 <div>
                                     <FormattedMessage
                                         id="cart-page-empty-cart"
@@ -171,7 +171,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                     />
                 </>
             }
-        {/* </AuthCheck> */}
+        </AuthCheck>
       </>
     );
   };
