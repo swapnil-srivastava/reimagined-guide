@@ -59,7 +59,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
          {/*   if - signed in */ }  
          <AuthCheck>
             {/* Cart Items */}
-            <div className="flex h-full w-full px-10">
+            <div className="flex h-full w-full px-10 font-poppins">
                 <div className="flex h-full w-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
                     <div className="flex flex-col w-full h-full gap-2 justify-center items-center">
                         {/* Product Row */}
@@ -94,7 +94,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                             </div>
                         ))}
                         {cartItems && cartItems.length === 0 &&
-                            <div className="flex flex-col gap-2">
+                            <div className="flex flex-col gap-2 ">
                                 <FormattedMessage
                                     id="cart-page-empty-cart"
                                     description="Please add items into the shopping cart" // Description should be a string literal
