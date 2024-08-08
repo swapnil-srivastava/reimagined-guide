@@ -130,15 +130,13 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                   </>
                 : 
                 <>
-                    (
-                        <AddressForm
-                            profile={profile}
-                            addressState={addressState}
-                            setAddressState={setAddressState}
-                            editSavedAddress={editSavedAddress}
-                            setEditSavedAddress={setEditSavedAddress}
-                        />
-                    )
+                    <AddressForm
+                        profile={profile}
+                        addressState={addressState}
+                        setAddressState={setAddressState}
+                        editSavedAddress={editSavedAddress}
+                        setEditSavedAddress={setEditSavedAddress}
+                    />
                 </>
             }
         </AuthCheck>
