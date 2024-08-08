@@ -120,6 +120,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                                     <div className="text-xs">{addressState?.state}</div>
                                     <div className="text-xs">{addressState?.country}</div>
                                 </div>
+                                {/* Edit icon */}
                                 <div>
                                     <FontAwesomeIcon icon={faPenToSquare} className="cursor-pointer" size="lg" onClick={() => setEditSavedAddress(true)}/>
                                 </div>

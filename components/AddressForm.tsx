@@ -28,6 +28,8 @@ import {
     materialCells,
     materialRenderers,
   } from "@jsonforms/material-renderers";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 export interface addressJSON {
     address_line1: string;
@@ -146,6 +148,7 @@ const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, setAdd
     return (
       <>
         <div className="flex flex-col gap-2 my-4 px-4 py-2 w-full h-full text-blog-black dark:bg-blog-white">
+            <FontAwesomeIcon icon={faCircleXmark} className="cursor-pointer" size="lg" onClick={() => setEditSavedAddress(true)}/>
             <JsonForms
                 schema={schema}
                 uischema={uischema}
