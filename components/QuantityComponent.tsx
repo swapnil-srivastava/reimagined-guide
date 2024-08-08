@@ -36,13 +36,13 @@ const QuantityComponent: React.FC<QuantityComponentProps> = ({ product, children
       <>
         <div className="flex flex-row items-center gap-2">
             {/* Minus Button */}
-            <FontAwesomeIcon icon={faCircleMinus} size="2xs" onClick={decrement} className="cursor-pointer"/>
+            <FontAwesomeIcon icon={faCircleMinus} size="xl" onClick={decrement} className="cursor-pointer"/>
             {/* Quantity */}
             <div className="text-sm">
               {children}
             </div>
             {/* Plus Button */}
-            <FontAwesomeIcon icon={faCirclePlus} size="2xs" onClick={increment} className="cursor-pointer"/>
+            <FontAwesomeIcon icon={faCirclePlus} size="xl" onClick={increment} className="cursor-pointer"/>
         </div>
       </>
     );

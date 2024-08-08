@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 // Interfaces
 import { PRODUCT } from "../database.types";
@@ -24,6 +24,8 @@ import { supaClient } from "../supa-client";
 
 // CSS
 import styles from "../styles/Admin.module.css";
+import { useDispatch } from "react-redux";
+import { addToCartDelete } from "../redux/actions/actions";
 
 export interface ProductWithQuantity extends PRODUCT {
     quantity: number;
@@ -35,6 +37,8 @@ interface CartPageProps {
 }
 
 const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
+    const dispatch = useDispatch();
+    
     const [addressState , setAddressState] = useState<addressJSON>();
     const [editSavedAddress , setEditSavedAddress] = useState<boolean>(false);
 
@@ -53,6 +57,10 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
 
       checkAddress();
     }, [profile]);
+
+    const handleProductDelete = (product: PRODUCT) => {
+        dispatch(addToCartDelete(product));
+    };
 
     return (
       <>        
@@ -75,9 +83,12 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                                         />
                                     </div>
                                     <div className="flex flex-col w-full justify-between">
-                                        <div>
-                                            <div>{cartItem.name}</div>
-                                            <div>{cartItem.description}</div>
+                                        <div className="flex justify-between items-start">
+                                            <div>
+                                                <div>{cartItem.name}</div>
+                                                <div>{cartItem.description}</div>
+                                            </div>
+                                            <FontAwesomeIcon icon={faCircleXmark} className="cursor-pointer" size="xl" onClick={() => handleProductDelete(cartItem)}/>
                                         </div>
                                         <div className="flex flex-row justify-between">
                                             <div>
