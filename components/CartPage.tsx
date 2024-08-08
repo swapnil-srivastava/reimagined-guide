@@ -49,8 +49,9 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
           setAddressState(address);
         }
       };
+
       checkAddress();
-    }, []);
+    }, [profile]);
 
     return (
       <>        
