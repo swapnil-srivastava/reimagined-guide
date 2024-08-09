@@ -217,15 +217,15 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                                                     />
                                             </div>
 
-                                            {/* Products Name, Price, Quantity, Add to Cart button */}
+                                            {/* Products Name, Price, Add to Cart button */}
                                             <div className="flex flex-col gap-2">
-                                                {/* Product Name, Price and Quantity Section */}
+                                                {/* Product Name, Price */}
                                                 <div className="flex flex-col gap-1 text-2xl font-semibold">
                                                     {/* Product Name */}
                                                     <Link href={`/product-detail/${product.id}`} className="hover:underline underline-offset-2" >
                                                         {nameTrimmed}
                                                     </Link>
-                                                    {/* Price and Quantity */}
+                                                    {/* Price */}
                                                     <div className="flex flex-row justify-between">
                                                         {/* Price */}
                                                         <div className="text-sm">
