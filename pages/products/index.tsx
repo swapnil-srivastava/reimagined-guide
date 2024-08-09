@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { useSelector } from "react-redux";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 // CSS
 import styles from "../../styles/Admin.module.css";
@@ -12,23 +13,40 @@ import ProductCard from "../../components/ProductCard";
 // Redux
 import { RootState } from "../../lib/interfaces/interface";
 
+// Supabase
+import { supaClient } from "../../supa-client";
 
 function Products() {
 
   const selectUser = (state: RootState) => state.cart;
   const { cartItems } = useSelector(selectUser);
 
-  const [products, setProducts] = useState(
+  const [products, setProducts] = useState([]);
+  const [loadProducts, setLoadProducts] = useState<boolean>();
 
-  );
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoadProducts(true);
+        const { data, error } = await supaClient
+          .from('products') // Adjust the table name as needed
+          .select('*');
 
-  const handleProductChange = (updatedProduct) => {
-    setProducts(prevProducts => 
-      prevProducts.map(product => 
-        product.id === updatedProduct.id ? updatedProduct : product
-      )
-    );
-  };
+        if (error) {
+          throw error;
+        }
+
+        setProducts(data || []);
+        toast.success('Products loaded successfully!');
+      } catch (error) {
+        toast.error(`Error loading products: ${error.message}`);
+      } finally {
+        setLoadProducts(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   return (
     <>
@@ -64,7 +82,7 @@ function Products() {
                 </div>
             </div>
           }
-          <ProductCard products={products} loading={false} postsEnd={false} enableLoadMore={true} onQuantityChange={(product) => handleProductChange(product)}/>
+          <ProductCard products={products} loading={false} postsEnd={false} enableLoadMore={true} />
         </div>
       </div>
     </>

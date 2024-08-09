@@ -169,27 +169,15 @@ function CreateProduct() {
 }
 
 // Product list to be used only with products page
-const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoadMore = false, onQuantityChange }) => {
+const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoadMore = false }) => {
 
     const dispatch = useDispatch();
 
     const [ createProduct, setCreateProduct] = useState<boolean>(false);
 
-    const handleQuantityChange = (productId, newQuantity) => {
-        const updatedProduct = products.find(product => product.id === productId);
-        if (updatedProduct) {
-            onQuantityChange({ ...updatedProduct, quantity: newQuantity });
-        }
-    };
-
     const handleAddProduct = (product: PRODUCT) => {
         dispatch(addToCartInsert(product));
     };
-
-    // TODO: remove from this component and mention in the cart page
-    const handleRemoveProduct = (product: PRODUCT) => {
-        dispatch(addToCartDelete(product))
-    }
 
     function generateContent(input) {
         if (!input) return;
