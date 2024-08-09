@@ -266,7 +266,8 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                 )
                 }
             )
-            : <></>
+            : <></> 
+            // no more products
             }
 
             {/* Create Product Card */}
