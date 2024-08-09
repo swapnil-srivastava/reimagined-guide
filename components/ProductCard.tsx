@@ -266,11 +266,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                 )
                 }
             )
-            : <FormattedMessage
-                id="product-card-no-products"
-                description="Posts List End" // Description should be a string literal
-                defaultMessage="No more products" // Message should be a string literal 
-                />
+            : <></>
             }
 
             {/* Create Product Card */}
