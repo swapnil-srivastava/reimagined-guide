@@ -97,7 +97,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                                             </div>
                                             <FontAwesomeIcon icon={faCircleXmark} className="cursor-pointer" size="xl" onClick={() => handleProductDelete(cartItem)}/>
                                         </div>
-                                        <div className="flex flex-row justify-between">
+                                        <div className="flex flex-row justify-between items-center">
                                             <div>
                                                 <QuantityComponent product={cartItem}>
                                                     {cartItem.quantity}

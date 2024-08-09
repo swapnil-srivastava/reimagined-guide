@@ -3,7 +3,7 @@
 const CurrencyPriceComponent = ({price, currency = '€'}) => {
     return (
       <>
-        <div className="text-sm">
+        <div className="">
             {currency} {price}
         </div>
       </>
