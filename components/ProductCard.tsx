@@ -108,10 +108,10 @@ function CreateProduct() {
 
     // Create a new product in supabase postgres
     const createProduct = async () => {
-        if (!data?.product_decription && !data?.product_name && !data?.product_price && !data.product_stock) return;
-
-        // Tip: give all fields a default value here
-        const { data: supaData, error } = await supaClient
+        try {
+            if (!data?.product_decription && !data?.product_name && !data?.product_price && !data.product_stock) return;
+            
+            const { data: supaData, error } = await supaClient
             .from("products")
             .insert([
                 {
@@ -122,8 +122,17 @@ function CreateProduct() {
                     user_id: profile?.id,
                 },
             ]);
+    
+            if (error) {
+              throw error;
+            }
+    
+            toast.success("Product Created!!");
+          } catch (error) {
+            toast.error(`Error creating product: ${error.message}`);
+          } finally {
 
-        toast.success("Product Created!!");
+          }
     };
 
     const clearProduct = async (e) => {
