@@ -197,14 +197,16 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
             {/* Subtotal section  */}
             {   
                 <>
-                    <div className="flex justify-start w-full lg:px-12 px-10 pb-10 pt-5 font-poppins dark:text-blog-white lg:text-2xl text-lg">
+                    <div className="flex justify-start w-full lg:px-12 px-10 pb-3 pt-5 font-poppins dark:text-blog-white lg:text-2xl text-lg">
                         <FormattedMessage
                             id="cart-page-subtotal-heading"
                             description="Subtotal" // Description should be a string literal
                             defaultMessage="Subtotal" // Message should be a string literal
                         />
                     </div>
-                    <CalculateTotal products={cartItems}/>
+                    <div className="flex h-full w-full lg:px-10 px-5 pb-10">
+                        <CalculateTotal products={cartItems}/>
+                    </div>
                 </>
             }
         </AuthCheck>
