@@ -1,0 +1,9 @@
+{
+  "type": "Control",
+  "scope": "#/properties/deliveryOption",
+  "options": {
+      "format": "radio"
+  },
+  "label": "Select Delivery Option"
+  }
+  

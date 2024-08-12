@@ -15,6 +15,7 @@ import QuantityComponent from "./QuantityComponent";
 import CurrencyPriceComponent from "./CurrencyPriceComponent";
 import AuthCheck from "./AuthCheck";
 import AddressForm, { addressJSON } from "./AddressForm";
+import DeliveryOptions from "./DeliveryOptions";
 
 // Supabase User Profile
 import { UserProfile } from "../lib/hooks";
@@ -176,6 +177,18 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                         editSavedAddress={editSavedAddress}
                         setEditSavedAddress={setEditSavedAddress}
                     />
+                </>
+            }
+            {   
+                <>
+                    <div className="flex justify-start w-full lg:px-12 px-10 pb-3 pt-5 font-poppins dark:text-blog-white lg:text-2xl text-lg">
+                        <FormattedMessage
+                            id="cart-page-delivery-cards-heading"
+                            description="Delivery" // Description should be a string literal
+                            defaultMessage="Delivery" // Message should be a string literal
+                        />
+                    </div>
+                    <DeliveryOptions />
                 </>
             }
         </AuthCheck>
