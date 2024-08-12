@@ -147,36 +147,40 @@ const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, setAdd
 
     return (
       <>
-        <div className="flex flex-col gap-2 my-4 px-4 py-2 w-full h-full text-blog-black dark:bg-blog-white">
-            <FontAwesomeIcon icon={faCircleXmark} className="cursor-pointer self-end" size="lg" onClick={() => setEditSavedAddress(false)}/>
-            <JsonForms
-                schema={schema}
-                uischema={uischema}
-                data={data}
-                renderers={materialRenderers}
-                cells={materialCells}
-                onChange={({ errors, data }) => setData(data)}
-            />
+        <div className="flex h-full w-full lg:px-10 px-5 font-poppins">
+            <div className="flex flex-col gap-2 my-4 px-4 py-2 text-blog-black 
+                    h-full w-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 
+                    dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
+                <FontAwesomeIcon icon={faCircleXmark} className="cursor-pointer self-end" size="lg" onClick={() => setEditSavedAddress(false)}/>
+                <JsonForms
+                    schema={schema}
+                    uischema={uischema}
+                    data={data}
+                    renderers={materialRenderers}
+                    cells={materialCells}
+                    onChange={({ errors, data }) => setData(data)}
+                />
 
-            {/* Button Section */}
-            <div className="flex self-center gap-2">
-                <button type="submit"
-                    disabled={!isValidAddressLine1 && !isValidAddressLine2 && !isValidCity && !isValidState && !isValidCountry}
-                    className={styles.btnAdmin}
-                    onClick={() => createAddress()}>
-                    <FormattedMessage
-                        id="address-customer-save-btn"
-                        description="Save" // Description should be a string literal
-                        defaultMessage="Save" // Message should be a string literal
-                    />
-                </button>
-                <button className={styles.btnAdmin} type="button" onClick={clearAddress}>
-                    <FormattedMessage
-                        id="address-customer-cancel-btn"
-                        description="Cancel" // Description should be a string literal
-                        defaultMessage="Cancel" // Message should be a string literal
-                    />
-                </button>
+                {/* Button Section */}
+                <div className="flex self-center gap-2">
+                    <button type="submit"
+                        disabled={!isValidAddressLine1 && !isValidAddressLine2 && !isValidCity && !isValidState && !isValidCountry}
+                        className={styles.btnAdmin}
+                        onClick={() => createAddress()}>
+                        <FormattedMessage
+                            id="address-customer-save-btn"
+                            description="Save" // Description should be a string literal
+                            defaultMessage="Save" // Message should be a string literal
+                        />
+                    </button>
+                    <button className={styles.btnAdmin} type="button" onClick={clearAddress}>
+                        <FormattedMessage
+                            id="address-customer-cancel-btn"
+                            description="Cancel" // Description should be a string literal
+                            defaultMessage="Cancel" // Message should be a string literal
+                        />
+                    </button>
+                </div>
             </div>
         </div>
       </>

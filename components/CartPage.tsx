@@ -179,6 +179,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                     />
                 </>
             }
+            {/* Delivery Options section */}
             {   
                 <>
                     <div className="flex justify-start w-full lg:px-12 px-10 pb-3 pt-5 font-poppins dark:text-blog-white lg:text-2xl text-lg">
@@ -189,6 +190,33 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                         />
                     </div>
                     <DeliveryOptions />
+                </>
+            }
+            {/* Subtotal section  */}
+            {   
+                <>
+                    <div className="flex justify-start w-full lg:px-12 px-10 pb-3 pt-5 font-poppins dark:text-blog-white lg:text-2xl text-lg">
+                        <FormattedMessage
+                            id="cart-page-subtotal-heading"
+                            description="Subtotal" // Description should be a string literal
+                            defaultMessage="Subtotal" // Message should be a string literal
+                        />
+                    </div>
+                    <div className="flex h-full w-full lg:px-10 px-5 font-poppins">
+                        <div className="flex h-full w-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
+                            <div className="flex flex-col w-full h-full gap-2 justify-center items-center">
+                                <div className="flex flex-col items-center gap-2 justify-center h-full w-full">
+                                    <div className="font-poppins h-full w-full">
+                                        <FormattedMessage
+                                            id="cart-page-subtotal-heading"
+                                            description="Subtotal" // Description should be a string literal
+                                            defaultMessage="Subtotal" // Message should be a string literal
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </>
             }
         </AuthCheck>
