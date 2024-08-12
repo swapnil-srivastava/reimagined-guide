@@ -16,8 +16,14 @@ interface PriceBreakdownCardProps {
   }
 
 const CalculateTotal : React.FC<PriceBreakdownCardProps> = ({ products, deliveryCost, taxRate }) => {
-      // Calculate subtotal
+    // Calculate subtotal
     const subtotal = products.reduce((acc, product) => acc + product.price * product.quantity, 0);
+
+    // Calculate tax
+    const tax = subtotal * taxRate;
+
+    // Calculate total
+    const total = subtotal + deliveryCost + tax;
 
     return (
       <>
@@ -32,7 +38,7 @@ const CalculateTotal : React.FC<PriceBreakdownCardProps> = ({ products, delivery
                                 defaultMessage="Subtotal" // Message should be a string literal
                             />
                         </div>
-                        <div className="font-poppins text-2xl h-full w-full">
+                        <div className="font-poppins text-2xl h-full w-full text-end">
                             {subtotal}
                         </div>
                     </div>

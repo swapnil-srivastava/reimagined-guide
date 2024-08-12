@@ -197,7 +197,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
             {/* Subtotal section  */}
             {   
                 <>
-                    <div className="flex justify-start w-full lg:px-12 px-10 pb-3 pt-5 font-poppins dark:text-blog-white lg:text-2xl text-lg">
+                    <div className="flex justify-start w-full lg:px-12 px-10 pb-10 pt-5 font-poppins dark:text-blog-white lg:text-2xl text-lg">
                         <FormattedMessage
                             id="cart-page-subtotal-heading"
                             description="Subtotal" // Description should be a string literal
