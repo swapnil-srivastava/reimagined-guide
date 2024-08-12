@@ -24,8 +24,6 @@ const DeliveryOptions: React.FC = ({  }) => {
 
     const changedJsonSchema = (newData: any, errors: any) => {
         setData(newData);
-        console.log('Data changed:', newData);
-        console.log('Errors:', errors);
     };
 
     return (
@@ -44,9 +42,6 @@ const DeliveryOptions: React.FC = ({  }) => {
                                     cells={materialCells}
                                     onChange={({ errors, data }) => changedJsonSchema(data, errors)}
                                 />
-                            </div>
-                            <div className="mt-4 font-poppins">
-                                <p>Selected Delivery Option: {data.deliveryOption}</p>
                             </div>
                         </div>
                     </div>
