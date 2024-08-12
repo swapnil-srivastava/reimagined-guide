@@ -204,7 +204,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                             defaultMessage="Subtotal" // Message should be a string literal
                         />
                     </div>
-                    <div className="flex h-full w-full lg:px-10 px-5 pb-10">
+                    <div className="flex h-full w-full lg:px-10 px-5 pb-16">
                         <CalculateTotal products={cartItems}/>
                     </div>
                 </>
