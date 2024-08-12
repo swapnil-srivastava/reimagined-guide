@@ -16,6 +16,7 @@ import CurrencyPriceComponent from "./CurrencyPriceComponent";
 import AuthCheck from "./AuthCheck";
 import AddressForm, { addressJSON } from "./AddressForm";
 import DeliveryOptions from "./DeliveryOptions";
+import CalculateTotal from "./CalculateTotal";
 
 // Supabase User Profile
 import { UserProfile } from "../lib/hooks";
@@ -27,6 +28,7 @@ import { supaClient } from "../supa-client";
 import styles from "../styles/Admin.module.css";
 import { useDispatch } from "react-redux";
 import { addToCartDelete } from "../redux/actions/actions";
+
 
 export interface ProductWithQuantity extends PRODUCT {
     quantity: number;
@@ -202,21 +204,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                             defaultMessage="Subtotal" // Message should be a string literal
                         />
                     </div>
-                    <div className="flex h-full w-full lg:px-10 px-5 font-poppins">
-                        <div className="flex h-full w-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
-                            <div className="flex flex-col w-full h-full gap-2 justify-center items-center">
-                                <div className="flex flex-col items-center gap-2 justify-center h-full w-full">
-                                    <div className="font-poppins h-full w-full">
-                                        <FormattedMessage
-                                            id="cart-page-subtotal-heading"
-                                            description="Subtotal" // Description should be a string literal
-                                            defaultMessage="Subtotal" // Message should be a string literal
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <CalculateTotal products={cartItems}/>
                 </>
             }
         </AuthCheck>
