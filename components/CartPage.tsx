@@ -151,17 +151,17 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                             <div className="flex flex-row  w-full h-full gap-2 justify-between items-start">
                                 {/* Address */}
                                 <div className="font-poppins">
-                                    <div className="text-xs">{addressState?.address_line1}</div>
-                                    <div className="text-xs">{addressState?.address_line2}</div>
-                                    <div className="flex flex-row gap-1 text-xs">
+                                    <div className="text-base">{addressState?.address_line1}</div>
+                                    <div className="text-base">{addressState?.address_line2}</div>
+                                    <div className="flex flex-row gap-1 text-base">
                                         <div className="flex flex-row">
                                             <div>{addressState?.postal_code}</div>
                                             <div>,</div>
                                         </div>
                                         <div>{addressState?.city}</div>
                                     </div>
-                                    <div className="text-xs">{addressState?.state}</div>
-                                    <div className="text-xs">{addressState?.country}</div>
+                                    <div className="text-base">{addressState?.state}</div>
+                                    <div className="text-base">{addressState?.country}</div>
                                 </div>
                                 {/* Edit icon */}
                                 <div>
