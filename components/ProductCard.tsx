@@ -146,6 +146,8 @@ function CreateProduct() {
             if (!data?.product_decription && !data?.product_name && !data?.product_price && !data.product_stock) return;
 
             const imageUrl = await uploadImage();
+
+            console.log("createProduct ::: imageUrl :::", imageUrl);
             
             const { data: supaData, error } = await supaClient
             .from("products")
