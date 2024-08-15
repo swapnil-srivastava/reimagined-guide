@@ -121,6 +121,7 @@ function CreateProduct() {
           });
         
         console.log("fileName ::: uploadImage :: data", data);
+        console.log("fileName ::: uploadImage :: error", error);
         
     
         if (error) {
