@@ -39,10 +39,22 @@ interface CartPageProps {
     profile: UserProfile | null;
 }
 
+interface deliveryOptionState {
+    deliveryOption: deliveryOptions;
+}
+
+interface deliveryOptions {
+    id: string; 
+    name: string; 
+    description: string;
+    deliveryPrice: number;
+}
+
 const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
     const dispatch = useDispatch();
     
     const [addressState , setAddressState] = useState<addressJSON>();
+    const [selectedDelivery , setSelectedDelivery] = useState<deliveryOptionState>();
     const [editSavedAddress , setEditSavedAddress] = useState<boolean>(false);
 
     useEffect(() => {
@@ -63,6 +75,10 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
 
     const handleProductDelete = (product: PRODUCT) => {
         dispatch(addToCartDelete(product));
+    };
+
+    const handleDeliverySelected = (deliverySelected) => {
+        setSelectedDelivery(deliverySelected);
     };
 
     return (
@@ -191,7 +207,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                             defaultMessage="Delivery" // Message should be a string literal
                         />
                     </div>
-                    <DeliveryOptions />
+                    <DeliveryOptions deliverySelected={(delivery) => handleDeliverySelected(delivery)} />
                 </>
             }
             {/* Subtotal section  */}
@@ -205,7 +221,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                         />
                     </div>
                     <div className="flex h-full w-full lg:px-10 px-5 pb-20">
-                        <CalculateTotal products={cartItems}/>
+                        <CalculateTotal products={cartItems} deliveryCost={selectedDelivery?.deliveryOption?.deliveryPrice}/>
                     </div>
                 </>
             }

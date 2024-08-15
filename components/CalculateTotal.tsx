@@ -13,9 +13,10 @@ interface PriceBreakdownCardProps {
     products: ProductWithQuantity[];
     deliveryCost?: number;
     taxRate?: number;
-  }
+}
 
-const CalculateTotal : React.FC<PriceBreakdownCardProps> = ({ products, deliveryCost = 5, taxRate = 0.19 }) => {
+const CalculateTotal : React.FC<PriceBreakdownCardProps> = ({ products, deliveryCost = 0, taxRate = 0.19 }) => {
+
     // Calculate subtotal
     const subtotal = products.reduce((acc, product) => acc + product.price * product.quantity, 0);
 
@@ -46,22 +47,22 @@ const CalculateTotal : React.FC<PriceBreakdownCardProps> = ({ products, delivery
                                 <div className="flex justify-between mb-2">
                                     <span className="text-gray-700">
                                         <FormattedMessage
-                                            id="calculate-total-delivery-cost-text"
-                                            description="Delivery Cost:" // Description should be a string literal
-                                            defaultMessage="Delivery Cost:" // Message should be a string literal
-                                        />
-                                    </span>
-                                    <span className="text-gray-900">€ {deliveryCost.toFixed(2)}</span>
-                                </div>
-                                <div className="flex justify-between mb-2">
-                                    <span className="text-gray-700">
-                                        <FormattedMessage
                                             id="calculate-total-tax-text"
                                             description="Tax (19%):" // Description should be a string literal
                                             defaultMessage="Tax (19%):" // Message should be a string literal
                                         />
                                     </span>
                                     <span className="text-gray-900">€ {tax.toFixed(2)}</span>
+                                </div>
+                                <div className="flex justify-between mb-2">
+                                    <span className="text-gray-700">
+                                        <FormattedMessage
+                                            id="calculate-total-delivery-cost-text"
+                                            description="Delivery Cost:" // Description should be a string literal
+                                            defaultMessage="Delivery Cost:" // Message should be a string literal
+                                        />
+                                    </span>
+                                    <span className="text-gray-900">€ {deliveryCost.toFixed(2)}</span>
                                 </div>
                                 <div className="flex justify-between font-bold">
                                     <span className="text-gray-700">

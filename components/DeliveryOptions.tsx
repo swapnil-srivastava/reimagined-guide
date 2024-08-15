@@ -8,6 +8,7 @@ import uischema from "../lib/deliveryOptions/uiDeliveryOptionsSchema.json";
 
 // JSON Forms
 import { JsonForms } from "@jsonforms/react";
+import { rankWith, isEnumControl } from '@jsonforms/core';
 
 // importing material for JSON Forms
 import {
@@ -16,13 +17,21 @@ import {
   } from "@jsonforms/material-renderers";
 
 import { useState } from "react";
-  
-const DeliveryOptions: React.FC = ({  }) => {
+
+import CustomRadioGroupControl from './CustomRadioGroupControl';
+
+
+interface DeliveryOptionsProps {
+    deliverySelected: (delivery: any) => void;
+}
+
+const DeliveryOptions: React.FC<DeliveryOptionsProps> = ({  deliverySelected }) => {
     // const { defaultDelivery } = useProducts();
 
     const [data, setData] = useState({ deliveryOption: '' });
 
     const changedJsonSchema = (newData: any, errors: any) => {
+        deliverySelected(newData);
         setData(newData);
     };
 
@@ -37,8 +46,10 @@ const DeliveryOptions: React.FC = ({  }) => {
                                 <JsonForms
                                     schema={schema}
                                     uischema={uischema}
+                                    renderers={[
+                                        { tester: rankWith(3, isEnumControl), renderer: CustomRadioGroupControl }
+                                      ]}
                                     data={data}
-                                    renderers={materialRenderers}
                                     cells={materialCells}
                                     onChange={({ errors, data }) => changedJsonSchema(data, errors)}
                                 />

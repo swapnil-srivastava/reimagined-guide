@@ -29,7 +29,13 @@ const DELIVERY_OPTIONS = {
   EMAIL: 'Email'
 };
 
+const deliveryOptions = [
+  { id: "dhl", name: "DHL", description: "DHL delivery service", deliveryPrice: 5.00 },
+  { id: "hermes", name: "Hermes", description: "Hermes delivery service", deliveryPrice: 4.50 },
+  { id: "ups", name: "UPS", description: "UPS delivery service", deliveryPrice: 6.00 }
+];
+
 export { generateMetaDescription, getLocalStorage, setLocalStorage, 
   PRODUCT_INITIAL_QUANTITY, PRODUCT_QUANTITY_INCREMENT, 
-  PRODUCT_QUANTITY_DECREMENT, DELIVERY_OPTIONS
+  PRODUCT_QUANTITY_DECREMENT, DELIVERY_OPTIONS, deliveryOptions
 };

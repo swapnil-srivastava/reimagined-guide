@@ -3,8 +3,34 @@
   "type": "object",
   "properties": {
     "deliveryOption": {
-      "type": "string",
-      "enum": ["DHL", "Hermes", "UPS", "Email"]
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "deliveryPrice": { "type": "number" }
+      },
+      "required": ["id", "name", "description", "deliveryPrice"],
+      "enum": [
+        {
+          "id": "dhl",
+          "name": "DHL",
+          "description": "dhl asndansdnd",
+          "deliveryPrice": 5.00
+        },
+        {
+          "id": "hermes",
+          "name": "Hermes",
+          "description": "Hermes delivery service",
+          "deliveryPrice": 4.50
+        },
+        {
+          "id": "ups",
+          "name": "UPS",
+          "description": "UPS delivery service",
+          "deliveryPrice": 6.00
+        }
+      ]
     }
   },
   "required": ["deliveryOption"]
