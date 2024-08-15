@@ -59,6 +59,7 @@ function CreateProduct() {
     const { profile, session } = userInfo;
 
     const [data, setData] = useState<producJSON>();
+    const [imageFile, setImageFile] = useState<File | null>(null);
 
     const clearData = () => {
         setData({
@@ -106,10 +107,37 @@ function CreateProduct() {
         return stockValue > 0 && stock.length <= 10;
       }
 
+      const uploadImage = async (): Promise<string | null> => {
+        if (!imageFile || !profile?.id) return null;
+    
+        const fileName = `${profile.id}/${imageFile.name}`;
+        const { data, error } = await supaClient.storage
+          .from("product-images")
+          .upload(fileName, imageFile, {
+            cacheControl: "3600",
+            upsert: false,
+          });
+    
+        if (error) {
+          console.error("Image upload error:", error.message);
+          toast.error(`Error uploading image: ${error.message}`);
+          return null;
+        }
+    
+        // Get the public URL for the uploaded image
+        const { data: publicUrlData } = supaClient.storage
+            .from("product-images")
+            .getPublicUrl(fileName);
+    
+        return publicUrlData.publicUrl;
+      };
+
     // Create a new product in supabase postgres
     const createProduct = async () => {
         try {
             if (!data?.product_decription && !data?.product_name && !data?.product_price && !data.product_stock) return;
+
+            const imageUrl = await uploadImage();
             
             const { data: supaData, error } = await supaClient
             .from("products")
@@ -119,7 +147,8 @@ function CreateProduct() {
                     description: data?.product_decription,
                     price: data?.product_price,
                     stock: data?.product_stock,
-                    user_id: profile?.id,
+                    user_id: profile?.id,  
+                    image_url: imageUrl,
                 },
             ]);
     
@@ -135,7 +164,7 @@ function CreateProduct() {
           }
     };
 
-    const clearProduct = async (e) => {
+    const clearProduct = async (e : React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         clearData();
     };
@@ -151,6 +180,25 @@ function CreateProduct() {
                     cells={materialCells}
                     onChange={({ errors, data }) => setData(data)}
                 />
+
+                {/* Upload the image */}
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="image-upload" className="text-sm font-medium text-gray-700">
+                        Upload Product Image
+                    </label>
+                    <input
+                        type="file"
+                        id="image-upload"
+                        accept="image/*"
+                        onChange={(e) => setImageFile(e.target.files ? e.target.files[0] : null)}
+                        className="mt-1 block w-full text-sm text-gray-500
+                            file:mr-4 file:py-2 file:px-4
+                            file:rounded-full file:border-0
+                            file:text-sm file:font-semibold
+                            file:bg-blue-50 file:text-blue-700
+                            hover:file:bg-blue-100"
+                        />
+                </div>
 
                 {/* Button Section */}
                 <div className="flex self-center gap-2">
