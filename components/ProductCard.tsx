@@ -111,12 +111,17 @@ function CreateProduct() {
         if (!imageFile || !profile?.id) return null;
     
         const fileName = `${profile.id}/${imageFile.name}`;
+        console.log("fileName ::: uploadImage", fileName);
+
         const { data, error } = await supaClient.storage
           .from("product-images")
           .upload(fileName, imageFile, {
             cacheControl: "3600",
             upsert: false,
           });
+        
+        console.log("fileName ::: uploadImage :: data", data);
+        
     
         if (error) {
           console.error("Image upload error:", error.message);
@@ -128,6 +133,8 @@ function CreateProduct() {
         const { data: publicUrlData } = supaClient.storage
             .from("product-images")
             .getPublicUrl(fileName);
+
+        console.log(publicUrlData, "publicUrlData");
     
         return publicUrlData.publicUrl;
       };
