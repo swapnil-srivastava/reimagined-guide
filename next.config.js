@@ -3,7 +3,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["lh3.googleusercontent.com"],
+    domains: ["lh3.googleusercontent.com", "https://dbydvpdhbaqudqqjteoq.supabase.co"],
   },
   i18n: {
     locales: ["en-US", "de-DE", "fr-FR", "hi-IN"],
