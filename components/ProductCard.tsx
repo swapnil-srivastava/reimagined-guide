@@ -267,7 +267,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                                             {/* Product Image - TODO add the image url from the product list {product.imageUrl}*/} 
                                             <div>
                                                 <Image
-                                                        src={product.image_url ?? `/mountains.jpg`} 
+                                                        src={product.image_url} 
                                                         alt={product.name}
                                                         width={500}
                                                         height={500}
