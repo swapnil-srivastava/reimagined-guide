@@ -8,6 +8,9 @@ module.exports = {
   theme: {
     typography: (theme) => ({}),
     extend: {
+      minHeight: {
+        '96': '24rem',  // Ensure this value is present
+      },
       fontFamily: {
         inter: ['var(--font-inter)'],
         roboto: ['var(--font-roboto)'],
