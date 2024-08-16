@@ -1,4 +1,16 @@
 {
+  "address-customer-cancel-btn": [
+    {
+      "type": 0,
+      "value": "Abbrechen"
+    }
+  ],
+  "address-customer-save-btn": [
+    {
+      "type": 0,
+      "value": "Speichern"
+    }
+  ],
   "admin-article-cancel-btn": [
     {
       "type": 0,
@@ -95,6 +107,30 @@
       "value": "Du musst eingeloggt sein"
     }
   ],
+  "calculate-total-delivery-cost-text": [
+    {
+      "type": 0,
+      "value": "Lieferkosten:"
+    }
+  ],
+  "calculate-total-subtotal-text": [
+    {
+      "type": 0,
+      "value": "Zwischensumme:"
+    }
+  ],
+  "calculate-total-tax-text": [
+    {
+      "type": 0,
+      "value": "Steuer (19%):"
+    }
+  ],
+  "calculate-total-text": [
+    {
+      "type": 0,
+      "value": "Gesamt:"
+    }
+  ],
   "card_live": [
     {
       "type": 0,
@@ -117,6 +153,54 @@
     {
       "type": 0,
       "value": "Worte"
+    }
+  ],
+  "cart-heading": [
+    {
+      "type": 0,
+      "value": "Warenkorb"
+    }
+  ],
+  "cart-page-address-card-heading": [
+    {
+      "type": 0,
+      "value": "Anschrift"
+    }
+  ],
+  "cart-page-delivery-cards-heading": [
+    {
+      "type": 0,
+      "value": "Lieferung"
+    }
+  ],
+  "cart-page-empty-cart": [
+    {
+      "type": 0,
+      "value": "Bitte fügen Sie Artikel in den Warenkorb"
+    }
+  ],
+  "cart-page-no-products-redirect-btn": [
+    {
+      "type": 0,
+      "value": "Produktseite öffnen"
+    }
+  ],
+  "cart-page-shopping-cart-card-heading": [
+    {
+      "type": 0,
+      "value": "Warenkorb"
+    }
+  ],
+  "cart-page-subtotal-heading": [
+    {
+      "type": 0,
+      "value": "Zwischensumme"
+    }
+  ],
+  "checkout-heading": [
+    {
+      "type": 0,
+      "value": "Kasse"
     }
   ],
   "cookies_accept_button": [
@@ -147,6 +231,18 @@
     {
       "type": 0,
       "value": "Hallo da ..."
+    }
+  ],
+  "create-product-cancel-btn": [
+    {
+      "type": 0,
+      "value": "Abbrechen"
+    }
+  ],
+  "create-product-create-btn": [
+    {
+      "type": 0,
+      "value": "Erstellen"
     }
   ],
   "end_of_articles": [
@@ -359,16 +455,88 @@
       "value": "TECHNOLOGIEN ... DIE MEINEN CHARAKTER BILDEN"
     }
   ],
+  "nav-bar-cart-text": [
+    {
+      "type": 0,
+      "value": "Warenkorb"
+    }
+  ],
+  "nav-bar-login-text": [
+    {
+      "type": 0,
+      "value": "Anmelden"
+    }
+  ],
+  "nav-bar-my-profile": [
+    {
+      "type": 0,
+      "value": "Mein Profil"
+    }
+  ],
+  "nav-bar-products-text": [
+    {
+      "type": 0,
+      "value": "Produkte"
+    }
+  ],
+  "nav-bar-sign-out-text": [
+    {
+      "type": 0,
+      "value": "Abmelden"
+    }
+  ],
   "post-content-auth-check-signup": [
     {
       "type": 0,
       "value": "Registrieren"
     }
   ],
+  "post-list-published": [
+    {
+      "type": 0,
+      "value": "Veröffentlicht"
+    }
+  ],
   "posts_list_end": [
     {
       "type": 0,
       "value": "Keine Artikel mehr"
+    }
+  ],
+  "product-card-add-to-cart": [
+    {
+      "type": 0,
+      "value": "In den Warenkorb"
+    }
+  ],
+  "product-card-create-product": [
+    {
+      "type": 0,
+      "value": "Produkt erstellen"
+    }
+  ],
+  "product-detail-heading": [
+    {
+      "type": 0,
+      "value": "Produkt Detail"
+    }
+  ],
+  "product-index-cart-added": [
+    {
+      "type": 0,
+      "value": "Artikel zum Warenkorb hinzugefügt"
+    }
+  ],
+  "product-index-cart-added-redirect-btn": [
+    {
+      "type": 0,
+      "value": "Zum Warenkorb"
+    }
+  ],
+  "products-heading": [
+    {
+      "type": 0,
+      "value": "Produkte"
     }
   ],
   "secondary_tagline": [

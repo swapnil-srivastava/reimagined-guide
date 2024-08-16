@@ -1,4 +1,16 @@
 {
+  "address-customer-cancel-btn": [
+    {
+      "type": 0,
+      "value": "Annuler"
+    }
+  ],
+  "address-customer-save-btn": [
+    {
+      "type": 0,
+      "value": "Sauvegarder"
+    }
+  ],
   "admin-article-cancel-btn": [
     {
       "type": 0,
@@ -95,6 +107,30 @@
       "value": "Vous devez être connecté"
     }
   ],
+  "calculate-total-delivery-cost-text": [
+    {
+      "type": 0,
+      "value": "Frais de livraison :"
+    }
+  ],
+  "calculate-total-subtotal-text": [
+    {
+      "type": 0,
+      "value": "Sous-total :"
+    }
+  ],
+  "calculate-total-tax-text": [
+    {
+      "type": 0,
+      "value": "Taxe (19%) :"
+    }
+  ],
+  "calculate-total-text": [
+    {
+      "type": 0,
+      "value": "Total :"
+    }
+  ],
   "card_live": [
     {
       "type": 0,
@@ -117,6 +153,54 @@
     {
       "type": 0,
       "value": "mots"
+    }
+  ],
+  "cart-heading": [
+    {
+      "type": 0,
+      "value": "Panier"
+    }
+  ],
+  "cart-page-address-card-heading": [
+    {
+      "type": 0,
+      "value": "Adresse"
+    }
+  ],
+  "cart-page-delivery-cards-heading": [
+    {
+      "type": 0,
+      "value": "Distribution"
+    }
+  ],
+  "cart-page-empty-cart": [
+    {
+      "type": 0,
+      "value": "Veuillez ajouter des articles dans le panier"
+    }
+  ],
+  "cart-page-no-products-redirect-btn": [
+    {
+      "type": 0,
+      "value": "Accéder à la page produit"
+    }
+  ],
+  "cart-page-shopping-cart-card-heading": [
+    {
+      "type": 0,
+      "value": "Panier"
+    }
+  ],
+  "cart-page-subtotal-heading": [
+    {
+      "type": 0,
+      "value": "Sous-total "
+    }
+  ],
+  "checkout-heading": [
+    {
+      "type": 0,
+      "value": "Paiement"
     }
   ],
   "cookies_accept_button": [
@@ -147,6 +231,18 @@
     {
       "type": 0,
       "value": "Bonjour ..."
+    }
+  ],
+  "create-product-cancel-btn": [
+    {
+      "type": 0,
+      "value": "Annuler"
+    }
+  ],
+  "create-product-create-btn": [
+    {
+      "type": 0,
+      "value": "Créer"
     }
   ],
   "end_of_articles": [
@@ -359,16 +455,88 @@
       "value": "TECHNOLOGIES ... QUI FORGENT MON CARACTÈRE"
     }
   ],
+  "nav-bar-cart-text": [
+    {
+      "type": 0,
+      "value": "Panier"
+    }
+  ],
+  "nav-bar-login-text": [
+    {
+      "type": 0,
+      "value": "Connexion"
+    }
+  ],
+  "nav-bar-my-profile": [
+    {
+      "type": 0,
+      "value": "Mon profil"
+    }
+  ],
+  "nav-bar-products-text": [
+    {
+      "type": 0,
+      "value": "Produits"
+    }
+  ],
+  "nav-bar-sign-out-text": [
+    {
+      "type": 0,
+      "value": "Sé déconnecter"
+    }
+  ],
   "post-content-auth-check-signup": [
     {
       "type": 0,
       "value": "Inscription"
     }
   ],
+  "post-list-published": [
+    {
+      "type": 0,
+      "value": "Publié"
+    }
+  ],
   "posts_list_end": [
     {
       "type": 0,
       "value": "Plus d'articles"
+    }
+  ],
+  "product-card-add-to-cart": [
+    {
+      "type": 0,
+      "value": "Ajouter au panier"
+    }
+  ],
+  "product-card-create-product": [
+    {
+      "type": 0,
+      "value": "Créer un produit"
+    }
+  ],
+  "product-detail-heading": [
+    {
+      "type": 0,
+      "value": "Détail du produit"
+    }
+  ],
+  "product-index-cart-added": [
+    {
+      "type": 0,
+      "value": "Produit ajouté au panier"
+    }
+  ],
+  "product-index-cart-added-redirect-btn": [
+    {
+      "type": 0,
+      "value": "Accéder au panier"
+    }
+  ],
+  "products-heading": [
+    {
+      "type": 0,
+      "value": "Produits"
     }
   ],
   "secondary_tagline": [

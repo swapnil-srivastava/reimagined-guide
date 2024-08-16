@@ -1,4 +1,16 @@
 {
+  "address-customer-cancel-btn": [
+    {
+      "type": 0,
+      "value": "रद्द करें"
+    }
+  ],
+  "address-customer-save-btn": [
+    {
+      "type": 0,
+      "value": "सेव"
+    }
+  ],
   "admin-article-cancel-btn": [
     {
       "type": 0,
@@ -95,6 +107,30 @@
       "value": "आपको साइन इन करना होगा"
     }
   ],
+  "calculate-total-delivery-cost-text": [
+    {
+      "type": 0,
+      "value": "डिलिवरी लागत:"
+    }
+  ],
+  "calculate-total-subtotal-text": [
+    {
+      "type": 0,
+      "value": "उप-योग:"
+    }
+  ],
+  "calculate-total-tax-text": [
+    {
+      "type": 0,
+      "value": "टैक्स (19%)"
+    }
+  ],
+  "calculate-total-text": [
+    {
+      "type": 0,
+      "value": "कुल:"
+    }
+  ],
   "card_live": [
     {
       "type": 0,
@@ -117,6 +153,54 @@
     {
       "type": 0,
       "value": "शब्द"
+    }
+  ],
+  "cart-heading": [
+    {
+      "type": 0,
+      "value": "कार्ट"
+    }
+  ],
+  "cart-page-address-card-heading": [
+    {
+      "type": 0,
+      "value": "पता"
+    }
+  ],
+  "cart-page-delivery-cards-heading": [
+    {
+      "type": 0,
+      "value": "डिलीवरी"
+    }
+  ],
+  "cart-page-empty-cart": [
+    {
+      "type": 0,
+      "value": "कृपया शॉपिंग कार्ट में आइटम जोड़ें"
+    }
+  ],
+  "cart-page-no-products-redirect-btn": [
+    {
+      "type": 0,
+      "value": "उत्पाद पृष्ठ पर जाएँ"
+    }
+  ],
+  "cart-page-shopping-cart-card-heading": [
+    {
+      "type": 0,
+      "value": "शॉपिंग कार्ट"
+    }
+  ],
+  "cart-page-subtotal-heading": [
+    {
+      "type": 0,
+      "value": "उप-योग"
+    }
+  ],
+  "checkout-heading": [
+    {
+      "type": 0,
+      "value": "चेकआउट"
     }
   ],
   "cookies_accept_button": [
@@ -147,6 +231,18 @@
     {
       "type": 0,
       "value": "नमस्ते ..."
+    }
+  ],
+  "create-product-cancel-btn": [
+    {
+      "type": 0,
+      "value": "रद्द करें"
+    }
+  ],
+  "create-product-create-btn": [
+    {
+      "type": 0,
+      "value": "बनाएँ"
     }
   ],
   "end_of_articles": [
@@ -359,16 +455,88 @@
       "value": "प्रौद्योगिकियों ... जो मेरे चरित्र का निर्माण करता है"
     }
   ],
+  "nav-bar-cart-text": [
+    {
+      "type": 0,
+      "value": "कार्ट"
+    }
+  ],
+  "nav-bar-login-text": [
+    {
+      "type": 0,
+      "value": "लॉग इन करें"
+    }
+  ],
+  "nav-bar-my-profile": [
+    {
+      "type": 0,
+      "value": "मेरा प्रोफाइल"
+    }
+  ],
+  "nav-bar-products-text": [
+    {
+      "type": 0,
+      "value": "उत्पाद"
+    }
+  ],
+  "nav-bar-sign-out-text": [
+    {
+      "type": 0,
+      "value": "साइन आउट करें"
+    }
+  ],
   "post-content-auth-check-signup": [
     {
       "type": 0,
       "value": "साइन अप करें"
     }
   ],
+  "post-list-published": [
+    {
+      "type": 0,
+      "value": "प्रकाशित"
+    }
+  ],
   "posts_list_end": [
     {
       "type": 0,
       "value": "कोई और लेख नहीं"
+    }
+  ],
+  "product-card-add-to-cart": [
+    {
+      "type": 0,
+      "value": "कार्ट में डालें"
+    }
+  ],
+  "product-card-create-product": [
+    {
+      "type": 0,
+      "value": "उत्पाद बनाएँ"
+    }
+  ],
+  "product-detail-heading": [
+    {
+      "type": 0,
+      "value": "उत्पाद विवरण"
+    }
+  ],
+  "product-index-cart-added": [
+    {
+      "type": 0,
+      "value": "उत्पाद कार्ट में जोड़ा गया"
+    }
+  ],
+  "product-index-cart-added-redirect-btn": [
+    {
+      "type": 0,
+      "value": "कार्ट पर जाएं"
+    }
+  ],
+  "products-heading": [
+    {
+      "type": 0,
+      "value": "उत्पाद"
     }
   ],
   "secondary_tagline": [
