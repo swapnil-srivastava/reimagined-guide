@@ -261,7 +261,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                         !postsEnd &&
                         enableLoadMore && (
                             <>
-                                <div className="flex lg:min-h-96 h-auto lg:w-1/5 w-auto" key={product.id}>
+                                <div className="flex lg:w-1/5 w-auto" key={product.id}>
                                     <div className="flex h-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
                                         <div className="flex flex-col gap-2 justify-between">
                                             <div>
