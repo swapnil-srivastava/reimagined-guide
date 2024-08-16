@@ -167,6 +167,12 @@
       "value": "Anschrift"
     }
   ],
+  "cart-page-checkout-btn": [
+    {
+      "type": 0,
+      "value": "Kaufen"
+    }
+  ],
   "cart-page-delivery-cards-heading": [
     {
       "type": 0,
