@@ -84,7 +84,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
     return (
       <>        
          {/*   if - signed in */ }  
-         <AuthCheck>
+         {/* <AuthCheck> */}
             {/* Cart Items */}
             <div className="flex justify-start w-full lg:px-12 px-10 pb-3 font-poppins dark:text-blog-white lg:text-2xl text-lg">
                 <FormattedMessage
@@ -220,12 +220,25 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                             defaultMessage="Subtotal" // Message should be a string literal
                         />
                     </div>
-                    <div className="flex h-full w-full lg:px-10 px-5 pb-20">
+                    <div className="flex h-full w-full lg:px-10 px-5 pb-5">
                         <CalculateTotal products={cartItems} deliveryCost={selectedDelivery?.deliveryOption?.deliveryPrice}/>
                     </div>
                 </>
             }
-        </AuthCheck>
+            {/* Go to Checkout page */}
+            {   
+                <>
+                    <Link href="/checkout" className="flex justify-center pt-5 pb-20">
+                        <button className={styles.btnAdmin}>
+                            <FormattedMessage id="cart-page-checkout-btn"
+                            description="Checkout" // Description should be a string literal
+                            defaultMessage="Checkout" // Message should be a string literal
+                            />
+                        </button>
+                    </Link>
+                </>
+            }
+        {/* </AuthCheck> */}
       </>
     );
   };
