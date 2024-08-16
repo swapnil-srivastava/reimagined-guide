@@ -1,4 +1,16 @@
 {
+  "address-customer-cancel-btn": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "address-customer-save-btn": [
+    {
+      "type": 0,
+      "value": "Save"
+    }
+  ],
   "admin-article-cancel-btn": [
     {
       "type": 0,
@@ -95,6 +107,30 @@
       "value": "You must be signed in"
     }
   ],
+  "calculate-total-delivery-cost-text": [
+    {
+      "type": 0,
+      "value": "Delivery Cost:"
+    }
+  ],
+  "calculate-total-subtotal-text": [
+    {
+      "type": 0,
+      "value": "Subtotal:"
+    }
+  ],
+  "calculate-total-tax-text": [
+    {
+      "type": 0,
+      "value": "Tax (19%):"
+    }
+  ],
+  "calculate-total-text": [
+    {
+      "type": 0,
+      "value": "Total:"
+    }
+  ],
   "card_live": [
     {
       "type": 0,
@@ -117,6 +153,54 @@
     {
       "type": 0,
       "value": "words"
+    }
+  ],
+  "cart-heading": [
+    {
+      "type": 0,
+      "value": "Cart"
+    }
+  ],
+  "cart-page-address-card-heading": [
+    {
+      "type": 0,
+      "value": "Address"
+    }
+  ],
+  "cart-page-delivery-cards-heading": [
+    {
+      "type": 0,
+      "value": "Delivery"
+    }
+  ],
+  "cart-page-empty-cart": [
+    {
+      "type": 0,
+      "value": "Please add items into the shopping cart"
+    }
+  ],
+  "cart-page-no-products-redirect-btn": [
+    {
+      "type": 0,
+      "value": "Go to products page"
+    }
+  ],
+  "cart-page-shopping-cart-card-heading": [
+    {
+      "type": 0,
+      "value": "Shopping Cart"
+    }
+  ],
+  "cart-page-subtotal-heading": [
+    {
+      "type": 0,
+      "value": "Subtotal"
+    }
+  ],
+  "checkout-heading": [
+    {
+      "type": 0,
+      "value": "Checkout"
     }
   ],
   "cookies_accept_button": [
@@ -147,6 +231,18 @@
     {
       "type": 0,
       "value": "Hello There ..."
+    }
+  ],
+  "create-product-cancel-btn": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "create-product-create-btn": [
+    {
+      "type": 0,
+      "value": "Create"
     }
   ],
   "end_of_articles": [
@@ -359,16 +455,88 @@
       "value": "TECHNOLOGIES ... WHICH BUILD MY CHARACTER"
     }
   ],
+  "nav-bar-cart-text": [
+    {
+      "type": 0,
+      "value": "Cart"
+    }
+  ],
+  "nav-bar-login-text": [
+    {
+      "type": 0,
+      "value": "Login"
+    }
+  ],
+  "nav-bar-my-profile": [
+    {
+      "type": 0,
+      "value": "My Profile"
+    }
+  ],
+  "nav-bar-products-text": [
+    {
+      "type": 0,
+      "value": "Products"
+    }
+  ],
+  "nav-bar-sign-out-text": [
+    {
+      "type": 0,
+      "value": "Sign Out"
+    }
+  ],
   "post-content-auth-check-signup": [
     {
       "type": 0,
       "value": "Sign up"
     }
   ],
+  "post-list-published": [
+    {
+      "type": 0,
+      "value": "Published"
+    }
+  ],
   "posts_list_end": [
     {
       "type": 0,
       "value": "No more articles"
+    }
+  ],
+  "product-card-add-to-cart": [
+    {
+      "type": 0,
+      "value": "Add to Cart"
+    }
+  ],
+  "product-card-create-product": [
+    {
+      "type": 0,
+      "value": "Create Product"
+    }
+  ],
+  "product-detail-heading": [
+    {
+      "type": 0,
+      "value": "Product Detail"
+    }
+  ],
+  "product-index-cart-added": [
+    {
+      "type": 0,
+      "value": "Product added to the cart"
+    }
+  ],
+  "product-index-cart-added-redirect-btn": [
+    {
+      "type": 0,
+      "value": "Go to cart"
+    }
+  ],
+  "products-heading": [
+    {
+      "type": 0,
+      "value": "Products"
     }
   ],
   "secondary_tagline": [

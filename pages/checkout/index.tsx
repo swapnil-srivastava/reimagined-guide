@@ -7,7 +7,7 @@ function Checkout() {
       <div className="flex flex-wrap justify-center">
         <div className="font-poppins lg:text-5xl text-3xl dark:text-blog-white text-blog-black p-10">
             <FormattedMessage
-                id="Checkout-heading"
+                id="checkout-heading"
                 description="Checkout" // Description should be a string literal
                 defaultMessage="Checkout" // Message should be a string literal
             />
