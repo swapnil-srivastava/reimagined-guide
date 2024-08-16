@@ -497,6 +497,12 @@
       "value": "Veröffentlicht"
     }
   ],
+  "post-list-read-more": [
+    {
+      "type": 0,
+      "value": "Weiterlesen"
+    }
+  ],
   "posts_list_end": [
     {
       "type": 0,

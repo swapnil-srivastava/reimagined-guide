@@ -497,6 +497,12 @@
       "value": "प्रकाशित"
     }
   ],
+  "post-list-read-more": [
+    {
+      "type": 0,
+      "value": "और पढ़ें"
+    }
+  ],
   "posts_list_end": [
     {
       "type": 0,

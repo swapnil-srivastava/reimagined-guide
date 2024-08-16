@@ -497,6 +497,12 @@
       "value": "Publié"
     }
   ],
+  "post-list-read-more": [
+    {
+      "type": 0,
+      "value": "En savoir plus"
+    }
+  ],
   "posts_list_end": [
     {
       "type": 0,
