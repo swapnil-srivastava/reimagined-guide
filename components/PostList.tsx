@@ -85,7 +85,13 @@ const PostList = ({  posts,  loading = false, postsEnd = false, enableLoadMore =
                                 {/* Read More */}
                                 <div className="text-lg flex items-center gap-2">
                                     <Link href={`/${post.username}/${post.slug}`} className="hover:underline">
-                                        <p className="font-thin">Read more</p>
+                                        <p className="font-thin">
+                                            <FormattedMessage
+                                                id="post-list-read-more"
+                                                description="Read more" // Description should be a string literal
+                                                defaultMessage="Read more" // Message should be a string literal
+                                            />
+                                        </p>
                                     </Link>
                                     <FontAwesomeIcon icon={faArrowRight} />
                                 </div>
