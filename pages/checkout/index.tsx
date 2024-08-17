@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,9 +14,13 @@ import { PRODUCT } from "../../database.types";
 import AuthCheck from "../../components/AuthCheck";
 import QuantityComponent from "../../components/QuantityComponent";
 import CurrencyPriceComponent from "../../components/CurrencyPriceComponent";
+import { addressJSON } from "../../components/AddressForm";
 
 // CSS
 import styles from "../../styles/Admin.module.css";
+
+// Supabase
+import { supaClient } from "../../supa-client";
 
 export interface ProductWithQuantity extends PRODUCT {
   quantity: number;
@@ -30,6 +34,26 @@ function Checkout() {
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
   const { profile } = userInfo;
+
+  // add it to the redux
+  const [addressState , setAddressState] = useState<addressJSON>();
+
+  // TODO : add it to the redux
+  useEffect(() => {
+    const checkAddress = async () => {
+      if (profile) {
+        const { data, error } = await supaClient
+          .from('addresses')
+          .select('*')
+          .eq('user_id', profile.id);
+
+        const [ address ] = data
+        setAddressState(address);
+      }
+    };
+
+    checkAddress();
+  }, [profile]);
 
   return (
     <>
@@ -102,7 +126,40 @@ function Checkout() {
                         }
                     </div>
                 </div>
-            </div>
+              </div>
+              {/* Address Section */}
+              { addressState && 
+                <>
+                  {/* Address Card */}
+                  <div className="flex justify-start w-full lg:px-12 px-10 pb-3 pt-5 font-poppins dark:text-blog-white lg:text-2xl text-lg">
+                      <FormattedMessage
+                          id="cart-page-address-card-heading"
+                          description="Address" // Description should be a string literal
+                          defaultMessage="Address" // Message should be a string literal
+                      />
+                  </div>
+                  <div className="flex h-full w-full lg:px-10 px-5">
+                      <div className="flex h-full w-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
+                          <div className="flex flex-row  w-full h-full gap-2 justify-between items-start">
+                              {/* Address */}
+                              <div className="font-poppins">
+                                  <div className="text-base">{addressState?.address_line1}</div>
+                                  <div className="text-base">{addressState?.address_line2}</div>
+                                  <div className="flex flex-row gap-1 text-base">
+                                      <div className="flex flex-row">
+                                          <div>{addressState?.postal_code}</div>
+                                          <div>,</div>
+                                      </div>
+                                      <div>{addressState?.city}</div>
+                                  </div>
+                                  <div className="text-base">{addressState?.state}</div>
+                                  <div className="text-base">{addressState?.country}</div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </>
+              }
         </AuthCheck>
       </div>
     </>

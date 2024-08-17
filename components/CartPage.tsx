@@ -200,7 +200,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                         editSavedAddress={editSavedAddress}
                         setEditSavedAddress={setEditSavedAddress}
                     />
-                </>
+                  </>
             }
             {/* Delivery Options section */}
             {   
