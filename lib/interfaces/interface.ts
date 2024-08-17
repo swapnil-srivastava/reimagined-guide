@@ -1,9 +1,11 @@
 import { SupashipUserInfo } from "../../lib/hooks";
 
 export interface RootState {
-  counter: Object;
   users: UserState;
-  cart: CartState
+  cart: CartState;
+  address: AddressState;
+  deliveryType: DeliveryTypeState;
+  subtotal: SubtotalState;
 }
 
 export interface UserState {
@@ -14,6 +16,18 @@ export interface UserState {
 
 export interface CartState {
   cartItems: []
+}
+
+export interface AddressState {
+  address: {}
+}
+
+export interface DeliveryTypeState {
+  deliveryType: {}
+}
+
+export interface SubtotalState {
+  subtotal: {}
 }
 
 interface User {

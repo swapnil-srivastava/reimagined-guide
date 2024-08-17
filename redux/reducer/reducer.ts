@@ -1,15 +1,19 @@
 import { combineReducers } from 'redux';
-import { counterReducer } from './counterReducer';
 import { supaReducer } from './supaReducer';
 import { userReducer } from './userReducer';
 import { cartReducer } from './cartReducer';
+import { addressReducer } from './addressReducer';
+import { deliveryTypeReducer } from './deliveryTypeReducer';
+import { subTotalReducer } from './subTotalReducer';
 
 // COMBINED REDUCERS
 const reducers = {
-  counter: counterReducer,
   users: userReducer,
   supabase: supaReducer,
-  cart: cartReducer
+  cart: cartReducer,
+  address: addressReducer,
+  deliveryType: deliveryTypeReducer,
+  subtotal: subTotalReducer
 }
 
 export default combineReducers(reducers)

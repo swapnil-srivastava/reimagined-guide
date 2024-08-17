@@ -6,7 +6,7 @@ export const initialStoreState = {
    cartItems: []
 }
 
-// COUNTER REDUCER
+// CART REDUCER
 export const cartReducer = (state = initialStoreState, { type, product }) => {
   switch (type) {
     case types.ADD_TO_CART_INSERT: {

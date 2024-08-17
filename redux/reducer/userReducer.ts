@@ -7,7 +7,7 @@ export const initialUserState = {
     username: null
 }
 
-// COUNTER REDUCER
+// USER REDUCER
 export const userReducer = (state = initialUserState, { type, user, username }) => {
   switch (type) {
     case types.USER_UPDATE: {
