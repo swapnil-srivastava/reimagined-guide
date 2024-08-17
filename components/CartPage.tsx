@@ -84,7 +84,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
     return (
       <>        
          {/*   if - signed in */ }  
-         {/* <AuthCheck> */}
+         <AuthCheck>
             {/* Cart Items */}
             <div className="flex justify-start w-full lg:px-12 px-10 pb-3 font-poppins dark:text-blog-white lg:text-2xl text-lg">
                 <FormattedMessage
@@ -238,10 +238,10 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                     </Link>
                 </>
             }
-        {/* </AuthCheck> */}
+        </AuthCheck>
       </>
     );
-  };
+};
   
   export default CartPage;
 
