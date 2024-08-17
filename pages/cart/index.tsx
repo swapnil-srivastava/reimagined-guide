@@ -9,6 +9,7 @@ import CartPage from "../../components/CartPage";
 import { RootState } from "../../lib/interfaces/interface";
 
 function Cart() {
+
   const selectStore = (state: RootState) => state.cart;
   const { cartItems } = useSelector(selectStore);
 

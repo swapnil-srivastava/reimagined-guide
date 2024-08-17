@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from "react-redux";
 
 // Interfaces
 import { PRODUCT } from "../database.types";
@@ -26,7 +27,8 @@ import { supaClient } from "../supa-client";
 
 // CSS
 import styles from "../styles/Admin.module.css";
-import { useDispatch } from "react-redux";
+
+// Redux
 import { addToCartDelete } from "../redux/actions/actions";
 
 
@@ -85,7 +87,6 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
       <>        
          {/*   if - signed in */ }  
          <AuthCheck>
-            {/* Cart Items */}
             <div className="flex justify-start w-full lg:px-12 px-10 pb-3 font-poppins dark:text-blog-white lg:text-2xl text-lg">
                 <FormattedMessage
                     id="cart-page-shopping-cart-card-heading"
@@ -93,6 +94,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                     defaultMessage="Shopping Cart" // Message should be a string literal
                 />
             </div>
+            {/* Shopping Cart Section */}
             <div className="flex h-full w-full lg:px-10 px-5 font-poppins">
                 <div className="flex h-full w-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
                     <div className="flex flex-col w-full h-full gap-2 justify-center items-center">
@@ -101,7 +103,8 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                             <div key={cartItem.id} className="flex h-full w-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
                                 <div className="flex flex-row gap-2 h-full w-full">
                                     <div className="flex">
-                                        <Image src={`/mountains.jpg`} 
+                                        <Image 
+                                            src={cartItem.image_url ?? `/mountains.jpg`} 
                                             alt={cartItem.name}
                                             width={250}
                                             height={250}
@@ -130,6 +133,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                                 </div>
                             </div>
                         ))}
+                        {/* If there are no items in cart */}
                         {cartItems && cartItems.length === 0 &&
                             <div className="flex flex-col items-center gap-2 justify-center h-full w-full">
                                 <div className="text-center">
@@ -152,6 +156,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                     </div>
                 </div>
             </div>
+            {/* Address Section */}
             { addressState && !editSavedAddress
                 ? <>
                  {/* Address Card */}
@@ -225,7 +230,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                     </div>
                 </>
             }
-            {/* Go to Checkout page */}
+            {/* Go to Checkout page button */}
             {   
                 <>
                     <Link href="/checkout" className="flex justify-center pt-5 pb-20">
