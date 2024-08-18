@@ -67,9 +67,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => 
             .eq('user_id', profile.id);
   
           const [ address ] = data;
-
           dispatch(addToCartAddressCreate(address));
-
         }
       };
 
