@@ -8,7 +8,7 @@ export const initialStoreState = {
 // ADDRESS REDUCER
 export const addressReducer = (state = initialStoreState, { type, address }) => {
   switch (type) {
-    case types.ADD_TO_CART_INSERT: {
+    case types.ADD_TO_CART_ADDRESS_CREATE: {
       const newState = {
         ...state,
         customerAddress : {
