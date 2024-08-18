@@ -31,6 +31,9 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
+import { useDispatch } from "react-redux";
+import { addToCartAddressUpdate } from "../redux/actions/actions";
+
 export interface addressJSON {
     address_line1: string;
     address_line2: string;
@@ -43,7 +46,6 @@ export interface addressJSON {
 interface AddressFormProps {
     profile: UserProfile | null;
     addressState?: addressJSON;
-    setAddressState: (address: addressJSON) => void;
     editSavedAddress: boolean;
     setEditSavedAddress: (edit: boolean) => void;
 }
@@ -58,11 +60,13 @@ const initialAddressState = {
 }
 
 // Address Form
-const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, setAddressState, editSavedAddress, setEditSavedAddress }) => {
+const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, editSavedAddress, setEditSavedAddress }) => {
     
     type ADDRESS_OBJ = Pick<ADDRESS, "address_line1" | "address_line2" | "city" | "postal_code" | "state" | "country">;
 
     const [data, setData] = useState<addressJSON>(addressState || initialAddressState);
+
+    const dispatch = useDispatch();
 
     const clearData = () => {
         setData(initialAddressState);
@@ -109,7 +113,7 @@ const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, setAdd
                 .eq('user_id', profile?.id);
 
             if (!error) {
-                setAddressState(data);
+                dispatch(addToCartAddressUpdate(data));
                 setEditSavedAddress(false);
                 toast.success("Address updated!!");
             } else {
@@ -132,7 +136,7 @@ const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, setAdd
                 ]);
 
             if (!error) {
-                setAddressState(data);
+                dispatch(addToCartAddressUpdate(data));
                 toast.success("Address added!!");
             } else {
                 toast.error("Failed to add address");

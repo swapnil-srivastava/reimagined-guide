@@ -1,3 +1,4 @@
+import { ADDRESS } from "../../database.types";
 import { SupashipUserInfo } from "../../lib/hooks";
 
 export interface RootState {
@@ -19,7 +20,7 @@ export interface CartState {
 }
 
 export interface AddressState {
-  address: {}
+  customerAddress: ADDRESS | null;
 }
 
 export interface DeliveryTypeState {

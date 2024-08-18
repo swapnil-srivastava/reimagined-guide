@@ -17,6 +17,9 @@ function Cart() {
   const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
 
+  const selectAddress = (state: RootState) => state.address;
+  const { customerAddress } = useSelector(selectAddress);
+
   return (
     <>
       <div className="flex flex-col flex-wrap justify-center items-center">
@@ -29,7 +32,7 @@ function Cart() {
               />
             </div>
         </div>
-        <CartPage cartItems={cartItems} profile={profile}/>
+        <CartPage cartItems={cartItems} profile={profile} address={customerAddress} />
       </div>
     </>
   );

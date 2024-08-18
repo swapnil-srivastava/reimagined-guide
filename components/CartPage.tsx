@@ -9,7 +9,7 @@ import { faCircleXmark, faPenToSquare } from "@fortawesome/free-solid-svg-icons"
 import { useDispatch } from "react-redux";
 
 // Interfaces
-import { PRODUCT } from "../database.types";
+import { ADDRESS, PRODUCT } from "../database.types";
 
 // Components
 import QuantityComponent from "./QuantityComponent";
@@ -38,6 +38,7 @@ export interface ProductWithQuantity extends PRODUCT {
 interface CartPageProps {
     cartItems: ProductWithQuantity[];
     profile: UserProfile | null;
+    address: ADDRESS | null ;
 }
 
 interface deliveryOptionState {
@@ -51,10 +52,9 @@ interface deliveryOptions {
     deliveryPrice: number;
 }
 
-const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
+const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => {
     const dispatch = useDispatch();
     
-    const [addressState , setAddressState] = useState<addressJSON>();
     const [selectedDelivery , setSelectedDelivery] = useState<deliveryOptionState>();
     const [editSavedAddress , setEditSavedAddress] = useState<boolean>(false);
 
@@ -70,7 +70,6 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
 
           dispatch(addToCartAddressCreate(address));
 
-          setAddressState(address);
         }
       };
 
@@ -159,7 +158,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                 </div>
             </div>
             {/* Address Section */}
-            { addressState && !editSavedAddress
+            { address && !editSavedAddress
                 ? <>
                  {/* Address Card */}
                     <div className="flex justify-start w-full lg:px-12 px-10 pb-3 pt-5 font-poppins dark:text-blog-white lg:text-2xl text-lg">
@@ -174,17 +173,17 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                             <div className="flex flex-row  w-full h-full gap-2 justify-between items-start">
                                 {/* Address */}
                                 <div className="font-poppins">
-                                    <div className="text-base">{addressState?.address_line1}</div>
-                                    <div className="text-base">{addressState?.address_line2}</div>
+                                    <div className="text-base">{address?.address_line1}</div>
+                                    <div className="text-base">{address?.address_line2}</div>
                                     <div className="flex flex-row gap-1 text-base">
                                         <div className="flex flex-row">
-                                            <div>{addressState?.postal_code}</div>
+                                            <div>{address?.postal_code}</div>
                                             <div>,</div>
                                         </div>
-                                        <div>{addressState?.city}</div>
+                                        <div>{address?.city}</div>
                                     </div>
-                                    <div className="text-base">{addressState?.state}</div>
-                                    <div className="text-base">{addressState?.country}</div>
+                                    <div className="text-base">{address?.state}</div>
+                                    <div className="text-base">{address?.country}</div>
                                 </div>
                                 {/* Edit icon */}
                                 <div>
@@ -197,8 +196,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
                 : <>
                     <AddressForm
                         profile={profile}
-                        addressState={addressState}
-                        setAddressState={setAddressState}
+                        addressState={address}
                         editSavedAddress={editSavedAddress}
                         setEditSavedAddress={setEditSavedAddress}
                     />
