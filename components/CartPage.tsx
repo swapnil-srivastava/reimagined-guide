@@ -69,7 +69,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
           const [ address ] = data;
 
           dispatch(addToCartAddressCreate(address));
-          
+
           setAddressState(address);
         }
       };

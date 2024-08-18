@@ -9,12 +9,13 @@ export const initialStoreState = {
 export const addressReducer = (state = initialStoreState, { type, address }) => {
   switch (type) {
     case types.ADD_TO_CART_INSERT: {
-      console.log("types.ADD_TO_CART_INSERT ::: ", address);
-      // const newState = {
-      //   ...state,
-      //   customerAddress : ...address
-      // }
-      return state;
+      const newState = {
+        ...state,
+        customerAddress : {
+          ...address
+        }
+      };
+      return newState;
   }
     default:
       return state
