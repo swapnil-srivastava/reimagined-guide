@@ -24,3 +24,12 @@ export const addToCartProductQuantityInc = (payload: PRODUCT) => ({ type: types.
 
 // Decrement the Product quantity by 
 export const addToCartProductQuantityDec = (payload: PRODUCT) => ({ type: types.ADD_TO_CART_PRODUCT_QUANTITY_DEC, product: payload });
+
+// Address Create
+export const addToCartAddressCreate = (payload) => ({ type: types.ADD_TO_CART_ADDRESS_CREATE, address: payload });
+
+// Address Update
+export const addToCartAddressUpdate = (payload) => ({ type: types.ADD_TO_CART_ADDRESS_UPDATE, address: payload });
+
+// Address Delete
+export const addToCartAddressDelete = (payload) => ({ type: types.ADD_TO_CART_ADDRESS_DELETE, address: payload });

@@ -29,8 +29,7 @@ import { supaClient } from "../supa-client";
 import styles from "../styles/Admin.module.css";
 
 // Redux
-import { addToCartDelete } from "../redux/actions/actions";
-
+import { addToCartAddressCreate, addToCartDelete } from "../redux/actions/actions";
 
 export interface ProductWithQuantity extends PRODUCT {
     quantity: number;
@@ -67,7 +66,10 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile }) => {
             .select('*')
             .eq('user_id', profile.id);
   
-          const [ address ] = data
+          const [ address ] = data;
+
+          dispatch(addToCartAddressCreate(address));
+          
           setAddressState(address);
         }
       };
