@@ -11,18 +11,14 @@ export const addressReducer = (state = initialStoreState, { type, address }) => 
     case types.ADD_TO_CART_ADDRESS_CREATE: {
       const newState = {
         ...state,
-        customerAddress : {
-          ...address
-        }
+        customerAddress : address ? { ...address } : undefined
       };
       return newState;
   };
   case types.ADD_TO_CART_ADDRESS_UPDATE: {
     const newState = {
       ...state,
-      customerAddress : {
-        ...address
-      }
+      customerAddress : address ? { ...address } : undefined
     };
     return newState;
   };
