@@ -67,7 +67,6 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => 
             .eq('user_id', profile.id);
   
           const [ supaBaseAddress ] = data;
-          console.log("address checkAddress", supaBaseAddress);
           dispatch(addToCartAddressCreate(supaBaseAddress));
         }
       };
