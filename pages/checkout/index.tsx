@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 // Redux
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // Interfaces
 import { RootState } from "../../lib/interfaces/interface";
@@ -14,7 +14,6 @@ import { PRODUCT } from "../../database.types";
 import AuthCheck from "../../components/AuthCheck";
 import QuantityComponent from "../../components/QuantityComponent";
 import CurrencyPriceComponent from "../../components/CurrencyPriceComponent";
-import { addressJSON } from "../../components/AddressForm";
 
 // CSS
 import styles from "../../styles/Admin.module.css";
@@ -22,11 +21,16 @@ import styles from "../../styles/Admin.module.css";
 // Supabase
 import { supaClient } from "../../supa-client";
 
+// Actions
+import { addToCartAddressCreate } from "../../redux/actions/actions";
+
 export interface ProductWithQuantity extends PRODUCT {
   quantity: number;
 }
 
 function Checkout() {
+
+  const dispatch = useDispatch();
 
   const selectStore = (state: RootState) => state.cart;
   const { cartItems } = useSelector(selectStore);
@@ -35,10 +39,9 @@ function Checkout() {
   const { userInfo } = useSelector(selectUser);
   const { profile } = userInfo;
 
-  // add it to the redux
-  const [addressState , setAddressState] = useState<addressJSON>();
+  const selectAddress = (state: RootState) => state.address;
+  const { customerAddress } = useSelector(selectAddress);
 
-  // TODO : add it to the redux
   useEffect(() => {
     const checkAddress = async () => {
       if (profile) {
@@ -47,8 +50,8 @@ function Checkout() {
           .select('*')
           .eq('user_id', profile.id);
 
-        const [ address ] = data
-        setAddressState(address);
+          const [ supaBaseAddress ] = data;
+          dispatch(addToCartAddressCreate(supaBaseAddress));
       }
     };
 
@@ -128,7 +131,7 @@ function Checkout() {
                 </div>
               </div>
               {/* Address Section */}
-              { addressState && 
+              { customerAddress && 
                 <>
                   {/* Address Card */}
                   <div className="flex justify-start w-full lg:px-12 px-10 pb-3 pt-5 font-poppins dark:text-blog-white lg:text-2xl text-lg">
@@ -143,17 +146,17 @@ function Checkout() {
                           <div className="flex flex-row  w-full h-full gap-2 justify-between items-start">
                               {/* Address */}
                               <div className="font-poppins">
-                                  <div className="text-base">{addressState?.address_line1}</div>
-                                  <div className="text-base">{addressState?.address_line2}</div>
+                                  <div className="text-base">{customerAddress?.address_line1}</div>
+                                  <div className="text-base">{customerAddress?.address_line2}</div>
                                   <div className="flex flex-row gap-1 text-base">
                                       <div className="flex flex-row">
-                                          <div>{addressState?.postal_code}</div>
+                                          <div>{customerAddress?.postal_code}</div>
                                           <div>,</div>
                                       </div>
-                                      <div>{addressState?.city}</div>
+                                      <div>{customerAddress?.city}</div>
                                   </div>
-                                  <div className="text-base">{addressState?.state}</div>
-                                  <div className="text-base">{addressState?.country}</div>
+                                  <div className="text-base">{customerAddress?.state}</div>
+                                  <div className="text-base">{customerAddress?.country}</div>
                               </div>
                           </div>
                       </div>
