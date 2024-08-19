@@ -144,10 +144,11 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => 
                                 </div>
                                 <Link href="/products" className="flex justify-center pt-5">
                                         <button className={styles.btnAdmin}>
-                                            <FormattedMessage id="cart-page-no-products-redirect-btn"
-                                            description="Go to products page" // Description should be a string literal
-                                            defaultMessage="Go to products page" // Message should be a string literal
-                                            />
+                                            <FormattedMessage 
+                                                id="cart-page-no-products-redirect-btn"
+                                                description="Go to products page" // Description should be a string literal
+                                                defaultMessage="Go to products page" // Message should be a string literal
+                                                />
                                         </button>
                                 </Link>
                             </div>

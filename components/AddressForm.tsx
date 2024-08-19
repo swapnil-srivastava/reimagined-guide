@@ -100,6 +100,7 @@ const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, editSa
 
         if (editSavedAddress) {
             // Update existing address
+            console.log("editSavedAddress Update address", "profile?.id", profile?.id)
             const { data: supaData, error } = await supaClient
                 .from("addresses")
                 .update({
@@ -114,6 +115,7 @@ const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, editSa
 
             if (!error) {
                 dispatch(addToCartAddressUpdate(data));
+                console.log("Address updated!", "profile?.id", profile?.id)
                 setEditSavedAddress(false);
                 toast.success("Address updated!!");
             } else {
@@ -121,6 +123,7 @@ const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, editSa
             }
         } else {
             // Insert new address
+            console.log("insert address", "profile?.id", profile?.id)
             const { data: supaData, error } = await supaClient
                 .from("addresses")
                 .insert([
@@ -136,6 +139,7 @@ const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, editSa
                 ]);
 
             if (!error) {
+                console.log("Address added!", "profile?.id", profile?.id)
                 dispatch(addToCartAddressUpdate(data));
                 toast.success("Address added!!");
             } else {
