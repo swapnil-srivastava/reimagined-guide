@@ -115,7 +115,7 @@ const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, editSa
 
             if (!error) {
                 dispatch(addToCartAddressUpdate(data));
-                console.log("Address updated!", "profile?.id", profile?.id)
+                console.log("Address updated!", "profile?.id", profile?.id);
                 setEditSavedAddress(false);
                 toast.success("Address updated!!");
             } else {
@@ -139,7 +139,7 @@ const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, editSa
                 ]);
 
             if (!error) {
-                console.log("Address added!", "profile?.id", profile?.id)
+                console.log("Address added!", "profile?.id", profile?.id);
                 dispatch(addToCartAddressUpdate(data));
                 toast.success("Address added!!");
             } else {
