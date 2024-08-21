@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // Interfaces
 import { ADDRESS, PRODUCT } from "../database.types";
@@ -30,6 +30,7 @@ import styles from "../styles/Admin.module.css";
 
 // Redux
 import { addToCartAddressCreate, addToCartDelete } from "../redux/actions/actions";
+import { RootState } from "../lib/interfaces/interface";
 
 export interface ProductWithQuantity extends PRODUCT {
     quantity: number;
@@ -55,7 +56,8 @@ interface deliveryOptions {
 const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => {
     const dispatch = useDispatch();
     
-    const [selectedDelivery , setSelectedDelivery] = useState<deliveryOptionState>();
+    const selectedDelivery = useSelector((state : RootState) => state.deliveryType.deliveryType.deliveryOption);
+    
     const [editSavedAddress , setEditSavedAddress] = useState<boolean>(false);
 
     useEffect(() => {
@@ -76,10 +78,6 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => 
 
     const handleProductDelete = (product: PRODUCT) => {
         dispatch(addToCartDelete(product));
-    };
-
-    const handleDeliverySelected = (deliverySelected) => {
-        setSelectedDelivery(deliverySelected);
     };
 
     return (
@@ -211,7 +209,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => 
                             defaultMessage="Delivery" // Message should be a string literal
                         />
                     </div>
-                    <DeliveryOptions deliverySelected={(delivery) => handleDeliverySelected(delivery)} />
+                    <DeliveryOptions/>
                 </>
             }
             {/* Subtotal section  */}
@@ -225,7 +223,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => 
                         />
                     </div>
                     <div className="flex h-full w-full lg:px-10 px-5 pb-5">
-                        <CalculateTotal products={cartItems} deliveryCost={selectedDelivery?.deliveryOption?.deliveryPrice}/>
+                        <CalculateTotal products={cartItems} deliveryCost={selectedDelivery && selectedDelivery?.deliveryPrice}/>
                     </div>
                 </>
             }

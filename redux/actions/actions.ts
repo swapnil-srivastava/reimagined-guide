@@ -33,3 +33,18 @@ export const addToCartAddressUpdate = (payload) => ({ type: types.ADD_TO_CART_AD
 
 // Address Delete
 export const addToCartAddressDelete = (payload) => ({ type: types.ADD_TO_CART_ADDRESS_DELETE, address: payload });
+
+
+export const fetchDeliveryOptions = () => ({
+    type: types.FETCH_DELIVERY_OPTIONS,
+});
+  
+export const updateDeliveryOption = (deliveryOption) => ({
+    type: types.UPDATE_DELIVERY_OPTION,
+    payload: deliveryOption,
+});
+  
+export const createDeliveryOption = (deliveryOption) => ({
+    type: types.CREATE_DELIVERY_OPTION,
+    payload: deliveryOption,
+});

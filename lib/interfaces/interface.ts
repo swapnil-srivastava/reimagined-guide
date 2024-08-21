@@ -23,8 +23,18 @@ export interface AddressState {
   customerAddress: ADDRESS | null;
 }
 
+interface DeliveryOptions {
+  id: string;
+  name: string;
+  description: string;
+  deliveryPrice: number;
+}
+
 export interface DeliveryTypeState {
-  deliveryType: {}
+  deliveryType: {
+    deliveryOption: DeliveryOptions
+  }
+  deliveryOptions: []
 }
 
 export interface SubtotalState {

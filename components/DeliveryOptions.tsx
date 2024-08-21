@@ -1,6 +1,8 @@
 'use client';
 
 import { FormattedMessage } from "react-intl";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 // Delviory Options Schema
 import schema from "../lib/deliveryOptions/deliveryOptionsSchema.json";
@@ -16,23 +18,33 @@ import {
     materialRenderers,
   } from "@jsonforms/material-renderers";
 
-import { useState } from "react";
 
 import CustomRadioGroupControl from './CustomRadioGroupControl';
 
+// Action Crator
+import { fetchDeliveryOptions, updateDeliveryOption } from "../redux/actions/actions";
+import { RootState } from "../lib/interfaces/interface";
+
 
 interface DeliveryOptionsProps {
-    deliverySelected: (delivery: any) => void;
+
 }
 
-const DeliveryOptions: React.FC<DeliveryOptionsProps> = ({  deliverySelected }) => {
-    // const { defaultDelivery } = useProducts();
+const DeliveryOptions: React.FC<DeliveryOptionsProps> = () => {
 
-    const [data, setData] = useState({ deliveryOption: '' });
+    const dispatch = useDispatch();
+
+    const deliveryOptions = useSelector((state: RootState) => state.deliveryType.deliveryOptions);
+    const deliveryType = useSelector((state: RootState) => state.deliveryType.deliveryType);
+
+    useEffect(() => {
+        dispatch(fetchDeliveryOptions());
+    }, [dispatch]);
+
+    // const { defaultDelivery } = useProducts(); // call updateDeliveryOption action creator to update the default as well. 
 
     const changedJsonSchema = (newData: any, errors: any) => {
-        deliverySelected(newData);
-        setData(newData);
+        dispatch(updateDeliveryOption(newData));
     };
 
     return (
@@ -49,7 +61,7 @@ const DeliveryOptions: React.FC<DeliveryOptionsProps> = ({  deliverySelected }) 
                                     renderers={[
                                         { tester: rankWith(3, isEnumControl), renderer: CustomRadioGroupControl }
                                       ]}
-                                    data={data}
+                                    data={deliveryType}
                                     cells={materialCells}
                                     onChange={({ errors, data }) => changedJsonSchema(data, errors)}
                                 />
