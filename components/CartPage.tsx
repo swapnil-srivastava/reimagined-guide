@@ -56,13 +56,11 @@ interface deliveryOptions {
 const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => {
     const dispatch = useDispatch();
     
-    const selectedDelivery = useSelector((state : RootState) => state.deliveryType.deliveryType.deliveryOption);
     const subTotal = useSelector((state : RootState) => state.subtotal?.subTotal);
-    const deliveryCost = useSelector((state : RootState) => state.subtotal?.deliveryCost);
+    const deliveryCost = useSelector((state : RootState) => state.subtotal?.deliveryCost) || 0;
     const tax = useSelector((state : RootState) => state.subtotal?.tax);
-    const totalCost = useSelector((state : RootState) => state.subtotal?.totalCost);
+    const totalCost = useSelector((state : RootState) => state.subtotal?.totalCost) || 0;
 
-    
     const [editSavedAddress , setEditSavedAddress] = useState<boolean>(false);
 
     useEffect(() => {
