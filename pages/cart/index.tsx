@@ -22,7 +22,7 @@ function Cart() {
   const selectAddress = (state: RootState) => state.address;
   const { customerAddress } = useSelector(selectAddress);
 
-  const deliveryCost = useSelector((state: RootState) => state.deliveryType?.deliveryType?.deliveryOption?.deliveryPrice);
+  const deliveryCost = useSelector((state: RootState) => state.deliveryType?.deliveryType?.deliveryOption?.deliveryPrice) || 0; // it need to zero otherwise total cost won"t be calcualted
 
   useEffect(() => {
     const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
