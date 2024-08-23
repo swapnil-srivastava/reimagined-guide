@@ -1,5 +1,27 @@
 import { PRODUCT } from '../../database.types';
+import { TAX_RATE } from '../../lib/library';
+import { ProductWithQuantity } from '../../pages/checkout';
 import * as types from './types'
+
+interface UpdateSubtotalAction {
+    type: typeof types.UPDATE_SUBTOTAL;
+    subtotal: number;
+  }
+  
+  interface UpdateTaxAction {
+    type: typeof types.UPDATE_TAX;
+    tax: number;
+  }
+  
+  interface UpdateDeliveryCostAction {
+    type: typeof types.UPDATE_DELIVERY_COST;
+    deliveryCost: number;
+  }
+  
+  interface UpdateTotalCostAction {
+    type: typeof types.UPDATE_TOTAL_COST;
+    total: number;
+  }
 
 // UPDATE THE USER 
 export const userUpdate = (payload) => ({ type: types.USER_UPDATE, user: payload });
@@ -48,3 +70,36 @@ export const createDeliveryOption = (deliveryOption) => ({
     type: types.CREATE_DELIVERY_OPTION,
     payload: deliveryOption,
 });
+
+export type CostActionTypes = UpdateSubtotalAction | UpdateTaxAction | UpdateDeliveryCostAction | UpdateTotalCostAction;
+
+export const updateSubtotal = (cartItems: ProductWithQuantity[]): UpdateSubtotalAction => {
+  const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  return {
+    type: types.UPDATE_SUBTOTAL,
+    subtotal,
+  };
+};
+
+export const updateTax = (subtotal: number, taxRate = TAX_RATE): UpdateTaxAction => {
+  const tax = subtotal * taxRate;
+  return {
+    type: types.UPDATE_TAX,
+    tax,
+  };
+};
+
+export const updateDeliveryCost = (deliveryCost: number): UpdateDeliveryCostAction => {
+  return {
+    type: types.UPDATE_DELIVERY_COST,
+    deliveryCost,
+  };
+};
+
+export const updateTotalCost = (subtotal: number, tax: number, deliveryCost: number): UpdateTotalCostAction => {
+  const total = subtotal + tax + deliveryCost;
+  return {
+    type: types.UPDATE_TOTAL_COST,
+    total,
+  };
+};

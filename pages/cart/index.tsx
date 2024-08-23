@@ -2,23 +2,35 @@
 
 import React, { useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // Components
 import CartPage from "../../components/CartPage";
 import { RootState } from "../../lib/interfaces/interface";
+import { updateDeliveryCost, updateSubtotal, updateTax, updateTotalCost } from "../../redux/actions/actions";
 
 function Cart() {
-
+  const dispatch = useDispatch();
+  
   const selectStore = (state: RootState) => state.cart;
   const { cartItems } = useSelector(selectStore);
 
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
-  const { profile, session } = userInfo;
+  const { profile } = userInfo;
 
   const selectAddress = (state: RootState) => state.address;
   const { customerAddress } = useSelector(selectAddress);
+
+  const deliveryCost = useSelector((state: RootState) => state.deliveryType?.deliveryType?.deliveryOption?.deliveryPrice);
+
+  useEffect(() => {
+    const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    dispatch(updateSubtotal(cartItems));
+    dispatch(updateTax(subtotal));
+    dispatch(updateDeliveryCost(deliveryCost));
+    dispatch(updateTotalCost(subtotal, subtotal * 0.19, deliveryCost));
+  }, [cartItems, deliveryCost, dispatch]);
 
   return (
     <>

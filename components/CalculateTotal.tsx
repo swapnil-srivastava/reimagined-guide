@@ -4,6 +4,7 @@ import { FormattedMessage } from "react-intl";
 
 // Types
 import { PRODUCT } from "../database.types";
+import { TAX_RATE } from "../lib/library";
 
 export interface ProductWithQuantity extends PRODUCT {
     quantity: number;
@@ -15,7 +16,7 @@ interface PriceBreakdownCardProps {
     taxRate?: number;
 }
 
-const CalculateTotal : React.FC<PriceBreakdownCardProps> = ({ products, deliveryCost = 0, taxRate = 0.19 }) => {
+const CalculateTotal : React.FC<PriceBreakdownCardProps> = ({ products, deliveryCost = 0, taxRate = TAX_RATE }) => {
 
     // Calculate subtotal
     const subtotal = products.reduce((acc, product) => acc + product.price * product.quantity, 0);

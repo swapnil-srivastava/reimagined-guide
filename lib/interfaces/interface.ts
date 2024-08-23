@@ -1,3 +1,4 @@
+import { ProductWithQuantity } from "../../components/CartPage";
 import { ADDRESS } from "../../database.types";
 import { SupashipUserInfo } from "../../lib/hooks";
 
@@ -16,7 +17,7 @@ export interface UserState {
 }
 
 export interface CartState {
-  cartItems: []
+  cartItems: ProductWithQuantity[];
 }
 
 export interface AddressState {

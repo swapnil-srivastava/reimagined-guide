@@ -35,7 +35,9 @@ const deliveryOptions = [
   { id: "ups", name: "UPS", description: "UPS delivery service", deliveryPrice: 6.00 }
 ];
 
+const TAX_RATE = 0.19;
+
 export { generateMetaDescription, getLocalStorage, setLocalStorage, 
   PRODUCT_INITIAL_QUANTITY, PRODUCT_QUANTITY_INCREMENT, 
-  PRODUCT_QUANTITY_DECREMENT, DELIVERY_OPTIONS, deliveryOptions
+  PRODUCT_QUANTITY_DECREMENT, DELIVERY_OPTIONS, deliveryOptions, TAX_RATE
 };
