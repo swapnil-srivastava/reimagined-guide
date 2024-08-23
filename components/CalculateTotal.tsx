@@ -34,7 +34,7 @@ const CalculateTotal : React.FC<PriceBreakdownCardProps> = ({ subTotal, delivery
                                             defaultMessage="Subtotal:" // Message should be a string literal
                                         />
                                     </span>
-                                    <span>€ {subTotal.toFixed(2)}</span>
+                                    <span>€ {subTotal?.toFixed(2)}</span>
                                 </div>
                                 <div className="flex justify-between mb-2">
                                     <span>
@@ -44,7 +44,7 @@ const CalculateTotal : React.FC<PriceBreakdownCardProps> = ({ subTotal, delivery
                                             defaultMessage="Tax (19%):" // Message should be a string literal
                                         />
                                     </span>
-                                    <span>€ {taxRate.toFixed(2)}</span>
+                                    <span>€ {taxRate?.toFixed(2)}</span>
                                 </div>
                                 <div className="flex justify-between mb-2">
                                     <span>
@@ -54,7 +54,7 @@ const CalculateTotal : React.FC<PriceBreakdownCardProps> = ({ subTotal, delivery
                                             defaultMessage="Delivery Cost:" // Message should be a string literal
                                         />
                                     </span>
-                                    <span>€ {deliveryCost.toFixed(2)}</span>
+                                    <span>€ {deliveryCost?.toFixed(2)}</span>
                                 </div>
                                 <div className="flex justify-between font-bold">
                                     <span>
@@ -64,7 +64,7 @@ const CalculateTotal : React.FC<PriceBreakdownCardProps> = ({ subTotal, delivery
                                             defaultMessage="Total:" // Message should be a string literal
                                         />
                                     </span>
-                                    <span>€ {totalCost.toFixed(2)}</span>
+                                    <span>€ {totalCost?.toFixed(2)}</span>
                                 </div>
                             </div>
                         </div>
