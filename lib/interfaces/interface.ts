@@ -1,13 +1,14 @@
 import { ProductWithQuantity } from "../../components/CartPage";
 import { ADDRESS } from "../../database.types";
 import { SupashipUserInfo } from "../../lib/hooks";
+import { SubTotalStoreState } from "../../redux/reducer/subTotalReducer";
 
 export interface RootState {
   users: UserState;
   cart: CartState;
   address: AddressState;
   deliveryType: DeliveryTypeState;
-  subtotal: SubtotalState;
+  subtotal: SubTotalStoreState;
 }
 
 export interface UserState {
@@ -36,10 +37,6 @@ export interface DeliveryTypeState {
     deliveryOption: DeliveryOptions
   }
   deliveryOptions: []
-}
-
-export interface SubtotalState {
-  subtotal: {}
 }
 
 interface User {

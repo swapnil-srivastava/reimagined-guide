@@ -11,22 +11,13 @@ export interface ProductWithQuantity extends PRODUCT {
 }
 
 interface PriceBreakdownCardProps {
-    products: ProductWithQuantity[];
-    deliveryCost?: number;
-    taxRate?: number;
+    subTotal: number
+    deliveryCost: number;
+    taxRate: number;
+    totalCost: number
 }
 
-const CalculateTotal : React.FC<PriceBreakdownCardProps> = ({ products, deliveryCost = 0, taxRate = TAX_RATE }) => {
-
-    // Calculate subtotal
-    const subtotal = products.reduce((acc, product) => acc + product.price * product.quantity, 0);
-
-    // Calculate tax
-    const tax = subtotal * taxRate;
-
-    // Calculate total
-    const total = subtotal + deliveryCost + tax;
-
+const CalculateTotal : React.FC<PriceBreakdownCardProps> = ({ subTotal, deliveryCost, taxRate, totalCost }) => {
     return (
       <>
         <div className="flex h-full w-full font-poppins">
@@ -43,7 +34,7 @@ const CalculateTotal : React.FC<PriceBreakdownCardProps> = ({ products, delivery
                                             defaultMessage="Subtotal:" // Message should be a string literal
                                         />
                                     </span>
-                                    <span>€ {subtotal.toFixed(2)}</span>
+                                    <span>€ {subTotal.toFixed(2)}</span>
                                 </div>
                                 <div className="flex justify-between mb-2">
                                     <span>
@@ -53,7 +44,7 @@ const CalculateTotal : React.FC<PriceBreakdownCardProps> = ({ products, delivery
                                             defaultMessage="Tax (19%):" // Message should be a string literal
                                         />
                                     </span>
-                                    <span>€ {tax.toFixed(2)}</span>
+                                    <span>€ {taxRate.toFixed(2)}</span>
                                 </div>
                                 <div className="flex justify-between mb-2">
                                     <span>
@@ -73,7 +64,7 @@ const CalculateTotal : React.FC<PriceBreakdownCardProps> = ({ products, delivery
                                             defaultMessage="Total:" // Message should be a string literal
                                         />
                                     </span>
-                                    <span>€ {total.toFixed(2)}</span>
+                                    <span>€ {totalCost.toFixed(2)}</span>
                                 </div>
                             </div>
                         </div>

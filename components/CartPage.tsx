@@ -57,6 +57,11 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => 
     const dispatch = useDispatch();
     
     const selectedDelivery = useSelector((state : RootState) => state.deliveryType.deliveryType.deliveryOption);
+    const subTotal = useSelector((state : RootState) => state.subtotal?.subTotal);
+    const deliveryCost = useSelector((state : RootState) => state.subtotal?.deliveryCost);
+    const tax = useSelector((state : RootState) => state.subtotal?.tax);
+    const totalCost = useSelector((state : RootState) => state.subtotal?.totalCost);
+
     
     const [editSavedAddress , setEditSavedAddress] = useState<boolean>(false);
 
@@ -223,7 +228,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => 
                         />
                     </div>
                     <div className="flex h-full w-full lg:px-10 px-5 pb-5">
-                        <CalculateTotal products={cartItems} deliveryCost={selectedDelivery && selectedDelivery?.deliveryPrice}/>
+                        <CalculateTotal subTotal={subTotal} deliveryCost={deliveryCost} taxRate={tax} totalCost={totalCost} />
                     </div>
                 </>
             }

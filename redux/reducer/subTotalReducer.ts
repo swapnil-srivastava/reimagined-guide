@@ -1,7 +1,7 @@
 import { CostActionTypes } from '../actions/actions';
 import * as types from '../actions/types';
 
-interface StoreState {
+export interface SubTotalStoreState {
   subTotal: number;
   tax: number;
   deliveryCost: number;
@@ -9,7 +9,7 @@ interface StoreState {
 }
 
 // INITIAL STATE USER 
-export const initialStoreState: StoreState = {
+export const initialStoreState: SubTotalStoreState = {
   subTotal: 0,
   tax: 0,
   deliveryCost: 0,
