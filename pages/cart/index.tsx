@@ -25,11 +25,11 @@ function Cart() {
   const deliveryCost = useSelector((state: RootState) => state.deliveryType?.deliveryType?.deliveryOption?.deliveryPrice) || 0; // it need to zero otherwise total cost won"t be calcualted
 
   useEffect(() => {
-    const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-    dispatch(updateSubtotal(cartItems));
-    dispatch(updateTax(subtotal));
-    dispatch(updateDeliveryCost(deliveryCost));
-    dispatch(updateTotalCost(subtotal, subtotal * 0.19, deliveryCost));
+      const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+      dispatch(updateSubtotal(cartItems));
+      dispatch(updateTax(subtotal));
+      dispatch(updateDeliveryCost(deliveryCost));
+      dispatch(updateTotalCost(subtotal, subtotal * 0.19, deliveryCost));
   }, [cartItems, deliveryCost, dispatch]);
 
   return (
