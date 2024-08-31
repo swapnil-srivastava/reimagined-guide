@@ -15,7 +15,6 @@ import { rankWith, isEnumControl } from '@jsonforms/core';
 // importing material for JSON Forms
 import {
     materialCells,
-    materialRenderers,
   } from "@jsonforms/material-renderers";
 
 
