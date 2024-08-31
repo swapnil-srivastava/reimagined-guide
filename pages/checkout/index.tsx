@@ -43,6 +43,9 @@ function Checkout() {
   const selectAddress = (state: RootState) => state.address;
   const { customerAddress } = useSelector(selectAddress);
 
+  const selectDeliveryType = (state: RootState) => state.deliveryType;
+  const { deliveryType: { deliveryOption : { name: selectedDeliveryName }} } = useSelector(selectDeliveryType);
+
   const subTotal = useSelector((state : RootState) => state.subtotal?.subTotal);
   const deliveryCost = useSelector((state : RootState) => state.subtotal?.deliveryCost) || 0;
   const tax = useSelector((state : RootState) => state.subtotal?.tax);
@@ -100,10 +103,17 @@ function Checkout() {
                                             </div>
                                         </div>
                                         <div className="flex flex-row justify-between items-center">
-                                            <div>
-                                                <QuantityComponent product={cartItem}>
+                                            <div className="flex gap-2">
+                                                <div className="lg:text-xl text-xs">
+                                                    <FormattedMessage
+                                                        id="checkout-page-empty-cart"
+                                                        description="quantity" // Description should be a string literal
+                                                        defaultMessage="Quantity" // Message should be a string literal
+                                                    />
+                                                </div>
+                                                <div className="lg:text-xl text-xs">
                                                     {cartItem.quantity}
-                                                </QuantityComponent>
+                                                </div>
                                             </div>
                                             <div className="lg:text-2xl text-xs">
                                                 <CurrencyPriceComponent price={cartItem.price}/>
@@ -118,14 +128,14 @@ function Checkout() {
                             <div className="flex flex-col items-center gap-2 justify-center h-full w-full">
                                 <div className="text-center">
                                     <FormattedMessage
-                                        id="cart-page-empty-cart"
+                                        id="checkout-page-empty-cart"
                                         description="Please add items into the shopping cart" // Description should be a string literal
                                         defaultMessage="Please add items into the shopping cart" // Message should be a string literal
                                     />
                                 </div>
                                 <Link href="/products" className="flex justify-center pt-5">
                                         <button className={styles.btnAdmin}>
-                                            <FormattedMessage id="cart-page-no-products-redirect-btn"
+                                            <FormattedMessage id="checkout-no-products-redirect-btn"
                                             description="Go to products page" // Description should be a string literal
                                             defaultMessage="Go to products page" // Message should be a string literal
                                             />
@@ -142,7 +152,7 @@ function Checkout() {
                   {/* Address Card */}
                   <div className="flex justify-start w-full lg:px-12 px-10 pb-3 pt-5 font-poppins dark:text-blog-white lg:text-2xl text-lg">
                       <FormattedMessage
-                          id="cart-page-address-card-heading"
+                          id="checkout-page-address-card-heading"
                           description="Address" // Description should be a string literal
                           defaultMessage="Address" // Message should be a string literal
                       />
@@ -169,7 +179,39 @@ function Checkout() {
                   </div>
                 </>
               }
-              {   
+              {/* Selected Delivery Section */}
+              {
+                <>
+                    <div className="flex justify-start w-full lg:px-12 px-10 pb-3 pt-5 font-poppins dark:text-blog-white lg:text-2xl text-lg">
+                        <FormattedMessage
+                            id="checkout-delivery-heading"
+                            description="Delivery" // Description should be a string literal
+                            defaultMessage="Delivery" // Message should be a string literal
+                        />
+                    </div>
+                    <div className="flex h-full w-full lg:px-10 px-5">
+                        <div className="flex h-full w-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
+                            <div className="flex flex-row  w-full h-full gap-2 justify-between items-start">
+                                {/* Select Deliery Options */}
+                                <div className="flex gap-2">
+                                    <FormattedMessage
+                                        id="checkout-selected-delivery-type"
+                                        description="Selected Delivery Type" // Description should be a string literal
+                                        defaultMessage="Selected Delivery Type" // Message should be a string literal
+                                    />
+                                    <div>
+                                        :
+                                    </div>
+                                    <div>
+                                       {selectedDeliveryName}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </>
+              }
+              {
                 <>
                     <div className="flex justify-start w-full lg:px-12 px-10 pb-3 pt-5 font-poppins dark:text-blog-white lg:text-2xl text-lg">
                         <FormattedMessage
@@ -183,18 +225,18 @@ function Checkout() {
                     </div>
                 </>
                }
-               {   
+               {
                 <>
-                    <Link href="/checkout" className="flex justify-center pt-5 pb-20">
+                    <div className="flex justify-center pt-5 pb-20">
                         <button className={styles.btnAdmin}>
                             <FormattedMessage id="chekcout-buy-now-btn"
                             description="Buy Now" // Description should be a string literal
                             defaultMessage="Buy Now" // Message should be a string literal
                             />
                         </button>
-                    </Link>
+                    </div>
                 </>
-                }
+               }
         </AuthCheck>
       </div>
     </>
