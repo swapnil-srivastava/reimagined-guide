@@ -111,6 +111,9 @@ function Checkout() {
                                                         defaultMessage="Quantity" // Message should be a string literal
                                                     />
                                                 </div>
+                                                <div>
+                                                    :
+                                                </div>
                                                 <div className="lg:text-xl text-xs">
                                                     {cartItem.quantity}
                                                 </div>
