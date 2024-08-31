@@ -23,6 +23,7 @@ import { supaClient } from "../../supa-client";
 
 // Actions
 import { addToCartAddressCreate } from "../../redux/actions/actions";
+import CalculateTotal from "../../components/CalculateTotal";
 
 export interface ProductWithQuantity extends PRODUCT {
   quantity: number;
@@ -41,6 +42,11 @@ function Checkout() {
 
   const selectAddress = (state: RootState) => state.address;
   const { customerAddress } = useSelector(selectAddress);
+
+  const subTotal = useSelector((state : RootState) => state.subtotal?.subTotal);
+  const deliveryCost = useSelector((state : RootState) => state.subtotal?.deliveryCost) || 0;
+  const tax = useSelector((state : RootState) => state.subtotal?.tax);
+  const totalCost = useSelector((state : RootState) => state.subtotal?.totalCost) || 0;
 
   useEffect(() => {
     const checkAddress = async () => {
@@ -163,6 +169,32 @@ function Checkout() {
                   </div>
                 </>
               }
+              {   
+                <>
+                    <div className="flex justify-start w-full lg:px-12 px-10 pb-3 pt-5 font-poppins dark:text-blog-white lg:text-2xl text-lg">
+                        <FormattedMessage
+                            id="cart-page-subtotal-heading"
+                            description="Subtotal"
+                            defaultMessage="Subtotal"
+                        />
+                    </div>
+                    <div className="flex h-full w-full lg:px-10 px-5 pb-5">
+                        <CalculateTotal subTotal={subTotal} deliveryCost={deliveryCost} taxRate={tax} totalCost={totalCost} />
+                    </div>
+                </>
+               }
+               {   
+                <>
+                    <Link href="/checkout" className="flex justify-center pt-5 pb-20">
+                        <button className={styles.btnAdmin}>
+                            <FormattedMessage id="chekcout-buy-now-btn"
+                            description="Buy Now" // Description should be a string literal
+                            defaultMessage="Buy Now" // Message should be a string literal
+                            />
+                        </button>
+                    </Link>
+                </>
+                }
         </AuthCheck>
       </div>
     </>
