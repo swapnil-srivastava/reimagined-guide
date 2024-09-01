@@ -106,7 +106,6 @@ export const updateTotalCost = (subtotal: number, tax: number, deliveryCost: num
 };
 
 export const fetchInviteEvents = (eventInvites) => {
-  console.log("action creator #### fetchInviteEvents eventInvites", eventInvites);
   return {
     type: types.FETCH_EVENT_REQUEST,
     eventInvites: eventInvites
