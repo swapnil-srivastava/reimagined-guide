@@ -105,9 +105,9 @@ export const updateTotalCost = (subtotal: number, tax: number, deliveryCost: num
   };
 };
 
-export const fetchInviteEvents = (inviteEvents) => {
+export const fetchInviteEvents = (eventInvites) => {
   return {
     type: types.FETCH_EVENT_REQUEST,
-    inviteEvents: inviteEvents
+    eventInvites: eventInvites
   };
 };

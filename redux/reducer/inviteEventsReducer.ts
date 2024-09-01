@@ -28,10 +28,9 @@ export const inviteEventsReducer = (state = initialEventState, action: any) : In
       console.log("state", state);
       console.log("action", action);
         return { 
-            ...state, 
-             inviteEvents: [
-              ...(state.inviteEvents || []),
-              ...(action.inviteEvents || [])
+            ...state,
+            inviteEvents: [
+              ...action.eventInvites
             ]
           };
     }
