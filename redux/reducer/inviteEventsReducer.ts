@@ -25,9 +25,11 @@ const initialEventState: InviteEventsState = {
 export const inviteEventsReducer = (state = initialEventState, action: any) : InviteEventsState => {
   switch (action.type) {
     case types.FETCH_EVENT_REQUEST: {
+      console.log("state", state);
+      console.log("action", action);
         return { 
             ...state, 
-            inviteEvents: [
+             inviteEvents: [
               ...(state.inviteEvents || []),
               ...(action.inviteEvents || [])
             ]
