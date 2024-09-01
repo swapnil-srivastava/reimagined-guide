@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { FormattedMessage } from "react-intl";
+import Image from "next/image";
 
 import { supaClient } from "../../supa-client";
 
@@ -60,7 +61,13 @@ function Invite() {
                       <div key={inviteEvent.id} className="flex h-full w-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
                           <div className="flex flex-row gap-2 h-full w-full">
                               <div className="flex">
-                                  
+                                  <Image 
+                                    src={inviteEvent.image_url ?? `/mountains.jpg`} 
+                                    alt={inviteEvent.title}
+                                    width={250}
+                                    height={250}
+                                    className="rounded-lg"
+                                  />
                               </div>
                               <div className="flex flex-col w-full justify-between">
                                   <div className="flex justify-between items-start">

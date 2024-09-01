@@ -6,6 +6,7 @@ export interface inviteEvent {
     title: string;
     description: string;
     date: string;
+    image_url: string;
     time: string;
     organizer_id: string;
     created_at: string;
