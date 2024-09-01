@@ -27,12 +27,15 @@ export const inviteEventsReducer = (state = initialEventState, action: any) : In
     case types.FETCH_EVENT_REQUEST: {
       console.log("state", state);
       console.log("action", action);
-        return { 
-            ...state,
-            inviteEvents: [
-              ...action.eventInvites
-            ]
-          };
+      const newState = { 
+        ...state,
+        inviteEvents: [
+          ...action.eventInvites
+        ]
+      };
+      console.log("new state", newState);
+      
+      return newState
     }
     default:
       return state
