@@ -20,15 +20,15 @@ function Invite() {
     
     const fetchEventDetails = async () => {
       try {
-        const { data, error } = await supaClient
+        const { data : eventsData, error } = await supaClient
           .from('events')
           .select('*')
 
         if (error) throw error;
         
-        console.log("use effect #### supabase data", data);
+        console.log("use effect #### supabase data", eventsData);
         
-        dispatch(fetchInviteEvents(data));
+        dispatch(fetchInviteEvents(eventsData));
         
         toast.success(`Success Event Retrived`);
 
