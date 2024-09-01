@@ -10,7 +10,7 @@ export interface RootState {
   address: AddressState;
   deliveryType: DeliveryTypeState;
   subtotal: SubTotalStoreState;
-  inviteEvents: InviteEventsState
+  inviteEventsReducer: InviteEventsState
 }
 
 export interface UserState {

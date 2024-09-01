@@ -15,7 +15,7 @@ const reducers = {
   address: addressReducer,
   deliveryType: deliveryTypeReducer,
   subtotal: subTotalReducer,
-  inviteEvents: inviteEventsReducer,
+  inviteEventsReducer: inviteEventsReducer,
 }
 
 export default combineReducers(reducers)
