@@ -1,12 +1,21 @@
 'use client';
 
 import React, { useEffect, useState } from "react";
+
 import { supaClient } from "../../supa-client";
+
+import { RootState } from "../../lib/interfaces/interface";
+import { useSelector } from "react-redux";
 
 function RSVP() {
     const [familyName, setFamilyName] = useState('');
     const [kids, setKids] = useState([{ name: '', message: '' }]);
     const [inviteId, setInviteId] = useState<number | null>(null);
+
+
+    const selectUser = (state: RootState) => state.users;
+    const { userInfo } = useSelector(selectUser);
+    const { profile, session } = userInfo;
 
     useEffect(() => {
         const fetchInviteId = async () => {
@@ -37,9 +46,11 @@ function RSVP() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!inviteId) return;
-    
-        const user = supaClient.auth.user();
-        if (!user) {
+
+  
+        const { data } = await supaClient.auth.getUser();
+
+        if (!data.user) {
           console.error('User not authenticated');
           return;
         }
@@ -47,7 +58,7 @@ function RSVP() {
         // Insert family
         const { data: familyData, error: familyError } = await supaClient
           .from('families')
-          .insert({ invite_id: inviteId, family_name: familyName, user_id: user.id })
+          .insert({ invite_id: inviteId, family_name: familyName, user_id: data.user.id })
           .single();
     
         if (familyError) {
