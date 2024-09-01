@@ -12,9 +12,11 @@ import toast from "react-hot-toast";
 function Invite() {
   const dispatch = useDispatch();
 
-  const { inviteEvents } = useSelector((state: RootState) => state.inviteEvents.inviteEvents);
+  const { inviteEvents } = useSelector((state: RootState) => state.inviteEvents);
 
   useEffect(() => {
+    console.log("useEffect", inviteEvents);
+    
     const fetchEventDetails = async () => {
       try {
         const { data, error } = await supaClient
@@ -43,7 +45,7 @@ function Invite() {
   return (
     <div className="max-w-2xl mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4">Event Details</h1>
-      { 
+      {
         inviteEvents && inviteEvents.map((inviteEvent, index, array) => ( 
           <div key={inviteEvent.id} className="bg-white shadow-md rounded-lg p-6 mb-6">
             <p><strong>Event Name:</strong> {inviteEvent.title}</p>
@@ -55,7 +57,7 @@ function Invite() {
       }
 
       <pre>
-        {inviteEvents && JSON.stringify(inviteEvents)}
+        {inviteEvents && JSON.stringify(inviteEvents, null, 2)}
       </pre>
 
       {/* <h2 className="text-2xl font-semibold mb-4">Families Invited</h2> */}
