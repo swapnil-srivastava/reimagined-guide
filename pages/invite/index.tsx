@@ -11,8 +11,9 @@ import toast from "react-hot-toast";
 
 function Invite() {
   const dispatch = useDispatch();
-
-  const { inviteEvents } = useSelector((state: RootState) => state.inviteEventsReducer);
+  
+  const selectInviteEvents = (state: RootState) => state.inviteEventsReducer;
+  const { inviteEvents } = useSelector(selectInviteEvents);
 
   useEffect(() => {
     console.log("useEffect", inviteEvents);
@@ -24,6 +25,8 @@ function Invite() {
           .select('*')
 
         if (error) throw error;
+        
+        console.log("use effect #### supabase data", data);
         
         dispatch(fetchInviteEvents(data));
         
@@ -47,11 +50,14 @@ function Invite() {
       <h1 className="text-3xl font-bold mb-4">Event Details</h1>
       {
         inviteEvents && inviteEvents.map((inviteEvent, index, array) => ( 
-          <div key={inviteEvent.id} className="bg-white shadow-md rounded-lg p-6 mb-6">
-            <p><strong>Event Name:</strong> {inviteEvent.title}</p>
-            <p><strong>Event Date:</strong> {new Date(inviteEvent.created_at).toLocaleString()}</p>
-            <p><strong>Location:</strong> {inviteEvent.location}</p>
-          </div>
+          <>
+            <pre>{JSON.stringify(inviteEvent)}</pre>
+            <div key={inviteEvent.id} className="bg-white shadow-md rounded-lg p-6 mb-6">
+              <p><strong>Event Name:</strong> {inviteEvent.title}</p>
+              <p><strong>Event Date:</strong> {new Date(inviteEvent.created_at).toLocaleString()}</p>
+              <p><strong>Location:</strong> {inviteEvent.location}</p>
+            </div>
+          </>
           )
         )
       }
