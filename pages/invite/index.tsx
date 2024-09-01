@@ -40,10 +40,6 @@ function Invite() {
     fetchEventDetails();
   }, []);
 
-  useEffect(() => {
-    console.log("useEffect #2", inviteEvents);
-  }, []);
-
   if (!inviteEvents) {
     return <div className="text-center mt-10">Loading...</div>;
   }
