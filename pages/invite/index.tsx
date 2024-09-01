@@ -69,20 +69,25 @@ function Invite() {
                                     className="rounded-lg"
                                   />
                               </div>
-                              <div className="flex flex-col w-full justify-between">
-                                  <div className="flex justify-between items-start">
-                                      <div>
+                              <div className="flex lg:flex-row flex-col w-full justify-between">
+                                  <div className="flex flex-col justify-between">
+                                      {/* title and description section */}
+                                      <div className="flex flex-col">
                                           <div className="lg:text-xl text-xs">{inviteEvent.title}</div>
-                                          <div className="lg:text-xl text-xs">{inviteEvent.description}</div>
-                                          <div className="lg:text-xl text-xs">{inviteEvent.location}</div>                                          
+                                          <div className="lg:text-xl text-xs">{inviteEvent.description}</div>                                         
                                       </div>
-                                      {/* <FontAwesomeIcon icon={faCircleXmark} className="cursor-pointer" size="xl" /> */}
-                                  </div>
-                                  <div className="flex flex-row justify-between items-center">
+                                      {/* address section */}
                                       <div>
-                                        <div className="lg:text-xl text-xs">{inviteEvent.time}</div>
+                                        <div className="lg:text-xl text-xs">{inviteEvent.location}</div> 
                                       </div>
-                                      <div className="lg:text-2xl text-xs">
+                                  </div>
+                                  {/* time section */}
+                                  <div className="flex flex-col justify-between items-center">
+                                      <div>
+                                        <div className="lg:text-2xl text-xs">{inviteEvent.date}</div>
+                                      </div>
+                                      <div>
+                                        <div className="lg:text-8xl text-xs">{inviteEvent.time}</div>
                                       </div>
                                   </div>
                               </div>
