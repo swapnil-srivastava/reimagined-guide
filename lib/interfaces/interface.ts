@@ -1,6 +1,7 @@
 import { ProductWithQuantity } from "../../components/CartPage";
 import { ADDRESS } from "../../database.types";
 import { SupashipUserInfo } from "../../lib/hooks";
+import { InviteEventsState } from "../../redux/reducer/inviteEventsReducer";
 import { SubTotalStoreState } from "../../redux/reducer/subTotalReducer";
 
 export interface RootState {
@@ -9,6 +10,7 @@ export interface RootState {
   address: AddressState;
   deliveryType: DeliveryTypeState;
   subtotal: SubTotalStoreState;
+  inviteEvents: InviteEventsState
 }
 
 export interface UserState {

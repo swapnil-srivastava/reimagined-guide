@@ -5,6 +5,7 @@ import { cartReducer } from './cartReducer';
 import { addressReducer } from './addressReducer';
 import { deliveryTypeReducer } from './deliveryTypeReducer';
 import { subTotalReducer } from './subTotalReducer';
+import { inviteEventsReducer } from './inviteEventsReducer';
 
 // COMBINED REDUCERS
 const reducers = {
@@ -13,7 +14,8 @@ const reducers = {
   cart: cartReducer,
   address: addressReducer,
   deliveryType: deliveryTypeReducer,
-  subtotal: subTotalReducer
+  subtotal: subTotalReducer,
+  inviteEvents: inviteEventsReducer,
 }
 
 export default combineReducers(reducers)

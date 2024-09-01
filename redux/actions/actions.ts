@@ -3,25 +3,26 @@ import { TAX_RATE } from '../../lib/library';
 import { ProductWithQuantity } from '../../pages/checkout';
 import * as types from './types'
 
+
 interface UpdateSubtotalAction {
-    type: typeof types.UPDATE_SUBTOTAL;
-    subtotal: number;
-  }
+  type: typeof types.UPDATE_SUBTOTAL;
+  subtotal: number;
+}
   
-  interface UpdateTaxAction {
-    type: typeof types.UPDATE_TAX;
-    tax: number;
-  }
+interface UpdateTaxAction {
+  type: typeof types.UPDATE_TAX;
+  tax: number;
+}
   
-  interface UpdateDeliveryCostAction {
-    type: typeof types.UPDATE_DELIVERY_COST;
-    deliveryCost: number;
-  }
+interface UpdateDeliveryCostAction {
+  type: typeof types.UPDATE_DELIVERY_COST;
+  deliveryCost: number;
+}
   
-  interface UpdateTotalCostAction {
-    type: typeof types.UPDATE_TOTAL_COST;
-    total: number;
-  }
+interface UpdateTotalCostAction {
+  type: typeof types.UPDATE_TOTAL_COST;
+  total: number;
+}
 
 // UPDATE THE USER 
 export const userUpdate = (payload) => ({ type: types.USER_UPDATE, user: payload });
@@ -101,5 +102,12 @@ export const updateTotalCost = (subtotal: number, tax: number, deliveryCost: num
   return {
     type: types.UPDATE_TOTAL_COST,
     total,
+  };
+};
+
+export const fetchInviteEvents = (inviteEvents) => {
+  return {
+    type: types.FETCH_EVENT_REQUEST,
+    inviteEvents: inviteEvents
   };
 };
