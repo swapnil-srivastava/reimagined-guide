@@ -26,9 +26,9 @@ function Invite() {
   
         if (eventsData && eventsData.length > 0) {
           dispatch(fetchInviteEvents(eventsData));
-          toast.success(`Retrieved Events`)
+          toast.success(`Retrieved Events`);
         } else {
-          console.log("No events data returned from Supabase");
+          toast.success(`No events data returned from Supabase`);
         }
       } catch (error) {
         toast.error(`Error fetching events: ${error}`)
