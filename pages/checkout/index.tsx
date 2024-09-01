@@ -12,7 +12,6 @@ import { PRODUCT } from "../../database.types";
 
 // Components
 import AuthCheck from "../../components/AuthCheck";
-import QuantityComponent from "../../components/QuantityComponent";
 import CurrencyPriceComponent from "../../components/CurrencyPriceComponent";
 
 // CSS
