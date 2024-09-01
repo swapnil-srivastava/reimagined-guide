@@ -55,7 +55,7 @@ function Invite() {
       }
 
       <pre>
-        {JSON.stringify(inviteEvents)}
+        {inviteEvents && JSON.stringify(inviteEvents)}
       </pre>
 
       {/* <h2 className="text-2xl font-semibold mb-4">Families Invited</h2> */}
