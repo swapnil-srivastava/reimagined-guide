@@ -98,6 +98,50 @@ export type Database = {
           },
         ]
       }
+      events: {
+        Row: {
+          created_at: string | null
+          date: string
+          description: string | null
+          id: string
+          location: string
+          organizer_id: string | null
+          time: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          date: string
+          description?: string | null
+          id?: string
+          location: string
+          organizer_id?: string | null
+          time: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          date?: string
+          description?: string | null
+          id?: string
+          location?: string
+          organizer_id?: string | null
+          time?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "events_organizer_id_fkey"
+            columns: ["organizer_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       experiences: {
         Row: {
           company: string
@@ -147,63 +191,6 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
-      }
-      families: {
-        Row: {
-          family_name: string
-          id: number
-          invite_id: number | null
-          user_id: string | null
-        }
-        Insert: {
-          family_name: string
-          id?: never
-          invite_id?: number | null
-          user_id?: string | null
-        }
-        Update: {
-          family_name?: string
-          id?: never
-          invite_id?: number | null
-          user_id?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "families_invite_id_fkey"
-            columns: ["invite_id"]
-            isOneToOne: false
-            referencedRelation: "invites"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "families_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      invites: {
-        Row: {
-          event_date: string
-          event_name: string
-          id: number
-          location: string | null
-        }
-        Insert: {
-          event_date: string
-          event_name: string
-          id?: never
-          location?: string | null
-        }
-        Update: {
-          event_date?: string
-          event_name?: string
-          id?: never
-          location?: string | null
-        }
-        Relationships: []
       }
       leadingtech: {
         Row: {
@@ -471,38 +458,6 @@ export type Database = {
             columns: ["id"]
             isOneToOne: true
             referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      rsvps: {
-        Row: {
-          family_id: number | null
-          id: number
-          kid_name: string
-          message: string | null
-          response_date: string | null
-        }
-        Insert: {
-          family_id?: number | null
-          id?: never
-          kid_name: string
-          message?: string | null
-          response_date?: string | null
-        }
-        Update: {
-          family_id?: number | null
-          id?: never
-          kid_name?: string
-          message?: string | null
-          response_date?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "rsvps_family_id_fkey"
-            columns: ["family_id"]
-            isOneToOne: false
-            referencedRelation: "families"
             referencedColumns: ["id"]
           },
         ]
