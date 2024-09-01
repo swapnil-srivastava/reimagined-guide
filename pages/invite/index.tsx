@@ -82,7 +82,7 @@ function Invite() {
                                       </div>
                                   </div>
                                   {/* time section */}
-                                  <div className="flex flex-col justify-between items-center">
+                                  <div className="flex lg:flex-col justify-between items-center">
                                       <div>
                                         <div className="lg:text-2xl text-xs">{inviteEvent.date}</div>
                                       </div>
