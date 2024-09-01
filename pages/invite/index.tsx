@@ -2,14 +2,15 @@
 
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { FormattedMessage } from "react-intl";
 
 import { supaClient } from "../../supa-client";
 
 import { RootState } from "../../lib/interfaces/interface";
 import { fetchInviteEvents } from "../../redux/actions/actions";
-import toast from "react-hot-toast";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 function Invite() {
   const dispatch = useDispatch();
@@ -42,6 +43,13 @@ function Invite() {
 
   return (
       <>
+      <div className="flex justify-start w-full lg:px-12 px-10 pb-3 font-poppins dark:text-blog-white lg:text-2xl text-lg">
+          <FormattedMessage
+              id="invite-page-heading"
+              description="Event Details" // Description should be a string literal
+              defaultMessage="Event Details" // Message should be a string literal
+          />
+      </div>
       {/* Event Section */}
       {
         <div className="flex h-full w-full lg:px-10 px-5 font-poppins">
