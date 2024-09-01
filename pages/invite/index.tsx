@@ -20,7 +20,6 @@ function Invite() {
         const { data, error } = await supaClient
           .from('events')
           .select('*')
-          .single();
 
         if (error) throw error;
         
