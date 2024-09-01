@@ -8,6 +8,8 @@ import { supaClient } from "../../supa-client";
 import { RootState } from "../../lib/interfaces/interface";
 import { fetchInviteEvents } from "../../redux/actions/actions";
 import toast from "react-hot-toast";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 function Invite() {
   const dispatch = useDispatch();
@@ -39,19 +41,45 @@ function Invite() {
   }, [dispatch]);
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">Event Details</h1>
+      <>
+      {/* Event Section */}
       {
-        inviteEvents.map((inviteEvent, index, array) => ( 
-            <div key={inviteEvent.id} className="bg-white shadow-md rounded-lg p-6 mb-6">
-              <p><strong>Event Name:</strong> {inviteEvent.title}</p>
-              <p><strong>Event Date:</strong> {new Date(inviteEvent.created_at).toLocaleString()}</p>
-              <p><strong>Location:</strong> {inviteEvent.location}</p>
-            </div>
-          )
-        )
+        <div className="flex h-full w-full lg:px-10 px-5 font-poppins">
+          <div className="flex h-full w-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
+              <div className="flex flex-col w-full h-full gap-2 justify-center items-center">
+                  {/* Event Row */}
+                  {inviteEvents && inviteEvents.map((inviteEvent, index, array) => (
+                      <div key={inviteEvent.id} className="flex h-full w-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
+                          <div className="flex flex-row gap-2 h-full w-full">
+                              <div className="flex">
+                                  
+                              </div>
+                              <div className="flex flex-col w-full justify-between">
+                                  <div className="flex justify-between items-start">
+                                      <div>
+                                          <div className="lg:text-xl text-xs">{inviteEvent.title}</div>
+                                          <div className="lg:text-xl text-xs">{inviteEvent.description}</div>
+                                          <div className="lg:text-xl text-xs">{inviteEvent.location}</div>
+                                      </div>
+                                      <FontAwesomeIcon icon={faCircleXmark} className="cursor-pointer" size="xl" />
+                                  </div>
+                                  <div className="flex flex-row justify-between items-center">
+                                      <div>
+                                          
+                                      </div>
+                                      <div className="lg:text-2xl text-xs">
+                                          
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  ))}
+              </div>
+          </div>
+        </div>
       }
-    </div>
+      </>
   );
 
 }
