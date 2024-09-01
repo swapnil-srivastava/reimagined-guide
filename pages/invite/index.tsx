@@ -40,6 +40,9 @@ function Invite() {
     fetchEventDetails();
   }, []);
 
+  useEffect(() => {
+    console.log("useEffect #2", inviteEvents);
+  }, []);
 
   if (!inviteEvents) {
     return <div className="text-center mt-10">Loading...</div>;
@@ -49,7 +52,7 @@ function Invite() {
     <div className="max-w-2xl mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4">Event Details</h1>
       {
-        inviteEvents && inviteEvents.map((inviteEvent, index, array) => ( 
+        inviteEvents.map((inviteEvent, index, array) => ( 
           <>
             <pre>{JSON.stringify(inviteEvent)}</pre>
             <div key={inviteEvent.id} className="bg-white shadow-md rounded-lg p-6 mb-6">
@@ -63,7 +66,7 @@ function Invite() {
       }
 
       <pre>
-        {inviteEvents && JSON.stringify(inviteEvents, null, 2)}
+        {JSON.stringify(inviteEvents, null, 2)}
       </pre>
 
       {/* <h2 className="text-2xl font-semibold mb-4">Families Invited</h2> */}
