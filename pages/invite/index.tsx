@@ -31,7 +31,7 @@ function Invite() {
         console.error("Error fetching events:", error);
       }
     })();
-  }, []);
+  }, [dispatch]);
 
   function handleInvite() {
     const eventDummy = [
