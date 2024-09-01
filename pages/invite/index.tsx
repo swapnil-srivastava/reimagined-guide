@@ -74,17 +74,15 @@ function Invite() {
                                       <div>
                                           <div className="lg:text-xl text-xs">{inviteEvent.title}</div>
                                           <div className="lg:text-xl text-xs">{inviteEvent.description}</div>
-                                          <div className="lg:text-xl text-xs">{inviteEvent.location}</div>
-                                          <div className="lg:text-xl text-xs">{inviteEvent.time}</div>
+                                          <div className="lg:text-xl text-xs">{inviteEvent.location}</div>                                          
                                       </div>
                                       {/* <FontAwesomeIcon icon={faCircleXmark} className="cursor-pointer" size="xl" /> */}
                                   </div>
                                   <div className="flex flex-row justify-between items-center">
                                       <div>
-                                          
+                                        <div className="lg:text-xl text-xs">{inviteEvent.time}</div>
                                       </div>
                                       <div className="lg:text-2xl text-xs">
-                                          
                                       </div>
                                   </div>
                               </div>
