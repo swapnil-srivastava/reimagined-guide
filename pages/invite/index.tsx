@@ -46,7 +46,7 @@ function Invite() {
       <h1 className="text-3xl font-bold mb-4">Event Details</h1>
       { 
         inviteEvents.map((inviteEvent, index, array) => ( 
-          <div className="bg-white shadow-md rounded-lg p-6 mb-6">
+          <div key={inviteEvent.id} className="bg-white shadow-md rounded-lg p-6 mb-6">
           <p><strong>Event Name:</strong> {inviteEvent.title}</p>
           <p><strong>Event Date:</strong> {new Date(inviteEvent.date).toLocaleString()}</p>
           <p><strong>Location:</strong> {inviteEvent.location}</p>
