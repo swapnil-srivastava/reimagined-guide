@@ -16,25 +16,14 @@ function Invite() {
   const { inviteEvents } = useSelector(selectInviteEvents);
 
   useEffect(() => {
-    console.log("useEffect", inviteEvents);
-    
     const fetchEventDetails = async () => {
-      try {
         const { data : eventsData, error } = await supaClient
           .from('events')
-          .select('*')
+          .select('*');
 
-        if (error) throw error;
-        
-        console.log("use effect #### supabase data", eventsData);
-        
+        console.log("useEffect", eventsData);
+
         dispatch(fetchInviteEvents(eventsData));
-        
-        toast.success(`Success Event Retrived`);
-
-      } catch (error) {
-        toast.error(`Error Event : ${error.message}`);
-      }
     };
 
     fetchEventDetails();
