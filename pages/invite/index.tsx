@@ -15,9 +15,6 @@ function Invite() {
   const selectInviteEvents = (state: RootState) => state.inviteEventsReducer;
   const { inviteEvents } = useSelector(selectInviteEvents);
 
-  // const selectInviteEvents = (state: RootState) => state.inviteEventsReducer.inviteEvents;
-  // const inviteEvents = useSelector(selectInviteEvents);
-
   useEffect(() => {
     const fetchEventDetails = async () => {
       try {
