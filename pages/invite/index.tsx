@@ -78,7 +78,7 @@ function Invite() {
                                       </div>
                                       {/* address section */}
                                       <div>
-                                        <div className="lg:text-xl text-xs">{inviteEvent.location}</div> 
+                                        <div className="lg:text-xl text-xs event-address-text">{inviteEvent.location}</div> 
                                       </div>
                                   </div>
                                   {/* time section */}

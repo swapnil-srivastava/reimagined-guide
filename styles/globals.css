@@ -286,6 +286,10 @@ button.btn-logo {
   display: flex;
 }
 
+.event-address-text {
+  text-wrap: nowrap;
+}
+
 /* iframe */
 
 iframe {
