@@ -13,12 +13,16 @@ export interface inviteEvent {
 }
   
 export interface InviteEventsState {
-    inviteEvents: inviteEvent[] | null;
+    inviteEvents: {
+      inviteEvents: inviteEvent[] | null;
+    }
 }
 
 // INITIAL STATE EVENT 
 const initialEventState: InviteEventsState = {
-    inviteEvents: [],
+    inviteEvents: {
+      inviteEvents : []
+    },
 };
 
 // EVENT REDUCER
@@ -27,13 +31,16 @@ export const inviteEventsReducer = (state = initialEventState, action: any) : In
     case types.FETCH_EVENT_REQUEST: {
       console.log("state", state);
       console.log("action", action);
-        return { 
-            ...state, 
-             inviteEvents: [
-              ...(state.inviteEvents || []),
-              ...(action.inviteEvents || [])
-            ]
-          };
+      return {
+        ...state,
+        inviteEvents: {
+          ...state.inviteEvents,
+          inviteEvents: [
+            ...state.inviteEvents.inviteEvents,
+            ...action.inviteEvents
+          ]
+        }
+      };
     }
     default:
       return state

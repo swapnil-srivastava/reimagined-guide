@@ -12,7 +12,7 @@ import toast from "react-hot-toast";
 function Invite() {
   const dispatch = useDispatch();
 
-  const { inviteEvents } = useSelector((state: RootState) => state.inviteEvents);
+  const { inviteEvents } = useSelector((state: RootState) => state.inviteEvents.inviteEvents);
 
   useEffect(() => {
     const fetchEventDetails = async () => {
