@@ -54,6 +54,9 @@ function Invite() {
           "updated_at": "2024-09-01T18:39:57.521153+00:00"
       }
   ]
+
+  console.log("handleInvite ### eventDummy", eventDummy);
+  
     dispatch(fetchInviteEvents(eventDummy));
   }
 
