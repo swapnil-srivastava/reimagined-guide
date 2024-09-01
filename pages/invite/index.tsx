@@ -75,6 +75,7 @@ function Invite() {
                                           <div className="lg:text-xl text-xs">{inviteEvent.title}</div>
                                           <div className="lg:text-xl text-xs">{inviteEvent.description}</div>
                                           <div className="lg:text-xl text-xs">{inviteEvent.location}</div>
+                                          <div className="lg:text-xl text-xs">{inviteEvent.time}</div>
                                       </div>
                                       <FontAwesomeIcon icon={faCircleXmark} className="cursor-pointer" size="xl" />
                                   </div>
