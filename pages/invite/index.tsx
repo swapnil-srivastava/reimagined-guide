@@ -7,26 +7,30 @@ import { supaClient } from "../../supa-client";
 
 import { RootState } from "../../lib/interfaces/interface";
 import { fetchInviteEvents } from "../../redux/actions/actions";
-import toast from "react-hot-toast";
 
 function Invite() {
   const dispatch = useDispatch();
   
-  const selectInviteEvents = (state: RootState) => state.inviteEventsReducer;
-  const { inviteEvents } = useSelector(selectInviteEvents);
+  // const selectInviteEvents = (state: RootState) => state.inviteEventsReducer;
+  // const { inviteEvents } = useSelector(selectInviteEvents);
+
+  const selectInviteEvents = (state: RootState) => state.inviteEventsReducer.inviteEvents;
+  const inviteEvents = useSelector(selectInviteEvents);
 
   useEffect(() => {
-    const fetchEventDetails = async () => {
-        const { data : eventsData, error } = await supaClient
-          .from('events')
-          .select('*');
-
-        console.log("useEffect", eventsData);
-
+    (async () => {
+      const { data: eventsData, error } = await supaClient
+        .from('events')
+        .select('*');
+  
+      console.log("useEffect", eventsData);
+  
+      if (eventsData) {
         dispatch(fetchInviteEvents(eventsData));
-    };
-
-    fetchEventDetails();
+      } else {
+        console.error("Error fetching events:", error);
+      }
+    })();
   }, []);
 
   function handleInvite() {
@@ -56,12 +60,7 @@ function Invite() {
   ]
 
   console.log("handleInvite ### eventDummy", eventDummy);
-  
     dispatch(fetchInviteEvents(eventDummy));
-  }
-
-  if (!inviteEvents) {
-    return <div className="text-center mt-10">Loading...</div>;
   }
 
   return (
@@ -86,8 +85,6 @@ function Invite() {
       </pre>
       
       <button type="button" onClick={() => handleInvite()}>Send Action</button>
-
-      {/* <h2 className="text-2xl font-semibold mb-4">Families Invited</h2> */}
     </div>
   );
 
