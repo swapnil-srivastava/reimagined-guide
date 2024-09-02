@@ -71,7 +71,7 @@ function Invite() {
                                     />
                                   </div>
                               </div>
-                              <div className="flex lg:flex-row flex-col w-full justify-between">
+                              <div className="flex lg:flex-row flex-col w-full gap-4 justify-between">
                                   <div className="flex flex-col justify-between">
                                       {/* title and description section */}
                                       <div className="flex flex-col">
