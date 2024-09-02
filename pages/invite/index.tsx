@@ -61,15 +61,6 @@ function Invite() {
                       <div key={inviteEvent.id} className="flex h-full w-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl">
                           <div className="flex lg:flex-row flex-col gap-2 h-full w-full">
                               <div className="flex flex-col ">
-                                   {/* Time and date hidden in large screen */}
-                                   <div className="lg:hidden flex justify-between items-center">
-                                      <div>
-                                        <div className="lg:text-2xl text-xl">{inviteEvent.date}</div>
-                                      </div>
-                                      <div>
-                                        <div className="lg:text-8xl text-2xl">{inviteEvent.time}</div>
-                                      </div>
-                                  </div>
                                   <div className="self-center">
                                     <Image 
                                       src={inviteEvent.image_url ?? `/mountains.jpg`} 
@@ -79,7 +70,6 @@ function Invite() {
                                       className="rounded-lg"
                                     />
                                   </div>
-
                               </div>
                               <div className="flex lg:flex-row flex-col w-full justify-between">
                                   <div className="flex flex-col justify-between">
@@ -95,7 +85,7 @@ function Invite() {
                                   </div>
                                   {/* time section */}
                                   {/* time and date shown in large screen */}
-                                  <div className="hidden sm:flex lg:flex-col justify-between items-center">
+                                  <div className="flex lg:flex-col justify-between items-center">
                                       <div>
                                         <div className="lg:text-2xl text-xl">{inviteEvent.date}</div>
                                       </div>
