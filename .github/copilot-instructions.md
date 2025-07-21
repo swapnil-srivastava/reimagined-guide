@@ -7,6 +7,7 @@
 - **UI Theme:** Analogous and Monochromatic colors (reference below).
 
 ## General Guidance
+  - Whenever you add a `FormattedMessage` component to a page, run the i18n extraction/generation process to update translation files.
 
 - **Code using Next.js v13+ features**: Prefer functional components, React hooks (`useState`, `useEffect`), and the latest Next.js routing/structure (app directory if applicable).
 - **Authentication**: Use Supabase Auth for all user sign-in, sign-up, and session management. Do *not* use or reference Firebase in any new code.
@@ -24,11 +25,13 @@
 - **Environment Variables**: Access Supabase keys and secrets only through Next.js environment variables (e.g., `process.env.NEXT_PUBLIC_SUPABASE_URL`).
 
 ## Tailwind CSS Usage
+  - All main content text (including privacy policy) should use `text-black` in light mode and `text-white` in dark mode for maximum readability and theme consistency.
+  - All main content text (including privacy policy) should use `text-white` in dark mode for maximum readability and theme consistency.
 
 - **Color Palette**:  
   - Analogous: `#1249de`, `#5d12de`, `#12dea8`  
   - Monochromatic: `#1249de`, `#385dc5`
-  - Accents: Royal Blue `#00539c`, Peach `#eea47f`, Black `#FBFBFB`, White `#0A0A0A`
+  - Background: `#fbfbfb` (light mode), `#004b8c` (dark mode)
 - **Dark Mode**:  
   - Ensure all theme and dark mode classnames are safelisted in `tailwindcss.config.js` as needed (e.g., `safelist: ['dark']`).
 - **Format**: Use Tailwind utility classes for all layout, spacing, color, and responsive rules. Avoid inline styles when possible.

@@ -39,6 +39,7 @@
     "@types/react-transition-group": "^4.4.5",
     "autoprefixer": "^10.4.7",
     "axios": "^0.27.2",
+    "js-cookie": "^3.0.5",
     "lodash.debounce": "^4.0.8",
     "lodash.kebabcase": "^4.1.1",
     "moment": "^2.29.4",
@@ -47,6 +48,7 @@
     "postcss": "^8.4.14",
     "postmark": "^3.0.15",
     "react": "^18.2.0",
+    "react-cookie-consent": "^9.0.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.32.2",
     "react-hot-toast": "^2.2.0",
@@ -63,6 +65,7 @@
   },
   "devDependencies": {
     "@formatjs/cli": "^5.1.10",
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^18.0.0",
     "@types/react": "^18.0.21",
     "eslint": "8.18.0",

@@ -203,40 +203,82 @@
       "value": "Subtotal"
     }
   ],
+  "checkout-delivery-heading": [
+    {
+      "type": 0,
+      "value": "Delivery"
+    }
+  ],
   "checkout-heading": [
     {
       "type": 0,
       "value": "Checkout"
     }
   ],
+  "checkout-no-products-redirect-btn": [
+    {
+      "type": 0,
+      "value": "Go to products page"
+    }
+  ],
+  "checkout-page-address-card-heading": [
+    {
+      "type": 0,
+      "value": "Address"
+    }
+  ],
+  "checkout-page-empty-cart": [
+    {
+      "type": 0,
+      "value": "Please add items into the shopping cart"
+    }
+  ],
+  "checkout-selected-delivery-type": [
+    {
+      "type": 0,
+      "value": "Selected Delivery Type"
+    }
+  ],
+  "chekcout-buy-now-btn": [
+    {
+      "type": 0,
+      "value": "Buy Now"
+    }
+  ],
   "cookies_accept_button": [
     {
       "type": 0,
-      "value": "Off course"
+      "value": "Accept All"
     }
   ],
   "cookies_deny_button": [
     {
       "type": 0,
-      "value": "No thanks !"
+      "value": "Necessary Only"
     }
   ],
   "cookies_description": [
     {
       "type": 0,
-      "value": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, accusamus aliquid aperiam beatae consectetur culpa dolores eum expedita, ipsam iure laboriosam nobis odit quos, sed sunt veritatis voluptas voluptate voluptatum!"
+      "value": "We use cookies to enhance your browsing experience, analyze site traffic, and personalize content. Necessary cookies enable core functionality while optional cookies help us improve our services. By clicking 'Accept All', you consent to our use of cookies as described in our Privacy Policy."
     }
   ],
   "cookies_heading": [
     {
       "type": 0,
-      "value": "We are the Cookies !"
+      "value": "Cookie Preferences"
+    }
+  ],
+  "cookies_privacy_link": [
+    {
+      "type": 0,
+      "value": "Read our Privacy Policy for more information"
     }
   ],
   "cookies_small_text": [
     {
       "type": 0,
-      "value": "Hello There ..."
+      "value": "Your Privacy Matters"
     }
   ],
   "create-product-cancel-btn": [
@@ -255,6 +297,24 @@
     {
       "type": 0,
       "value": "End of articles"
+    }
+  ],
+  "footer.preferences": [
+    {
+      "type": 0,
+      "value": "Preferences"
+    }
+  ],
+  "footer.privacy_policy": [
+    {
+      "type": 0,
+      "value": "Privacy Policy"
+    }
+  ],
+  "footer.rights": [
+    {
+      "type": 0,
+      "value": "All rights reserved."
     }
   ],
   "heart-button-heart": [
@@ -443,6 +503,18 @@
       "value": "Innovate"
     }
   ],
+  "invite-page-invite-heading": [
+    {
+      "type": 0,
+      "value": "Invitee List"
+    }
+  ],
+  "invite-page-invite-text": [
+    {
+      "type": 0,
+      "value": "Functionality coming soon"
+    }
+  ],
   "load_more_button": [
     {
       "type": 0,
@@ -489,6 +561,44 @@
     {
       "type": 0,
       "value": "Sign Out"
+    }
+  ],
+  "personalization_consent_required": [
+    {
+      "type": 0,
+      "value": "To enable personalization features, please accept cookies in the cookie banner at the bottom of the page."
+    }
+  ],
+  "personalization_history": [
+    {
+      "type": 0,
+      "value": "Remember browsing history"
+    }
+  ],
+  "personalization_privacy_note": [
+    {
+      "type": 0,
+      "value": "Your preferences are stored in a cookie on your device. See our "
+    },
+    {
+      "type": 1,
+      "value": "privacyLink"
+    },
+    {
+      "type": 0,
+      "value": " for more information."
+    }
+  ],
+  "personalization_recommendations": [
+    {
+      "type": 0,
+      "value": "Enable personalized recommendations"
+    }
+  ],
+  "personalization_title": [
+    {
+      "type": 0,
+      "value": "Personalization Settings"
     }
   ],
   "post-content-auth-check-signup": [

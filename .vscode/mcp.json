@@ -10,7 +10,7 @@
   "servers": {
     "supabase": {
       "command": "npx",
-      "args": ["-y", "@supabase/mcp-server-supabase@latest", "--read-only", "--project-ref=swapnilsrivastava"],
+      "args": ["-y", "@supabase/mcp-server-supabase@latest", "--read-only", "--project-ref=dbydvpdhbaqudqqjteoq"],
       "env": {
         "SUPABASE_ACCESS_TOKEN": "${input:supabase-access-token}"
       }

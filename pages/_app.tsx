@@ -19,7 +19,13 @@ import French from "../content/compiled-locales/fr-FR.json";
 
 import AwesomeNavBar from "../components/AwesomeNavBar";
 import BuyMeCoffee from "../components/BuyMeCoffee";
-import CookiesBanner from "../components/CookiesBanner";
+import Footer from "../components/Footer";
+import dynamic from 'next/dynamic';
+
+// Import CookiesBanner with SSR disabled to prevent hydration errors
+const CookiesBanner = dynamic(() => import("../components/CookiesBanner"), { 
+  ssr: false
+});
 
 import { Inter, Roboto, Salsa, Bungee_Spice, Poppins, Great_Vibes } from 'next/font/google'
  
@@ -90,11 +96,12 @@ function MyApp({ Component, pageProps }) {
               locale={nextLocale}
               defaultLocale={nextDefaultLocale}
             >
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2 min-h-screen">
                 <AwesomeNavBar />
                 <Component {...pageProps} />
                 <BuyMeCoffee></BuyMeCoffee>
-                <CookiesBanner></CookiesBanner>
+                <Footer />
+                <CookiesBanner />
               </div>
               <Toaster />
             </IntlProvider>
