@@ -3,16 +3,29 @@
 ## Project Overview
 
 - **Project Type:** Next.js application integrated with Supabase for authentication and database.
-- **Removed:** Firebase Auth and Firestore.
-- **UI Theme:** Analogous and Monochromatic colors (reference below).
+- **Architecture:** Uses Next.js pages router with TypeScript and React components.
+- **Removed:** Firebase Auth and Firestore (migrated to Supabase).
+- **UI Theme:** Analogous and Monochromatic colors with dark/light mode support.
 
 ## General Guidance
   - Whenever you add a `FormattedMessage` component to a page, run the i18n extraction/generation process to update translation files.
 
-- **Code using Next.js v13+ features**: Prefer functional components, React hooks (`useState`, `useEffect`), and the latest Next.js routing/structure (app directory if applicable).
-- **Authentication**: Use Supabase Auth for all user sign-in, sign-up, and session management. Do *not* use or reference Firebase in any new code.
+- **Code using Next.js v13+ features**: Prefer functional components, React hooks (`useState`, `useEffect`), and the latest Next.js routing/structure.
+- **Authentication**: Use Supabase Auth via the `supa_client.ts` for all user sign-in, sign-up, and session management. Do *not* use or reference Firebase in any new code.
 - **Database**: Use Supabase DB via its JavaScript client for all data operations. Avoid Firestore patterns.
 - **API Routes**: Next.js API routes are stored under `pages/api/`. Maintain RESTful conventions; export handler functions as default. Refer to `pages/api/hello.js` as a sample.
+
+## Application Structure
+
+- **Authentication Flow**: Authentication state is managed through `supa_client.ts` which creates a context for session management.
+- **Theme Handling**: Theme (dark/light mode) is managed via `lib/theme.ts` with localStorage persistence.
+
+## Development Workflow
+
+- **Start Development**: `npm run dev` - Runs the app in development mode on port 3000.
+- **Build for Production**: `npm run build` - Creates optimized production build.
+- **Internationalization**: `npm run extract-messages` - Extracts messages from components for translation (run this whenever adding new `FormattedMessage` components).
+- **Linting**: `npm run lint` - Runs ESLint to check code quality.
 
 ## Code Style and Patterns
 
@@ -20,13 +33,10 @@
   - Place page components in `pages/`.
   - API handlers go in `pages/api/`.
   - Custom hooks and shared logic go in `lib/` or `hooks/`.
+  - Shared components in `components/` with related components grouped by folder.
 - **Naming**: Use descriptive, camelCase for variables and functions.  
-- **TypeScript**: If adding type safety, prefer TypeScript language features.
+- **TypeScript**: The project uses TypeScript throughout. Define interfaces for props and state.
 - **Environment Variables**: Access Supabase keys and secrets only through Next.js environment variables (e.g., `process.env.NEXT_PUBLIC_SUPABASE_URL`).
-
-## Tailwind CSS Usage
-  - All main content text (including privacy policy) should use `text-black` in light mode and `text-white` in dark mode for maximum readability and theme consistency.
-  - All main content text (including privacy policy) should use `text-white` in dark mode for maximum readability and theme consistency.
 
 - **Color Palette**:  
   - Analogous: `#1249de`, `#5d12de`, `#12dea8`  
@@ -34,12 +44,25 @@
   - Background: `#fbfbfb` (light mode), `#004b8c` (dark mode)
 - **Dark Mode**:  
   - Ensure all theme and dark mode classnames are safelisted in `tailwindcss.config.js` as needed (e.g., `safelist: ['dark']`).
+  - Use `text-black` for main text in light mode and `text-white` for main content text in dark mode, including privacy policy and user preference pages.
 - **Format**: Use Tailwind utility classes for all layout, spacing, color, and responsive rules. Avoid inline styles when possible.
+
+## Internationalization
+
+- **Format**: The app uses `react-intl` for internationalization.
+- **Message Definition**: Define messages with `<FormattedMessage id="namespace.message_id" defaultMessage="Default text" />`.
+- **Extraction**: Run `npm run extract-messages` after adding new messages to update locale files in `content/locales/`.
+- **Locale Files**: Locale files are stored in `content/locales/` and imported in `pages/_app.tsx`.
 
 ## User Experience
 
 - **Live Reloading**: Remind developers that changes in `pages/index.js` reflect live in dev mode.
 - **Accessible Design**: Enforce ARIA attributes and semantic HTML where possible.
+- **Responsive Design**: All pages should be fully responsive with mobile-first approach.
+
+## Common Design Patterns
+
+- **Error Handling**: Catch and display errors from Supabase operations.
 
 ## Test, Lint, and Deployment
 
