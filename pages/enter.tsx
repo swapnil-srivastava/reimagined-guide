@@ -14,7 +14,7 @@ function Enter() {
   // 2. user signed in, but missing username <UsernameForm />
   // 3. user signed in, has username <SignOutButton />
   return (
-    <main className="flex items-center justify-center">
+    <main className="flex items-center justify-center min-h-screen w-full">
       {profile?.id ? (
         !profile?.username ? (
           <UsernameForm />
@@ -23,7 +23,9 @@ function Enter() {
         )
       ) : (
         <>
-          <SignInButton />
+          <div className="transform -translate-y-16">
+            <SignInButton />
+          </div>
         </>
       )}
     </main>
