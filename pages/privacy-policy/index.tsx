@@ -26,7 +26,7 @@ const PrivacyPolicy: NextPage = () => {
         <section className="mb-8">
           <h2 className="text-2xl font-bold mb-4 dark:text-white">Cookie Policy</h2>
           <p className="mb-4 dark:text-white">
-            Our website uses cookies to enhance your browsing experience. Here's how we use them:
+            Our website uses cookies to enhance your browsing experience. Here&apos;s how we use them:
           </p>
           
           <h3 className="text-xl font-semibold mb-2 dark:text-white">Necessary Cookies</h3>
@@ -142,7 +142,7 @@ const PrivacyPolicy: NextPage = () => {
           
           <h3 className="text-xl font-semibold mb-2 dark:text-white">Managing Your Cookie Preferences</h3>
           <p className="dark:text-white">
-            You can change your cookie preferences at any time by clicking the "Cookie Preferences" 
+            You can change your cookie preferences at any time by clicking the &quot;Cookie Preferences&quot; 
             button at the bottom left corner of any page.
           </p>
         </section>

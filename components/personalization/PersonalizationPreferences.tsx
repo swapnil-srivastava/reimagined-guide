@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
+import Link from 'next/link';
 import { getCookie, setCookieWithConsent, CookieCategory, EXPIRATION } from '../../lib/cookies/cookieManager';
 import { getCookieConsentValue } from 'react-cookie-consent';
 
@@ -112,12 +113,12 @@ export default function PersonalizationPreferences() {
           defaultMessage="Your preferences are stored in a cookie on your device. See our {privacyLink} for more information."
           values={{
             privacyLink: (
-              <a 
+              <Link 
                 href="/privacy-policy" 
                 className="text-blue-600 dark:text-blue-400 hover:underline"
               >
                 Privacy Policy
-              </a>
+              </Link>
             ),
           }}
         />
