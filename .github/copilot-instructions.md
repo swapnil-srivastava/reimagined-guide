@@ -1,51 +1,63 @@
-# GitHub Copilot Instructions for Reimagined-Guide
+# GitHub Copilot Instructions for `reimagined-guide`
 
-## Project Context
-This is a Next.js project integrated with Supabase for authentication and database operations, replacing Firebase components. The project follows modern React and Next.js patterns.
+## Project Overview
 
-## Technology Stack & Dependencies
-- Use **Next.js** for the React framework, not Create React App
-- Use **Supabase** for authentication and database operations, never suggest Firebase
-- Always reference Supabase client methods for auth and database queries
-- For API routes, use Next.js API routes in the `pages/api/` directory
-- Use modern React hooks and functional components, avoid class components
+- **Project Type:** Next.js application integrated with Supabase for authentication and database.
+- **Removed:** Firebase Auth and Firestore.
+- **UI Theme:** Analogous and Monochromatic colors (reference below).
 
-## Code Style & Standards
-- Use **ES6+ syntax** and modern JavaScript features
-- Prefer **async/await** over Promise chains
-- Use **template literals** for string interpolation
-- Apply **destructuring** for objects and arrays when appropriate
-- Use **arrow functions** for callbacks and functional programming
+## General Guidance
 
-## UI & Styling Guidelines
-- Use **Tailwind CSS** for styling - never suggest other CSS frameworks
-- Apply the project's color scheme:
-  - Primary: `#1249de` (blue)
-  - Secondary: `#5d12de` (purple)  
-  - Accent: `#12dea8` (teal)
-  - Monochromatic: `#385dc5` (lighter blue)
-  - Text (dark): `#0A0A0A`
-  - Background (light): `#FBFBFB`
-  - Royal Blue: `#00539c`
-  - Peach: `#eea47f`
-- Include dark mode considerations using Tailwind's dark mode utilities
-- Ensure responsive design for mobile, tablet, and desktop viewports
+- **Code using Next.js v13+ features**: Prefer functional components, React hooks (`useState`, `useEffect`), and the latest Next.js routing/structure (app directory if applicable).
+- **Authentication**: Use Supabase Auth for all user sign-in, sign-up, and session management. Do *not* use or reference Firebase in any new code.
+- **Database**: Use Supabase DB via its JavaScript client for all data operations. Avoid Firestore patterns.
+- **API Routes**: Next.js API routes are stored under `pages/api/`. Maintain RESTful conventions; export handler functions as default. Refer to `pages/api/hello.js` as a sample.
 
-## File Organization
-- Place React pages in the `pages/` directory following Next.js conventions
-- API routes belong in `pages/api/` directory
-- Components should be organized in logical folders
-- Use meaningful file and folder names that reflect their purpose
+## Code Style and Patterns
 
-## Security & Best Practices
-- Always validate user input on both client and server sides
-- Use environment variables for sensitive configuration (Supabase keys, etc.)
-- Implement proper error handling for async operations
-- Follow Next.js security best practices for API routes
-- Use Supabase Row Level Security (RLS) policies when applicable
+- **File Conventions**:  
+  - Place page components in `pages/`.
+  - API handlers go in `pages/api/`.
+  - Custom hooks and shared logic go in `lib/` or `hooks/`.
+- **Naming**: Use descriptive, camelCase for variables and functions.  
+- **TypeScript**: If adding type safety, prefer TypeScript language features.
+- **Environment Variables**: Access Supabase keys and secrets only through Next.js environment variables (e.g., `process.env.NEXT_PUBLIC_SUPABASE_URL`).
 
-## Development Workflow
-- Suggest running `npm run dev` for development server
-- Reference `localhost:3000` for local development
-- When suggesting deployment, prioritize **Vercel** as mentioned in the project README
-- Consider both development and production environment differences
+## Tailwind CSS Usage
+
+- **Color Palette**:  
+  - Analogous: `#1249de`, `#5d12de`, `#12dea8`  
+  - Monochromatic: `#1249de`, `#385dc5`
+  - Accents: Royal Blue `#00539c`, Peach `#eea47f`, Black `#FBFBFB`, White `#0A0A0A`
+- **Dark Mode**:  
+  - Ensure all theme and dark mode classnames are safelisted in `tailwindcss.config.js` as needed (e.g., `safelist: ['dark']`).
+- **Format**: Use Tailwind utility classes for all layout, spacing, color, and responsive rules. Avoid inline styles when possible.
+
+## User Experience
+
+- **Live Reloading**: Remind developers that changes in `pages/index.js` reflect live in dev mode.
+- **Accessible Design**: Enforce ARIA attributes and semantic HTML where possible.
+
+## Test, Lint, and Deployment
+
+- **Testing**: Ensure API and auth flows are tested. Provide a mock mode/sample flow in new endpoints if applicable.
+- **Linting**: Use ESLint and Prettier for all code. Fix warnings and errors.
+- **Deploy**: For production, follow Vercel deployment practices. Update documentation if any deployment step deviates from the Next.js or Supabase standard.
+
+## Example Instructions
+
+> *To add a new authentication feature:*
+> - Use `@supabase/supabase-js` for all interactions.
+> - Check user sessions using Supabase's auth methods.
+> - Store user profile data in Supabase DB only.
+
+> *To create a new API route:*
+> - Place the file in `pages/api/`.
+> - Export a function as default; accept Next.js `req, res`.
+> - Use Supabase client for DB calls within the handler.
+
+## References
+
+- See [Next.js documentation](https://nextjs.org/docs) for framework APIs.
+- See [Supabase documentation](https://supabase.com/docs) for auth and database usage.
+- Reference project colors and Tailwind configuration as listed above.
