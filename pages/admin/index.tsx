@@ -35,10 +35,23 @@ function Admin() {
 function PostList() {
   const [posts, setPosts] = useState<POST[]>([]);
   const [userAuth, setUserAuth] = useState<User>();
+  const [activeTab, setActiveTab] = useState<'all' | 'published' | 'drafts'>('all');
 
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
+
+  // Filter posts based on active tab
+  const filteredPosts = posts.filter(post => {
+    switch (activeTab) {
+      case 'published':
+        return post.published;
+      case 'drafts':
+        return !post.published;
+      default:
+        return true; // 'all' shows everything
+    }
+  });
 
   useEffect(() => {
     fetchPost();
@@ -123,21 +136,42 @@ function PostList() {
         {/* Filter Tabs */}
         <div className="mt-6 border-b border-gray-200 dark:border-fun-blue-500">
           <nav className="-mb-px flex space-x-8">
-            <button className="py-2 px-1 border-b-2 border-fun-blue-500 font-medium text-sm text-fun-blue-600 dark:text-caribbean-green-400">
+            <button 
+              onClick={() => setActiveTab('all')}
+              className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                activeTab === 'all'
+                  ? 'border-fun-blue-500 text-fun-blue-600 dark:text-caribbean-green-400'
+                  : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
+              }`}
+            >
               <FormattedMessage
                 id="admin-tab-all-posts"
                 description="All Posts"
                 defaultMessage="All Posts"
               /> ({posts.length})
             </button>
-            <button className="py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600">
+            <button 
+              onClick={() => setActiveTab('published')}
+              className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                activeTab === 'published'
+                  ? 'border-fun-blue-500 text-fun-blue-600 dark:text-caribbean-green-400'
+                  : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
+              }`}
+            >
               <FormattedMessage
                 id="admin-tab-published-posts"
                 description="Published"
                 defaultMessage="Published"
               /> ({posts.filter(post => post.published).length})
             </button>
-            <button className="py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600">
+            <button 
+              onClick={() => setActiveTab('drafts')}
+              className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                activeTab === 'drafts'
+                  ? 'border-fun-blue-500 text-fun-blue-600 dark:text-caribbean-green-400'
+                  : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
+              }`}
+            >
               <FormattedMessage
                 id="admin-tab-drafts-posts"
                 description="Drafts"
@@ -150,8 +184,8 @@ function PostList() {
 
       {/* Posts Grid */}
       <div className="space-y-4">
-        {posts.length > 0 ? (
-          <PostFeed posts={posts} user={userAuth} admin={true} />
+        {filteredPosts.length > 0 ? (
+          <PostFeed posts={filteredPosts} user={userAuth} admin={true} />
         ) : (
           /* Empty State */
           <div className="text-center py-12">
@@ -160,19 +194,47 @@ function PostList() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
-                        <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
-              <FormattedMessage
-                id="admin-empty-title"
-                description="No articles yet"
-                defaultMessage="No articles yet"
-              />
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+              {activeTab === 'published' ? (
+                <FormattedMessage
+                  id="admin-empty-published-title"
+                  description="No published articles yet"
+                  defaultMessage="No published articles yet"
+                />
+              ) : activeTab === 'drafts' ? (
+                <FormattedMessage
+                  id="admin-empty-drafts-title"
+                  description="No draft articles yet"
+                  defaultMessage="No draft articles yet"
+                />
+              ) : (
+                <FormattedMessage
+                  id="admin-empty-title"
+                  description="No articles yet"
+                  defaultMessage="No articles yet"
+                />
+              )}
             </h3>
             <p className="text-gray-500 dark:text-gray-400 mb-6">
-              <FormattedMessage
-                id="admin-empty-description"
-                description="Get started by creating your first post"
-                defaultMessage="Get started by creating your first post"
-              />
+              {activeTab === 'published' ? (
+                <FormattedMessage
+                  id="admin-empty-published-description"
+                  description="Publish your first draft to see it here"
+                  defaultMessage="Publish your first draft to see it here"
+                />
+              ) : activeTab === 'drafts' ? (
+                <FormattedMessage
+                  id="admin-empty-drafts-description"
+                  description="Create your first draft to get started"
+                  defaultMessage="Create your first draft to get started"
+                />
+              ) : (
+                <FormattedMessage
+                  id="admin-empty-description"
+                  description="Get started by creating your first post"
+                  defaultMessage="Get started by creating your first post"
+                />
+              )}
             </p>
             <button className="inline-flex items-center px-4 py-2 bg-fun-blue-600 hover:bg-fun-blue-700 text-white rounded-lg font-medium transition-colors">
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
