@@ -28,7 +28,7 @@ import "../styles/AwesomeNavBar.module.css";
 import BasicTooltip from "./Tooltip";
 import RoundButton from "./RoundButton";
 import { RootState } from "../lib/interfaces/interface";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 
 function AwesomeNavBar() {
   // TS infers type: (state: RootState) => boolean
@@ -37,6 +37,7 @@ function AwesomeNavBar() {
   const { profile, session } = userInfo;
 
   const { theme, setTheme } = useTheme();
+  const intl = useIntl();
 
   const { locales, asPath, locale: nextLocale } = useRouter();
 
@@ -81,13 +82,21 @@ function AwesomeNavBar() {
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         icon={
           theme === "dark" ? (
-            <BasicTooltip title="Dark Mode" placement="bottom">
+            <BasicTooltip title={intl.formatMessage({
+              id: 'nav-dark-mode-tooltip',
+              description: 'Dark Mode',
+              defaultMessage: 'Dark Mode'
+            })} placement="bottom">
               <RoundButton>
                 <FontAwesomeIcon icon={faMoon} size="lg" />
               </RoundButton>
             </BasicTooltip>
           ) : (
-            <BasicTooltip title="Light Mode" placement="bottom">
+            <BasicTooltip title={intl.formatMessage({
+              id: 'nav-light-mode-tooltip',
+              description: 'Light Mode',
+              defaultMessage: 'Light Mode'
+            })} placement="bottom">
               <RoundButton>
                   <FontAwesomeIcon icon={faSun} size="lg" />
               </RoundButton>
@@ -99,7 +108,11 @@ function AwesomeNavBar() {
       <div className="hidden md:block">
         <NavBarItem nextrouteurl>
           <Link href="/technology">
-            <BasicTooltip title="Tech Stack" placement="bottom">
+            <BasicTooltip title={intl.formatMessage({
+              id: 'nav-tech-stack-tooltip',
+              description: 'Tech Stack',
+              defaultMessage: 'Tech Stack'
+            })} placement="bottom">
               <RoundButton>
                 <FontAwesomeIcon icon={faBolt} size="lg" />
               </RoundButton>
@@ -112,7 +125,11 @@ function AwesomeNavBar() {
       {!profile?.username && (
         <NavBarItem nextrouteurl>
           <Link href="/enter">
-            <BasicTooltip title="Login" placement="bottom">
+            <BasicTooltip title={intl.formatMessage({
+              id: 'nav-login-tooltip',
+              description: 'Login',
+              defaultMessage: 'Login'
+            })} placement="bottom">
               <RoundButton>
                 <FontAwesomeIcon icon={faArrowRightToBracket} size="lg" />
               </RoundButton>
@@ -124,17 +141,19 @@ function AwesomeNavBar() {
       {/* user is signed-in and has username */}
       {profile?.username && (
         <>
-          <NavBarItem nextrouteurl>
-            <Link href="/admin">
-              <BasicTooltip title="Write a post" placement="bottom">
-                <RoundButton>
-                  <FontAwesomeIcon icon={faPencil} size="lg" />
-                </RoundButton>
-              </BasicTooltip>
-            </Link>
-          </NavBarItem>
-
-          {/* user condition is ther because image src url is missing when clicking on sign out */}
+            <NavBarItem nextrouteurl>
+              <Link href="/admin">
+                <BasicTooltip title={intl.formatMessage({
+                  id: 'nav-write-post-tooltip',
+                  description: 'Write a post',
+                  defaultMessage: 'Write a post'
+                })} placement="bottom">
+                  <RoundButton>
+                    <FontAwesomeIcon icon={faPencil} size="lg" />
+                  </RoundButton>
+                </BasicTooltip>
+              </Link>
+            </NavBarItem>          {/* user condition is ther because image src url is missing when clicking on sign out */}
           {profile?.username && (
             <NavBarItem nextrouteurl>
               <BasicTooltip title={profile?.full_name} placement="bottom">

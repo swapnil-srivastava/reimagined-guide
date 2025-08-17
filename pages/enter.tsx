@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { FormattedMessage } from "react-intl";
 import { supaClient } from "../supa-client";
 import { RootState } from "../lib/interfaces/interface";
 import debounce from "lodash.debounce";
@@ -59,7 +60,13 @@ function SignInButton() {
         onClick={signInWithGoogleSupabase}
       >
         <img className="h-10 w-10" src={"/google.png"} />
-        <div>Sign in with Google</div>
+        <div>
+          <FormattedMessage
+            id="auth-sign-in-google"
+            description="Sign in with Google"
+            defaultMessage="Sign in with Google"
+          />
+        </div>
       </button>
     </div>
   );
@@ -82,7 +89,11 @@ function SignOutButton() {
               font-semibold"
       onClick={() => signoutSupa()}
     >
-      Sign Out
+      <FormattedMessage
+        id="auth-sign-out"
+        description="Sign Out"
+        defaultMessage="Sign Out"
+      />
     </button>
   );
 }
@@ -164,7 +175,11 @@ function UsernameForm() {
                 className="after:content-['*'] after:ml-0.5 after:text-red-500 block font-medium
             text-blog-black dark:text-blog-white"
               >
-                Username
+                <FormattedMessage
+                  id="auth-username-label"
+                  description="Username"
+                  defaultMessage="Username"
+                />
               </span>
               <input
                 name="username"
@@ -196,7 +211,11 @@ function UsernameForm() {
               dark:text-blog-black"
               disabled={!isValid}
             >
-              Choose Username
+              <FormattedMessage
+                id="auth-choose-username"
+                description="Choose Username"
+                defaultMessage="Choose Username"
+              />
             </button>
           </form>
         </div>
@@ -207,11 +226,36 @@ function UsernameForm() {
 
 function UsernameMessage({ username, isValid, loading }) {
   if (loading) {
-    return <p>Checking...</p>;
+    return (
+      <p>
+        <FormattedMessage
+          id="auth-checking-username"
+          description="Checking..."
+          defaultMessage="Checking..."
+        />
+      </p>
+    );
   } else if (isValid) {
-    return <p className="text-success">{username} is available!</p>;
+    return (
+      <p className="text-success">
+        <FormattedMessage
+          id="auth-username-available"
+          description="Username is available"
+          defaultMessage="{username} is available!"
+          values={{ username }}
+        />
+      </p>
+    );
   } else if (username && !isValid) {
-    return <p className="text-danger">That username is taken!</p>;
+    return (
+      <p className="text-danger">
+        <FormattedMessage
+          id="auth-username-taken"
+          description="That username is taken!"
+          defaultMessage="That username is taken!"
+        />
+      </p>
+    );
   } else {
     return <p></p>;
   }

@@ -410,7 +410,15 @@
     },
     {
       "type": 0,
-      "value": " for {searchTerm}"
+      "value": " for \""
+    },
+    {
+      "type": 1,
+      "value": "searchTerm"
+    },
+    {
+      "type": 0,
+      "value": "\""
     }
   ],
   "approve-stats-approved": [
@@ -465,6 +473,52 @@
     {
       "type": 0,
       "value": "You must be signed in"
+    }
+  ],
+  "auth-checking-username": [
+    {
+      "type": 0,
+      "value": "Checking..."
+    }
+  ],
+  "auth-choose-username": [
+    {
+      "type": 0,
+      "value": "Choose Username"
+    }
+  ],
+  "auth-sign-in-google": [
+    {
+      "type": 0,
+      "value": "Sign in with Google"
+    }
+  ],
+  "auth-sign-out": [
+    {
+      "type": 0,
+      "value": "Sign Out"
+    }
+  ],
+  "auth-username-available": [
+    {
+      "type": 1,
+      "value": "username"
+    },
+    {
+      "type": 0,
+      "value": " is available!"
+    }
+  ],
+  "auth-username-label": [
+    {
+      "type": 0,
+      "value": "Username"
+    }
+  ],
+  "auth-username-taken": [
+    {
+      "type": 0,
+      "value": "That username is taken!"
     }
   ],
   "calculate-total-delivery-cost-text": [
@@ -897,6 +951,36 @@
     {
       "type": 0,
       "value": "Sign Out"
+    }
+  ],
+  "nav-dark-mode-tooltip": [
+    {
+      "type": 0,
+      "value": "Dark Mode"
+    }
+  ],
+  "nav-light-mode-tooltip": [
+    {
+      "type": 0,
+      "value": "Light Mode"
+    }
+  ],
+  "nav-login-tooltip": [
+    {
+      "type": 0,
+      "value": "Login"
+    }
+  ],
+  "nav-tech-stack-tooltip": [
+    {
+      "type": 0,
+      "value": "Tech Stack"
+    }
+  ],
+  "nav-write-post-tooltip": [
+    {
+      "type": 0,
+      "value": "Write a post"
     }
   ],
   "personalization_consent_required": [
