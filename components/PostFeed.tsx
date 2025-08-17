@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/legacy/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAnglesRight, faHeart, faPenToSquare, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { faAnglesRight, faHeart, faPenToSquare, faThumbsUp, faEye } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 import { FormattedMessage } from "react-intl";
 
@@ -138,21 +138,29 @@ function PostItem({ post, admin = false, approve = false }) {
                 {post.published ? 'Live' : 'Draft'}
               </span>
 
-              {/* Action Buttons - Compact */}
+              {/* Action Buttons - Creative Circular Design */}
               {(admin || approve) && (
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-2">
                   {admin && (
                     <Link href={`/admin/${post.slug}`}>
-                      <button className="p-1.5 rounded-md bg-gray-100 hover:bg-gray-200 dark:bg-fun-blue-700 dark:hover:bg-fun-blue-800 text-gray-600 dark:text-gray-300 transition-colors">
-                        <FontAwesomeIcon icon={faPenToSquare} className="h-3 w-3" />
-                      </button>
+                      <div className="w-8 h-8 bg-fun-blue-300 dark:bg-fun-blue-400 dark:text-black p-0.5 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:filter hover:brightness-125 group">
+                        {post.published ? (
+                          <FontAwesomeIcon icon={faPenToSquare} className="h-3.5 w-3.5 text-gray-700 dark:text-black group-hover:scale-110 transition-transform" />
+                        ) : (
+                          <FontAwesomeIcon icon={faPenToSquare} className="h-3.5 w-3.5 text-gray-700 dark:text-black group-hover:scale-110 transition-transform" />
+                        )}
+                      </div>
                     </Link>
                   )}
                   {approve && (
                     <Link href={`/approve/${post.slug}`} legacyBehavior>
-                      <button className="p-1.5 rounded-md bg-green-100 hover:bg-green-200 dark:bg-green-900/30 dark:hover:bg-green-800/40 text-green-600 dark:text-green-400 transition-colors">
-                        <FontAwesomeIcon icon={faThumbsUp} className="h-3 w-3" />
-                      </button>
+                      <div className="w-8 h-8 bg-caribbean-green-300 dark:bg-caribbean-green-400 dark:text-black p-0.5 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:filter hover:brightness-125 group">
+                        {post.published ? (
+                          <FontAwesomeIcon icon={faThumbsUp} className="h-3.5 w-3.5 text-green-700 dark:text-black group-hover:scale-110 transition-transform" />
+                        ) : (
+                          <FontAwesomeIcon icon={faEye} className="h-3.5 w-3.5 text-green-700 dark:text-black group-hover:scale-110 transition-transform" />
+                        )}
+                      </div>
                     </Link>
                   )}
                 </div>
