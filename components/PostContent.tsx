@@ -211,11 +211,19 @@ export default function PostContent({
                 </span>
                 <span className="hidden sm:flex items-center gap-1">
                   <div className="w-1.5 h-1.5 rounded-full bg-caribbean-green-400"></div>
-                  {minutesToRead} min read
+                  {minutesToRead} <FormattedMessage
+                    id="postcontent-min-read"
+                    description="min read"
+                    defaultMessage="min read"
+                  />
                 </span>
                 <span className="flex items-center gap-1">
                   <div className="w-1.5 h-1.5 rounded-full bg-hit-pink-400"></div>
-                  {wordCount} words
+                  {wordCount} <FormattedMessage
+                    id="postcontent-words"
+                    description="words"
+                    defaultMessage="words"
+                  />
                 </span>
               </div>
             </div>
@@ -339,7 +347,11 @@ export default function PostContent({
             {/* Reading time indicator */}
             <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
               <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
-              <span>{minutesToRead} min read</span>
+              <span>{minutesToRead} <FormattedMessage
+                id="postcontent-min-read-2"
+                description="min read"
+                defaultMessage="min read"
+              /></span>
             </div>
           </div>
         )}

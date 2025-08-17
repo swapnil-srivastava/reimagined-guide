@@ -1,4 +1,16 @@
 {
+  "404-go-home": [
+    {
+      "type": 0,
+      "value": "Go home"
+    }
+  ],
+  "404-page-not-found": [
+    {
+      "type": 0,
+      "value": "404 - That page does not seem to exist..."
+    }
+  ],
   "address-customer-cancel-btn": [
     {
       "type": 0,
@@ -545,6 +557,18 @@
       "value": "Total:"
     }
   ],
+  "cancel-cancelled": [
+    {
+      "type": 0,
+      "value": "Cancelled"
+    }
+  ],
+  "cancel-go-home": [
+    {
+      "type": 0,
+      "value": "Go home"
+    }
+  ],
   "cart-heading": [
     {
       "type": 0,
@@ -1039,6 +1063,54 @@
       "value": "Read more"
     }
   ],
+  "postcontent-min-read": [
+    {
+      "type": 0,
+      "value": "min read"
+    }
+  ],
+  "postcontent-min-read-2": [
+    {
+      "type": 0,
+      "value": "min read"
+    }
+  ],
+  "postcontent-words": [
+    {
+      "type": 0,
+      "value": "words"
+    }
+  ],
+  "postfeed-min-read": [
+    {
+      "type": 0,
+      "value": "min read"
+    }
+  ],
+  "postfeed-no-posts": [
+    {
+      "type": 0,
+      "value": "No posts available"
+    }
+  ],
+  "postfeed-status-draft": [
+    {
+      "type": 0,
+      "value": "Draft"
+    }
+  ],
+  "postfeed-status-live": [
+    {
+      "type": 0,
+      "value": "Live"
+    }
+  ],
+  "postfeed-words": [
+    {
+      "type": 0,
+      "value": "words"
+    }
+  ],
   "posts_list_end": [
     {
       "type": 0,
@@ -1105,6 +1177,48 @@
       "value": "Products"
     }
   ],
+  "profile-cancel-button": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "profile-cancel-skill-button": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "profile-create-button": [
+    {
+      "type": 0,
+      "value": "Create"
+    }
+  ],
+  "profile-create-skill-button": [
+    {
+      "type": 0,
+      "value": "Create"
+    }
+  ],
+  "profile-experience-created": [
+    {
+      "type": 0,
+      "value": "Experience successfully created"
+    }
+  ],
+  "profile-present": [
+    {
+      "type": 0,
+      "value": "Present"
+    }
+  ],
+  "profile-skill-created": [
+    {
+      "type": 0,
+      "value": "Skill successfully created"
+    }
+  ],
   "secondary_tagline": [
     {
       "type": 0,
@@ -1117,6 +1231,18 @@
       "value": "Writing the article ... coding the code ... posting the article ... finally sleeping ... and the cycle repeats"
     }
   ],
+  "success-go-home": [
+    {
+      "type": 0,
+      "value": "Go home"
+    }
+  ],
+  "success-hurray": [
+    {
+      "type": 0,
+      "value": "Hurray..."
+    }
+  ],
   "swapnil_architect_hello": [
     {
       "type": 0,
@@ -1127,6 +1253,42 @@
     {
       "type": 0,
       "value": "Swapnil Srivastava"
+    }
+  ],
+  "technology-cancel-button": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "technology-create-button": [
+    {
+      "type": 0,
+      "value": "Create"
+    }
+  ],
+  "technology-leading-tech-created": [
+    {
+      "type": 0,
+      "value": "Leading Tech Stack created"
+    }
+  ],
+  "technology-leading-tech-title": [
+    {
+      "type": 0,
+      "value": "Leading Tech"
+    }
+  ],
+  "technology-tech-stack-created": [
+    {
+      "type": 0,
+      "value": "Tech Stack created!"
+    }
+  ],
+  "technology-tech-stack-title": [
+    {
+      "type": 0,
+      "value": "Tech Stack"
     }
   ],
   "user-profile-about-title": [

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
+import { useIntl, FormattedMessage } from "react-intl";
 
 // Components
 import Metatags from "../components/Metatags";
@@ -41,6 +42,7 @@ export async function getServerSideProps(context) {
 }
 
 export default function Technology(props) {
+  const intl = useIntl();
   const [techStackState, setTechStackState] = useState<TECHNOLOGIES[]>(
     props.techStackState
   );
@@ -61,7 +63,11 @@ export default function Technology(props) {
       {profile?.id ? <CreateNewTechStack /> : ""}
 
       <div className="px-10 pb-2 pt-2 text-2xl font-extralight dark:text-blog-white">
-        Tech Stack
+        <FormattedMessage
+          id="technology-tech-stack-title"
+          description="Tech Stack section title"
+          defaultMessage="Tech Stack"
+        />
       </div>
 
       <div className="flex py-10 px-5 pt-2 flex-wrap justify-center">
@@ -80,7 +86,11 @@ export default function Technology(props) {
       </div>
 
       <div className="px-10 pb-0 pt-2 text-2xl font-extralight dark:text-blog-white">
-        Leading Tech
+        <FormattedMessage
+          id="technology-leading-tech-title"
+          description="Leading Tech section title"
+          defaultMessage="Leading Tech"
+        />
       </div>
 
       <div className="flex py-10 px-10 pt-2 flex-wrap justify-center">
@@ -108,6 +118,7 @@ interface TechStackJSON {
 }
 
 function CreateNewTechStack() {
+  const intl = useIntl();
   type TECHNAME_OBJ = Pick<TECHNOLOGIES, "name" | "tech_color">;
   type TECHNAME = TECHNAME_OBJ["name"];
   type TECHCOLOR = TECHNAME_OBJ["tech_color"];
@@ -151,7 +162,17 @@ function CreateNewTechStack() {
       ]);
 
     toast.success(
-      data?.toggle ? "Tech Stack created!" : "Leading Tech Stack created"
+      data?.toggle 
+        ? intl.formatMessage({
+            id: 'technology-tech-stack-created',
+            description: 'Tech stack created success message',
+            defaultMessage: 'Tech Stack created!'
+          })
+        : intl.formatMessage({
+            id: 'technology-leading-tech-created',
+            description: 'Leading tech stack created success message',
+            defaultMessage: 'Leading Tech Stack created'
+          })
     );
 
     // Imperative navigation after doc is set
@@ -192,7 +213,11 @@ function CreateNewTechStack() {
             self-center"
             onClick={() => createTechStack()}
           >
-            Create
+            <FormattedMessage
+              id="technology-create-button"
+              description="Create button"
+              defaultMessage="Create"
+            />
           </button>
           <button
             className="
@@ -206,7 +231,11 @@ function CreateNewTechStack() {
             type="button"
             onClick={clearTechStack}
           >
-            Cancel
+            <FormattedMessage
+              id="technology-cancel-button"
+              description="Cancel button"
+              defaultMessage="Cancel"
+            />
           </button>
         </div>
       </div>

@@ -1,11 +1,18 @@
 import React from "react";
 import Link from 'next/link';
+import { FormattedMessage } from "react-intl";
 
 
 function Success() {
     return (
         <main className='flex flex-col gap-y-10 items-center justify-center'>
-          <h1 className="text-blog-black dark:text-blog-white">Hurray ... </h1>
+          <h1 className="text-blog-black dark:text-blog-white">
+            <FormattedMessage
+              id="success-hurray"
+              description="Hurray celebration message"
+              defaultMessage="Hurray..."
+            />
+          </h1>
           <iframe src="https://giphy.com/embed/3orif9xIMPE7NXflV6"             
             width="500"
             height="500" frameBorder="0" 
@@ -18,7 +25,13 @@ function Success() {
             focus:outline-none focus:ring-2 
             focus:ring-fun-blue-400 
             focus:ring-offset-2 text-sm
-            font-semibold">Go home</button>
+            font-semibold">
+              <FormattedMessage
+                id="success-go-home"
+                description="Go home button"
+                defaultMessage="Go home"
+              />
+            </button>
           </Link>
         </main>
       );

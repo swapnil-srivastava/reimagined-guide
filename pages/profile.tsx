@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import moment from "moment";
+import { FormattedMessage, useIntl } from "react-intl";
 
 // Accordion
 import Accordion from "@mui/material/Accordion";
@@ -33,6 +34,7 @@ import { RootState } from "../lib/interfaces/interface";
 import Metatags from "../components/Metatags";
 
 const Profile = () => {
+  const intl = useIntl();
   const [expanded, setExpanded] = useState<string | false>(false);
   const [experiences, setExperiences] = useState<EXPERIENCES[]>();
   const selectUser = (state: RootState) => state.users;
@@ -94,7 +96,11 @@ const Profile = () => {
                     <p className="font-light">
                       {moment(position_start_time).format("MMM YYYY")} -{" "}
                       {isPresent
-                        ? "Present"
+                        ? intl.formatMessage({
+                            id: 'profile-present',
+                            description: 'Present time indicator',
+                            defaultMessage: 'Present'
+                          })
                         : moment(position_end_time).format("MMM YYYY")}{" "}
                       -{" "}
                       {isPresent
@@ -133,6 +139,7 @@ const Profile = () => {
 };
 
 function CreateExperience() {
+  const intl = useIntl();
   const [data, setData] = useState<EXPERIENCES_INSERT_DATA>();
 
   const clearData = () => {
@@ -169,7 +176,11 @@ function CreateExperience() {
         },
       ]);
 
-    toast.success("Experience Succesfully Created");
+    toast.success(intl.formatMessage({
+      id: 'profile-experience-created',
+      description: 'Experience successfully created message',
+      defaultMessage: 'Experience successfully created'
+    }));
   };
 
   const clearExperience = async (e) => {
@@ -206,7 +217,11 @@ function CreateExperience() {
             self-center"
             onClick={() => createExperience()}
           >
-            Create
+            <FormattedMessage
+              id="profile-create-button"
+              description="Create button"
+              defaultMessage="Create"
+            />
           </button>
           <button
             className="
@@ -220,7 +235,11 @@ function CreateExperience() {
             type="button"
             onClick={clearExperience}
           >
-            Cancel
+            <FormattedMessage
+              id="profile-cancel-button"
+              description="Cancel button"
+              defaultMessage="Cancel"
+            />
           </button>
         </div>
       </div>
@@ -229,6 +248,7 @@ function CreateExperience() {
 }
 
 function CreateSkill(props) {
+  const intl = useIntl();
   const [data, setData] = useState<{ skill: string }>();
 
   const clearData = () => {
@@ -261,7 +281,11 @@ function CreateSkill(props) {
       })
       .eq("id", props.experienceId);
 
-    toast.success("Skill Succesfully Created");
+    toast.success(intl.formatMessage({
+      id: 'profile-skill-created',
+      description: 'Skill successfully created message',
+      defaultMessage: 'Skill successfully created'
+    }));
   };
 
   const clearSkill = async (e) => {
@@ -298,7 +322,11 @@ function CreateSkill(props) {
             self-center"
             onClick={() => createSkill()}
           >
-            Create
+            <FormattedMessage
+              id="profile-create-skill-button"
+              description="Create skill button"
+              defaultMessage="Create"
+            />
           </button>
           <button
             className="
@@ -312,7 +340,11 @@ function CreateSkill(props) {
             type="button"
             onClick={clearSkill}
           >
-            Cancel
+            <FormattedMessage
+              id="profile-cancel-skill-button"
+              description="Cancel skill button"
+              defaultMessage="Cancel"
+            />
           </button>
         </div>
       </div>

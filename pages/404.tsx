@@ -1,9 +1,16 @@
 import Link from 'next/link';
+import { FormattedMessage } from 'react-intl';
 
 export default function Custom404() {
   return (
     <main className='flex flex-col gap-y-10 items-center justify-center'>
-      <h1>404 - That page does not seem to exist...</h1>
+      <h1>
+        <FormattedMessage
+          id="404-page-not-found"
+          description="404 page not found message"
+          defaultMessage="404 - That page does not seem to exist..."
+        />
+      </h1>
       <iframe
         src="https://giphy.com/embed/l2JehQ2GitHGdVG9y"
         width="480"
@@ -19,7 +26,13 @@ export default function Custom404() {
         focus:outline-none focus:ring-2 
         focus:ring-fun-blue-400 
         focus:ring-offset-2 text-sm
-        font-semibold">Go home</button>
+        font-semibold">
+          <FormattedMessage
+            id="404-go-home"
+            description="Go home button"
+            defaultMessage="Go home"
+          />
+        </button>
       </Link>
     </main>
   );

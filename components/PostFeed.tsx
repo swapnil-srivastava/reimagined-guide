@@ -69,7 +69,11 @@ export function PostFeed({
             )}
         </>
       ))
-    : "No Post";
+    : <FormattedMessage
+        id="postfeed-no-posts"
+        description="No posts available"
+        defaultMessage="No posts available"
+      />;
 }
 
 function PostItem({ post, admin = false, approve = false }) {
@@ -119,7 +123,11 @@ function PostItem({ post, admin = false, approve = false }) {
                     {post.username}
                   </span>
                   <span className="text-xs text-gray-500 dark:text-gray-400">
-                    {moment(post.created_at).format("MMM DD")} · {minutesToRead} min read
+                    {moment(post.created_at).format("MMM DD")} · {minutesToRead} <FormattedMessage
+                      id="postfeed-min-read"
+                      description="min read"
+                      defaultMessage="min read"
+                    />
                   </span>
                 </div>
               </div>
@@ -135,7 +143,19 @@ function PostItem({ post, admin = false, approve = false }) {
                 <div className={`w-1.5 h-1.5 rounded-full mr-1.5 ${
                   post.published ? 'bg-green-500' : 'bg-orange-500'
                 }`}></div>
-                {post.published ? 'Live' : 'Draft'}
+                {post.published ? (
+                  <FormattedMessage
+                    id="postfeed-status-live"
+                    description="Live status"
+                    defaultMessage="Live"
+                  />
+                ) : (
+                  <FormattedMessage
+                    id="postfeed-status-draft"
+                    description="Draft status"
+                    defaultMessage="Draft"
+                  />
+                )}
               </span>
 
               {/* Action Buttons - Creative Circular Design */}
@@ -186,7 +206,11 @@ function PostItem({ post, admin = false, approve = false }) {
           {/* Footer - Compact */}
           <div className="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-fun-blue-500">
             <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
-              <span>{wordCount} words</span>
+              <span>{wordCount} <FormattedMessage
+                id="postfeed-words"
+                description="Words"
+                defaultMessage="words"
+              /></span>
               <span>·</span>
               <span>{moment(post.created_at).fromNow()}</span>
             </div>
