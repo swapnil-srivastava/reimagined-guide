@@ -305,6 +305,162 @@
       "value": "a Solutions Architect"
     }
   ],
+  "approve-clear-search": [
+    {
+      "type": 0,
+      "value": "Clear search"
+    }
+  ],
+  "approve-empty-approved-description": [
+    {
+      "type": 0,
+      "value": "Approved posts will appear here"
+    }
+  ],
+  "approve-empty-approved-title": [
+    {
+      "type": 0,
+      "value": "No approved posts yet"
+    }
+  ],
+  "approve-empty-description": [
+    {
+      "type": 0,
+      "value": "No content available for moderation"
+    }
+  ],
+  "approve-empty-pending-description": [
+    {
+      "type": 0,
+      "value": "All posts have been reviewed"
+    }
+  ],
+  "approve-empty-pending-title": [
+    {
+      "type": 0,
+      "value": "No posts pending review"
+    }
+  ],
+  "approve-empty-title": [
+    {
+      "type": 0,
+      "value": "No posts to review"
+    }
+  ],
+  "approve-loading": [
+    {
+      "type": 0,
+      "value": "Loading posts..."
+    }
+  ],
+  "approve-no-search-results-description": [
+    {
+      "type": 0,
+      "value": "Try adjusting your search terms"
+    }
+  ],
+  "approve-no-search-results-title": [
+    {
+      "type": 0,
+      "value": "No results found"
+    }
+  ],
+  "approve-search-placeholder": [
+    {
+      "type": 0,
+      "value": "Search posts..."
+    }
+  ],
+  "approve-search-results": [
+    {
+      "type": 0,
+      "value": "Showing "
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "result"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "results"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " for {searchTerm}"
+    }
+  ],
+  "approve-stats-approved": [
+    {
+      "type": 0,
+      "value": "Approved"
+    }
+  ],
+  "approve-stats-pending": [
+    {
+      "type": 0,
+      "value": "Pending"
+    }
+  ],
+  "approve-stats-total": [
+    {
+      "type": 0,
+      "value": "Total Posts"
+    }
+  ],
+  "approve-subtitle": [
+    {
+      "type": 0,
+      "value": "Review and approve user-submitted content"
+    }
+  ],
+  "approve-tab-all": [
+    {
+      "type": 0,
+      "value": "All Posts"
+    }
+  ],
+  "approve-tab-approved": [
+    {
+      "type": 0,
+      "value": "Approved"
+    }
+  ],
+  "approve-tab-pending": [
+    {
+      "type": 0,
+      "value": "Pending Review"
+    }
+  ],
+  "approve-title": [
+    {
+      "type": 0,
+      "value": "Content Moderation"
+    }
+  ],
   "auth-check-fallback": [
     {
       "type": 0,
@@ -887,6 +1043,90 @@
     {
       "type": 0,
       "value": "Swapnil Srivastava"
+    }
+  ],
+  "user-profile-about-title": [
+    {
+      "type": 0,
+      "value": "About"
+    }
+  ],
+  "user-profile-bio-title": [
+    {
+      "type": 0,
+      "value": "Bio"
+    }
+  ],
+  "user-profile-contact-title": [
+    {
+      "type": 0,
+      "value": "Contact"
+    }
+  ],
+  "user-profile-email": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "user-profile-no-bio": [
+    {
+      "type": 0,
+      "value": "No bio available"
+    }
+  ],
+  "user-profile-no-posts-description": [
+    {
+      "type": 0,
+      "value": "This user hasn't published any posts yet"
+    }
+  ],
+  "user-profile-no-posts-title": [
+    {
+      "type": 0,
+      "value": "No posts yet"
+    }
+  ],
+  "user-profile-stats-active": [
+    {
+      "type": 0,
+      "value": "Active"
+    }
+  ],
+  "user-profile-stats-joined": [
+    {
+      "type": 0,
+      "value": "Joined"
+    }
+  ],
+  "user-profile-stats-posts": [
+    {
+      "type": 0,
+      "value": "Published Posts"
+    }
+  ],
+  "user-profile-stats-status": [
+    {
+      "type": 0,
+      "value": "Status"
+    }
+  ],
+  "user-profile-tab-about": [
+    {
+      "type": 0,
+      "value": "About"
+    }
+  ],
+  "user-profile-tab-posts": [
+    {
+      "type": 0,
+      "value": "Posts"
+    }
+  ],
+  "user-profile-website": [
+    {
+      "type": 0,
+      "value": "Website"
     }
   ]
 }
