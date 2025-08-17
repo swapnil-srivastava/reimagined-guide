@@ -22,10 +22,12 @@
 
 ## Development Workflow
 
-- **Start Development**: `npm run dev` - Runs the app in development mode on port 3000.
-- **Build for Production**: `npm run build` - Creates optimized production build.
-- **Internationalization**: `npm run extract-messages` - Extracts messages from components for translation (run this whenever adding new `FormattedMessage` components).
-- **Linting**: `npm run lint` - Runs ESLint to check code quality.
+- **Package Manager**: Use `yarn` for all package management and script commands (not npm).
+- **Start Development**: `yarn dev` - Runs the app in development mode on port 3000.
+- **Build for Production**: `yarn build` - Creates optimized production build.
+- **Internationalization**: `yarn extract-messages` - Extracts messages from components for translation (run this whenever adding new `FormattedMessage` components).
+- **Linting**: `yarn lint` - Runs ESLint to check code quality.
+- **Type Checking**: `yarn type-check` - Runs TypeScript type checking.
 
 ## Code Style and Patterns
 
