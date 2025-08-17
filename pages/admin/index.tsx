@@ -122,95 +122,143 @@ function CreateNewPost() {
   };
 
   return (
-    <form onSubmit={createPost}>
-      <div
-        className="flex item-center border-b border-fun-blue-500 dark:border-fun-blue-300 py-4
-        dark:bg-blog-white
-        "
-      >
-        <span className="sr-only">
-          <FormattedMessage
-            id="admin-article-sr-only-text"
-            description="Add a new article title and create the post" // Description should be a string literal
-            defaultMessage="Add a new article title and create the post" // Message should be a string literal
-          />
-        </span>
-
-        <div className="relative w-full mx-3">
-          <input
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="Not supposed to be seen"
-            className="peer dark:bg-blog-white
-            text-fun-blue-500
-            dark:text-fun-blue-500
-            bg-blog-white
-            border-none 
-            focus:outline-none
-            block 
-            w-full 
-            rounded-sm
-            text-sm 
-            md:text-lg
-            leading-tight
-            h-10
-            placeholder-transparent
-          "
-          />
-          <label
-            htmlFor="title"
-            className="absolute left-0 -top-3.5 
-            text-fun-blue-600 text-sm 
-            transition-all 
-            peer-placeholder-shown:text-base 
-            peer-placeholder-shown:text-fun-blue-400 
-            peer-placeholder-shown:top-2 
-            peer-focus:-top-3.5 
-            peer-focus:text-fun-blue-600
-            peer-focus:text-sm"
-          >
-            <FormattedMessage
-              id="admin-article-input-text"
-              description="Enter Your Next Big Article Title!" // Description should be a string literal
-              defaultMessage="Enter Your Next Big Article Title!" // Message should be a string literal
-              />
-          </label>
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <form onSubmit={createPost} className="space-y-6">
+        {/* Header Section */}
+        <div className="text-center space-y-2">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+            Create New Article
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base">
+            Share your thoughts with the world
+          </p>
         </div>
 
-        <button type="submit" disabled={!isValid} className={styles.btnAdmin}>
-          <FormattedMessage
-            id="admin-article-create-btn"
-            description="Create button while creating the article" // Description should be a string literal
-            defaultMessage="Create" // Message should be a string literal
-          />
-        </button>
-        <button
-          className="border border-fun-blue-500 dark:border-fun-blue-500
-          text-fun-blue-500 
-          dark:text-fun-blue-500
-          hover:text-fun-blue-400 
-          dark:hover:text-slate-300 
-          text-sm rounded py-1 px-2 mx-1 mr-4"
-          type="button"
-          onClick={clearTitle}
-        >
-          <FormattedMessage
-          id="admin-article-cancel-btn"
-          description="Cancel button while creating the article" // Description should be a string literal
-          defaultMessage="Cancel" // Message should be a string literal
-          />
-        </button>
-      </div>
-      <p className="p-1 m-1 dark:text-blog-white text-sm md:text-lg">
-        <FormattedMessage
-          id="admin-article-url"
-          description="Article URL : " // Description should be a string literal
-          defaultMessage="Article URL : " // Message should be a string literal
-          />
-        {slug || `your-next-big-article-title`}
-      </p>
-    </form>
+        {/* Main Input Card */}
+        <div className="bg-white dark:bg-fun-blue-600 rounded-2xl shadow-sm border border-gray-200 dark:border-fun-blue-500 p-6 sm:p-8 transition-all duration-200 hover:shadow-md">
+          <span className="sr-only">
+            <FormattedMessage
+              id="admin-article-sr-only-text"
+              description="Add a new article title and create the post"
+              defaultMessage="Add a new article title and create the post"
+            />
+          </span>
+
+          {/* Title Input */}
+          <div className="space-y-4">
+            <div className="relative">
+              <label
+                htmlFor="title"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >
+                <FormattedMessage
+                  id="admin-article-input-text"
+                  description="Enter Your Next Big Article Title!"
+                  defaultMessage="Enter Your Next Big Article Title!"
+                />
+              </label>
+              <div className="relative">
+                <input
+                  id="title"
+                  type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="What's your story about?"
+                  className="w-full px-4 py-4 text-lg bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-xl 
+                    text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400
+                    focus:outline-none focus:ring-2 focus:ring-fun-blue-500 focus:border-transparent
+                    transition-all duration-200 hover:border-gray-400 dark:hover:border-fun-blue-300"
+                />
+                {/* Character Counter */}
+                <div className="absolute right-3 bottom-3 text-xs text-gray-400 dark:text-gray-500">
+                  {title.length}/100
+                </div>
+              </div>
+              
+              {/* Validation Indicator */}
+              {title.length > 0 && (
+                <div className="mt-2 flex items-center">
+                  <div className={`w-2 h-2 rounded-full mr-2 ${
+                    isValid ? 'bg-green-500' : 'bg-orange-500'
+                  }`}></div>
+                  <span className={`text-xs ${
+                    isValid ? 'text-green-600 dark:text-green-400' : 'text-orange-600 dark:text-orange-400'
+                  }`}>
+                    {isValid ? 'Title looks good!' : 'Title must be 4-100 characters'}
+                  </span>
+                </div>
+              )}
+            </div>
+
+            {/* URL Preview */}
+            {title && (
+              <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-4 border border-gray-200 dark:border-fun-blue-400">
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
+                  <FormattedMessage
+                    id="admin-article-url"
+                    description="Article URL:"
+                    defaultMessage="Article URL:"
+                  />
+                </p>
+                <div className="flex items-center text-sm font-mono">
+                  <span className="text-gray-500 dark:text-gray-400">
+                    swapnilsrivastava.eu/
+                  </span>
+                  <span className="text-fun-blue-600 dark:text-caribbean-green-400 break-all">
+                    {profile?.username}/{slug || 'your-article-slug'}
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 mt-6">
+            <button
+              type="submit"
+              disabled={!isValid}
+              className={`flex-1 py-3 px-6 rounded-xl font-medium text-white transition-all duration-200 ${
+                isValid
+                  ? 'bg-gradient-to-r from-fun-blue-500 to-fun-blue-600 hover:from-fun-blue-600 hover:to-fun-blue-700 shadow-sm hover:shadow-md transform hover:scale-[1.02]'
+                  : 'bg-gray-400 cursor-not-allowed'
+              }`}
+            >
+              <FormattedMessage
+                id="admin-article-create-btn"
+                description="Create button while creating the article"
+                defaultMessage="Create Article"
+              />
+            </button>
+            
+            <button
+              type="button"
+              onClick={clearTitle}
+              className="py-3 px-6 rounded-xl font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-fun-blue-700 
+                border border-gray-300 dark:border-fun-blue-400 hover:bg-gray-200 dark:hover:bg-fun-blue-800 
+                transition-all duration-200 hover:scale-[1.02]"
+            >
+              <FormattedMessage
+                id="admin-article-cancel-btn"
+                description="Cancel button while creating the article"
+                defaultMessage="Clear"
+              />
+            </button>
+          </div>
+        </div>
+
+        {/* Tips Section */}
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-fun-blue-700 dark:to-fun-blue-800 rounded-xl p-4 border border-blue-200 dark:border-fun-blue-400">
+          <h4 className="text-sm font-medium text-blue-900 dark:text-blue-300 mb-2">
+            💡 Writing Tips
+          </h4>
+          <ul className="text-xs text-blue-700 dark:text-blue-400 space-y-1">
+            <li>• Keep your title clear and descriptive</li>
+            <li>• Use keywords that readers might search for</li>
+            <li>• Aim for 6-12 words for optimal engagement</li>
+          </ul>
+        </div>
+      </form>
+    </div>
   );
 }
 
