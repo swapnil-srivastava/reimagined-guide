@@ -96,15 +96,17 @@ function AwesomeNavBar() {
         }
       />
 
-      <NavBarItem nextrouteurl>
-        <Link href="/technology">
-          <BasicTooltip title="Tech Stack" placement="bottom">
-            <RoundButton>
-              <FontAwesomeIcon icon={faBolt} size="lg" />
-            </RoundButton>
-          </BasicTooltip>
-        </Link>
-      </NavBarItem>
+      <div className="hidden md:block">
+        <NavBarItem nextrouteurl>
+          <Link href="/technology">
+            <BasicTooltip title="Tech Stack" placement="bottom">
+              <RoundButton>
+                <FontAwesomeIcon icon={faBolt} size="lg" />
+              </RoundButton>
+            </BasicTooltip>
+          </Link>
+        </NavBarItem>
+      </div>
 
       {/* user is not signed-in or has not created username */}
       {!profile?.username && (
@@ -387,7 +389,7 @@ function DropdownMenu() {
           <DropdownItem
             leftIcon={
               <RoundButton>
-                <FontAwesomeIcon icon={faBolt} size="lg" />
+                <FontAwesomeIcon icon={faBolt} size="lg" className="hidden md:block" />
               </RoundButton>
             }
           >
@@ -396,7 +398,7 @@ function DropdownMenu() {
           <DropdownItem
             leftIcon={
               <RoundButton>
-                <FontAwesomeIcon icon={faBolt} size="lg" />
+                <FontAwesomeIcon icon={faBolt} size="lg" className="hidden md:block" />
               </RoundButton>
             }
           >
@@ -405,7 +407,7 @@ function DropdownMenu() {
           <DropdownItem
             leftIcon={
               <RoundButton>
-                <FontAwesomeIcon icon={faBolt} size="lg" />
+                <FontAwesomeIcon icon={faBolt} size="lg" className="hidden md:block" />
               </RoundButton>
             }
           >
@@ -414,7 +416,7 @@ function DropdownMenu() {
           <DropdownItem
             leftIcon={
               <RoundButton>
-                <FontAwesomeIcon icon={faBolt} size="lg" />
+                <FontAwesomeIcon icon={faBolt} size="lg" className="hidden md:block" />
               </RoundButton>
             }
           >
