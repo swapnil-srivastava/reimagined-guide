@@ -122,132 +122,196 @@ function CreateNewPost() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <form onSubmit={createPost} className="space-y-6">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <form onSubmit={createPost} className="space-y-8">
         {/* Header Section */}
-        <div className="text-center space-y-2">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+        <div className="text-center space-y-3">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white">
             Create New Article
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base">
-            Share your thoughts with the world
+          <p className="text-gray-600 dark:text-gray-400 text-base sm:text-lg max-w-2xl mx-auto">
+            Share your thoughts with the world and inspire others with your story
           </p>
         </div>
 
-        {/* Main Input Card */}
-        <div className="bg-white dark:bg-fun-blue-600 rounded-2xl shadow-sm border border-gray-200 dark:border-fun-blue-500 p-6 sm:p-8 transition-all duration-200 hover:shadow-md">
-          <span className="sr-only">
-            <FormattedMessage
-              id="admin-article-sr-only-text"
-              description="Add a new article title and create the post"
-              defaultMessage="Add a new article title and create the post"
-            />
-          </span>
-
-          {/* Title Input */}
-          <div className="space-y-4">
-            <div className="relative">
-              <label
-                htmlFor="title"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-              >
+        {/* Desktop Grid Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Main Input Section - Takes 2 columns on desktop */}
+          <div className="lg:col-span-2">
+            <div className="bg-white dark:bg-fun-blue-600 rounded-2xl shadow-sm border border-gray-200 dark:border-fun-blue-500 p-6 sm:p-8 transition-all duration-200 hover:shadow-md">
+              <span className="sr-only">
                 <FormattedMessage
-                  id="admin-article-input-text"
-                  description="Enter Your Next Big Article Title!"
-                  defaultMessage="Enter Your Next Big Article Title!"
+                  id="admin-article-sr-only-text"
+                  description="Add a new article title and create the post"
+                  defaultMessage="Add a new article title and create the post"
                 />
-              </label>
-              <div className="relative">
-                <input
-                  id="title"
-                  type="text"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  placeholder="What's your story about?"
-                  className="w-full px-4 py-4 text-lg bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-xl 
-                    text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400
-                    focus:outline-none focus:ring-2 focus:ring-fun-blue-500 focus:border-transparent
-                    transition-all duration-200 hover:border-gray-400 dark:hover:border-fun-blue-300"
-                />
-                {/* Character Counter */}
-                <div className="absolute right-3 bottom-3 text-xs text-gray-400 dark:text-gray-500">
-                  {title.length}/100
-                </div>
-              </div>
-              
-              {/* Validation Indicator */}
-              {title.length > 0 && (
-                <div className="mt-2 flex items-center">
-                  <div className={`w-2 h-2 rounded-full mr-2 ${
-                    isValid ? 'bg-green-500' : 'bg-orange-500'
-                  }`}></div>
-                  <span className={`text-xs ${
-                    isValid ? 'text-green-600 dark:text-green-400' : 'text-orange-600 dark:text-orange-400'
-                  }`}>
-                    {isValid ? 'Title looks good!' : 'Title must be 4-100 characters'}
-                  </span>
-                </div>
-              )}
-            </div>
+              </span>
 
-            {/* URL Preview */}
-            {title && (
-              <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-4 border border-gray-200 dark:border-fun-blue-400">
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
-                  <FormattedMessage
-                    id="admin-article-url"
-                    description="Article URL:"
-                    defaultMessage="Article URL:"
-                  />
-                </p>
-                <div className="flex items-center text-sm font-mono">
-                  <span className="text-gray-500 dark:text-gray-400">
-                    swapnilsrivastava.eu/
-                  </span>
-                  <span className="text-fun-blue-600 dark:text-caribbean-green-400 break-all">
-                    {profile?.username}/{slug || 'your-article-slug'}
-                  </span>
+              {/* Title Input */}
+              <div className="space-y-6">
+                <div className="relative">
+                  <label
+                    htmlFor="title"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3"
+                  >
+                    <FormattedMessage
+                      id="admin-article-input-text"
+                      description="Enter Your Next Big Article Title!"
+                      defaultMessage="Enter Your Next Big Article Title!"
+                    />
+                  </label>
+                  <div className="relative">
+                    <input
+                      id="title"
+                      type="text"
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                      placeholder="What's your story about?"
+                      className="w-full px-5 py-5 pr-20 text-lg lg:text-xl bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-xl 
+                        text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400
+                        focus:outline-none focus:ring-2 focus:ring-fun-blue-500 focus:border-transparent
+                        transition-all duration-200 hover:border-gray-400 dark:hover:border-fun-blue-300
+                        resize-none"
+                    />
+                    {/* Character Counter - Fixed positioning */}
+                    <div className="absolute right-4 top-4 bg-white dark:bg-fun-blue-600 px-2 py-1 rounded-md text-xs text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-fun-blue-500">
+                      {title.length}/100
+                    </div>
+                  </div>
+                  
+                  {/* Validation Indicator */}
+                  {title.length > 0 && (
+                    <div className="mt-3 flex items-center">
+                      <div className={`w-2 h-2 rounded-full mr-2 ${
+                        isValid ? 'bg-green-500' : 'bg-orange-500'
+                      }`}></div>
+                      <span className={`text-sm ${
+                        isValid ? 'text-green-600 dark:text-green-400' : 'text-orange-600 dark:text-orange-400'
+                      }`}>
+                        {isValid ? 'Title looks perfect!' : 'Title must be 4-100 characters'}
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                {/* URL Preview */}
+                {title && (
+                  <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-xl p-5 border border-gray-200 dark:border-fun-blue-400">
+                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">
+                      <FormattedMessage
+                        id="admin-article-url"
+                        description="Article URL:"
+                        defaultMessage="Article URL:"
+                      />
+                    </p>
+                    <div className="flex items-center text-sm font-mono bg-white dark:bg-fun-blue-600 rounded-lg p-3 border border-gray-200 dark:border-fun-blue-500">
+                      <span className="text-gray-500 dark:text-gray-400">
+                        swapnilsrivastava.eu/
+                      </span>
+                      <span className="text-fun-blue-600 dark:text-caribbean-green-400 break-all font-medium">
+                        {profile?.username}/{slug || 'your-article-slug'}
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Action Buttons */}
+                <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                  <button
+                    type="submit"
+                    disabled={!isValid}
+                    className={`flex-1 py-4 px-8 rounded-xl font-medium text-white transition-all duration-200 ${
+                      isValid
+                        ? 'bg-gradient-to-r from-fun-blue-500 to-fun-blue-600 hover:from-fun-blue-600 hover:to-fun-blue-700 shadow-sm hover:shadow-lg transform hover:scale-[1.02]'
+                        : 'bg-gray-400 cursor-not-allowed'
+                    }`}
+                  >
+                    <FormattedMessage
+                      id="admin-article-create-btn"
+                      description="Create button while creating the article"
+                      defaultMessage="Create Article"
+                    />
+                  </button>
+                  
+                  <button
+                    type="button"
+                    onClick={clearTitle}
+                    className="py-4 px-8 rounded-xl font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-fun-blue-700 
+                      border border-gray-300 dark:border-fun-blue-400 hover:bg-gray-200 dark:hover:bg-fun-blue-800 
+                      transition-all duration-200 hover:scale-[1.02]"
+                  >
+                    <FormattedMessage
+                      id="admin-article-cancel-btn"
+                      description="Cancel button while creating the article"
+                      defaultMessage="Clear"
+                    />
+                  </button>
                 </div>
               </div>
-            )}
+            </div>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 mt-6">
-            <button
-              type="submit"
-              disabled={!isValid}
-              className={`flex-1 py-3 px-6 rounded-xl font-medium text-white transition-all duration-200 ${
-                isValid
-                  ? 'bg-gradient-to-r from-fun-blue-500 to-fun-blue-600 hover:from-fun-blue-600 hover:to-fun-blue-700 shadow-sm hover:shadow-md transform hover:scale-[1.02]'
-                  : 'bg-gray-400 cursor-not-allowed'
-              }`}
-            >
-              <FormattedMessage
-                id="admin-article-create-btn"
-                description="Create button while creating the article"
-                defaultMessage="Create Article"
-              />
-            </button>
-            
-            <button
-              type="button"
-              onClick={clearTitle}
-              className="py-3 px-6 rounded-xl font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-fun-blue-700 
-                border border-gray-300 dark:border-fun-blue-400 hover:bg-gray-200 dark:hover:bg-fun-blue-800 
-                transition-all duration-200 hover:scale-[1.02]"
-            >
-              <FormattedMessage
-                id="admin-article-cancel-btn"
-                description="Cancel button while creating the article"
-                defaultMessage="Clear"
-              />
-            </button>
+          {/* Desktop Sidebar - Only visible on large screens */}
+          <div className="hidden lg:block space-y-6">
+            {/* Tips Section */}
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-fun-blue-700 dark:to-fun-blue-800 rounded-xl p-6 border border-blue-200 dark:border-fun-blue-400 sticky top-8">
+              <h4 className="text-base font-semibold text-blue-900 dark:text-blue-300 mb-4 flex items-center">
+                <span className="text-2xl mr-2">💡</span>
+                Writing Tips
+              </h4>
+              <ul className="text-sm text-blue-700 dark:text-blue-400 space-y-3">
+                <li className="flex items-start">
+                  <span className="text-blue-500 mr-2">•</span>
+                  Keep your title clear and descriptive
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-500 mr-2">•</span>
+                  Use keywords that readers might search for
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-500 mr-2">•</span>
+                  Aim for 6-12 words for optimal engagement
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-500 mr-2">•</span>
+                  Make it compelling enough to click
+                </li>
+              </ul>
+            </div>
+
+            {/* Quick Stats */}
+            <div className="bg-white dark:bg-fun-blue-600 rounded-xl p-6 border border-gray-200 dark:border-fun-blue-500 shadow-sm">
+              <h4 className="text-base font-semibold text-gray-900 dark:text-white mb-4">
+                Article Stats
+              </h4>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">Words</span>
+                  <span className="text-sm font-medium text-gray-900 dark:text-white">
+                    {title.split(' ').length}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">Characters</span>
+                  <span className="text-sm font-medium text-gray-900 dark:text-white">
+                    {title.length}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">Readability</span>
+                  <span className={`text-sm font-medium ${
+                    isValid ? 'text-green-600 dark:text-green-400' : 'text-orange-600 dark:text-orange-400'
+                  }`}>
+                    {isValid ? 'Good' : 'Needs work'}
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Tips Section */}
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-fun-blue-700 dark:to-fun-blue-800 rounded-xl p-4 border border-blue-200 dark:border-fun-blue-400">
+        {/* Mobile Tips Section - Only visible on mobile */}
+        <div className="lg:hidden bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-fun-blue-700 dark:to-fun-blue-800 rounded-xl p-4 border border-blue-200 dark:border-fun-blue-400">
           <h4 className="text-sm font-medium text-blue-900 dark:text-blue-300 mb-2">
             💡 Writing Tips
           </h4>
