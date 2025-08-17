@@ -9,6 +9,15 @@
 
 ## General Guidance
   - Whenever you add a `FormattedMessage` component to a page, run the i18n extraction/generation process to update translation files.
+  - **Internationalization**: Always use `FormattedMessage` components for all user-facing strings instead of hardcoded text. Format:
+    ```tsx
+    <FormattedMessage
+      id="unique-message-id"
+      description="Description of the message context"
+      defaultMessage="Default text content"
+    />
+    ```
+  - **Hover States**: For text color changes on hover, use `fun-blue-500` as the primary hover color.
 
 - **Code using Next.js v13+ features**: Prefer functional components, React hooks (`useState`, `useEffect`), and the latest Next.js routing/structure.
 - **Authentication**: Use Supabase Auth via the `supa_client.ts` for all user sign-in, sign-up, and session management. Do *not* use or reference Firebase in any new code.

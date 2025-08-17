@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import kebabCase from "lodash.kebabcase";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 
 import AuthCheck from "../../components/AuthCheck";
 import PostFeed from "../../components/PostFeed";
@@ -73,24 +73,46 @@ function PostList() {
               />
             </h1>
             <p className="text-gray-600 dark:text-gray-400 mt-2">
-              Create, edit, and publish your articles
+              <FormattedMessage
+                id="admin-subtitle"
+                description="Create, edit, and publish your articles"
+                defaultMessage="Create, edit, and publish your articles"
+              />
             </p>
           </div>
           
           {/* Quick Stats */}
           <div className="flex items-center gap-4">
             <div className="bg-white dark:bg-fun-blue-600 rounded-lg px-4 py-2 border border-gray-200 dark:border-fun-blue-500">
-              <div className="text-sm text-gray-600 dark:text-gray-400">Total Posts</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">
+                <FormattedMessage
+                  id="admin-stats-total"
+                  description="Total Posts"
+                  defaultMessage="Total Posts"
+                />
+              </div>
               <div className="text-xl font-bold text-gray-900 dark:text-white">{posts.length}</div>
             </div>
             <div className="bg-white dark:bg-fun-blue-600 rounded-lg px-4 py-2 border border-gray-200 dark:border-fun-blue-500">
-              <div className="text-sm text-gray-600 dark:text-gray-400">Published</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">
+                <FormattedMessage
+                  id="admin-stats-published"
+                  description="Published"
+                  defaultMessage="Published"
+                />
+              </div>
               <div className="text-xl font-bold text-green-600 dark:text-green-400">
                 {posts.filter(post => post.published).length}
               </div>
             </div>
             <div className="bg-white dark:bg-fun-blue-600 rounded-lg px-4 py-2 border border-gray-200 dark:border-fun-blue-500">
-              <div className="text-sm text-gray-600 dark:text-gray-400">Drafts</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">
+                <FormattedMessage
+                  id="admin-stats-drafts"
+                  description="Drafts"
+                  defaultMessage="Drafts"
+                />
+              </div>
               <div className="text-xl font-bold text-orange-600 dark:text-orange-400">
                 {posts.filter(post => !post.published).length}
               </div>
@@ -102,13 +124,25 @@ function PostList() {
         <div className="mt-6 border-b border-gray-200 dark:border-fun-blue-500">
           <nav className="-mb-px flex space-x-8">
             <button className="py-2 px-1 border-b-2 border-fun-blue-500 font-medium text-sm text-fun-blue-600 dark:text-caribbean-green-400">
-              All Posts ({posts.length})
+              <FormattedMessage
+                id="admin-tab-all-posts"
+                description="All Posts"
+                defaultMessage="All Posts"
+              /> ({posts.length})
             </button>
             <button className="py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600">
-              Published ({posts.filter(post => post.published).length})
+              <FormattedMessage
+                id="admin-tab-published-posts"
+                description="Published"
+                defaultMessage="Published"
+              /> ({posts.filter(post => post.published).length})
             </button>
             <button className="py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600">
-              Drafts ({posts.filter(post => !post.published).length})
+              <FormattedMessage
+                id="admin-tab-drafts-posts"
+                description="Drafts"
+                defaultMessage="Drafts"
+              /> ({posts.filter(post => !post.published).length})
             </button>
           </nav>
         </div>
@@ -126,11 +160,19 @@ function PostList() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
-              No posts yet
+                        <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+              <FormattedMessage
+                id="admin-empty-title"
+                description="No articles yet"
+                defaultMessage="No articles yet"
+              />
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-6">
-              Start writing your first article to share your thoughts with the world
+            <p className="text-gray-500 dark:text-gray-400 mb-6">
+              <FormattedMessage
+                id="admin-empty-description"
+                description="Get started by creating your first post"
+                defaultMessage="Get started by creating your first post"
+              />
             </p>
             <button className="inline-flex items-center px-4 py-2 bg-fun-blue-600 hover:bg-fun-blue-700 text-white rounded-lg font-medium transition-colors">
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -147,6 +189,7 @@ function PostList() {
 
 function CreateNewPost() {
   const router = useRouter();
+  const intl = useIntl();
 
   const selectUser = (state: RootState) => state.users;
   const { user, username, userInfo } = useSelector(selectUser);
@@ -178,7 +221,11 @@ function CreateNewPost() {
       },
     ]);
 
-    toast.success("Post created!");
+    toast.success(intl.formatMessage({
+      id: 'admin-post-created-success',
+      description: 'Post created!',
+      defaultMessage: 'Post created!'
+    }));
 
     // Imperative navigation after doc is set
     router.push(`/admin/${slug}`);
@@ -195,10 +242,18 @@ function CreateNewPost() {
         {/* Header Section */}
         <div className="text-center space-y-3">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white">
-            Create New Article
+            <FormattedMessage
+              id="admin-create-title"
+              description="Create New Article"
+              defaultMessage="Create New Article"
+            />
           </h2>
           <p className="text-gray-600 dark:text-gray-400 text-base sm:text-lg max-w-2xl mx-auto">
-            Share your thoughts with the world and inspire others with your story
+            <FormattedMessage
+              id="admin-create-subtitle"
+              description="Share your thoughts with the world and inspire others with your story"
+              defaultMessage="Share your thoughts with the world and inspire others with your story"
+            />
           </p>
         </div>
 
@@ -234,7 +289,11 @@ function CreateNewPost() {
                       type="text"
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
-                      placeholder="What's your story about?"
+                      placeholder={intl.formatMessage({
+                        id: 'admin-article-placeholder',
+                        description: 'Placeholder text for article title input',
+                        defaultMessage: "What's your story about?"
+                      })}
                       className="w-full px-5 py-5 pr-20 text-lg lg:text-xl bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-xl 
                         text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400
                         focus:outline-none focus:ring-2 focus:ring-fun-blue-500 focus:border-transparent
@@ -256,7 +315,19 @@ function CreateNewPost() {
                       <span className={`text-sm ${
                         isValid ? 'text-green-600 dark:text-green-400' : 'text-orange-600 dark:text-orange-400'
                       }`}>
-                        {isValid ? 'Title looks perfect!' : 'Title must be 4-100 characters'}
+                        {isValid ? (
+                          <FormattedMessage
+                            id="admin-validation-success"
+                            description="Title looks perfect!"
+                            defaultMessage="Title looks perfect!"
+                          />
+                        ) : (
+                          <FormattedMessage
+                            id="admin-validation-error"
+                            description="Title must be 4-100 characters"
+                            defaultMessage="Title must be 4-100 characters"
+                          />
+                        )}
                       </span>
                     </div>
                   )}
@@ -325,24 +396,44 @@ function CreateNewPost() {
             <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-fun-blue-700 dark:to-fun-blue-800 rounded-xl p-6 border border-blue-200 dark:border-fun-blue-400 sticky top-8">
               <h4 className="text-base font-semibold text-blue-900 dark:text-blue-300 mb-4 flex items-center">
                 <span className="text-2xl mr-2">💡</span>
-                Writing Tips
+                <FormattedMessage
+                  id="admin-tips-title"
+                  description="Writing Tips"
+                  defaultMessage="Writing Tips"
+                />
               </h4>
               <ul className="text-sm text-blue-700 dark:text-blue-400 space-y-3">
                 <li className="flex items-start">
                   <span className="text-blue-500 mr-2">•</span>
-                  Keep your title clear and descriptive
+                  <FormattedMessage
+                    id="admin-tip-1"
+                    description="Keep your title clear and descriptive"
+                    defaultMessage="Keep your title clear and descriptive"
+                  />
                 </li>
                 <li className="flex items-start">
                   <span className="text-blue-500 mr-2">•</span>
-                  Use keywords that readers might search for
+                  <FormattedMessage
+                    id="admin-tip-2"
+                    description="Use keywords that readers might search for"
+                    defaultMessage="Use keywords that readers might search for"
+                  />
                 </li>
                 <li className="flex items-start">
                   <span className="text-blue-500 mr-2">•</span>
-                  Aim for 6-12 words for optimal engagement
+                  <FormattedMessage
+                    id="admin-tip-3"
+                    description="Aim for 6-12 words for optimal engagement"
+                    defaultMessage="Aim for 6-12 words for optimal engagement"
+                  />
                 </li>
                 <li className="flex items-start">
                   <span className="text-blue-500 mr-2">•</span>
-                  Make it compelling enough to click
+                  <FormattedMessage
+                    id="admin-tip-4"
+                    description="Make it compelling enough to click"
+                    defaultMessage="Make it compelling enough to click"
+                  />
                 </li>
               </ul>
             </div>
@@ -350,27 +441,61 @@ function CreateNewPost() {
             {/* Quick Stats */}
             <div className="bg-white dark:bg-fun-blue-600 rounded-xl p-6 border border-gray-200 dark:border-fun-blue-500 shadow-sm">
               <h4 className="text-base font-semibold text-gray-900 dark:text-white mb-4">
-                Article Stats
+                <FormattedMessage
+                  id="admin-stats-sidebar-title"
+                  description="Article Stats"
+                  defaultMessage="Article Stats"
+                />
               </h4>
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Words</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    <FormattedMessage
+                      id="admin-stats-words"
+                      description="Words"
+                      defaultMessage="Words"
+                    />
+                  </span>
                   <span className="text-sm font-medium text-gray-900 dark:text-white">
                     {title.split(' ').length}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Characters</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    <FormattedMessage
+                      id="admin-stats-characters"
+                      description="Characters"
+                      defaultMessage="Characters"
+                    />
+                  </span>
                   <span className="text-sm font-medium text-gray-900 dark:text-white">
                     {title.length}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Readability</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    <FormattedMessage
+                      id="admin-stats-readability"
+                      description="Readability"
+                      defaultMessage="Readability"
+                    />
+                  </span>
                   <span className={`text-sm font-medium ${
                     isValid ? 'text-green-600 dark:text-green-400' : 'text-orange-600 dark:text-orange-400'
                   }`}>
-                    {isValid ? 'Good' : 'Needs work'}
+                    {isValid ? (
+                      <FormattedMessage
+                        id="admin-readability-good"
+                        description="Good"
+                        defaultMessage="Good"
+                      />
+                    ) : (
+                      <FormattedMessage
+                        id="admin-readability-needs-work"
+                        description="Needs work"
+                        defaultMessage="Needs work"
+                      />
+                    )}
                   </span>
                 </div>
               </div>
@@ -381,12 +506,28 @@ function CreateNewPost() {
         {/* Mobile Tips Section - Only visible on mobile */}
         <div className="lg:hidden bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-fun-blue-700 dark:to-fun-blue-800 rounded-xl p-4 border border-blue-200 dark:border-fun-blue-400">
           <h4 className="text-sm font-medium text-blue-900 dark:text-blue-300 mb-2">
-            💡 Writing Tips
+            💡 <FormattedMessage
+              id="admin-mobile-tips-title"
+              description="Writing Tips"
+              defaultMessage="Writing Tips"
+            />
           </h4>
           <ul className="text-xs text-blue-700 dark:text-blue-400 space-y-1">
-            <li>• Keep your title clear and descriptive</li>
-            <li>• Use keywords that readers might search for</li>
-            <li>• Aim for 6-12 words for optimal engagement</li>
+            <li>• <FormattedMessage
+              id="admin-mobile-tip-1"
+              description="Keep your title clear and descriptive"
+              defaultMessage="Keep your title clear and descriptive"
+            /></li>
+            <li>• <FormattedMessage
+              id="admin-mobile-tip-2"
+              description="Use keywords that readers might search for"
+              defaultMessage="Use keywords that readers might search for"
+            /></li>
+            <li>• <FormattedMessage
+              id="admin-mobile-tip-3"
+              description="Aim for 6-12 words for optimal engagement"
+              defaultMessage="Aim for 6-12 words for optimal engagement"
+            /></li>
           </ul>
         </div>
       </form>
