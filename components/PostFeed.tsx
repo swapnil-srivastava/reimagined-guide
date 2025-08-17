@@ -93,31 +93,13 @@ function PostItem({ post, admin = false, approve = false }) {
     <div className="px-4 sm:px-0">
       <div className="group relative bg-white dark:bg-fun-blue-600 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-fun-blue-500 hover:border-persian-blue-200 dark:hover:border-caribbean-green-400">
       
-      {/* Status Badge */}
-      <div className="absolute top-4 right-4 z-10">
-        <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium shadow-sm ${
-          post.published 
-            ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' 
-            : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
-        }`}>
-          <div className={`w-2 h-2 rounded-full mr-2 ${
-            post.published ? 'bg-green-500' : 'bg-red-500'
-          }`}></div>
-          {post.published ? (
-            <FormattedMessage id="card_live" description="Card Live" defaultMessage="Live" />
-          ) : (
-            <FormattedMessage id="card_unpublished" description="Card Unpublished" defaultMessage="Unpublished" />
-          )}
-        </span>
-      </div>
-
-      <div className="p-6">
-        {/* Author Section */}
-        <div className="flex items-center justify-between mb-4">
-          <Link href={`/${post.username}`} legacyBehavior>
-            <div className="flex items-center gap-3 cursor-pointer group-hover:scale-105 transition-transform duration-200">
-              {post?.photo_url ? (
-                <div className="w-12 h-12 rounded-full overflow-hidden ring-2 ring-gray-200 dark:ring-fun-blue-400 ring-offset-2 transition-all duration-200 hover:ring-persian-blue-400 dark:hover:ring-caribbean-green-400">
+        <div className="p-6">
+          {/* Header with Status Badge */}
+          <div className="flex items-start justify-between mb-4">
+            <Link href={`/${post.username}`} legacyBehavior>
+              <div className="flex items-center gap-3 cursor-pointer group-hover:scale-105 transition-transform duration-200">
+                {post?.photo_url ? (
+                  <div className="w-12 h-12 rounded-full overflow-hidden ring-2 ring-gray-200 dark:ring-fun-blue-400 ring-offset-2 transition-all duration-200 hover:ring-persian-blue-400 dark:hover:ring-caribbean-green-400">
                   <Image
                     width={200}
                     height={200}
@@ -143,8 +125,26 @@ function PostItem({ post, admin = false, approve = false }) {
             </div>
           </Link>
 
-          {/* Action Buttons */}
-          <div className="flex items-center gap-2">
+          {/* Right Side: Status Badge and Action Buttons */}
+          <div className="flex items-center gap-3">
+            {/* Status Badge */}
+            <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium shadow-sm ${
+              post.published 
+                ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' 
+                : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
+            }`}>
+              <div className={`w-2 h-2 rounded-full mr-2 ${
+                post.published ? 'bg-green-500' : 'bg-red-500'
+              }`}></div>
+              {post.published ? (
+                <FormattedMessage id="card_live" description="Card Live" defaultMessage="Live" />
+              ) : (
+                <FormattedMessage id="card_unpublished" description="Card Unpublished" defaultMessage="Unpublished" />
+              )}
+            </span>
+
+            {/* Action Buttons */}
+            <div className="flex items-center gap-2">
             {admin && (
               <Link href={`/admin/${post.slug}`}>
                 <button className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-fun-blue-700 dark:hover:bg-fun-blue-800 text-gray-600 dark:text-gray-300 transition-all duration-200 hover:scale-110">
@@ -160,6 +160,7 @@ function PostItem({ post, admin = false, approve = false }) {
                 </button>
               </Link>
             )}
+            </div>
           </div>
         </div>
 
