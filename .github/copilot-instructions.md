@@ -52,10 +52,11 @@
 - **Color Palette**:  
   - Analogous: `#1249de`, `#5d12de`, `#12dea8`  
   - Monochromatic: `#1249de`, `#385dc5`
-  - Background: `#fbfbfb` (light mode), `#004b8c` (dark mode)
+  - **Background Colors**: Use `bg-blog-white` (#fbfbfb) for light mode backgrounds and `dark:bg-fun-blue-500` (#00539c) for dark mode backgrounds across all pages and components. This ensures consistent theming.
 - **Dark Mode**:  
   - Ensure all theme and dark mode classnames are safelisted in `tailwindcss.config.js` as needed (e.g., `safelist: ['dark']`).
   - Use `text-black` for main text in light mode and `text-white` for main content text in dark mode, including privacy policy and user preference pages.
+  - **Consistent Backgrounds**: Always use `bg-blog-white dark:bg-fun-blue-500` for main page/section backgrounds to maintain visual consistency.
 - **Format**: Use Tailwind utility classes for all layout, spacing, color, and responsive rules. Avoid inline styles when possible.
 
 ## Internationalization
