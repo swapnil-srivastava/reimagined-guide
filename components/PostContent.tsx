@@ -9,7 +9,7 @@ import {
   faFacebook,
   faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
-import { faHeart, faPenToSquare, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsis, faHeart, faPenToSquare, faThumbsUp, faCopy, faGlobe, faRocket } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
 import { FormattedMessage } from "react-intl";
 
@@ -78,7 +78,79 @@ export default function PostContent({
   };
 
   return <>
-    <div className="p-3 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-lg drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
+    <div className="p-3 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-lg drop-shadow-lg hover:drop-shadow-xl dark:hover:brightness-125">
+      {/* Post Action Dashboard SECTION */}
+      <div className="relative mb-6 p-4 bg-gradient-to-br from-persian-blue-50 to-caribbean-green-50 dark:from-fun-blue-600 dark:to-dark-blue-600 rounded-xl border border-persian-blue-100 dark:border-fun-blue-400 shadow-sm">
+        {/* Status Badge */}
+        <div className="absolute -top-2 -right-2">
+          <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium shadow-sm ${
+            post.published 
+              ? 'bg-caribbean-green-500 text-white ring-2 ring-caribbean-green-100' 
+              : 'bg-hit-pink-500 text-white ring-2 ring-hit-pink-100'
+          }`}>
+            {post.published ? '● Published' : '● Draft'}
+          </span>
+        </div>
+
+        {/* Action Buttons Grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-2">
+          <button 
+            className="group relative overflow-hidden bg-slate-500 hover:bg-slate-600 text-white rounded p-1.5 transition-all duration-300 transform hover:scale-105 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2"
+            aria-label="Edit post"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-400 to-slate-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative flex items-center justify-center space-x-1">
+              <FontAwesomeIcon icon={faPenToSquare} className="h-3 w-3" />
+              <span className="text-[10px] font-medium leading-tight">Edit</span>
+            </div>
+          </button>
+
+          <button 
+            className="group relative overflow-hidden bg-orange-500 hover:bg-orange-600 text-white rounded p-1.5 transition-all duration-300 transform hover:scale-105 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2"
+            aria-label="Mark as copy ready"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-red-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative flex items-center justify-center space-x-1">
+              <FontAwesomeIcon icon={faCopy} className="h-3 w-3" />
+              <span className="text-[10px] font-medium leading-tight">Copy Ready</span>
+            </div>
+          </button>
+
+          <button 
+            className="group relative overflow-hidden bg-emerald-500 hover:bg-emerald-600 text-white rounded p-1.5 transition-all duration-300 transform hover:scale-105 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2"
+            aria-label="Mark as web ready"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-green-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative flex items-center justify-center space-x-1">
+              <FontAwesomeIcon icon={faGlobe} className="h-3 w-3" />
+              <span className="text-[10px] font-medium leading-tight">Web Ready</span>
+            </div>
+          </button>
+
+          <button 
+            className="group relative overflow-hidden bg-blue-600 hover:bg-blue-700 text-white rounded p-1.5 transition-all duration-300 transform hover:scale-105 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+            aria-label="Publish post"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative flex items-center justify-center space-x-1">
+              <FontAwesomeIcon icon={faRocket} className="h-3 w-3" />
+              <span className="text-[10px] font-medium leading-tight">Publish</span>
+            </div>
+          </button>
+        </div>
+
+        {/* Workflow Progress Bar */}
+        <div className="mt-4 pt-3 border-t border-persian-blue-100 dark:border-fun-blue-400">
+          <div className="flex items-center justify-between text-xs text-persian-blue-600 dark:text-caribbean-green-300 mb-2">
+            <span>Workflow Progress</span>
+            <span className="font-medium">2/4 Complete</span>
+          </div>
+          <div className="w-full bg-persian-blue-100 dark:bg-fun-blue-700 rounded-full h-2">
+            <div className="bg-gradient-to-r from-persian-blue-500 to-caribbean-green-500 h-2 rounded-full transition-all duration-500" style={{width: '50%'}}></div>
+          </div>
+        </div>
+      </div>
+      
       {/* User Image and Sharing Button SECTION */}
       <div
         className="bg-blog-white dark:bg-fun-blue-500 
