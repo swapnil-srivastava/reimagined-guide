@@ -245,15 +245,17 @@ function ApprovePostList() {
           {searchTerm && (
             <div className="bg-blue-50 dark:bg-fun-blue-800 border border-blue-200 dark:border-fun-blue-600 rounded-lg p-4 mb-6">
               <p className="text-blue-800 dark:text-blue-200 text-sm">
-                <FormattedMessage
-                  id="approve-search-results"
-                  description="Search results summary"
-                  defaultMessage="Showing {count} {count, plural, one {result} other {results}} for '{searchTerm}'"
-                  values={{
+                {intl.formatMessage(
+                  {
+                    id: 'approve-search-results',
+                    description: 'Search results summary',
+                    defaultMessage: 'Showing {count} {count, plural, one {result} other {results}} for "{searchTerm}"'
+                  },
+                  {
                     count: filteredPosts.length,
                     searchTerm: searchTerm
-                  }}
-                />
+                  }
+                )}
               </p>
             </div>
           )}
