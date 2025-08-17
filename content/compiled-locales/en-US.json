@@ -14,19 +14,25 @@
   "admin-article-cancel-btn": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "Clear"
     }
   ],
   "admin-article-create-btn": [
     {
       "type": 0,
-      "value": "Create"
+      "value": "Create Article"
     }
   ],
   "admin-article-input-text": [
     {
       "type": 0,
       "value": "Enter Your Next Big Article Title!"
+    }
+  ],
+  "admin-article-placeholder": [
+    {
+      "type": 0,
+      "value": "What's your story about?"
     }
   ],
   "admin-article-sr-only-text": [
@@ -38,13 +44,199 @@
   "admin-article-url": [
     {
       "type": 0,
-      "value": "Article URL :"
+      "value": "Article URL:"
+    }
+  ],
+  "admin-create-subtitle": [
+    {
+      "type": 0,
+      "value": "Share your thoughts with the world and inspire others with your story"
+    }
+  ],
+  "admin-create-title": [
+    {
+      "type": 0,
+      "value": "Create New Article"
+    }
+  ],
+  "admin-empty-description": [
+    {
+      "type": 0,
+      "value": "Get started by creating your first post"
+    }
+  ],
+  "admin-empty-drafts-description": [
+    {
+      "type": 0,
+      "value": "Create your first draft to get started"
+    }
+  ],
+  "admin-empty-drafts-title": [
+    {
+      "type": 0,
+      "value": "No draft articles yet"
+    }
+  ],
+  "admin-empty-published-description": [
+    {
+      "type": 0,
+      "value": "Publish your first draft to see it here"
+    }
+  ],
+  "admin-empty-published-title": [
+    {
+      "type": 0,
+      "value": "No published articles yet"
+    }
+  ],
+  "admin-empty-title": [
+    {
+      "type": 0,
+      "value": "No articles yet"
+    }
+  ],
+  "admin-mobile-tip-1": [
+    {
+      "type": 0,
+      "value": "Keep your title clear and descriptive"
+    }
+  ],
+  "admin-mobile-tip-2": [
+    {
+      "type": 0,
+      "value": "Use keywords that readers might search for"
+    }
+  ],
+  "admin-mobile-tip-3": [
+    {
+      "type": 0,
+      "value": "Aim for 6-12 words for optimal engagement"
+    }
+  ],
+  "admin-mobile-tips-title": [
+    {
+      "type": 0,
+      "value": "Writing Tips"
+    }
+  ],
+  "admin-post-created-success": [
+    {
+      "type": 0,
+      "value": "Post created!"
+    }
+  ],
+  "admin-readability-good": [
+    {
+      "type": 0,
+      "value": "Good"
+    }
+  ],
+  "admin-readability-needs-work": [
+    {
+      "type": 0,
+      "value": "Needs work"
     }
   ],
   "admin-slug-save-btn": [
     {
       "type": 0,
       "value": "Save Changes"
+    }
+  ],
+  "admin-stats-characters": [
+    {
+      "type": 0,
+      "value": "Characters"
+    }
+  ],
+  "admin-stats-drafts": [
+    {
+      "type": 0,
+      "value": "Drafts"
+    }
+  ],
+  "admin-stats-published": [
+    {
+      "type": 0,
+      "value": "Published"
+    }
+  ],
+  "admin-stats-readability": [
+    {
+      "type": 0,
+      "value": "Readability"
+    }
+  ],
+  "admin-stats-sidebar-title": [
+    {
+      "type": 0,
+      "value": "Article Stats"
+    }
+  ],
+  "admin-stats-total": [
+    {
+      "type": 0,
+      "value": "Total Posts"
+    }
+  ],
+  "admin-stats-words": [
+    {
+      "type": 0,
+      "value": "Words"
+    }
+  ],
+  "admin-subtitle": [
+    {
+      "type": 0,
+      "value": "Create, edit, and publish your articles"
+    }
+  ],
+  "admin-tab-all-posts": [
+    {
+      "type": 0,
+      "value": "All Posts"
+    }
+  ],
+  "admin-tab-drafts-posts": [
+    {
+      "type": 0,
+      "value": "Drafts"
+    }
+  ],
+  "admin-tab-published-posts": [
+    {
+      "type": 0,
+      "value": "Published"
+    }
+  ],
+  "admin-tip-1": [
+    {
+      "type": 0,
+      "value": "Keep your title clear and descriptive"
+    }
+  ],
+  "admin-tip-2": [
+    {
+      "type": 0,
+      "value": "Use keywords that readers might search for"
+    }
+  ],
+  "admin-tip-3": [
+    {
+      "type": 0,
+      "value": "Aim for 6-12 words for optimal engagement"
+    }
+  ],
+  "admin-tip-4": [
+    {
+      "type": 0,
+      "value": "Make it compelling enough to click"
+    }
+  ],
+  "admin-tips-title": [
+    {
+      "type": 0,
+      "value": "Writing Tips"
     }
   ],
   "admin-title": [
@@ -57,6 +249,18 @@
     {
       "type": 0,
       "value": "Article URL :"
+    }
+  ],
+  "admin-validation-error": [
+    {
+      "type": 0,
+      "value": "Title must be 4-100 characters"
+    }
+  ],
+  "admin-validation-success": [
+    {
+      "type": 0,
+      "value": "Title looks perfect!"
     }
   ],
   "animation.string1": [
@@ -129,30 +333,6 @@
     {
       "type": 0,
       "value": "Total:"
-    }
-  ],
-  "card_live": [
-    {
-      "type": 0,
-      "value": "Live"
-    }
-  ],
-  "card_mins_read": [
-    {
-      "type": 0,
-      "value": "min read"
-    }
-  ],
-  "card_unpublished": [
-    {
-      "type": 0,
-      "value": "Unpublished"
-    }
-  ],
-  "card_words": [
-    {
-      "type": 0,
-      "value": "words"
     }
   ],
   "cart-heading": [
@@ -623,6 +803,30 @@
     {
       "type": 0,
       "value": "No more articles"
+    }
+  ],
+  "preferences.back_to_home": [
+    {
+      "type": 0,
+      "value": "Back to Home"
+    }
+  ],
+  "preferences.intro": [
+    {
+      "type": 0,
+      "value": "Customize your experience on our platform by adjusting your personalization settings. These settings will be saved according to your cookie preferences."
+    }
+  ],
+  "preferences.title": [
+    {
+      "type": 0,
+      "value": "User Preferences"
+    }
+  ],
+  "privacy.back_to_home": [
+    {
+      "type": 0,
+      "value": "Back to Home"
     }
   ],
   "product-card-add-to-cart": [
