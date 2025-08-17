@@ -18,6 +18,7 @@ import HeartButton from "./HeartButton";
 import BasicTooltip from "./Tooltip";
 import AuthCheck from "./AuthCheck";
 import Video from "./Video";
+import AudioPlayer from "./AudioPlayer";
 
 // Interface
 import { RootState } from "../lib/interfaces/interface";
@@ -28,7 +29,6 @@ import { supaClient } from "../supa-client";
 
 // Email Service
 import { sendEmail } from "../services/email.service";
-import AudioPlayer from "./AudioPlayer";
 
 // UI component for main post content
 export default function PostContent({
