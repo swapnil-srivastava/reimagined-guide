@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FormattedMessage } from 'react-intl';
 import Loader from "./Loader";
 
 export default function ImageUploader() {
@@ -24,7 +25,13 @@ export default function ImageUploader() {
       {!uploading && (
         <>
           <label htmlFor="image-upload" className="block p-1">
-            <span className="sr-only">Choose Image</span>
+            <span className="sr-only">
+              <FormattedMessage
+                id="imageuploader-choose-image-sr"
+                description="Choose Image"
+                defaultMessage="Choose Image"
+              />
+            </span>
             <input
               type="file"
               id="image-upload"

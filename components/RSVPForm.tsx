@@ -46,7 +46,13 @@ const RSVPForm = ({ eventId }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Typography variant="h6">RSVP for Event</Typography>
+      <Typography variant="h6">
+        <FormattedMessage
+          id="rsvpform-title"
+          description="RSVP for Event"
+          defaultMessage="RSVP for Event"
+        />
+      </Typography>
       
       <TextField
         label={intl.formatMessage({

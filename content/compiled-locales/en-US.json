@@ -1001,6 +1001,12 @@
       "value": "Innovate"
     }
   ],
+  "imageuploader-choose-image-sr": [
+    {
+      "type": 0,
+      "value": "Choose Image"
+    }
+  ],
   "invite-date-time-label": [
     {
       "type": 0,
@@ -1173,6 +1179,12 @@
     {
       "type": 0,
       "value": "Read more"
+    }
+  ],
+  "postcontent-approve-button": [
+    {
+      "type": 0,
+      "value": "Approve"
     }
   ],
   "postcontent-copy-ready": [
@@ -1567,6 +1579,12 @@
     {
       "type": 0,
       "value": "Submit RSVP"
+    }
+  ],
+  "rsvpform-title": [
+    {
+      "type": 0,
+      "value": "RSVP for Event"
     }
   ],
   "rsvpform-will-attend-label": [

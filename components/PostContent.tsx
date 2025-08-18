@@ -317,7 +317,13 @@ export default function PostContent({
                 className="inline-flex items-center gap-2 px-3 py-2 bg-green-100 hover:bg-green-200 dark:bg-green-600 dark:hover:bg-green-700 text-green-700 dark:text-white rounded-lg transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2"
               >
                 <FontAwesomeIcon icon={faThumbsUp} className="h-4 w-4" />
-                <span className="text-sm font-medium">Approve</span>
+                <span className="text-sm font-medium">
+                  <FormattedMessage
+                    id="postcontent-approve-button"
+                    description="Approve"
+                    defaultMessage="Approve"
+                  />
+                </span>
               </button>
             )}
 
