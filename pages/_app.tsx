@@ -98,7 +98,7 @@ function MyApp({ Component, pageProps }) {
             >
               <div className="flex flex-col min-h-screen">
                 <AwesomeNavBar />
-                <main className="flex-1 pb-20">
+                <main className="flex-1">
                   <Component {...pageProps} />
                 </main>
                 <BuyMeCoffee></BuyMeCoffee>
