@@ -18,6 +18,7 @@ import styles from "../styles/Admin.module.css";
 
 // Components
 import CurrencyPriceComponent from "./CurrencyPriceComponent";
+import ProductQuickView from "./ProductQuickView";
 
 // Product Schema
 import schema from "../lib/product/productSchema.json";
@@ -245,6 +246,8 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
     const dispatch = useDispatch();
 
     const [ createProduct, setCreateProduct] = useState<boolean>(false);
+    const [quickViewProduct, setQuickViewProduct] = useState<any>(null);
+    const [quickViewOpen, setQuickViewOpen] = useState<boolean>(false);
 
     const handleAddProduct = (product: PRODUCT) => {
         dispatch(addToCartInsert(product));
@@ -285,7 +288,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                     }
 
                     return (
-                        <article key={product.id} className="flex flex-col bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white rounded-3xl drop-shadow-lg overflow-hidden">
+                        <article key={product.id} className="relative group flex flex-col bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white rounded-3xl drop-shadow-lg overflow-hidden hover:scale-[1.01] transition-transform">
                             <div className="w-full h-48 relative">
                                 <Image
                                     src={product.image_url ?? `/mountains.jpg`}
@@ -295,6 +298,16 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                                     height={500}
                                     className="object-cover w-full h-48"
                                 />
+                                {/* Badge */}
+                                {product?.stock === 0 ? (
+                                    <span className="absolute left-2 top-2 bg-red-500 text-white text-xs px-2 py-1 rounded">Out of stock</span>
+                                ) : (product as any)?.isNew ? (
+                                    <span className="absolute left-2 top-2 bg-green-500 text-white text-xs px-2 py-1 rounded">New</span>
+                                ) : null}
+                                {/* Quick view */}
+                                <button aria-label="Quick view" onClick={() => { setQuickViewProduct(product); setQuickViewOpen(true); }} className="absolute right-2 top-2 bg-white dark:bg-gray-800 p-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <FontAwesomeIcon icon={faCirclePlus} />
+                                </button>
                             </div>
                             <div className="p-4 flex-1 flex flex-col justify-between">
                                 <div>
@@ -343,6 +356,9 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                         </div>
                     </div>
                 )}
+
+                {/* Quick view modal */}
+                <ProductQuickView isOpen={quickViewOpen} onRequestClose={() => setQuickViewOpen(false)} product={quickViewProduct} />
             </div>
         </>
     )
