@@ -32,7 +32,7 @@ const Pricing = () => {
   ];
 
   return (
-    <div className="h-screen flex flex-col items-center gap-2 font-poppins mt-10">
+    <div className="min-h-screen flex flex-col items-center gap-2 font-poppins mt-10">
         {/* Title */}
         <div className="lg:text-4xl text-2xl dark:text-blog-white text-center">
           <FormattedMessage
