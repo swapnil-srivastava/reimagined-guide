@@ -17,7 +17,6 @@ import {
   faBolt,
   faFire,
   faStar,
-  faSparkles,
   faInfinity,
   faChevronDown,
   faPlay,
@@ -180,7 +179,7 @@ export default function Technology(props) {
     { 
       id: 'hologram', 
       label: 'Holographic', 
-      icon: faSparkles,
+      icon: faMagic,
       description: '3D projection'
     }
   ];
@@ -236,7 +235,7 @@ export default function Technology(props) {
     }
   };
 
-  const [data, setData] = useState({});
+  const [data, setData] = useState<Record<string, any>>({});
 
   function QuantumTechCreator() {
     return (
@@ -267,8 +266,8 @@ export default function Technology(props) {
                   defaultMessage="Quantum Tech Synthesizer"
                 />
               </h3>
-              <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center animate-pulse">
-                <FontAwesomeIcon icon={faSparkles} size="lg" className="text-white" />
+                <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center animate-pulse">
+                <FontAwesomeIcon icon={faMagic} size="lg" className="text-white" />
               </div>
             </div>
             <p className="text-purple-200">
@@ -442,7 +441,7 @@ export default function Technology(props) {
                   />
                 </h1>
                 <div className="w-20 h-20 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl flex items-center justify-center shadow-lg animate-pulse">
-                  <FontAwesomeIcon icon={faSparkles} size="2x" className="text-white animate-spin" />
+                  <FontAwesomeIcon icon={faMagic} size="2x" className="text-white animate-spin" />
                 </div>
               </div>
 
