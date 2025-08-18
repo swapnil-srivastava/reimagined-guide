@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FormattedMessage, useIntl } from 'react-intl';
 import Image from "next/legacy/image";
 import * as postmark from "postmark";
 import { useSelector } from "react-redux";
@@ -11,7 +12,6 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faEllipsis, faHeart, faPenToSquare, faThumbsUp, faCopy, faGlobe, faRocket } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
-import { FormattedMessage } from "react-intl";
 
 // React Components
 import HeartButton from "./HeartButton";
@@ -40,6 +40,7 @@ export default function PostContent({
   approve?: boolean;
   audioUrl?: string;
 }) {
+  const intl = useIntl();
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
@@ -61,7 +62,11 @@ export default function PostContent({
         .update({ approved: true })
         .eq("slug", post?.slug);
 
-      toast.success("Post approved successfully!");
+      toast.success(intl.formatMessage({
+        id: "postcontent-post-approved",
+        description: "Post approved successfully!",
+        defaultMessage: "Post approved successfully!"
+      }));
 
       const articleURL = `https://swapnilsrivastava.eu/${post?.username}/${post?.slug}`;
 
@@ -73,7 +78,11 @@ export default function PostContent({
 
       sendEmail(emailMessage);
 
-      toast.success("Email confirmation sent!");
+      toast.success(intl.formatMessage({
+        id: "postcontent-email-confirmation-sent",
+        description: "Email confirmation sent!",
+        defaultMessage: "Email confirmation sent!"
+      }));
     }
   };
 
@@ -102,7 +111,19 @@ export default function PostContent({
               ? 'bg-caribbean-green-500 text-white ring-2 ring-caribbean-green-100' 
               : 'bg-hit-pink-500 text-white ring-2 ring-hit-pink-100'
           }`}>
-            {post.published ? '● Published' : '● Draft'}
+            {post.published ? (
+              <FormattedMessage
+                id="postcontent-published-status"
+                description="● Published"
+                defaultMessage="● Published"
+              />
+            ) : (
+              <FormattedMessage
+                id="postcontent-draft-status"
+                description="● Draft"
+                defaultMessage="● Draft"
+              />
+            )}
           </span>
         </div>
 
@@ -110,7 +131,11 @@ export default function PostContent({
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-2">
           <button 
             className="group relative overflow-hidden bg-slate-500 hover:bg-slate-600 text-white rounded p-1.5 transition-all duration-300 transform hover:scale-105 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2"
-            aria-label="Edit post"
+            aria-label={intl.formatMessage({
+              id: "postcontent-edit-post-aria",
+              description: "Edit post",
+              defaultMessage: "Edit post"
+            })}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-slate-400 to-slate-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <div className="relative flex items-center justify-center space-x-1">
@@ -121,34 +146,64 @@ export default function PostContent({
 
           <button 
             className="group relative overflow-hidden bg-orange-500 hover:bg-orange-600 text-white rounded p-1.5 transition-all duration-300 transform hover:scale-105 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2"
-            aria-label="Mark as copy ready"
+            aria-label={intl.formatMessage({
+              id: "postcontent-mark-copy-ready-aria",
+              description: "Mark as copy ready",
+              defaultMessage: "Mark as copy ready"
+            })}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-red-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <div className="relative flex items-center justify-center space-x-1">
               <FontAwesomeIcon icon={faCopy} className="h-3 w-3" />
-              <span className="text-[10px] font-medium leading-tight">Copy Ready</span>
+              <span className="text-[10px] font-medium leading-tight">
+                <FormattedMessage
+                  id="postcontent-copy-ready"
+                  description="Copy Ready"
+                  defaultMessage="Copy Ready"
+                />
+              </span>
             </div>
           </button>
 
           <button 
             className="group relative overflow-hidden bg-emerald-500 hover:bg-emerald-600 text-white rounded p-1.5 transition-all duration-300 transform hover:scale-105 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2"
-            aria-label="Mark as web ready"
+            aria-label={intl.formatMessage({
+              id: "postcontent-mark-web-ready-aria",
+              description: "Mark as web ready",
+              defaultMessage: "Mark as web ready"
+            })}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-green-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <div className="relative flex items-center justify-center space-x-1">
               <FontAwesomeIcon icon={faGlobe} className="h-3 w-3" />
-              <span className="text-[10px] font-medium leading-tight">Web Ready</span>
+              <span className="text-[10px] font-medium leading-tight">
+                <FormattedMessage
+                  id="postcontent-web-ready"
+                  description="Web Ready"
+                  defaultMessage="Web Ready"
+                />
+              </span>
             </div>
           </button>
 
           <button 
             className="group relative overflow-hidden bg-blue-600 hover:bg-blue-700 text-white rounded p-1.5 transition-all duration-300 transform hover:scale-105 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
-            aria-label="Publish post"
+            aria-label={intl.formatMessage({
+              id: "postcontent-publish-post-aria",
+              description: "Publish post",
+              defaultMessage: "Publish post"
+            })}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <div className="relative flex items-center justify-center space-x-1">
               <FontAwesomeIcon icon={faRocket} className="h-3 w-3" />
-              <span className="text-[10px] font-medium leading-tight">Publish</span>
+              <span className="text-[10px] font-medium leading-tight">
+                <FormattedMessage
+                  id="postcontent-publish"
+                  description="Publish"
+                  defaultMessage="Publish"
+                />
+              </span>
             </div>
           </button>
         </div>
@@ -156,8 +211,20 @@ export default function PostContent({
         {/* Workflow Progress Bar */}
         <div className="mt-4 pt-3 border-t border-persian-blue-100 dark:border-fun-blue-400">
           <div className="flex items-center justify-between text-xs text-persian-blue-600 dark:text-caribbean-green-300 mb-2">
-            <span>Workflow Progress</span>
-            <span className="font-medium">2/4 Complete</span>
+            <span>
+              <FormattedMessage
+                id="postcontent-workflow-progress"
+                description="Workflow Progress"
+                defaultMessage="Workflow Progress"
+              />
+            </span>
+            <span className="font-medium">
+              <FormattedMessage
+                id="postcontent-workflow-complete"
+                description="2/4 Complete"
+                defaultMessage="2/4 Complete"
+              />
+            </span>
           </div>
           <div className="w-full bg-persian-blue-100 dark:bg-fun-blue-700 rounded-full h-2">
             <div className="bg-gradient-to-r from-persian-blue-500 to-caribbean-green-500 h-2 rounded-full transition-all duration-500" style={{width: '50%'}}></div>
@@ -281,7 +348,11 @@ export default function PostContent({
               <span className="text-xs text-gray-500 dark:text-gray-400 font-medium hidden sm:block">Share:</span>
               
               {/* LinkedIn */}
-              <BasicTooltip title="Share on LinkedIn" placement="bottom">
+              <BasicTooltip title={intl.formatMessage({
+                id: "postcontent-share-linkedin",
+                description: "Share on LinkedIn",
+                defaultMessage: "Share on LinkedIn"
+              })} placement="bottom">
                 <a
                   href={`https://www.linkedin.com/sharing/share-offsite/?url=https://www.swapnilsrivastava.eu/${post?.username}/${post?.slug}`}
                   className="w-9 h-9 flex items-center justify-center rounded-lg bg-blue-50 hover:bg-blue-100 dark:bg-blue-900/30 dark:hover:bg-blue-800/40 transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
@@ -291,7 +362,11 @@ export default function PostContent({
               </BasicTooltip>
 
               {/* Twitter */}
-              <BasicTooltip title="Share on Twitter" placement="bottom">
+              <BasicTooltip title={intl.formatMessage({
+                id: "postcontent-share-twitter",
+                description: "Share on Twitter",
+                defaultMessage: "Share on Twitter"
+              })} placement="bottom">
                 <a
                   href={`https://twitter.com/intent/tweet?text=Hi%2C%20checkout%20this%20post%20&url=https://www.swapnilsrivastava.eu/${post?.username}/${post?.slug}&via=swapnil_sri&hashtags=reactjs,nextjs,blog`}
                   className="w-9 h-9 flex items-center justify-center rounded-lg bg-sky-50 hover:bg-sky-100 dark:bg-sky-900/30 dark:hover:bg-sky-800/40 transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2"
@@ -301,7 +376,11 @@ export default function PostContent({
               </BasicTooltip>
 
               {/* Facebook */}
-              <BasicTooltip title="Share on Facebook" placement="bottom">
+              <BasicTooltip title={intl.formatMessage({
+                id: "postcontent-share-facebook",
+                description: "Share on Facebook",
+                defaultMessage: "Share on Facebook"
+              })} placement="bottom">
                 <a
                   href={`https://facebook.com/sharer/sharer.php?u=https://www.swapnilsrivastava.eu/${post?.username}/${post?.slug}`}
                   className="w-9 h-9 flex items-center justify-center rounded-lg bg-blue-50 hover:bg-blue-100 dark:bg-blue-900/30 dark:hover:bg-blue-800/40 transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"

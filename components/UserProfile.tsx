@@ -4,6 +4,7 @@ import {
   faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FormattedMessage } from 'react-intl';
 
 export default function UserProfile({ user }) {
   return (
@@ -12,7 +13,13 @@ export default function UserProfile({ user }) {
       <p className="text-gray-600 dark:text-gray-300">
         <i>@{user.username}</i>
       </p>
-      <h1 className="text-2xl font-bold text-black dark:text-white">{user.full_name || "Anonymous User"}</h1>
+      <h1 className="text-2xl font-bold text-black dark:text-white">{user.full_name || (
+        <FormattedMessage
+          id="userprofile-anonymous-user"
+          description="Anonymous User"
+          defaultMessage="Anonymous User"
+        />
+      )}</h1>
       {user.full_name === "Swapnil Srivastava" ? (
         <div className="flex items-center justify-center gap-x-2">
           <a

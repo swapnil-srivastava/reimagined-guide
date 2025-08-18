@@ -13,13 +13,28 @@ const PrivacyPolicy: NextPage = () => {
         <meta name="description" content="Our privacy and cookie policy explains how we use cookies and process your data." />
       </Head>
       <div className="container mx-auto px-4 py-8 text-gray-900 dark:text-white">
-        <h1 className="text-3xl font-bold mb-6 text-black dark:text-white">Privacy & Cookie Policy</h1>
+        <h1 className="text-3xl font-bold mb-6 text-black dark:text-white">
+          <FormattedMessage
+            id="privacy-policy-title"
+            description="Privacy & Cookie Policy"
+            defaultMessage="Privacy & Cookie Policy"
+          />
+        </h1>
         
         <section className="mb-8">
-          <h2 className="text-2xl font-bold mb-4 dark:text-white">Overview</h2>
+          <h2 className="text-2xl font-bold mb-4 dark:text-white">
+            <FormattedMessage
+              id="privacy-policy-overview-title"
+              description="Overview"
+              defaultMessage="Overview"
+            />
+          </h2>
           <p className="mb-4 dark:text-white">
-            This Privacy & Cookie Policy explains how we collect, use, and protect your information 
-            when you visit our website. We are committed to ensuring the privacy and security of your data.
+            <FormattedMessage
+              id="privacy-policy-overview-text"
+              description="This Privacy & Cookie Policy explains how we collect, use, and protect your information when you visit our website. We are committed to ensuring the privacy and security of your data."
+              defaultMessage="This Privacy & Cookie Policy explains how we collect, use, and protect your information when you visit our website. We are committed to ensuring the privacy and security of your data."
+            />
           </p>
         </section>
         

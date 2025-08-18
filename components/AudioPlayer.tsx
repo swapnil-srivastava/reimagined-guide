@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -21,6 +22,7 @@ interface AudioPlayerProps {
 }
 
 const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioSource }) => {
+  const intl = useIntl();
   // state of play or pause
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
@@ -161,7 +163,11 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioSource }) => {
             className="flex flex-row items-center"
             onClick={() => backward5Seconds()}
           >
-            <BasicTooltip title={"Backwards 5 seconds"} placement="bottom">
+            <BasicTooltip title={intl.formatMessage({
+              id: "audioplayer-backward-5-seconds",
+              description: "Backwards 5 seconds",
+              defaultMessage: "Backwards 5 seconds"
+            })} placement="bottom">
               <RoundButton audioPlayer={true}>
                 <div className="flex flex-row items-center">
                   <FontAwesomeIcon icon={faBackward} size="lg" />
@@ -175,7 +181,11 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioSource }) => {
             className="flex flex-row gap-1 items-center"
             onClick={() => forward5Seconds()}
           >
-            <BasicTooltip title={"Forward 5 seconds"} placement="bottom">
+            <BasicTooltip title={intl.formatMessage({
+              id: "audioplayer-forward-5-seconds",
+              description: "Forward 5 seconds",
+              defaultMessage: "Forward 5 seconds"
+            })} placement="bottom">
               <RoundButton audioPlayer={true}>
                 <FontAwesomeIcon icon={faForward} size="lg" />
               </RoundButton>
@@ -202,7 +212,11 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioSource }) => {
             {/* Progress Bar */}
             <div className="flex flex-row items-center w-20 ml-1">
               <Slider
-                aria-label="Volume"
+                aria-label={intl.formatMessage({
+                  id: "audioplayer-volume-aria",
+                  description: "Volume",
+                  defaultMessage: "Volume"
+                })}
                 value={(currentTime / duration) * 100}
                 onChange={(e, newValue) => handleSliderChange(e, newValue)}
               />
@@ -219,7 +233,15 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioSource }) => {
             onClick={() => toggleMute()}
           >
             <BasicTooltip
-              title={isMuted ? "Unmute" : "Mute"}
+              title={isMuted ? intl.formatMessage({
+                id: "audioplayer-unmute",
+                description: "Unmute",
+                defaultMessage: "Unmute"
+              }) : intl.formatMessage({
+                id: "audioplayer-mute",
+                description: "Mute",
+                defaultMessage: "Mute"
+              })}
               placement="bottom"
             >
               <RoundButton audioPlayer={true}>
@@ -239,7 +261,11 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioSource }) => {
             <FontAwesomeIcon icon={faVolumeLow} size="lg" />
           </div>
           <Slider
-            aria-label="Volume"
+            aria-label={intl.formatMessage({
+              id: "audioplayer-volume-slider-aria",
+              description: "Volume",
+              defaultMessage: "Volume"
+            })}
             value={volumeLevel}
             onChange={(e) => handleVolumeChange(e)}
           />

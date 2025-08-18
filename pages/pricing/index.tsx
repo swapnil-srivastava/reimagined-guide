@@ -1,6 +1,7 @@
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { FormattedMessage } from "react-intl";
 
 import CheckoutButton from "../../components/CheckoutButton";
 
@@ -9,15 +10,33 @@ const Pricing = () => {
   return (
     <div className="h-screen flex flex-col items-center gap-2 font-poppins mt-10">
         {/* Title */}
-        <div className="lg:text-4xl text-2xl dark:text-blog-white text-center">Choose the right package which is best for you!</div>
+        <div className="lg:text-4xl text-2xl dark:text-blog-white text-center">
+          <FormattedMessage
+            id="pricing-title"
+            description="Choose the right package which is best for you!"
+            defaultMessage="Choose the right package which is best for you!"
+          />
+        </div>
 
         {/* Pricing cards */}
         <div className="flex lg:flex-row flex-col gap-5 m-10">
             {/* Pricing card 1 */}
             <div className="w-80 mx-10 p-10 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
               <div className="flex flex-col">
-                <div className="font-bold leading-loose">Basic Consultation</div>
-                <div className="font-thin text-xs leading-loose">Ideal For: Small businesses and startups needing foundational advice</div>
+                <div className="font-bold leading-loose">
+                  <FormattedMessage
+                    id="pricing-basic-consultation-title"
+                    description="Basic Consultation"
+                    defaultMessage="Basic Consultation"
+                  />
+                </div>
+                <div className="font-thin text-xs leading-loose">
+                  <FormattedMessage
+                    id="pricing-basic-consultation-subtitle"
+                    description="Ideal For: Small businesses and startups needing foundational advice"
+                    defaultMessage="Ideal For: Small businesses and startups needing foundational advice"
+                  />
+                </div>
                 <div className="text-4xl text-center leading-loose">€75</div>
                 {/* <div className="text-center font-thin leading-loose">No Payment</div> */}
 
@@ -31,19 +50,43 @@ const Pricing = () => {
               <div className="flex flex-col leading-loose text-sm">
                   <div className="flex gap-2 ">
                     <div><FontAwesomeIcon icon={faCheck} /></div>
-                    <div>1 hour call</div>
+                    <div>
+                      <FormattedMessage
+                        id="pricing-basic-1-hour-call"
+                        description="1 hour call"
+                        defaultMessage="1 hour call"
+                      />
+                    </div>
                   </div>
                   <div className="flex gap-2">
                     <div><FontAwesomeIcon icon={faCheck} /></div>
-                    <div>Initial site audit</div>
+                    <div>
+                      <FormattedMessage
+                        id="pricing-basic-initial-audit"
+                        description="Initial site audit"
+                        defaultMessage="Initial site audit"
+                      />
+                    </div>
                   </div>
                   <div className="flex gap-2">
                     <div><FontAwesomeIcon icon={faCheck} /></div>
-                    <div>Basic SEO recommendations</div>
+                    <div>
+                      <FormattedMessage
+                        id="pricing-basic-seo-recommendations"
+                        description="Basic SEO recommendations"
+                        defaultMessage="Basic SEO recommendations"
+                      />
+                    </div>
                   </div>
                   <div className="flex gap-2">
                     <div><FontAwesomeIcon icon={faCheck} /></div>
-                    <div>Follow-up email support</div>
+                    <div>
+                      <FormattedMessage
+                        id="pricing-basic-email-support"
+                        description="Follow-up email support"
+                        defaultMessage="Follow-up email support"
+                      />
+                    </div>
                   </div>
               </div>
 
@@ -52,8 +95,20 @@ const Pricing = () => {
             {/* Pricing card 2 */}
             <div className="w-80 mx-10 p-10 text-blog-white bg-fun-blue-600 dark:bg-blog-white dark:text-blog-black hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
             <div className="flex flex-col">
-                <div className="font-bold leading-loose">Basic Package</div>
-                <div className="font-thin text-xs leading-loose">Ideal For: Growing businesses looking to optimize their online presence.</div>
+                <div className="font-bold leading-loose">
+                  <FormattedMessage
+                    id="pricing-basic-package-title"
+                    description="Basic Package"
+                    defaultMessage="Basic Package"
+                  />
+                </div>
+                <div className="font-thin text-xs leading-loose">
+                  <FormattedMessage
+                    id="pricing-basic-package-subtitle"
+                    description="Ideal For: Growing businesses looking to optimize their online presence."
+                    defaultMessage="Ideal For: Growing businesses looking to optimize their online presence."
+                  />
+                </div>
                 <div className="text-4xl text-center leading-loose">€1,000</div>
                 {/* button section */}
                 <div className="text-center font-thin flex items-center justify-center mb-3">

@@ -481,6 +481,42 @@
       "value": "Content Moderation"
     }
   ],
+  "audioplayer-backward-5-seconds": [
+    {
+      "type": 0,
+      "value": "Backwards 5 seconds"
+    }
+  ],
+  "audioplayer-forward-5-seconds": [
+    {
+      "type": 0,
+      "value": "Forward 5 seconds"
+    }
+  ],
+  "audioplayer-mute": [
+    {
+      "type": 0,
+      "value": "Mute"
+    }
+  ],
+  "audioplayer-unmute": [
+    {
+      "type": 0,
+      "value": "Unmute"
+    }
+  ],
+  "audioplayer-volume-aria": [
+    {
+      "type": 0,
+      "value": "Volume"
+    }
+  ],
+  "audioplayer-volume-slider-aria": [
+    {
+      "type": 0,
+      "value": "Volume"
+    }
+  ],
   "auth-check-fallback": [
     {
       "type": 0,
@@ -1063,6 +1099,42 @@
       "value": "Read more"
     }
   ],
+  "postcontent-copy-ready": [
+    {
+      "type": 0,
+      "value": "Copy Ready"
+    }
+  ],
+  "postcontent-draft-status": [
+    {
+      "type": 0,
+      "value": "● Draft"
+    }
+  ],
+  "postcontent-edit-post-aria": [
+    {
+      "type": 0,
+      "value": "Edit post"
+    }
+  ],
+  "postcontent-email-confirmation-sent": [
+    {
+      "type": 0,
+      "value": "Email confirmation sent!"
+    }
+  ],
+  "postcontent-mark-copy-ready-aria": [
+    {
+      "type": 0,
+      "value": "Mark as copy ready"
+    }
+  ],
+  "postcontent-mark-web-ready-aria": [
+    {
+      "type": 0,
+      "value": "Mark as web ready"
+    }
+  ],
   "postcontent-min-read": [
     {
       "type": 0,
@@ -1075,10 +1147,70 @@
       "value": "min read"
     }
   ],
+  "postcontent-post-approved": [
+    {
+      "type": 0,
+      "value": "Post approved successfully!"
+    }
+  ],
+  "postcontent-publish": [
+    {
+      "type": 0,
+      "value": "Publish"
+    }
+  ],
+  "postcontent-publish-post-aria": [
+    {
+      "type": 0,
+      "value": "Publish post"
+    }
+  ],
+  "postcontent-published-status": [
+    {
+      "type": 0,
+      "value": "● Published"
+    }
+  ],
+  "postcontent-share-facebook": [
+    {
+      "type": 0,
+      "value": "Share on Facebook"
+    }
+  ],
+  "postcontent-share-linkedin": [
+    {
+      "type": 0,
+      "value": "Share on LinkedIn"
+    }
+  ],
+  "postcontent-share-twitter": [
+    {
+      "type": 0,
+      "value": "Share on Twitter"
+    }
+  ],
+  "postcontent-web-ready": [
+    {
+      "type": 0,
+      "value": "Web Ready"
+    }
+  ],
   "postcontent-words": [
     {
       "type": 0,
       "value": "words"
+    }
+  ],
+  "postcontent-workflow-complete": [
+    {
+      "type": 0,
+      "value": "2/4 Complete"
+    }
+  ],
+  "postcontent-workflow-progress": [
+    {
+      "type": 0,
+      "value": "Workflow Progress"
     }
   ],
   "postfeed-min-read": [
@@ -1135,6 +1267,78 @@
       "value": "User Preferences"
     }
   ],
+  "pricing-basic-1-hour-call": [
+    {
+      "type": 0,
+      "value": "1 hour call"
+    }
+  ],
+  "pricing-basic-consultation-subtitle": [
+    {
+      "type": 0,
+      "value": "Ideal For: Small businesses and startups needing foundational advice"
+    }
+  ],
+  "pricing-basic-consultation-title": [
+    {
+      "type": 0,
+      "value": "Basic Consultation"
+    }
+  ],
+  "pricing-basic-email-support": [
+    {
+      "type": 0,
+      "value": "Follow-up email support"
+    }
+  ],
+  "pricing-basic-initial-audit": [
+    {
+      "type": 0,
+      "value": "Initial site audit"
+    }
+  ],
+  "pricing-basic-package-subtitle": [
+    {
+      "type": 0,
+      "value": "Ideal For: Growing businesses looking to optimize their online presence."
+    }
+  ],
+  "pricing-basic-package-title": [
+    {
+      "type": 0,
+      "value": "Basic Package"
+    }
+  ],
+  "pricing-basic-seo-recommendations": [
+    {
+      "type": 0,
+      "value": "Basic SEO recommendations"
+    }
+  ],
+  "pricing-title": [
+    {
+      "type": 0,
+      "value": "Choose the right package which is best for you!"
+    }
+  ],
+  "privacy-policy-overview-text": [
+    {
+      "type": 0,
+      "value": "This Privacy & Cookie Policy explains how we collect, use, and protect your information when you visit our website. We are committed to ensuring the privacy and security of your data."
+    }
+  ],
+  "privacy-policy-overview-title": [
+    {
+      "type": 0,
+      "value": "Overview"
+    }
+  ],
+  "privacy-policy-title": [
+    {
+      "type": 0,
+      "value": "Privacy & Cookie Policy"
+    }
+  ],
   "privacy.back_to_home": [
     {
       "type": 0,
@@ -1169,6 +1373,12 @@
     {
       "type": 0,
       "value": "Go to cart"
+    }
+  ],
+  "productcard-product-created": [
+    {
+      "type": 0,
+      "value": "Product Created!!"
     }
   ],
   "products-heading": [
@@ -1373,6 +1583,12 @@
     {
       "type": 0,
       "value": "Website"
+    }
+  ],
+  "userprofile-anonymous-user": [
+    {
+      "type": 0,
+      "value": "Anonymous User"
     }
   ]
 }

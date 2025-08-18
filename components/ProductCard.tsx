@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import moment from "moment";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -47,6 +47,7 @@ interface producJSON {
 }
   
 function CreateProduct() {
+    const intl = useIntl();
 
     type PRODUCT_OBJ = Pick<PRODUCT, "name" | "price" | "description" | "stock">;
     type PRODUCTNAME = PRODUCT_OBJ["name"];
@@ -157,7 +158,11 @@ function CreateProduct() {
               throw error;
             }
     
-            toast.success("Product Created!!");
+            toast.success(intl.formatMessage({
+                id: "productcard-product-created",
+                description: "Product Created!!",
+                defaultMessage: "Product Created!!"
+            }));
           } catch (error) {
             toast.error(`Error creating product: ${error.message}`);
           } finally {
