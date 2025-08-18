@@ -49,34 +49,47 @@ function AwesomeNavBar() {
 
   return (
     <NavBar>
-      <FormControl>
-        <InputLabel
-          id="demo-simple-select-label"
-          className="dark:text-blog-white"
-        >
-          Locale
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          className="dark:text-blog-white"
-          value={currentLocale}
-          label="Locale"
-          onChange={handleChange}
-        >
-          {locales.map((locale) => (
-            <MenuItem
-              value={locale}
-              key={locale}
-              className="dark:text-blog-white dark:bg-fun-blue-600 hover:brightness-125"
+      <NavBarItem nextrouteurl>
+        <div className="h-full flex items-center px-1">
+          <FormControl size="small" sx={{ minWidth: 80 }}>
+            <InputLabel
+              id="demo-simple-select-label"
+              className="dark:text-blog-white"
             >
-              <Link href={asPath} locale={locale} legacyBehavior>
-                {locale}
-              </Link>
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+              Locale
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              className="dark:text-blog-white"
+              value={currentLocale}
+              label="Locale"
+              onChange={handleChange}
+              size="small"
+              MenuProps={{
+                PaperProps: {
+                  style: {
+                    maxHeight: 200,
+                    width: 100,
+                  },
+                },
+              }}
+            >
+              {locales.map((locale) => (
+                <MenuItem
+                  value={locale}
+                  key={locale}
+                  className="dark:text-blog-white dark:bg-fun-blue-600 hover:brightness-125"
+                >
+                  <Link href={asPath} locale={locale} legacyBehavior>
+                    {locale}
+                  </Link>
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </div>
+      </NavBarItem>
 
       <NavBarItem
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -105,9 +118,9 @@ function AwesomeNavBar() {
         }
       />
 
-      <div className="hidden md:block">
-        <NavBarItem nextrouteurl>
-          <Link href="/technology">
+      <NavBarItem nextrouteurl>
+        <Link href="/technology">
+          <div className="w-[calc(2.5rem)] h-[calc(2.5rem)] flex items-center justify-center cursor-pointer rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
             <BasicTooltip title={intl.formatMessage({
               id: 'nav-tech-stack-tooltip',
               description: 'Tech Stack',
@@ -117,23 +130,25 @@ function AwesomeNavBar() {
                 <FontAwesomeIcon icon={faBolt} size="lg" />
               </RoundButton>
             </BasicTooltip>
-          </Link>
-        </NavBarItem>
-      </div>
+          </div>
+        </Link>
+      </NavBarItem>
 
       {/* user is not signed-in or has not created username */}
       {!profile?.username && (
         <NavBarItem nextrouteurl>
           <Link href="/enter">
-            <BasicTooltip title={intl.formatMessage({
-              id: 'nav-login-tooltip',
-              description: 'Login',
-              defaultMessage: 'Login'
-            })} placement="bottom">
-              <RoundButton>
-                <FontAwesomeIcon icon={faArrowRightToBracket} size="lg" />
-              </RoundButton>
-            </BasicTooltip>
+            <div className="w-[calc(2.5rem)] h-[calc(2.5rem)] flex items-center justify-center cursor-pointer rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+              <BasicTooltip title={intl.formatMessage({
+                id: 'nav-login-tooltip',
+                description: 'Login',
+                defaultMessage: 'Login'
+              })} placement="bottom">
+                <RoundButton>
+                  <FontAwesomeIcon icon={faArrowRightToBracket} size="lg" />
+                </RoundButton>
+              </BasicTooltip>
+            </div>
           </Link>
         </NavBarItem>
       )}
@@ -143,27 +158,31 @@ function AwesomeNavBar() {
         <>
             <NavBarItem nextrouteurl>
               <Link href="/admin">
-                <BasicTooltip title={intl.formatMessage({
-                  id: 'nav-write-post-tooltip',
-                  description: 'Write a post',
-                  defaultMessage: 'Write a post'
-                })} placement="bottom">
-                  <RoundButton>
-                    <FontAwesomeIcon icon={faPencil} size="lg" />
-                  </RoundButton>
-                </BasicTooltip>
+                <div className="w-[calc(2.5rem)] h-[calc(2.5rem)] flex items-center justify-center cursor-pointer rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                  <BasicTooltip title={intl.formatMessage({
+                    id: 'nav-write-post-tooltip',
+                    description: 'Write a post',
+                    defaultMessage: 'Write a post'
+                  })} placement="bottom">
+                    <RoundButton>
+                      <FontAwesomeIcon icon={faPencil} size="lg" />
+                    </RoundButton>
+                  </BasicTooltip>
+                </div>
               </Link>
-            </NavBarItem>          {/* user condition is ther because image src url is missing when clicking on sign out */}
+            </NavBarItem>
+          {/* user condition is ther because image src url is missing when clicking on sign out */}
           {profile?.username && (
             <NavBarItem nextrouteurl>
               <BasicTooltip title={profile?.full_name} placement="bottom">
-                <div className="w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)] rounded-full cursor-pointer flex items-center overflow-hidden">
+                <div className="w-[calc(2.5rem)] h-[calc(2.5rem)] rounded-full cursor-pointer flex items-center justify-center overflow-hidden border-2 border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 transition-colors">
                   <Link href={`/${profile?.username}`} legacyBehavior>
                     <Image
-                      width={200}
-                      height={200}
+                      width={32}
+                      height={32}
                       src={profile?.avatar_url}
                       alt=""
+                      className="rounded-full object-cover"
                     />
                   </Link>
                 </div>
@@ -197,11 +216,12 @@ function NavBar({ children }) {
             z-50 
             flex
             flex-row
+            items-center
           "
     >
       {/* /swapnil-odyssey-4.svg with blue , /swapnil-odyssey-5.svg, /swapnil-odyssey-6.svg - with blue, 
       /swapnil-odyssey-8.svg with white, /swapnil-odyssey-9.svg */}
-      <div className="basis-1/2 md:basis-1/3 self-strech flex items-center md:text-2xl m-1">
+      <div className="basis-1/2 md:basis-1/3 flex items-center md:text-2xl m-1">
         <Link href="/" legacyBehavior>
           <Image
             width={75}
@@ -414,7 +434,7 @@ function DropdownMenu() {
           <DropdownItem
             leftIcon={
               <RoundButton>
-                <FontAwesomeIcon icon={faBolt} size="lg" className="hidden md:block" />
+                <FontAwesomeIcon icon={faBolt} size="lg" />
               </RoundButton>
             }
           >
@@ -423,7 +443,7 @@ function DropdownMenu() {
           <DropdownItem
             leftIcon={
               <RoundButton>
-                <FontAwesomeIcon icon={faBolt} size="lg" className="hidden md:block" />
+                <FontAwesomeIcon icon={faBolt} size="lg" />
               </RoundButton>
             }
           >
@@ -432,7 +452,7 @@ function DropdownMenu() {
           <DropdownItem
             leftIcon={
               <RoundButton>
-                <FontAwesomeIcon icon={faBolt} size="lg" className="hidden md:block" />
+                <FontAwesomeIcon icon={faBolt} size="lg" />
               </RoundButton>
             }
           >
@@ -441,7 +461,7 @@ function DropdownMenu() {
           <DropdownItem
             leftIcon={
               <RoundButton>
-                <FontAwesomeIcon icon={faBolt} size="lg" className="hidden md:block" />
+                <FontAwesomeIcon icon={faBolt} size="lg" />
               </RoundButton>
             }
           >
@@ -457,15 +477,15 @@ function NavBarItem(props) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex">
+    <li className="flex items-center h-full">
       <div
-        className="w-[calc(4rem_*_0.8)] flex items-center justify-center"
+        className="h-full flex items-center justify-center px-1"
         {...props}
       >
         {props.nextrouteurl && props.children}
         {!props.nextrouteurl && (
           <div
-            className="w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)]"
+            className="w-[calc(2.5rem)] h-[calc(2.5rem)] flex items-center justify-center cursor-pointer rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
             onClick={() => setOpen(!open)}
           >
             {props.icon}
@@ -473,7 +493,7 @@ function NavBarItem(props) {
         )}
         {open && props.children}
       </div>
-    </div>
+    </li>
   );
 }
 
