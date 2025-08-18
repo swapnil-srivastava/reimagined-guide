@@ -3,16 +3,22 @@
 import { loadStripe } from '@stripe/stripe-js';
 import toast from 'react-hot-toast';
 import axios from "axios";
+import { useIntl } from 'react-intl';
 
 // supabase instance in the app
 import { supaClient } from "../supa-client";
 
 const CheckoutButton = ({ priceId, text = "Let\'s get started" }) => {
+  const intl = useIntl();
     const handleCheckout = async() => {
         const { data } = await supaClient.auth.getUser();
 
         if (!data?.user) {
-          toast.error("Please log in to create a new Stripe Checkout session");
+          toast.error(intl.formatMessage({
+            id: "checkoutbutton-login-required",
+            description: "Please log in to create a new Stripe Checkout session",
+            defaultMessage: "Please log in to create a new Stripe Checkout session"
+          }));
           return;
         }
     

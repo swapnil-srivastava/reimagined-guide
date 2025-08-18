@@ -1,6 +1,8 @@
 import React from "react";
+import { FormattedMessage, useIntl } from 'react-intl';
 
 function DummyLoginPage() {
+  const intl = useIntl();
   return (
     <div className="selection:bg-rose-500 selection:text-white">
       <div className="min-h-screen bg-rose-100 flex justify-center items-center">
@@ -36,7 +38,11 @@ function DummyLoginPage() {
                     htmlFor="email"
                     className="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                   >
-                    Email address
+                    <FormattedMessage
+                      id="dummylogin-email-label"
+                      description="Email address"
+                      defaultMessage="Email address"
+                    />
                   </label>
                 </div>
                 <div className="mt-10 relative">
@@ -45,19 +51,31 @@ function DummyLoginPage() {
                     type="password"
                     name="password"
                     className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600"
-                    placeholder="Password"
+                    placeholder={intl.formatMessage({
+                      id: "dummylogin-password-placeholder",
+                      description: "Password",
+                      defaultMessage: "Password"
+                    })}
                   />
                   <label
                     htmlFor="password"
                     className="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                   >
-                    Password
+                    <FormattedMessage
+                      id="dummylogin-password-label"
+                      description="Password"
+                      defaultMessage="Password"
+                    />
                   </label>
                 </div>
 
                 <input
                   type="sumbit"
-                  value="Sign in"
+                  value={intl.formatMessage({
+                    id: "dummylogin-signin-button",
+                    description: "Sign in",
+                    defaultMessage: "Sign in"
+                  })}
                   className="mt-20 px-4 py-2 rounded bg-rose-500 hover:bg-rose-400 text-white font-semibold text-center block w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-rose-500 focus:ring-opacity-80 cursor-pointer"
                 />
               </form>

@@ -1,4 +1,4 @@
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -9,6 +9,7 @@ import { supaClient } from "../supa-client";
 
 // Allows user to heart or like a post
 export default function Heart({ post, userId }) {
+  const intl = useIntl();
 
   // emotion_type TEXT, -- e.g., 'like', 'dislike', 'heart', 'clap'
   async function toggleEmotion(postId: POST, userId: string, emotionType: string = 'heart') {
@@ -79,7 +80,11 @@ export default function Heart({ post, userId }) {
   }
 
   return true ? (
-    <BasicTooltip title="Do you like the post?" placement="bottom">
+    <BasicTooltip title={intl.formatMessage({
+      id: "heartbutton-like-post-tooltip",
+      description: "Do you like the post?",
+      defaultMessage: "Do you like the post?"
+    })} placement="bottom">
       <div className="flex items-center">
         <button
          className="bg-hit-pink-500 dark:text-blog-black px-3 py-2 mx-1 

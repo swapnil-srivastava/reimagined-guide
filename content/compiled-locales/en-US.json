@@ -689,6 +689,12 @@
       "value": "Selected Delivery Type"
     }
   ],
+  "checkoutbutton-login-required": [
+    {
+      "type": 0,
+      "value": "Please log in to create a new Stripe Checkout session"
+    }
+  ],
   "chekcout-buy-now-btn": [
     {
       "type": 0,
@@ -743,6 +749,30 @@
       "value": "Create"
     }
   ],
+  "dummylogin-email-label": [
+    {
+      "type": 0,
+      "value": "Email address"
+    }
+  ],
+  "dummylogin-password-label": [
+    {
+      "type": 0,
+      "value": "Password"
+    }
+  ],
+  "dummylogin-password-placeholder": [
+    {
+      "type": 0,
+      "value": "Password"
+    }
+  ],
+  "dummylogin-signin-button": [
+    {
+      "type": 0,
+      "value": "Sign in"
+    }
+  ],
   "end_of_articles": [
     {
       "type": 0,
@@ -771,6 +801,12 @@
     {
       "type": 0,
       "value": "Heart"
+    }
+  ],
+  "heartbutton-like-post-tooltip": [
+    {
+      "type": 0,
+      "value": "Do you like the post?"
     }
   ],
   "horizatal-five-tag-five-solid": [
@@ -953,6 +989,18 @@
       "value": "Innovate"
     }
   ],
+  "invite-date-label": [
+    {
+      "type": 0,
+      "value": "Date:"
+    }
+  ],
+  "invite-location-label": [
+    {
+      "type": 0,
+      "value": "Location:"
+    }
+  ],
   "invite-page-invite-heading": [
     {
       "type": 0,
@@ -963,6 +1011,12 @@
     {
       "type": 0,
       "value": "Functionality coming soon"
+    }
+  ],
+  "invite-time-label": [
+    {
+      "type": 0,
+      "value": "Time:"
     }
   ],
   "load_more_button": [
@@ -1427,6 +1481,76 @@
     {
       "type": 0,
       "value": "Skill successfully created"
+    }
+  ],
+  "rsvpform-add-kid-button": [
+    {
+      "type": 0,
+      "value": "Add Another Kid"
+    }
+  ],
+  "rsvpform-attendance-label": [
+    {
+      "type": 0,
+      "value": "We will attend the event"
+    }
+  ],
+  "rsvpform-email-label": [
+    {
+      "type": 0,
+      "value": "Email (optional)"
+    }
+  ],
+  "rsvpform-family-name-label": [
+    {
+      "type": 0,
+      "value": "Family Name"
+    }
+  ],
+  "rsvpform-kid-age-label": [
+    {
+      "type": 0,
+      "value": "Kid "
+    },
+    {
+      "type": 1,
+      "value": "index"
+    },
+    {
+      "type": 0,
+      "value": " Age"
+    }
+  ],
+  "rsvpform-kid-name-label": [
+    {
+      "type": 0,
+      "value": "Kid "
+    },
+    {
+      "type": 1,
+      "value": "index"
+    },
+    {
+      "type": 0,
+      "value": " Name"
+    }
+  ],
+  "rsvpform-message-label": [
+    {
+      "type": 0,
+      "value": "Message for Birthday Girl"
+    }
+  ],
+  "rsvpform-phone-label": [
+    {
+      "type": 0,
+      "value": "Phone Number (optional)"
+    }
+  ],
+  "rsvpform-submit-button": [
+    {
+      "type": 0,
+      "value": "Submit RSVP"
     }
   ],
   "secondary_tagline": [

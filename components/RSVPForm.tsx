@@ -2,8 +2,10 @@
 
 import React, { useState } from 'react';
 import { TextField, Button, Checkbox, FormControlLabel, Typography, Box } from '@mui/material';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 const RSVPForm = ({ eventId }) => {
+  const intl = useIntl();
   const [familyName, setFamilyName] = useState('');
   const [kids, setKids] = useState([{ name: '', age: '' }]);
   const [message, setMessage] = useState('');
@@ -47,7 +49,11 @@ const RSVPForm = ({ eventId }) => {
       <Typography variant="h6">RSVP for Event</Typography>
       
       <TextField
-        label="Family Name"
+        label={intl.formatMessage({
+          id: "rsvpform-family-name-label",
+          description: "Family Name",
+          defaultMessage: "Family Name"
+        })}
         value={familyName}
         onChange={(e) => setFamilyName(e.target.value)}
         fullWidth
