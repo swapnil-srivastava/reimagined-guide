@@ -7,7 +7,7 @@ import { faHeart, faGlobe, faShield, faCog } from '@fortawesome/free-solid-svg-i
 
 export default function Footer() {
   return (
-    <footer className="mt-auto bg-blog-white dark:bg-fun-blue-500 border-t border-gray-200 dark:border-gray-700 shadow-lg">
+    <footer className="mt-auto w-full py-4 px-4 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white drop-shadow-lg hover:drop-shadow-xl border-t border-gray-200 dark:border-gray-700">
       <div className="px-4 py-3 sm:px-6 lg:px-8">
         {/* Mobile-first responsive layout */}
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
