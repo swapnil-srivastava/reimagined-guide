@@ -141,7 +141,7 @@ export default function Technology(props) {
                 <FontAwesomeIcon icon={faRocket} size="lg" className="text-white" />
               </div>
             </div>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-800 dark:text-gray-300 max-w-3xl mx-auto">
               <FormattedMessage
                 id="technology-hero-subtitle"
                 description="Technology hero subtitle"
@@ -205,7 +205,7 @@ export default function Technology(props) {
                   <FontAwesomeIcon icon={faBolt} className="text-white" />
                 </div>
               </div>
-              <p className="text-gray-600 dark:text-gray-300">
+              <p className="text-gray-800 dark:text-gray-300">
                 <FormattedMessage
                   id="technology-leading-tech-subtitle"
                   description="Leading tech subtitle"
@@ -257,7 +257,7 @@ export default function Technology(props) {
                   <FontAwesomeIcon icon={faCode} className="text-white" />
                 </div>
               </div>
-              <p className="text-gray-600 dark:text-gray-300">
+              <p className="text-gray-800 dark:text-gray-300">
                 <FormattedMessage
                   id="technology-tech-stack-subtitle"
                   description="Tech stack subtitle"
@@ -299,7 +299,7 @@ export default function Technology(props) {
               <h3 className="text-2xl font-bold text-black dark:text-white mb-2">
                 {leadingTechState?.length || 0}
               </h3>
-              <p className="text-gray-600 dark:text-gray-300">
+              <p className="text-gray-800 dark:text-gray-300">
                 <FormattedMessage
                   id="technology-stats-leading"
                   description="Leading technologies count"
@@ -315,7 +315,7 @@ export default function Technology(props) {
               <h3 className="text-2xl font-bold text-black dark:text-white mb-2">
                 {techStackState?.length || 0}
               </h3>
-              <p className="text-gray-600 dark:text-gray-300">
+              <p className="text-gray-800 dark:text-gray-300">
                 <FormattedMessage
                   id="technology-stats-total"
                   description="Total technologies count"
@@ -335,7 +335,7 @@ export default function Technology(props) {
                   defaultMessage="100%"
                 />
               </h3>
-              <p className="text-gray-600 dark:text-gray-300">
+              <p className="text-gray-800 dark:text-gray-300">
                 <FormattedMessage
                   id="technology-stats-innovation-label"
                   description="Innovation level label"
