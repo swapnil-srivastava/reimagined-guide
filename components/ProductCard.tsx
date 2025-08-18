@@ -7,7 +7,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 import moment from "moment";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlus, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { faCirclePlus, faCircleXmark, faEye, faPlus, faCheck, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
 
 // Supabase
@@ -248,9 +248,40 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
     const [ createProduct, setCreateProduct] = useState<boolean>(false);
     const [quickViewProduct, setQuickViewProduct] = useState<any>(null);
     const [quickViewOpen, setQuickViewOpen] = useState<boolean>(false);
+    const [addingToCart, setAddingToCart] = useState<{[key: string]: boolean}>({});
+    const intl = useIntl();
 
     const handleAddProduct = (product: PRODUCT) => {
+        // Set loading state for this specific product
+        setAddingToCart(prev => ({ ...prev, [product.id]: true }));
+        
         dispatch(addToCartInsert(product));
+        
+        // Show success toast with product name
+        toast.success(
+            intl.formatMessage({
+                id: "product-card-added-to-cart-toast",
+                description: "Product added to cart toast",
+                defaultMessage: "{productName} added to cart!"
+            }, { productName: product.name }),
+            {
+                duration: 2000,
+                position: 'bottom-center',
+                style: {
+                    background: '#10B981',
+                    color: '#fff',
+                    fontWeight: '500',
+                    padding: '12px 20px',
+                    borderRadius: '12px',
+                    boxShadow: '0 4px 12px rgba(16, 185, 129, 0.15)'
+                }
+            }
+        );
+        
+        // Reset loading state after a brief delay to show success animation
+        setTimeout(() => {
+            setAddingToCart(prev => ({ ...prev, [product.id]: false }));
+        }, 1000);
     };
 
     function generateContent(input) {
@@ -327,8 +358,25 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                                     <div className="text-xs text-gray-400">{createdAtDateFormat}</div>
                                 </div>
                                 <div className="mt-3 flex justify-end">
-                                    <button aria-label={`Add ${product.name} to cart`} className={styles.btnAdmin} onClick={() => handleAddProduct(product)}>
-                                        <FormattedMessage id="product-card-add-to-cart" description="Add to Cart" defaultMessage="Add to Cart" />
+                                    <button 
+                                        aria-label={`Add ${product.name} to cart`} 
+                                        className={`${styles.btnAdmin} flex items-center gap-2 transition-all duration-200 ${
+                                            addingToCart[product.id] ? 'bg-green-600 text-white' : ''
+                                        }`}
+                                        onClick={() => handleAddProduct(product)}
+                                        disabled={addingToCart[product.id]}
+                                    >
+                                        {addingToCart[product.id] ? (
+                                            <>
+                                                <FontAwesomeIcon icon={faCheck} className="text-sm" />
+                                                <FormattedMessage id="product-card-added" description="Added!" defaultMessage="Added!" />
+                                            </>
+                                        ) : (
+                                            <>
+                                                <FontAwesomeIcon icon={faShoppingCart} className="text-sm" />
+                                                <FormattedMessage id="product-card-add-to-cart" description="Add to Cart" defaultMessage="Add to Cart" />
+                                            </>
+                                        )}
                                     </button>
                                 </div>
                             </div>
@@ -365,8 +413,8 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                 <ProductQuickView isOpen={quickViewOpen} onRequestClose={() => setQuickViewOpen(false)} product={quickViewProduct} />
             </div>
         </>
-    )
+    );
 
- }
+};
 
 export default ProductCard;

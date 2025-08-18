@@ -114,15 +114,17 @@ function Products() {
           </div>
         </div>
 
-        {/* Cart Notification */}
+        {/* Cart Notification - Fixed positioning for better visibility */}
         {cartItems && cartItems.length > 0 && (
-          <div className="bg-green-50 dark:bg-green-900/20 border-b border-green-200 dark:border-green-800">
+          <div className="sticky top-0 z-40 bg-green-50 dark:bg-green-900/20 border-b border-green-200 dark:border-green-800 backdrop-blur-sm">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-              <div className="flex items-center justify-between bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm">
+              <div className="flex items-center justify-between bg-white dark:bg-gray-800 rounded-lg p-4 shadow-lg border border-green-200 dark:border-green-700">
                 <div className="flex items-center gap-3">
-                  <FontAwesomeIcon icon={faShoppingCart} className="text-green-600 dark:text-green-400" />
+                  <div className="bg-green-100 dark:bg-green-900/50 p-2 rounded-full">
+                    <FontAwesomeIcon icon={faShoppingCart} className="text-green-600 dark:text-green-400 text-lg" />
+                  </div>
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-white">
+                    <p className="font-semibold text-gray-900 dark:text-white">
                       {cartItems.length} {cartItems.length === 1 ? 'item' : 'items'} in your cart
                     </p>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -134,15 +136,23 @@ function Products() {
                     </p>
                   </div>
                 </div>
-                <Link href="/cart">
-                  <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-medium transition-colors">
-                    <FormattedMessage
-                      id="product-index-cart-added-redirect-btn"
-                      description="Go to cart"
-                      defaultMessage="View Cart"
-                    />
-                  </button>
-                </Link>
+                <div className="flex items-center gap-3">
+                  <div className="text-right">
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Total</p>
+                    <p className="font-bold text-lg text-gray-900 dark:text-white">
+                      ${cartItems.reduce((total, item) => total + (item.price || 0), 0).toFixed(2)}
+                    </p>
+                  </div>
+                  <Link href="/cart">
+                    <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors shadow-md hover:shadow-lg">
+                      <FormattedMessage
+                        id="product-index-cart-added-redirect-btn"
+                        description="Go to cart"
+                        defaultMessage="View Cart"
+                      />
+                    </button>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -218,6 +228,31 @@ function Products() {
           {/* Products Grid */}
           <ProductCard products={products} loading={loadProducts} postsEnd={false} enableLoadMore={true} />
         </div>
+
+        {/* Floating Cart Button - Only visible when cart has items */}
+        {cartItems && cartItems.length > 0 && (
+          <Link href="/cart">
+            <div className="fixed bottom-6 right-6 z-50 group">
+              <button className="bg-green-600 hover:bg-green-700 text-white p-4 rounded-full shadow-2xl transition-all duration-300 transform hover:scale-110 hover:shadow-green-500/25">
+                <FontAwesomeIcon icon={faShoppingCart} className="text-xl" />
+                {/* Cart Count Badge */}
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center animate-pulse">
+                  {cartItems.length}
+                </span>
+              </button>
+              {/* Tooltip */}
+              <div className="absolute bottom-full right-0 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                <FormattedMessage
+                  id="floating-cart-tooltip"
+                  description="View cart tooltip"
+                  defaultMessage="View Cart ({count} {count, plural, one {item} other {items}})"
+                  values={{ count: cartItems.length }}
+                />
+                <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-gray-900"></div>
+              </div>
+            </div>
+          </Link>
+        )}
       </div>
     </>
   );

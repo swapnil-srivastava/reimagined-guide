@@ -689,6 +689,12 @@
       "value": "Delivery"
     }
   ],
+  "checkout-error": [
+    {
+      "type": 0,
+      "value": "Error starting checkout"
+    }
+  ],
   "checkout-heading": [
     {
       "type": 0,
@@ -825,6 +831,48 @@
     {
       "type": 0,
       "value": "End of articles"
+    }
+  ],
+  "floating-cart-tooltip": [
+    {
+      "type": 0,
+      "value": "View Cart ("
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "item"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "items"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": ")"
     }
   ],
   "footer.built-with-love": [
@@ -1647,6 +1695,22 @@
       "value": "Add to Cart"
     }
   ],
+  "product-card-added": [
+    {
+      "type": 0,
+      "value": "Added!"
+    }
+  ],
+  "product-card-added-to-cart-toast": [
+    {
+      "type": 1,
+      "value": "productName"
+    },
+    {
+      "type": 0,
+      "value": " added to cart!"
+    }
+  ],
   "product-card-create-product": [
     {
       "type": 0,
@@ -1659,16 +1723,16 @@
       "value": "Product Detail"
     }
   ],
-  "product-index-cart-added": [
-    {
-      "type": 0,
-      "value": "Product added to the cart"
-    }
-  ],
   "product-index-cart-added-redirect-btn": [
     {
       "type": 0,
-      "value": "Go to cart"
+      "value": "View Cart"
+    }
+  ],
+  "product-index-cart-ready": [
+    {
+      "type": 0,
+      "value": "Ready to checkout when you are"
     }
   ],
   "productcard-error-creating-product": [
@@ -1710,13 +1774,101 @@
   "products-heading": [
     {
       "type": 0,
-      "value": "Products"
+      "value": "Our Products"
     }
   ],
   "products-loaded-successfully": [
     {
       "type": 0,
       "value": "Products loaded successfully!"
+    }
+  ],
+  "products-results-count": [
+    {
+      "type": 0,
+      "value": "Showing "
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "product"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "products"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "products-search-placeholder": [
+    {
+      "type": 0,
+      "value": "Search products..."
+    }
+  ],
+  "products-search-results": [
+    {
+      "type": 0,
+      "value": "for \""
+    },
+    {
+      "type": 1,
+      "value": "searchTerm"
+    },
+    {
+      "type": 0,
+      "value": "\""
+    }
+  ],
+  "products-sort-name": [
+    {
+      "type": 0,
+      "value": "Sort by Name"
+    }
+  ],
+  "products-sort-newest": [
+    {
+      "type": 0,
+      "value": "Newest First"
+    }
+  ],
+  "products-sort-price-high": [
+    {
+      "type": 0,
+      "value": "Price: High to Low"
+    }
+  ],
+  "products-sort-price-low": [
+    {
+      "type": 0,
+      "value": "Price: Low to High"
+    }
+  ],
+  "products-subtitle": [
+    {
+      "type": 0,
+      "value": "Discover our amazing collection of carefully curated products"
     }
   ],
   "profile-cancel-button": [
@@ -1873,16 +2025,94 @@
       "value": "Swapnil Srivastava"
     }
   ],
+  "technology-bounty-board-subtitle": [
+    {
+      "type": 0,
+      "value": "Most wanted technologies"
+    }
+  ],
+  "technology-bounty-description": [
+    {
+      "type": 0,
+      "value": "High-value target. Essential for core system operations. Handle with care."
+    }
+  ],
   "technology-cancel-button": [
     {
       "type": 0,
       "value": "Cancel"
     }
   ],
+  "technology-clear-button": [
+    {
+      "type": 0,
+      "value": "Clear"
+    }
+  ],
   "technology-create-button": [
     {
       "type": 0,
       "value": "Create"
+    }
+  ],
+  "technology-create-error": [
+    {
+      "type": 0,
+      "value": "Matrix connection failed"
+    }
+  ],
+  "technology-create-error-cyber": [
+    {
+      "type": 0,
+      "value": "Grid connection unstable"
+    }
+  ],
+  "technology-create-success": [
+    {
+      "type": 0,
+      "value": "Technology uploaded to the matrix!"
+    }
+  ],
+  "technology-create-success-cyber": [
+    {
+      "type": 0,
+      "value": "Technology integrated into the grid!"
+    }
+  ],
+  "technology-cyber-creator-subtitle": [
+    {
+      "type": 0,
+      "value": "Fabricate new tech entities"
+    }
+  ],
+  "technology-cyber-hero-subtitle": [
+    {
+      "type": 0,
+      "value": "High Tech, Low Life"
+    }
+  ],
+  "technology-data-stream-subtitle": [
+    {
+      "type": 0,
+      "value": "Live feed of available technologies"
+    }
+  ],
+  "technology-dimensional-display": [
+    {
+      "type": 0,
+      "value": "Technology Constellation"
+    }
+  ],
+  "technology-dimensional-subtitle": [
+    {
+      "type": 0,
+      "value": "Navigate through the quantum field of innovation"
+    }
+  ],
+  "technology-fabricate-button": [
+    {
+      "type": 0,
+      "value": "Fabricate"
     }
   ],
   "technology-hero-subtitle": [
@@ -1915,6 +2145,90 @@
       "value": "Leading Technologies"
     }
   ],
+  "technology-multiverse-description": [
+    {
+      "type": 0,
+      "value": "Navigate through infinite dimensions where technology transcends reality. Experience the convergence of AI, quantum computing, and digital consciousness."
+    }
+  ],
+  "technology-multiverse-subtitle": [
+    {
+      "type": 0,
+      "value": "Digital Multiverse Explorer"
+    }
+  ],
+  "technology-multiverse-title": [
+    {
+      "type": 0,
+      "value": "TECH∞"
+    }
+  ],
+  "technology-page-description-cyber": [
+    {
+      "type": 0,
+      "value": "Explore the high-tech, low-life world of modern technology"
+    }
+  ],
+  "technology-page-description-new": [
+    {
+      "type": 0,
+      "value": "Journey through infinite dimensions of technological innovation"
+    }
+  ],
+  "technology-page-title-cyber": [
+    {
+      "type": 0,
+      "value": "Tech Grid 2077"
+    }
+  ],
+  "technology-page-title-new": [
+    {
+      "type": 0,
+      "value": "TECH∞ - Digital Multiverse Explorer"
+    }
+  ],
+  "technology-quantum-chamber-subtitle": [
+    {
+      "type": 0,
+      "value": "Elite-tier technologies transcending dimensional boundaries"
+    }
+  ],
+  "technology-quantum-chamber-title": [
+    {
+      "type": 0,
+      "value": "⚡ QUANTUM CORE"
+    }
+  ],
+  "technology-quantum-creator-subtitle": [
+    {
+      "type": 0,
+      "value": "Manifest new technologies into the digital multiverse"
+    }
+  ],
+  "technology-quantum-creator-title": [
+    {
+      "type": 0,
+      "value": "Quantum Tech Synthesizer"
+    }
+  ],
+  "technology-quantum-elite-badge": [
+    {
+      "type": 0,
+      "value": "⚡ QUANTUM CORE"
+    }
+  ],
+  "technology-realm-navigation": [
+    {
+      "type": 0,
+      "value": "Reality Realms"
+    }
+  ],
+  "technology-reset-button": [
+    {
+      "type": 0,
+      "value": "Reset Matrix"
+    }
+  ],
   "technology-stats-innovation": [
     {
       "type": 0,
@@ -1937,6 +2251,12 @@
     {
       "type": 0,
       "value": "Total Technologies"
+    }
+  ],
+  "technology-synthesize-button": [
+    {
+      "type": 0,
+      "value": "Synthesize"
     }
   ],
   "technology-tech-stack-created": [
