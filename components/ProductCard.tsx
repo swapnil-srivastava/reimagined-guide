@@ -260,103 +260,93 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
 
     return (
         <>
-            {
-                products ? products.map((product, index, array) => {
-                const descriptionTrimmed = generateContent(product?.description);
-                const nameTrimmed = generateContent(product?.name);
-                const createdAtDateFormat = moment(product.created_at).isValid()
-                ? moment(product.created_at).format("DD MMM YYYY")
-                : moment(product.created_at?.toMillis()).format("DD MMM YYYY");
+            {/* Loading state */}
+            {loading && (
+                <div className="w-full flex justify-center items-center py-8">
+                    <div className="text-sm text-gray-500">Loading products...</div>
+                </div>
+            )}
 
-                return (
-                    <>
-                        {!loading &&
-                        !postsEnd &&
-                        enableLoadMore && (
-                            <>
-                                <div className="flex flex-grow min-h-96 h-auto lg:w-1/5 w-auto" key={product.id}>
-                                    <div className="flex h-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
-                                        <div className="flex flex-col gap-2 justify-between">
-                                            <div>
-                                                <Image
-                                                        src={product.image_url ?? `/mountains.jpg`} 
-                                                        alt={product.name}
-                                                        width={500}
-                                                        height={500}
-                                                        className="rounded-lg"
-                                                    />
-                                            </div>
+            {/* Products Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
+                {Array.isArray(products) && products.map((product: PRODUCT) => {
+                    const descriptionTrimmed = generateContent(product?.description);
+                    const nameTrimmed = generateContent(product?.name);
+                    let createdAtDateFormat = '';
+                    try {
+                        if (product?.created_at) {
+                            // created_at might be a string, number, or Firestore-like Timestamp with toMillis
+                            const raw = product.created_at as any;
+                            const candidate = typeof raw === 'object' && typeof raw.toMillis === 'function' ? raw.toMillis() : raw;
+                            createdAtDateFormat = moment(candidate).isValid() ? moment(candidate).format("DD MMM YYYY") : '';
+                        }
+                    } catch (e) {
+                        createdAtDateFormat = '';
+                    }
 
-                                            {/* Products Name, Price, Add to Cart button */}
-                                            <div className="flex flex-col gap-2">
-                                                {/* Product Name, Price */}
-                                                <div className="flex flex-col gap-1 text-2xl font-semibold">
-                                                    {/* Product Name */}
-                                                    <Link href={`/product-detail/${product.id}`} className="hover:underline underline-offset-2" >
-                                                        {nameTrimmed}
-                                                    </Link>
-                                                    {/* Price */}
-                                                    <div className="flex flex-row justify-between">
-                                                        {/* Price */}
-                                                        <div className="text-sm">
-                                                            <CurrencyPriceComponent price={product.price}/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                {/* Add to Cart button section */}
-                                                <div className="text-lg hover:text-xs flex items-center justify-end gap-2">
-                                                    <button className={styles.btnAdmin} onClick={() => handleAddProduct(product)}>
-                                                        <FormattedMessage
-                                                            id="product-card-add-to-cart"
-                                                            description="Add to Cart" // Description should be a string literal
-                                                            defaultMessage="Add to Cart" // Message should be a string literal 
-                                                            />
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                    return (
+                        <article key={product.id} className="flex flex-col bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white rounded-3xl drop-shadow-lg overflow-hidden">
+                            <div className="w-full h-48 relative">
+                                <Image
+                                    src={product.image_url ?? `/mountains.jpg`}
+                                    alt={product.name ?? 'product image'}
+                                    fill={false}
+                                    width={500}
+                                    height={500}
+                                    className="object-cover w-full h-48"
+                                />
+                            </div>
+                            <div className="p-4 flex-1 flex flex-col justify-between">
+                                <div>
+                                    <h3 className="text-lg font-semibold">
+                                        <Link href={`/product-detail/${product.id}`} className="hover:underline underline-offset-2">
+                                            {nameTrimmed}
+                                        </Link>
+                                    </h3>
+                                    {descriptionTrimmed && <p className="mt-2 text-sm text-gray-600 dark:text-blog-white">{descriptionTrimmed}</p>}
                                 </div>
-                            </>
-                        )}
-                    </>
-                )
-                }
-            )
-            : <></> 
-            // no more products
-            }
 
-            {/* Create Product Card */}
-            <div className="flex lg:h-96 lg:w-1/5 h-auto w-auto">
-                <div className="flex h-full w-full justify-center items-center p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
+                                <div className="mt-4 flex items-center justify-between">
+                                    <div className="text-sm">
+                                        <CurrencyPriceComponent price={product.price} />
+                                    </div>
+                                    <div className="text-xs text-gray-400">{createdAtDateFormat}</div>
+                                </div>
+                                <div className="mt-3 flex justify-end">
+                                    <button aria-label={`Add ${product.name} to cart`} className={styles.btnAdmin} onClick={() => handleAddProduct(product)}>
+                                        <FormattedMessage id="product-card-add-to-cart" description="Add to Cart" defaultMessage="Add to Cart" />
+                                    </button>
+                                </div>
+                            </div>
+                        </article>
+                    );
+                })}
+
+                {/* Create Product Card as one grid item */}
+                <div className="flex items-center justify-center bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white rounded-3xl drop-shadow-lg p-4">
                     <div className="flex flex-col gap-2 justify-center items-center">
-                        <FontAwesomeIcon icon={faCirclePlus} size="3x" className="cursor-pointer" onClick={() => setCreateProduct(!createProduct)}/>
+                        <FontAwesomeIcon icon={faCirclePlus} size="3x" className="cursor-pointer" onClick={() => setCreateProduct(!createProduct)} />
                         <div className="text-lg">
-                        <FormattedMessage
-                            id="product-card-create-product"
-                            description="Create Product"
-                            defaultMessage="Create Product"
-                        />
+                            <FormattedMessage id="product-card-create-product" description="Create Product" defaultMessage="Create Product" />
                         </div>
                     </div>
                 </div>
-            </div>
 
-            {createProduct && 
-            <div className="flex lg:w-1/5 h-auto w-auto">
-                <div className="flex h-full w-full p-4 justify-center items-center hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
-                    <div className="flex flex-col justify-center items-center">
-                        <FontAwesomeIcon icon={faCircleXmark} className="cursor-pointer self-end pt-2" size="lg" onClick={() => setCreateProduct(!createProduct)}/>
-                        <CreateProduct />
+                {/* Create Product Form (expanded) */}
+                {createProduct && (
+                    <div className="col-span-1 md:col-span-2 lg:col-span-2 flex">
+                        <div className="w-full p-4 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white rounded-3xl drop-shadow-lg">
+                            <div className="flex justify-end">
+                                <FontAwesomeIcon icon={faCircleXmark} className="cursor-pointer" size="lg" onClick={() => setCreateProduct(!createProduct)} />
+                            </div>
+                            <CreateProduct />
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
-            }
         </>
     )
-    
+
  }
 
 export default ProductCard;
