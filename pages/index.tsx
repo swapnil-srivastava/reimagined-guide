@@ -427,18 +427,19 @@ export default function Home(props) {
 
       </div>
       
-      {/* Section before blog post --- Unveiling the Secrets: Dive into my latest article*/}
-      <div className="font-poppins text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl flex mt-10 mb-8 px-4 justify-center text-center dark:text-blog-white max-w-6xl mx-auto leading-tight">
-        <FormattedMessage
-          id="main-title-post"
-          description="main page title for before the post" // Description should be a string literal
-          defaultMessage="Unveiling the Secrets: Dive into my latest article" // Message should be a string literal
-        />
-      </div>
-
-      {/* Post Feed  */}
-      <div className={`h-screen flex justify-center ${posts?.length < 3 ? "" : "lg:ml-96"}`}>
-        <div className="flex gap-5">
+      {/* Post Feed with Title */}
+      <div className={`h-screen flex flex-col justify-start items-center pt-16 px-4 ${posts?.length < 3 ? "" : "lg:ml-96"}`}>
+        {/* Section title --- Unveiling the Secrets: Dive into my latest article*/}
+        <h2 className="font-poppins text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-center dark:text-blog-white max-w-4xl leading-tight mb-8">
+          <FormattedMessage
+            id="main-title-post"
+            description="main page title for before the post" // Description should be a string literal
+            defaultMessage="Unveiling the Secrets: Dive into my latest article" // Message should be a string literal
+          />
+        </h2>
+        
+        {/* Post List */}
+        <div className="flex gap-5 flex-1 w-full justify-center">
           <PostList posts={posts} loading={loading} postsEnd={postsEnd} enableLoadMore={true}/>
         </div>
       </div>

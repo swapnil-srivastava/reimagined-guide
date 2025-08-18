@@ -32,9 +32,9 @@ const PostList = ({  posts,  loading = false, postsEnd = false, enableLoadMore =
             !postsEnd &&
             enableLoadMore && (
                 <>
-                    <Link className="flex py-24 hover:py-14 min-w-fit" href={`/${post.username}/${post.slug}`} key={post.slug}>
-                        <div className="p-4 hover:px-8 flex lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
-                            <div className="flex flex-col gap-2 justify-between">
+                    <Link className="flex py-6 hover:py-4 min-w-fit" href={`/${post.username}/${post.slug}`} key={post.slug}>
+                        <div className="p-6 hover:px-8 flex lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125 max-w-md w-full">
+                            <div className="flex flex-col gap-4 justify-between w-full">
                                 {/* DATE and Author */}
                                 <div>
                                     {/* author image and author name */}
