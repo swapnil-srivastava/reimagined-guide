@@ -547,6 +547,12 @@
       "value": "Volume"
     }
   ],
+  "auth-check-email-verification": [
+    {
+      "type": 0,
+      "value": "Please check your email for verification link!"
+    }
+  ],
   "auth-check-fallback": [
     {
       "type": 0,
@@ -565,16 +571,118 @@
       "value": "Choose Username"
     }
   ],
-  "auth-sign-in-google": [
+  "auth-choose-username-subtitle": [
     {
       "type": 0,
-      "value": "Sign in with Google"
+      "value": "This will be your unique identifier"
+    }
+  ],
+  "auth-choose-username-title": [
+    {
+      "type": 0,
+      "value": "Choose your username"
+    }
+  ],
+  "auth-confirm-password-label": [
+    {
+      "type": 0,
+      "value": "Confirm password"
+    }
+  ],
+  "auth-confirm-password-placeholder": [
+    {
+      "type": 0,
+      "value": "Confirm your password"
+    }
+  ],
+  "auth-continue-google": [
+    {
+      "type": 0,
+      "value": "Continue with Google"
+    }
+  ],
+  "auth-email-label": [
+    {
+      "type": 0,
+      "value": "Email address"
+    }
+  ],
+  "auth-email-placeholder": [
+    {
+      "type": 0,
+      "value": "Enter your email"
+    }
+  ],
+  "auth-error-generic": [
+    {
+      "type": 0,
+      "value": "Something went wrong. Please try again."
+    }
+  ],
+  "auth-go-to-dashboard": [
+    {
+      "type": 0,
+      "value": "Go to Dashboard"
+    }
+  ],
+  "auth-google-error": [
+    {
+      "type": 0,
+      "value": "Google sign in failed. Please try again."
+    }
+  ],
+  "auth-or-divider": [
+    {
+      "type": 0,
+      "value": "or"
+    }
+  ],
+  "auth-password-label": [
+    {
+      "type": 0,
+      "value": "Password"
+    }
+  ],
+  "auth-password-mismatch": [
+    {
+      "type": 0,
+      "value": "Passwords don't match"
+    }
+  ],
+  "auth-password-placeholder": [
+    {
+      "type": 0,
+      "value": "Enter your password"
+    }
+  ],
+  "auth-sign-in-success": [
+    {
+      "type": 0,
+      "value": "Welcome back!"
     }
   ],
   "auth-sign-out": [
     {
       "type": 0,
       "value": "Sign Out"
+    }
+  ],
+  "auth-signed-in-message": [
+    {
+      "type": 0,
+      "value": "You are successfully signed in"
+    }
+  ],
+  "auth-signout-error": [
+    {
+      "type": 0,
+      "value": "Failed to sign out. Please try again."
+    }
+  ],
+  "auth-signout-success": [
+    {
+      "type": 0,
+      "value": "You've been signed out successfully!"
     }
   ],
   "auth-username-available": [
@@ -593,10 +701,48 @@
       "value": "Username"
     }
   ],
+  "auth-username-placeholder": [
+    {
+      "type": 0,
+      "value": "Choose a username"
+    }
+  ],
+  "auth-username-requirements": [
+    {
+      "type": 0,
+      "value": "3-15 characters, letters, numbers, dots and underscores only"
+    }
+  ],
   "auth-username-taken": [
     {
       "type": 0,
       "value": "That username is taken!"
+    }
+  ],
+  "auth-username-update-error": [
+    {
+      "type": 0,
+      "value": "Failed to update username. Please try again."
+    }
+  ],
+  "auth-username-updated": [
+    {
+      "type": 0,
+      "value": "Username updated successfully!"
+    }
+  ],
+  "auth-welcome-back": [
+    {
+      "type": 0,
+      "value": "Welcome back, "
+    },
+    {
+      "type": 1,
+      "value": "username"
+    },
+    {
+      "type": 0,
+      "value": "!"
     }
   ],
   "calculate-total-delivery-cost-text": [

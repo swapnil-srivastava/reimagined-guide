@@ -1,9 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { supaClient } from "../supa-client";
 import { RootState } from "../lib/interfaces/interface";
 import debounce from "lodash.debounce";
+import Image from "next/image";
+import { toast } from "react-hot-toast";
 
 // e.g. localhost:3000/enter
 function Enter() {
@@ -11,90 +13,426 @@ function Enter() {
   const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
 
-  // 1. user signed out <SignInButton />
+  // 1. user signed out <AuthCard />
   // 2. user signed in, but missing username <UsernameForm />
   // 3. user signed in, has username <SignOutButton />
   return (
-    <main className="flex items-center justify-center min-h-screen w-full">
-      {profile?.id ? (
-        !profile?.username ? (
-          <UsernameForm />
+    <main className="min-h-screen bg-blog-white dark:bg-fun-blue-500 flex items-center justify-center px-4 py-12">
+      <div className="w-full max-w-md">
+        {profile?.id ? (
+          !profile?.username ? (
+            <UsernameForm />
+          ) : (
+            <SignOutCard />
+          )
         ) : (
-          <SignOutButton />
-        )
-      ) : (
-        <>
-          <div className="transform -translate-y-16">
-            <SignInButton />
-          </div>
-        </>
-      )}
+          <AuthCard />
+        )}
+      </div>
     </main>
   );
 }
 
-// Sign in with Google button
-function SignInButton() {
-  async function signInWithGoogleSupabase() {
-    const { data, error } = await supaClient.auth.signInWithOAuth({
-      provider: "google",
-    });
-  }
+// Modern Authentication Card with email/password and OAuth
+function AuthCard() {
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const intl = useIntl();
+
+  const validateForm = () => {
+    if (!email || !password) return false;
+    if (isSignUp && password !== confirmPassword) return false;
+    if (password.length < 6) return false;
+    return true;
+  };
+
+  const handleEmailAuth = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    setLoading(true);
+    try {
+      if (isSignUp) {
+        const { data, error } = await supaClient.auth.signUp({
+          email,
+          password,
+        });
+        
+        if (error) throw error;
+        
+        if (data.user && !data.session) {
+          toast.success(intl.formatMessage({
+            id: "auth-check-email-verification",
+            description: "Check email for verification",
+            defaultMessage: "Please check your email for verification link!"
+          }));
+        }
+      } else {
+        const { data, error } = await supaClient.auth.signInWithPassword({
+          email,
+          password,
+        });
+        
+        if (error) throw error;
+        
+        toast.success(intl.formatMessage({
+          id: "auth-sign-in-success",
+          description: "Sign in successful",
+          defaultMessage: "Welcome back!"
+        }));
+      }
+    } catch (error: any) {
+      toast.error(error.message || intl.formatMessage({
+        id: "auth-error-generic",
+        description: "Authentication error",
+        defaultMessage: "Something went wrong. Please try again."
+      }));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleAuth = async () => {
+    try {
+      const { data, error } = await supaClient.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: window.location.origin
+        }
+      });
+      
+      if (error) throw error;
+    } catch (error: any) {
+      toast.error(error.message || intl.formatMessage({
+        id: "auth-google-error",
+        description: "Google sign in error",
+        defaultMessage: "Google sign in failed. Please try again."
+      }));
+    }
+  };
 
   return (
-    <div className="flex items-center">
-      <button
-        className="flex items-center bg-white rounded-lg px-4 m-2
-              transition-filter duration-500 hover:filter hover:brightness-125
-              border
-              border-fun-blue-200
-              dark:border-0
-              focus:outline-none focus:ring-2 
-              focus:ring-fun-blue-400 
-              focus:ring-offset-2
-              text-2xl
-              text-blog-black
-              font-semibold 
-              dark:text-fun-blue-500
-              "
-        onClick={signInWithGoogleSupabase}
-      >
-        <img className="h-10 w-10" src={"/google.png"} />
-        <div>
+    <div className="bg-white dark:bg-fun-blue-800 shadow-2xl rounded-2xl p-8 border border-gray-200 dark:border-fun-blue-600">
+      {/* Header */}
+      <div className="text-center mb-8">
+        <div className="flex justify-center mb-4">
+          <div className="w-16 h-16 bg-primary-blue rounded-full flex items-center justify-center">
+            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+          </div>
+        </div>
+        <h1 className="text-3xl font-bold text-blog-black dark:text-white mb-2">
           <FormattedMessage
-            id="auth-sign-in-google"
-            description="Sign in with Google"
-            defaultMessage="Sign in with Google"
+            id={isSignUp ? "auth-welcome-signup" : "auth-welcome-signin"}
+            description={isSignUp ? "Welcome signup" : "Welcome signin"}
+            defaultMessage={isSignUp ? "Create your account" : "Welcome back"}
+          />
+        </h1>
+        <p className="text-gray-600 dark:text-gray-300">
+          <FormattedMessage
+            id={isSignUp ? "auth-subtitle-signup" : "auth-subtitle-signin"}
+            description={isSignUp ? "Signup subtitle" : "Signin subtitle"}
+            defaultMessage={isSignUp ? "Join our community today" : "Sign in to your account"}
+          />
+        </p>
+      </div>
+
+      {/* Google Sign In Button */}
+      <button
+        onClick={handleGoogleAuth}
+        className="w-full flex items-center justify-center gap-3 bg-white dark:bg-gray-700 
+                   border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 mb-6
+                   hover:bg-gray-50 dark:hover:bg-gray-600 
+                   transition-all duration-200 ease-in-out
+                   focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2
+                   text-gray-700 dark:text-gray-200 font-medium"
+      >
+        <Image 
+          src="/google.png" 
+          alt="Google"
+          width={20} 
+          height={20}
+        />
+        <FormattedMessage
+          id="auth-continue-google"
+          description="Continue with Google"
+          defaultMessage="Continue with Google"
+        />
+      </button>
+
+      {/* Divider */}
+      <div className="relative mb-6">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-gray-300 dark:border-gray-600" />
+        </div>
+        <div className="relative flex justify-center text-sm">
+          <span className="px-4 bg-white dark:bg-fun-blue-800 text-gray-500 dark:text-gray-400">
+            <FormattedMessage
+              id="auth-or-divider"
+              description="Or divider"
+              defaultMessage="or"
+            />
+          </span>
+        </div>
+      </div>
+
+      {/* Email/Password Form */}
+      <form onSubmit={handleEmailAuth} className="space-y-4">
+        {/* Email Field */}
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <FormattedMessage
+              id="auth-email-label"
+              description="Email address"
+              defaultMessage="Email address"
+            />
+          </label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-3 py-3 border border-gray-300 dark:border-gray-600 
+                       rounded-lg bg-white dark:bg-gray-700
+                       text-gray-900 dark:text-white
+                       placeholder-gray-500 dark:placeholder-gray-400
+                       focus:outline-none focus:ring-2 focus:ring-primary-blue focus:border-transparent
+                       transition-all duration-200"
+            placeholder={intl.formatMessage({
+              id: "auth-email-placeholder",
+              description: "Email placeholder",
+              defaultMessage: "Enter your email"
+            })}
+            required
           />
         </div>
-      </button>
+
+        {/* Password Field */}
+        <div>
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <FormattedMessage
+              id="auth-password-label"
+              description="Password"
+              defaultMessage="Password"
+            />
+          </label>
+          <div className="relative">
+            <input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-3 py-3 pr-10 border border-gray-300 dark:border-gray-600 
+                         rounded-lg bg-white dark:bg-gray-700
+                         text-gray-900 dark:text-white
+                         placeholder-gray-500 dark:placeholder-gray-400
+                         focus:outline-none focus:ring-2 focus:ring-primary-blue focus:border-transparent
+                         transition-all duration-200"
+              placeholder={intl.formatMessage({
+                id: "auth-password-placeholder",
+                description: "Password placeholder",
+                defaultMessage: "Enter your password"
+              })}
+              minLength={6}
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute inset-y-0 right-0 pr-3 flex items-center"
+            >
+              <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {showPassword ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                )}
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Confirm Password Field (Sign Up Only) */}
+        {isSignUp && (
+          <div>
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <FormattedMessage
+                id="auth-confirm-password-label"
+                description="Confirm password"
+                defaultMessage="Confirm password"
+              />
+            </label>
+            <input
+              id="confirmPassword"
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="w-full px-3 py-3 border border-gray-300 dark:border-gray-600 
+                         rounded-lg bg-white dark:bg-gray-700
+                         text-gray-900 dark:text-white
+                         placeholder-gray-500 dark:placeholder-gray-400
+                         focus:outline-none focus:ring-2 focus:ring-primary-blue focus:border-transparent
+                         transition-all duration-200"
+              placeholder={intl.formatMessage({
+                id: "auth-confirm-password-placeholder",
+                description: "Confirm password placeholder",
+                defaultMessage: "Confirm your password"
+              })}
+              required
+            />
+            {password && confirmPassword && password !== confirmPassword && (
+              <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+                <FormattedMessage
+                  id="auth-password-mismatch"
+                  description="Passwords don't match"
+                  defaultMessage="Passwords don't match"
+                />
+              </p>
+            )}
+          </div>
+        )}
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          disabled={!validateForm() || loading}
+          className="w-full bg-primary-blue hover:bg-blue-secondary 
+                     disabled:bg-gray-400 disabled:cursor-not-allowed
+                     text-white font-medium py-3 px-4 rounded-lg
+                     transition-all duration-200 ease-in-out
+                     focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2
+                     flex items-center justify-center gap-2"
+        >
+          {loading && (
+            <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+            </svg>
+          )}
+          <FormattedMessage
+            id={isSignUp ? "auth-signup-button" : "auth-signin-button"}
+            description={isSignUp ? "Sign up button" : "Sign in button"}
+            defaultMessage={isSignUp ? "Create account" : "Sign in"}
+          />
+        </button>
+      </form>
+
+      {/* Toggle Sign In/Sign Up */}
+      <div className="mt-6 text-center">
+        <p className="text-gray-600 dark:text-gray-400">
+          <FormattedMessage
+            id={isSignUp ? "auth-have-account" : "auth-no-account"}
+            description={isSignUp ? "Already have account" : "Don't have account"}
+            defaultMessage={isSignUp ? "Already have an account?" : "Don't have an account?"}
+          />
+          {" "}
+          <button
+            onClick={() => setIsSignUp(!isSignUp)}
+            className="text-primary-blue hover:text-blue-secondary font-medium transition-colors duration-200"
+          >
+            <FormattedMessage
+              id={isSignUp ? "auth-signin-link" : "auth-signup-link"}
+              description={isSignUp ? "Sign in link" : "Sign up link"}
+              defaultMessage={isSignUp ? "Sign in" : "Sign up"}
+            />
+          </button>
+        </p>
+      </div>
     </div>
   );
 }
 
-// Sign out button
-function SignOutButton() {
+// Sign out card
+function SignOutCard() {
+  const intl = useIntl();
+  const selectUser = (state: RootState) => state.users;
+  const { userInfo } = useSelector(selectUser);
+  const { profile } = userInfo;
+
   async function signoutSupa() {
-    const { error } = await supaClient.auth.signOut();
+    try {
+      const { error } = await supaClient.auth.signOut();
+      if (error) throw error;
+      
+      toast.success(intl.formatMessage({
+        id: "auth-signout-success",
+        description: "Sign out successful",
+        defaultMessage: "You've been signed out successfully!"
+      }));
+    } catch (error: any) {
+      toast.error(error.message || intl.formatMessage({
+        id: "auth-signout-error",
+        description: "Sign out error",
+        defaultMessage: "Failed to sign out. Please try again."
+      }));
+    }
   }
+
   return (
-    <button
-      className="bg-hit-pink-500 text-blog-black
-              rounded-lg px-4 py-2 m-2
-              transition-filter duration-500 hover:filter hover:brightness-125 
-              focus:outline-none focus:ring-2 
-              focus:ring-fun-blue-400 
-              focus:ring-offset-2
-              text-2xl
-              font-semibold"
-      onClick={() => signoutSupa()}
-    >
-      <FormattedMessage
-        id="auth-sign-out"
-        description="Sign Out"
-        defaultMessage="Sign Out"
-      />
-    </button>
+    <div className="bg-white dark:bg-fun-blue-800 shadow-2xl rounded-2xl p-8 border border-gray-200 dark:border-fun-blue-600 text-center">
+      {/* Profile Avatar */}
+      <div className="flex justify-center mb-6">
+        <div className="w-20 h-20 bg-primary-blue rounded-full flex items-center justify-center">
+          <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+        </div>
+      </div>
+
+      {/* Welcome Message */}
+      <h1 className="text-2xl font-bold text-blog-black dark:text-white mb-2">
+        <FormattedMessage
+          id="auth-welcome-back"
+          description="Welcome back message"
+          defaultMessage="Welcome back, {username}!"
+          values={{ username: profile?.username || "User" }}
+        />
+      </h1>
+      
+      <p className="text-gray-600 dark:text-gray-300 mb-8">
+        <FormattedMessage
+          id="auth-signed-in-message"
+          description="Signed in message"
+          defaultMessage="You are successfully signed in"
+        />
+      </p>
+
+      {/* Actions */}
+      <div className="space-y-4">
+        <button
+          onClick={() => window.location.href = '/'}
+          className="w-full bg-primary-blue hover:bg-blue-secondary 
+                     text-white font-medium py-3 px-4 rounded-lg
+                     transition-all duration-200 ease-in-out
+                     focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2"
+        >
+          <FormattedMessage
+            id="auth-go-to-dashboard"
+            description="Go to dashboard"
+            defaultMessage="Go to Dashboard"
+          />
+        </button>
+
+        <button
+          onClick={signoutSupa}
+          className="w-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600
+                     text-gray-700 dark:text-gray-300 font-medium py-3 px-4 rounded-lg
+                     transition-all duration-200 ease-in-out
+                     focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
+        >
+          <FormattedMessage
+            id="auth-sign-out"
+            description="Sign Out"
+            defaultMessage="Sign Out"
+          />
+        </button>
+      </div>
+    </div>
   );
 }
 
@@ -103,22 +441,39 @@ function UsernameForm() {
   const [formValue, setFormValue] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [loading, setLoading] = useState(false);
+  const intl = useIntl();
 
   // TS infers type: (state: RootState) => boolean
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
 
-  const onSubmit = async (e) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { data, error } = await supaClient
-      .from("profiles")
-      .update({ username: formValue })
-      .eq("id", profile?.id)
-      .select();
+    try {
+      const { data, error } = await supaClient
+        .from("profiles")
+        .update({ username: formValue })
+        .eq("id", profile?.id)
+        .select();
+      
+      if (error) throw error;
+      
+      toast.success(intl.formatMessage({
+        id: "auth-username-updated",
+        description: "Username updated successfully",
+        defaultMessage: "Username updated successfully!"
+      }));
+    } catch (error: any) {
+      toast.error(error.message || intl.formatMessage({
+        id: "auth-username-update-error",
+        description: "Username update error",
+        defaultMessage: "Failed to update username. Please try again."
+      }));
+    }
   };
 
-  const onChange = (e) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // Force form value typed in form to match correct format
     const val = e.target.value.toLowerCase();
     const re = /^(?=[a-zA-Z0-9._]{3,15}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
@@ -136,8 +491,6 @@ function UsernameForm() {
       setIsValid(false);
     }
   };
-
-  //
 
   useEffect(() => {
     checkUsername(formValue);
@@ -160,104 +513,153 @@ function UsernameForm() {
   );
 
   return (
-    !profile?.username && (
-      <section>
-        <div className="flex flex-col justify-center h-screen w-screen text-blog-black dark:text-blog-white">
-          <form
-            onSubmit={onSubmit}
-            className="self-center flex flex-col text-blog-black dark:text-blog-white 
-                      font-mono text-3xl lg:text-6xl
-                      px-5 py-5
-          "
-          >
-            <label className="block">
-              <span
-                className="after:content-['*'] after:ml-0.5 after:text-red-500 block font-medium
-            text-blog-black dark:text-blog-white"
-              >
-                <FormattedMessage
-                  id="auth-username-label"
-                  description="Username"
-                  defaultMessage="Username"
-                />
-              </span>
-              <input
-                name="username"
-                value={formValue}
-                onChange={onChange}
-                className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 
-                placeholder-slate-400 focus:outline-none focus:border-sky-500 
-                focus:ring-sky-500 block w-full rounded-md focus:ring-1
-                text-blog-black dark:text-blog-black
-                placeholder:dark:text-blog-black
-                placeholder:text-blog-black
-                "
-                placeholder="Choose a name"
+    <div className="bg-white dark:bg-fun-blue-800 shadow-2xl rounded-2xl p-8 border border-gray-200 dark:border-fun-blue-600">
+      {/* Header */}
+      <div className="text-center mb-8">
+        <div className="flex justify-center mb-4">
+          <div className="w-16 h-16 bg-primary-blue rounded-full flex items-center justify-center">
+            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+          </div>
+        </div>
+        <h1 className="text-3xl font-bold text-blog-black dark:text-white mb-2">
+          <FormattedMessage
+            id="auth-choose-username-title"
+            description="Choose username title"
+            defaultMessage="Choose your username"
+          />
+        </h1>
+        <p className="text-gray-600 dark:text-gray-300">
+          <FormattedMessage
+            id="auth-choose-username-subtitle"
+            description="Choose username subtitle"
+            defaultMessage="This will be your unique identifier"
+          />
+        </p>
+      </div>
+
+      {/* Form */}
+      <form onSubmit={onSubmit} className="space-y-6">
+        <div>
+          <label htmlFor="username" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <span className="after:content-['*'] after:ml-0.5 after:text-red-500">
+              <FormattedMessage
+                id="auth-username-label"
+                description="Username"
+                defaultMessage="Username"
               />
-            </label>
+            </span>
+          </label>
+          <input
+            id="username"
+            name="username"
+            value={formValue}
+            onChange={onChange}
+            className="w-full px-3 py-3 border border-gray-300 dark:border-gray-600 
+                       rounded-lg bg-white dark:bg-gray-700
+                       text-gray-900 dark:text-white
+                       placeholder-gray-500 dark:placeholder-gray-400
+                       focus:outline-none focus:ring-2 focus:ring-primary-blue focus:border-transparent
+                       transition-all duration-200"
+            placeholder={intl.formatMessage({
+              id: "auth-username-placeholder",
+              description: "Username placeholder",
+              defaultMessage: "Choose a username"
+            })}
+            required
+          />
+          
+          {/* Username validation message */}
+          <div className="mt-2 min-h-[1.5rem]">
             <UsernameMessage
               username={formValue}
               isValid={isValid}
               loading={loading}
             />
-            <button
-              type="submit"
-              className="bg-hit-pink-500 text-blog-black
-              rounded-lg px-4 py-2 m-2
-              transition-filter duration-500 hover:filter hover:brightness-125 
-              focus:outline-none focus:ring-2 
-              focus:ring-fun-blue-400 
-              focus:ring-offset-2
-              dark:text-blog-black"
-              disabled={!isValid}
-            >
-              <FormattedMessage
-                id="auth-choose-username"
-                description="Choose Username"
-                defaultMessage="Choose Username"
-              />
-            </button>
-          </form>
+          </div>
         </div>
-      </section>
-    )
+
+        <button
+          type="submit"
+          disabled={!isValid}
+          className="w-full bg-primary-blue hover:bg-blue-secondary 
+                     disabled:bg-gray-400 disabled:cursor-not-allowed
+                     text-white font-medium py-3 px-4 rounded-lg
+                     transition-all duration-200 ease-in-out
+                     focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2"
+        >
+          <FormattedMessage
+            id="auth-choose-username"
+            description="Choose Username"
+            defaultMessage="Choose Username"
+          />
+        </button>
+      </form>
+    </div>
   );
 }
 
-function UsernameMessage({ username, isValid, loading }) {
+function UsernameMessage({ username, isValid, loading }: { 
+  username: string; 
+  isValid: boolean; 
+  loading: boolean; 
+}) {
   if (loading) {
     return (
-      <p>
-        <FormattedMessage
-          id="auth-checking-username"
-          description="Checking..."
-          defaultMessage="Checking..."
-        />
-      </p>
+      <div className="flex items-center gap-2 text-blue-600">
+        <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+        </svg>
+        <span className="text-sm">
+          <FormattedMessage
+            id="auth-checking-username"
+            description="Checking..."
+            defaultMessage="Checking..."
+          />
+        </span>
+      </div>
     );
   } else if (isValid) {
     return (
-      <p className="text-success">
-        <FormattedMessage
-          id="auth-username-available"
-          description="Username is available"
-          defaultMessage="{username} is available!"
-          values={{ username }}
-        />
-      </p>
+      <div className="flex items-center gap-2 text-green-600">
+        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+        </svg>
+        <span className="text-sm">
+          <FormattedMessage
+            id="auth-username-available"
+            description="Username is available"
+            defaultMessage="{username} is available!"
+            values={{ username }}
+          />
+        </span>
+      </div>
     );
   } else if (username && !isValid) {
     return (
-      <p className="text-danger">
-        <FormattedMessage
-          id="auth-username-taken"
-          description="That username is taken!"
-          defaultMessage="That username is taken!"
-        />
-      </p>
+      <div className="flex items-center gap-2 text-red-600">
+        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        </svg>
+        <span className="text-sm">
+          <FormattedMessage
+            id="auth-username-taken"
+            description="That username is taken!"
+            defaultMessage="That username is taken!"
+          />
+        </span>
+      </div>
     );
   } else {
-    return <p></p>;
+    return <div className="text-sm text-gray-500">
+      <FormattedMessage
+        id="auth-username-requirements"
+        description="Username requirements"
+        defaultMessage="3-15 characters, letters, numbers, dots and underscores only"
+      />
+    </div>;
   }
 }
 
