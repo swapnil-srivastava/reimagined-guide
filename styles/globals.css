@@ -213,6 +213,129 @@ img {
   100% { transform: translateX(100%); }
 }
 
+/* Cyberpunk Styles */
+.bg-grid-cyan {
+  background-image: 
+    linear-gradient(to right, rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 2rem 2rem;
+}
+
+.glitch {
+  position: relative;
+  color: #00ffff;
+  text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff00ff;
+  animation: glitch-anim 2s infinite linear alternate-reverse;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  overflow: hidden;
+}
+
+.glitch::before {
+  left: 2px;
+  text-shadow: -2px 0 #ff00ff;
+  animation: glitch-anim-2 2s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+  left: -2px;
+  text-shadow: -2px 0 #00ffff, 2px 2px #ff00ff;
+  animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip-path: inset(40% 0 60% 0); }
+  20% { clip-path: inset(80% 0 10% 0); }
+  40% { clip-path: inset(20% 0 70% 0); }
+  60% { clip-path: inset(70% 0 20% 0); }
+  80% { clip-path: inset(10% 0 80% 0); }
+  100% { clip-path: inset(50% 0 40% 0); }
+}
+
+@keyframes glitch-anim-1 {
+  0% { clip-path: inset(20% 0 80% 0); }
+  20% { clip-path: inset(40% 0 60% 0); }
+  40% { clip-path: inset(60% 0 40% 0); }
+  60% { clip-path: inset(80% 0 20% 0); }
+  80% { clip-path: inset(0 0 100% 0); }
+  100% { clip-path: inset(20% 0 80% 0); }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip-path: inset(0 0 100% 0); }
+  20% { clip-path: inset(20% 0 80% 0); }
+  40% { clip-path: inset(40% 0 60% 0); }
+  60% { clip-path: inset(60% 0 40% 0); }
+  80% { clip-path: inset(80% 0 20% 0); }
+  100% { clip-path: inset(0 0 100% 0); }
+}
+
+.cyber-button {
+  @apply font-mono px-6 py-2 bg-cyan-400 text-black font-bold uppercase tracking-wider border-2 border-cyan-400 transition-all duration-300;
+}
+
+.cyber-button:hover {
+  @apply bg-transparent text-cyan-400 shadow-[0_0_10px_cyan];
+}
+
+.cyber-button-secondary {
+  @apply font-mono px-6 py-2 bg-transparent text-cyan-400 font-bold uppercase tracking-wider border-2 border-cyan-400 transition-all duration-300;
+}
+
+.cyber-button-secondary:hover {
+  @apply bg-cyan-400 text-black shadow-[0_0_10px_cyan];
+}
+
+.cyber-sector-button {
+  @apply font-mono px-4 py-2 bg-black border-2 border-cyan-400 text-cyan-400 uppercase transition-all duration-300;
+}
+
+.cyber-sector-button.active,
+.cyber-sector-button:hover {
+  @apply bg-cyan-400 text-black shadow-[0_0_15px_cyan];
+}
+
+.data-stream-card {
+  @apply bg-black/50 border border-cyan-400/30 rounded-sm overflow-hidden transition-all duration-300;
+}
+
+.data-stream-card:hover {
+  @apply border-cyan-400 shadow-[0_0_20px_rgba(0,255,255,0.3)];
+}
+
+.data-stream-card-header {
+  @apply flex justify-between items-center p-2 bg-black/70 border-b border-cyan-400/30;
+}
+
+.data-stream-card-footer {
+  @apply p-2 bg-black/70 border-t border-cyan-400/30;
+}
+
+.bounty-card {
+  @apply bg-black/50 border border-yellow-400/30 rounded-sm overflow-hidden transition-all duration-300;
+}
+
+.bounty-card:hover {
+  @apply border-yellow-400 shadow-[0_0_20px_rgba(255,255,0,0.3)];
+}
+
+.bounty-card-header {
+  @apply flex justify-between items-center p-4 bg-black/70 border-b border-yellow-400/30;
+}
+
+.bounty-card-footer {
+  @apply p-2 bg-black/70 border-t border-yellow-400/30 text-right;
+}
+
 .ProseMirror > code {
   @apply bg-blog-white text-[#616161];
 }
