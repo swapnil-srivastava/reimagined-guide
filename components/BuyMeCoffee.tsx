@@ -6,7 +6,7 @@
 const BuyMeCoffee = ({  }) => {
     return (
       <>
-        <div className="flex items-end justify-end fixed right-0 mb-4 mr-4 z-10">
+        <div className="flex items-end justify-end fixed bottom-16 sm:bottom-16 right-0 mb-4 mr-4 z-10">
             <div>
                 <a title="Buy me a beer" href="https://www.buymeacoffee.com/swapnilsrivastava" target="_blank" className="block w-full h-12 rounded-full transition-all shadow hover:shadow-lg transform hover:scale-110 hover:rotate-6">
                     <img className="object-cover object-center w-full h-full rounded-full" src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=&button_colour=003e75&font_colour=FBFBFB&font_family=Cookie&outline_colour=FBFBFB&coffee_colour=FFDD00"/>

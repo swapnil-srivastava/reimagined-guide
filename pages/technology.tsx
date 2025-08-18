@@ -159,8 +159,8 @@ export default function Technology(props) {
                 className={`
                   group relative px-6 py-3 rounded-full transition-all duration-300
                   ${selectedCategory === category.id 
-                    ? 'bg-gradient-to-r from-primary-blue to-purple-accent text-white shadow-lg transform scale-105' 
-                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-md hover:shadow-lg hover:transform hover:scale-105'
+                    ? 'bg-gradient-to-r from-primary-blue to-purple-accent shadow-lg transform scale-105' 
+                    : 'bg-white dark:bg-gray-800 shadow-md hover:shadow-lg hover:transform hover:scale-105 hover:bg-gray-50 dark:hover:bg-gray-700'
                   }
                 `}
               >
