@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import toast from "react-hot-toast";
@@ -17,6 +17,7 @@ import { RootState } from "../../lib/interfaces/interface";
 import { supaClient } from "../../supa-client";
 
 function Products() {
+  const intl = useIntl();
 
   const selectUser = (state: RootState) => state.cart;
   const { cartItems } = useSelector(selectUser);
@@ -37,7 +38,11 @@ function Products() {
         }
 
         setProducts(data || []);
-        toast.success('Products loaded successfully!');
+        toast.success(intl.formatMessage({
+          id: "products-loaded-successfully",
+          description: "Products loaded successfully!",
+          defaultMessage: "Products loaded successfully!"
+        }));
       } catch (error) {
         toast.error(`Error loading products: ${error.message}`);
       } finally {

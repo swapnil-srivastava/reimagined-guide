@@ -118,15 +118,33 @@ const Pricing = () => {
               <div className="flex flex-col leading-loose text-sm lg:text-md">
                 <div className="flex gap-2">
                   <div><FontAwesomeIcon icon={faCheck} /></div>
-                  <div>Simple website design</div>
+                  <div>
+                    <FormattedMessage
+                      id="pricing-simple-website-design"
+                      description="Simple website design"
+                      defaultMessage="Simple website design"
+                    />
+                  </div>
                 </div>
                 <div className="flex gap-2">
                   <div><FontAwesomeIcon icon={faCheck} /></div>
-                  <div>Up to 5 pages</div>
+                  <div>
+                    <FormattedMessage
+                      id="pricing-up-to-5-pages"
+                      description="Up to 5 pages"
+                      defaultMessage="Up to 5 pages"
+                    />
+                  </div>
                 </div>
                 <div className="flex gap-2">
                   <div><FontAwesomeIcon icon={faCheck} /></div>
-                  <div>Basic SEO setup</div>
+                  <div>
+                    <FormattedMessage
+                      id="pricing-basic-seo-setup"
+                      description="Basic SEO setup"
+                      defaultMessage="Basic SEO setup"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -134,8 +152,20 @@ const Pricing = () => {
             {/* Pricing card 3 */}
             <div className="w-80 mx-10 p-10 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
             <div className="flex flex-col">
-                <div className="font-bold leading-loose">Standard Package</div>
-                <div className="font-thin text-xs leading-loose">Ideal For: Businesses with specific, large-scale projects</div>
+                <div className="font-bold leading-loose">
+                  <FormattedMessage
+                    id="pricing-standard-package"
+                    description="Standard Package"
+                    defaultMessage="Standard Package"
+                  />
+                </div>
+                <div className="font-thin text-xs leading-loose">
+                  <FormattedMessage
+                    id="pricing-standard-package-description"
+                    description="Ideal For: Businesses with specific, large-scale projects"
+                    defaultMessage="Ideal For: Businesses with specific, large-scale projects"
+                  />
+                </div>
                 <div className="text-4xl text-center leading-loose">€2,500</div>
                 {/* button section */}
                 <div className="text-center font-thin flex items-center justify-center mb-3">
@@ -145,15 +175,33 @@ const Pricing = () => {
               <div className="flex flex-col leading-loose text-sm lg:text-md">
                 <div className="flex gap-2">
                   <div><FontAwesomeIcon icon={faCheck}/></div>
-                  <div>Custom website design</div>
+                  <div>
+                    <FormattedMessage
+                      id="pricing-custom-website-design"
+                      description="Custom website design"
+                      defaultMessage="Custom website design"
+                    />
+                  </div>
                 </div>
                 <div className="flex gap-2">
                   <div><FontAwesomeIcon icon={faCheck}/></div>
-                  <div>Up to 10 pages</div>
+                  <div>
+                    <FormattedMessage
+                      id="pricing-up-to-10-pages"
+                      description="Up to 10 pages"
+                      defaultMessage="Up to 10 pages"
+                    />
+                  </div>
                 </div>
                 <div className="flex gap-2">
                   <div><FontAwesomeIcon icon={faCheck}/></div>
-                  <div>Advanced SEO setup</div>
+                  <div>
+                    <FormattedMessage
+                      id="pricing-advanced-seo-setup"
+                      description="Advanced SEO setup"
+                      defaultMessage="Advanced SEO setup"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -163,7 +211,13 @@ const Pricing = () => {
         <div className="bg-blog-white text-blog-black dark:bg-fun-blue-600 dark:text-blog-white py-24 sm:py-32 rounded-lg">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl sm:text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-blog-white sm:text-4xl">Simple no-tricks pricing</h2>
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-blog-white sm:text-4xl">
+              <FormattedMessage
+                id="pricing-simple-no-tricks-pricing"
+                description="Simple no-tricks pricing"
+                defaultMessage="Simple no-tricks pricing"
+              />
+            </h2>
             {/* <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-blog-white">
               Distinctio et nulla eum soluta et neque labore quibusdam. Saepe et quasi iusto modi velit ut non voluptas
               in. Explicabo id ut laborum.
@@ -171,12 +225,28 @@ const Pricing = () => {
           </div>
           <div className="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
             <div className="p-8 sm:p-10 lg:flex-auto">
-              <h3 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-blog-white">Premium Package</h3>
+              <h3 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-blog-white">
+                <FormattedMessage
+                  id="pricing-premium-package"
+                  description="Premium Package"
+                  defaultMessage="Premium Package"
+                />
+              </h3>
               <p className="mt-6 text-base leading-7 text-gray-600 dark:text-blog-white">
-               Unlock the expertise with a single investment - pay once, and your success is in good hands.
+                <FormattedMessage
+                  id="pricing-premium-package-description"
+                  description="Unlock the expertise with a single investment - pay once, and your success is in good hands."
+                  defaultMessage="Unlock the expertise with a single investment - pay once, and your success is in good hands."
+                />
               </p>
               <div className="mt-10 flex items-center gap-x-4">
-                <h4 className="flex-none text-sm font-semibold leading-6 text-fun-blue-500 dark:text-blog-white">What&apos;s included</h4>
+                <h4 className="flex-none text-sm font-semibold leading-6 text-fun-blue-500 dark:text-blog-white">
+                  <FormattedMessage
+                    id="pricing-whats-included"
+                    description="What's included"
+                    defaultMessage="What's included"
+                  />
+                </h4>
                 <div className="h-px flex-auto bg-gray-100" />
               </div>
               <ul
@@ -194,14 +264,24 @@ const Pricing = () => {
             <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
               <div className="rounded-2xl bg-gray-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
                 <div className="mx-auto max-w-xs px-8">
-                  <p className="text-base font-semibold text-gray-600">Pay once, own it forever</p>
+                  <p className="text-base font-semibold text-gray-600">
+                    <FormattedMessage
+                      id="pricing-pay-once-own-forever"
+                      description="Pay once, own it forever"
+                      defaultMessage="Pay once, own it forever"
+                    />
+                  </p>
                   <p className="mt-6 flex items-baseline justify-center gap-x-2">
                     <span className="text-5xl font-bold tracking-tight text-gray-900">€3500</span>
                     <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">EURO</span>
                   </p>
                   <CheckoutButton priceId={'price_1PepHnRomQdDoc7ILk13S3dE'} text={'Get it now'}/>
                   <p className="mt-6 text-xs leading-5 text-gray-600">
-                    Invoices and receipts available for easy company reimbursement
+                    <FormattedMessage
+                      id="pricing-invoices-receipts-available"
+                      description="Invoices and receipts available for easy company reimbursement"
+                      defaultMessage="Invoices and receipts available for easy company reimbursement"
+                    />
                   </p>
                 </div>
               </div>

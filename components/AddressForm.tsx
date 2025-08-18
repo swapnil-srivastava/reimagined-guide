@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import toast from "react-hot-toast";
 
 // CSS
@@ -61,6 +61,7 @@ const initialAddressState = {
 
 // Address Form
 const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, editSavedAddress, setEditSavedAddress }) => {
+    const intl = useIntl();
     
     type ADDRESS_OBJ = Pick<ADDRESS, "address_line1" | "address_line2" | "city" | "postal_code" | "state" | "country">;
 
@@ -115,9 +116,17 @@ const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, editSa
             if (!error) {
                 dispatch(addToCartAddressUpdate(data));
                 setEditSavedAddress(false);
-                toast.success("Address updated!!");
+                toast.success(intl.formatMessage({
+                    id: "addressform-address-updated",
+                    description: "Address updated!!",
+                    defaultMessage: "Address updated!!"
+                }));
             } else {
-                toast.error("Failed to update address");
+                toast.error(intl.formatMessage({
+                    id: "addressform-failed-to-update",
+                    description: "Failed to update address",
+                    defaultMessage: "Failed to update address"
+                }));
             }
         } else {
             // Insert new address

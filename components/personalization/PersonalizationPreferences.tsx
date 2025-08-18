@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import Link from 'next/link';
 import { getCookie, setCookieWithConsent, CookieCategory, EXPIRATION } from '../../lib/cookies/cookieManager';
 import { getCookieConsentValue } from 'react-cookie-consent';
@@ -12,6 +12,7 @@ interface PersonalizationSettings {
 }
 
 export default function PersonalizationPreferences() {
+  const intl = useIntl();
   const [settings, setSettings] = useState<PersonalizationSettings>({
     enableRecommendations: false,
     enableHistory: false
@@ -51,7 +52,11 @@ export default function PersonalizationPreferences() {
     
     if (!wasSet && !consentGiven) {
       // Show consent message if the cookie wasn't set due to lack of consent
-      alert('To save personalization preferences, please accept cookies in the cookie banner.');
+      alert(intl.formatMessage({
+        id: "personalization-accept-cookies-alert",
+        description: "To save personalization preferences, please accept cookies in the cookie banner.",
+        defaultMessage: "To save personalization preferences, please accept cookies in the cookie banner."
+      }));
     }
   };
   

@@ -351,7 +351,13 @@ export default function PostContent({
 
             {/* Social Sharing with enhanced design */}
             <div className="flex items-center gap-2 pl-2 border-l border-gray-200 dark:border-fun-blue-400">
-              <span className="text-xs text-gray-500 dark:text-gray-400 font-medium hidden sm:block">Share:</span>
+              <span className="text-xs text-gray-500 dark:text-gray-400 font-medium hidden sm:block">
+                <FormattedMessage
+                  id="postcontent-share-label"
+                  description="Share:"
+                  defaultMessage="Share:"
+                />
+              </span>
               
               {/* LinkedIn */}
               <BasicTooltip title={intl.formatMessage({
@@ -399,7 +405,11 @@ export default function PostContent({
               {/* <BasicTooltip title="More options" placement="bottom">
                 <button
                   className="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-50 hover:bg-gray-100 dark:bg-fun-blue-900/30 dark:hover:bg-fun-blue-800/40 transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
-                  onClick={() => alert("work in progress: more share options")}
+                  onClick={() => alert(intl.formatMessage({
+                    id: "postcontent-work-in-progress-alert",
+                    description: "work in progress: more share options",
+                    defaultMessage: "work in progress: more share options"
+                  }))}
                 >
                   <FontAwesomeIcon icon={faEllipsis} className="h-4 w-4 text-gray-600 dark:text-gray-400" />
                 </button>

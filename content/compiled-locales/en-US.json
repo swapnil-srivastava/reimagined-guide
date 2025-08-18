@@ -23,6 +23,18 @@
       "value": "Save"
     }
   ],
+  "addressform-address-updated": [
+    {
+      "type": 0,
+      "value": "Address updated!!"
+    }
+  ],
+  "addressform-failed-to-update": [
+    {
+      "type": 0,
+      "value": "Failed to update address"
+    }
+  ],
   "admin-article-cancel-btn": [
     {
       "type": 0,
@@ -761,6 +773,12 @@
       "value": "Create"
     }
   ],
+  "doctor-page-doctor-name": [
+    {
+      "type": 0,
+      "value": "Doctor name"
+    }
+  ],
   "dummylogin-email-label": [
     {
       "type": 0,
@@ -1125,6 +1143,12 @@
       "value": "Write a post"
     }
   ],
+  "personalization-accept-cookies-alert": [
+    {
+      "type": 0,
+      "value": "To save personalization preferences, please accept cookies in the cookie banner."
+    }
+  ],
   "personalization_consent_required": [
     {
       "type": 0,
@@ -1265,6 +1289,12 @@
       "value": "Share on Facebook"
     }
   ],
+  "postcontent-share-label": [
+    {
+      "type": 0,
+      "value": "Share:"
+    }
+  ],
   "postcontent-share-linkedin": [
     {
       "type": 0,
@@ -1355,6 +1385,12 @@
       "value": "User Preferences"
     }
   ],
+  "pricing-advanced-seo-setup": [
+    {
+      "type": 0,
+      "value": "Advanced SEO setup"
+    }
+  ],
   "pricing-basic-1-hour-call": [
     {
       "type": 0,
@@ -1403,10 +1439,88 @@
       "value": "Basic SEO recommendations"
     }
   ],
+  "pricing-basic-seo-setup": [
+    {
+      "type": 0,
+      "value": "Basic SEO setup"
+    }
+  ],
+  "pricing-custom-website-design": [
+    {
+      "type": 0,
+      "value": "Custom website design"
+    }
+  ],
+  "pricing-invoices-receipts-available": [
+    {
+      "type": 0,
+      "value": "Invoices and receipts available for easy company reimbursement"
+    }
+  ],
+  "pricing-pay-once-own-forever": [
+    {
+      "type": 0,
+      "value": "Pay once, own it forever"
+    }
+  ],
+  "pricing-premium-package": [
+    {
+      "type": 0,
+      "value": "Premium Package"
+    }
+  ],
+  "pricing-premium-package-description": [
+    {
+      "type": 0,
+      "value": "Unlock the expertise with a single investment - pay once, and your success is in good hands."
+    }
+  ],
+  "pricing-simple-no-tricks-pricing": [
+    {
+      "type": 0,
+      "value": "Simple no-tricks pricing"
+    }
+  ],
+  "pricing-simple-website-design": [
+    {
+      "type": 0,
+      "value": "Simple website design"
+    }
+  ],
+  "pricing-standard-package": [
+    {
+      "type": 0,
+      "value": "Standard Package"
+    }
+  ],
+  "pricing-standard-package-description": [
+    {
+      "type": 0,
+      "value": "Ideal For: Businesses with specific, large-scale projects"
+    }
+  ],
   "pricing-title": [
     {
       "type": 0,
       "value": "Choose the right package which is best for you!"
+    }
+  ],
+  "pricing-up-to-10-pages": [
+    {
+      "type": 0,
+      "value": "Up to 10 pages"
+    }
+  ],
+  "pricing-up-to-5-pages": [
+    {
+      "type": 0,
+      "value": "Up to 5 pages"
+    }
+  ],
+  "pricing-whats-included": [
+    {
+      "type": 0,
+      "value": "What's included"
     }
   ],
   "privacy-policy-overview-text": [
@@ -1473,6 +1587,12 @@
     {
       "type": 0,
       "value": "Products"
+    }
+  ],
+  "products-loaded-successfully": [
+    {
+      "type": 0,
+      "value": "Products loaded successfully!"
     }
   ],
   "profile-cancel-button": [

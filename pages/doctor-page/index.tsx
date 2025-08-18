@@ -1,4 +1,5 @@
 import React from "react";
+import { FormattedMessage } from 'react-intl';
 
 // NextJS
 import Link from "next/link";
@@ -23,7 +24,13 @@ const DoctorPage = () => {
               <FontAwesomeIcon icon={faChevronLeft} size="lg" />
             </div>
           </Link>
-          <div className="text-3xl md:text-5xl lg:text-6xl">Doctor name</div>
+          <div className="text-3xl md:text-5xl lg:text-6xl">
+            <FormattedMessage
+              id="doctor-page-doctor-name"
+              description="Doctor name"
+              defaultMessage="Doctor name"
+            />
+          </div>
           <Link href="/choose-your-doctor" legacyBehavior>
             <div className="bg-fun-blue-300 dark:text-blog-black w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 p-0.5 m-0.5 flex items-center justify-center rounded-full transition-filter duration-500 hover:filter hover:brightness-125">
               <FontAwesomeIcon icon={faUser} />
