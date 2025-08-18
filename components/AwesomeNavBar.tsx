@@ -238,10 +238,11 @@ function NavBar({ children }) {
   );
 }
 
-function DropdownMenu() {
+function DropdownMenu({ closeDropdown }: { closeDropdown?: () => void }) {
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
+  const router = useRouter();
 
   const [activeMenu, setActiveMenu] = useState("main");
   const [menuHeight, setMenuHeight] = useState(null);
@@ -258,14 +259,20 @@ function DropdownMenu() {
 
   function DropdownItem(props) {
     return (
-      <a
-        href="#"
+      <div
         className="flex h-12 p-2 rounded-lg items-center 
-      transition-background duration-500 hover:bg-fun-blue-300 gap-x-1"
-        onClick={() => props.goToMenu && setActiveMenu(props.goToMenu)}
+      transition-colors duration-300 hover:bg-fun-blue-400 gap-x-1 cursor-pointer"
+        onClick={() => {
+          if (props.goToMenu) {
+            setActiveMenu(props.goToMenu);
+          } else if (props.onClick) {
+            props.onClick();
+            closeDropdown?.();
+          }
+        }}
       >
         {props.leftIcon && (
-          <span className="bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+          <span className="w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-colors duration-300 hover:bg-fun-blue-400">
             {props.leftIcon}
           </span>
         )}
@@ -273,11 +280,11 @@ function DropdownMenu() {
         {props.children}
 
         {props.rightIcon && (
-          <span className="ml-auto bg-fun-blue-300 dark:text-blog-black w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+          <span className="ml-auto w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] p-0.5 m-0.5 rounded-full flex items-center justify-center transition-colors duration-300 hover:bg-fun-blue-400">
             {props.rightIcon}
           </span>
         )}
-      </a>
+      </div>
     );
   }
 
@@ -307,79 +314,63 @@ function DropdownMenu() {
       >
         <div className="menu p-4">
           {profile?.id && (
-            <DropdownItem>
-              <Link href={`/${profile?.username}`} legacyBehavior>
-                <div className="flex items-center gap-x-1">
-                  <div className="w-9 h-9 rounded-full cursor-pointer flex items-center overflow-hidden">
-                    <Image
-                      width={200}
-                      height={200}
-                      src={profile?.avatar_url}
-                      alt={profile?.full_name}
-                    />
-                  </div>
-                    <FormattedMessage
-                      id="nav-bar-my-profile"
-                      description="My Profile" // Description should be a string literal
-                      defaultMessage="My Profile" // Message should be a string literal
-                      />
+            <DropdownItem
+              onClick={() => router.push(`/${profile?.username}`)}
+            >
+              <div className="flex items-center gap-x-1">
+                <div className="w-9 h-9 rounded-full cursor-pointer flex items-center overflow-hidden">
+                  <Image
+                    width={200}
+                    height={200}
+                    src={profile?.avatar_url}
+                    alt={profile?.full_name}
+                  />
                 </div>
-              </Link>
+                <FormattedMessage
+                  id="nav-bar-my-profile"
+                  description="My Profile"
+                  defaultMessage="My Profile"
+                />
+              </div>
             </DropdownItem>
           )}
 
           <DropdownItem
-            leftIcon={
-              <RoundButton>
-                <FontAwesomeIcon icon={faArrowRightToBracket} size="lg" />
-              </RoundButton>
-            }
+            leftIcon={<FontAwesomeIcon icon={faArrowRightToBracket} size="lg" />}
+            onClick={() => router.push('/enter')}
           >
-            <Link href="/enter">
-              {profile?.id && profile?.id ? 
-                    <FormattedMessage
-                      id="nav-bar-sign-out-text"
-                      description="Sign Out" // Description should be a string literal
-                      defaultMessage="Sign Out" // Message should be a string literal
-                      /> : <FormattedMessage
-                      id="nav-bar-login-text"
-                      description="Login" // Description should be a string literal
-                      defaultMessage="Login" // Message should be a string literal
-                      />}
-            </Link>
-          </DropdownItem>
-
-
-          <DropdownItem
-            leftIcon={
-              <RoundButton>
-                <FontAwesomeIcon icon={faBasketShopping} size="lg" />
-              </RoundButton>
-            }
-          >
-            <Link href="/products">
-                <FormattedMessage
-                    id="nav-bar-products-text"
-                    description="Products" // Description should be a string literal
-                    defaultMessage="Products" // Message should be a string literal
-                    />
-            </Link>
+            {profile?.id && profile?.id ? 
+              <FormattedMessage
+                id="nav-bar-sign-out-text"
+                description="Sign Out"
+                defaultMessage="Sign Out"
+              /> : <FormattedMessage
+                id="nav-bar-login-text"
+                description="Login"
+                defaultMessage="Login"
+              />}
           </DropdownItem>
 
           <DropdownItem
-            leftIcon={
-              <RoundButton>
-                <FontAwesomeIcon icon={faShoppingCart} size="lg" />
-              </RoundButton>
-            }
+            leftIcon={<FontAwesomeIcon icon={faBasketShopping} size="lg" />}
+            onClick={() => router.push('/products')}
           >
-            <Link href="/cart">
-                <FormattedMessage
-                    id="nav-bar-cart-text"
-                    description="Cart" // Description should be a string literal
-                    defaultMessage="Cart" // Message should be a string literal
-                    />
-            </Link>
+            <FormattedMessage
+              id="nav-bar-products-text"
+              description="Products"
+              defaultMessage="Products"
+            />
+          </DropdownItem>
+
+          <DropdownItem
+            leftIcon={<FontAwesomeIcon icon={faShoppingCart} size="lg" />}
+            onClick={() => router.push('/cart')}
+          >
+            <FormattedMessage
+              id="nav-bar-cart-text"
+              description="Cart"
+              defaultMessage="Cart"
+            />
           </DropdownItem>
 
           {/* <DropdownItem
@@ -417,11 +408,7 @@ function DropdownMenu() {
         <div className="menu p-4">
           <DropdownItem
             goToMenu="main"
-            leftIcon={
-              <RoundButton>
-                <FontAwesomeIcon icon={faChevronLeft} size="lg" />
-              </RoundButton>
-            }
+            leftIcon={<FontAwesomeIcon icon={faChevronLeft} size="lg" />}
           >
             <h2>
               <FormattedMessage
@@ -432,38 +419,22 @@ function DropdownMenu() {
             </h2>
           </DropdownItem>
           <DropdownItem
-            leftIcon={
-              <RoundButton>
-                <FontAwesomeIcon icon={faBolt} size="lg" />
-              </RoundButton>
-            }
+            leftIcon={<FontAwesomeIcon icon={faBolt} size="lg" />}
           >
             HTML
           </DropdownItem>
           <DropdownItem
-            leftIcon={
-              <RoundButton>
-                <FontAwesomeIcon icon={faBolt} size="lg" />
-              </RoundButton>
-            }
+            leftIcon={<FontAwesomeIcon icon={faBolt} size="lg" />}
           >
             CSS
           </DropdownItem>
           <DropdownItem
-            leftIcon={
-              <RoundButton>
-                <FontAwesomeIcon icon={faBolt} size="lg" />
-              </RoundButton>
-            }
+            leftIcon={<FontAwesomeIcon icon={faBolt} size="lg" />}
           >
             JavaScript
           </DropdownItem>
           <DropdownItem
-            leftIcon={
-              <RoundButton>
-                <FontAwesomeIcon icon={faBolt} size="lg" />
-              </RoundButton>
-            }
+            leftIcon={<FontAwesomeIcon icon={faBolt} size="lg" />}
           >
             Awesome!
           </DropdownItem>
@@ -475,9 +446,28 @@ function DropdownMenu() {
 
 function NavBarItem(props) {
   const [open, setOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    }
+
+    if (open) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [open]);
+
+  const closeDropdown = () => setOpen(false);
 
   return (
-    <li className="flex items-center h-full">
+    <li className="flex items-center h-full" ref={dropdownRef}>
       <div
         className="h-full flex items-center justify-center px-1"
         {...props}
@@ -491,7 +481,10 @@ function NavBarItem(props) {
             {props.icon}
           </div>
         )}
-        {open && props.children}
+        {open && React.isValidElement(props.children) 
+          ? React.cloneElement(props.children, { closeDropdown })
+          : open && props.children
+        }
       </div>
     </li>
   );
