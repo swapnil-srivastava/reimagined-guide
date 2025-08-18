@@ -4,7 +4,7 @@ import Image from "next/legacy/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesRight, faHeart, faPenToSquare, faThumbsUp, faEye } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 
 import RoundButton from "./RoundButton";
 
@@ -12,13 +12,24 @@ export function PostFeed({
   posts,
   user = undefined,
   admin = false,
-  parentFunction = () => alert("No Parent Function"),
+  parentFunction,
   loading = false,
   postsEnd = false,
   enableLoadMore = false,
   approve = false,
   isSwapnil = undefined,
 }) {
+  const intl = useIntl();
+  
+  const defaultParentFunction = () => {
+    alert(intl.formatMessage({
+      id: "post-feed-no-parent-function",
+      description: "No Parent Function",
+      defaultMessage: "No Parent Function"
+    }));
+  };
+
+  const actualParentFunction = parentFunction || defaultParentFunction;
   return posts
     ? posts.map((post, index, array) => (
         <>
@@ -56,7 +67,7 @@ export function PostFeed({
                 transition-filter duration-500 hover:filter hover:brightness-125
                 flex items-center
                 "
-                  onClick={() => parentFunction()}
+                  onClick={() => actualParentFunction()}
                 >
                    <FormattedMessage
                     id="load_more_button"

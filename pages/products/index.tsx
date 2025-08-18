@@ -44,7 +44,11 @@ function Products() {
           defaultMessage: "Products loaded successfully!"
         }));
       } catch (error) {
-        toast.error(`Error loading products: ${error.message}`);
+        toast.error(intl.formatMessage({
+          id: "products-error-loading",
+          description: "Error loading products",
+          defaultMessage: "Error loading products: {error}"
+        }, { error: error.message }));
       } finally {
         setLoadProducts(false);
       }

@@ -146,9 +146,17 @@ const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, editSa
 
             if (!error) {
                 dispatch(addToCartAddressUpdate(data));
-                toast.success("Address added!!");
+                toast.success(intl.formatMessage({
+                  id: "address-added-success",
+                  description: "Address added!!",
+                  defaultMessage: "Address added!!"
+                }));
             } else {
-                toast.error("Failed to add address");
+                toast.error(intl.formatMessage({
+                  id: "address-add-failed",
+                  description: "Failed to add address",
+                  defaultMessage: "Failed to add address"
+                }));
             }
         }
     };

@@ -1,11 +1,35 @@
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 
 import CheckoutButton from "../../components/CheckoutButton";
 
 const Pricing = () => {
+  const intl = useIntl();
+
+  const includedFeatures = [
+    intl.formatMessage({
+      id: "pricing-feature-custom-design",
+      description: "Fully custom design and development",
+      defaultMessage: "Fully custom design and development"
+    }),
+    intl.formatMessage({
+      id: "pricing-feature-ecommerce",
+      description: "Advanced e-commerce functionality",
+      defaultMessage: "Advanced e-commerce functionality"
+    }),
+    intl.formatMessage({
+      id: "pricing-feature-seo",
+      description: "Comprehensive SEO",
+      defaultMessage: "Comprehensive SEO"
+    }),
+    intl.formatMessage({
+      id: "pricing-feature-tshirt",
+      description: "Official t-shirt",
+      defaultMessage: "Official t-shirt"
+    })
+  ];
 
   return (
     <div className="h-screen flex flex-col items-center gap-2 font-poppins mt-10">
@@ -295,11 +319,3 @@ const Pricing = () => {
 };
 
 export default Pricing;
-
-
-const includedFeatures = [
-  'Fully custom design and development',
-  'Advanced e-commerce functionality',
-  'Comprehensive SEO',
-  'Official t-shirt',
-]

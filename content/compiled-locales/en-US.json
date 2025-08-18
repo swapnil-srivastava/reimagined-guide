@@ -11,6 +11,18 @@
       "value": "404 - That page does not seem to exist..."
     }
   ],
+  "address-add-failed": [
+    {
+      "type": 0,
+      "value": "Failed to add address"
+    }
+  ],
+  "address-added-success": [
+    {
+      "type": 0,
+      "value": "Address added!!"
+    }
+  ],
   "address-customer-cancel-btn": [
     {
       "type": 0,
@@ -1043,6 +1055,22 @@
       "value": "time"
     }
   ],
+  "invite-error-fetching-events": [
+    {
+      "type": 0,
+      "value": "Error fetching events: "
+    },
+    {
+      "type": 1,
+      "value": "error"
+    }
+  ],
+  "invite-events-retrieved": [
+    {
+      "type": 0,
+      "value": "Retrieved Events"
+    }
+  ],
   "invite-location-label": [
     {
       "type": 0,
@@ -1051,6 +1079,12 @@
     {
       "type": 1,
       "value": "location"
+    }
+  ],
+  "invite-no-events-data": [
+    {
+      "type": 0,
+      "value": "No events data returned from Supabase"
     }
   ],
   "invite-page-invite-heading": [
@@ -1191,6 +1225,12 @@
     {
       "type": 0,
       "value": "Sign up"
+    }
+  ],
+  "post-feed-no-parent-function": [
+    {
+      "type": 0,
+      "value": "No Parent Function"
     }
   ],
   "post-list-published": [
@@ -1451,6 +1491,30 @@
       "value": "Custom website design"
     }
   ],
+  "pricing-feature-custom-design": [
+    {
+      "type": 0,
+      "value": "Fully custom design and development"
+    }
+  ],
+  "pricing-feature-ecommerce": [
+    {
+      "type": 0,
+      "value": "Advanced e-commerce functionality"
+    }
+  ],
+  "pricing-feature-seo": [
+    {
+      "type": 0,
+      "value": "Comprehensive SEO"
+    }
+  ],
+  "pricing-feature-tshirt": [
+    {
+      "type": 0,
+      "value": "Official t-shirt"
+    }
+  ],
   "pricing-invoices-receipts-available": [
     {
       "type": 0,
@@ -1577,10 +1641,40 @@
       "value": "Go to cart"
     }
   ],
+  "productcard-error-creating-product": [
+    {
+      "type": 0,
+      "value": "Error creating product: "
+    },
+    {
+      "type": 1,
+      "value": "error"
+    }
+  ],
+  "productcard-error-uploading-image": [
+    {
+      "type": 0,
+      "value": "Error uploading image: "
+    },
+    {
+      "type": 1,
+      "value": "error"
+    }
+  ],
   "productcard-product-created": [
     {
       "type": 0,
       "value": "Product Created!!"
+    }
+  ],
+  "products-error-loading": [
+    {
+      "type": 0,
+      "value": "Error loading products: "
+    },
+    {
+      "type": 1,
+      "value": "error"
     }
   ],
   "products-heading": [

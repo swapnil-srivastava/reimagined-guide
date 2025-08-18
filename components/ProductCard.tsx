@@ -122,7 +122,11 @@ function CreateProduct() {
         
         if (error) {
           console.error("Image upload error:", error.message);
-          toast.error(`Error uploading image: ${error.message}`);
+          toast.error(intl.formatMessage({
+            id: "productcard-error-uploading-image",
+            description: "Error uploading image",
+            defaultMessage: "Error uploading image: {error}"
+          }, { error: error.message }));
           return null;
         }
     
@@ -164,7 +168,11 @@ function CreateProduct() {
                 defaultMessage: "Product Created!!"
             }));
           } catch (error) {
-            toast.error(`Error creating product: ${error.message}`);
+            toast.error(intl.formatMessage({
+              id: "productcard-error-creating-product",
+              description: "Error creating product",
+              defaultMessage: "Error creating product: {error}"
+            }, { error: error.message }));
           } finally {
 
           }

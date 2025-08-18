@@ -37,12 +37,24 @@ function Invite() {
   
         if (eventsData && eventsData.length > 0) {
           dispatch(fetchInviteEvents(eventsData));
-          toast.success(`Retrieved Events`);
+          toast.success(intl.formatMessage({
+            id: "invite-events-retrieved",
+            description: "Retrieved Events",
+            defaultMessage: "Retrieved Events"
+          }));
         } else {
-          toast.success(`No events data returned from Supabase`);
+          toast.success(intl.formatMessage({
+            id: "invite-no-events-data",
+            description: "No events data returned from Supabase",
+            defaultMessage: "No events data returned from Supabase"
+          }));
         }
       } catch (error) {
-        toast.error(`Error fetching events: ${error}`)
+        toast.error(intl.formatMessage({
+          id: "invite-error-fetching-events",
+          description: "Error fetching events",
+          defaultMessage: "Error fetching events: {error}"
+        }, { error }))
       }
     };
 
