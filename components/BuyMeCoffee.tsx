@@ -6,10 +6,10 @@
 const BuyMeCoffee = ({  }) => {
     return (
       <>
-        <div className="flex items-end justify-end fixed bottom-16 sm:bottom-16 right-0 mb-4 mr-4 z-10">
+        <div className="flex items-end justify-end fixed bottom-4 right-4 z-30">
             <div>
-                <a title="Buy me a beer" href="https://www.buymeacoffee.com/swapnilsrivastava" target="_blank" className="block w-full h-12 rounded-full transition-all shadow hover:shadow-lg transform hover:scale-110 hover:rotate-6">
-                    <img className="object-cover object-center w-full h-full rounded-full" src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=&button_colour=003e75&font_colour=FBFBFB&font_family=Cookie&outline_colour=FBFBFB&coffee_colour=FFDD00"/>
+                <a title="Buy me a coffee" href="https://www.buymeacoffee.com/swapnilsrivastava" target="_blank" className="block w-auto h-10 rounded-full transition-all shadow-lg hover:shadow-xl transform hover:scale-105 hover:rotate-2">
+                    <img className="object-cover object-center w-auto h-full rounded-full border-2 border-white" src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=&button_colour=003e75&font_colour=FBFBFB&font_family=Cookie&outline_colour=FBFBFB&coffee_colour=FFDD00"/>
                 </a>
             </div>
         </div>

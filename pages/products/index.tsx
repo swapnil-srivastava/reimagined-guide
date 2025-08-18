@@ -232,11 +232,11 @@ function Products() {
         {/* Floating Cart Button - Only visible when cart has items */}
         {cartItems && cartItems.length > 0 && (
           <Link href="/cart">
-            <div className="fixed bottom-6 right-6 z-50 group">
-              <button className="bg-green-600 hover:bg-green-700 text-white p-4 rounded-full shadow-2xl transition-all duration-300 transform hover:scale-110 hover:shadow-green-500/25">
-                <FontAwesomeIcon icon={faShoppingCart} className="text-xl" />
+            <div className="fixed bottom-20 right-6 z-40 group">
+              <button className="bg-green-600 hover:bg-green-700 text-white p-3 rounded-full shadow-2xl transition-all duration-300 transform hover:scale-110 hover:shadow-green-500/25 border-2 border-white">
+                <FontAwesomeIcon icon={faShoppingCart} className="text-lg" />
                 {/* Cart Count Badge */}
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center animate-pulse">
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center animate-pulse border border-white">
                   {cartItems.length}
                 </span>
               </button>
