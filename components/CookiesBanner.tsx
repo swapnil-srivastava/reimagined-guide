@@ -46,7 +46,7 @@ const CookiesBanner = () => {
       <>
        <div className="fixed left-0 bottom-0 z-50">
             {/* Advise  */}
-            <div className={`fixed sm:left-4 bottom-20 rounded-lg bg-white shadow-2xl w-full sm:w-1/2 xl:w-1/4 max-w-[450px] overflow-hidden transform transition-transform duration-300 ease-in-out ${cookiesVisible ? 'translate-y-0' : 'translate-y-full hidden'}`}>
+            <div className={`fixed sm:left-4 bottom-24 sm:bottom-20 rounded-lg bg-white shadow-2xl w-full sm:w-1/2 xl:w-1/4 max-w-[450px] overflow-hidden transform transition-transform duration-300 ease-in-out ${cookiesVisible ? 'translate-y-0' : 'translate-y-full hidden'}`}>
                     <div className="relative overflow-hidden px-8 pt-8">
                         <div className="w-20 h-16 absolute -top-10 -right-10 text-yellow-500">
                             <svg width="120" height="119" viewBox="0 0 120 119" fill="none" xmlns="http://www.w3.org/2000/svg">
