@@ -199,6 +199,26 @@ hover:text-fun-blue-500               /* Hover states */
 - **Dark Mode:** Always include dark mode variants
 - **Spacing:** Use Tailwind's 8px-based spacing system
 
+### Layout Standards (CRITICAL)
+- **ALWAYS** use Flexbox (`flex`, `flex-col`, `items-center`, `justify-between`) or CSS Grid (`grid`, `grid-cols-*`) for layouts
+- **NEVER** use `absolute` or `relative` positioning unless absolutely necessary for overlays or animations
+- **Preferred Layout Patterns:**
+  ```css
+  /* Flexbox for most layouts */
+  flex flex-col items-center justify-center
+  flex items-center justify-between
+  flex flex-wrap gap-4
+  
+  /* Grid for complex layouts */
+  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6
+  grid grid-cols-auto-fit minmax(300px, 1fr) gap-4
+  ```
+- **Exception Cases:** Only use positioning for:
+  - Dropdown menus and tooltips
+  - Modal overlays and backdrops
+  - Floating action buttons
+  - Animation effects that require precise positioning
+
 ### Component Architecture
 - **Functional Components:** Always use function components with hooks
 - **Props Interface:** Define TypeScript interfaces for all props
