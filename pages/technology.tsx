@@ -14,12 +14,25 @@ import {
   faGlobe,
   faCube,
   faFlask,
-  faBolt
+  faBolt,
+  faFire,
+  faStar,
+  faMagicWandSparkles,
+  faInfinity,
+  faChevronDown,
+  faPlay,
+  faPause,
+  faEye,
+  faHeart,
+  faZap,
+  faGem,
+  faDna,
+  faWaveSquare,
+  faBrain
 } from "@fortawesome/free-solid-svg-icons";
 
 // Components
 import Metatags from "../components/Metatags";
-import TechBox from "../components/TechBox";
 
 // Local Interface
 import { LEADINGTECH, TECHNOLOGIES } from "../database.types";
@@ -50,7 +63,7 @@ export async function getServerSideProps(context) {
     .eq("uid", process.env.NEXT_PUBLIC_SWAPNIL_ID);
 
   return {
-    props: { techStackState, leadingTechState }, // will be passed to the page component as props
+    props: { techStackState, leadingTechState },
   };
 }
 
@@ -59,182 +72,597 @@ export default function Technology(props) {
   const [techStackState, setTechStackState] = useState<TECHNOLOGIES[]>(
     props.techStackState
   );
-
   const [leadingTechState, setLeadingTechState] = useState<LEADINGTECH[]>(
     props.leadingTechState
   );
-  const [selectedCategory, setSelectedCategory] = useState<'all' | 'frontend' | 'backend' | 'database' | 'tools'>('all');
+  const [selectedCategory, setSelectedCategory] = useState<'all' | 'ai' | 'cloud' | 'frontend' | 'backend' | 'quantum'>('all');
   const [isAnimating, setIsAnimating] = useState(false);
+  const [activeViewMode, setActiveViewMode] = useState<'galaxy' | 'neural' | 'matrix' | 'hologram'>('galaxy');
+  const [isAutoRotating, setIsAutoRotating] = useState(true);
+  const [galaxyRotation, setGalaxyRotation] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [activeTech, setActiveTech] = useState(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
 
-  // Animation effect on category change
+  // Mouse tracking for 3D effects
   useEffect(() => {
-    setIsAnimating(true);
-    const timer = setTimeout(() => setIsAnimating(false), 300);
-    return () => clearTimeout(timer);
-  }, [selectedCategory]);
+    const handleMouseMove = (e) => {
+      setMousePosition({ 
+        x: (e.clientX / window.innerWidth - 0.5) * 100,
+        y: (e.clientY / window.innerHeight - 0.5) * 100
+      });
+    };
 
-  // Tech categories with icons
-  const techCategories = [
-    { id: 'all', icon: faGlobe, label: 'All Technologies' },
-    { id: 'frontend', icon: faCode, label: 'Frontend' },
-    { id: 'backend', icon: faCog, label: 'Backend' },
-    { id: 'database', icon: faCube, label: 'Database' },
-    { id: 'tools', icon: faFlask, label: 'Tools' }
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  // Auto-rotation for galaxy view
+  useEffect(() => {
+    if (!isAutoRotating || activeViewMode !== 'galaxy') return;
+    
+    const interval = setInterval(() => {
+      setGalaxyRotation(prev => (prev + 1) % 360);
+    }, 50);
+
+    return () => clearInterval(interval);
+  }, [isAutoRotating, activeViewMode]);
+
+  // Revolutionary category system
+  const techRealms = [
+    { 
+      id: 'all', 
+      label: 'Multiverse', 
+      icon: faInfinity, 
+      color: 'from-purple-600 via-blue-500 to-cyan-400',
+      description: 'All realities converge'
+    },
+    { 
+      id: 'ai', 
+      label: 'Neural Core', 
+      icon: faBrain, 
+      color: 'from-pink-500 via-red-500 to-orange-400',
+      description: 'Intelligence amplified'
+    },
+    { 
+      id: 'cloud', 
+      label: 'Quantum Cloud', 
+      icon: faAtom, 
+      color: 'from-blue-400 via-purple-500 to-indigo-600',
+      description: 'Infinite scale'
+    },
+    { 
+      id: 'frontend', 
+      label: 'Reality Engine', 
+      icon: faEye, 
+      color: 'from-green-400 via-teal-500 to-blue-500',
+      description: 'Experience crafting'
+    },
+    { 
+      id: 'backend', 
+      label: 'Core Matrix', 
+      icon: faDna, 
+      color: 'from-orange-400 via-red-500 to-pink-500',
+      description: 'System architecture'
+    },
+    { 
+      id: 'quantum', 
+      label: 'Quantum Realm', 
+      icon: faGem, 
+      color: 'from-indigo-500 via-purple-600 to-pink-500',
+      description: 'Beyond possibilities'
+    }
   ];
 
-  return (
-    <>
-      <Metatags />
-      
-      {/* Hero Section with Animated Background */}
-      <div className="relative min-h-screen bg-blog-white dark:bg-fun-blue-500 overflow-hidden">
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 left-10 w-72 h-72 bg-gradient-to-r from-primary-blue to-purple-accent rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute top-1/2 right-10 w-96 h-96 bg-gradient-to-r from-teal-accent to-primary-blue rounded-full blur-3xl animate-pulse delay-1000"></div>
-          <div className="absolute bottom-10 left-1/3 w-64 h-64 bg-gradient-to-r from-purple-accent to-teal-accent rounded-full blur-3xl animate-pulse delay-2000"></div>
+  const viewModes = [
+    { 
+      id: 'galaxy', 
+      label: 'Galaxy View', 
+      icon: faGlobe,
+      description: 'Cosmic perspective'
+    },
+    { 
+      id: 'neural', 
+      label: 'Neural Network', 
+      icon: faBrain,
+      description: 'AI consciousness'
+    },
+    { 
+      id: 'matrix', 
+      label: 'Code Matrix', 
+      icon: faWaveSquare,
+      description: 'Digital reality'
+    },
+    { 
+      id: 'hologram', 
+      label: 'Holographic', 
+      icon: faMagicWandSparkles,
+      description: '3D projection'
+    }
+  ];
+
+  const getFilteredTechnologies = () => {
+    if (selectedCategory === 'all') return techStackState;
+    
+    const keywords = {
+      ai: 'ai|ml|tensorflow|pytorch|neural|machine|learning|gpt|llm',
+      cloud: 'aws|azure|gcp|docker|kubernetes|serverless|cloud|microservice',
+      frontend: 'react|vue|angular|next|svelte|html|css|javascript|typescript',
+      backend: 'node|python|java|go|rust|api|server|database|express',
+      quantum: 'quantum|blockchain|crypto|web3|decentralized|smart|contract'
+    };
+    
+    const pattern = keywords[selectedCategory];
+    return techStackState?.filter(tech => 
+      new RegExp(pattern, 'i').test(tech.name)
+    );
+  };
+
+  // Create New Tech Stack Function
+  const createTechStack = async () => {
+    if (data && data.color && data.name) {
+      try {
+        const response = await fetch("/api/techstack", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            color: data.color,
+            name: data.name,
+            uid: profile?.id
+          })
+        });
+
+        if (response.ok) {
+          const newTech = await response.json();
+          setTechStackState(prev => [...(prev || []), newTech]);
+          toast.success(intl.formatMessage({
+            id: "technology-create-success",
+            description: "Technology created successfully",
+            defaultMessage: "Technology uploaded to the matrix!"
+          }));
+          setData({});
+        }
+      } catch (error) {
+        toast.error(intl.formatMessage({
+          id: "technology-create-error", 
+          description: "Error creating technology",
+          defaultMessage: "Matrix connection failed"
+        }));
+      }
+    }
+  };
+
+  const [data, setData] = useState<any>({});
+
+  function QuantumTechCreator() {
+    return (
+      <div className="relative bg-gradient-to-br from-black/90 via-purple-900/80 to-blue-900/80 backdrop-blur-2xl rounded-3xl p-8 border border-purple-500/30 shadow-2xl overflow-hidden">
+        {/* Animated Circuit Background */}
+        <div className="absolute inset-0 opacity-20">
+          <svg className="w-full h-full">
+            <defs>
+              <pattern id="circuit" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M0 20h40M20 0v40" stroke="currentColor" strokeWidth="0.5" className="text-purple-400"/>
+                <circle cx="20" cy="20" r="2" fill="currentColor" className="text-cyan-400"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#circuit)"/>
+          </svg>
         </div>
 
-        {/* Floating Tech Icons */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-20 left-1/4 text-primary-blue opacity-20 animate-bounce">
-            <FontAwesomeIcon icon={faRocket} size="3x" />
-          </div>
-          <div className="absolute top-1/3 right-1/4 text-teal-accent opacity-20 animate-bounce delay-500">
-            <FontAwesomeIcon icon={faAtom} size="2x" />
-          </div>
-          <div className="absolute bottom-1/3 left-1/6 text-purple-accent opacity-20 animate-bounce delay-1000">
-            <FontAwesomeIcon icon={faMagic} size="2x" />
-          </div>
-          <div className="absolute top-2/3 right-1/6 text-primary-blue opacity-20 animate-bounce delay-1500">
-            <FontAwesomeIcon icon={faBolt} size="2x" />
-          </div>
-        </div>
-
-        <div className="relative z-10 container mx-auto px-4 py-16">
-          {/* CREATE Tech Stack for authenticated users */}
-          {profile?.id && (
-            <div className="mb-16">
-              <CreateNewTechStack />
-            </div>
-          )}
-
-          {/* Hero Header */}
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-gradient-to-r from-primary-blue to-purple-accent rounded-lg flex items-center justify-center">
-                <FontAwesomeIcon icon={faLightbulb} size="lg" className="text-white" />
+        <div className="relative z-10">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-4 mb-4">
+              <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center animate-pulse">
+                <FontAwesomeIcon icon={faAtom} size="lg" className="text-white" />
               </div>
-              <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-primary-blue via-purple-accent to-teal-accent bg-clip-text text-transparent">
+              <h3 className="text-3xl font-black bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">
                 <FormattedMessage
-                  id="technology-hero-title"
-                  description="Technology hero title"
-                  defaultMessage="Tech Arsenal"
+                  id="technology-quantum-creator-title"
+                  description="Quantum creator title"
+                  defaultMessage="Quantum Tech Synthesizer"
                 />
-              </h1>
-              <div className="w-12 h-12 bg-gradient-to-r from-teal-accent to-primary-blue rounded-lg flex items-center justify-center">
-                <FontAwesomeIcon icon={faRocket} size="lg" className="text-white" />
+              </h3>
+              <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center animate-pulse">
+                <FontAwesomeIcon icon={faMagicWandSparkles} size="lg" className="text-white" />
               </div>
             </div>
-            <p className="text-xl text-gray-800 dark:text-gray-300 max-w-3xl mx-auto">
+            <p className="text-purple-200">
               <FormattedMessage
-                id="technology-hero-subtitle"
-                description="Technology hero subtitle"
-                defaultMessage="Explore the cutting-edge technologies that power innovation and creativity in modern development"
+                id="technology-quantum-creator-subtitle"
+                description="Quantum creator subtitle"
+                defaultMessage="Manifest new technologies into the digital multiverse"
               />
             </p>
           </div>
 
-          {/* Category Filter Navigation */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {techCategories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id as any)}
-                className={`
-                  group relative px-6 py-3 rounded-full transition-all duration-300
-                  ${selectedCategory === category.id 
-                    ? 'bg-gradient-to-r from-primary-blue to-purple-accent shadow-lg transform scale-105' 
-                    : 'bg-white dark:bg-gray-800 shadow-md hover:shadow-lg hover:transform hover:scale-105 hover:bg-gray-50 dark:hover:bg-gray-700'
-                  }
-                `}
-              >
-                <div className="flex items-center gap-2">
-                  <FontAwesomeIcon 
-                    icon={category.icon} 
-                    className={`
-                      transition-all duration-300
-                      ${selectedCategory === category.id ? 'text-white' : 'text-primary-blue dark:text-purple-accent group-hover:text-purple-accent dark:group-hover:text-teal-accent'}
-                    `}
-                  />
-                  <span className={`
-                    font-medium transition-all duration-300
-                    ${selectedCategory === category.id ? 'text-white' : 'text-gray-700 dark:text-gray-300'}
-                  `}>
-                    <FormattedMessage
-                      id={`technology-category-${category.id}`}
-                      description={`Category: ${category.label}`}
-                      defaultMessage={category.label}
-                    />
-                  </span>
-                </div>
-                {selectedCategory === category.id && (
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary-blue to-purple-accent opacity-20 animate-pulse"></div>
-                )}
-              </button>
-            ))}
+          <div className="bg-black/50 rounded-2xl p-6 mb-6 border border-purple-500/20">
+            <JsonForms
+              schema={schema}
+              uischema={uischema}
+              data={data}
+              renderers={materialRenderers}
+              cells={materialCells}
+              onChange={({ errors, data }) => setData(data)}
+            />
           </div>
 
-          {/* Leading Technologies Section */}
-          <div className="mb-20">
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center">
-                  <FontAwesomeIcon icon={faAtom} className="text-white" />
-                </div>
-                <h2 className="text-4xl font-bold text-black dark:text-white">
-                  <FormattedMessage
-                    id="technology-leading-tech-title"
-                    description="Leading Tech section title"
-                    defaultMessage="Leading Technologies"
+          <div className="flex justify-center gap-4">
+            <button
+              className="group relative px-8 py-4 bg-gradient-to-r from-purple-600 via-pink-500 to-cyan-500 text-white rounded-2xl font-bold text-lg shadow-2xl hover:shadow-purple-500/50 transform hover:scale-105 transition-all duration-300 overflow-hidden"
+              onClick={createTechStack}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-cyan-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+              <div className="relative flex items-center gap-2">
+                <FontAwesomeIcon icon={faZap} className="animate-pulse" />
+                <FormattedMessage
+                  id="technology-synthesize-button"
+                  description="Synthesize button"
+                  defaultMessage="Synthesize"
+                />
+              </div>
+            </button>
+            <button
+              className="px-8 py-4 bg-gradient-to-r from-gray-700 to-gray-600 text-white rounded-2xl font-bold text-lg shadow-2xl hover:shadow-gray-500/30 transform hover:scale-105 transition-all duration-300"
+              onClick={() => setData({})}
+            >
+              <FormattedMessage
+                id="technology-reset-button"
+                description="Reset button"
+                defaultMessage="Reset Matrix"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <Metatags
+        title={intl.formatMessage({
+          id: "technology-page-title-new",
+          description: "New technology page title",
+          defaultMessage: "TECH∞ - Digital Multiverse Explorer"
+        })}
+        description={intl.formatMessage({
+          id: "technology-page-description-new", 
+          description: "New technology page description",
+          defaultMessage: "Journey through infinite dimensions of technological innovation"
+        })}
+      />
+
+      {/* Immersive Background Universe */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        {/* Cosmic Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-purple-900/30 to-blue-900/50"></div>
+        
+        {/* Animated Stars */}
+        {[...Array(100)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 3}s`
+            }}
+          >
+            <div 
+              className="bg-white rounded-full"
+              style={{
+                width: `${1 + Math.random() * 3}px`,
+                height: `${1 + Math.random() * 3}px`
+              }}
+            ></div>
+          </div>
+        ))}
+
+        {/* Nebula Effects */}
+        <div 
+          className="absolute w-96 h-96 bg-gradient-radial from-purple-500/20 via-blue-500/10 to-transparent rounded-full blur-3xl transition-all duration-1000"
+          style={{
+            left: `${50 + mousePosition.x / 10}%`,
+            top: `${30 + mousePosition.y / 10}%`,
+          }}
+        ></div>
+        <div 
+          className="absolute w-72 h-72 bg-gradient-radial from-cyan-400/15 via-purple-400/10 to-transparent rounded-full blur-2xl transition-all duration-1500"
+          style={{
+            right: `${30 - mousePosition.x / 15}%`,
+            bottom: `${20 - mousePosition.y / 15}%`,
+          }}
+        ></div>
+
+        {/* Quantum Particles */}
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute animate-bounce"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 4}s`,
+              animationDuration: `${3 + Math.random() * 4}s`
+            }}
+          >
+            <div className="w-3 h-3 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full opacity-30"></div>
+          </div>
+        ))}
+      </div>
+
+      <div className="relative min-h-screen bg-gradient-to-br from-black via-gray-900 to-purple-900 text-white overflow-hidden">
+        <div className="container mx-auto px-4 py-8 relative z-10">
+
+          {/* Quantum Tech Creator for authenticated users */}
+          {profile?.id && (
+            <div className="mb-20">
+              <QuantumTechCreator />
+            </div>
+          )}
+
+          {/* Cosmic Command Center */}
+          <div className="text-center mb-20 relative">
+            {/* Rotating Tech Orbital */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              {[faRocket, faAtom, faBrain, faGem, faDna, faZap].map((icon, index) => (
+                <div
+                  key={index}
+                  className="absolute"
+                  style={{
+                    animation: `spin ${15 + index * 3}s linear infinite`,
+                    transform: `rotate(${galaxyRotation + index * 60}deg) translateX(250px) rotate(-${galaxyRotation + index * 60}deg)`
+                  }}
+                >
+                  <FontAwesomeIcon 
+                    icon={icon} 
+                    className="text-4xl text-purple-400/40 animate-pulse"
                   />
-                </h2>
-                <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center">
-                  <FontAwesomeIcon icon={faBolt} className="text-white" />
+                </div>
+              ))}
+            </div>
+
+            {/* Central Command Hub */}
+            <div className="relative z-10 bg-gradient-to-br from-black/80 via-purple-900/70 to-blue-900/80 backdrop-blur-2xl rounded-3xl p-12 border border-purple-500/30 shadow-2xl">
+              <div className="flex items-center justify-center gap-6 mb-8">
+                <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg animate-pulse">
+                  <FontAwesomeIcon icon={faInfinity} size="2x" className="text-white" />
+                </div>
+                <h1 className="text-8xl md:text-9xl font-black bg-gradient-to-r from-purple-400 via-pink-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent animate-pulse">
+                  <FormattedMessage
+                    id="technology-multiverse-title"
+                    description="Multiverse title"
+                    defaultMessage="TECH∞"
+                  />
+                </h1>
+                <div className="w-20 h-20 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl flex items-center justify-center shadow-lg animate-pulse">
+                  <FontAwesomeIcon icon={faMagicWandSparkles} size="2x" className="text-white animate-spin" />
                 </div>
               </div>
-              <p className="text-gray-800 dark:text-gray-300">
+
+              <div className="mb-8">
+                <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+                  <FormattedMessage
+                    id="technology-multiverse-subtitle"
+                    description="Multiverse subtitle"
+                    defaultMessage="Digital Multiverse Explorer"
+                  />
+                </h2>
+                <p className="text-xl text-purple-200 max-w-4xl mx-auto leading-relaxed">
+                  <FormattedMessage
+                    id="technology-multiverse-description"
+                    description="Multiverse description"
+                    defaultMessage="Navigate through infinite dimensions where technology transcends reality. Experience the convergence of AI, quantum computing, and digital consciousness."
+                  />
+                </p>
+              </div>
+
+              {/* View Mode Selector */}
+              <div className="flex flex-wrap justify-center gap-4 mb-8">
+                {viewModes.map((mode) => (
+                  <button
+                    key={mode.id}
+                    onClick={() => setActiveViewMode(mode.id as any)}
+                    className={`group relative overflow-hidden px-6 py-3 rounded-2xl transition-all duration-500 ${
+                      activeViewMode === mode.id 
+                        ? 'bg-gradient-to-r from-purple-600 to-cyan-500 text-white shadow-2xl scale-110' 
+                        : 'bg-white/10 backdrop-blur-sm text-purple-200 hover:scale-105 hover:bg-white/20'
+                    }`}
+                  >
+                    <div className="relative flex items-center gap-2">
+                      <FontAwesomeIcon 
+                        icon={mode.icon} 
+                        className={`transition-all duration-300 ${
+                          activeViewMode === mode.id ? 'text-white animate-pulse' : 'text-purple-400'
+                        }`}
+                      />
+                      <span className="font-bold">{mode.label}</span>
+                    </div>
+                  </button>
+                ))}
+              </div>
+
+              {/* Auto-rotation toggle */}
+              <div className="flex justify-center mb-8">
+                <button
+                  onClick={() => setIsAutoRotating(!isAutoRotating)}
+                  className="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-purple-600/50 to-cyan-500/50 backdrop-blur-sm rounded-full text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                >
+                  <FontAwesomeIcon icon={isAutoRotating ? faPause : faPlay} />
+                  <span className="font-medium">
+                    {isAutoRotating ? 'Pause Cosmos' : 'Activate Cosmos'}
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Revolutionary Realm Navigation */}
+          <div className="mb-16">
+            <div className="text-center mb-8">
+              <h2 className="text-4xl font-black bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent mb-4">
                 <FormattedMessage
-                  id="technology-leading-tech-subtitle"
-                  description="Leading tech subtitle"
-                  defaultMessage="The pioneering technologies that define the future of development"
+                  id="technology-realm-navigation"
+                  description="Realm navigation title"
+                  defaultMessage="Reality Realms"
+                />
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {techRealms.map((realm) => (
+                <button
+                  key={realm.id}
+                  onClick={() => setSelectedCategory(realm.id as any)}
+                  className={`group relative overflow-hidden p-6 rounded-3xl transition-all duration-500 transform ${
+                    selectedCategory === realm.id 
+                      ? `bg-gradient-to-br ${realm.color} shadow-2xl scale-105 rotate-1` 
+                      : 'bg-white/5 backdrop-blur-sm border border-purple-500/20 hover:scale-105 hover:bg-white/10'
+                  }`}
+                >
+                  {/* Animated Background */}
+                  <div className={`absolute inset-0 bg-gradient-to-r ${realm.color} opacity-0 group-hover:opacity-20 transition-opacity duration-500`}></div>
+                  
+                  {/* Energy Ripples */}
+                  {selectedCategory === realm.id && (
+                    <div className="absolute inset-0 rounded-3xl">
+                      <div className="absolute inset-2 border border-white/30 rounded-3xl animate-ping"></div>
+                      <div className="absolute inset-4 border border-white/20 rounded-3xl animate-ping animation-delay-1000"></div>
+                    </div>
+                  )}
+                  
+                  <div className="relative">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className={`w-16 h-16 rounded-2xl flex items-center justify-center ${
+                        selectedCategory === realm.id 
+                          ? 'bg-white/20' 
+                          : `bg-gradient-to-r ${realm.color}`
+                      }`}>
+                        <FontAwesomeIcon 
+                          icon={realm.icon} 
+                          size="2x" 
+                          className={`${
+                            selectedCategory === realm.id 
+                              ? 'text-white animate-pulse' 
+                              : 'text-white'
+                          }`}
+                        />
+                      </div>
+                      <div className="text-left">
+                        <h3 className="text-xl font-bold text-white mb-1">
+                          {realm.label}
+                        </h3>
+                        <p className="text-sm text-purple-200">
+                          {realm.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Dimensional Tech Display */}
+          <div className="mb-20">
+            <div className="text-center mb-12">
+              <h2 className="text-5xl font-black bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-4">
+                <FormattedMessage
+                  id="technology-dimensional-display"
+                  description="Dimensional display title"
+                  defaultMessage="Technology Constellation"
+                />
+              </h2>
+              <p className="text-xl text-purple-200">
+                <FormattedMessage
+                  id="technology-dimensional-subtitle"
+                  description="Dimensional display subtitle"
+                  defaultMessage="Navigate through the quantum field of innovation"
                 />
               </p>
             </div>
 
+            {/* Dynamic Layout Based on View Mode */}
             <div 
               ref={containerRef}
               className={`
-                grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6
-                transition-all duration-500 ease-in-out
-                ${isAnimating ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'}
+                transition-all duration-1000
+                ${activeViewMode === 'galaxy' ? 'grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6' : ''}
+                ${activeViewMode === 'neural' ? 'flex flex-wrap justify-center gap-8' : ''}
+                ${activeViewMode === 'matrix' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8' : ''}
+                ${activeViewMode === 'hologram' ? 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6' : ''}
               `}
+              style={{
+                perspective: '1000px',
+                transform: activeViewMode === 'hologram' ? `rotateX(${mousePosition.y / 50}deg) rotateY(${mousePosition.x / 50}deg)` : 'none'
+              }}
             >
+              {getFilteredTechnologies()?.map(({ id, tech_color: colorTechStack, name: techName }, index) => (
+                <div 
+                  key={id}
+                  className={`transform transition-all duration-700 ${
+                    isAnimating ? 'opacity-0 scale-75' : 'opacity-100 scale-100'
+                  }`}
+                  style={{ 
+                    animationDelay: `${index * 100}ms`,
+                  }}
+                >
+                  <MultidimensionalTechCard
+                    techStackName={techName}
+                    techStackColor={colorTechStack}
+                    viewMode={activeViewMode}
+                    index={index}
+                    isActive={activeTech === id}
+                    onClick={() => setActiveTech(activeTech === id ? null : id)}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Elite Technologies Quantum Chamber */}
+          <div className="mb-20">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-4 mb-6">
+                <div className="w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center animate-pulse">
+                  <FontAwesomeIcon icon={faStar} size="2x" className="text-white animate-spin" />
+                </div>
+                <h2 className="text-6xl font-black bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 bg-clip-text text-transparent">
+                  <FormattedMessage
+                    id="technology-quantum-chamber-title"
+                    description="Quantum chamber title"
+                    defaultMessage="⚡ QUANTUM CORE"
+                  />
+                </h2>
+                <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-pink-500 rounded-2xl flex items-center justify-center animate-pulse">
+                  <FontAwesomeIcon icon={faFire} size="2x" className="text-white animate-pulse" />
+                </div>
+              </div>
+              <p className="text-xl text-orange-200">
+                <FormattedMessage
+                  id="technology-quantum-chamber-subtitle"
+                  description="Quantum chamber subtitle"
+                  defaultMessage="Elite-tier technologies transcending dimensional boundaries"
+                />
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
               {leadingTechState?.map(({ id, tech_color: colorTechStack, name: techName }, index) => (
                 <div 
                   key={id}
-                  className="transform transition-all duration-300 hover:scale-110 hover:rotate-2"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  className="transform transition-all duration-500 hover:scale-105"
+                  style={{ animationDelay: `${index * 150}ms` }}
                 >
-                  <EnhancedTechBox
+                  <QuantumEliteTechCard
                     techStackName={techName}
                     techStackColor={colorTechStack}
-                    isLeading={true}
                     index={index}
                   />
                 </div>
@@ -242,370 +670,258 @@ export default function Technology(props) {
             </div>
           </div>
 
-          {/* Tech Stack Section */}
-          <div className="mb-20">
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                  <FontAwesomeIcon icon={faCog} className="text-white" />
+          {/* Cosmic Statistics Dashboard */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {[
+              { 
+                value: leadingTechState?.length || 0, 
+                label: 'Quantum Cores',
+                icon: faAtom,
+                color: 'from-purple-500 to-pink-500'
+              },
+              { 
+                value: techStackState?.length || 0, 
+                label: 'Tech Entities',
+                icon: faCube,
+                color: 'from-cyan-500 to-blue-500'
+              },
+              { 
+                value: '∞', 
+                label: 'Possibilities',
+                icon: faInfinity,
+                color: 'from-green-500 to-teal-500'
+              },
+              { 
+                value: '100%', 
+                label: 'Innovation',
+                icon: faZap,
+                color: 'from-yellow-500 to-orange-500'
+              }
+            ].map((stat, index) => (
+              <div 
+                key={index}
+                className={`text-center p-8 rounded-3xl bg-gradient-to-br ${stat.color}/20 backdrop-blur-sm border border-white/10 hover:border-white/30 transition-all duration-300 hover:scale-105`}
+              >
+                <div className={`w-16 h-16 bg-gradient-to-r ${stat.color} rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg`}>
+                  <FontAwesomeIcon icon={stat.icon} size="2x" className="text-white" />
                 </div>
-                <h2 className="text-4xl font-bold text-black dark:text-white">
-                  <FormattedMessage
-                    id="technology-tech-stack-title"
-                    description="Tech Stack section title"
-                    defaultMessage="Technology Stack"
-                  />
-                </h2>
-                <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-pink-500 rounded-lg flex items-center justify-center">
-                  <FontAwesomeIcon icon={faCode} className="text-white" />
-                </div>
+                <h3 className="text-4xl font-black text-white mb-2">{stat.value}</h3>
+                <p className="text-purple-200 font-medium">{stat.label}</p>
               </div>
-              <p className="text-gray-800 dark:text-gray-300">
-                <FormattedMessage
-                  id="technology-tech-stack-subtitle"
-                  description="Tech stack subtitle"
-                  defaultMessage="The comprehensive toolkit for building exceptional digital experiences"
-                />
-              </p>
-            </div>
-
-            <div 
-              className={`
-                grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4
-                transition-all duration-500 ease-in-out
-                ${isAnimating ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'}
-              `}
-            >
-              {techStackState?.map(({ id, tech_color: colorTechStack, name: techName }, index) => (
-                <div 
-                  key={id}
-                  className="transform transition-all duration-300 hover:scale-105 hover:-translate-y-2"
-                  style={{ animationDelay: `${index * 50}ms` }}
-                >
-                  <EnhancedTechBox
-                    techStackName={techName}
-                    techStackColor={colorTechStack}
-                    isLeading={false}
-                    index={index}
-                  />
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
 
-          {/* Innovation Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
-            <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-primary-blue/10 to-purple-accent/10 border border-primary-blue/20 hover:border-primary-blue/40 transition-all duration-300">
-              <div className="w-16 h-16 bg-gradient-to-r from-primary-blue to-purple-accent rounded-full flex items-center justify-center mx-auto mb-4">
-                <FontAwesomeIcon icon={faRocket} size="2x" className="text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-black dark:text-white mb-2">
-                {leadingTechState?.length || 0}
-              </h3>
-              <p className="text-gray-800 dark:text-gray-300">
-                <FormattedMessage
-                  id="technology-stats-leading"
-                  description="Leading technologies count"
-                  defaultMessage="Leading Technologies"
-                />
-              </p>
-            </div>
-
-            <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-teal-accent/10 to-primary-blue/10 border border-teal-accent/20 hover:border-teal-accent/40 transition-all duration-300">
-              <div className="w-16 h-16 bg-gradient-to-r from-teal-accent to-primary-blue rounded-full flex items-center justify-center mx-auto mb-4">
-                <FontAwesomeIcon icon={faCube} size="2x" className="text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-black dark:text-white mb-2">
-                {techStackState?.length || 0}
-              </h3>
-              <p className="text-gray-800 dark:text-gray-300">
-                <FormattedMessage
-                  id="technology-stats-total"
-                  description="Total technologies count"
-                  defaultMessage="Total Technologies"
-                />
-              </p>
-            </div>
-
-            <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-purple-accent/10 to-teal-accent/10 border border-purple-accent/20 hover:border-purple-accent/40 transition-all duration-300">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-accent to-teal-accent rounded-full flex items-center justify-center mx-auto mb-4">
-                <FontAwesomeIcon icon={faLightbulb} size="2x" className="text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-black dark:text-white mb-2">
-                <FormattedMessage
-                  id="technology-stats-innovation"
-                  description="Innovation level"
-                  defaultMessage="100%"
-                />
-              </h3>
-              <p className="text-gray-800 dark:text-gray-300">
-                <FormattedMessage
-                  id="technology-stats-innovation-label"
-                  description="Innovation level label"
-                  defaultMessage="Innovation Level"
-                />
-              </p>
-            </div>
-          </div>
         </div>
       </div>
     </>
   );
 }
 
-// Enhanced TechBox Component with 3D effects and animations
-function EnhancedTechBox({ 
-  techStackName, 
-  techStackColor, 
-  isLeading, 
-  index 
-}: { 
-  techStackName: string; 
-  techStackColor: string; 
-  isLeading: boolean;
-  index: number;
-}) {
+// Multidimensional Tech Card Component
+function MultidimensionalTechCard({ techStackName, techStackColor, viewMode, index, isActive, onClick }) {
   const [isHovered, setIsHovered] = useState(false);
+  
+  const getViewModeStyles = () => {
+    switch (viewMode) {
+      case 'galaxy':
+        return 'h-40 rounded-3xl hover:scale-110 hover:rotate-6';
+      case 'neural':
+        return 'w-32 h-32 rounded-full hover:scale-125';
+      case 'matrix':
+        return 'h-48 rounded-2xl hover:skew-y-3 hover:scale-105';
+      case 'hologram':
+        return 'h-44 rounded-3xl hover:rotateY-12 hover:scale-110';
+      default:
+        return 'h-40 rounded-3xl hover:scale-110';
+    }
+  };
 
-  // Get a random gradient based on the tech name
   const getGradient = () => {
     const gradients = [
-      'from-blue-500 to-purple-600',
       'from-purple-500 to-pink-600',
-      'from-pink-500 to-red-600',
-      'from-red-500 to-orange-600',
-      'from-orange-500 to-yellow-600',
-      'from-yellow-500 to-green-600',
-      'from-green-500 to-teal-600',
-      'from-teal-500 to-cyan-600',
-      'from-cyan-500 to-blue-600',
+      'from-cyan-400 to-blue-600', 
+      'from-green-400 to-teal-600',
+      'from-yellow-400 to-orange-600',
+      'from-red-400 to-pink-600',
       'from-indigo-500 to-purple-600'
     ];
     return gradients[index % gradients.length];
   };
 
-  // Get tech icon based on tech name
   const getTechIcon = () => {
-    const name = techStackName.toLowerCase();
-    if (name.includes('react') || name.includes('next') || name.includes('vue')) return faCode;
-    if (name.includes('node') || name.includes('express') || name.includes('nest')) return faCog;
-    if (name.includes('database') || name.includes('mongo') || name.includes('sql')) return faCube;
-    if (name.includes('docker') || name.includes('git') || name.includes('test')) return faFlask;
-    return faAtom;
+    const name = techStackName?.toLowerCase() || '';
+    if (name.includes('ai') || name.includes('ml')) return faBrain;
+    if (name.includes('react') || name.includes('next')) return faRocket;
+    if (name.includes('quantum') || name.includes('blockchain')) return faGem;
+    if (name.includes('cloud') || name.includes('aws')) return faAtom;
+    if (name.includes('database') || name.includes('sql')) return faCube;
+    return faCode;
   };
 
   return (
     <div
-      className={`
-        group relative overflow-hidden
-        ${isLeading ? 'h-32 w-full' : 'h-28 w-full'} 
-        rounded-2xl cursor-pointer
-        transform transition-all duration-500 ease-out
-        ${isHovered ? 'scale-110 -rotate-1' : 'scale-100'}
-        hover:shadow-2xl hover:shadow-primary-blue/25
-      `}
+      className={`group relative ${getViewModeStyles()} cursor-pointer transform-gpu transition-all duration-700 overflow-hidden`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={onClick}
     >
-      {/* Animated Background Gradient */}
-      <div className={`
-        absolute inset-0 bg-gradient-to-br ${techStackColor || getGradient()}
-        transition-all duration-500
-        ${isHovered ? 'scale-110' : 'scale-100'}
-      `} />
+      {/* Dynamic Background */}
+      <div className={`absolute inset-0 bg-gradient-to-br ${techStackColor || getGradient()}`}></div>
       
-      {/* Overlay Pattern */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent" />
-      
-      {/* Shine Effect */}
-      <div className={`
-        absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent
-        transform -skew-x-12 transition-transform duration-700
-        ${isHovered ? 'translate-x-full' : '-translate-x-full'}
-      `} />
+      {/* Neural Network Effect for neural view */}
+      {viewMode === 'neural' && (
+        <div className="absolute inset-0">
+          {[...Array(6)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-px h-full bg-gradient-to-b from-transparent via-white/30 to-transparent"
+              style={{
+                left: `${20 + i * 10}%`,
+                transform: `rotate(${i * 30}deg)`,
+                transformOrigin: 'center'
+              }}
+            ></div>
+          ))}
+        </div>
+      )}
+
+      {/* Matrix Code Effect for matrix view */}
+      {viewMode === 'matrix' && isHovered && (
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(5)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute text-green-400 text-xs font-mono opacity-60 animate-pulse"
+              style={{
+                left: `${i * 20}%`,
+                top: `${Math.random() * 80}%`,
+                animationDelay: `${i * 200}ms`
+              }}
+            >
+              {Math.random().toString(36).substr(2, 3)}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Holographic Grid for hologram view */}
+      {viewMode === 'hologram' && (
+        <div className="absolute inset-0 opacity-30">
+          <div className="w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div>
+        </div>
+      )}
 
       {/* Content */}
       <div className="relative h-full flex flex-col items-center justify-center p-4 text-white">
-        {/* Tech Icon */}
-        <div className={`
-          mb-2 transition-all duration-300
-          ${isHovered ? 'scale-125 rotate-12' : 'scale-100'}
-        `}>
+        <div className={`mb-3 transition-all duration-500 ${isHovered ? 'scale-125 rotate-12' : ''}`}>
           <FontAwesomeIcon 
             icon={getTechIcon()} 
-            size={isLeading ? "2x" : "lg"} 
-            className="drop-shadow-lg" 
+            className={`${viewMode === 'neural' ? 'text-2xl' : 'text-4xl'} drop-shadow-lg`}
           />
         </div>
         
-        {/* Tech Name */}
-        <div className={`
-          text-center font-bold text-white drop-shadow-lg
-          ${isLeading ? 'text-lg' : 'text-sm'}
-          ${isHovered ? 'scale-110' : 'scale-100'}
-          transition-all duration-300
-        `}>
+        <h3 className={`font-bold text-white drop-shadow-lg text-center transition-all duration-300 ${
+          viewMode === 'neural' ? 'text-xs' : 'text-base'
+        } ${isHovered ? 'scale-110' : ''}`}>
           {techStackName}
-        </div>
+        </h3>
 
-        {/* Leading Badge */}
-        {isLeading && (
-          <div className="absolute top-2 right-2">
-            <div className="w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center">
-              <FontAwesomeIcon icon={faBolt} size="xs" className="text-yellow-800" />
-            </div>
-          </div>
-        )}
-
-        {/* Floating Particles */}
-        {isHovered && (
+        {/* Quantum Particles */}
+        {isActive && (
           <>
-            <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-white/60 rounded-full animate-ping" />
-            <div className="absolute top-3/4 right-1/4 w-1 h-1 bg-white/40 rounded-full animate-ping delay-300" />
-            <div className="absolute bottom-1/4 left-3/4 w-1.5 h-1.5 bg-white/50 rounded-full animate-ping delay-500" />
+            {[...Array(8)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute w-2 h-2 bg-white/60 rounded-full animate-ping"
+                style={{
+                  left: `${20 + Math.random() * 60}%`,
+                  top: `${20 + Math.random() * 60}%`,
+                  animationDelay: `${i * 200}ms`
+                }}
+              ></div>
+            ))}
           </>
         )}
-      </div>
 
-      {/* Bottom Glow */}
-      <div className={`
-        absolute bottom-0 left-1/2 transform -translate-x-1/2
-        w-3/4 h-1 bg-gradient-to-r ${techStackColor || getGradient()}
-        blur-sm transition-all duration-300
-        ${isHovered ? 'h-2 w-full' : 'h-1 w-3/4'}
-      `} />
+        {/* Energy Scan Line */}
+        <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white to-transparent transition-all duration-2000 ${
+          isHovered ? 'translate-y-full' : '-translate-y-full'
+        }`}></div>
+      </div>
     </div>
   );
 }
 
-interface TechStackJSON {
-  tech_stack_name: string;
-  tech_stack_css: string;
-  toggle: boolean;
-}
-
-function CreateNewTechStack() {
-  const intl = useIntl();
-  type TECHNAME_OBJ = Pick<TECHNOLOGIES, "name" | "tech_color">;
-  type TECHNAME = TECHNAME_OBJ["name"];
-  type TECHCOLOR = TECHNAME_OBJ["tech_color"];
-
-  const router = useRouter();
-
-  const selectUser = (state: RootState) => state.users;
-  const { userInfo } = useSelector(selectUser);
-  const { profile, session } = userInfo;
-
-  const [data, setData] = useState<TechStackJSON>();
-
-  const clearData = () => {
-    setData({
-      tech_stack_css: "",
-      tech_stack_name: "",
-      toggle: false,
-    });
-  };
-
-  // Validate length
-  const isValidTechStack =
-    data?.tech_stack_name?.length > 3 && data?.tech_stack_name?.length < 100;
-  // Validate length
-  const isValidTechColor =
-    (data?.tech_stack_css?.length > 2 && data?.tech_stack_css?.length < 100) ||
-    data?.tech_stack_css?.length === 0;
-
-  // Create a new post in supabase postgres
-  const createTechStack = async () => {
-    if (!data?.tech_stack_css && !data?.tech_stack_name) return;
-    // Tip: give all fields a default value here
-    const { data: supaData, error } = await supaClient
-      .from(data?.toggle ? "technologies" : "leadingtech")
-      .insert([
-        {
-          name: data?.tech_stack_name,
-          uid: profile?.id,
-          tech_color: data?.tech_stack_css,
-        },
-      ]);
-
-    toast.success(
-      data?.toggle 
-        ? intl.formatMessage({
-            id: 'technology-tech-stack-created',
-            description: 'Tech stack created success message',
-            defaultMessage: 'Tech Stack created!'
-          })
-        : intl.formatMessage({
-            id: 'technology-leading-tech-created',
-            description: 'Leading tech stack created success message',
-            defaultMessage: 'Leading Tech Stack created'
-          })
-    );
-
-    // Imperative navigation after doc is set
-    router.push(`/technology`);
-  };
-
-  const clearTechStack = async (e) => {
-    e.preventDefault();
-    clearData();
-  };
-
+// Quantum Elite Tech Card Component
+function QuantumEliteTechCard({ techStackName, techStackColor, index }) {
+  const [isHovered, setIsHovered] = useState(false);
+  
   return (
-    <>
-      <div className="flex flex-col gap-2 my-4 px-4 py-2 text-blog-black dark:bg-blog-white">
-        <JsonForms
-          schema={schema}
-          uischema={uischema}
-          data={data}
-          renderers={materialRenderers}
-          cells={materialCells}
-          onChange={({ errors, data }) => setData(data)}
-        />
-
-        <div className="flex self-center gap-2">
-          <button
-            type="submit"
-            disabled={!isValidTechStack && !isValidTechColor}
-            className="
-            py-1 px-2
-            font-light
-            text-sm
-            dark:text-blog-black
-            bg-hit-pink-500 
-            border-2 border-hit-pink-500 
-            rounded
-            hover:filter hover:brightness-125
-            flex-shrink-0 
-            self-center"
-            onClick={() => createTechStack()}
-          >
-            <FormattedMessage
-              id="technology-create-button"
-              description="Create button"
-              defaultMessage="Create"
-            />
-          </button>
-          <button
-            className="
-            py-1 px-2
-            font-light
-            border
-            border-fun-blue-500
-            text-fun-blue-500
-            text-sm rounded 
-            self-center"
-            type="button"
-            onClick={clearTechStack}
-          >
-            <FormattedMessage
-              id="technology-cancel-button"
-              description="Cancel button"
-              defaultMessage="Cancel"
-            />
-          </button>
-        </div>
+    <div
+      className="group relative h-56 rounded-3xl overflow-hidden cursor-pointer transform-gpu"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Quantum Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-yellow-400 via-orange-500 via-red-500 to-pink-500"></div>
+      
+      {/* Elite Energy Field */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-transparent to-yellow-300/30"></div>
+      
+      {/* Quantum Resonance */}
+      <div className="absolute inset-0">
+        <div className={`absolute inset-2 border-2 border-yellow-300/50 rounded-3xl ${isHovered ? 'animate-pulse' : ''}`}></div>
+        <div className={`absolute inset-4 border border-white/30 rounded-3xl ${isHovered ? 'animate-ping' : ''}`}></div>
       </div>
-    </>
+
+      {/* Elite Badge */}
+      <div className="absolute top-4 right-4 w-12 h-12 bg-gradient-to-r from-yellow-300 to-yellow-100 rounded-full flex items-center justify-center shadow-lg">
+        <FontAwesomeIcon icon={faStar} className="text-yellow-700 animate-spin" />
+      </div>
+
+      {/* Quantum Particles */}
+      <div className="absolute inset-0">
+        {[...Array(12)].map((_, i) => (
+          <div
+            key={i}
+            className={`absolute w-1 h-1 bg-yellow-300 rounded-full transition-all duration-1000 ${
+              isHovered ? 'animate-bounce' : 'animate-pulse'
+            }`}
+            style={{
+              left: `${10 + (i * 7)}%`,
+              top: `${15 + (i * 6)}%`,
+              animationDelay: `${i * 150}ms`
+            }}
+          ></div>
+        ))}
+      </div>
+
+      {/* Content */}
+      <div className="relative h-full flex flex-col items-center justify-center p-6 text-white">
+        <div className={`mb-4 transition-all duration-500 ${isHovered ? 'scale-150 rotate-45' : 'scale-125'}`}>
+          <FontAwesomeIcon 
+            icon={faFire} 
+            className="text-6xl drop-shadow-2xl text-white"
+          />
+        </div>
+        
+        <h3 className="text-2xl font-black text-center text-white drop-shadow-lg mb-2">
+          {techStackName}
+        </h3>
+        
+        <div className="text-sm text-yellow-100 font-bold px-3 py-1 bg-black/30 rounded-full">
+          <FormattedMessage
+            id="technology-quantum-elite-badge"
+            description="Quantum elite badge"
+            defaultMessage="⚡ QUANTUM CORE"
+          />
+        </div>
+
+        {/* Elite Shimmer */}
+        <div className={`absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transition-all duration-1500 ${
+          isHovered ? 'translate-x-full' : '-translate-x-full'
+        }`}></div>
+      </div>
+    </div>
   );
 }
