@@ -169,10 +169,13 @@ export default function Technology(props) {
                     icon={category.icon} 
                     className={`
                       transition-all duration-300
-                      ${selectedCategory === category.id ? 'text-white' : 'text-primary-blue group-hover:text-purple-accent'}
+                      ${selectedCategory === category.id ? 'text-white' : 'text-primary-blue dark:text-purple-accent group-hover:text-purple-accent dark:group-hover:text-teal-accent'}
                     `}
                   />
-                  <span className="font-medium">
+                  <span className={`
+                    font-medium transition-all duration-300
+                    ${selectedCategory === category.id ? 'text-white' : 'text-gray-700 dark:text-gray-300'}
+                  `}>
                     <FormattedMessage
                       id={`technology-category-${category.id}`}
                       description={`Category: ${category.label}`}
