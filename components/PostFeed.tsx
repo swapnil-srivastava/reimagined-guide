@@ -12,7 +12,7 @@ export function PostFeed({
   posts,
   user = undefined,
   admin = false,
-  parentFunction,
+  parentFunction = undefined,
   loading = false,
   postsEnd = false,
   enableLoadMore = false,
