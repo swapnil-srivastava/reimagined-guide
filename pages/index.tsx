@@ -145,15 +145,15 @@ export default function Home(props) {
       </div>
 
       {/* Section before blog post --- Write.. Code.. */}
-      <div className="flex flex-col justify-center items-center h-screen text-center dark:text-blog-white ">
-        <h1 className="lg:text-7xl text-xl font-poppins">
+      <div className="flex flex-col justify-center items-center h-screen text-center dark:text-blog-white px-4">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-poppins leading-tight">
           <FormattedMessage
             id="secondary_tagline"
             description="Secondary tagline on mainpage" // Description should be a string literal
             defaultMessage="WRITE .. CODE .. POST .. SLEEP .. REPEAT" // Message should be a string literal
           />
         </h1>
-        <p className="lg:text-3xl text-sm font-thin">
+        <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-thin mt-4 max-w-4xl">
           <FormattedMessage
             id="secondary_tagline_description"
             description="Secondary tagline description on mainpage" // Description should be a string literal
