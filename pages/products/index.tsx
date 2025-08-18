@@ -29,6 +29,8 @@ function Products() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [sortBy, setSortBy] = useState<string>("name");
   const [filterCategory, setFilterCategory] = useState<string>("all");
+  const [priceRange, setPriceRange] = useState<string>("all");
+  const [showFilters, setShowFilters] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -65,6 +67,42 @@ function Products() {
           );
         }
 
+        // Apply category filter (temporary implementation using name/description patterns)
+        if (filterCategory !== 'all') {
+          filteredProducts = filteredProducts.filter(product => {
+            const productText = `${product.name} ${product.description}`.toLowerCase();
+            switch (filterCategory) {
+              case 'electronics': 
+                return productText.includes('electronic') || productText.includes('device') || 
+                       productText.includes('tech') || productText.includes('digital');
+              case 'clothing': 
+                return productText.includes('shirt') || productText.includes('clothing') || 
+                       productText.includes('apparel') || productText.includes('wear');
+              case 'home': 
+                return productText.includes('home') || productText.includes('garden') || 
+                       productText.includes('furniture') || productText.includes('decor');
+              case 'books': 
+                return productText.includes('book') || productText.includes('read') || 
+                       productText.includes('novel') || productText.includes('guide');
+              default: return true;
+            }
+          });
+        }
+
+        // Apply price range filter
+        if (priceRange !== 'all') {
+          filteredProducts = filteredProducts.filter(product => {
+            const price = product.price || 0;
+            switch (priceRange) {
+              case 'under-25': return price < 25;
+              case '25-50': return price >= 25 && price <= 50;
+              case '50-100': return price >= 50 && price <= 100;
+              case 'over-100': return price > 100;
+              default: return true;
+            }
+          });
+        }
+
         setProducts(filteredProducts);
         
         // Only show success toast on initial load, not on filter/sort changes
@@ -87,7 +125,7 @@ function Products() {
     };
 
     fetchProducts();
-  }, [searchTerm, sortBy, filterCategory, intl]);
+  }, [searchTerm, sortBy, filterCategory, priceRange, intl]);
 
   return (
     <>
@@ -180,7 +218,17 @@ function Products() {
               </div>
 
               {/* Sort and Filter */}
-              <div className="flex gap-4">
+              <div className="flex flex-wrap gap-4 items-center">
+                {/* Toggle Filters Button */}
+                <button
+                  onClick={() => setShowFilters(!showFilters)}
+                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-600 focus:ring-2 focus:ring-blue-500 shadow-md dark:shadow-lg dark:shadow-black/20 hover:shadow-lg transition-all duration-200 cursor-pointer"
+                >
+                  <FontAwesomeIcon icon={faFilter} className="mr-2" />
+                  {intl.formatMessage({ id: "products-filters", defaultMessage: "Filters" })}
+                </button>
+                
+                {/* Sort Dropdown */}
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
@@ -202,26 +250,147 @@ function Products() {
               </div>
             </div>
 
+            {/* Expandable Filters */}
+            {showFilters && (
+              <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-600">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {/* Category Filter */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-blog-white mb-2">
+                      <FormattedMessage id="products-category-label" defaultMessage="Category" />
+                    </label>
+                    <select
+                      value={filterCategory}
+                      onChange={(e) => setFilterCategory(e.target.value)}
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 shadow-md dark:shadow-lg dark:shadow-black/20 hover:shadow-lg transition-shadow duration-200"
+                    >
+                      <option value="all">
+                        {intl.formatMessage({ id: "products-filter-all", defaultMessage: "All Categories" })}
+                      </option>
+                      <option value="electronics">
+                        {intl.formatMessage({ id: "products-filter-electronics", defaultMessage: "Electronics" })}
+                      </option>
+                      <option value="clothing">
+                        {intl.formatMessage({ id: "products-filter-clothing", defaultMessage: "Clothing" })}
+                      </option>
+                      <option value="home">
+                        {intl.formatMessage({ id: "products-filter-home", defaultMessage: "Home & Garden" })}
+                      </option>
+                      <option value="books">
+                        {intl.formatMessage({ id: "products-filter-books", defaultMessage: "Books" })}
+                      </option>
+                    </select>
+                  </div>
+
+                  {/* Price Range Filter */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-blog-white mb-2">
+                      <FormattedMessage id="products-price-range-label" defaultMessage="Price Range" />
+                    </label>
+                    <select
+                      value={priceRange}
+                      onChange={(e) => setPriceRange(e.target.value)}
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 shadow-md dark:shadow-lg dark:shadow-black/20 hover:shadow-lg transition-shadow duration-200"
+                    >
+                      <option value="all">
+                        {intl.formatMessage({ id: "products-price-all", defaultMessage: "All Prices" })}
+                      </option>
+                      <option value="under-25">
+                        {intl.formatMessage({ id: "products-price-under-25", defaultMessage: "Under $25" })}
+                      </option>
+                      <option value="25-50">
+                        {intl.formatMessage({ id: "products-price-25-50", defaultMessage: "$25 - $50" })}
+                      </option>
+                      <option value="50-100">
+                        {intl.formatMessage({ id: "products-price-50-100", defaultMessage: "$50 - $100" })}
+                      </option>
+                      <option value="over-100">
+                        {intl.formatMessage({ id: "products-price-over-100", defaultMessage: "Over $100" })}
+                      </option>
+                    </select>
+                  </div>
+
+                  {/* Clear Filters */}
+                  <div className="flex items-end">
+                    <button
+                      onClick={() => {
+                        setFilterCategory('all');
+                        setPriceRange('all');
+                        setSearchTerm('');
+                      }}
+                      className="w-full px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-medium transition-colors shadow-md hover:shadow-lg"
+                    >
+                      <FormattedMessage id="products-clear-filters" defaultMessage="Clear Filters" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Results Summary */}
             <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
-              <p className="text-sm text-gray-600 dark:text-blog-white">
-                <FormattedMessage
-                  id="products-results-count"
-                  description="Showing X products"
-                  defaultMessage="Showing {count} {count, plural, one {product} other {products}}"
-                  values={{ count: products.length }}
-                />
-                {searchTerm && (
-                  <span className="ml-2">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                <div>
+                  <p className="text-sm text-gray-600 dark:text-blog-white">
                     <FormattedMessage
-                      id="products-search-results"
-                      description="for search term"
-                      defaultMessage='for "{searchTerm}"'
-                      values={{ searchTerm }}
+                      id="products-results-count"
+                      description="Showing X products"
+                      defaultMessage="Showing {count} {count, plural, one {product} other {products}}"
+                      values={{ count: products.length }}
                     />
-                  </span>
-                )}
-              </p>
+                    {searchTerm && (
+                      <span className="ml-2">
+                        <FormattedMessage
+                          id="products-search-results"
+                          description="for search term"
+                          defaultMessage='for "{searchTerm}"'
+                          values={{ searchTerm }}
+                        />
+                      </span>
+                    )}
+                  </p>
+                  
+                  {/* Active Filters */}
+                  {(filterCategory !== 'all' || priceRange !== 'all') && (
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {filterCategory !== 'all' && (
+                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
+                          Category: {filterCategory}
+                          <button 
+                            onClick={() => setFilterCategory('all')}
+                            className="ml-1 text-blue-600 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-100"
+                          >
+                            ×
+                          </button>
+                        </span>
+                      )}
+                      {priceRange !== 'all' && (
+                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">
+                          Price: {priceRange.replace('-', ' - $').replace('under', 'Under $').replace('over', 'Over $')}
+                          <button 
+                            onClick={() => setPriceRange('all')}
+                            className="ml-1 text-green-600 dark:text-green-300 hover:text-green-800 dark:hover:text-green-100"
+                          >
+                            ×
+                          </button>
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </div>
+                
+                {/* Stock Statistics */}
+                <div className="text-xs text-gray-500 dark:text-gray-400">
+                  <FormattedMessage
+                    id="products-in-stock"
+                    description="Products in stock"
+                    defaultMessage="{inStock} in stock"
+                    values={{ 
+                      inStock: products.filter(p => (p.stock || 0) > 0).length 
+                    }}
+                  />
+                </div>
+              </div>
             </div>
           </div>
 

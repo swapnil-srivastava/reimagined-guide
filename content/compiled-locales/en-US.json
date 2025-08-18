@@ -1761,6 +1761,18 @@
       "value": "Product Created!!"
     }
   ],
+  "products-category-label": [
+    {
+      "type": 0,
+      "value": "Category"
+    }
+  ],
+  "products-clear-filters": [
+    {
+      "type": 0,
+      "value": "Clear Filters"
+    }
+  ],
   "products-error-loading": [
     {
       "type": 0,
@@ -1771,16 +1783,98 @@
       "value": "error"
     }
   ],
+  "products-filter-all": [
+    {
+      "type": 0,
+      "value": "All Categories"
+    }
+  ],
+  "products-filter-books": [
+    {
+      "type": 0,
+      "value": "Books"
+    }
+  ],
+  "products-filter-clothing": [
+    {
+      "type": 0,
+      "value": "Clothing"
+    }
+  ],
+  "products-filter-electronics": [
+    {
+      "type": 0,
+      "value": "Electronics"
+    }
+  ],
+  "products-filter-home": [
+    {
+      "type": 0,
+      "value": "Home & Garden"
+    }
+  ],
+  "products-filters": [
+    {
+      "type": 0,
+      "value": "Filters"
+    }
+  ],
   "products-heading": [
     {
       "type": 0,
       "value": "Our Products"
     }
   ],
+  "products-in-stock": [
+    {
+      "type": 1,
+      "value": "inStock"
+    },
+    {
+      "type": 0,
+      "value": " in stock"
+    }
+  ],
   "products-loaded-successfully": [
     {
       "type": 0,
       "value": "Products loaded successfully!"
+    }
+  ],
+  "products-price-25-50": [
+    {
+      "type": 0,
+      "value": "$25 - $50"
+    }
+  ],
+  "products-price-50-100": [
+    {
+      "type": 0,
+      "value": "$50 - $100"
+    }
+  ],
+  "products-price-all": [
+    {
+      "type": 0,
+      "value": "All Prices"
+    }
+  ],
+  "products-price-over-100": [
+    {
+      "type": 0,
+      "value": "Over $100"
+    }
+  ],
+  "products-price-range-label": [
+    {
+      "type": 0,
+      "value": "Price Range"
+    }
+  ],
+  "products-price-under-25": [
+    {
+      "type": 0,
+      "value": "Under $25"
     }
   ],
   "products-results-count": [
