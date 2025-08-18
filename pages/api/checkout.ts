@@ -7,19 +7,36 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     try {
-      const { priceId, email, userId } = req.body;
-      const session = await stripe.checkout.sessions.create({
-        metadata: {
-          user_id: userId,
-        },
-        customer_email: email,
-        payment_method_types: ['card'],
-        line_items: [
+      // Accept either a pre-created Stripe priceId OR raw price data (price, name, currency).
+      // This enables "Buy now" flows from product listings without requiring a stored Stripe Price object.
+      const { priceId, price, currency = 'EUR', name, email, userId } = req.body;
+
+      let line_items;
+
+      if (priceId) {
+        line_items = [ { price: priceId, quantity: 1 } ];
+      } else if (typeof price === 'number' && name) {
+        // unit_amount expects cents
+        const unit_amount = Math.round(price * 100);
+        line_items = [
           {
-            price: priceId,
+            price_data: {
+              currency: (currency || 'EUR').toLowerCase(),
+              product_data: { name },
+              unit_amount,
+            },
             quantity: 1,
           },
-        ],
+        ];
+      } else {
+        return res.status(400).json({ message: 'Either priceId or (price and name) must be provided' });
+      }
+
+      const session = await stripe.checkout.sessions.create({
+        metadata: { user_id: userId },
+        customer_email: email,
+        payment_method_types: ['card'],
+        line_items,
         mode: 'payment',
         success_url: `${req.headers.origin}/success`,
         cancel_url: `${req.headers.origin}/cancel`,
