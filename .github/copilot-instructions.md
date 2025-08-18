@@ -468,6 +468,7 @@ try {
 🚨 **ALWAYS** run `yarn i18n` after adding FormattedMessage components  
 🚨 **ALWAYS** use `bg-blog-white dark:bg-fun-blue-500` for backgrounds  
 🚨 **ALWAYS** include dark mode variants in styling  
+🚨 **ALWAYS** use Flexbox or CSS Grid for layouts - NEVER use absolute/relative positioning except for overlays  
 🚨 **ALWAYS** use TypeScript types from `database.types.ts`  
 🚨 **ALWAYS** implement proper error handling  
 🚨 **ALWAYS** validate user inputs  
