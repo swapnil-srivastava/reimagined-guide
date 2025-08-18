@@ -701,6 +701,18 @@
       "value": "Buy Now"
     }
   ],
+  "cookies-manage-preferences-aria": [
+    {
+      "type": 0,
+      "value": "Manage Cookie Preferences"
+    }
+  ],
+  "cookies-privacy-policy-aria": [
+    {
+      "type": 0,
+      "value": "Privacy Policy"
+    }
+  ],
   "cookies_accept_button": [
     {
       "type": 0,
@@ -989,16 +1001,32 @@
       "value": "Innovate"
     }
   ],
-  "invite-date-label": [
+  "invite-date-time-label": [
     {
       "type": 0,
-      "value": "Date:"
+      "value": "Date: "
+    },
+    {
+      "type": 1,
+      "value": "date"
+    },
+    {
+      "type": 0,
+      "value": " | Time: "
+    },
+    {
+      "type": 1,
+      "value": "time"
     }
   ],
   "invite-location-label": [
     {
       "type": 0,
-      "value": "Location:"
+      "value": "Location: "
+    },
+    {
+      "type": 1,
+      "value": "location"
     }
   ],
   "invite-page-invite-heading": [
@@ -1011,12 +1039,6 @@
     {
       "type": 0,
       "value": "Functionality coming soon"
-    }
-  ],
-  "invite-time-label": [
-    {
-      "type": 0,
-      "value": "Time:"
     }
   ],
   "load_more_button": [
@@ -1483,16 +1505,10 @@
       "value": "Skill successfully created"
     }
   ],
-  "rsvpform-add-kid-button": [
+  "rsvpform-add-another-kid": [
     {
       "type": 0,
       "value": "Add Another Kid"
-    }
-  ],
-  "rsvpform-attendance-label": [
-    {
-      "type": 0,
-      "value": "We will attend the event"
     }
   ],
   "rsvpform-email-label": [
@@ -1551,6 +1567,12 @@
     {
       "type": 0,
       "value": "Submit RSVP"
+    }
+  ],
+  "rsvpform-will-attend-label": [
+    {
+      "type": 0,
+      "value": "We will attend the event"
     }
   ],
   "secondary_tagline": [

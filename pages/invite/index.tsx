@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { Accordion, AccordionSummary, AccordionDetails, Typography, Box } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import Image from "next/image";
 
 import { supaClient } from "../../supa-client";
@@ -20,6 +20,7 @@ import styles from "../../styles/Admin.module.css";
 import RSVPForm from "../../components/RSVPForm";
 
 function Invite() {
+  const intl = useIntl();
   const dispatch = useDispatch();
   
   const selectInviteEvents = (state: RootState) => state.inviteEventsReducer;
@@ -72,10 +73,25 @@ function Invite() {
                     <Box display="flex" flexDirection="column">
                       <Typography variant="h6">{inviteEvent.title}</Typography>
                       <Typography variant="body2" style={{ fontWeight: 'bold', color: '#00539c' }}>
-                        Date: {inviteEvent.date} | Time: {inviteEvent.time}
+                        <FormattedMessage
+                          id="invite-date-time-label"
+                          description="Date: {date} | Time: {time}"
+                          defaultMessage="Date: {date} | Time: {time}"
+                          values={{ 
+                            date: inviteEvent.date, 
+                            time: inviteEvent.time 
+                          }}
+                        />
                       </Typography>
                       <Typography variant="body2" color="textSecondary">
-                        Location: <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(inviteEvent.location)}`} target="_blank" rel="noopener noreferrer" style={{ color: '#00539c', textDecoration: 'underline' }}>{inviteEvent.location}</a>
+                        <FormattedMessage
+                          id="invite-location-label"
+                          description="Location: {location}"
+                          defaultMessage="Location: {location}"
+                          values={{ 
+                            location: <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(inviteEvent.location)}`} target="_blank" rel="noopener noreferrer" style={{ color: '#00539c', textDecoration: 'underline' }}>{inviteEvent.location}</a>
+                          }}
+                        />
                       </Typography>
                     </Box>
                   </AccordionSummary>

@@ -12,6 +12,7 @@ import { removeNonNecessaryCookies } from "../lib/cookies/cookieManager";
 // https://www.cookiebot.com/ Refer this link in the future
 
 const CookiesBanner = () => {
+    const intl = useIntl();
     
     const [cookiesVisible, setCookiesVisible] = useState<boolean>(false);
     const [cookieConsent, setCookieConsent] = useState<boolean>(true);
@@ -141,7 +142,11 @@ const CookiesBanner = () => {
                 <button 
                     className="uppercase text-sm px-4 py-4 bg-[#004b8c] text-white rounded-full transition-colors"
                     onClick={() => setCookiesVisible(!cookiesVisible)}
-                    aria-label="Manage Cookie Preferences"
+                    aria-label={intl.formatMessage({
+                        id: "cookies-manage-preferences-aria",
+                        description: "Manage Cookie Preferences",
+                        defaultMessage: "Manage Cookie Preferences"
+                    })}
                 >
                     <FontAwesomeIcon icon={faFingerprint} size="2x" />
                 </button>
@@ -149,7 +154,11 @@ const CookiesBanner = () => {
                 <Link 
                     href="/privacy-policy" 
                     className="uppercase text-sm px-4 py-4 bg-[#1249de] text-white rounded-full hover:bg-[#12dea8] transition-colors"
-                    aria-label="Privacy Policy"
+                    aria-label={intl.formatMessage({
+                        id: "cookies-privacy-policy-aria",
+                        description: "Privacy Policy",
+                        defaultMessage: "Privacy Policy"
+                    })}
                     onClick={() => setCookiesVisible(false)}
                     prefetch={false}
                 >

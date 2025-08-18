@@ -63,13 +63,21 @@ const RSVPForm = ({ eventId }) => {
       {kids.map((kid, index) => (
         <Box key={index} display="flex" gap={2}>
           <TextField
-            label={`Kid ${index + 1} Name`}
+            label={intl.formatMessage({
+              id: "rsvpform-kid-name-label",
+              description: "Kid {index} Name",
+              defaultMessage: "Kid {index} Name"
+            }, { index: index + 1 })}
             value={kid.name}
             onChange={(e) => handleKidChange(index, 'name', e.target.value)}
             margin="normal"
           />
           <TextField
-            label={`Kid ${index + 1} Age`}
+            label={intl.formatMessage({
+              id: "rsvpform-kid-age-label",
+              description: "Kid {index} Age",
+              defaultMessage: "Kid {index} Age"
+            }, { index: index + 1 })}
             value={kid.age}
             onChange={(e) => handleKidChange(index, 'age', e.target.value)}
             margin="normal"
@@ -78,11 +86,19 @@ const RSVPForm = ({ eventId }) => {
       ))}
 
       <Button onClick={handleAddKid} variant="outlined" style={{ margin: '10px 0' }}>
-        Add Another Kid
+        <FormattedMessage
+          id="rsvpform-add-another-kid"
+          description="Add Another Kid"
+          defaultMessage="Add Another Kid"
+        />
       </Button>
 
       <TextField
-        label="Message for Birthday Girl"
+        label={intl.formatMessage({
+          id: "rsvpform-message-label",
+          description: "Message for Birthday Girl",
+          defaultMessage: "Message for Birthday Girl"
+        })}
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         fullWidth
@@ -92,7 +108,11 @@ const RSVPForm = ({ eventId }) => {
       />
 
       <TextField
-        label="Email (optional)"
+        label={intl.formatMessage({
+          id: "rsvpform-email-label",
+          description: "Email (optional)",
+          defaultMessage: "Email (optional)"
+        })}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         fullWidth
@@ -100,7 +120,11 @@ const RSVPForm = ({ eventId }) => {
       />
 
       <TextField
-        label="Phone Number (optional)"
+        label={intl.formatMessage({
+          id: "rsvpform-phone-label",
+          description: "Phone Number (optional)",
+          defaultMessage: "Phone Number (optional)"
+        })}
         value={phone}
         onChange={(e) => setPhone(e.target.value)}
         fullWidth
@@ -114,11 +138,19 @@ const RSVPForm = ({ eventId }) => {
             onChange={(e) => setIsAttending(e.target.checked)}
           />
         }
-        label="We will attend the event"
+        label={intl.formatMessage({
+          id: "rsvpform-will-attend-label",
+          description: "We will attend the event",
+          defaultMessage: "We will attend the event"
+        })}
       />
 
       <Button type="submit" variant="contained" color="primary">
-        Submit RSVP
+        <FormattedMessage
+          id="rsvpform-submit-button"
+          description="Submit RSVP"
+          defaultMessage="Submit RSVP"
+        />
       </Button>
     </form>
   );
