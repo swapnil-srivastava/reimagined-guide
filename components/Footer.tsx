@@ -2,37 +2,85 @@
 
 import Link from 'next/link';
 import { FormattedMessage } from 'react-intl';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart, faGlobe, faShield, faCog } from '@fortawesome/free-solid-svg-icons';
 
 export default function Footer() {
   return (
-    <footer className="mt-auto pb-20 py-6 bg-blog-white  dark:bg-fun-blue-600 dark:text-blog-white drop-shadow-lg hover:drop-shadow-xl">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-4 md:mb-0">
-            <p className="text-black dark:text-[#fbfbfb] text-sm">
-              &copy; {new Date().getFullYear()} swapnilsrivastava.eu {" "}
+    <footer className="fixed bottom-0 left-0 right-0 z-40 bg-blog-white/95 dark:bg-fun-blue-500/95 backdrop-blur-sm border-t border-gray-200 dark:border-gray-700 shadow-lg">
+      <div className="px-4 py-3 sm:px-6 lg:px-8">
+        {/* Mobile-first responsive layout */}
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          
+          {/* Copyright and Built with Love - Mobile: stacked, Desktop: left side */}
+          <div className="flex flex-col gap-1 text-center sm:text-left">
+            <div className="flex items-center justify-center sm:justify-start gap-1 text-xs text-gray-600 dark:text-gray-300">
+              <span>&copy; {new Date().getFullYear()}</span>
+              <span className="hidden sm:inline">swapnilsrivastava.eu</span>
+              <span className="sm:hidden">swapnilsrivastava.eu</span>
+              <span>•</span>
               <FormattedMessage
                 id="footer.rights"
-                defaultMessage="All rights reserved."
+                description="All rights reserved text"
+                defaultMessage="All rights reserved"
               />
-            </p>
+            </div>
+            
+            {/* Built with love message */}
+            <div className="flex items-center justify-center sm:justify-start gap-1 text-xs text-primary-blue dark:text-teal-accent">
+              <FormattedMessage
+                id="footer.built-with-love"
+                description="Built with love message"
+                defaultMessage="Built with"
+              />
+              <FontAwesomeIcon 
+                icon={faHeart} 
+                className="text-red-500 animate-pulse w-3 h-3" 
+              />
+              <FormattedMessage
+                id="footer.by-swapnil"
+                description="By Swapnil Srivastava"
+                defaultMessage="by Swapnil Srivastava"
+              />
+            </div>
           </div>
-          <div className="flex space-x-6">
-            <Link href="/privacy-policy" legacyBehavior>
-              <a className="text-black dark:text-[#fbfbfb] hover:text-[#1249de] text-sm">
-                <FormattedMessage
-                  id="footer.privacy_policy"
-                  defaultMessage="Privacy Policy"
-                />
-              </a>
+
+          {/* Navigation Links - Mobile: row, Desktop: right side */}
+          <div className="flex items-center justify-center gap-4 sm:gap-6">
+            <Link 
+              href="/privacy-policy" 
+              className="flex items-center gap-1 text-xs text-gray-600 dark:text-gray-300 hover:text-primary-blue dark:hover:text-teal-accent transition-colors duration-200"
+            >
+              <FontAwesomeIcon icon={faShield} className="w-3 h-3" />
+              <FormattedMessage
+                id="footer.privacy-policy"
+                description="Privacy Policy link"
+                defaultMessage="Privacy"
+              />
             </Link>
-            <Link href="/user-preferences" legacyBehavior>
-              <a className="text-black dark:text-[#fbfbfb] hover:text-[#1249de] text-sm">
-                <FormattedMessage
-                  id="footer.preferences"
-                  defaultMessage="Preferences"
-                />
-              </a>
+            
+            <Link 
+              href="/user-preferences" 
+              className="flex items-center gap-1 text-xs text-gray-600 dark:text-gray-300 hover:text-primary-blue dark:hover:text-teal-accent transition-colors duration-200"
+            >
+              <FontAwesomeIcon icon={faCog} className="w-3 h-3" />
+              <FormattedMessage
+                id="footer.preferences"
+                description="User preferences link"
+                defaultMessage="Settings"
+              />
+            </Link>
+            
+            <Link 
+              href="/technology" 
+              className="flex items-center gap-1 text-xs text-gray-600 dark:text-gray-300 hover:text-primary-blue dark:hover:text-teal-accent transition-colors duration-200"
+            >
+              <FontAwesomeIcon icon={faGlobe} className="w-3 h-3" />
+              <FormattedMessage
+                id="footer.technology"
+                description="Technology stack link"
+                defaultMessage="Tech"
+              />
             </Link>
           </div>
         </div>

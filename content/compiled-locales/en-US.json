@@ -827,22 +827,40 @@
       "value": "End of articles"
     }
   ],
+  "footer.built-with-love": [
+    {
+      "type": 0,
+      "value": "Built with"
+    }
+  ],
+  "footer.by-swapnil": [
+    {
+      "type": 0,
+      "value": "by Swapnil Srivastava"
+    }
+  ],
   "footer.preferences": [
     {
       "type": 0,
-      "value": "Preferences"
+      "value": "Settings"
     }
   ],
-  "footer.privacy_policy": [
+  "footer.privacy-policy": [
     {
       "type": 0,
-      "value": "Privacy Policy"
+      "value": "Privacy"
     }
   ],
   "footer.rights": [
     {
       "type": 0,
-      "value": "All rights reserved."
+      "value": "All rights reserved"
+    }
+  ],
+  "footer.technology": [
+    {
+      "type": 0,
+      "value": "Tech"
     }
   ],
   "heart-button-heart": [
@@ -1867,16 +1885,58 @@
       "value": "Create"
     }
   ],
+  "technology-hero-subtitle": [
+    {
+      "type": 0,
+      "value": "Explore the cutting-edge technologies that power innovation and creativity in modern development"
+    }
+  ],
+  "technology-hero-title": [
+    {
+      "type": 0,
+      "value": "Tech Arsenal"
+    }
+  ],
   "technology-leading-tech-created": [
     {
       "type": 0,
       "value": "Leading Tech Stack created"
     }
   ],
+  "technology-leading-tech-subtitle": [
+    {
+      "type": 0,
+      "value": "The pioneering technologies that define the future of development"
+    }
+  ],
   "technology-leading-tech-title": [
     {
       "type": 0,
-      "value": "Leading Tech"
+      "value": "Leading Technologies"
+    }
+  ],
+  "technology-stats-innovation": [
+    {
+      "type": 0,
+      "value": "100%"
+    }
+  ],
+  "technology-stats-innovation-label": [
+    {
+      "type": 0,
+      "value": "Innovation Level"
+    }
+  ],
+  "technology-stats-leading": [
+    {
+      "type": 0,
+      "value": "Leading Technologies"
+    }
+  ],
+  "technology-stats-total": [
+    {
+      "type": 0,
+      "value": "Total Technologies"
     }
   ],
   "technology-tech-stack-created": [
@@ -1885,10 +1945,16 @@
       "value": "Tech Stack created!"
     }
   ],
+  "technology-tech-stack-subtitle": [
+    {
+      "type": 0,
+      "value": "The comprehensive toolkit for building exceptional digital experiences"
+    }
+  ],
   "technology-tech-stack-title": [
     {
       "type": 0,
-      "value": "Tech Stack"
+      "value": "Technology Stack"
     }
   ],
   "user-profile-about-title": [

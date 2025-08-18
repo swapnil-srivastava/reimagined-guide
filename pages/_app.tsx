@@ -96,9 +96,11 @@ function MyApp({ Component, pageProps }) {
               locale={nextLocale}
               defaultLocale={nextDefaultLocale}
             >
-              <div className="flex flex-col gap-2 min-h-screen">
+              <div className="flex flex-col min-h-screen">
                 <AwesomeNavBar />
-                <Component {...pageProps} />
+                <main className="flex-1 pb-20">
+                  <Component {...pageProps} />
+                </main>
                 <BuyMeCoffee></BuyMeCoffee>
                 <Footer />
                 <CookiesBanner />
