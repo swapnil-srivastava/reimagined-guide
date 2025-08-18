@@ -42,13 +42,53 @@ function AwesomeNavBar() {
   const { locales, asPath, locale: nextLocale } = useRouter();
 
   const [ currentLocale, setCurrentLocale] = useState(nextLocale);
+  const [logoSrc, setLogoSrc] = useState("/swapnil-odyssey-4.svg");
+
+  // Randomizer function for logo selection based on theme
+  const getRandomLogo = (currentTheme: string) => {
+    const lightModeLogos = [
+      "/swapnil-odyssey-4.svg", // with blue
+      "/swapnil-odyssey-6.svg", // with blue
+      "/swapnil-odyssey-1.svg",
+      "/swapnil-odyssey-2.svg",
+      "/swapnil-odyssey-3.svg",
+      "/swapnil-odyssey-5.svg",
+      "/swapnil-odyssey-7.svg"
+    ];
+    
+    const darkModeLogos = [
+      "/swapnil-odyssey-8.svg", // with white
+      "/swapnil-odyssey-9.svg",
+      "/swapnil-odyssey-1.svg",
+      "/swapnil-odyssey-2.svg",
+      "/swapnil-odyssey-3.svg",
+      "/swapnil-odyssey-5.svg",
+      "/swapnil-odyssey-7.svg"
+    ];
+
+    const logos = currentTheme === "dark" ? darkModeLogos : lightModeLogos;
+    const randomIndex = Math.floor(Math.random() * logos.length);
+    return logos[randomIndex];
+  };
+
+  // Update logo when theme changes
+  useEffect(() => {
+    if (theme) {
+      setLogoSrc(getRandomLogo(theme));
+    }
+  }, [theme]);
+
+  // Initialize logo on component mount
+  useEffect(() => {
+    setLogoSrc(getRandomLogo(theme || "light"));
+  }, []);
 
   const handleChange = (event: SelectChangeEvent) => {
     setCurrentLocale(event.target.value as string);
   };
 
   return (
-    <NavBar>
+    <NavBar logoSrc={logoSrc}>
       <NavBarItem nextrouteurl>
         <div className="h-full flex items-center px-1">
           <FormControl size="small" sx={{ minWidth: 80 }}>
@@ -205,7 +245,12 @@ function AwesomeNavBar() {
   );
 }
 
-function NavBar({ children }) {
+interface NavBarProps {
+  children: React.ReactNode;
+  logoSrc: string;
+}
+
+function NavBar({ children, logoSrc }: NavBarProps) {
   return (
     <nav
       className="w-full h-20 py-0 px-4
@@ -219,15 +264,15 @@ function NavBar({ children }) {
             items-center
           "
     >
-      {/* /swapnil-odyssey-4.svg with blue , /swapnil-odyssey-5.svg, /swapnil-odyssey-6.svg - with blue, 
-      /swapnil-odyssey-8.svg with white, /swapnil-odyssey-9.svg */}
+      {/* Dynamic logo based on theme with randomizer */}
       <div className="basis-1/2 md:basis-1/3 flex items-center md:text-2xl m-1">
         <Link href="/" legacyBehavior>
           <Image
             width={75}
             height={75}
-            src="/swapnil-odyssey-5.svg"
+            src={logoSrc}
             alt="Swapnil's Odyssey"
+            className="cursor-pointer transition-opacity duration-300 hover:opacity-80"
           />
         </Link>
       </div>
