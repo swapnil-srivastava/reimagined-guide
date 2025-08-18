@@ -271,7 +271,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
             )}
 
             {/* Products Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 w-full px-4 sm:px-0">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full px-4 sm:px-0 -mx-2 sm:-mx-3">
                 {Array.isArray(products) && products.map((product: PRODUCT) => {
                     const descriptionTrimmed = generateContent(product?.description);
                     const nameTrimmed = generateContent(product?.name);
@@ -288,8 +288,9 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                     }
 
                     return (
-                        <article key={product.id} className="relative group flex flex-col bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white rounded-3xl drop-shadow-lg overflow-hidden hover:scale-[1.01] transition-transform">
-                            <div className="w-full h-48 relative">
+                        <div key={product.id} className="px-2 sm:px-3 pb-4 sm:pb-6">
+                            <article className="relative group flex flex-col bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white rounded-3xl drop-shadow-lg overflow-hidden hover:scale-[1.01] transition-transform">
+                                <div className="w-full h-48 relative overflow-hidden">
                                 <Image
                                     src={product.image_url ?? `/mountains.jpg`}
                                     alt={product.name ?? 'product image'}
@@ -299,14 +300,14 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                                     className="object-cover w-full h-48"
                                 />
                                 {/* Badge */}
-                                {product?.stock === 0 ? (
-                                    <span className="absolute left-2 top-2 bg-red-500 text-white text-xs px-2 py-1 rounded">Out of stock</span>
-                                ) : (product as any)?.isNew ? (
-                                    <span className="absolute left-2 top-2 bg-green-500 text-white text-xs px-2 py-1 rounded">New</span>
+                                {(product?.stock === 0 || product?.stock === null) ? (
+                                    <span className="absolute left-3 top-3 bg-red-500 text-white text-xs font-medium px-2 py-1 rounded-md shadow-lg z-20">Out of stock</span>
+                                ) : (product as any)?.isNew || new Date(product?.created_at).getTime() > Date.now() - (7 * 24 * 60 * 60 * 1000) ? (
+                                    <span className="absolute left-3 top-3 bg-green-500 text-white text-xs font-medium px-2 py-1 rounded-md shadow-lg z-20">New</span>
                                 ) : null}
                                 {/* Quick view */}
-                                <button aria-label="Quick view" onClick={() => { setQuickViewProduct(product); setQuickViewOpen(true); }} className="absolute right-2 top-2 bg-white dark:bg-gray-800 p-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <FontAwesomeIcon icon={faCirclePlus} />
+                                <button aria-label="Quick view" onClick={() => { setQuickViewProduct(product); setQuickViewOpen(true); }} className="absolute right-3 top-3 bg-white dark:bg-gray-800 text-gray-800 dark:text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg z-20 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                    <FontAwesomeIcon icon={faCirclePlus} className="w-4 h-4" />
                                 </button>
                             </div>
                             <div className="p-4 flex-1 flex flex-col justify-between">
@@ -332,22 +333,25 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                                 </div>
                             </div>
                         </article>
+                    </div>
                     );
                 })}
 
                 {/* Create Product Card as one grid item */}
-                <div className="flex items-center justify-center bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white rounded-3xl drop-shadow-lg p-4">
-                    <div className="flex flex-col gap-2 justify-center items-center">
-                        <FontAwesomeIcon icon={faCirclePlus} size="3x" className="cursor-pointer" onClick={() => setCreateProduct(!createProduct)} />
-                        <div className="text-lg">
-                            <FormattedMessage id="product-card-create-product" description="Create Product" defaultMessage="Create Product" />
+                <div className="px-2 sm:px-3 pb-4 sm:pb-6">
+                    <div className="flex items-center justify-center bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white rounded-3xl drop-shadow-lg p-4">
+                        <div className="flex flex-col gap-2 justify-center items-center">
+                            <FontAwesomeIcon icon={faCirclePlus} size="3x" className="cursor-pointer" onClick={() => setCreateProduct(!createProduct)} />
+                            <div className="text-lg">
+                                <FormattedMessage id="product-card-create-product" description="Create Product" defaultMessage="Create Product" />
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 {/* Create Product Form (expanded) */}
                 {createProduct && (
-                    <div className="col-span-1 md:col-span-2 lg:col-span-2 flex">
+                    <div className="col-span-1 md:col-span-2 lg:col-span-2 px-2 sm:px-3 pb-4 sm:pb-6">
                         <div className="w-full p-4 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white rounded-3xl drop-shadow-lg">
                             <div className="flex justify-end">
                                 <FontAwesomeIcon icon={faCircleXmark} className="cursor-pointer" size="lg" onClick={() => setCreateProduct(!createProduct)} />
