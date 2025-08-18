@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { FormattedMessage } from "react-intl";
 
 import { supaClient } from "../supa-client";
 import Loader from "./Loader";
@@ -87,7 +88,13 @@ export default function AudioUploader({ getAudioFileName }) {
               dark:bg-gray-700  
               dark:hover:bg-gray-600"
             >
-              <span className="sr-only">Upload Audio File</span>
+              <span className="sr-only">
+                <FormattedMessage
+                  id="audio-uploader-upload-label"
+                  description="Upload Audio File"
+                  defaultMessage="Upload Audio File"
+                />
+              </span>
               <div className="flex flex-col items-center justify-center pt-5 pb-6">
                 <svg
                   className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"

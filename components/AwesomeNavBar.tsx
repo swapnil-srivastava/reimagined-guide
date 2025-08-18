@@ -403,7 +403,13 @@ function DropdownMenu() {
               </RoundButton>
             }
           >
-            <h2>My Tutorial</h2>
+            <h2>
+              <FormattedMessage
+                id="navbar-my-tutorial"
+                description="My Tutorial"
+                defaultMessage="My Tutorial"
+              />
+            </h2>
           </DropdownItem>
           <DropdownItem
             leftIcon={

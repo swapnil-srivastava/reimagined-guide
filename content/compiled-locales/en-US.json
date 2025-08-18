@@ -505,6 +505,12 @@
       "value": "Content Moderation"
     }
   ],
+  "audio-uploader-upload-label": [
+    {
+      "type": 0,
+      "value": "Upload Audio File"
+    }
+  ],
   "audioplayer-backward-5-seconds": [
     {
       "type": 0,
@@ -1175,6 +1181,12 @@
     {
       "type": 0,
       "value": "Write a post"
+    }
+  ],
+  "navbar-my-tutorial": [
+    {
+      "type": 0,
+      "value": "My Tutorial"
     }
   ],
   "personalization-accept-cookies-alert": [
