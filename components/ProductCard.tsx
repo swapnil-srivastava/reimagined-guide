@@ -320,7 +320,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
 
                     return (
                         <div key={product.id} className="px-2 sm:px-3 pb-4 sm:pb-6">
-                            <article className="relative group flex flex-col bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white rounded-3xl drop-shadow-lg overflow-hidden hover:scale-[1.01] transition-transform">
+                            <article className="relative group flex flex-col bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-3xl drop-shadow-lg overflow-hidden hover:scale-[1.01] transition-transform">
                                 <div className="w-full h-48 relative overflow-hidden">
                                 <Image
                                     src={product.image_url ?? `/mountains.jpg`}
@@ -387,7 +387,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
 
                 {/* Create Product Card as one grid item */}
                 <div className="px-2 sm:px-3 pb-4 sm:pb-6">
-                    <div className="flex items-center justify-center bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white rounded-3xl drop-shadow-lg p-4">
+                    <div className="flex items-center justify-center bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-3xl drop-shadow-lg p-4">
                         <div className="flex flex-col gap-2 justify-center items-center">
                             <FontAwesomeIcon icon={faCirclePlus} size="3x" className="cursor-pointer" onClick={() => setCreateProduct(!createProduct)} />
                             <div className="text-lg">
@@ -400,7 +400,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                 {/* Create Product Form (expanded) */}
                 {createProduct && (
                     <div className="col-span-1 md:col-span-2 lg:col-span-2 px-2 sm:px-3 pb-4 sm:pb-6">
-                        <div className="w-full p-4 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white rounded-3xl drop-shadow-lg">
+                        <div className="w-full p-4 bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-3xl drop-shadow-lg">
                             <div className="flex justify-end">
                                 <FontAwesomeIcon icon={faCircleXmark} className="cursor-pointer" size="lg" onClick={() => setCreateProduct(!createProduct)} />
                             </div>
