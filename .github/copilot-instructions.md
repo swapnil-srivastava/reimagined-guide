@@ -346,7 +346,7 @@ export default async function handler(
 - **CSRF Protection:** Built into Next.js
 
 ### Performance Optimization
-- **Image Optimization:** Use Next.js Image component
+- **Image Optimization:** Use Next.js Image component - ALWAYS prefer `import Image from 'next/image'` over `<img>` tags
 - **Code Splitting:** Dynamic imports for large components
 - **Caching:** Implement proper cache headers
 - **Bundle Analysis:** Monitor bundle size
@@ -469,6 +469,7 @@ try {
 🚨 **ALWAYS** use `bg-blog-white dark:bg-fun-blue-500` for backgrounds  
 🚨 **ALWAYS** include dark mode variants in styling  
 🚨 **ALWAYS** use Flexbox or CSS Grid for layouts - NEVER use absolute/relative positioning except for overlays  
+🚨 **ALWAYS** use Next.js `Image` component instead of `<img>` tags for all images  
 🚨 **ALWAYS** use TypeScript types from `database.types.ts`  
 🚨 **ALWAYS** implement proper error handling  
 🚨 **ALWAYS** validate user inputs  
