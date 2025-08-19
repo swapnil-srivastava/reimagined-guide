@@ -831,12 +831,6 @@
       "value": "Continue Shopping"
     }
   ],
-  "cart-heading": [
-    {
-      "type": 0,
-      "value": "Cart"
-    }
-  ],
   "cart-items-count": [
     {
       "type": 1,
@@ -929,16 +923,40 @@
       "value": "Shopping Cart"
     }
   ],
-  "cart-page-subtotal-heading": [
+  "checkout-complete-order": [
     {
       "type": 0,
-      "value": "Subtotal"
+      "value": "Complete Order"
     }
   ],
-  "checkout-delivery-heading": [
+  "checkout-delivery-address": [
     {
       "type": 0,
-      "value": "Delivery"
+      "value": "Delivery Address"
+    }
+  ],
+  "checkout-delivery-cost": [
+    {
+      "type": 0,
+      "value": "Delivery:"
+    }
+  ],
+  "checkout-delivery-method": [
+    {
+      "type": 0,
+      "value": "Delivery Method"
+    }
+  ],
+  "checkout-empty-cart": [
+    {
+      "type": 0,
+      "value": "Your cart is empty"
+    }
+  ],
+  "checkout-empty-cart-description": [
+    {
+      "type": 0,
+      "value": "Add some products to continue with your order"
     }
   ],
   "checkout-error": [
@@ -947,46 +965,124 @@
       "value": "Error starting checkout"
     }
   ],
-  "checkout-heading": [
+  "checkout-free-delivery": [
     {
       "type": 0,
-      "value": "Checkout"
+      "value": "FREE"
     }
   ],
-  "checkout-no-products-redirect-btn": [
+  "checkout-go-shopping": [
     {
       "type": 0,
-      "value": "Go to products page"
+      "value": "Continue Shopping"
     }
   ],
-  "checkout-page-address-card-heading": [
+  "checkout-item-each": [
     {
       "type": 0,
-      "value": "Address"
+      "value": "each"
     }
   ],
-  "checkout-page-empty-cart": [
+  "checkout-item-quantity": [
     {
       "type": 0,
-      "value": "Please add items into the shopping cart"
+      "value": "Qty:"
     }
   ],
-  "checkout-selected-delivery-type": [
+  "checkout-order-summary": [
     {
       "type": 0,
-      "value": "Selected Delivery Type"
+      "value": "Order Summary ("
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "item"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "items"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "checkout-page-heading": [
+    {
+      "type": 0,
+      "value": "Secure Checkout"
+    }
+  ],
+  "checkout-payment-summary": [
+    {
+      "type": 0,
+      "value": "Payment Summary"
+    }
+  ],
+  "checkout-processing": [
+    {
+      "type": 0,
+      "value": "Processing..."
+    }
+  ],
+  "checkout-security-notice": [
+    {
+      "type": 0,
+      "value": "Your payment information is secure and encrypted"
+    }
+  ],
+  "checkout-ssl-secured": [
+    {
+      "type": 0,
+      "value": "SSL Secured"
+    }
+  ],
+  "checkout-subtotal": [
+    {
+      "type": 0,
+      "value": "Subtotal:"
+    }
+  ],
+  "checkout-tax": [
+    {
+      "type": 0,
+      "value": "Tax (19%):"
+    }
+  ],
+  "checkout-total": [
+    {
+      "type": 0,
+      "value": "Total:"
     }
   ],
   "checkoutbutton-login-required": [
     {
       "type": 0,
       "value": "Please log in to create a new Stripe Checkout session"
-    }
-  ],
-  "chekcout-buy-now-btn": [
-    {
-      "type": 0,
-      "value": "Buy Now"
     }
   ],
   "cookies-manage-preferences-aria": [
