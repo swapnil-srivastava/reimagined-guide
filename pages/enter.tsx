@@ -535,10 +535,13 @@ function UsernameForm() {
   // TS infers type: (state: RootState) => boolean
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
-  const { profile, session } = userInfo;
+  const { profile, session } = userInfo || { profile: null, session: null };
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isValid || !formValue) return;
+
+    setLoading(true);
     try {
       const { data, error } = await supaClient
         .from("profiles")
@@ -554,11 +557,14 @@ function UsernameForm() {
         defaultMessage: "Username updated successfully!"
       }));
     } catch (error: any) {
+      console.error('Username update error:', error);
       toast.error(error.message || intl.formatMessage({
         id: "auth-username-update-error",
         description: "Username update error",
         defaultMessage: "Failed to update username. Please try again."
       }));
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -601,31 +607,57 @@ function UsernameForm() {
     []
   );
 
+  // Get user email for welcome message
+  const userEmail = session?.user?.email || "";
+  const welcomeName = userEmail ? userEmail.split('@')[0] : "there";
+
   return (
     <div className="bg-white dark:bg-fun-blue-800 shadow-2xl rounded-2xl p-8 border border-gray-200 dark:border-fun-blue-600">
       {/* Header */}
       <div className="text-center mb-8">
+        {/* Welcome checkmark icon */}
         <div className="flex justify-center mb-4">
-          <div className="w-16 h-16 bg-primary-blue rounded-full flex items-center justify-center">
+          <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center animate-pulse">
             <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
         </div>
+        
+        {/* Welcome message */}
         <h1 className="text-3xl font-bold text-blog-black dark:text-white mb-2">
           <FormattedMessage
-            id="auth-choose-username-title"
-            description="Choose username title"
-            defaultMessage="Choose your username"
+            id="auth-welcome-verified"
+            description="Welcome after email verification"
+            defaultMessage="Welcome {name}!"
+            values={{ name: welcomeName }}
           />
         </h1>
-        <p className="text-gray-600 dark:text-gray-300">
+        
+        <p className="text-gray-600 dark:text-gray-300 mb-4">
           <FormattedMessage
-            id="auth-choose-username-subtitle"
-            description="Choose username subtitle"
-            defaultMessage="This will be your unique identifier"
+            id="auth-email-verified-success"
+            description="Email verified successfully"
+            defaultMessage="Your email has been verified successfully!"
           />
         </p>
+        
+        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6">
+          <h2 className="text-xl font-semibold text-blog-black dark:text-white mb-2">
+            <FormattedMessage
+              id="auth-choose-username-title"
+              description="Choose username title"
+              defaultMessage="Choose your username"
+            />
+          </h2>
+          <p className="text-sm text-gray-600 dark:text-gray-300">
+            <FormattedMessage
+              id="auth-choose-username-subtitle"
+              description="Choose username subtitle"
+              defaultMessage="This will be your unique identifier and profile URL"
+            />
+          </p>
+        </div>
       </div>
 
       {/* Form */}
@@ -640,51 +672,112 @@ function UsernameForm() {
               />
             </span>
           </label>
-          <input
-            id="username"
-            name="username"
-            value={formValue}
-            onChange={onChange}
-            className="w-full px-3 py-3 border border-gray-300 dark:border-gray-600 
-                       rounded-lg bg-white dark:bg-gray-700
-                       text-gray-900 dark:text-white
-                       placeholder-gray-500 dark:placeholder-gray-400
-                       focus:outline-none focus:ring-2 focus:ring-primary-blue focus:border-transparent
-                       transition-all duration-200"
-            placeholder={intl.formatMessage({
-              id: "auth-username-placeholder",
-              description: "Username placeholder",
-              defaultMessage: "Choose a username"
-            })}
-            required
-          />
+          
+          {/* Username input with preview */}
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <span className="text-gray-500 dark:text-gray-400 text-sm">
+                {typeof window !== 'undefined' ? window.location.origin : ''}/
+              </span>
+            </div>
+            <input
+              id="username"
+              name="username"
+              value={formValue}
+              onChange={onChange}
+              className="w-full pl-24 pr-3 py-3 border border-gray-300 dark:border-gray-600 
+                         rounded-lg bg-white dark:bg-gray-700
+                         text-gray-900 dark:text-white
+                         placeholder-gray-500 dark:placeholder-gray-400
+                         focus:outline-none focus:ring-2 focus:ring-primary-blue focus:border-transparent
+                         transition-all duration-200"
+              placeholder={intl.formatMessage({
+                id: "auth-username-placeholder",
+                description: "Username placeholder",
+                defaultMessage: "your-username"
+              })}
+              autoComplete="username"
+              required
+            />
+          </div>
           
           {/* Username validation message */}
-          <div className="mt-2 min-h-[1.5rem]">
+          <div className="mt-3 min-h-[2rem]">
             <UsernameMessage
               username={formValue}
               isValid={isValid}
               loading={loading}
             />
           </div>
+          
+          {/* Requirements */}
+          <div className="mt-2">
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              <FormattedMessage
+                id="auth-username-requirements"
+                description="Username requirements"
+                defaultMessage="3-15 characters, letters, numbers, dots and underscores only"
+              />
+            </p>
+          </div>
         </div>
 
+        {/* Preview box */}
+        {formValue && (
+          <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+            <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
+              <FormattedMessage
+                id="auth-profile-preview"
+                description="Profile preview"
+                defaultMessage="Your profile will be available at:"
+              />
+            </p>
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 bg-primary-blue rounded-full flex items-center justify-center text-white font-bold text-xs">
+                {formValue.charAt(0).toUpperCase()}
+              </div>
+              <span className="font-mono text-sm text-primary-blue">
+                {typeof window !== 'undefined' ? window.location.origin : ''}/{formValue}
+              </span>
+            </div>
+          </div>
+        )}
+
+        {/* Submit button */}
         <button
           type="submit"
-          disabled={!isValid}
+          disabled={!isValid || loading}
           className="w-full bg-primary-blue hover:bg-blue-secondary 
                      disabled:bg-gray-400 disabled:cursor-not-allowed
                      text-white font-medium py-3 px-4 rounded-lg
                      transition-all duration-200 ease-in-out
-                     focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2"
+                     focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2
+                     flex items-center justify-center gap-2"
         >
+          {loading && (
+            <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+            </svg>
+          )}
           <FormattedMessage
-            id="auth-choose-username"
-            description="Choose Username"
-            defaultMessage="Choose Username"
+            id="auth-continue-to-profile"
+            description="Continue to profile button"
+            defaultMessage="Continue to Profile"
           />
         </button>
       </form>
+      
+      {/* Help text */}
+      <div className="mt-6 text-center">
+        <p className="text-xs text-gray-500 dark:text-gray-400">
+          <FormattedMessage
+            id="auth-username-help"
+            description="Username help text"
+            defaultMessage="You can change this later in your profile settings"
+          />
+        </p>
+      </div>
     </div>
   );
 }
