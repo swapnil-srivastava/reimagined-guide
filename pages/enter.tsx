@@ -468,8 +468,6 @@ function SignOutCard() {
         defaultMessage: "You've been signed out successfully!"
       }));
       
-      console.log("Sign out successful, redirecting...");
-      
       // Redirect to home page after successful logout
       setTimeout(() => {
         window.location.href = '/';
