@@ -34,15 +34,27 @@ const QuantityComponent: React.FC<QuantityComponentProps> = ({ product, children
 
     return (
       <>
-        <div className="flex flex-row items-center gap-2">
+        <div className="flex flex-row items-center gap-3">
             {/* Minus Button */}
-            <FontAwesomeIcon icon={faCircleMinus} size="xl" onClick={decrement} className="cursor-pointer"/>
+            <button
+              onClick={decrement}
+              className="w-8 h-8 bg-gray-100 dark:bg-fun-blue-600 hover:bg-gray-200 dark:hover:bg-fun-blue-500 rounded-full flex items-center justify-center transition-colors duration-200 text-gray-600 dark:text-white"
+            >
+              <FontAwesomeIcon icon={faCircleMinus} className="w-4 h-4" />
+            </button>
+            
             {/* Quantity */}
-            <div className="text-sm">
+            <div className="min-w-[2rem] text-center bg-blog-white dark:bg-fun-blue-700 text-black dark:text-white px-3 py-1 rounded-lg font-medium text-sm border border-gray-200 dark:border-fun-blue-500">
               {children}
             </div>
+            
             {/* Plus Button */}
-            <FontAwesomeIcon icon={faCirclePlus} size="xl" onClick={increment} className="cursor-pointer"/>
+            <button
+              onClick={increment}
+              className="w-8 h-8 bg-gray-100 dark:bg-fun-blue-600 hover:bg-gray-200 dark:hover:bg-fun-blue-500 rounded-full flex items-center justify-center transition-colors duration-200 text-gray-600 dark:text-white"
+            >
+              <FontAwesomeIcon icon={faCirclePlus} className="w-4 h-4" />
+            </button>
         </div>
       </>
     );

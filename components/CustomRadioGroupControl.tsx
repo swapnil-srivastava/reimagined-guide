@@ -6,25 +6,45 @@ import { FormattedMessage } from 'react-intl';
 
 const CustomRadioGroupControl = ({ data, handleChange, path }: ControlProps) => {
   return (
-    <div className="flex flex-col font-poppins">
-      {/* <span className="block text-base font-medium text-blog-black dark:text-blog-white mb-2">
-        <FormattedMessage
-            id="custom-radio-group-control"
-            description="Select Delivery Option" // Description should be a string literal
-            defaultMessage="Select Delivery Option" // Message should be a string literal
-        />
-      </span> */}
+    <div className="space-y-3">
       {deliveryOptions.map(option => (
-        <label key={option.id} className="flex text-base items-center space-x-2 dark:text-blog-white text-blog-black">
+        <label 
+          key={option.id} 
+          className={`flex items-center space-x-3 p-4 rounded-lg border-2 transition-all duration-200 cursor-pointer hover:bg-gray-50 dark:hover:bg-fun-blue-700 ${
+            data?.id === option.id 
+              ? 'border-fun-blue-500 dark:border-blog-white bg-blue-50 dark:bg-primary-blue/20' 
+              : 'border-gray-200 dark:border-fun-blue-600 bg-white dark:bg-fun-blue-800'
+          }`}
+        >
           <input
             type="radio"
             name={path}
             value={option.id}
             checked={data?.id === option.id}
             onChange={() => handleChange(path, option)}
-            className="form-radio text-fun-blue-600 dark:text-blog-white"
+            className="w-4 h-4 text-primary-blue focus:ring-primary-blue focus:ring-2 dark:focus:ring-primary-blue dark:text-primary-blue"
           />
-          <span className='text-base'>{option.name}</span>
+          <div className="flex-1">
+            <div className="flex justify-between items-center">
+              <span className="font-medium text-black dark:text-white">
+                {option.name}
+              </span>
+              {option.deliveryPrice > 0 ? (
+                <span className="text-sm font-semibold text-gray-600 dark:text-gray-300">
+                  € {option.deliveryPrice.toFixed(2)}
+                </span>
+              ) : (
+                <span className="text-sm font-semibold text-green-600 dark:text-green-400">
+                  FREE
+                </span>
+              )}
+            </div>
+            {option.description && (
+              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                {option.description}
+              </p>
+            )}
+          </div>
         </label>
       ))}
     </div>

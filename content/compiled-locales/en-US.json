@@ -819,34 +819,102 @@
       "value": "Go home"
     }
   ],
+  "cart-add-address": [
+    {
+      "type": 0,
+      "value": "Add Address"
+    }
+  ],
+  "cart-continue-shopping": [
+    {
+      "type": 0,
+      "value": "Continue Shopping"
+    }
+  ],
   "cart-heading": [
     {
       "type": 0,
       "value": "Cart"
     }
   ],
+  "cart-items-count": [
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "item"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "items"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " in your cart"
+    }
+  ],
+  "cart-no-address": [
+    {
+      "type": 0,
+      "value": "No delivery address added"
+    }
+  ],
+  "cart-order-summary": [
+    {
+      "type": 0,
+      "value": "Order Summary"
+    }
+  ],
   "cart-page-address-card-heading": [
     {
       "type": 0,
-      "value": "Address"
+      "value": "Delivery Address"
     }
   ],
   "cart-page-checkout-btn": [
     {
       "type": 0,
-      "value": "Checkout"
+      "value": "Proceed to Checkout"
     }
   ],
   "cart-page-delivery-cards-heading": [
     {
       "type": 0,
-      "value": "Delivery"
+      "value": "Delivery Options"
     }
   ],
   "cart-page-empty-cart": [
     {
       "type": 0,
       "value": "Please add items into the shopping cart"
+    }
+  ],
+  "cart-page-empty-cart-title": [
+    {
+      "type": 0,
+      "value": "Your cart is empty"
     }
   ],
   "cart-page-no-products-redirect-btn": [
