@@ -217,13 +217,19 @@ function AwesomeNavBar() {
               <BasicTooltip title={profile?.full_name} placement="bottom">
                 <div className="w-[calc(2.5rem)] h-[calc(2.5rem)] rounded-full cursor-pointer flex items-center justify-center overflow-hidden border-2 border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 transition-colors">
                   <Link href={`/${profile?.username}`} legacyBehavior>
-                    <Image
-                      width={32}
-                      height={32}
-                      src={profile?.avatar_url}
-                      alt=""
-                      className="rounded-full object-cover"
-                    />
+                    {profile?.avatar_url ? (
+                      <Image
+                        width={32}
+                        height={32}
+                        src={profile.avatar_url}
+                        alt=""
+                        className="rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-8 h-8 bg-primary-blue rounded-full flex items-center justify-center text-white font-bold text-sm">
+                        {profile?.username?.charAt(0).toUpperCase() || profile?.email?.charAt(0).toUpperCase() || 'U'}
+                      </div>
+                    )}
                   </Link>
                 </div>
               </BasicTooltip>
@@ -363,13 +369,19 @@ function DropdownMenu({ closeDropdown }: { closeDropdown?: () => void }) {
               onClick={() => router.push(`/${profile?.username}`)}
             >
               <div className="flex items-center gap-x-1">
-                <div className="w-9 h-9 rounded-full cursor-pointer flex items-center overflow-hidden">
-                  <Image
-                    width={200}
-                    height={200}
-                    src={profile?.avatar_url}
-                    alt={profile?.full_name}
-                  />
+                <div className="w-9 h-9 rounded-full cursor-pointer flex items-center justify-center overflow-hidden bg-gray-200">
+                  {profile?.avatar_url ? (
+                    <Image
+                      width={200}
+                      height={200}
+                      src={profile.avatar_url}
+                      alt={profile?.full_name || "Profile"}
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-primary-blue rounded-full flex items-center justify-center text-white font-bold text-sm">
+                      {profile?.username?.charAt(0).toUpperCase() || profile?.email?.charAt(0).toUpperCase() || 'U'}
+                    </div>
+                  )}
                 </div>
                 <FormattedMessage
                   id="nav-bar-my-profile"

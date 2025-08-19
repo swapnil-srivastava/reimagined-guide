@@ -6,8 +6,10 @@ export interface UserProfile {
   username: string;
   avatar_url?: string;
   full_name?: string;
-  // email?: string;
+  email?: string;
   id?: string;
+  website?: string;
+  stripe_customer?: string;
 }
 
 export interface SupashipUserInfo {

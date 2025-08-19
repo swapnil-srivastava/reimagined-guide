@@ -631,6 +631,18 @@
       "value": "Google sign in failed. Please try again."
     }
   ],
+  "auth-have-account": [
+    {
+      "type": 0,
+      "value": "Already have an account?"
+    }
+  ],
+  "auth-no-account": [
+    {
+      "type": 0,
+      "value": "Don't have an account?"
+    }
+  ],
   "auth-or-divider": [
     {
       "type": 0,
@@ -673,6 +685,18 @@
       "value": "You are successfully signed in"
     }
   ],
+  "auth-signin-button": [
+    {
+      "type": 0,
+      "value": "Sign in"
+    }
+  ],
+  "auth-signin-link": [
+    {
+      "type": 0,
+      "value": "Sign in"
+    }
+  ],
   "auth-signout-error": [
     {
       "type": 0,
@@ -683,6 +707,36 @@
     {
       "type": 0,
       "value": "You've been signed out successfully!"
+    }
+  ],
+  "auth-signup-button": [
+    {
+      "type": 0,
+      "value": "Create account"
+    }
+  ],
+  "auth-signup-link": [
+    {
+      "type": 0,
+      "value": "Sign up"
+    }
+  ],
+  "auth-signup-success": [
+    {
+      "type": 0,
+      "value": "Account created successfully!"
+    }
+  ],
+  "auth-subtitle-signin": [
+    {
+      "type": 0,
+      "value": "Sign in to your account"
+    }
+  ],
+  "auth-subtitle-signup": [
+    {
+      "type": 0,
+      "value": "Join our community today"
     }
   ],
   "auth-username-available": [
@@ -743,6 +797,18 @@
     {
       "type": 0,
       "value": "!"
+    }
+  ],
+  "auth-welcome-signin": [
+    {
+      "type": 0,
+      "value": "Welcome back"
+    }
+  ],
+  "auth-welcome-signup": [
+    {
+      "type": 0,
+      "value": "Create your account"
     }
   ],
   "calculate-total-delivery-cost-text": [

@@ -11,11 +11,11 @@ import { toast } from "react-hot-toast";
 function Enter() {
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
-  const { profile, session } = userInfo;
+  const { profile, session } = userInfo || { profile: null, session: null };
 
   // 1. user signed out <AuthCard />
   // 2. user signed in, but missing username <UsernameForm />
-  // 3. user signed in, has username <SignOutButton />
+  // 3. user signed in, has username <SignOutCard />
   return (
     <main className="min-h-screen bg-blog-white dark:bg-fun-blue-500 flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
@@ -70,6 +70,12 @@ function AuthCard() {
             description: "Check email for verification",
             defaultMessage: "Please check your email for verification link!"
           }));
+        } else if (data.session) {
+          toast.success(intl.formatMessage({
+            id: "auth-signup-success",
+            description: "Account created successfully",
+            defaultMessage: "Account created successfully!"
+          }));
         }
       } else {
         const { data, error } = await supaClient.auth.signInWithPassword({
@@ -86,11 +92,13 @@ function AuthCard() {
         }));
       }
     } catch (error: any) {
-      toast.error(error.message || intl.formatMessage({
+      console.error('Authentication error:', error);
+      const errorMessage = error?.message || intl.formatMessage({
         id: "auth-error-generic",
         description: "Authentication error",
         defaultMessage: "Something went wrong. Please try again."
-      }));
+      });
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -101,17 +109,19 @@ function AuthCard() {
       const { data, error } = await supaClient.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: window.location.origin
+          redirectTo: `${window.location.origin}/enter`
         }
       });
       
       if (error) throw error;
     } catch (error: any) {
-      toast.error(error.message || intl.formatMessage({
+      console.error('Google authentication error:', error);
+      const errorMessage = error?.message || intl.formatMessage({
         id: "auth-google-error",
         description: "Google sign in error",
         defaultMessage: "Google sign in failed. Please try again."
-      }));
+      });
+      toast.error(errorMessage);
     }
   };
 
@@ -152,12 +162,25 @@ function AuthCard() {
                    focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2
                    text-gray-700 dark:text-gray-200 font-medium"
       >
-        <Image 
-          src="/google.png" 
-          alt="Google"
-          width={20} 
-          height={20}
-        />
+        {/* Google SVG Icon */}
+        <svg width="20" height="20" viewBox="0 0 24 24" className="flex-shrink-0">
+          <path
+            fill="#4285F4"
+            d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+          />
+          <path
+            fill="#34A853"
+            d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+          />
+          <path
+            fill="#FBBC05"
+            d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+          />
+          <path
+            fill="#EA4335"
+            d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+          />
+        </svg>
         <FormattedMessage
           id="auth-continue-google"
           description="Continue with Google"
@@ -347,12 +370,75 @@ function AuthCard() {
   );
 }
 
+// Avatar component with first letter fallback
+function UserAvatar({ user, size = "large" }: { 
+  user: { email?: string; username?: string; avatar_url?: string } | null | undefined; 
+  size?: "small" | "medium" | "large" 
+}) {
+  const [imageError, setImageError] = useState(false);
+  
+  const sizeClasses = {
+    small: "w-8 h-8 text-sm",
+    medium: "w-12 h-12 text-lg",
+    large: "w-20 h-20 text-2xl"
+  };
+
+  // Safely get the first letter from username, email, or fallback to 'U'
+  const getInitial = () => {
+    if (!user) return 'U';
+    if (user.username && user.username.length > 0) return user.username.charAt(0).toUpperCase();
+    if (user.email && user.email.length > 0) return user.email.charAt(0).toUpperCase();
+    return 'U';
+  };
+
+  // Generate a consistent background color based on the initial
+  const getAvatarColor = () => {
+    const initial = getInitial();
+    const colors = [
+      'bg-blue-500', 'bg-green-500', 'bg-purple-500', 'bg-pink-500',
+      'bg-indigo-500', 'bg-red-500', 'bg-yellow-500', 'bg-teal-500'
+    ];
+    return colors[initial.charCodeAt(0) % colors.length];
+  };
+
+  // Reset image error when user changes
+  useEffect(() => {
+    setImageError(false);
+  }, [user?.avatar_url]);
+
+  // Show avatar image if available, user exists, and no error occurred
+  if (user?.avatar_url && !imageError) {
+    return (
+      <div className={`${sizeClasses[size]} rounded-full overflow-hidden bg-gray-200 relative`}>
+        {/* Use regular img tag instead of Next.js Image to avoid static import issues */}
+        <img
+          src={user.avatar_url}
+          alt={`${user.username || user.email || 'User'} avatar`}
+          className="w-full h-full object-cover"
+          onError={() => setImageError(true)}
+        />
+      </div>
+    );
+  }
+
+  // Fallback to initial-based avatar
+  return (
+    <div className={`${sizeClasses[size]} ${getAvatarColor()} rounded-full flex items-center justify-center text-white font-bold`}>
+      {getInitial()}
+    </div>
+  );
+}
+
 // Sign out card
 function SignOutCard() {
   const intl = useIntl();
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
-  const { profile } = userInfo;
+  const { profile, session } = userInfo;
+
+  // Get user email from session or profile
+  const userEmail = session?.user?.email || profile?.email || "";
+  const username = profile?.username || "";
 
   async function signoutSupa() {
     try {
@@ -377,11 +463,14 @@ function SignOutCard() {
     <div className="bg-white dark:bg-fun-blue-800 shadow-2xl rounded-2xl p-8 border border-gray-200 dark:border-fun-blue-600 text-center">
       {/* Profile Avatar */}
       <div className="flex justify-center mb-6">
-        <div className="w-20 h-20 bg-primary-blue rounded-full flex items-center justify-center">
-          <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-          </svg>
-        </div>
+        <UserAvatar 
+          user={{ 
+            email: userEmail, 
+            username: username,
+            avatar_url: profile?.avatar_url 
+          }} 
+          size="large" 
+        />
       </div>
 
       {/* Welcome Message */}
@@ -390,7 +479,7 @@ function SignOutCard() {
           id="auth-welcome-back"
           description="Welcome back message"
           defaultMessage="Welcome back, {username}!"
-          values={{ username: profile?.username || "User" }}
+          values={{ username: username || userEmail.split('@')[0] || "User" }}
         />
       </h1>
       
