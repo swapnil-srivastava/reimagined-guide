@@ -294,7 +294,7 @@ function EmptyCartMessage() {
       </p>
       
       <Link href="/products">
-        <button className="bg-primary-blue hover:bg-blue-secondary text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2">
+        <button className="bg-peach-accent hover:brightness-110 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-peach-accent focus:ring-offset-2 shadow-md hover:shadow-lg transform hover:scale-105">
           <FormattedMessage 
             id="cart-page-no-products-redirect-btn"
             description="Go to products page"
@@ -397,7 +397,7 @@ function OrderSummary({
       </div>
 
       <Link href="/checkout" className="block">
-        <button className="w-full bg-gradient-to-r from-primary-blue to-blue-secondary hover:from-blue-secondary hover:to-primary-blue text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2 text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+        <button className="w-full bg-gradient-to-r from-purple-accent to-purple-600 hover:from-purple-600 hover:to-purple-accent hover:brightness-110 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-accent focus:ring-offset-2 text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 hover:scale-105">
           <FormattedMessage 
             id="cart-page-checkout-btn"
             description="Checkout"
@@ -471,7 +471,7 @@ function AddressSection({
           
           <button
             onClick={() => setEditSavedAddress(true)}
-            className="p-2 text-gray-400 hover:text-primary-blue dark:hover:text-primary-blue transition-colors duration-200"
+            className="p-2 text-gray-400 hover:text-peach-accent dark:hover:text-peach-accent transition-colors duration-200"
             aria-label="Edit address"
           >
             <FontAwesomeIcon icon={faPenToSquare} className="w-4 h-4" />
@@ -488,7 +488,7 @@ function AddressSection({
           </p>
           <button
             onClick={() => setEditSavedAddress(true)}
-            className="bg-primary-blue hover:bg-blue-secondary text-white font-medium py-2 px-4 rounded-lg transition-all duration-200"
+            className="bg-peach-accent hover:brightness-110 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
           >
             <FormattedMessage
               id="cart-add-address"

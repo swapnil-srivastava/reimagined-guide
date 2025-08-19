@@ -172,23 +172,25 @@
 ### Color Palette (STRICTLY ENFORCE)
 ```css
 /* Primary Colors */
---primary-blue: #1249de      /* Main brand color */
---blue-secondary: #385dc5    /* Secondary brand */
+
 --fun-blue-500: #00539c      /* Dark mode background */
 
 /* Analogous Palette */
---purple-accent: #5d12de     /* Purple accent */
---teal-accent: #12dea8       /* Teal accent */
+
 
 /* Theme Colors */
 --blog-white: #fbfbfb        /* Light mode background */
 --text-dark: #0a0a0a         /* Dark text */
---peach-accent: #eea47f      /* Warm accent */
+--peach-accent: #eea47f      /* Warm accent - for secondary actions (add, edit, navigate) */
 
 /* Usage Patterns */
 bg-blog-white dark:bg-fun-blue-500    /* Standard background */
 text-black dark:text-white            /* Standard text */
 hover:text-fun-blue-500               /* Hover states */
+
+/* Action Button Guidelines */
+bg-peach-accent hover:bg-orange-600   /* Secondary actions (add items, edit, navigation) */
+bg-purple-accent hover:bg-purple-600  /* Primary actions (checkout, purchase, confirm) */
 ```
 
 ### Component Styling Standards
@@ -471,6 +473,7 @@ try {
 🚨 **ALWAYS** use Flexbox or CSS Grid for layouts - NEVER use absolute/relative positioning except for overlays  
 🚨 **ALWAYS** use Next.js `Image` component instead of `<img>` tags for all images  
 🚨 **ALWAYS** use TypeScript types from `database.types.ts`  
+🚨 **ALWAYS** use `peach-accent` for secondary actions and `purple-accent` for primary actions  
 🚨 **ALWAYS** implement proper error handling  
 🚨 **ALWAYS** validate user inputs  
 🚨 **ALWAYS** test build before committing  
