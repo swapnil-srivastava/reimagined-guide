@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { FormattedMessage, useIntl } from "react-intl";
 import { supaClient } from "../supa-client";
 import { RootState } from "../lib/interfaces/interface";
+import { userLogout } from "../redux/actions/actions";
 import debounce from "lodash.debounce";
 import Image from "next/image";
 import { toast } from "react-hot-toast";
@@ -432,9 +433,10 @@ function UserAvatar({ user, size = "large" }: {
 // Sign out card
 function SignOutCard() {
   const intl = useIntl();
+  const dispatch = useDispatch();
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
-  const { profile, session } = userInfo;
+  const { profile, session } = userInfo || { profile: null, session: null };
 
   // Get user email from session or profile
   const userEmail = session?.user?.email || profile?.email || "";
@@ -442,15 +444,29 @@ function SignOutCard() {
 
   async function signoutSupa() {
     try {
+      // First clear the Redux state
+      dispatch(userLogout());
+      
+      // Then sign out from Supabase
       const { error } = await supaClient.auth.signOut();
       if (error) throw error;
+      
+      // Clear any local storage items that might persist
+      localStorage.removeItem('supabase.auth.token');
       
       toast.success(intl.formatMessage({
         id: "auth-signout-success",
         description: "Sign out successful",
         defaultMessage: "You've been signed out successfully!"
       }));
+      
+      // Redirect to home page after successful logout
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 1000);
+      
     } catch (error: any) {
+      console.error('Sign out error:', error);
       toast.error(error.message || intl.formatMessage({
         id: "auth-signout-error",
         description: "Sign out error",

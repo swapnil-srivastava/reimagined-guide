@@ -5,6 +5,7 @@ export const RESET = 'RESET';
 
 export const USER_UPDATE = 'USER UPDATE';
 export const USERNAME_UPDATE = 'USERNAME UPDATE';
+export const USER_LOGOUT = 'USER_LOGOUT';
 
 export const SUPABASE_USER = "SUPABASE USER";
 

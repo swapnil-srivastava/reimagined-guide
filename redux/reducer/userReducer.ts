@@ -24,6 +24,10 @@ export const userReducer = (state = initialUserState, { type, user, username }) 
         }
         return newState;
     }
+    case types.USER_LOGOUT: {
+        // Clear all user state on logout
+        return initialUserState;
+    }
     default:
       return state
   }

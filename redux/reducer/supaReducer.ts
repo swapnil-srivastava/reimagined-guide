@@ -17,6 +17,10 @@ export const supaReducer = (state = initialUserState, { type, supbaseUser }) => 
           }
           return newState;
       }
+      case types.USER_LOGOUT: {
+          // Clear all user state on logout
+          return initialUserState;
+      }
       default:
         return state
     }
