@@ -11,7 +11,8 @@ import { toast } from "react-hot-toast";
 // e.g. localhost:3000/enter
 function Enter() {
   const selectUser = (state: RootState) => state.users;
-  const { userInfo } = useSelector(selectUser);
+  const userData = useSelector(selectUser);
+  const userInfo = userData?.userInfo;
   const { profile, session } = userInfo || { profile: null, session: null };
 
   // 1. user signed out <AuthCard />
@@ -435,7 +436,8 @@ function SignOutCard() {
   const intl = useIntl();
   const dispatch = useDispatch();
   const selectUser = (state: RootState) => state.users;
-  const { userInfo } = useSelector(selectUser);
+  const userData = useSelector(selectUser);
+  const userInfo = userData?.userInfo;
   const { profile, session } = userInfo || { profile: null, session: null };
 
   // Get user email from session or profile
@@ -444,12 +446,18 @@ function SignOutCard() {
 
   async function signoutSupa() {
     try {
-      // First clear the Redux state
-      dispatch(userLogout());
-      
-      // Then sign out from Supabase
+      // First sign out from Supabase to handle session properly
       const { error } = await supaClient.auth.signOut();
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase signout error:', error);
+        // If it's just a session error, continue with cleanup
+        if (!error.message?.includes('Session from session_id claim in JWT does not exist')) {
+          throw error;
+        }
+      }
+      
+      // Then clear the Redux state
+      dispatch(userLogout());
       
       // Clear any local storage items that might persist
       localStorage.removeItem('supabase.auth.token');
@@ -460,6 +468,8 @@ function SignOutCard() {
         defaultMessage: "You've been signed out successfully!"
       }));
       
+      console.log("Sign out successful, redirecting...");
+      
       // Redirect to home page after successful logout
       setTimeout(() => {
         window.location.href = '/';
@@ -467,11 +477,21 @@ function SignOutCard() {
       
     } catch (error: any) {
       console.error('Sign out error:', error);
+      
+      // Even if there's an error, try to clear the state
+      dispatch(userLogout());
+      localStorage.removeItem('supabase.auth.token');
+      
       toast.error(error.message || intl.formatMessage({
         id: "auth-signout-error",
         description: "Sign out error",
         defaultMessage: "Failed to sign out. Please try again."
       }));
+      
+      // Still redirect after error to ensure user is logged out
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 2000);
     }
   }
 
@@ -550,7 +570,8 @@ function UsernameForm() {
 
   // TS infers type: (state: RootState) => boolean
   const selectUser = (state: RootState) => state.users;
-  const { userInfo } = useSelector(selectUser);
+  const userData = useSelector(selectUser);
+  const userInfo = userData?.userInfo;
   const { profile, session } = userInfo || { profile: null, session: null };
 
   const onSubmit = async (e: React.FormEvent) => {
