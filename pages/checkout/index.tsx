@@ -137,8 +137,8 @@ function Checkout() {
               {/* Order Summary */}
               <div className="bg-white dark:bg-fun-blue-800 rounded-2xl shadow-lg border border-gray-200 dark:border-fun-blue-600 p-6">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
-                    <FontAwesomeIcon icon={faShoppingBag} className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                  <div className="w-10 h-10 bg-fun-blue-300/20 dark:bg-fun-blue-500/30 rounded-full flex items-center justify-center">
+                    <FontAwesomeIcon icon={faShoppingBag} className="w-5 h-5 text-fun-blue-500 dark:text-fun-blue-300" />
                   </div>
                   <h2 className="text-xl font-semibold text-black dark:text-white">
                     <FormattedMessage
@@ -166,8 +166,8 @@ function Checkout() {
               {customerAddress && (
                 <div className="bg-white dark:bg-fun-blue-800 rounded-2xl shadow-lg border border-gray-200 dark:border-fun-blue-600 p-6">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
-                      <FontAwesomeIcon icon={faMapMarkerAlt} className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                    <div className="w-10 h-10 bg-fun-blue-300/20 dark:bg-fun-blue-500/30 rounded-full flex items-center justify-center">
+                      <FontAwesomeIcon icon={faMapMarkerAlt} className="w-5 h-5 text-fun-blue-500 dark:text-fun-blue-300" />
                     </div>
                     <h2 className="text-xl font-semibold text-black dark:text-white">
                       <FormattedMessage
@@ -346,58 +346,92 @@ function Checkout() {
 // CheckoutItemCard Component
 function CheckoutItemCard({ cartItem }: { cartItem: ProductWithQuantity }) {
   return (
-    <div className="flex items-start gap-4 p-4 rounded-xl bg-gray-50 dark:bg-fun-blue-700 border border-gray-100 dark:border-fun-blue-600">
-      <div className="flex-shrink-0">
-        <Image
-          src={cartItem.image_url ?? '/mountains.jpg'}
-          alt={cartItem.name}
-          width={80}
-          height={80}
-          className="rounded-lg object-cover"
-        />
-      </div>
-      
-      <div className="flex-1 min-w-0">
-        <h3 className="text-base font-semibold text-black dark:text-white truncate">
-          {cartItem.name}
-        </h3>
-        {cartItem.description && (
-          <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 line-clamp-2">
-            {cartItem.description}
-          </p>
-        )}
+    <div className="group relative bg-white dark:bg-fun-blue-700 rounded-2xl shadow-md hover:shadow-lg border border-gray-100 dark:border-fun-blue-600 transition-all duration-300 ease-in-out hover:border-fun-blue-500 dark:hover:border-fun-blue-300 overflow-hidden">
+      <div className="flex items-center p-6">
+        {/* Product Image */}
+        <div className="relative flex-shrink-0">
+          <div className="w-20 h-20 rounded-xl overflow-hidden bg-gray-100 dark:bg-fun-blue-600 shadow-sm">
+            <Image
+              src={cartItem.image_url ?? '/mountains.jpg'}
+              alt={cartItem.name}
+              width={80}
+              height={80}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+          {/* Quantity Badge */}
+          <div className="absolute -top-2 -right-2 w-6 h-6 bg-fun-blue-500 text-white text-xs font-bold rounded-full flex items-center justify-center shadow-lg">
+            {cartItem.quantity}
+          </div>
+        </div>
         
-        <div className="flex items-center justify-between mt-3">
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              <FormattedMessage
-                id="checkout-item-quantity"
-                description="Qty:"
-                defaultMessage="Qty:"
-              />
-            </span>
-            <span className="text-sm font-medium text-black dark:text-white bg-gray-200 dark:bg-fun-blue-600 px-2 py-1 rounded">
-              {cartItem.quantity}
-            </span>
+        {/* Product Details */}
+        <div className="flex-1 ml-5 min-w-0">
+          <div className="flex items-start justify-between">
+            <div className="flex-1 min-w-0 pr-4">
+              <h3 className="text-lg font-bold text-black dark:text-white truncate group-hover:text-fun-blue-500 dark:group-hover:text-fun-blue-300 transition-colors duration-200">
+                {cartItem.name}
+              </h3>
+              {cartItem.description && (
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 line-clamp-2 leading-relaxed">
+                  {cartItem.description}
+                </p>
+              )}
+            </div>
+            
+            {/* Price Section */}
+            <div className="text-right flex-shrink-0">
+              <div className="text-xl font-bold text-green-600 dark:text-green-400">
+                <CurrencyPriceComponent price={cartItem.price * cartItem.quantity} />
+              </div>
+              {cartItem.quantity > 1 && (
+                <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                  <CurrencyPriceComponent price={cartItem.price} />
+                  <FormattedMessage
+                    id="checkout-item-each"
+                    description=" each"
+                    defaultMessage=" each"
+                  />
+                </div>
+              )}
+            </div>
           </div>
           
-          <div className="text-right">
-            <div className="text-lg font-bold text-black dark:text-white">
-              <CurrencyPriceComponent price={cartItem.price * cartItem.quantity} />
+          {/* Bottom Row - Quantity Info and Subtotal */}
+          <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-100 dark:border-fun-blue-600">
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 px-3 py-1.5 bg-fun-blue-300/20 dark:bg-fun-blue-500/30 rounded-full">
+                <div className="w-2 h-2 bg-fun-blue-500 rounded-full"></div>
+                <span className="text-sm font-medium text-fun-blue-700 dark:text-fun-blue-300">
+                  <FormattedMessage
+                    id="checkout-item-quantity-label"
+                    description="Quantity"
+                    defaultMessage="Quantity: {count}"
+                    values={{ count: cartItem.quantity }}
+                  />
+                </span>
+              </div>
             </div>
-            {cartItem.quantity > 1 && (
+            
+            {/* Item Subtotal Breakdown */}
+            <div className="text-right">
               <div className="text-xs text-gray-500 dark:text-gray-400">
-                <CurrencyPriceComponent price={cartItem.price} />
                 <FormattedMessage
-                  id="checkout-item-each"
-                  description=" each"
-                  defaultMessage=" each"
+                  id="checkout-item-subtotal"
+                  description="Item Total"
+                  defaultMessage="Item Total"
                 />
               </div>
-            )}
+              <div className="text-sm font-semibold text-black dark:text-white">
+                <CurrencyPriceComponent price={cartItem.price * cartItem.quantity} />
+              </div>
+            </div>
           </div>
         </div>
       </div>
+      
+      {/* Subtle gradient overlay on hover */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-fun-blue-300/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
     </div>
   );
 }
@@ -405,12 +439,17 @@ function CheckoutItemCard({ cartItem }: { cartItem: ProductWithQuantity }) {
 // EmptyCheckoutMessage Component
 function EmptyCheckoutMessage() {
   return (
-    <div className="flex flex-col items-center justify-center py-12 text-center">
-      <div className="w-20 h-20 bg-gray-100 dark:bg-fun-blue-700 rounded-full flex items-center justify-center mb-4">
-        <FontAwesomeIcon icon={faShoppingBag} className="w-8 h-8 text-gray-400 dark:text-gray-500" />
+    <div className="flex flex-col items-center justify-center py-16 text-center">
+      <div className="relative mb-6">
+        <div className="w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-fun-blue-700 dark:to-fun-blue-600 rounded-full flex items-center justify-center shadow-lg">
+          <FontAwesomeIcon icon={faShoppingBag} className="w-10 h-10 text-gray-400 dark:text-gray-500" />
+        </div>
+        <div className="absolute -top-1 -right-1 w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
+          <span className="text-white text-xs font-bold">0</span>
+        </div>
       </div>
       
-      <h3 className="text-lg font-semibold text-black dark:text-white mb-2">
+      <h3 className="text-xl font-bold text-black dark:text-white mb-3">
         <FormattedMessage
           id="checkout-empty-cart"
           description="Your cart is empty"
@@ -418,23 +457,26 @@ function EmptyCheckoutMessage() {
         />
       </h3>
       
-      <p className="text-gray-600 dark:text-gray-300 mb-6">
+      <p className="text-gray-600 dark:text-gray-300 mb-8 max-w-md leading-relaxed">
         <FormattedMessage
           id="checkout-empty-cart-description"
           description="Add some products to continue with your order"
-          defaultMessage="Add some products to continue with your order"
+          defaultMessage="Add some amazing products to your cart and come back to complete your order. We have great deals waiting for you!"
         />
       </p>
       
       <Link 
         href="/products"
-        className="bg-peach-accent hover:brightness-110 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 ease-in-out hover:shadow-lg transform hover:-translate-y-0.5 hover:scale-105"
+        className="group bg-gradient-to-r from-peach-accent to-orange-500 hover:from-orange-500 hover:to-peach-accent text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 ease-in-out hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-peach-accent focus:ring-offset-2"
       >
-        <FormattedMessage
-          id="checkout-go-shopping"
-          description="Continue Shopping"
-          defaultMessage="Continue Shopping"
-        />
+        <div className="flex items-center gap-3">
+          <FontAwesomeIcon icon={faShoppingBag} className="w-5 h-5 group-hover:animate-bounce" />
+          <FormattedMessage
+            id="checkout-go-shopping"
+            description="Continue Shopping"
+            defaultMessage="Start Shopping"
+          />
+        </div>
       </Link>
     </div>
   );
