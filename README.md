@@ -428,6 +428,27 @@ yarn build
 - `POST /api/checkout` - Process payment
 - `POST /api/webhook` - Stripe webhook handler
 
+## 📋 TODO
+
+### High Priority
+- [ ] **Replace window.location.href with Next.js Router**: Replace direct window navigation with Next.js `useRouter` for better client-side routing and performance
+  - Update sign out redirect in `pages/enter.tsx` (lines ~469, ~489)
+  - Update dashboard navigation in `pages/enter.tsx` (line ~524)
+  - Implement proper programmatic navigation using `router.push()` instead of `window.location.href`
+
+### Medium Priority
+- [ ] Implement proper error boundaries for better error handling
+- [ ] Add comprehensive unit and integration tests
+- [ ] Optimize image loading and implement lazy loading
+- [ ] Add SEO meta tags and structured data
+- [ ] Implement service worker for offline functionality
+
+### Low Priority
+- [ ] Add more payment providers beyond Stripe
+- [ ] Implement advanced analytics dashboard
+- [ ] Add social media sharing functionality
+- [ ] Create mobile app using React Native
+
 ## 🤝 Contributing
 
 1. Fork the repository
