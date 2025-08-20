@@ -250,6 +250,35 @@
   - Floating action buttons
   - Animation effects that require precise positioning
 
+### Button Standards (CRITICAL)
+
+**Three standardized button types - use these consistently throughout the app:**
+
+#### 1. Circular Icon Buttons (Navigation/UI Controls)
+Use for navbar icons, controls, and UI interactions with FontAwesome icons:
+```css
+w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] bg-fun-blue-300 dark:text-blog-black p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125
+```
+
+#### 2. Action Buttons with Icons (Primary Actions)
+Use for important actions like sign up, add to cart, with heart icon, etc:
+```css
+inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-hit-pink-500 to-hit-pink-600 hover:from-hit-pink-600 hover:to-hit-pink-700 text-white rounded-lg transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-hit-pink-400 focus:ring-offset-2 shadow-sm
+```
+
+#### 3. Standard Action Buttons (Secondary Actions)
+Use for regular buttons without icons like checkout, submit forms, etc:
+```css
+bg-hit-pink-500 text-blog-black rounded-lg px-4 py-2 m-2 transition-filter duration-500 hover:filter hover:brightness-125 focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:ring-offset-2 text-sm font-semibold
+```
+
+**Button Usage Guidelines:**
+- **ALWAYS** use circular buttons for navbar icons and UI controls
+- **ALWAYS** use action buttons with icons for primary CTAs (sign up, purchase, etc.)
+- **ALWAYS** use standard action buttons for secondary actions (forms, basic interactions)
+- **ALWAYS** include proper focus states with `focus:outline-none focus:ring-2`
+- **ALWAYS** use appropriate color schemes: `hit-pink` for primary, `fun-blue` for secondary
+
 ### Component Architecture
 - **Functional Components:** Always use function components with hooks
 - **Props Interface:** Define TypeScript interfaces for all props
@@ -510,6 +539,7 @@ try {
 🚨 **ALWAYS** validate user inputs  
 🚨 **ALWAYS** test build before committing  
 🚨 **ALWAYS** use `drop-shadow-lg hover:drop-shadow-xl hover:brightness-125` for card styling  
+🚨 **ALWAYS** use standardized button patterns: circular for navbar icons, action with icons for primary CTAs, standard for secondary actions  
 
 ---
 

@@ -295,6 +295,28 @@ hover:bg-gray-50 dark:hover:bg-fun-blue-600  /* Hover states */
 - **ALWAYS** include dark mode variants for every style
 - **NEVER** use absolute/relative positioning except for overlays and animations
 
+### Button Standards
+
+**Three standardized button types for consistent UI:**
+
+#### 1. Circular Icon Buttons (Navigation/UI Controls)
+```css
+w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] bg-fun-blue-300 dark:text-blog-black p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125
+```
+Use for navbar icons, controls, and UI interactions with FontAwesome icons.
+
+#### 2. Action Buttons with Icons (Primary Actions)
+```css
+inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-hit-pink-500 to-hit-pink-600 hover:from-hit-pink-600 hover:to-hit-pink-700 text-white rounded-lg transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-hit-pink-400 focus:ring-offset-2 shadow-sm
+```
+Use for important actions like sign up, add to cart, with heart icon, etc.
+
+#### 3. Standard Action Buttons (Secondary Actions)
+```css
+bg-hit-pink-500 text-blog-black rounded-lg px-4 py-2 m-2 transition-filter duration-500 hover:filter hover:brightness-125 focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:ring-offset-2 text-sm font-semibold
+```
+Use for regular buttons without icons like checkout, submit forms, etc.
+
 ## 🌐 Internationalization
 
 The application uses **react-intl** for comprehensive internationalization:
