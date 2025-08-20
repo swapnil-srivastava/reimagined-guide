@@ -103,7 +103,7 @@ export default function PostContent({
         </div>
       )}
       {/* Post Action Dashboard SECTION */}
-      <div className="relative mb-6 p-4 bg-gradient-to-br from-persian-blue-50 to-caribbean-green-50 dark:from-fun-blue-600 dark:to-dark-blue-600 rounded-xl border border-persian-blue-100 dark:border-fun-blue-400 shadow-sm">
+      <div className="relative mb-6 p-4 bg-gradient-to-br from-fun-blue-50 to-caribbean-green-50 dark:from-fun-blue-600 dark:to-fun-blue-700 rounded-xl border border-fun-blue-100 dark:border-fun-blue-400 shadow-sm">
         {/* Status Badge */}
         <div className="absolute -top-2 -right-2">
           <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium shadow-sm ${
@@ -209,8 +209,8 @@ export default function PostContent({
         </div>
 
         {/* Workflow Progress Bar */}
-        <div className="mt-4 pt-3 border-t border-persian-blue-100 dark:border-fun-blue-400">
-          <div className="flex items-center justify-between text-xs text-persian-blue-600 dark:text-caribbean-green-300 mb-2">
+        <div className="mt-4 pt-3 border-t border-fun-blue-100 dark:border-fun-blue-400">
+          <div className="flex items-center justify-between text-xs text-fun-blue-600 dark:text-caribbean-green-300 mb-2">
             <span>
               <FormattedMessage
                 id="postcontent-workflow-progress"
@@ -226,8 +226,8 @@ export default function PostContent({
               />
             </span>
           </div>
-          <div className="w-full bg-persian-blue-100 dark:bg-fun-blue-700 rounded-full h-2">
-            <div className="bg-gradient-to-r from-persian-blue-500 to-caribbean-green-500 h-2 rounded-full transition-all duration-500" style={{width: '50%'}}></div>
+          <div className="w-full bg-fun-blue-100 dark:bg-fun-blue-700 rounded-full h-2">
+            <div className="bg-gradient-to-r from-fun-blue-500 to-caribbean-green-500 h-2 rounded-full transition-all duration-500" style={{width: '50%'}}></div>
           </div>
         </div>
       </div>
@@ -243,7 +243,7 @@ export default function PostContent({
             <Link href={`/${post?.username}`} legacyBehavior>
               <div className="relative cursor-pointer">
                 {post?.photo_url && post?.photo_url ? (
-                  <div className="w-14 h-14 rounded-full overflow-hidden ring-2 ring-persian-blue-200 dark:ring-caribbean-green-300 ring-offset-2 transition-all duration-300 group-hover:ring-persian-blue-400 dark:group-hover:ring-caribbean-green-400 group-hover:scale-105">
+                  <div className="w-14 h-14 rounded-full overflow-hidden ring-2 ring-fun-blue-200 dark:ring-caribbean-green-300 ring-offset-2 transition-all duration-300 group-hover:ring-fun-blue-400 dark:group-hover:ring-caribbean-green-400 group-hover:scale-105">
                     <Image
                       width={200}
                       height={200}
@@ -253,7 +253,7 @@ export default function PostContent({
                     />
                   </div>
                 ) : (
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-persian-blue-400 to-caribbean-green-400 flex items-center justify-center text-white font-bold text-lg ring-2 ring-persian-blue-200 ring-offset-2">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-fun-blue-400 to-caribbean-green-400 flex items-center justify-center text-white font-bold text-lg ring-2 ring-fun-blue-200 ring-offset-2">
                     {post?.username?.charAt(0).toUpperCase()}
                   </div>
                 )}
@@ -265,7 +265,7 @@ export default function PostContent({
             {/* Author Info Card */}
             <div className="flex flex-col">
               <Link href={`/${post?.username}`} className="group">
-                <h3 className="font-semibold text-lg text-gray-900 dark:text-white group-hover:text-persian-blue-600 dark:group-hover:text-caribbean-green-300 transition-colors duration-200">
+                <h3 className="font-semibold text-lg text-gray-900 dark:text-white group-hover:text-fun-blue-600 dark:group-hover:text-caribbean-green-300 transition-colors duration-200">
                   {post?.username}
                 </h3>
               </Link>
@@ -273,7 +273,7 @@ export default function PostContent({
               {/* Post Metadata with enhanced styling */}
               <div className="flex flex-wrap items-center gap-3 text-sm text-gray-600 dark:text-gray-300 mt-1">
                 <span className="flex items-center gap-1">
-                  <div className="w-1.5 h-1.5 rounded-full bg-persian-blue-400"></div>
+                  <div className="w-1.5 h-1.5 rounded-full bg-fun-blue-400"></div>
                   {dateFormat}
                 </span>
                 <span className="hidden sm:flex items-center gap-1">

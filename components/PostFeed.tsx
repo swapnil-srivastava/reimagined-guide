@@ -124,7 +124,7 @@ function PostItem({ post, admin = false, approve = false }) {
                     />
                   </div>
                 ) : (
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-persian-blue-400 to-caribbean-green-400 flex items-center justify-center text-white font-medium text-sm">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-fun-blue-400 to-caribbean-green-400 flex items-center justify-center text-white font-medium text-sm">
                     {post.username?.charAt(0).toUpperCase()}
                   </div>
                 )}

@@ -471,7 +471,7 @@ function AddressSection({
           
           <button
             onClick={() => setEditSavedAddress(true)}
-            className="p-2 text-gray-400 hover:text-peach-accent dark:hover:text-peach-accent transition-colors duration-200"
+            className="p-2 text-gray-400 hover:text-hit-pink-500 dark:hover:text-hit-pink-400 transition-colors duration-200"
             aria-label="Edit address"
           >
             <FontAwesomeIcon icon={faPenToSquare} className="w-4 h-4" />
@@ -488,7 +488,7 @@ function AddressSection({
           </p>
           <button
             onClick={() => setEditSavedAddress(true)}
-            className="bg-peach-accent hover:brightness-110 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
+            className="bg-hit-pink-500 hover:brightness-110 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
           >
             <FormattedMessage
               id="cart-add-address"

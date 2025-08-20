@@ -26,7 +26,7 @@ function Play() {
 
   return (
     <>
-      <div className="flex items-center p-5 first:bg-dark-blue-900">
+      <div className="flex items-center p-5 first:bg-fun-blue-900">
         <Script
           src="https://open.spotify.com/embed-podcast/iframe-api/v1"
           strategy="lazyOnload"

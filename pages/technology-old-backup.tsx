@@ -95,23 +95,23 @@ export default function Technology(props) {
       <div className="relative min-h-screen bg-blog-white dark:bg-fun-blue-500 overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 left-10 w-72 h-72 bg-gradient-to-r from-primary-blue to-purple-accent rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute top-1/2 right-10 w-96 h-96 bg-gradient-to-r from-teal-accent to-primary-blue rounded-full blur-3xl animate-pulse delay-1000"></div>
-          <div className="absolute bottom-10 left-1/3 w-64 h-64 bg-gradient-to-r from-purple-accent to-teal-accent rounded-full blur-3xl animate-pulse delay-2000"></div>
+          <div className="absolute top-10 left-10 w-72 h-72 bg-gradient-to-r from-fun-blue-500 to-hit-pink-500 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-1/2 right-10 w-96 h-96 bg-gradient-to-r from-caribbean-green-500 to-fun-blue-500 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute bottom-10 left-1/3 w-64 h-64 bg-gradient-to-r from-hit-pink-500 to-caribbean-green-500 rounded-full blur-3xl animate-pulse delay-2000"></div>
         </div>
 
         {/* Floating Tech Icons */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-20 left-1/4 text-primary-blue opacity-20 animate-bounce">
+          <div className="absolute top-20 left-1/4 text-fun-blue-500 opacity-20 animate-bounce">
             <FontAwesomeIcon icon={faRocket} size="3x" />
           </div>
-          <div className="absolute top-1/3 right-1/4 text-teal-accent opacity-20 animate-bounce delay-500">
+          <div className="absolute top-1/3 right-1/4 text-caribbean-green-500 opacity-20 animate-bounce delay-500">
             <FontAwesomeIcon icon={faAtom} size="2x" />
           </div>
-          <div className="absolute bottom-1/3 left-1/6 text-purple-accent opacity-20 animate-bounce delay-1000">
+          <div className="absolute bottom-1/3 left-1/6 text-hit-pink-500 opacity-20 animate-bounce delay-1000">
             <FontAwesomeIcon icon={faMagic} size="2x" />
           </div>
-          <div className="absolute top-2/3 right-1/6 text-primary-blue opacity-20 animate-bounce delay-1500">
+          <div className="absolute top-2/3 right-1/6 text-fun-blue-500 opacity-20 animate-bounce delay-1500">
             <FontAwesomeIcon icon={faBolt} size="2x" />
           </div>
         </div>
@@ -127,17 +127,17 @@ export default function Technology(props) {
           {/* Hero Header */}
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-gradient-to-r from-primary-blue to-purple-accent rounded-lg flex items-center justify-center">
+              <div className="w-12 h-12 bg-gradient-to-r from-fun-blue-500 to-hit-pink-500 rounded-lg flex items-center justify-center">
                 <FontAwesomeIcon icon={faLightbulb} size="lg" className="text-white" />
               </div>
-              <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-primary-blue via-purple-accent to-teal-accent bg-clip-text text-transparent">
+              <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-fun-blue-500 via-hit-pink-500 to-caribbean-green-500 bg-clip-text text-transparent">
                 <FormattedMessage
                   id="technology-hero-title"
                   description="Technology hero title"
                   defaultMessage="Tech Arsenal"
                 />
               </h1>
-              <div className="w-12 h-12 bg-gradient-to-r from-teal-accent to-primary-blue rounded-lg flex items-center justify-center">
+              <div className="w-12 h-12 bg-gradient-to-r from-caribbean-green-500 to-fun-blue-500 rounded-lg flex items-center justify-center">
                 <FontAwesomeIcon icon={faRocket} size="lg" className="text-white" />
               </div>
             </div>
@@ -159,7 +159,7 @@ export default function Technology(props) {
                 className={`
                   group relative px-6 py-3 rounded-full transition-all duration-300
                   ${selectedCategory === category.id 
-                    ? 'bg-gradient-to-r from-primary-blue to-purple-accent shadow-lg transform scale-105' 
+                    ? 'bg-gradient-to-r from-fun-blue-500 to-hit-pink-500 shadow-lg transform scale-105' 
                     : 'bg-white dark:bg-gray-800 shadow-md hover:shadow-lg hover:transform hover:scale-105 hover:bg-gray-50 dark:hover:bg-gray-700'
                   }
                 `}
@@ -169,7 +169,7 @@ export default function Technology(props) {
                     icon={category.icon} 
                     className={`
                       transition-all duration-300
-                      ${selectedCategory === category.id ? 'text-white' : 'text-primary-blue dark:text-purple-accent group-hover:text-purple-accent dark:group-hover:text-teal-accent'}
+                      ${selectedCategory === category.id ? 'text-white' : 'text-fun-blue-500 dark:text-hit-pink-500 group-hover:text-hit-pink-500 dark:group-hover:text-caribbean-green-500'}
                     `}
                   />
                   <span className={`
@@ -184,7 +184,7 @@ export default function Technology(props) {
                   </span>
                 </div>
                 {selectedCategory === category.id && (
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary-blue to-purple-accent opacity-20 animate-pulse"></div>
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-fun-blue-500 to-hit-pink-500 opacity-20 animate-pulse"></div>
                 )}
               </button>
             ))}
@@ -295,8 +295,8 @@ export default function Technology(props) {
 
           {/* Innovation Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
-            <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-primary-blue/10 to-purple-accent/10 border border-primary-blue/20 hover:border-primary-blue/40 transition-all duration-300">
-              <div className="w-16 h-16 bg-gradient-to-r from-primary-blue to-purple-accent rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-fun-blue-500/10 to-hit-pink-500/10 border border-fun-blue-500/20 hover:border-fun-blue-500/40 transition-all duration-300">
+              <div className="w-16 h-16 bg-gradient-to-r from-fun-blue-500 to-hit-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <FontAwesomeIcon icon={faRocket} size="2x" className="text-white" />
               </div>
               <h3 className="text-2xl font-bold text-black dark:text-white mb-2">
@@ -311,8 +311,8 @@ export default function Technology(props) {
               </p>
             </div>
 
-            <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-teal-accent/10 to-primary-blue/10 border border-teal-accent/20 hover:border-teal-accent/40 transition-all duration-300">
-              <div className="w-16 h-16 bg-gradient-to-r from-teal-accent to-primary-blue rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-caribbean-green-500/10 to-fun-blue-500/10 border border-caribbean-green-500/20 hover:border-caribbean-green-500/40 transition-all duration-300">
+              <div className="w-16 h-16 bg-gradient-to-r from-caribbean-green-500 to-fun-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <FontAwesomeIcon icon={faCube} size="2x" className="text-white" />
               </div>
               <h3 className="text-2xl font-bold text-black dark:text-white mb-2">
@@ -327,8 +327,8 @@ export default function Technology(props) {
               </p>
             </div>
 
-            <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-purple-accent/10 to-teal-accent/10 border border-purple-accent/20 hover:border-purple-accent/40 transition-all duration-300">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-accent to-teal-accent rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-hit-pink-500/10 to-caribbean-green-500/10 border border-hit-pink-500/20 hover:border-hit-pink-500/40 transition-all duration-300">
+              <div className="w-16 h-16 bg-gradient-to-r from-hit-pink-500 to-caribbean-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <FontAwesomeIcon icon={faLightbulb} size="2x" className="text-white" />
               </div>
               <h3 className="text-2xl font-bold text-black dark:text-white mb-2">
@@ -402,7 +402,7 @@ function EnhancedTechBox({
         rounded-2xl cursor-pointer
         transform transition-all duration-500 ease-out
         ${isHovered ? 'scale-110 -rotate-1' : 'scale-100'}
-        hover:shadow-2xl hover:shadow-primary-blue/25
+        hover:shadow-2xl hover:shadow-fun-blue-500/25
       `}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

@@ -5,11 +5,11 @@ export default function handler(req, res) {
     const initialTechStackState = [
         {
             techName: "#JavaScript",
-            colorTechStack: "text-blog-white dark:text-blog-white bg-persian-blue-500 hover:bg-persian-blue-600" 
+            colorTechStack: "text-blog-white dark:text-blog-white bg-fun-blue-500 hover:bg-fun-blue-600" 
         },
         {
             techName: "#TypeScript",
-            colorTechStack: "text-blog-white dark:text-blog-white bg-dark-blue-500 hover:bg-dark-blue-600" 
+            colorTechStack: "text-blog-white dark:text-blog-white bg-fun-blue-600 hover:bg-fun-blue-700" 
         },
         {
             techName: "#CSS",

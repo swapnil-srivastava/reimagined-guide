@@ -467,7 +467,7 @@ function EmptyCheckoutMessage() {
       
       <Link 
         href="/products"
-        className="group bg-gradient-to-r from-peach-accent to-orange-500 hover:from-orange-500 hover:to-peach-accent text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 ease-in-out hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-peach-accent focus:ring-offset-2"
+        className="group bg-gradient-to-r from-hit-pink-500 to-hit-pink-600 hover:from-hit-pink-600 hover:to-hit-pink-700 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 ease-in-out hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-hit-pink-400 focus:ring-offset-2"
       >
         <div className="flex items-center gap-3">
           <FontAwesomeIcon icon={faShoppingBag} className="w-5 h-5 group-hover:animate-bounce" />
