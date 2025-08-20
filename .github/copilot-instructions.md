@@ -198,7 +198,7 @@
 --fun-blue-600: #004b8c     /* Darker blue for hover states */
 --fun-blue-700: #003e75     /* Dark blue for cards/sections */
 --fun-blue-800: #00325e     /* Very dark blue for containers */
---fun-blue-900: #00294c     /* Deepest blue for maximum contrast */
+--fun-blue-900: #040608ff     /* Deepest blue for maximum contrast */
 ```
 
 ### Text Color Standards (CRITICAL)
@@ -210,23 +210,24 @@
 - **Success Text:** `text-green-600 dark:text-green-400`
 - **Warning Text:** `text-yellow-600 dark:text-yellow-400`
 
-### Background Color Standards
-- **Page Backgrounds:** `bg-blog-white dark:bg-fun-blue-500` for main page areas
-- **Card/Container Backgrounds:** `bg-white dark:bg-fun-blue-800` for content cards
+### Background Color Standards (CRITICAL)
+- **Primary Page Backgrounds:** `bg-blog-white dark:bg-fun-blue-500` for main page areas
+- **Contrasting Elements (Cards/Navbar/Footer):** `bg-white dark:bg-fun-blue-600` for content cards, navigation, and footer
 - **Secondary Containers:** `bg-gray-50 dark:bg-fun-blue-700` for nested content
 - **Input Backgrounds:** `bg-white dark:bg-fun-blue-600` for form elements
 - **Hover Backgrounds:** `hover:bg-gray-50 dark:hover:bg-fun-blue-600`
 
-### Component Styling Standards
+### Component Styling Standards (CRITICAL)
 - **Always use Poppins font:** Either explicit `font-poppins` or rely on default
 - **Text Colors:** Always use `text-blog-black dark:text-blog-white` for primary text
-- **Background Pattern:** `bg-blog-white dark:bg-fun-blue-500` for main sections
-- **Card Pattern:** `bg-white dark:bg-fun-blue-800` for content containers
+- **Primary Background Pattern:** `bg-blog-white dark:bg-fun-blue-500` for main page sections
+- **Contrasting Background Pattern:** `bg-white dark:bg-fun-blue-600` for cards, navbar, footer
+- **Standard Card Pattern:** `bg-white dark:bg-fun-blue-600 drop-shadow-lg hover:drop-shadow-xl hover:brightness-125`
 - **Border Pattern:** `border-gray-200 dark:border-fun-blue-600` for subtle borders
-- **Hover Effects:** Use `hover:brightness-110` or specific color transitions
+- **Shadow Effects:** Always use `drop-shadow-lg hover:drop-shadow-xl` for elevated elements
+- **Hover Effects:** Always include `hover:brightness-125` for interactive elements
 - **Responsive:** Mobile-first approach with Tailwind breakpoints
 - **Dark Mode:** Always include dark mode variants for every style
-- **Dark Mode:** Always include dark mode variants
 - **Spacing:** Use Tailwind's 8px-based spacing system
 
 ### Layout Standards (CRITICAL)
@@ -499,7 +500,7 @@ try {
 🚨 **ALWAYS** use Poppins as default font (either `font-poppins` or rely on default)  
 🚨 **ALWAYS** use `text-blog-black dark:text-blog-white` for primary text  
 🚨 **ALWAYS** use `bg-blog-white dark:bg-fun-blue-500` for page backgrounds  
-🚨 **ALWAYS** use `bg-white dark:bg-fun-blue-800` for card/container backgrounds  
+🚨 **ALWAYS** use `bg-white dark:bg-fun-blue-600` for card/container backgrounds  
 🚨 **ALWAYS** include dark mode variants for every style  
 🚨 **ALWAYS** use Flexbox or CSS Grid for layouts - NEVER use absolute/relative positioning except for overlays  
 🚨 **ALWAYS** use Next.js `Image` component instead of `<img>` tags for all images  
@@ -508,6 +509,7 @@ try {
 🚨 **ALWAYS** implement proper error handling  
 🚨 **ALWAYS** validate user inputs  
 🚨 **ALWAYS** test build before committing  
+🚨 **ALWAYS** use `drop-shadow-lg hover:drop-shadow-xl hover:brightness-125` for card styling  
 
 ---
 

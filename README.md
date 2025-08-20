@@ -261,15 +261,19 @@ text-yellow-600 dark:text-yellow-400     /* Warning messages */
 ### Background Color Standards
 
 ```css
-/* Page Backgrounds */
+/* Primary Page Backgrounds */
 bg-blog-white dark:bg-fun-blue-500       /* Main page areas */
 
-/* Container Backgrounds */
-bg-white dark:bg-fun-blue-800            /* Content cards */
+/* Contrasting Elements (Cards/Navbar/Footer) */
+bg-white dark:bg-fun-blue-600            /* Content cards, navigation, footer */
+
+/* Secondary Containers */
 bg-gray-50 dark:bg-fun-blue-700          /* Nested content */
+
+/* Input Backgrounds */
 bg-white dark:bg-fun-blue-600            /* Form elements */
 
-/* Interactive Backgrounds */
+/* Hover Backgrounds */
 hover:bg-gray-50 dark:hover:bg-fun-blue-600  /* Hover states */
 ```
 
@@ -285,9 +289,9 @@ hover:bg-gray-50 dark:hover:bg-fun-blue-600  /* Hover states */
 - **ALWAYS** use `font-poppins` or rely on default for all standard text
 - **ALWAYS** use `text-blog-black dark:text-blog-white` for primary text
 - **ALWAYS** use `FormattedMessage` for all user-facing text
-- **ALWAYS** follow `bg-blog-white dark:bg-fun-blue-500` pattern for page backgrounds
-- **ALWAYS** follow `bg-white dark:bg-fun-blue-800` pattern for card backgrounds
-- **ALWAYS** implement hover states with `hover:brightness-110` or color transitions
+- **ALWAYS** use `bg-blog-white dark:bg-fun-blue-500` for page backgrounds
+- **ALWAYS** use `bg-white dark:bg-fun-blue-600` for card/container backgrounds
+- **ALWAYS** use `drop-shadow-lg hover:drop-shadow-xl hover:brightness-125` for card styling
 - **ALWAYS** include dark mode variants for every style
 - **NEVER** use absolute/relative positioning except for overlays and animations
 
