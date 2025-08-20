@@ -13,11 +13,29 @@
   --color-gray: #b5bdc4;
 }
 
+/* Base font and text color defaults */
 html,
 body {
   padding: 0;
   margin: 0;
   color: var(--color-text);
+  font-family: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Apply default text colors for light and dark modes */
+@layer base {
+  body {
+    @apply text-blog-black;
+  }
+  
+  .dark body {
+    @apply text-blog-white;
+  }
+  
+  /* Ensure all text elements inherit the proper colors */
+  h1, h2, h3, h4, h5, h6, p, span, div, a, button, input, textarea, select, label {
+    @apply text-blog-black dark:text-blog-white;
+  }
 }
 
 h1 {

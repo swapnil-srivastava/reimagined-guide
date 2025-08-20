@@ -12,12 +12,11 @@ module.exports = {
         '96': '24rem',  // Ensure this value is present
       },
       fontFamily: {
-        inter: ['var(--font-inter)'],
+        // Set Poppins as the default sans font
+        sans: ['var(--font-poppins)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        // Other fonts for special purposes
         roboto: ['var(--font-roboto)'],
-        salsa: ['var(--font-salsa)'],
-        bungee: ['var(--font-bungee)'],
         poppins: ['var(--font-poppins)'],
-        greatVibes: ['var(--font-greatVibes)'],
       },
       transitionProperty: {
         'height': 'height',

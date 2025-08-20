@@ -27,12 +27,7 @@ const CookiesBanner = dynamic(() => import("../components/CookiesBanner"), {
   ssr: false
 });
 
-import { Inter, Roboto, Salsa, Bungee_Spice, Poppins, Great_Vibes } from 'next/font/google'
- 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-})
+import { Roboto, Poppins } from 'next/font/google'
 
 const roboto = Roboto({
   weight: '400',
@@ -40,28 +35,10 @@ const roboto = Roboto({
   variable: '--font-roboto',
 })
 
-const salsa = Salsa({
-  weight: '400',
-  subsets: ['latin'],
-  variable: '--font-salsa',
-})
-
-const bungee = Bungee_Spice({
-  weight: '400',
-  subsets: ['latin'],
-  variable: '--font-bungee',
-})
-
 const poppins = Poppins({
   weight: '400',
   subsets: ['latin'],
   variable: '--font-poppins',
-})
-
-const greatVibes = Great_Vibes({
-  weight: '400',
-  subsets: ['latin'],
-  variable: '--font-greatVibes',
 })
 
 config.autoAddCss = false;
@@ -88,7 +65,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
-       <main className={`${inter.variable} ${roboto.variable} ${salsa.variable} ${bungee.variable} ${poppins.variable} ${greatVibes.variable}`}>
+       <main className={`${roboto.variable} ${poppins.variable}`}>
         <ThemeProvider attribute="class">
           <Provider store={store}>
             <IntlProvider

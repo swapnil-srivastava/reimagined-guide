@@ -204,38 +204,92 @@ yarn i18n
 
 ## 🎨 Design System
 
+### Typography System
+
+**Default Font:** Poppins (set as default sans-serif)
+- **Primary Use:** All body text, UI elements, and standard content
+- **Implementation:** Use default classes or explicit `font-poppins`
+- **Special Fonts:** 
+  - `font-roboto` - Alternative sans-serif when needed
+
 ### Color Palette
 
 ```css
-/* Analogous Colors */
---primary-blue: #1249de
---purple-accent: #5d12de
---teal-accent: #12dea8
+/* Primary Theme Colors */
+--blog-black: #0a0a0a        /* Primary text in light mode */
+--blog-white: #fbfbfb        /* Primary text in dark mode & light backgrounds */
+--fun-blue-500: #00539c      /* Dark mode background & primary brand color */
 
-/* Monochromatic */
---blue-primary: #1249de
---blue-secondary: #385dc5
+/* Accent Colors */
+--peach-accent: #eea47f      /* Secondary actions (add, edit, navigate) */
+--purple-accent: #5d12de     /* Primary actions (checkout, purchase, confirm) */
+--primary-blue: #1249de      /* Alternative blue for special elements */
+--blue-secondary: #385dc5    /* Supporting blue variant */
+--teal-accent: #12dea8       /* Success states and highlights */
 
-/* Theme Colors */
---blog-white: #fbfbfb      /* Light mode background */
---text-dark: #0a0a0a       /* Dark text */
---fun-blue-500: #00539c    /* Dark mode background */
---peach-accent: #eea47f    /* Accent color */
+/* Fun Blue Extended Palette */
+--fun-blue-50: #f2f6fa       /* Very light blue backgrounds */
+--fun-blue-100: #e6eef5     /* Light blue backgrounds */
+--fun-blue-200: #bfd4e6     /* Subtle blue accents */
+--fun-blue-300: #99bad7     /* Medium blue for borders/dividers */
+--fun-blue-400: #4d87ba     /* Medium-dark blue for icons */
+--fun-blue-600: #004b8c     /* Darker blue for hover states */
+--fun-blue-700: #003e75     /* Dark blue for cards/sections */
+--fun-blue-800: #00325e     /* Very dark blue for containers */
+--fun-blue-900: #00294c     /* Deepest blue for maximum contrast */
+```
+
+### Text Color Standards
+
+```css
+/* Primary Text */
+text-blog-black dark:text-blog-white     /* All body text, headings, UI labels */
+
+/* Secondary Text */
+text-gray-600 dark:text-gray-300         /* Supporting text, descriptions */
+text-gray-500 dark:text-gray-400         /* Meta information, timestamps */
+
+/* Interactive Text */
+hover:text-fun-blue-500 dark:hover:text-fun-blue-300  /* Links and buttons */
+
+/* Status Text */
+text-red-600 dark:text-red-400           /* Error messages */
+text-green-600 dark:text-green-400       /* Success messages */
+text-yellow-600 dark:text-yellow-400     /* Warning messages */
+```
+
+### Background Color Standards
+
+```css
+/* Page Backgrounds */
+bg-blog-white dark:bg-fun-blue-500       /* Main page areas */
+
+/* Container Backgrounds */
+bg-white dark:bg-fun-blue-800            /* Content cards */
+bg-gray-50 dark:bg-fun-blue-700          /* Nested content */
+bg-white dark:bg-fun-blue-600            /* Form elements */
+
+/* Interactive Backgrounds */
+hover:bg-gray-50 dark:hover:bg-fun-blue-600  /* Hover states */
 ```
 
 ### Typography & Spacing
 
-- **Font System**: Tailwind's default font stack
+- **Font System**: Poppins as default, with specialized fonts for specific use cases
 - **Spacing**: Tailwind's 8px-based spacing system
-- **Responsive**: Mobile-first responsive design
-- **Dark Mode**: Automatic system preference detection
+- **Responsive**: Mobile-first responsive design with consistent breakpoints
+- **Dark Mode**: Automatic system preference detection with manual toggle
 
 ### Component Guidelines
 
-- Use `FormattedMessage` for all user-facing text
-- Follow the `bg-blog-white dark:bg-fun-blue-500` pattern for backgrounds
-- Use `text-black dark:text-white` for primary text
-- Implement hover states with `hover:brightness-125` or `hover:fun-blue-500`
+- **ALWAYS** use `font-poppins` or rely on default for all standard text
+- **ALWAYS** use `text-blog-black dark:text-blog-white` for primary text
+- **ALWAYS** use `FormattedMessage` for all user-facing text
+- **ALWAYS** follow `bg-blog-white dark:bg-fun-blue-500` pattern for page backgrounds
+- **ALWAYS** follow `bg-white dark:bg-fun-blue-800` pattern for card backgrounds
+- **ALWAYS** implement hover states with `hover:brightness-110` or color transitions
+- **ALWAYS** include dark mode variants for every style
+- **NEVER** use absolute/relative positioning except for overlays and animations
 
 ## 🌐 Internationalization
 

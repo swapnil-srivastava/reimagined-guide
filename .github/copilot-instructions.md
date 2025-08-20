@@ -169,35 +169,63 @@
 
 ## Design System & Styling
 
+### Typography System (CRITICAL)
+- **Default Font:** `font-poppins` (or simply no font class as Poppins is now default)
+- **ALWAYS** use `font-poppins` or rely on default for all body text and UI elements
+- **Special Fonts:** Use sparingly for specific design elements:
+  - `font-roboto` - Alternative sans-serif when needed
+
 ### Color Palette (STRICTLY ENFORCE)
 ```css
 /* Primary Colors */
+--blog-black: #0a0a0a        /* Primary text in light mode */
+--blog-white: #fbfbfb        /* Primary text in dark mode & light backgrounds */
+--fun-blue-500: #00539c      /* Dark mode background & primary brand color */
 
---fun-blue-500: #00539c      /* Dark mode background */
+/* Accent Colors */
+--peach-accent: #eea47f      /* Secondary actions (add, edit, navigate) */
+--purple-accent: #5d12de     /* Primary actions (checkout, purchase, confirm) */
+--primary-blue: #1249de      /* Alternative blue for special elements */
+--blue-secondary: #385dc5    /* Supporting blue variant */
+--teal-accent: #12dea8       /* Success states and highlights */
 
-/* Analogous Palette */
-
-
-/* Theme Colors */
---blog-white: #fbfbfb        /* Light mode background */
---text-dark: #0a0a0a         /* Dark text */
---peach-accent: #eea47f      /* Warm accent - for secondary actions (add, edit, navigate) */
-
-/* Usage Patterns */
-bg-blog-white dark:bg-fun-blue-500    /* Standard background */
-text-black dark:text-white            /* Standard text */
-hover:text-fun-blue-500               /* Hover states */
-
-/* Action Button Guidelines */
-bg-peach-accent hover:bg-orange-600   /* Secondary actions (add items, edit, navigation) */
-bg-purple-accent hover:bg-purple-600  /* Primary actions (checkout, purchase, confirm) */
+/* Extended Palette */
+--fun-blue-50: #f2f6fa       /* Very light blue backgrounds */
+--fun-blue-100: #e6eef5     /* Light blue backgrounds */
+--fun-blue-200: #bfd4e6     /* Subtle blue accents */
+--fun-blue-300: #99bad7     /* Medium blue for borders/dividers */
+--fun-blue-400: #4d87ba     /* Medium-dark blue for icons */
+--fun-blue-600: #004b8c     /* Darker blue for hover states */
+--fun-blue-700: #003e75     /* Dark blue for cards/sections */
+--fun-blue-800: #00325e     /* Very dark blue for containers */
+--fun-blue-900: #00294c     /* Deepest blue for maximum contrast */
 ```
 
+### Text Color Standards (CRITICAL)
+- **Primary Text:** `text-blog-black dark:text-blog-white` for all body text, headings, and UI labels
+- **Secondary Text:** `text-gray-600 dark:text-gray-300` for supporting text, descriptions
+- **Muted Text:** `text-gray-500 dark:text-gray-400` for meta information, timestamps
+- **Interactive Text:** `hover:text-fun-blue-500 dark:hover:text-fun-blue-300` for links and buttons
+- **Error Text:** `text-red-600 dark:text-red-400`
+- **Success Text:** `text-green-600 dark:text-green-400`
+- **Warning Text:** `text-yellow-600 dark:text-yellow-400`
+
+### Background Color Standards
+- **Page Backgrounds:** `bg-blog-white dark:bg-fun-blue-500` for main page areas
+- **Card/Container Backgrounds:** `bg-white dark:bg-fun-blue-800` for content cards
+- **Secondary Containers:** `bg-gray-50 dark:bg-fun-blue-700` for nested content
+- **Input Backgrounds:** `bg-white dark:bg-fun-blue-600` for form elements
+- **Hover Backgrounds:** `hover:bg-gray-50 dark:hover:bg-fun-blue-600`
+
 ### Component Styling Standards
-- **Background Pattern:** `bg-blog-white dark:bg-fun-blue-500` for all main sections
-- **Text Pattern:** `text-black dark:text-white` for primary content
-- **Hover Effects:** Use `hover:brightness-125` or `hover:text-fun-blue-500`
+- **Always use Poppins font:** Either explicit `font-poppins` or rely on default
+- **Text Colors:** Always use `text-blog-black dark:text-blog-white` for primary text
+- **Background Pattern:** `bg-blog-white dark:bg-fun-blue-500` for main sections
+- **Card Pattern:** `bg-white dark:bg-fun-blue-800` for content containers
+- **Border Pattern:** `border-gray-200 dark:border-fun-blue-600` for subtle borders
+- **Hover Effects:** Use `hover:brightness-110` or specific color transitions
 - **Responsive:** Mobile-first approach with Tailwind breakpoints
+- **Dark Mode:** Always include dark mode variants for every style
 - **Dark Mode:** Always include dark mode variants
 - **Spacing:** Use Tailwind's 8px-based spacing system
 
@@ -468,8 +496,11 @@ try {
 
 🚨 **NEVER** use hardcoded strings in user interfaces  
 🚨 **ALWAYS** run `yarn i18n` after adding FormattedMessage components  
-🚨 **ALWAYS** use `bg-blog-white dark:bg-fun-blue-500` for backgrounds  
-🚨 **ALWAYS** include dark mode variants in styling  
+🚨 **ALWAYS** use Poppins as default font (either `font-poppins` or rely on default)  
+🚨 **ALWAYS** use `text-blog-black dark:text-blog-white` for primary text  
+🚨 **ALWAYS** use `bg-blog-white dark:bg-fun-blue-500` for page backgrounds  
+🚨 **ALWAYS** use `bg-white dark:bg-fun-blue-800` for card/container backgrounds  
+🚨 **ALWAYS** include dark mode variants for every style  
 🚨 **ALWAYS** use Flexbox or CSS Grid for layouts - NEVER use absolute/relative positioning except for overlays  
 🚨 **ALWAYS** use Next.js `Image` component instead of `<img>` tags for all images  
 🚨 **ALWAYS** use TypeScript types from `database.types.ts`  
