@@ -220,13 +220,6 @@ yarn i18n
 --blog-white: #fbfbfb        /* Primary text in dark mode & light backgrounds */
 --fun-blue-500: #00539c      /* Dark mode background & primary brand color */
 
-/* Accent Colors */
---peach-accent: #eea47f      /* Secondary actions (add, edit, navigate) */
---purple-accent: #5d12de     /* Primary actions (checkout, purchase, confirm) */
---primary-blue: #1249de      /* Alternative blue for special elements */
---blue-secondary: #385dc5    /* Supporting blue variant */
---teal-accent: #12dea8       /* Success states and highlights */
-
 /* Fun Blue Extended Palette */
 --fun-blue-50: #f2f6fa       /* Very light blue backgrounds */
 --fun-blue-100: #e6eef5     /* Light blue backgrounds */
