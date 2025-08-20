@@ -132,7 +132,7 @@ function AuthCard() {
       {/* Header */}
       <div className="text-center mb-8">
         <div className="flex justify-center mb-4">
-          <div className="w-16 h-16 bg-primary-blue rounded-full flex items-center justify-center">
+          <div className="w-16 h-16 bg-fun-blue-500 rounded-full flex items-center justify-center">
             <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
@@ -161,7 +161,7 @@ function AuthCard() {
                    border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 mb-6
                    hover:bg-gray-50 dark:hover:bg-gray-600 
                    transition-all duration-200 ease-in-out
-                   focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2
+                   focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:ring-offset-2
                    text-gray-700 dark:text-gray-200 font-medium"
       >
         {/* Google SVG Icon */}
@@ -226,7 +226,7 @@ function AuthCard() {
                        rounded-lg bg-white dark:bg-gray-700
                        text-gray-900 dark:text-white
                        placeholder-gray-500 dark:placeholder-gray-400
-                       focus:outline-none focus:ring-2 focus:ring-primary-blue focus:border-transparent
+                       focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:border-transparent
                        transition-all duration-200"
             placeholder={intl.formatMessage({
               id: "auth-email-placeholder",
@@ -256,7 +256,7 @@ function AuthCard() {
                          rounded-lg bg-white dark:bg-gray-700
                          text-gray-900 dark:text-white
                          placeholder-gray-500 dark:placeholder-gray-400
-                         focus:outline-none focus:ring-2 focus:ring-primary-blue focus:border-transparent
+                         focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:border-transparent
                          transition-all duration-200"
               placeholder={intl.formatMessage({
                 id: "auth-password-placeholder",
@@ -301,7 +301,7 @@ function AuthCard() {
                          rounded-lg bg-white dark:bg-gray-700
                          text-gray-900 dark:text-white
                          placeholder-gray-500 dark:placeholder-gray-400
-                         focus:outline-none focus:ring-2 focus:ring-primary-blue focus:border-transparent
+                         focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:border-transparent
                          transition-all duration-200"
               placeholder={intl.formatMessage({
                 id: "auth-confirm-password-placeholder",
@@ -326,11 +326,11 @@ function AuthCard() {
         <button
           type="submit"
           disabled={!validateForm() || loading}
-          className="w-full bg-primary-blue hover:bg-blue-secondary 
+          className="w-full bg-fun-blue-500 hover:bg-fun-blue-600 
                      disabled:bg-gray-400 disabled:cursor-not-allowed
                      text-white font-medium py-3 px-4 rounded-lg
                      transition-all duration-200 ease-in-out
-                     focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2
+                     focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:ring-offset-2
                      flex items-center justify-center gap-2"
         >
           {loading && (
@@ -358,7 +358,7 @@ function AuthCard() {
           {" "}
           <button
             onClick={() => setIsSignUp(!isSignUp)}
-            className="text-primary-blue hover:text-blue-secondary font-medium transition-colors duration-200"
+            className="text-fun-blue-500 hover:text-fun-blue-600 font-medium transition-colors duration-200"
           >
             <FormattedMessage
               id={isSignUp ? "auth-signin-link" : "auth-signup-link"}
@@ -529,10 +529,10 @@ function SignOutCard() {
       <div className="space-y-4">
         <button
           onClick={() => window.location.href = '/'}
-          className="w-full bg-primary-blue hover:bg-blue-secondary 
+          className="w-full bg-fun-blue-500 hover:bg-fun-blue-600 
                      text-white font-medium py-3 px-4 rounded-lg
                      transition-all duration-200 ease-in-out
-                     focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2"
+                     focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:ring-offset-2"
         >
           <FormattedMessage
             id="auth-go-to-dashboard"
@@ -724,7 +724,7 @@ function UsernameForm() {
                          rounded-lg bg-white dark:bg-gray-700
                          text-gray-900 dark:text-white
                          placeholder-gray-500 dark:placeholder-gray-400
-                         focus:outline-none focus:ring-2 focus:ring-primary-blue focus:border-transparent
+                         focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:border-transparent
                          transition-all duration-200"
               placeholder={intl.formatMessage({
                 id: "auth-username-placeholder",
@@ -768,10 +768,10 @@ function UsernameForm() {
               />
             </p>
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 bg-primary-blue rounded-full flex items-center justify-center text-white font-bold text-xs">
+              <div className="w-6 h-6 bg-fun-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xs">
                 {formValue.charAt(0).toUpperCase()}
               </div>
-              <span className="font-mono text-sm text-primary-blue">
+              <span className="font-mono text-sm text-fun-blue-500">
                 {typeof window !== 'undefined' ? window.location.origin : ''}/{formValue}
               </span>
             </div>
@@ -782,11 +782,11 @@ function UsernameForm() {
         <button
           type="submit"
           disabled={!isValid || loading}
-          className="w-full bg-primary-blue hover:bg-blue-secondary 
+          className="w-full bg-fun-blue-500 hover:bg-fun-blue-600 
                      disabled:bg-gray-400 disabled:cursor-not-allowed
                      text-white font-medium py-3 px-4 rounded-lg
                      transition-all duration-200 ease-in-out
-                     focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2
+                     focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:ring-offset-2
                      flex items-center justify-center gap-2"
         >
           {loading && (

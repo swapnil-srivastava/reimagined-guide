@@ -12,7 +12,7 @@ const CustomRadioGroupControl = ({ data, handleChange, path }: ControlProps) => 
           key={option.id} 
           className={`flex items-center space-x-3 p-4 rounded-lg border-2 transition-all duration-200 cursor-pointer hover:bg-gray-50 dark:hover:bg-fun-blue-700 ${
             data?.id === option.id 
-              ? 'border-fun-blue-500 dark:border-blog-white bg-blue-50 dark:bg-primary-blue/20' 
+              ? 'border-fun-blue-500 dark:border-blog-white bg-blue-50 dark:bg-fun-blue-500/20' 
               : 'border-gray-200 dark:border-fun-blue-600 bg-white dark:bg-fun-blue-800'
           }`}
         >
@@ -22,7 +22,7 @@ const CustomRadioGroupControl = ({ data, handleChange, path }: ControlProps) => 
             value={option.id}
             checked={data?.id === option.id}
             onChange={() => handleChange(path, option)}
-            className="w-4 h-4 text-primary-blue focus:ring-primary-blue focus:ring-2 dark:focus:ring-primary-blue dark:text-primary-blue"
+            className="w-4 h-4 text-fun-blue-500 focus:ring-fun-blue-500 focus:ring-2 dark:focus:ring-fun-blue-500 dark:text-fun-blue-500"
           />
           <div className="flex-1">
             <div className="flex justify-between items-center">

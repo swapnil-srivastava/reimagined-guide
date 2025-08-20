@@ -226,7 +226,7 @@ function AwesomeNavBar() {
                         className="rounded-full object-cover"
                       />
                     ) : (
-                      <div className="w-8 h-8 bg-primary-blue rounded-full flex items-center justify-center text-white font-bold text-sm">
+                      <div className="w-8 h-8 bg-fun-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
                         {profile?.username?.charAt(0).toUpperCase() || profile?.email?.charAt(0).toUpperCase() || 'U'}
                       </div>
                     )}
@@ -378,7 +378,7 @@ function DropdownMenu({ closeDropdown }: { closeDropdown?: () => void }) {
                       alt={profile?.full_name || "Profile"}
                     />
                   ) : (
-                    <div className="w-full h-full bg-primary-blue rounded-full flex items-center justify-center text-white font-bold text-sm">
+                    <div className="w-full h-full bg-fun-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
                       {profile?.username?.charAt(0).toUpperCase() || profile?.email?.charAt(0).toUpperCase() || 'U'}
                     </div>
                   )}

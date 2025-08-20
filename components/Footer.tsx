@@ -27,7 +27,7 @@ export default function Footer() {
             </div>
             
             {/* Built with love message */}
-            <div className="flex items-center justify-center sm:justify-start gap-1 text-xs text-primary-blue dark:text-teal-accent">
+            <div className="flex items-center justify-center sm:justify-start gap-1 text-xs text-fun-blue-500 dark:text-caribbean-green-500">
               <FormattedMessage
                 id="footer.built-with-love"
                 description="Built with love message"
@@ -49,7 +49,7 @@ export default function Footer() {
           <div className="flex items-center justify-center gap-4 sm:gap-6">
             <Link 
               href="/privacy-policy" 
-              className="flex items-center gap-1 text-xs text-gray-600 dark:text-gray-300 hover:text-primary-blue dark:hover:text-teal-accent transition-colors duration-200"
+              className="flex items-center gap-1 text-xs text-gray-600 dark:text-gray-300 hover:text-fun-blue-500 dark:hover:text-caribbean-green-500 transition-colors duration-200"
             >
               <FontAwesomeIcon icon={faShield} className="w-3 h-3" />
               <FormattedMessage
@@ -61,7 +61,7 @@ export default function Footer() {
             
             <Link 
               href="/user-preferences" 
-              className="flex items-center gap-1 text-xs text-gray-600 dark:text-gray-300 hover:text-primary-blue dark:hover:text-teal-accent transition-colors duration-200"
+              className="flex items-center gap-1 text-xs text-gray-600 dark:text-gray-300 hover:text-fun-blue-500 dark:hover:text-caribbean-green-500 transition-colors duration-200"
             >
               <FontAwesomeIcon icon={faCog} className="w-3 h-3" />
               <FormattedMessage
@@ -73,7 +73,7 @@ export default function Footer() {
             
             <Link 
               href="/technology" 
-              className="flex items-center gap-1 text-xs text-gray-600 dark:text-gray-300 hover:text-primary-blue dark:hover:text-teal-accent transition-colors duration-200"
+              className="flex items-center gap-1 text-xs text-gray-600 dark:text-gray-300 hover:text-fun-blue-500 dark:hover:text-caribbean-green-500 transition-colors duration-200"
             >
               <FontAwesomeIcon icon={faGlobe} className="w-3 h-3" />
               <FormattedMessage

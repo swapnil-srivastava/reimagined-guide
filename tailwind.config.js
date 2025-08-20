@@ -78,12 +78,7 @@ module.exports = {
       colors : {
         'blog-black': '#0A0A0A',
         'blog-white': '#FBFBFB',
-        'primary-blue': '#1249de',
-        'blue-secondary': '#385dc5',
         'fun-blue-500': '#00539c',
-        'purple-accent': '#5d12de',
-        'teal-accent': '#12dea8',
-        'peach-accent': '#eea47f',
         'caribbean-green': {
           '50': '#f3fdfb', 
           '100': '#e7fcf6', 
@@ -95,28 +90,6 @@ module.exports = {
           '700': '#0ea77e', 
           '800': '#0b8565', 
           '900': '#096d52'
-      },'dark-blue': {
-          '50': '#f7f3fd', 
-          '100': '#efe7fc', 
-          '200': '#d7c4f7', 
-          '300': '#bea0f2', 
-          '400': '#8e59e8', 
-          '500': '#5d12de', 
-          '600': '#5410c8', 
-          '700': '#460ea7', 
-          '800': '#380b85', 
-          '900': '#2e096d'
-      },'persian-blue': {
-          '50': '#f3f6fd', 
-          '100': '#e7edfc', 
-          '200': '#c4d2f7', 
-          '300': '#a0b6f2', 
-          '400': '#5980e8', 
-          '500': '#1249de', 
-          '600': '#1042c8', 
-          '700': '#0e37a7', 
-          '800': '#0b2c85', 
-          '900': '#09246d'
       }, 'fun-blue': {
         '50': '#f2f6fa', 
         '100': '#e6eef5', 

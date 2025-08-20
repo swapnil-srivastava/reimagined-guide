@@ -121,7 +121,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => 
               </div>
               
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-primary-blue rounded-full flex items-center justify-center">
+                <div className="w-12 h-12 bg-fun-blue-500 rounded-full flex items-center justify-center">
                   <FontAwesomeIcon icon={faShoppingBag} className="w-6 h-6 text-white" />
                 </div>
                 <div>
@@ -294,7 +294,7 @@ function EmptyCartMessage() {
       </p>
       
       <Link href="/products">
-        <button className="bg-peach-accent hover:brightness-110 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-peach-accent focus:ring-offset-2 shadow-md hover:shadow-lg transform hover:scale-105">
+        <button className="bg-hit-pink-500 hover:brightness-110 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-hit-pink-400 focus:ring-offset-2 shadow-md hover:shadow-lg transform hover:scale-105">
           <FormattedMessage 
             id="cart-page-no-products-redirect-btn"
             description="Go to products page"
@@ -382,7 +382,7 @@ function OrderSummary({
         </div>
 
         {/* Total */}
-        <div className="flex justify-between items-center py-3 bg-gradient-to-r from-primary-blue/10 to-blue-secondary/10 dark:from-primary-blue/20 dark:to-blue-secondary/20 rounded-lg px-4 mt-4">
+        <div className="flex justify-between items-center py-3 bg-gradient-to-r from-fun-blue-500/10 to-fun-blue-600/10 dark:from-fun-blue-500/20 dark:to-fun-blue-600/20 rounded-lg px-4 mt-4">
           <span className="text-lg font-bold text-black dark:text-white">
             <FormattedMessage
               id="calculate-total-text"
@@ -397,7 +397,7 @@ function OrderSummary({
       </div>
 
       <Link href="/checkout" className="block">
-        <button className="w-full bg-gradient-to-r from-purple-accent to-purple-600 hover:from-purple-600 hover:to-purple-accent hover:brightness-110 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-accent focus:ring-offset-2 text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 hover:scale-105">
+        <button className="w-full bg-gradient-to-r from-hit-pink-500 to-hit-pink-600 hover:from-hit-pink-600 hover:to-hit-pink-500 hover:brightness-110 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-hit-pink-400 focus:ring-offset-2 text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 hover:scale-105">
           <FormattedMessage 
             id="cart-page-checkout-btn"
             description="Checkout"
