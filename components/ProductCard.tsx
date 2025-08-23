@@ -342,7 +342,13 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
             )}
 
             {/* Products Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full px-4 sm:px-6 lg:px-8">
+            <div 
+                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full px-4 sm:px-6 lg:px-8"
+                style={{
+                    gap: 'clamp(1rem, 4vw, 1.5rem)',
+                    gridAutoRows: 'min-content'
+                }}
+            >
                 {Array.isArray(products) && products.map((product: PRODUCT) => {
                     const descriptionTrimmed = generateContent(product?.description);
                     const nameTrimmed = generateContent(product?.name);
@@ -359,8 +365,13 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                     }
 
                     return (
-                        <div key={product.id} className="w-full p-2 sm:p-3">
-                            <article className="relative group flex flex-col bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-3xl drop-shadow-lg overflow-hidden transition-transform">
+                        <div key={product.id} className="w-full">
+                            <article className="relative group flex flex-col bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-3xl drop-shadow-lg overflow-hidden transition-transform h-full"
+                                style={{
+                                    minHeight: '420px',
+                                    WebkitBackfaceVisibility: 'hidden'
+                                }}
+                            >
                                 <div className="w-full h-48 relative overflow-hidden">
                                 <Image
                                     src={product.image_url ?? `/mountains.jpg`}
@@ -474,19 +485,21 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                 })}
 
                 {/* Create Product Card as one grid item */}
-                <div className="w-full p-2 sm:p-3">
+                <div className="w-full">
                     <button 
                         type="button"
                         aria-label="Create Product"
                         className="w-full flex items-center justify-center bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-3xl drop-shadow-lg p-4 transition-all duration-200 ease-in-out active:scale-95 focus:outline-none focus:ring-2 focus:ring-hit-pink-400 focus:ring-offset-2 md:hover:brightness-110"
+                        style={{
+                            minHeight: '420px',
+                            touchAction: 'manipulation',
+                            WebkitTapHighlightColor: 'rgba(0,0,0,0)',
+                            WebkitBackfaceVisibility: 'hidden'
+                        }}
                         onClick={(e) => {
                             e.preventDefault();
                             e.stopPropagation();
                             setCreateProduct(!createProduct);
-                        }}
-                        style={{
-                            touchAction: 'manipulation',
-                            WebkitTapHighlightColor: 'rgba(0,0,0,0)'
                         }}
                     >
                         <div className="flex flex-col gap-2 justify-center items-center">
@@ -504,7 +517,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
 
                 {/* Create Product Form (expanded) */}
                 {createProduct && (
-                    <div className="col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-2 w-full p-2 sm:p-3">
+                    <div className="col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-2 w-full">
                         <div className="w-full p-4 bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-3xl drop-shadow-lg">
                             <div className="flex justify-end">
                                 <FontAwesomeIcon 
