@@ -239,8 +239,16 @@ function Products() {
               <div className="flex flex-wrap gap-4 items-center">
                 {/* Toggle Filters Button */}
                 <button
-                  onClick={() => setShowFilters(!showFilters)}
-                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-600 focus:ring-2 focus:ring-blue-500 shadow-md dark:shadow-lg dark:shadow-black/20 hover:shadow-lg transition-all duration-200 cursor-pointer"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setShowFilters(!showFilters);
+                  }}
+                  onTouchEnd={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white active:bg-gray-50 dark:active:bg-gray-600 focus:ring-2 focus:ring-blue-500 shadow-md dark:shadow-lg dark:shadow-black/20 transition-all duration-200 cursor-pointer touch-manipulation md:hover:bg-gray-50 md:dark:hover:bg-gray-600 md:hover:shadow-lg"
                 >
                   <FontAwesomeIcon icon={faFilter} className="mr-2" />
                   {intl.formatMessage({ id: "products-filters", defaultMessage: "Filters" })}
@@ -331,12 +339,18 @@ function Products() {
                   {/* Clear Filters */}
                   <div className="flex items-end">
                     <button
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
                         setFilterCategory('all');
                         setPriceRange('all');
                         setSearchTerm('');
                       }}
-                      className="w-full px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-medium transition-colors shadow-md hover:shadow-lg"
+                      onTouchEnd={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                      }}
+                      className="w-full px-4 py-2 bg-red-500 text-white rounded-lg font-medium transition-colors shadow-md active:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 touch-manipulation md:hover:bg-red-600 md:hover:shadow-lg"
                     >
                       <FormattedMessage id="products-clear-filters" defaultMessage="Clear Filters" />
                     </button>
@@ -422,7 +436,15 @@ function Products() {
         {cartItems && cartItems.length > 0 && (
           <Link href="/cart">
             <div className="fixed bottom-20 right-6 z-40 group">
-              <button className="bg-green-600 hover:bg-green-700 text-white p-3 rounded-full shadow-2xl transition-all duration-300 transform hover:scale-110 hover:shadow-green-500/25 border-2 border-white">
+              <button 
+                className="bg-green-600 text-white p-3 rounded-full shadow-2xl transition-all duration-300 border-2 border-white active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 touch-manipulation md:hover:bg-green-700 md:hover:scale-110 md:hover:shadow-green-500/25"
+                onClick={(e) => {
+                  // Let the Link handle navigation, no need to prevent default
+                }}
+                onTouchEnd={(e) => {
+                  e.stopPropagation();
+                }}
+              >
                 <FontAwesomeIcon icon={faShoppingCart} className="text-lg" />
                 {/* Cart Count Badge */}
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center animate-pulse border border-white">

@@ -337,7 +337,20 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                                     <span className="absolute left-3 top-3 bg-green-500 text-white text-xs font-medium px-2 py-1 rounded-md shadow-lg z-20">New</span>
                                 ) : null}
                                 {/* Quick view */}
-                                <button aria-label="Quick view" onClick={() => { setQuickViewProduct(product); setQuickViewOpen(true); }} className="absolute right-3 top-3 bg-white dark:bg-gray-800 text-gray-800 dark:text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg z-20 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                <button 
+                                    aria-label="Quick view" 
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        setQuickViewProduct(product); 
+                                        setQuickViewOpen(true);
+                                    }} 
+                                    onTouchEnd={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                    }}
+                                    className="absolute right-3 top-3 bg-white dark:bg-gray-800 text-gray-800 dark:text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg z-20 active:bg-gray-100 dark:active:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 touch-manipulation md:hover:bg-gray-100 md:dark:hover:bg-gray-700"
+                                >
                                     <FontAwesomeIcon icon={faCirclePlus} className="w-4 h-4" />
                                 </button>
                             </div>
@@ -360,10 +373,30 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                                 <div className="mt-3 flex justify-end">
                                     <button 
                                         aria-label={`Add ${product.name} to cart`} 
-                                        className={`${styles.btnAdmin} flex items-center gap-2 transition-all duration-200 ${
-                                            addingToCart[product.id] ? 'bg-green-600 text-white' : ''
-                                        }`}
-                                        onClick={() => handleAddProduct(product)}
+                                        className={`
+                                            py-2 px-4 
+                                            font-medium text-sm 
+                                            bg-hit-pink-500 
+                                            text-white 
+                                            border border-hit-pink-500 
+                                            rounded-lg 
+                                            flex items-center gap-2 
+                                            transition-colors duration-200 
+                                            active:bg-hit-pink-600 
+                                            focus:outline-none focus:ring-2 focus:ring-hit-pink-400 focus:ring-offset-2
+                                            disabled:opacity-50 disabled:cursor-not-allowed
+                                            touch-manipulation
+                                            ${addingToCart[product.id] ? 'bg-green-600 border-green-600' : 'md:hover:bg-hit-pink-600 md:hover:border-hit-pink-600'}
+                                        `}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            handleAddProduct(product);
+                                        }}
+                                        onTouchEnd={(e) => {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                        }}
                                         disabled={addingToCart[product.id]}
                                     >
                                         {addingToCart[product.id] ? (
@@ -389,7 +422,20 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                 <div className="w-full">
                     <div className="flex items-center justify-center bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-3xl drop-shadow-lg p-4">
                         <div className="flex flex-col gap-2 justify-center items-center">
-                            <FontAwesomeIcon icon={faCirclePlus} size="3x" className="cursor-pointer" onClick={() => setCreateProduct(!createProduct)} />
+                            <FontAwesomeIcon 
+                                icon={faCirclePlus} 
+                                size="3x" 
+                                className="cursor-pointer touch-manipulation" 
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    setCreateProduct(!createProduct);
+                                }}
+                                onTouchEnd={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                }}
+                            />
                             <div className="text-lg">
                                 <FormattedMessage id="product-card-create-product" description="Create Product" defaultMessage="Create Product" />
                             </div>
@@ -402,7 +448,20 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                     <div className="col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-2 w-full">
                         <div className="w-full p-4 bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-3xl drop-shadow-lg">
                             <div className="flex justify-end">
-                                <FontAwesomeIcon icon={faCircleXmark} className="cursor-pointer" size="lg" onClick={() => setCreateProduct(!createProduct)} />
+                                <FontAwesomeIcon 
+                                    icon={faCircleXmark} 
+                                    className="cursor-pointer touch-manipulation" 
+                                    size="lg" 
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        setCreateProduct(!createProduct);
+                                    }}
+                                    onTouchEnd={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                    }}
+                                />
                             </div>
                             <CreateProduct />
                         </div>
