@@ -343,7 +343,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
 
             {/* Products Grid */}
             <div className="w-full px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '1rem', gridAutoRows: '1fr', alignItems: 'stretch' }}>
                 {Array.isArray(products) && products.map((product: PRODUCT) => {
                     const descriptionTrimmed = generateContent(product?.description);
                     const nameTrimmed = generateContent(product?.name);
