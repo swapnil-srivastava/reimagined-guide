@@ -252,31 +252,69 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
     const intl = useIntl();
 
     const handleAddProduct = (product: PRODUCT) => {
+        console.log('handleAddProduct called with:', product);
+        
+        // Check if product has required properties
+        if (!product || !product.id) {
+            console.error('Invalid product:', product);
+            toast.error(
+                intl.formatMessage({
+                    id: "product-card-invalid-product",
+                    description: "Invalid product error",
+                    defaultMessage: "Invalid product. Please try again."
+                })
+            );
+            return;
+        }
+
+        // Check stock availability
+        if (!product.stock || product.stock <= 0) {
+            toast.error(
+                intl.formatMessage({
+                    id: "product-card-out-of-stock",
+                    description: "Out of stock error",
+                    defaultMessage: "This item is out of stock."
+                })
+            );
+            return;
+        }
+
         // Set loading state for this specific product
         setAddingToCart(prev => ({ ...prev, [product.id]: true }));
         
-        dispatch(addToCartInsert(product));
-        
-        // Show success toast with product name
-        toast.success(
-            intl.formatMessage({
-                id: "product-card-added-to-cart-toast",
-                description: "Product added to cart toast",
-                defaultMessage: "{productName} added to cart!"
-            }, { productName: product.name }),
-            {
-                duration: 2000,
-                position: 'bottom-center',
-                style: {
-                    background: '#10B981',
-                    color: '#fff',
-                    fontWeight: '500',
-                    padding: '12px 20px',
-                    borderRadius: '12px',
-                    boxShadow: '0 4px 12px rgba(16, 185, 129, 0.15)'
+        try {
+            dispatch(addToCartInsert(product));
+            
+            // Show success toast with product name
+            toast.success(
+                intl.formatMessage({
+                    id: "product-card-added-to-cart-toast",
+                    description: "Product added to cart toast",
+                    defaultMessage: "{productName} added to cart!"
+                }, { productName: product.name }),
+                {
+                    duration: 2000,
+                    position: 'bottom-center',
+                    style: {
+                        background: '#10B981',
+                        color: '#fff',
+                        fontWeight: '500',
+                        padding: '12px 20px',
+                        borderRadius: '12px',
+                        boxShadow: '0 4px 12px rgba(16, 185, 129, 0.15)'
+                    }
                 }
-            }
-        );
+            );
+        } catch (error) {
+            console.error('Error adding product to cart:', error);
+            toast.error(
+                intl.formatMessage({
+                    id: "product-card-add-to-cart-error",
+                    description: "Add to cart error",
+                    defaultMessage: "Failed to add item to cart. Please try again."
+                })
+            );
+        }
         
         // Reset loading state after a brief delay to show success animation
         setTimeout(() => {
@@ -320,7 +358,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
 
                     return (
                         <div key={product.id} className="w-full">
-                            <article className="relative group flex flex-col bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-3xl drop-shadow-lg overflow-hidden hover:scale-[1.01] transition-transform">
+                            <article className="relative group flex flex-col bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-3xl drop-shadow-lg overflow-hidden transition-transform">
                                 <div className="w-full h-48 relative overflow-hidden">
                                 <Image
                                     src={product.image_url ?? `/mountains.jpg`}
@@ -371,38 +409,63 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                                     <div className="text-xs text-gray-400">{createdAtDateFormat}</div>
                                 </div>
                                 <div className="mt-3 flex justify-end">
-                                    <button 
-                                        aria-label={`Add ${product.name} to cart`} 
-                                        className={`
-                                            py-2 px-4 
-                                            font-medium text-sm 
-                                            bg-hit-pink-500 
-                                            text-white 
-                                            border border-hit-pink-500 
-                                            rounded-lg 
-                                            flex items-center gap-2 
-                                            transition-colors duration-200 
-                                            active:bg-hit-pink-600 
-                                            focus:outline-none focus:ring-2 focus:ring-hit-pink-400 focus:ring-offset-2
-                                            disabled:opacity-50 disabled:cursor-not-allowed
-                                            touch-manipulation
-                                            ${addingToCart[product.id] ? 'bg-green-600 border-green-600' : 'md:hover:bg-hit-pink-600 md:hover:border-hit-pink-600'}
-                                        `}
+                                    <div 
                                         onClick={(e) => {
                                             e.preventDefault();
                                             e.stopPropagation();
-                                            handleAddProduct(product);
+                                            console.log('Button wrapper clicked for product:', product.name);
+                                            if (!addingToCart[product.id] && product.stock && product.stock > 0) {
+                                                handleAddProduct(product);
+                                            }
                                         }}
-                                        onTouchEnd={(e) => {
-                                            e.preventDefault();
-                                            e.stopPropagation();
-                                        }}
-                                        disabled={addingToCart[product.id]}
+                                        className="inline-block"
                                     >
+                                        <button 
+                                            type="button"
+                                            aria-label={`Add ${product.name} to cart`} 
+                                            className={`
+                                                py-2 px-4 
+                                                font-medium text-sm 
+                                                bg-hit-pink-500 
+                                                text-white 
+                                                border border-hit-pink-500 
+                                                rounded-lg 
+                                                flex items-center gap-2 
+                                                transition-colors duration-200 
+                                                active:bg-hit-pink-600 
+                                                focus:outline-none focus:ring-2 focus:ring-hit-pink-400 focus:ring-offset-2
+                                                disabled:opacity-50 disabled:cursor-not-allowed
+                                                touch-manipulation
+                                                relative z-10
+                                                cursor-pointer
+                                                ${addingToCart[product.id] ? 'bg-green-600 border-green-600' : !product.stock || product.stock <= 0 ? 'bg-gray-400 border-gray-400' : 'md:hover:bg-hit-pink-600 md:hover:border-hit-pink-600'}
+                                            `}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                                console.log('Add to cart clicked for product:', product.name);
+                                                if (!addingToCart[product.id] && product.stock && product.stock > 0) {
+                                                    handleAddProduct(product);
+                                                }
+                                            }}
+                                            onTouchStart={(e) => {
+                                                e.stopPropagation();
+                                            }}
+                                            onTouchEnd={(e) => {
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                            }}
+                                            disabled={addingToCart[product.id] || !product.stock || product.stock <= 0}
+                                        >
                                         {addingToCart[product.id] ? (
                                             <>
                                                 <FontAwesomeIcon icon={faCheck} className="text-sm" />
                                                 <FormattedMessage id="product-card-added" description="Added!" defaultMessage="Added!" />
+                                            </>
+                                        ) : !product.stock || product.stock <= 0 ? (
+                                            <>
+                                                <FontAwesomeIcon icon={faCircleXmark} className="text-sm" />
+                                                <FormattedMessage id="product-card-out-of-stock" description="Out of Stock" defaultMessage="Out of Stock" />
                                             </>
                                         ) : (
                                             <>
@@ -411,6 +474,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                                             </>
                                         )}
                                     </button>
+                                    </div>
                                 </div>
                             </div>
                         </article>
