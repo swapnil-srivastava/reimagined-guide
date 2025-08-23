@@ -152,45 +152,63 @@ function Products() {
           </div>
         </div>
 
-        {/* Cart Notification - Fixed positioning for better visibility */}
+        {/* Cart Notification - Mobile-optimized */}
         {cartItems && cartItems.length > 0 && (
           <div className="sticky top-0 z-40 bg-green-50 dark:bg-green-900/20 border-b border-green-200 dark:border-green-800 backdrop-blur-sm">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-              <div className="flex items-center justify-between bg-blog-white dark:bg-fun-blue-500 rounded-lg p-4 shadow-lg border border-green-200 dark:border-green-700">
-                <div className="flex items-center gap-3">
-                  <div className="bg-green-100 dark:bg-green-900/50 p-2 rounded-full">
-                    <FontAwesomeIcon icon={faShoppingCart} className="text-green-600 dark:text-green-400 text-lg" />
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+              <div className="bg-green-600 hover:bg-green-700 text-white rounded-lg p-3 sm:p-4 shadow-lg transition-colors cursor-pointer">
+                <Link href="/cart" className="block">
+                  <div className="flex items-center justify-between">
+                    {/* Left side - Cart info */}
+                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                      <div className="bg-white/20 p-2 rounded-full flex-shrink-0">
+                        <FontAwesomeIcon icon={faShoppingCart} className="text-white text-sm sm:text-base" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-semibold text-white text-sm sm:text-base truncate">
+                          <FormattedMessage
+                            id="product-index-cart-items-count"
+                            description="Items in cart"
+                            defaultMessage="{count} {count, plural, one {item} other {items}} in your cart"
+                            values={{ count: cartItems.length }}
+                          />
+                        </p>
+                        <p className="text-green-100 text-xs sm:text-sm hidden sm:block">
+                          <FormattedMessage
+                            id="product-index-cart-ready"
+                            description="Ready to checkout"
+                            defaultMessage="Ready to checkout when you are"
+                          />
+                        </p>
+                      </div>
+                    </div>
+                    
+                    {/* Right side - Total and CTA */}
+                    <div className="flex items-center gap-3 sm:gap-4 flex-shrink-0">
+                      <div className="text-right">
+                        <p className="text-green-100 text-xs hidden sm:block">
+                          <FormattedMessage
+                            id="product-index-cart-total-label"
+                            description="Total label"
+                            defaultMessage="Total"
+                          />
+                        </p>
+                        <p className="font-bold text-white text-sm sm:text-lg">
+                          ${cartItems.reduce((total, item) => total + ((item.price || 0) * (item.quantity || 1)), 0).toFixed(2)}
+                        </p>
+                      </div>
+                      <div className="bg-white/20 px-3 py-2 sm:px-4 sm:py-2 rounded-lg">
+                        <span className="text-white font-medium text-xs sm:text-sm">
+                          <FormattedMessage
+                            id="product-index-cart-view-button"
+                            description="View Cart button"
+                            defaultMessage="View Cart"
+                          />
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-semibold text-black dark:text-blog-white">
-                      {cartItems.length} {cartItems.length === 1 ? 'item' : 'items'} in your cart
-                    </p>
-                    <p className="text-sm text-gray-500 dark:text-blog-white">
-                      <FormattedMessage
-                        id="product-index-cart-ready"
-                        description="Ready to checkout"
-                        defaultMessage="Ready to checkout when you are"
-                      />
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="text-right">
-                    <p className="text-sm text-gray-500 dark:text-blog-white">Total</p>
-                    <p className="font-bold text-lg text-black dark:text-blog-white">
-                      ${cartItems.reduce((total, item) => total + (item.price || 0), 0).toFixed(2)}
-                    </p>
-                  </div>
-                  <Link href="/cart">
-                    <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors shadow-md hover:shadow-lg">
-                      <FormattedMessage
-                        id="product-index-cart-added-redirect-btn"
-                        description="Go to cart"
-                        defaultMessage="View Cart"
-                      />
-                    </button>
-                  </Link>
-                </div>
+                </Link>
               </div>
             </div>
           </div>
