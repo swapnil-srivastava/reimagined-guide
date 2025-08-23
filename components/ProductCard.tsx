@@ -471,27 +471,31 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
 
                 {/* Create Product Card as one grid item */}
                 <div className="w-full">
-                    <div className="flex items-center justify-center bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-3xl drop-shadow-lg p-4">
+                    <button 
+                        type="button"
+                        aria-label="Create Product"
+                        className="w-full flex items-center justify-center bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-3xl drop-shadow-lg p-4 transition-all duration-200 ease-in-out active:scale-95 focus:outline-none focus:ring-2 focus:ring-hit-pink-400 focus:ring-offset-2 md:hover:brightness-110"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setCreateProduct(!createProduct);
+                        }}
+                        style={{
+                            touchAction: 'manipulation',
+                            WebkitTapHighlightColor: 'rgba(0,0,0,0)'
+                        }}
+                    >
                         <div className="flex flex-col gap-2 justify-center items-center">
                             <FontAwesomeIcon 
                                 icon={faCirclePlus} 
                                 size="3x" 
-                                className="cursor-pointer touch-manipulation" 
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    setCreateProduct(!createProduct);
-                                }}
-                                onTouchEnd={(e) => {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                }}
+                                className="pointer-events-none"
                             />
-                            <div className="text-lg">
+                            <div className="text-lg pointer-events-none">
                                 <FormattedMessage id="product-card-create-product" description="Create Product" defaultMessage="Create Product" />
                             </div>
                         </div>
-                    </div>
+                    </button>
                 </div>
 
                 {/* Create Product Form (expanded) */}
