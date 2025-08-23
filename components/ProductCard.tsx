@@ -252,11 +252,8 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
     const intl = useIntl();
 
     const handleAddProduct = (product: PRODUCT) => {
-        console.log('handleAddProduct called with:', product);
-        
         // Check if product has required properties
         if (!product || !product.id) {
-            console.error('Invalid product:', product);
             toast.error(
                 intl.formatMessage({
                     id: "product-card-invalid-product",
@@ -267,8 +264,8 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
             return;
         }
 
-        // Check stock availability
-        if (!product.stock || product.stock <= 0) {
+        // Check stock availability - let's be more lenient for testing
+        if (product.stock !== undefined && product.stock !== null && product.stock <= 0) {
             toast.error(
                 intl.formatMessage({
                     id: "product-card-out-of-stock",
@@ -278,12 +275,13 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
             );
             return;
         }
-
+        
         // Set loading state for this specific product
         setAddingToCart(prev => ({ ...prev, [product.id]: true }));
         
         try {
-            dispatch(addToCartInsert(product));
+            const action = addToCartInsert(product);
+            dispatch(action);
             
             // Show success toast with product name
             toast.success(
@@ -305,8 +303,8 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                     }
                 }
             );
+            
         } catch (error) {
-            console.error('Error adding product to cart:', error);
             toast.error(
                 intl.formatMessage({
                     id: "product-card-add-to-cart-error",
@@ -409,54 +407,34 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                                     <div className="text-xs text-gray-400">{createdAtDateFormat}</div>
                                 </div>
                                 <div className="mt-3 flex justify-end">
-                                    <div 
+                                    <button 
+                                        type="button"
+                                        aria-label={`Add ${product.name} to cart`} 
+                                        className={`
+                                            py-2 px-4 
+                                            font-medium text-sm 
+                                            bg-hit-pink-500 
+                                            text-white 
+                                            border border-hit-pink-500 
+                                            rounded-lg 
+                                            flex items-center gap-2 
+                                            transition-colors duration-200 
+                                            active:bg-hit-pink-600 
+                                            focus:outline-none focus:ring-2 focus:ring-hit-pink-400 focus:ring-offset-2
+                                            disabled:opacity-50 disabled:cursor-not-allowed
+                                            touch-manipulation
+                                            relative z-10
+                                            cursor-pointer
+                                            ${addingToCart[product.id] ? 'bg-green-600 border-green-600' : !product.stock || product.stock <= 0 ? 'bg-gray-400 border-gray-400' : 'md:hover:bg-hit-pink-600 md:hover:border-hit-pink-600'}
+                                        `}
                                         onClick={(e) => {
-                                            e.preventDefault();
-                                            e.stopPropagation();
-                                            console.log('Button wrapper clicked for product:', product.name);
+                                            e.stopPropagation(); // Stop event bubbling
                                             if (!addingToCart[product.id] && product.stock && product.stock > 0) {
                                                 handleAddProduct(product);
                                             }
                                         }}
-                                        className="inline-block"
+                                        disabled={addingToCart[product.id] || !product.stock || product.stock <= 0}
                                     >
-                                        <button 
-                                            type="button"
-                                            aria-label={`Add ${product.name} to cart`} 
-                                            className={`
-                                                py-2 px-4 
-                                                font-medium text-sm 
-                                                bg-hit-pink-500 
-                                                text-white 
-                                                border border-hit-pink-500 
-                                                rounded-lg 
-                                                flex items-center gap-2 
-                                                transition-colors duration-200 
-                                                active:bg-hit-pink-600 
-                                                focus:outline-none focus:ring-2 focus:ring-hit-pink-400 focus:ring-offset-2
-                                                disabled:opacity-50 disabled:cursor-not-allowed
-                                                touch-manipulation
-                                                relative z-10
-                                                cursor-pointer
-                                                ${addingToCart[product.id] ? 'bg-green-600 border-green-600' : !product.stock || product.stock <= 0 ? 'bg-gray-400 border-gray-400' : 'md:hover:bg-hit-pink-600 md:hover:border-hit-pink-600'}
-                                            `}
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                e.stopPropagation();
-                                                console.log('Add to cart clicked for product:', product.name);
-                                                if (!addingToCart[product.id] && product.stock && product.stock > 0) {
-                                                    handleAddProduct(product);
-                                                }
-                                            }}
-                                            onTouchStart={(e) => {
-                                                e.stopPropagation();
-                                            }}
-                                            onTouchEnd={(e) => {
-                                                e.preventDefault();
-                                                e.stopPropagation();
-                                            }}
-                                            disabled={addingToCart[product.id] || !product.stock || product.stock <= 0}
-                                        >
                                         {addingToCart[product.id] ? (
                                             <>
                                                 <FontAwesomeIcon icon={faCheck} className="text-sm" />
@@ -474,7 +452,6 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                                             </>
                                         )}
                                     </button>
-                                    </div>
                                 </div>
                             </div>
                         </article>
