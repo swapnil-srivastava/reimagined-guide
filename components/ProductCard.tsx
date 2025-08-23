@@ -360,7 +360,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                     }
 
                     return (
-                        <div key={product.id} className="w-full p-2">
+                        <div key={product.id} className="w-full p-2" style={{ padding: '0.5rem' }}>
                             <article className="relative group flex flex-col bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-3xl drop-shadow-lg overflow-hidden transition-transform h-full">
                                 <div className="w-full h-48 relative overflow-hidden">
                                 <Image
@@ -475,7 +475,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                 })}
 
                 {/* Create Product Card as one grid item */}
-                <div className="w-full p-2">
+                <div className="w-full p-2" style={{ padding: '0.5rem' }}>
                     <button 
                         type="button"
                         aria-label="Create Product"
@@ -505,7 +505,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
 
                 {/* Create Product Form (expanded) */}
                 {createProduct && (
-                    <div className="col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-2 w-full p-2">
+                    <div className="col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-2 w-full p-2" style={{ padding: '0.5rem' }}>
                         <div className="w-full p-4 bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-3xl drop-shadow-lg">
                             <div className="flex justify-end">
                                 <FontAwesomeIcon 
