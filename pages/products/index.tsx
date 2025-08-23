@@ -394,8 +394,10 @@ function Products() {
             </div>
           </div>
 
-          {/* Products Grid */}
-          <ProductCard products={products} loading={loadProducts} postsEnd={false} enableLoadMore={true} />
+          {/* Products Grid - Proper spacing container */}
+          <div className="w-full">
+            <ProductCard products={products} loading={loadProducts} postsEnd={false} enableLoadMore={true} />
+          </div>
         </div>
 
         {/* Floating Cart Button - Only visible when cart has items */}

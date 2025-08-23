@@ -302,7 +302,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
             )}
 
             {/* Products Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full px-4 sm:px-0 -mx-2 sm:-mx-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 w-full px-4 sm:px-6 lg:px-8">
                 {Array.isArray(products) && products.map((product: PRODUCT) => {
                     const descriptionTrimmed = generateContent(product?.description);
                     const nameTrimmed = generateContent(product?.name);
@@ -319,7 +319,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                     }
 
                     return (
-                        <div key={product.id} className="px-2 sm:px-3 pb-4 sm:pb-6">
+                        <div key={product.id} className="w-full">
                             <article className="relative group flex flex-col bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-3xl drop-shadow-lg overflow-hidden hover:scale-[1.01] transition-transform">
                                 <div className="w-full h-48 relative overflow-hidden">
                                 <Image
@@ -386,7 +386,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                 })}
 
                 {/* Create Product Card as one grid item */}
-                <div className="px-2 sm:px-3 pb-4 sm:pb-6">
+                <div className="w-full">
                     <div className="flex items-center justify-center bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-3xl drop-shadow-lg p-4">
                         <div className="flex flex-col gap-2 justify-center items-center">
                             <FontAwesomeIcon icon={faCirclePlus} size="3x" className="cursor-pointer" onClick={() => setCreateProduct(!createProduct)} />
@@ -399,7 +399,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
 
                 {/* Create Product Form (expanded) */}
                 {createProduct && (
-                    <div className="col-span-1 md:col-span-2 lg:col-span-2 px-2 sm:px-3 pb-4 sm:pb-6">
+                    <div className="col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-2 w-full">
                         <div className="w-full p-4 bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-3xl drop-shadow-lg">
                             <div className="flex justify-end">
                                 <FontAwesomeIcon icon={faCircleXmark} className="cursor-pointer" size="lg" onClick={() => setCreateProduct(!createProduct)} />
