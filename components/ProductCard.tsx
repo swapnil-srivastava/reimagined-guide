@@ -342,7 +342,14 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
             )}
 
             {/* Products Grid */}
-            <div className="flex flex-wrap justify-center sm:justify-start w-full px-4 sm:px-6 lg:px-8 -mx-2 sm:-mx-3">
+            <div 
+                className="w-full px-4 sm:px-6 lg:px-8 grid"
+                style={{
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                    gridGap: '1rem',
+                    gap: '1rem'
+                }}
+            >
                 {Array.isArray(products) && products.map((product: PRODUCT) => {
                     const descriptionTrimmed = generateContent(product?.description);
                     const nameTrimmed = generateContent(product?.name);
@@ -359,7 +366,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                     }
 
                     return (
-                        <div key={product.id} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 sm:px-3 mb-4 sm:mb-6">
+                        <div key={product.id} className="w-full">
                             <article className="relative group flex flex-col bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-3xl drop-shadow-lg overflow-hidden transition-transform h-full">
                                 <div className="w-full h-48 relative overflow-hidden">
                                 <Image
@@ -474,7 +481,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                 })}
 
                 {/* Create Product Card as one grid item */}
-                <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 sm:px-3 mb-4 sm:mb-6">
+                <div className="w-full">
                     <button 
                         type="button"
                         aria-label="Create Product"
@@ -504,7 +511,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
 
                 {/* Create Product Form (expanded) */}
                 {createProduct && (
-                    <div className="w-full sm:w-1/1 md:w-2/3 lg:w-1/2 px-2 sm:px-3 mb-4 sm:mb-6">
+                    <div className="w-full col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-2">
                         <div className="w-full p-4 bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-3xl drop-shadow-lg">
                             <div className="flex justify-end">
                                 <FontAwesomeIcon 
