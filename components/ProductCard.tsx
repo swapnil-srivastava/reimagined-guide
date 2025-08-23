@@ -186,19 +186,21 @@ function CreateProduct() {
 
     return (
         <>
-            <div className="flex flex-col gap-2 my-2 px-4 py-2 text-blog-black dark:bg-blog-white">
-                <JsonForms
-                    schema={schema}
-                    uischema={uischema}
-                    data={data}
-                    renderers={materialRenderers}
-                    cells={materialCells}
-                    onChange={({ errors, data }) => setData(data)}
-                />
+            <div className="flex flex-col gap-2 my-2 px-4 py-2 text-blog-black bg-blog-white dark:bg-blog-white dark:text-blog-black rounded-lg">
+                <div className="[&_.MuiFormControl-root]:!text-blog-black [&_.MuiInputLabel-root]:!text-blog-black [&_.MuiOutlinedInput-root]:!text-blog-black [&_.MuiOutlinedInput-input]:!text-blog-black [&_.MuiFormHelperText-root]:!text-blog-black [&_.MuiInputLabel-asterisk]:!text-red-500 [&_.MuiTypography-root]:!text-blog-black [&_.MuiTypography-h4]:!text-blog-black [&_.MuiTypography-h5]:!text-blog-black [&_.MuiTypography-h6]:!text-blog-black [&_h1]:!text-blog-black [&_h2]:!text-blog-black [&_h3]:!text-blog-black [&_h4]:!text-blog-black [&_h5]:!text-blog-black [&_h6]:!text-blog-black">
+                    <JsonForms
+                        schema={schema}
+                        uischema={uischema}
+                        data={data}
+                        renderers={materialRenderers}
+                        cells={materialCells}
+                        onChange={({ errors, data }) => setData(data)}
+                    />
+                </div>
 
                 {/* Upload the image */}
                 <div className="flex flex-col gap-2">
-                    <label htmlFor="image-upload" className="text-sm font-medium text-gray-700">
+                    <label htmlFor="image-upload" className="text-sm font-medium text-black dark:text-black">
                         Upload Product Image
                     </label>
                     <input
@@ -206,12 +208,14 @@ function CreateProduct() {
                         id="image-upload"
                         accept="image/*"
                         onChange={(e) => setImageFile(e.target.files ? e.target.files[0] : null)}
-                        className="mt-1 block w-full text-sm text-gray-500
+                        className="mt-1 block w-full text-sm text-black dark:text-black
                             file:mr-4 file:py-2 file:px-4
                             file:rounded-full file:border-0
                             file:text-sm file:font-semibold
                             file:bg-blue-50 file:text-blue-700
-                            hover:file:bg-blue-100"
+                            hover:file:bg-blue-100
+                            bg-white border border-gray-300 rounded-md px-3 py-2
+                            focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         />
                 </div>
 
