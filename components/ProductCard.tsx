@@ -19,6 +19,7 @@ import styles from "../styles/Admin.module.css";
 // Components
 import CurrencyPriceComponent from "./CurrencyPriceComponent";
 import ProductQuickView from "./ProductQuickView";
+import gridStyles from './ProductCard.module.css';
 
 // Product Schema
 import schema from "../lib/product/productSchema.json";
@@ -343,7 +344,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
 
             {/* Products Grid */}
             <div className="w-full px-4 sm:px-6 lg:px-8">
-                <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '1rem', gridAutoRows: '1fr', alignItems: 'stretch' }}>
+                <div className={`grid ${gridStyles['product-grid']}`}>
                 {Array.isArray(products) && products.map((product: PRODUCT) => {
                     const descriptionTrimmed = generateContent(product?.description);
                     const nameTrimmed = generateContent(product?.name);
