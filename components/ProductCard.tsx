@@ -342,7 +342,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
             )}
 
             {/* Products Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 w-full px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full px-4 sm:px-6 lg:px-8">
                 {Array.isArray(products) && products.map((product: PRODUCT) => {
                     const descriptionTrimmed = generateContent(product?.description);
                     const nameTrimmed = generateContent(product?.name);
@@ -359,7 +359,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                     }
 
                     return (
-                        <div key={product.id} className="w-full">
+                        <div key={product.id} className="w-full p-2 sm:p-3">
                             <article className="relative group flex flex-col bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-3xl drop-shadow-lg overflow-hidden transition-transform">
                                 <div className="w-full h-48 relative overflow-hidden">
                                 <Image
@@ -474,7 +474,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                 })}
 
                 {/* Create Product Card as one grid item */}
-                <div className="w-full">
+                <div className="w-full p-2 sm:p-3">
                     <button 
                         type="button"
                         aria-label="Create Product"
@@ -504,7 +504,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
 
                 {/* Create Product Form (expanded) */}
                 {createProduct && (
-                    <div className="col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-2 w-full">
+                    <div className="col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-2 w-full p-2 sm:p-3">
                         <div className="w-full p-4 bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-3xl drop-shadow-lg">
                             <div className="flex justify-end">
                                 <FontAwesomeIcon 
