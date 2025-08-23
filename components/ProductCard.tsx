@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { FormattedMessage, useIntl } from "react-intl";
 import moment from "moment";
 import Image from "next/image";
@@ -19,7 +20,6 @@ import styles from "../styles/Admin.module.css";
 // Components
 import CurrencyPriceComponent from "./CurrencyPriceComponent";
 import ProductQuickView from "./ProductQuickView";
-import gridStyles from './ProductCard.module.css';
 
 // Product Schema
 import schema from "../lib/product/productSchema.json";
@@ -221,10 +221,10 @@ function CreateProduct() {
                 </div>
 
                 {/* Button Section */}
-                <div className="flex self-center gap-2">
+                <div className="flex self-center gap-4 mt-4">
                     <button type="submit"
                         disabled={!isValidProductName && !isValidProductDescription}
-                        className={styles.btnAdmin}
+                        className="bg-hit-pink-500 text-blog-black rounded-lg px-4 py-2 transition-filter duration-500 hover:filter hover:brightness-125 focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:ring-offset-2 text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                         onClick={() => createProduct()}>
                         <FormattedMessage
                             id="create-product-create-btn"
@@ -232,7 +232,10 @@ function CreateProduct() {
                             defaultMessage="Create" // Message should be a string literal
                         />
                     </button>
-                    <button className={styles.btnAdmin} type="button" onClick={clearProduct}>
+                    <button 
+                        className="bg-fun-blue-500 text-blog-white dark:bg-fun-blue-700 dark:text-blog-white rounded-lg px-4 py-2 transition-filter duration-500 hover:filter hover:brightness-125 focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:ring-offset-2 text-sm font-semibold" 
+                        type="button" 
+                        onClick={clearProduct}>
                         <FormattedMessage
                             id="create-product-cancel-btn"
                             description="Cancel" // Description should be a string literal
@@ -331,7 +334,10 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
             return input.substring(0, 18) + "...";
         }
         return input;
-    }  
+    }
+    
+    // Get router instance
+    const router = useRouter();
 
     return (
         <>
@@ -344,8 +350,8 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
 
             {/* Products Grid */}
             <div className="w-full px-4 sm:px-6 lg:px-8">
-                <div className={`grid ${gridStyles['product-grid']}`}>
-                {Array.isArray(products) && products.map((product: PRODUCT) => {
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-5">
+                {Array.isArray(products) && products.filter(Boolean).filter(p => p.id).map((product: PRODUCT) => {
                     const descriptionTrimmed = generateContent(product?.description);
                     const nameTrimmed = generateContent(product?.name);
                     let createdAtDateFormat = '';
@@ -361,8 +367,12 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                     }
 
                     return (
-                        <div key={product.id} className="w-full p-2" style={{ padding: '0.5rem' }}>
-                            <article className="relative group flex flex-col bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-3xl drop-shadow-lg overflow-hidden transition-transform h-full">
+                        <div 
+                            key={`product-${product.id}`} 
+                            className="w-full pb-5 cursor-pointer group"
+                            onClick={() => router.push(`/product-detail/${product.id}`)}
+                        >
+                            <article className="relative flex flex-col bg-white dark:bg-fun-blue-600 dark:text-blog-white rounded-3xl overflow-hidden h-full shadow-lg transition-all duration-200 hover:-translate-y-1 hover:brightness-125 hover:shadow-xl active:scale-95">
                                 <div className="w-full h-48 relative overflow-hidden">
                                 <Image
                                     src={product.image_url ?? `/mountains.jpg`}
@@ -476,43 +486,42 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                 })}
 
                 {/* Create Product Card as one grid item */}
-                <div className="w-full p-2" style={{ padding: '0.5rem' }}>
-                    <button 
-                        type="button"
-                        aria-label="Create Product"
-                        className="w-full h-full min-h-[400px] flex items-center justify-center bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-3xl drop-shadow-lg p-4 transition-all duration-200 ease-in-out active:scale-95 focus:outline-none focus:ring-2 focus:ring-hit-pink-400 focus:ring-offset-2 md:hover:brightness-110"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            setCreateProduct(!createProduct);
-                        }}
-                        style={{
-                            touchAction: 'manipulation',
-                            WebkitTapHighlightColor: 'rgba(0,0,0,0)'
-                        }}
+                {!createProduct && (
+                    <div 
+                        key="create-card" 
+                        className="w-full pb-5 cursor-pointer group"
+                        onClick={() => setCreateProduct(!createProduct)}
                     >
-                        <div className="flex flex-col gap-2 justify-center items-center">
-                            <FontAwesomeIcon 
-                                icon={faCirclePlus} 
-                                size="3x" 
-                                className="pointer-events-none"
-                            />
-                            <div className="text-lg pointer-events-none">
-                                <FormattedMessage id="product-card-create-product" description="Create Product" defaultMessage="Create Product" />
+                        <div 
+                            className="w-full h-full min-h-[400px] flex items-center justify-center bg-white dark:bg-fun-blue-600 dark:text-blog-white rounded-3xl shadow-lg transition-all duration-200 hover:-translate-y-1 hover:brightness-125 hover:shadow-xl active:scale-95"
+                            style={{
+                                touchAction: 'manipulation',
+                                WebkitTapHighlightColor: 'rgba(0,0,0,0)'
+                            }}
+                        >
+                            <div className="flex flex-col gap-2 justify-center items-center">
+                                <FontAwesomeIcon 
+                                    icon={faCirclePlus} 
+                                    size="3x" 
+                                    className="pointer-events-none text-hit-pink-500 dark:text-hit-pink-400"
+                                />
+                                <div className="text-lg font-semibold pointer-events-none">
+                                    <FormattedMessage id="product-card-create-product" description="Create Product" defaultMessage="Create Product" />
+                                </div>
                             </div>
                         </div>
-                    </button>
-                </div>
+                    </div>
+                )}
 
                 {/* Create Product Form (expanded) */}
                 {createProduct && (
-                    <div className="col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-2 w-full p-2" style={{ padding: '0.5rem' }}>
-                        <div className="w-full p-4 bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-3xl drop-shadow-lg">
+                    <div key="create-form" className="col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-2 w-full pb-5 rounded-3xl shadow-lg overflow-visible group transition-transform duration-200 active:scale-95">
+                        <div className="w-full p-4 bg-white dark:bg-fun-blue-600 dark:text-blog-white rounded-3xl">
                             <div className="flex justify-end">
                                 <FontAwesomeIcon 
                                     icon={faCircleXmark} 
-                                    className="cursor-pointer touch-manipulation" 
-                                    size="lg" 
+                                    className="cursor-pointer touch-manipulation text-fun-blue-500 dark:text-blog-white p-1 hover:scale-110 transition-transform duration-200" 
+                                    size="2x" 
                                     onClick={(e) => {
                                         e.preventDefault();
                                         e.stopPropagation();
