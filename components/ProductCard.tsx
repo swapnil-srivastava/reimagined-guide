@@ -414,26 +414,25 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                                             py-2 px-4 
                                             font-medium text-sm 
                                             bg-hit-pink-500 
+                                            hover:brightness-110
                                             text-white 
                                             border border-hit-pink-500 
                                             rounded-lg 
                                             flex items-center gap-2 
-                                            transition-colors duration-200 
-                                            active:bg-hit-pink-600 
+                                            transition-all duration-300 ease-in-out
                                             focus:outline-none focus:ring-2 focus:ring-hit-pink-400 focus:ring-offset-2
-                                            disabled:opacity-50 disabled:cursor-not-allowed
-                                            touch-manipulation
-                                            relative z-10
-                                            cursor-pointer
-                                            ${addingToCart[product.id] ? 'bg-green-600 border-green-600' : !product.stock || product.stock <= 0 ? 'bg-gray-400 border-gray-400' : 'md:hover:bg-hit-pink-600 md:hover:border-hit-pink-600'}
+                                            disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none
+                                            shadow-md hover:shadow-lg 
+                                            transform hover:scale-105
+                                            ${addingToCart[product.id] ? 'bg-green-600 border-green-600' : !product.stock || product.stock <= 0 ? 'bg-gray-400 border-gray-400' : ''}
                                         `}
+                                        disabled={addingToCart[product.id] || !product.stock || product.stock <= 0}
                                         onClick={(e) => {
-                                            e.stopPropagation(); // Stop event bubbling
+                                            e.stopPropagation();
                                             if (!addingToCart[product.id] && product.stock && product.stock > 0) {
                                                 handleAddProduct(product);
                                             }
                                         }}
-                                        disabled={addingToCart[product.id] || !product.stock || product.stock <= 0}
                                     >
                                         {addingToCart[product.id] ? (
                                             <>
