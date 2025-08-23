@@ -7,7 +7,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 import moment from "moment";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlus, faCircleXmark, faEye, faPlus, faCheck, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { faCirclePlus, faCircleXmark, faCheck, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
 
 // Supabase
@@ -385,7 +385,11 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                                         e.preventDefault();
                                         e.stopPropagation();
                                     }}
-                                    className="absolute right-3 top-3 bg-white dark:bg-gray-800 text-gray-800 dark:text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg z-20 active:bg-gray-100 dark:active:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 touch-manipulation md:hover:bg-gray-100 md:dark:hover:bg-gray-700"
+                                    className="absolute right-3 top-3 bg-white dark:bg-gray-800 text-gray-800 dark:text-white p-2 rounded-full opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity shadow-lg z-20 active:bg-gray-100 dark:active:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 touch-manipulation md:hover:bg-gray-100 md:dark:hover:bg-gray-700"
+                                    style={{
+                                        touchAction: 'manipulation',
+                                        WebkitTapHighlightColor: 'rgba(0,0,0,0)'
+                                    }}
                                 >
                                     <FontAwesomeIcon icon={faCirclePlus} className="w-4 h-4" />
                                 </button>
@@ -413,18 +417,21 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                                         className={`
                                             py-2 px-4 
                                             font-medium text-sm 
-                                            bg-hit-pink-500 
-                                            hover:brightness-110
                                             text-white 
-                                            border border-hit-pink-500 
+                                            border
                                             rounded-lg 
                                             flex items-center gap-2 
-                                            transition-all duration-300 ease-in-out
-                                            focus:outline-none focus:ring-2 focus:ring-hit-pink-400 focus:ring-offset-2
-                                            disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none
-                                            shadow-md hover:shadow-lg 
-                                            transform hover:scale-105
-                                            ${addingToCart[product.id] ? 'bg-green-600 border-green-600' : !product.stock || product.stock <= 0 ? 'bg-gray-400 border-gray-400' : ''}
+                                            transition-all duration-200 ease-in-out
+                                            focus:outline-none focus:ring-2 focus:ring-offset-2
+                                            disabled:opacity-50 disabled:cursor-not-allowed
+                                            shadow-md
+                                            active:scale-95
+                                            ${addingToCart[product.id] 
+                                                ? 'bg-green-600 border-green-600 focus:ring-green-400' 
+                                                : !product.stock || product.stock <= 0 
+                                                    ? 'bg-gray-400 border-gray-400 focus:ring-gray-400' 
+                                                    : 'bg-hit-pink-500 border-hit-pink-500 focus:ring-hit-pink-400 md:hover:bg-hit-pink-600'
+                                            }
                                         `}
                                         disabled={addingToCart[product.id] || !product.stock || product.stock <= 0}
                                         onClick={(e) => {
@@ -432,6 +439,10 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                                             if (!addingToCart[product.id] && product.stock && product.stock > 0) {
                                                 handleAddProduct(product);
                                             }
+                                        }}
+                                        style={{
+                                            touchAction: 'manipulation',
+                                            WebkitTapHighlightColor: 'rgba(0,0,0,0)'
                                         }}
                                     >
                                         {addingToCart[product.id] ? (
