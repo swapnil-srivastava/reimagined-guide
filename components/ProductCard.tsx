@@ -288,7 +288,12 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
         setAddingToCart(prev => ({ ...prev, [product.id]: true }));
         
         try {
-            const action = addToCartInsert(product);
+            // Add quantity of 1 to the product for cart
+            const productWithQuantity = {
+                ...product,
+                quantity: 1
+            };
+            const action = addToCartInsert(productWithQuantity);
             dispatch(action);
             
             // Show success toast with product name

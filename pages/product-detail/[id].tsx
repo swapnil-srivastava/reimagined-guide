@@ -17,6 +17,11 @@ import HeartButton from '../../components/ProductHeartButton';
 import SimpleQuantityComponent from '../../components/SimpleQuantityComponent';
 import CurrencyPriceComponent from '../../components/CurrencyPriceComponent';
 
+// Define ProductWithQuantity interface for cart items
+interface ProductWithQuantity extends PRODUCT {
+  quantity: number;
+}
+
 export default function ProductDetail() {
   const router = useRouter();
   const { id } = router.query;
@@ -109,12 +114,12 @@ export default function ProductDetail() {
       
       // Dispatch action to add to cart
       // Clone the product object and add the quantity property
-      const productWithQuantity = {
+      const productWithQuantity: ProductWithQuantity = {
         ...product,
         quantity // Add quantity to the product for the cart
       };
       
-      dispatch(addToCartInsert(productWithQuantity as PRODUCT));
+      dispatch(addToCartInsert(productWithQuantity));
       
       toast.success(
         intl.formatMessage({

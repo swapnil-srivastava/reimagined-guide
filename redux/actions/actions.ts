@@ -37,10 +37,10 @@ export const userLogout = () => ({ type: types.USER_LOGOUT });
 export const supabaseUser = (payload) => ({ type: types.SUPABASE_USER, supbaseUser: payload });
 
 // Add the product to the cart
-export const addToCartInsert = (payload: PRODUCT) => ({ type: types.ADD_TO_CART_INSERT, product: payload });
+export const addToCartInsert = (payload: ProductWithQuantity) => ({ type: types.ADD_TO_CART_INSERT, product: payload });
 
 // Update the product to the cart
-export const addToCartUpdate = (payload) => ({ type: types.ADD_TO_CART_INSERT, product: payload });
+export const addToCartUpdate = (payload: ProductWithQuantity) => ({ type: types.ADD_TO_CART_INSERT, product: payload });
 
 // Delete the product to the cart
 export const addToCartDelete = (payload) => ({ type: types.ADD_TO_CART_DELETE, product: payload });

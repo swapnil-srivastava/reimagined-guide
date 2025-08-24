@@ -13,16 +13,20 @@ export const cartReducer = (state = initialStoreState, { type, product }) => {
         const existingProduct = state && state.cartItems && state.cartItems.find(item => item.id === product.id);
 
         if (existingProduct) {
+          // If product exists, add the new quantity to the existing quantity
+          const quantityToAdd = product.quantity || 1;
           return {
             ...state,
             cartItems : state.cartItems.map(item =>
-                item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+                item.id === product.id ? { ...item, quantity: item.quantity + quantityToAdd } : item
               )
             };
         } else {
+          // If product doesn't exist, use the specified quantity or default to 1
+          const quantity = product.quantity || 1;
           return {
             ...state,
-            cartItems: [...state.cartItems, { ...product, quantity: 1 }],
+            cartItems: [...state.cartItems, { ...product, quantity }],
             }
         }
     }
