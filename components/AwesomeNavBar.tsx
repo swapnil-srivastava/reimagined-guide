@@ -15,6 +15,7 @@ import {
   faChevronLeft,
   faShoppingCart,
   faBasketShopping,
+  faHeart,
 } from "@fortawesome/free-solid-svg-icons";
 import { CSSTransition } from "react-transition-group";
 import { useSelector } from "react-redux";
@@ -427,6 +428,17 @@ function DropdownMenu({ closeDropdown }: { closeDropdown?: () => void }) {
               id="nav-bar-cart-text"
               description="Cart"
               defaultMessage="Cart"
+            />
+          </DropdownItem>
+          
+          <DropdownItem
+            leftIcon={<FontAwesomeIcon icon={faHeart} size="lg" />}
+            onClick={() => router.push('/favorites')}
+          >
+            <FormattedMessage
+              id="nav-bar-favorites-text"
+              description="Favorites"
+              defaultMessage="Favorites"
             />
           </DropdownItem>
 
