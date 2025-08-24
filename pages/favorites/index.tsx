@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useSession } from '../../lib/use-session';
 import ProductCardWithFavorites from '../../components/ProductCardWithFavorites';
@@ -260,7 +261,7 @@ export default function FavoritesPage() {
                 defaultMessage="You haven't added any products to your favorites yet."
               />
             </p>
-            <a 
+            <Link 
               href="/products"
               className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-hit-pink-500 to-hit-pink-600 hover:from-hit-pink-600 hover:to-hit-pink-700 text-white rounded-lg transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-hit-pink-400 focus:ring-offset-2 shadow-sm"
             >
@@ -269,7 +270,7 @@ export default function FavoritesPage() {
                 description="Button to browse products when favorites is empty"
                 defaultMessage="Browse Products"
               />
-            </a>
+            </Link>
           </div>
         )}
       </main>

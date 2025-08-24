@@ -29,6 +29,11 @@ import uischema from "../lib/product/uiProductSchema.json";
 import { PRODUCT } from "../database.types";
 import { RootState } from "../lib/interfaces/interface";
 
+// Define ProductWithQuantity interface for cart items
+interface ProductWithQuantity extends PRODUCT {
+  quantity: number;
+}
+
 // JSON Forms
 import { JsonForms } from "@jsonforms/react";
 
@@ -289,7 +294,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
         
         try {
             // Add quantity of 1 to the product for cart
-            const productWithQuantity = {
+            const productWithQuantity: ProductWithQuantity = {
                 ...product,
                 quantity: 1
             };
