@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import moment from 'moment';
 import { supaClient } from '../../supa-client';
 
 export default async function handler(
@@ -7,10 +8,16 @@ export default async function handler(
 ) {
   if (req.method === 'POST') {
     try {
+      console.log('POST request received:', req.body);
+      
       const { title, description, date, time, location, image_url, organizer_id } = req.body;
+      
+      console.log('Extracted data:', { title, description, date, time, location, image_url, organizer_id });
+      console.log('Expected organizer ID:', process.env.NEXT_PUBLIC_SWAPNIL_ID);
 
       // Validate that the user is authorized (must be the admin user)
       if (organizer_id !== process.env.NEXT_PUBLIC_SWAPNIL_ID) {
+        console.log('Authorization failed - ID mismatch');
         return res.status(403).json({ 
           error: 'Unauthorized. Only the admin user can create events.' 
         });
@@ -23,13 +30,16 @@ export default async function handler(
         });
       }
 
-      // Validate date format (YYYY-MM-DD)
-      const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-      if (!dateRegex.test(date)) {
+      // Validate date format and convert using moment
+      const dateObj = moment(date, 'YYYY-MM-DD', true);
+      if (!dateObj.isValid()) {
         return res.status(400).json({ 
           error: 'Invalid date format. Please use YYYY-MM-DD format.' 
         });
       }
+      
+      // Format date for PostgreSQL
+      const formattedDate = dateObj.format('YYYY-MM-DD');
 
       // Validate time format (HH:MM AM/PM)
       const timeRegex = /^(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)$/i;
@@ -52,13 +62,23 @@ export default async function handler(
       
       const convertedTime = `${convertedHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:00`;
 
+      console.log('Final data for database:', {
+        title: title.trim(),
+        description: description?.trim() || null,
+        date: formattedDate,
+        time: convertedTime,
+        location: location.trim(),
+        image_url: image_url || null,
+        organizer_id
+      });
+
       const { data, error } = await supaClient
         .from('events')
         .insert([
           {
             title: title.trim(),
             description: description?.trim() || null,
-            date,
+            date: formattedDate,
             time: convertedTime,
             location: location.trim(),
             image_url: image_url || null,
@@ -77,6 +97,7 @@ export default async function handler(
         });
       }
 
+      console.log('Event created successfully:', data);
       res.status(201).json({ 
         message: 'Event created successfully!', 
         event: data 
@@ -105,13 +126,16 @@ export default async function handler(
         });
       }
 
-      // Validate date format (YYYY-MM-DD)
-      const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-      if (!dateRegex.test(date)) {
+      // Validate date format and convert using moment
+      const dateObj = moment(date, 'YYYY-MM-DD', true);
+      if (!dateObj.isValid()) {
         return res.status(400).json({ 
           error: 'Invalid date format. Please use YYYY-MM-DD format.' 
         });
       }
+      
+      // Format date for PostgreSQL
+      const formattedDate = dateObj.format('YYYY-MM-DD');
 
       // Validate time format (HH:MM AM/PM)
       const timeRegex = /^(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)$/i;
@@ -139,7 +163,7 @@ export default async function handler(
         .update({
           title: title.trim(),
           description: description?.trim() || null,
-          date,
+          date: formattedDate,
           time: convertedTime,
           location: location.trim(),
           image_url: image_url || null,

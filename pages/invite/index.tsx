@@ -19,6 +19,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FormattedMessage, useIntl } from "react-intl";
 import Image from "next/image";
+import moment from "moment";
 
 import { supaClient } from "../../supa-client";
 
@@ -63,6 +64,12 @@ function Invite() {
     } else {
       return `${hours - 12}:${minutes} PM`;
     }
+  };
+
+  // Format date for display
+  const formatDate = (date: string) => {
+    if (!date) return '';
+    return moment(date).format('MMMM Do, YYYY');
   };
 
   const organizeEventsByTimeAndYear = (events: any[]) => {
@@ -317,7 +324,7 @@ function Invite() {
                                       <div className="flex flex-wrap gap-4 text-white/90">
                                         <div className="flex items-center gap-2">
                                           <FontAwesomeIcon icon={faCalendar} className="text-hit-pink-400" />
-                                          <span className="font-medium">{inviteEvent.date}</span>
+                                          <span className="font-medium">{formatDate(inviteEvent.date)}</span>
                                         </div>
                                         <div className="flex items-center gap-2">
                                           <FontAwesomeIcon icon={faClock} className="text-hit-pink-400" />
@@ -353,7 +360,7 @@ function Invite() {
                                             />
                                           </div>
                                           <div className="font-semibold text-blog-black dark:text-blog-white">
-                                            {inviteEvent.date}
+                                            {formatDate(inviteEvent.date)}
                                           </div>
                                         </div>
                                         <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-4 text-center">
@@ -566,7 +573,7 @@ function Invite() {
                                           <div className="flex flex-wrap gap-4 text-white/90">
                                             <div className="flex items-center gap-2">
                                               <FontAwesomeIcon icon={faCalendar} className="text-hit-pink-400" />
-                                              <span className="font-medium">{inviteEvent.date}</span>
+                                              <span className="font-medium">{formatDate(inviteEvent.date)}</span>
                                             </div>
                                             <div className="flex items-center gap-2">
                                               <FontAwesomeIcon icon={faClock} className="text-hit-pink-400" />

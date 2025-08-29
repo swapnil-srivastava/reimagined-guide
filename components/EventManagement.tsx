@@ -17,6 +17,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
+import moment from 'moment';
 
 import { supaClient } from '../supa-client';
 import { useSession } from '../lib/use-session';
@@ -195,7 +196,7 @@ function EventManagement() {
     setFormData({
       title: event.title,
       description: event.description || '',
-      date: event.date,
+      date: moment(event.date).format('YYYY-MM-DD'),
       time: formatTimeFor12Hour(event.time),
       location: event.location,
       image_url: event.image_url || ''
