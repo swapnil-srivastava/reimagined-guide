@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import Head from "next/head";
+import { GetServerSideProps } from "next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 
   faCalendar, 
@@ -32,7 +34,19 @@ import styles from "../../styles/Admin.module.css";
 import RSVPForm from "../../components/RSVPForm";
 import RSVPList from "../../components/RSVPList";
 
-function Invite() {
+interface InvitePageProps {
+  seoData: {
+    title: string;
+    description: string;
+    imageUrl: string;
+    url: string;
+    upcomingEventsCount: number;
+    nextEventDate?: string;
+    nextEventTitle?: string;
+  };
+}
+
+function Invite({ seoData }: InvitePageProps) {
   const intl = useIntl();
   const dispatch = useDispatch();
   
@@ -224,7 +238,94 @@ function Invite() {
   }
 
   return (
-    <div className="min-h-screen bg-blog-white dark:bg-fun-blue-500 font-poppins">
+    <>
+      <Head>
+        {/* Basic Meta Tags */}
+        <title>{seoData.title}</title>
+        <meta name="description" content={seoData.description} />
+        <meta name="keywords" content="Ria birthday, birthday party, birthday celebration, events, invitations, RSVP, celebrations, parties, gatherings, social events" />
+        <meta name="author" content="Swapnil Srivastava, Mudrika Mishra" />
+        <meta name="robots" content="index, follow" />
+        <meta name="language" content="en" />
+        <meta name="revisit-after" content="7 days" />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={seoData.url} />
+        <meta property="og:title" content={seoData.title} />
+        <meta property="og:description" content={seoData.description} />
+        <meta property="og:image" content={seoData.imageUrl} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:site_name" content="Ria's Birthday Celebrations" />
+        <meta property="og:locale" content="en_US" />
+        
+        {/* Twitter */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={seoData.url} />
+        <meta property="twitter:title" content={seoData.title} />
+        <meta property="twitter:description" content={seoData.description} />
+        <meta property="twitter:image" content={seoData.imageUrl} />
+        <meta property="twitter:creator" content="@swapnilsrivastava" />
+        
+        {/* LinkedIn */}
+        <meta property="linkedin:owner" content="swapnil-srivastava" />
+        
+        {/* WhatsApp */}
+        <meta property="whatsapp:title" content={seoData.title} />
+        <meta property="whatsapp:description" content={seoData.description} />
+        <meta property="whatsapp:image" content={seoData.imageUrl} />
+        
+        {/* Additional Mobile Meta Tags */}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#00539c" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="Ria's Birthday Invitations" />
+        
+        {/* Structured Data for Events */}
+        {seoData.nextEventDate && seoData.nextEventTitle && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Event",
+                "name": seoData.nextEventTitle,
+                "startDate": seoData.nextEventDate,
+                "eventStatus": "https://schema.org/EventScheduled",
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "organizer": [
+                  {
+                    "@type": "Person",
+                    "name": "Swapnil Srivastava",
+                    "url": "https://swapnilsrivastava.eu"
+                  },
+                  {
+                    "@type": "Person",
+                    "name": "Mudrika Mishra"
+                  }
+                ],
+                "offers": {
+                  "@type": "Offer",
+                  "price": "0",
+                  "priceCurrency": "USD",
+                  "availability": "https://schema.org/InStock"
+                }
+              })
+            }}
+          />
+        )}
+        
+        {/* Canonical URL */}
+        <link rel="canonical" href={seoData.url} />
+        
+        {/* Favicon and Icons */}
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/favicon.ico" />
+      </Head>
+      
+      <div className="min-h-screen bg-blog-white dark:bg-fun-blue-500 font-poppins">
       {/* Hero Section */}
       <div className="relative bg-gradient-to-br from-fun-blue-500 to-fun-blue-700 dark:from-fun-blue-600 dark:to-fun-blue-800 py-16 px-6">
         <div className="max-w-6xl mx-auto text-center">
@@ -723,8 +824,109 @@ function Invite() {
         </div>
       </div>
     </div>
+    </>
   );
 
 }
+
+// Server-side rendering for SEO
+export const getServerSideProps: GetServerSideProps<InvitePageProps> = async (context) => {
+  try {
+    // Import server client here to avoid client-side issues
+    const { supaServerClient } = await import('../../supa-server-client');
+    
+    if (!supaServerClient) {
+      // Fallback if server client is not available
+      return {
+        props: {
+          seoData: {
+            title: "You're Invited to Ria's Birthday! - Swapnil & Mudrika",
+            description: "Join Swapnil Srivastava and Mudrika Mishra for Ria's special birthday celebration. RSVP to this exclusive birthday party.",
+            imageUrl: "https://swapnilsrivastava.eu/mountains.jpg",
+            url: "https://swapnilsrivastava.eu/invite",
+            upcomingEventsCount: 0,
+          }
+        }
+      };
+    }
+
+    // Fetch upcoming events from the database
+    const { data: events, error } = await supaServerClient
+      .from('events')
+      .select('*')
+      .gte('date', new Date().toISOString().split('T')[0]) // Only future events
+      .order('date', { ascending: true })
+      .limit(5); // Limit for performance
+
+    if (error) {
+      console.error('Error fetching events for SEO:', error);
+      // Return default SEO data if database query fails
+      return {
+        props: {
+          seoData: {
+            title: "You're Invited to Ria's Birthday! - Swapnil & Mudrika",
+            description: "Join Swapnil Srivastava and Mudrika Mishra for Ria's special birthday celebration. RSVP to this exclusive birthday party.",
+            imageUrl: "https://swapnilsrivastava.eu/mountains.jpg",
+            url: "https://swapnilsrivastava.eu/invite",
+            upcomingEventsCount: 0,
+          }
+        }
+      };
+    }
+
+    const upcomingEvents = events || [];
+    const nextEvent = upcomingEvents[0];
+    
+    // Generate dynamic SEO data based on events
+    const title = upcomingEvents.length > 0 
+      ? `You're Invited to Ria's Birthday! ${upcomingEvents.length} Special Events - Swapnil & Mudrika`
+      : "You're Invited to Ria's Birthday! - Swapnil & Mudrika";
+      
+    const description = nextEvent 
+      ? `Join Swapnil Srivastava and Mudrika Mishra for Ria's birthday celebration "${nextEvent.title}" on ${new Date(nextEvent.date).toLocaleDateString('en-US', { 
+          weekday: 'long', 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric' 
+        })} at ${nextEvent.location}. ${upcomingEvents.length > 1 ? `Plus ${upcomingEvents.length - 1} more special birthday events!` : ''} RSVP now for Ria's special day!`
+      : "Join Swapnil Srivastava and Mudrika Mishra for Ria's upcoming birthday celebrations. RSVP to exclusive birthday parties and special occasions. Let's make Ria's day unforgettable!";
+    
+    const imageUrl = nextEvent?.image_url || "https://swapnilsrivastava.eu/mountains.jpg";
+    
+    // Get full URL from request
+    const protocol = context.req.headers['x-forwarded-proto'] || 'https';
+    const host = context.req.headers.host || 'swapnilsrivastava.eu';
+    const url = `${protocol}://${host}/invite`;
+
+    return {
+      props: {
+        seoData: {
+          title,
+          description,
+          imageUrl,
+          url,
+          upcomingEventsCount: upcomingEvents.length,
+          nextEventDate: nextEvent?.date,
+          nextEventTitle: nextEvent?.title,
+        }
+      }
+    };
+  } catch (error) {
+    console.error('Error in getServerSideProps:', error);
+    
+    // Fallback SEO data if anything goes wrong
+    return {
+      props: {
+        seoData: {
+          title: "You're Invited to Ria's Birthday! - Swapnil & Mudrika",
+          description: "Join Swapnil Srivastava and Mudrika Mishra for Ria's special birthday celebration. RSVP to this exclusive birthday party.",
+          imageUrl: "https://swapnilsrivastava.eu/mountains.jpg",
+          url: "https://swapnilsrivastava.eu/invite",
+          upcomingEventsCount: 0,
+        }
+      }
+    };
+  }
+};
 
 export default Invite;
