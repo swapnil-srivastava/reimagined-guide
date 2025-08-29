@@ -107,6 +107,7 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle }) => {
   const totalGuests = attendingRsvps.reduce((total, rsvp) => total + 1 + (rsvp.kids?.length || 0), 0);
   const totalKids = attendingRsvps.reduce((total, rsvp) => total + (rsvp.kids?.length || 0), 0);
   const totalFamilies = attendingRsvps.length;
+  const totalAdults = totalFamilies * 2; // Assuming 2 parents per family
 
   // Calculate kids age breakdown
   const kidsAgeBreakdown = attendingRsvps.reduce((breakdown, rsvp) => {
@@ -149,6 +150,107 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle }) => {
 
   return (
     <div className="mt-6 border-t border-gray-200 dark:border-fun-blue-500 pt-6">
+      {/* Guest Count Summary - Outside Accordion */}
+      {totalFamilies > 0 && (
+        <div className="mb-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {/* Adults Counter */}
+          <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg p-4 border border-green-200 dark:border-green-800">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="p-2 bg-green-100 dark:bg-green-800 rounded-full">
+                  <FontAwesomeIcon icon={faUsers} className="text-green-600 dark:text-green-300 text-sm" />
+                </div>
+                <div>
+                  <h6 className="font-semibold text-green-800 dark:text-green-200 text-sm">
+                    <FormattedMessage
+                      id="rsvp-adults-counter-title"
+                      description="Adults attending"
+                      defaultMessage="Adults"
+                    />
+                  </h6>
+                  <p className="text-xs text-green-600 dark:text-green-400">
+                    <FormattedMessage
+                      id="rsvp-adults-counter-subtitle"
+                      description="2 per family"
+                      defaultMessage="(2 per family)"
+                    />
+                  </p>
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="text-2xl font-bold text-green-700 dark:text-green-300">
+                  {totalAdults}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Kids Counter */}
+          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="p-2 bg-blue-100 dark:bg-blue-800 rounded-full">
+                  <FontAwesomeIcon icon={faChild} className="text-blue-600 dark:text-blue-300 text-sm" />
+                </div>
+                <div>
+                  <h6 className="font-semibold text-blue-800 dark:text-blue-200 text-sm">
+                    <FormattedMessage
+                      id="rsvp-kids-counter-title"
+                      description="Kids attending"
+                      defaultMessage="Kids"
+                    />
+                  </h6>
+                  <p className="text-xs text-blue-600 dark:text-blue-400">
+                    <FormattedMessage
+                      id="rsvp-kids-counter-subtitle"
+                      description="All children"
+                      defaultMessage="All children"
+                    />
+                  </p>
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="text-2xl font-bold text-blue-700 dark:text-blue-300">
+                  {totalKids}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Total Counter */}
+          <div className="bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 rounded-lg p-4 border border-purple-200 dark:border-purple-800">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="p-2 bg-purple-100 dark:bg-purple-800 rounded-full">
+                  <FontAwesomeIcon icon={faCalendarCheck} className="text-purple-600 dark:text-purple-300 text-sm" />
+                </div>
+                <div>
+                  <h6 className="font-semibold text-purple-800 dark:text-purple-200 text-sm">
+                    <FormattedMessage
+                      id="rsvp-total-counter-title"
+                      description="Total guests"
+                      defaultMessage="Total"
+                    />
+                  </h6>
+                  <p className="text-xs text-purple-600 dark:text-purple-400">
+                    <FormattedMessage
+                      id="rsvp-total-counter-subtitle"
+                      description="All guests"
+                      defaultMessage="All guests"
+                    />
+                  </p>
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="text-2xl font-bold text-purple-700 dark:text-purple-300">
+                  {totalAdults + totalKids}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* RSVP Summary Header */}
       <button
         onClick={() => setExpanded(!expanded)}

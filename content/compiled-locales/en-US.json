@@ -2945,6 +2945,30 @@
       "value": "Skill successfully created"
     }
   ],
+  "rsvp-adults-counter-subtitle": [
+    {
+      "type": 0,
+      "value": "(2 per family)"
+    }
+  ],
+  "rsvp-adults-counter-title": [
+    {
+      "type": 0,
+      "value": "Adults"
+    }
+  ],
+  "rsvp-kids-counter-subtitle": [
+    {
+      "type": 0,
+      "value": "All children"
+    }
+  ],
+  "rsvp-kids-counter-title": [
+    {
+      "type": 0,
+      "value": "Kids"
+    }
+  ],
   "rsvp-list-admin-title": [
     {
       "type": 0,
@@ -2975,6 +2999,54 @@
     {
       "type": 0,
       "value": "Failed to load RSVP responses"
+    }
+  ],
+  "rsvp-list-kids-highlight": [
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " kids RSVP'd"
+    }
+  ],
+  "rsvp-list-kids-label": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "kid"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "kids"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "rsvp-list-kids-summary-description": [
+    {
+      "type": 0,
+      "value": "Total children who have RSVP'd"
+    }
+  ],
+  "rsvp-list-kids-summary-title": [
+    {
+      "type": 0,
+      "value": "Kids Attending This Event"
     }
   ],
   "rsvp-list-loading": [
@@ -3026,7 +3098,7 @@
     },
     {
       "type": 0,
-      "value": " attending • "
+      "value": " families attending • "
     },
     {
       "type": 1,
@@ -3042,21 +3114,37 @@
     },
     {
       "type": 0,
-      "value": " guests • "
-    },
-    {
-      "type": 1,
-      "value": "kids"
-    },
+      "value": " total guests"
+    }
+  ],
+  "rsvp-list-teens-label": [
     {
       "type": 0,
-      "value": " kids"
+      "value": "Teens (13+)"
+    }
+  ],
+  "rsvp-list-toddlers-label": [
+    {
+      "type": 0,
+      "value": "Toddlers (0-5)"
     }
   ],
   "rsvp-list-unexpected-error": [
     {
       "type": 0,
       "value": "An unexpected error occurred"
+    }
+  ],
+  "rsvp-total-counter-subtitle": [
+    {
+      "type": 0,
+      "value": "All guests"
+    }
+  ],
+  "rsvp-total-counter-title": [
+    {
+      "type": 0,
+      "value": "Total"
     }
   ],
   "rsvpform-contact-optional": [
