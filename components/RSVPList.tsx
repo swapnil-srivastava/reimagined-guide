@@ -108,6 +108,23 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle }) => {
   const totalKids = attendingRsvps.reduce((total, rsvp) => total + (rsvp.kids?.length || 0), 0);
   const totalFamilies = attendingRsvps.length;
 
+  // Calculate kids age breakdown
+  const kidsAgeBreakdown = attendingRsvps.reduce((breakdown, rsvp) => {
+    if (rsvp.kids) {
+      rsvp.kids.forEach(kid => {
+        const age = parseInt(kid.age);
+        if (age <= 5) {
+          breakdown.toddlers++;
+        } else if (age <= 12) {
+          breakdown.children++;
+        } else {
+          breakdown.teens++;
+        }
+      });
+    }
+    return breakdown;
+  }, { toddlers: 0, children: 0, teens: 0 });
+
   if (loading) {
     return (
       <div className="mt-6 p-4 bg-gray-50 dark:bg-fun-blue-700 rounded-lg">
@@ -139,7 +156,7 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle }) => {
       >
         <div className="flex items-center gap-3">
           <FontAwesomeIcon icon={faUsers} className="text-blue-500" />
-          <div className="text-left">
+          <div className="text-left flex-1">
             <h4 className="font-semibold text-blog-black dark:text-blog-white">
               <FormattedMessage
                 id="rsvp-list-admin-title"
@@ -147,19 +164,33 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle }) => {
                 defaultMessage="RSVP Responses (Admin Only)"
               />
             </h4>
-            <p className="text-sm text-gray-600 dark:text-gray-300">
-              <FormattedMessage
-                id="rsvp-list-summary"
-                description="RSVP summary"
-                defaultMessage="{attending} attending • {total} total responses • {guests} guests • {kids} kids"
-                values={{
-                  attending: totalFamilies,
-                  total: rsvps.length,
-                  guests: totalGuests,
-                  kids: totalKids
-                }}
-              />
-            </p>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                <FormattedMessage
+                  id="rsvp-list-summary"
+                  description="RSVP summary"
+                  defaultMessage="{attending} families attending • {total} total responses • {guests} total guests"
+                  values={{
+                    attending: totalFamilies,
+                    total: rsvps.length,
+                    guests: totalGuests
+                  }}
+                />
+              </p>
+              {totalKids > 0 && (
+                <div className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium">
+                  <FontAwesomeIcon icon={faChild} className="text-xs" />
+                  <span>
+                    <FormattedMessage
+                      id="rsvp-list-kids-highlight"
+                      description="Total kids RSVP'd"
+                      defaultMessage="{count} kids RSVP'd"
+                      values={{ count: totalKids }}
+                    />
+                  </span>
+                </div>
+              )}
+            </div>
           </div>
         </div>
         <FontAwesomeIcon 
@@ -184,6 +215,98 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle }) => {
             </div>
           ) : (
             <>
+              {/* Kids Summary Card */}
+              {totalKids > 0 && (
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-blue-100 dark:bg-blue-800 rounded-full">
+                        <FontAwesomeIcon icon={faChild} className="text-blue-600 dark:text-blue-300" />
+                      </div>
+                      <div>
+                        <h6 className="font-semibold text-blog-black dark:text-blog-white">
+                          <FormattedMessage
+                            id="rsvp-list-kids-summary-title"
+                            description="Kids RSVP Summary"
+                            defaultMessage="Kids Attending This Event"
+                          />
+                        </h6>
+                        <p className="text-sm text-gray-600 dark:text-gray-300">
+                          <FormattedMessage
+                            id="rsvp-list-kids-summary-description"
+                            description="Kids summary description"
+                            defaultMessage="Total children who have RSVP'd"
+                          />
+                        </p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-3xl font-bold text-blue-600 dark:text-blue-300">
+                        {totalKids}
+                      </div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                        <FormattedMessage
+                          id="rsvp-list-kids-label"
+                          description="Kids label"
+                          defaultMessage="{count, plural, one {kid} other {kids}}"
+                          values={{ count: totalKids }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Age Breakdown */}
+                  {(kidsAgeBreakdown.toddlers > 0 || kidsAgeBreakdown.children > 0 || kidsAgeBreakdown.teens > 0) && (
+                    <div className="mt-3 pt-3 border-t border-blue-200 dark:border-blue-700">
+                      <div className="grid grid-cols-3 gap-3 text-center">
+                        {kidsAgeBreakdown.toddlers > 0 && (
+                          <div className="bg-white dark:bg-blue-800/50 rounded-lg p-2">
+                            <div className="text-lg font-semibold text-blue-600 dark:text-blue-300">
+                              {kidsAgeBreakdown.toddlers}
+                            </div>
+                            <div className="text-xs text-gray-600 dark:text-gray-300">
+                              <FormattedMessage
+                                id="rsvp-list-toddlers-label"
+                                description="Toddlers (0-5 years)"
+                                defaultMessage="Toddlers (0-5)"
+                              />
+                            </div>
+                          </div>
+                        )}
+                        {kidsAgeBreakdown.children > 0 && (
+                          <div className="bg-white dark:bg-blue-800/50 rounded-lg p-2">
+                            <div className="text-lg font-semibold text-blue-600 dark:text-blue-300">
+                              {kidsAgeBreakdown.children}
+                            </div>
+                            <div className="text-xs text-gray-600 dark:text-gray-300">
+                              <FormattedMessage
+                                id="rsvp-list-children-label"
+                                description="Children (6-12 years)"
+                                defaultMessage="Children (6-12)"
+                              />
+                            </div>
+                          </div>
+                        )}
+                        {kidsAgeBreakdown.teens > 0 && (
+                          <div className="bg-white dark:bg-blue-800/50 rounded-lg p-2">
+                            <div className="text-lg font-semibold text-blue-600 dark:text-blue-300">
+                              {kidsAgeBreakdown.teens}
+                            </div>
+                            <div className="text-xs text-gray-600 dark:text-gray-300">
+                              <FormattedMessage
+                                id="rsvp-list-teens-label"
+                                description="Teens (13+)"
+                                defaultMessage="Teens (13+)"
+                              />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
               {/* Attending Section */}
               {attendingRsvps.length > 0 && (
                 <div>
