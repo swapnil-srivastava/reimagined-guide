@@ -349,7 +349,7 @@ function Invite() {
                                           defaultMessage="Event Details"
                                         />
                                       </h3>
-                                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
                                         <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-4 text-center">
                                           <FontAwesomeIcon icon={faCalendar} className="text-fun-blue-500 text-2xl mb-2" />
                                           <div className="text-sm text-gray-600 dark:text-gray-300 uppercase tracking-wide mb-1">
@@ -376,7 +376,7 @@ function Invite() {
                                             {formatTime(inviteEvent.time)}
                                           </div>
                                         </div>
-                                        <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-4 text-center">
+                                        <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-4 text-center col-span-2 md:col-span-1">
                                           <FontAwesomeIcon icon={faMapMarkerAlt} className="text-fun-blue-500 text-2xl mb-2" />
                                           <div className="text-sm text-gray-600 dark:text-gray-300 uppercase tracking-wide mb-1">
                                             <FormattedMessage
