@@ -35,6 +35,7 @@ module.exports = {
         'scan': 'scan 2s linear infinite',
         'matrix': 'matrix 20s linear infinite',
         'quantum': 'quantum 4s ease-in-out infinite',
+        'fadeIn': 'fadeIn 0.3s ease-in-out',
       },
       keyframes: {
         'infinite-scroll': {
@@ -73,6 +74,10 @@ module.exports = {
           '25%': { transform: 'scale(1.1) rotate(90deg)' },
           '50%': { transform: 'scale(0.9) rotate(180deg)' },
           '75%': { transform: 'scale(1.05) rotate(270deg)' },
+        },
+        'fadeIn': {
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
       },
       colors : {

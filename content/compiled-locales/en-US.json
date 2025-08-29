@@ -956,7 +956,7 @@
   "checkout-empty-cart-description": [
     {
       "type": 0,
-      "value": "Add some products to continue with your order"
+      "value": "Add some amazing products to your cart and come back to complete your order. We have great deals waiting for you!"
     }
   ],
   "checkout-error": [
@@ -974,7 +974,7 @@
   "checkout-go-shopping": [
     {
       "type": 0,
-      "value": "Continue Shopping"
+      "value": "Start Shopping"
     }
   ],
   "checkout-item-each": [
@@ -983,10 +983,20 @@
       "value": "each"
     }
   ],
-  "checkout-item-quantity": [
+  "checkout-item-quantity-label": [
     {
       "type": 0,
-      "value": "Qty:"
+      "value": "Quantity: "
+    },
+    {
+      "type": 1,
+      "value": "count"
+    }
+  ],
+  "checkout-item-subtotal": [
+    {
+      "type": 0,
+      "value": "Item Total"
     }
   ],
   "checkout-order-summary": [
@@ -1181,6 +1191,54 @@
       "value": "End of articles"
     }
   ],
+  "favorite-button-add": [
+    {
+      "type": 0,
+      "value": "Add to favorites"
+    }
+  ],
+  "favorite-button-remove": [
+    {
+      "type": 0,
+      "value": "Remove from favorites"
+    }
+  ],
+  "favorites-browse-products-button": [
+    {
+      "type": 0,
+      "value": "Browse Products"
+    }
+  ],
+  "favorites-empty-message": [
+    {
+      "type": 0,
+      "value": "You haven't added any products to your favorites yet."
+    }
+  ],
+  "favorites-fetch-error": [
+    {
+      "type": 0,
+      "value": "Failed to load favorites"
+    }
+  ],
+  "favorites-page-title": [
+    {
+      "type": 0,
+      "value": "My Favorite Products"
+    }
+  ],
+  "favorites-remove-error": [
+    {
+      "type": 0,
+      "value": "Failed to remove from favorites"
+    }
+  ],
+  "favorites-remove-success": [
+    {
+      "type": 0,
+      "value": "Removed from favorites"
+    }
+  ],
   "floating-cart-tooltip": [
     {
       "type": 0,
@@ -1259,10 +1317,46 @@
       "value": "Tech"
     }
   ],
+  "heart-button-add-to-favorites": [
+    {
+      "type": 0,
+      "value": "Add to favorites"
+    }
+  ],
+  "heart-button-added-to-favorites": [
+    {
+      "type": 0,
+      "value": "Added to favorites"
+    }
+  ],
+  "heart-button-error": [
+    {
+      "type": 0,
+      "value": "Something went wrong. Please try again."
+    }
+  ],
   "heart-button-heart": [
     {
       "type": 0,
       "value": "Heart"
+    }
+  ],
+  "heart-button-login-required": [
+    {
+      "type": 0,
+      "value": "Please log in to save products to favorites"
+    }
+  ],
+  "heart-button-remove-from-favorites": [
+    {
+      "type": 0,
+      "value": "Remove from favorites"
+    }
+  ],
+  "heart-button-removed-from-favorites": [
+    {
+      "type": 0,
+      "value": "Removed from favorites"
     }
   ],
   "heartbutton-like-post-tooltip": [
@@ -1457,66 +1551,104 @@
       "value": "Choose Image"
     }
   ],
-  "invite-date-time-label": [
+  "invite-coming-soon-description": [
     {
       "type": 0,
-      "value": "Date: "
-    },
-    {
-      "type": 1,
-      "value": "date"
-    },
+      "value": "We're working on exciting new features for event management and guest interaction. Stay tuned!"
+    }
+  ],
+  "invite-coming-soon-title": [
     {
       "type": 0,
-      "value": " | Time: "
-    },
+      "value": "More Features Coming Soon"
+    }
+  ],
+  "invite-date-label": [
     {
-      "type": 1,
-      "value": "time"
+      "type": 0,
+      "value": "Date"
     }
   ],
   "invite-error-fetching-events": [
     {
       "type": 0,
-      "value": "Error fetching events: "
+      "value": "Error loading events: "
     },
     {
       "type": 1,
       "value": "error"
     }
   ],
+  "invite-event-details-title": [
+    {
+      "type": 0,
+      "value": "Event Details"
+    }
+  ],
   "invite-events-retrieved": [
     {
       "type": 0,
-      "value": "Retrieved Events"
+      "value": "Events loaded successfully"
+    }
+  ],
+  "invite-loading": [
+    {
+      "type": 0,
+      "value": "Loading events..."
     }
   ],
   "invite-location-label": [
     {
       "type": 0,
-      "value": "Location: "
-    },
-    {
-      "type": 1,
-      "value": "location"
+      "value": "Location"
     }
   ],
   "invite-no-events-data": [
     {
       "type": 0,
-      "value": "No events data returned from Supabase"
+      "value": "No upcoming events found"
     }
   ],
-  "invite-page-invite-heading": [
+  "invite-no-events-description": [
     {
       "type": 0,
-      "value": "Invitee List"
+      "value": "There are no upcoming events at the moment. Check back soon!"
     }
   ],
-  "invite-page-invite-text": [
+  "invite-no-events-title": [
     {
       "type": 0,
-      "value": "Functionality coming soon"
+      "value": "No Events Available"
+    }
+  ],
+  "invite-page-hero-subtitle": [
+    {
+      "type": 0,
+      "value": "Join us for special celebrations and memorable moments"
+    }
+  ],
+  "invite-page-hero-title": [
+    {
+      "type": 0,
+      "value": "You're Invited!"
+    }
+  ],
+  "invite-rsvp-toggle-title": [
+    {
+      "type": 0,
+      "value": "RSVP for this Event"
+    }
+  ],
+  "invite-stay-tuned": [
+    {
+      "type": 0,
+      "value": "Stay Tuned"
+    }
+  ],
+  "invite-time-label": [
+    {
+      "type": 0,
+      "value": "Time"
     }
   ],
   "load_more_button": [
@@ -1541,6 +1673,12 @@
     {
       "type": 0,
       "value": "Cart"
+    }
+  ],
+  "nav-bar-favorites-text": [
+    {
+      "type": 0,
+      "value": "Favorites"
     }
   ],
   "nav-bar-login-text": [
@@ -2043,6 +2181,12 @@
       "value": "Add to Cart"
     }
   ],
+  "product-card-add-to-cart-error": [
+    {
+      "type": 0,
+      "value": "Failed to add item to cart. Please try again."
+    }
+  ],
   "product-card-added": [
     {
       "type": 0,
@@ -2065,22 +2209,190 @@
       "value": "Create Product"
     }
   ],
+  "product-card-in-stock": [
+    {
+      "type": 0,
+      "value": "In Stock"
+    }
+  ],
+  "product-card-invalid-product": [
+    {
+      "type": 0,
+      "value": "Invalid product. Please try again."
+    }
+  ],
+  "product-card-no-image": [
+    {
+      "type": 0,
+      "value": "No image available"
+    }
+  ],
+  "product-card-out-of-stock": [
+    {
+      "type": 0,
+      "value": "Out of Stock"
+    }
+  ],
+  "product-card-quick-view": [
+    {
+      "type": 0,
+      "value": "Quick view"
+    }
+  ],
+  "product-detail-add-to-cart": [
+    {
+      "type": 0,
+      "value": "Add to Cart"
+    }
+  ],
+  "product-detail-add-to-cart-error": [
+    {
+      "type": 0,
+      "value": "Failed to add item to cart. Please try again."
+    }
+  ],
+  "product-detail-added": [
+    {
+      "type": 0,
+      "value": "Added!"
+    }
+  ],
+  "product-detail-added-to-cart": [
+    {
+      "type": 0,
+      "value": "Added to cart!"
+    }
+  ],
+  "product-detail-back": [
+    {
+      "type": 0,
+      "value": "Back"
+    }
+  ],
+  "product-detail-back-to-products": [
+    {
+      "type": 0,
+      "value": "Back to Products"
+    }
+  ],
+  "product-detail-fetch-error": [
+    {
+      "type": 0,
+      "value": "Failed to load product details. Please try again."
+    }
+  ],
   "product-detail-heading": [
     {
       "type": 0,
       "value": "Product Detail"
     }
   ],
-  "product-index-cart-added-redirect-btn": [
+  "product-detail-in-stock": [
     {
       "type": 0,
-      "value": "View Cart"
+      "value": "In Stock"
+    }
+  ],
+  "product-detail-not-found": [
+    {
+      "type": 0,
+      "value": "Product not found"
+    }
+  ],
+  "product-detail-not-found-description": [
+    {
+      "type": 0,
+      "value": "The product you are looking for doesn't exist or has been removed."
+    }
+  ],
+  "product-detail-out-of-stock": [
+    {
+      "type": 0,
+      "value": "Out of Stock"
+    }
+  ],
+  "product-detail-quantity": [
+    {
+      "type": 0,
+      "value": "Quantity"
+    }
+  ],
+  "product-detail-related-products": [
+    {
+      "type": 0,
+      "value": "You might also like"
+    }
+  ],
+  "product-detail-stock-count": [
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " available"
+    }
+  ],
+  "product-detail-stock-level": [
+    {
+      "type": 0,
+      "value": "Stock Level"
+    }
+  ],
+  "product-index-cart-items-count": [
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "item"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "items"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " in your cart"
     }
   ],
   "product-index-cart-ready": [
     {
       "type": 0,
       "value": "Ready to checkout when you are"
+    }
+  ],
+  "product-index-cart-total-label": [
+    {
+      "type": 0,
+      "value": "Total"
+    }
+  ],
+  "product-index-cart-view-button": [
+    {
+      "type": 0,
+      "value": "View Cart"
     }
   ],
   "productcard-error-creating-product": [
@@ -2355,16 +2667,22 @@
       "value": "Skill successfully created"
     }
   ],
-  "rsvpform-add-another-kid": [
+  "rsvpform-contact-optional": [
     {
       "type": 0,
-      "value": "Add Another Kid"
+      "value": "(optional)"
+    }
+  ],
+  "rsvpform-contact-section-title": [
+    {
+      "type": 0,
+      "value": "Contact Information"
     }
   ],
   "rsvpform-email-label": [
     {
       "type": 0,
-      "value": "Email (optional)"
+      "value": "Email"
     }
   ],
   "rsvpform-family-name-label": [
@@ -2373,50 +2691,74 @@
       "value": "Family Name"
     }
   ],
+  "rsvpform-family-name-required": [
+    {
+      "type": 0,
+      "value": "Family name is required"
+    }
+  ],
   "rsvpform-kid-age-label": [
     {
       "type": 0,
-      "value": "Kid "
-    },
-    {
-      "type": 1,
-      "value": "index"
-    },
-    {
-      "type": 0,
-      "value": " Age"
+      "value": "Age"
     }
   ],
   "rsvpform-kid-name-label": [
     {
       "type": 0,
-      "value": "Kid "
+      "value": "Child's Name"
+    }
+  ],
+  "rsvpform-kid-section-title": [
+    {
+      "type": 0,
+      "value": "Child "
     },
     {
       "type": 1,
       "value": "index"
-    },
+    }
+  ],
+  "rsvpform-kids-section-title": [
     {
       "type": 0,
-      "value": " Name"
+      "value": "Children Attending"
     }
   ],
   "rsvpform-message-label": [
     {
       "type": 0,
-      "value": "Message for Birthday Girl"
+      "value": "Special message or notes"
+    }
+  ],
+  "rsvpform-message-placeholder": [
+    {
+      "type": 0,
+      "value": "Share your excitement or any special requests..."
     }
   ],
   "rsvpform-phone-label": [
     {
       "type": 0,
-      "value": "Phone Number (optional)"
+      "value": "Phone Number"
     }
   ],
-  "rsvpform-submit-button": [
+  "rsvpform-submit-error": [
     {
       "type": 0,
-      "value": "Submit RSVP"
+      "value": "Failed to submit RSVP. Please try again."
+    }
+  ],
+  "rsvpform-submit-success": [
+    {
+      "type": 0,
+      "value": "RSVP submitted successfully! Thank you for responding."
+    }
+  ],
+  "rsvpform-subtitle": [
+    {
+      "type": 0,
+      "value": "Let us know if you can join us for this special celebration!"
     }
   ],
   "rsvpform-title": [
@@ -2428,7 +2770,7 @@
   "rsvpform-will-attend-label": [
     {
       "type": 0,
-      "value": "We will attend the event"
+      "value": "Yes, we will attend the event!"
     }
   ],
   "secondary_tagline": [
