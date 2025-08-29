@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
@@ -249,32 +247,44 @@ function Invite({ seoData }: InvitePageProps) {
         <meta name="language" content="en" />
         <meta name="revisit-after" content="7 days" />
         
-        {/* Open Graph / Facebook */}
+        {/* Open Graph / Facebook / WhatsApp */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content={seoData.url} />
         <meta property="og:title" content={seoData.title} />
         <meta property="og:description" content={seoData.description} />
         <meta property="og:image" content={seoData.imageUrl} />
+        <meta property="og:image:secure_url" content={seoData.imageUrl} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content={seoData.title} />
         <meta property="og:site_name" content="Ria's Birthday Celebrations" />
         <meta property="og:locale" content="en_US" />
+        <meta property="article:author" content="Swapnil Srivastava" />
+        <meta property="article:author" content="Mudrika Mishra" />
         
         {/* Twitter */}
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={seoData.url} />
-        <meta property="twitter:title" content={seoData.title} />
-        <meta property="twitter:description" content={seoData.description} />
-        <meta property="twitter:image" content={seoData.imageUrl} />
-        <meta property="twitter:creator" content="@swapnilsrivastava" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@swapnilsrivastava" />
+        <meta name="twitter:creator" content="@swapnilsrivastava" />
+        <meta name="twitter:url" content={seoData.url} />
+        <meta name="twitter:title" content={seoData.title} />
+        <meta name="twitter:description" content={seoData.description} />
+        <meta name="twitter:image" content={seoData.imageUrl} />
+        <meta name="twitter:image:alt" content={seoData.title} />
         
         {/* LinkedIn */}
         <meta property="linkedin:owner" content="swapnil-srivastava" />
         
-        {/* WhatsApp */}
+        {/* WhatsApp Specific */}
         <meta property="whatsapp:title" content={seoData.title} />
         <meta property="whatsapp:description" content={seoData.description} />
         <meta property="whatsapp:image" content={seoData.imageUrl} />
+        
+        {/* Additional Social Media Meta Tags */}
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="application-name" content="Ria's Birthday Invitations" />
+        <meta name="msapplication-TileColor" content="#00539c" />
+        <meta name="msapplication-config" content="/browserconfig.xml" />
         
         {/* Additional Mobile Meta Tags */}
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -311,7 +321,10 @@ function Invite({ seoData }: InvitePageProps) {
                   "price": "0",
                   "priceCurrency": "USD",
                   "availability": "https://schema.org/InStock"
-                }
+                },
+                "image": seoData.imageUrl,
+                "description": seoData.description,
+                "url": seoData.url
               })
             }}
           />
@@ -323,6 +336,7 @@ function Invite({ seoData }: InvitePageProps) {
         {/* Favicon and Icons */}
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/favicon.ico" />
+        <link rel="manifest" href="/manifest.json" />
       </Head>
       
       <div className="min-h-screen bg-blog-white dark:bg-fun-blue-500 font-poppins">
@@ -877,6 +891,11 @@ export const getServerSideProps: GetServerSideProps<InvitePageProps> = async (co
     const upcomingEvents = events || [];
     const nextEvent = upcomingEvents[0];
     
+    // Get full URL from request
+    const protocol = context.req.headers['x-forwarded-proto'] || 'https';
+    const host = context.req.headers.host || 'swapnilsrivastava.eu';
+    const baseUrl = `${protocol}://${host}`;
+    
     // Generate dynamic SEO data based on events
     const title = upcomingEvents.length > 0 
       ? `You're Invited to Ria's Birthday! ${upcomingEvents.length} Special Events - Swapnil & Mudrika`
@@ -891,12 +910,16 @@ export const getServerSideProps: GetServerSideProps<InvitePageProps> = async (co
         })} at ${nextEvent.location}. ${upcomingEvents.length > 1 ? `Plus ${upcomingEvents.length - 1} more special birthday events!` : ''} RSVP now for Ria's special day!`
       : "Join Swapnil Srivastava and Mudrika Mishra for Ria's upcoming birthday celebrations. RSVP to exclusive birthday parties and special occasions. Let's make Ria's day unforgettable!";
     
-    const imageUrl = nextEvent?.image_url || "https://swapnilsrivastava.eu/mountains.jpg";
+    // Ensure image URL is absolute
+    let imageUrl = `${baseUrl}/mountains.jpg`; // Default fallback
+    if (nextEvent?.image_url) {
+      // If it's already a full URL, use it; otherwise make it absolute
+      imageUrl = nextEvent.image_url.startsWith('http') 
+        ? nextEvent.image_url 
+        : `${baseUrl}${nextEvent.image_url}`;
+    }
     
-    // Get full URL from request
-    const protocol = context.req.headers['x-forwarded-proto'] || 'https';
-    const host = context.req.headers.host || 'swapnilsrivastava.eu';
-    const url = `${protocol}://${host}/invite`;
+    const url = `${baseUrl}/invite`;
 
     return {
       props: {
