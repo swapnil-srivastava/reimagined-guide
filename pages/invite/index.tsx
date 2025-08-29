@@ -233,9 +233,9 @@ function Invite() {
                 {/* Upcoming Events Section */}
                 {hasUpcomingEvents && (
                   <div>
-                    <div className="flex items-center gap-3 mb-8">
-                      <FontAwesomeIcon icon={faCalendarCheck} className="text-green-500 text-2xl" />
-                      <h2 className="text-3xl font-bold text-blog-black dark:text-blog-white">
+                    <div className="flex items-center gap-2 md:gap-3 mb-8">
+                      <FontAwesomeIcon icon={faCalendarCheck} className="text-green-500 text-xl md:text-2xl" />
+                      <h2 className="text-2xl md:text-3xl font-bold text-blog-black dark:text-blog-white">
                         <FormattedMessage
                           id="invite-upcoming-events-title"
                           description="Upcoming Events"
@@ -247,29 +247,29 @@ function Invite() {
                     {Object.entries(organizedEvents.upcoming)
                       .sort(([a], [b]) => parseInt(a) - parseInt(b))
                       .map(([year, yearEvents]: [string, any[]]) => (
-                        <div key={`upcoming-${year}`} className="mb-10">
+                        <div key={`upcoming-${year}`} className="mb-8 md:mb-10">
                           {/* Year Header for Upcoming */}
-                          <div className="flex items-center justify-between mb-6">
+                          <div className="flex items-center justify-between mb-4 md:mb-6">
                             <button
                               onClick={() => toggleYearCollapse(parseInt(year))}
-                              className="flex items-center gap-3 hover:text-fun-blue-500 transition-colors duration-200"
+                              className="flex items-center gap-2 md:gap-3 hover:text-fun-blue-500 transition-colors duration-200"
                             >
-                              <h3 className="text-2xl font-semibold text-blog-black dark:text-blog-white">
+                              <h3 className="text-xl md:text-2xl font-semibold text-blog-black dark:text-blog-white">
                                 {year}
                               </h3>
-                              <span className="text-sm bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 px-2 py-1 rounded-full">
+                              <span className="text-xs md:text-sm bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 px-2 py-1 rounded-full">
                                 {yearEvents.length} {yearEvents.length === 1 ? 'event' : 'events'}
                               </span>
                               <FontAwesomeIcon 
                                 icon={collapsedYears.has(parseInt(year)) ? faChevronDown : faChevronUp} 
-                                className="text-gray-500 dark:text-gray-400"
+                                className="text-gray-500 dark:text-gray-400 text-sm md:text-base"
                               />
                             </button>
                           </div>
 
                           {/* Year Events */}
                           {!collapsedYears.has(parseInt(year)) && (
-                            <div className="space-y-8">
+                            <div className="space-y-6 md:space-y-8">
                               {yearEvents.map((inviteEvent) => (
                                 <div 
                                   key={inviteEvent.id} 
@@ -421,7 +421,43 @@ function Invite() {
                 {/* Past Events Section */}
                 {hasPastEvents && (
                   <div>
-                    <div className="flex items-center justify-between mb-8">
+                    {/* Mobile Layout */}
+                    <div className="block md:hidden mb-8 space-y-4">
+                      <div className="flex items-center gap-3">
+                        <FontAwesomeIcon icon={faHistory} className="text-gray-500 text-xl" />
+                        <h2 className="text-2xl font-bold text-blog-black dark:text-blog-white">
+                          <FormattedMessage
+                            id="invite-past-events-title"
+                            description="Past Events"
+                            defaultMessage="Past Events"
+                          />
+                        </h2>
+                      </div>
+                      <button
+                        onClick={() => setShowPastEvents(!showPastEvents)}
+                        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gray-100 dark:bg-fun-blue-700 text-blog-black dark:text-blog-white rounded-lg hover:bg-gray-200 dark:hover:bg-fun-blue-600 transition-colors duration-200"
+                      >
+                        <FontAwesomeIcon icon={showPastEvents ? faEyeSlash : faEye} className="text-sm" />
+                        <span className="font-medium text-sm">
+                          {showPastEvents ? (
+                            <FormattedMessage
+                              id="invite-hide-past-events"
+                              description="Hide Past Events"
+                              defaultMessage="Hide Past Events"
+                            />
+                          ) : (
+                            <FormattedMessage
+                              id="invite-show-past-events"
+                              description="Show Past Events"
+                              defaultMessage="Show Past Events"
+                            />
+                          )}
+                        </span>
+                      </button>
+                    </div>
+
+                    {/* Desktop Layout */}
+                    <div className="hidden md:flex items-center justify-between mb-8">
                       <div className="flex items-center gap-3">
                         <FontAwesomeIcon icon={faHistory} className="text-gray-500 text-2xl" />
                         <h2 className="text-3xl font-bold text-blog-black dark:text-blog-white">
@@ -456,33 +492,33 @@ function Invite() {
                     </div>
 
                     {showPastEvents && (
-                      <div className="space-y-8">
+                      <div className="space-y-6 md:space-y-8">
                         {Object.entries(organizedEvents.past)
                           .sort(([a], [b]) => parseInt(b) - parseInt(a)) // Past events: newest years first
                           .map(([year, yearEvents]: [string, any[]]) => (
-                            <div key={`past-${year}`} className="mb-10">
+                            <div key={`past-${year}`} className="mb-8 md:mb-10">
                               {/* Year Header for Past Events */}
-                              <div className="flex items-center justify-between mb-6">
+                              <div className="flex items-center justify-between mb-4 md:mb-6">
                                 <button
                                   onClick={() => toggleYearCollapse(parseInt(year))}
-                                  className="flex items-center gap-3 hover:text-fun-blue-500 transition-colors duration-200"
+                                  className="flex items-center gap-2 md:gap-3 hover:text-fun-blue-500 transition-colors duration-200"
                                 >
-                                  <h3 className="text-2xl font-semibold text-gray-600 dark:text-gray-300">
+                                  <h3 className="text-xl md:text-2xl font-semibold text-gray-600 dark:text-gray-300">
                                     {year}
                                   </h3>
-                                  <span className="text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-full">
+                                  <span className="text-xs md:text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-full">
                                     {yearEvents.length} {yearEvents.length === 1 ? 'event' : 'events'}
                                   </span>
                                   <FontAwesomeIcon 
                                     icon={collapsedYears.has(parseInt(year)) ? faChevronDown : faChevronUp} 
-                                    className="text-gray-500 dark:text-gray-400"
+                                    className="text-gray-500 dark:text-gray-400 text-sm md:text-base"
                                   />
                                 </button>
                               </div>
 
                               {/* Year Events */}
                               {!collapsedYears.has(parseInt(year)) && (
-                                <div className="space-y-8">
+                                <div className="space-y-6 md:space-y-8">
                                   {yearEvents.map((inviteEvent) => (
                                     <div 
                                       key={inviteEvent.id} 
@@ -589,7 +625,7 @@ function Invite() {
       {/* Coming Soon Section */}
       <div className="bg-gray-50 dark:bg-fun-blue-700 py-16 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-blog-black dark:text-blog-white mb-4">
+          <h2 className="text-3xl font-bold text-gray-800 dark:text-blog-white mb-4">
             <FormattedMessage
               id="invite-coming-soon-title"
               description="More Features Coming Soon"
@@ -604,15 +640,15 @@ function Invite() {
             />
           </p>
           <div className="inline-flex items-center gap-2 px-6 py-3 bg-fun-blue-500 text-white rounded-lg">
-            <FontAwesomeIcon icon={faHeart} className="text-hit-pink-400" />
-            <span className="font-medium">
-              <FormattedMessage
-                id="invite-stay-tuned"
-                description="Stay Tuned"
-                defaultMessage="Stay Tuned"
-              />
-            </span>
-          </div>
+                        <FontAwesomeIcon icon={faHeart} className="text-hit-pink-400" />
+                                    <span className="text-blog-white font-medium">
+                                                  <FormattedMessage
+                                                                  id="invite-stay-tuned"
+                                                                                  description="Stay Tuned"
+                                                                                                  defaultMessage="Stay Tuned"
+                                                                                                                />
+                                                                                                                            </span>
+                                                                                                                                      </div>
         </div>
       </div>
     </div>
