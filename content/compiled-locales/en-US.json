@@ -1935,6 +1935,12 @@
       "value": "Manage Events"
     }
   ],
+  "nav-bar-admin-events-text": [
+    {
+      "type": 0,
+      "value": "Manage Events"
+    }
+  ],
   "nav-bar-cart-text": [
     {
       "type": 0,

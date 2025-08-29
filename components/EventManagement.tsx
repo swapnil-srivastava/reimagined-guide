@@ -270,9 +270,9 @@ function EventManagement() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-12">
+    <div className="max-w-6xl mx-auto px-6 py-16">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
         <div>
           <h1 className="text-3xl font-bold text-blog-black dark:text-blog-white mb-2">
             <FormattedMessage
@@ -292,7 +292,7 @@ function EventManagement() {
         
         <button
           onClick={() => setShowForm(true)}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-hit-pink-500 to-hit-pink-600 hover:from-hit-pink-600 hover:to-hit-pink-700 text-white rounded-lg transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-hit-pink-400 focus:ring-offset-2 shadow-sm"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-hit-pink-500 to-hit-pink-600 hover:from-hit-pink-600 hover:to-hit-pink-700 text-white rounded-lg transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-hit-pink-400 focus:ring-offset-2 shadow-sm"
         >
           <FontAwesomeIcon icon={faPlus} />
           <FormattedMessage

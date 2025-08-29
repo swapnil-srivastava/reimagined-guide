@@ -218,14 +218,14 @@ function AwesomeNavBar() {
             {session?.user?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID && (
               <NavBarItem nextrouteurl>
                 <Link href="/admin/events">
-                  <div className="w-[calc(2.5rem)] h-[calc(2.5rem)] flex items-center justify-center cursor-pointer rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                  <div className="hidden md:flex w-[calc(2.5rem)] h-[calc(2.5rem)] items-center justify-center cursor-pointer rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
                     <BasicTooltip title={intl.formatMessage({
                       id: 'nav-admin-events-tooltip',
                       description: 'Manage Events',
                       defaultMessage: 'Manage Events'
                     })} placement="bottom">
                       <RoundButton>
-                        <FontAwesomeIcon icon={faCalendarPlus} size="lg" />
+                        <FontAwesomeIcon icon={faCalendarPlus} size="lg" className="text-blog-black dark:text-blog-white" />
                       </RoundButton>
                     </BasicTooltip>
                   </div>
@@ -461,6 +461,20 @@ function DropdownMenu({ closeDropdown }: { closeDropdown?: () => void }) {
               defaultMessage="Favorites"
             />
           </DropdownItem>
+
+          {/* Admin Events Management - Only for authorized admin */}
+          {session?.user?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID && (
+            <DropdownItem
+              leftIcon={<FontAwesomeIcon icon={faCalendarPlus} size="lg" />}
+              onClick={() => router.push('/admin/events')}
+            >
+              <FormattedMessage
+                id="nav-bar-admin-events-text"
+                description="Manage Events"
+                defaultMessage="Manage Events"
+              />
+            </DropdownItem>
+          )}
 
           {/* <DropdownItem
             leftIcon={
