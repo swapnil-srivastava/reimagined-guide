@@ -131,6 +131,222 @@
       "value": "No articles yet"
     }
   ],
+  "admin-events-access-denied-message": [
+    {
+      "type": 0,
+      "value": "You are not authorized to access this page. Only the admin user can manage events."
+    }
+  ],
+  "admin-events-access-denied-title": [
+    {
+      "type": 0,
+      "value": "Access Denied"
+    }
+  ],
+  "admin-events-create-button": [
+    {
+      "type": 0,
+      "value": "Create Event"
+    }
+  ],
+  "admin-events-create-title": [
+    {
+      "type": 0,
+      "value": "Create New Event"
+    }
+  ],
+  "admin-events-delete-confirm": [
+    {
+      "type": 0,
+      "value": "Are you sure you want to delete this event? This action cannot be undone."
+    }
+  ],
+  "admin-events-delete-error": [
+    {
+      "type": 0,
+      "value": "Failed to delete event"
+    }
+  ],
+  "admin-events-delete-success": [
+    {
+      "type": 0,
+      "value": "Event deleted successfully!"
+    }
+  ],
+  "admin-events-delete-unexpected-error": [
+    {
+      "type": 0,
+      "value": "An unexpected error occurred while deleting the event"
+    }
+  ],
+  "admin-events-edit-title": [
+    {
+      "type": 0,
+      "value": "Edit Event"
+    }
+  ],
+  "admin-events-fetch-error": [
+    {
+      "type": 0,
+      "value": "Failed to load events"
+    }
+  ],
+  "admin-events-form-cancel": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "admin-events-form-create": [
+    {
+      "type": 0,
+      "value": "Create Event"
+    }
+  ],
+  "admin-events-form-date-label": [
+    {
+      "type": 0,
+      "value": "Date *"
+    }
+  ],
+  "admin-events-form-description-label": [
+    {
+      "type": 0,
+      "value": "Description (Optional)"
+    }
+  ],
+  "admin-events-form-description-placeholder": [
+    {
+      "type": 0,
+      "value": "Enter event description..."
+    }
+  ],
+  "admin-events-form-image-label": [
+    {
+      "type": 0,
+      "value": "Image URL (Optional)"
+    }
+  ],
+  "admin-events-form-image-placeholder": [
+    {
+      "type": 0,
+      "value": "https://example.com/image.jpg"
+    }
+  ],
+  "admin-events-form-location-label": [
+    {
+      "type": 0,
+      "value": "Location *"
+    }
+  ],
+  "admin-events-form-location-placeholder": [
+    {
+      "type": 0,
+      "value": "Enter event location"
+    }
+  ],
+  "admin-events-form-saving": [
+    {
+      "type": 0,
+      "value": "Saving..."
+    }
+  ],
+  "admin-events-form-time-label": [
+    {
+      "type": 0,
+      "value": "Time *"
+    }
+  ],
+  "admin-events-form-time-placeholder": [
+    {
+      "type": 0,
+      "value": "e.g., 7:00 PM"
+    }
+  ],
+  "admin-events-form-title-label": [
+    {
+      "type": 0,
+      "value": "Event Title *"
+    }
+  ],
+  "admin-events-form-title-placeholder": [
+    {
+      "type": 0,
+      "value": "Enter event title"
+    }
+  ],
+  "admin-events-form-update": [
+    {
+      "type": 0,
+      "value": "Update Event"
+    }
+  ],
+  "admin-events-list-title": [
+    {
+      "type": 0,
+      "value": "Existing Events"
+    }
+  ],
+  "admin-events-loading": [
+    {
+      "type": 0,
+      "value": "Loading events..."
+    }
+  ],
+  "admin-events-no-events": [
+    {
+      "type": 0,
+      "value": "No events found. Create your first event to get started!"
+    }
+  ],
+  "admin-events-page-subtitle": [
+    {
+      "type": 0,
+      "value": "Manage events and invitations for your community"
+    }
+  ],
+  "admin-events-page-title": [
+    {
+      "type": 0,
+      "value": "Admin Panel"
+    }
+  ],
+  "admin-events-submit-error": [
+    {
+      "type": 0,
+      "value": "Failed to save event"
+    }
+  ],
+  "admin-events-submit-unexpected-error": [
+    {
+      "type": 0,
+      "value": "An unexpected error occurred while saving the event"
+    }
+  ],
+  "admin-events-subtitle": [
+    {
+      "type": 0,
+      "value": "Create and manage events for your community"
+    }
+  ],
+  "admin-events-title": [
+    {
+      "type": 0,
+      "value": "Event Management"
+    }
+  ],
+  "admin-events-unauthorized": [
+    {
+      "type": 0,
+      "value": "You are not authorized to perform this action"
+    }
+  ],
+  "admin-events-unexpected-error": [
+    {
+      "type": 0,
+      "value": "An unexpected error occurred"
+    }
+  ],
   "admin-mobile-tip-1": [
     {
       "type": 0,
@@ -1711,6 +1927,12 @@
     {
       "type": 0,
       "value": "TECHNOLOGIES ... WHICH BUILD MY CHARACTER"
+    }
+  ],
+  "nav-admin-events-tooltip": [
+    {
+      "type": 0,
+      "value": "Manage Events"
     }
   ],
   "nav-bar-cart-text": [

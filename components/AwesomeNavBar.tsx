@@ -16,6 +16,7 @@ import {
   faShoppingCart,
   faBasketShopping,
   faHeart,
+  faCalendarPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { CSSTransition } from "react-transition-group";
 import { useSelector } from "react-redux";
@@ -212,6 +213,25 @@ function AwesomeNavBar() {
                 </div>
               </Link>
             </NavBarItem>
+            
+            {/* Admin Events Management - Only for authorized admin */}
+            {session?.user?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID && (
+              <NavBarItem nextrouteurl>
+                <Link href="/admin/events">
+                  <div className="w-[calc(2.5rem)] h-[calc(2.5rem)] flex items-center justify-center cursor-pointer rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                    <BasicTooltip title={intl.formatMessage({
+                      id: 'nav-admin-events-tooltip',
+                      description: 'Manage Events',
+                      defaultMessage: 'Manage Events'
+                    })} placement="bottom">
+                      <RoundButton>
+                        <FontAwesomeIcon icon={faCalendarPlus} size="lg" />
+                      </RoundButton>
+                    </BasicTooltip>
+                  </div>
+                </Link>
+              </NavBarItem>
+            )}
           {/* user condition is ther because image src url is missing when clicking on sign out */}
           {profile?.username && (
             <NavBarItem nextrouteurl>
