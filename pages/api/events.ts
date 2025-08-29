@@ -73,26 +73,39 @@ export default async function handler(
       // Format date for PostgreSQL
       const formattedDate = dateObj.format('YYYY-MM-DD');
 
-      // Validate time format (HH:MM AM/PM)
-      const timeRegex = /^(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)$/i;
-      if (!timeRegex.test(time)) {
+      // Validate time format - handle both 12-hour (HH:MM AM/PM) and 24-hour (HH:MM) formats
+      let convertedTime;
+      
+      // Check if time is in 12-hour format (contains AM/PM)
+      const timeRegex12Hour = /^(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)$/i;
+      const timeRegex24Hour = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
+      
+      if (timeRegex12Hour.test(time)) {
+        console.log('Time is in 12-hour format:', time);
+        // Convert 12-hour format to 24-hour format for PostgreSQL
+        const [timePart, period] = time.split(/\s+/);
+        const [hours, minutes] = timePart.split(':').map(Number);
+        let convertedHours = hours;
+        
+        if (period.toUpperCase() === 'PM' && hours !== 12) {
+          convertedHours += 12;
+        } else if (period.toUpperCase() === 'AM' && hours === 12) {
+          convertedHours = 0;
+        }
+        
+        convertedTime = `${convertedHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:00`;
+      } else if (timeRegex24Hour.test(time)) {
+        console.log('Time is in 24-hour format:', time);
+        // Already in 24-hour format, just add seconds
+        convertedTime = `${time}:00`;
+      } else {
+        console.log('Invalid time format received:', time);
         return res.status(400).json({ 
-          error: 'Invalid time format. Please use HH:MM AM/PM format.' 
+          error: 'Invalid time format. Please use HH:MM AM/PM or HH:MM (24-hour) format.' 
         });
       }
 
-      // Convert 12-hour format to 24-hour format for PostgreSQL
-      const [timePart, period] = time.split(/\s+/);
-      const [hours, minutes] = timePart.split(':').map(Number);
-      let convertedHours = hours;
-      
-      if (period.toUpperCase() === 'PM' && hours !== 12) {
-        convertedHours += 12;
-      } else if (period.toUpperCase() === 'AM' && hours === 12) {
-        convertedHours = 0;
-      }
-      
-      const convertedTime = `${convertedHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:00`;
+      console.log('Converted time for database:', convertedTime);
 
       console.log('Final data for database:', {
         title: title.trim(),
@@ -197,26 +210,39 @@ export default async function handler(
       // Format date for PostgreSQL
       const formattedDate = dateObj.format('YYYY-MM-DD');
 
-      // Validate time format (HH:MM AM/PM)
-      const timeRegex = /^(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)$/i;
-      if (!timeRegex.test(time)) {
+      // Validate time format - handle both 12-hour (HH:MM AM/PM) and 24-hour (HH:MM) formats
+      let convertedTime;
+      
+      // Check if time is in 12-hour format (contains AM/PM)
+      const timeRegex12Hour = /^(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)$/i;
+      const timeRegex24Hour = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
+      
+      if (timeRegex12Hour.test(time)) {
+        console.log('PUT - Time is in 12-hour format:', time);
+        // Convert 12-hour format to 24-hour format for PostgreSQL
+        const [timePart, period] = time.split(/\s+/);
+        const [hours, minutes] = timePart.split(':').map(Number);
+        let convertedHours = hours;
+        
+        if (period.toUpperCase() === 'PM' && hours !== 12) {
+          convertedHours += 12;
+        } else if (period.toUpperCase() === 'AM' && hours === 12) {
+          convertedHours = 0;
+        }
+        
+        convertedTime = `${convertedHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:00`;
+      } else if (timeRegex24Hour.test(time)) {
+        console.log('PUT - Time is in 24-hour format:', time);
+        // Already in 24-hour format, just add seconds
+        convertedTime = `${time}:00`;
+      } else {
+        console.log('PUT - Invalid time format received:', time);
         return res.status(400).json({ 
-          error: 'Invalid time format. Please use HH:MM AM/PM format.' 
+          error: 'Invalid time format. Please use HH:MM AM/PM or HH:MM (24-hour) format.' 
         });
       }
 
-      // Convert 12-hour format to 24-hour format for PostgreSQL
-      const [timePart, period] = time.split(/\s+/);
-      const [hours, minutes] = timePart.split(':').map(Number);
-      let convertedHours = hours;
-      
-      if (period.toUpperCase() === 'PM' && hours !== 12) {
-        convertedHours += 12;
-      } else if (period.toUpperCase() === 'AM' && hours === 12) {
-        convertedHours = 0;
-      }
-      
-      const convertedTime = `${convertedHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:00`;
+      console.log('PUT - Converted time for database:', convertedTime);
 
       const { data, error } = await supaServerClient
         .from('events')
