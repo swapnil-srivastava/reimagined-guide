@@ -45,6 +45,26 @@ function Invite() {
   const today = new Date();
   today.setHours(0, 0, 0, 0); // Reset time to start of day for accurate comparison
 
+  // Convert 24-hour time to 12-hour format for display
+  const formatTime = (time: string) => {
+    if (!time) return '';
+    
+    // Handle both "HH:MM:SS" and "HH:MM" formats
+    const timeParts = time.split(':');
+    const hours = parseInt(timeParts[0], 10);
+    const minutes = timeParts[1];
+    
+    if (hours === 0) {
+      return `12:${minutes} AM`;
+    } else if (hours < 12) {
+      return `${hours}:${minutes} AM`;
+    } else if (hours === 12) {
+      return `12:${minutes} PM`;
+    } else {
+      return `${hours - 12}:${minutes} PM`;
+    }
+  };
+
   const organizeEventsByTimeAndYear = (events: any[]) => {
     const upcomingEvents: any[] = [];
     const pastEvents: any[] = [];
@@ -301,7 +321,7 @@ function Invite() {
                                         </div>
                                         <div className="flex items-center gap-2">
                                           <FontAwesomeIcon icon={faClock} className="text-hit-pink-400" />
-                                          <span className="font-medium">{inviteEvent.time}</span>
+                                          <span className="font-medium">{formatTime(inviteEvent.time)}</span>
                                         </div>
                                         <div className="flex items-center gap-2">
                                           <FontAwesomeIcon icon={faMapMarkerAlt} className="text-hit-pink-400" />
@@ -346,7 +366,7 @@ function Invite() {
                                             />
                                           </div>
                                           <div className="font-semibold text-blog-black dark:text-blog-white">
-                                            {inviteEvent.time}
+                                            {formatTime(inviteEvent.time)}
                                           </div>
                                         </div>
                                         <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-4 text-center">
@@ -550,7 +570,7 @@ function Invite() {
                                             </div>
                                             <div className="flex items-center gap-2">
                                               <FontAwesomeIcon icon={faClock} className="text-hit-pink-400" />
-                                              <span className="font-medium">{inviteEvent.time}</span>
+                                              <span className="font-medium">{formatTime(inviteEvent.time)}</span>
                                             </div>
                                             <div className="flex items-center gap-2">
                                               <FontAwesomeIcon icon={faMapMarkerAlt} className="text-hit-pink-400" />

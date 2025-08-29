@@ -39,6 +39,19 @@ export default async function handler(
         });
       }
 
+      // Convert 12-hour format to 24-hour format for PostgreSQL
+      const [timePart, period] = time.split(/\s+/);
+      const [hours, minutes] = timePart.split(':').map(Number);
+      let convertedHours = hours;
+      
+      if (period.toUpperCase() === 'PM' && hours !== 12) {
+        convertedHours += 12;
+      } else if (period.toUpperCase() === 'AM' && hours === 12) {
+        convertedHours = 0;
+      }
+      
+      const convertedTime = `${convertedHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:00`;
+
       const { data, error } = await supaClient
         .from('events')
         .insert([
@@ -46,7 +59,7 @@ export default async function handler(
             title: title.trim(),
             description: description?.trim() || null,
             date,
-            time,
+            time: convertedTime,
             location: location.trim(),
             image_url: image_url || null,
             organizer_id,
@@ -108,13 +121,26 @@ export default async function handler(
         });
       }
 
+      // Convert 12-hour format to 24-hour format for PostgreSQL
+      const [timePart, period] = time.split(/\s+/);
+      const [hours, minutes] = timePart.split(':').map(Number);
+      let convertedHours = hours;
+      
+      if (period.toUpperCase() === 'PM' && hours !== 12) {
+        convertedHours += 12;
+      } else if (period.toUpperCase() === 'AM' && hours === 12) {
+        convertedHours = 0;
+      }
+      
+      const convertedTime = `${convertedHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:00`;
+
       const { data, error } = await supaClient
         .from('events')
         .update({
           title: title.trim(),
           description: description?.trim() || null,
           date,
-          time,
+          time: convertedTime,
           location: location.trim(),
           image_url: image_url || null,
           updated_at: new Date().toISOString()

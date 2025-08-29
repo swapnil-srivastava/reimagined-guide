@@ -66,6 +66,26 @@ function EventManagement() {
   // Check if user is authorized admin
   const isAuthorized = userInfo.session?.user?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID;
 
+  // Convert 24-hour time to 12-hour format for display
+  const formatTimeFor12Hour = (time: string) => {
+    if (!time) return '';
+    
+    // Handle both "HH:MM:SS" and "HH:MM" formats
+    const timeParts = time.split(':');
+    const hours = parseInt(timeParts[0], 10);
+    const minutes = timeParts[1];
+    
+    if (hours === 0) {
+      return `12:${minutes} AM`;
+    } else if (hours < 12) {
+      return `${hours}:${minutes} AM`;
+    } else if (hours === 12) {
+      return `12:${minutes} PM`;
+    } else {
+      return `${hours - 12}:${minutes} PM`;
+    }
+  };
+
   useEffect(() => {
     if (isAuthorized) {
       fetchEvents();
@@ -176,7 +196,7 @@ function EventManagement() {
       title: event.title,
       description: event.description || '',
       date: event.date,
-      time: event.time,
+      time: formatTimeFor12Hour(event.time),
       location: event.location,
       image_url: event.image_url || ''
     });
