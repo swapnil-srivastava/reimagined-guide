@@ -300,10 +300,10 @@ function Invite() {
                               {yearEvents.map((inviteEvent) => (
                                 <div 
                                   key={inviteEvent.id} 
-                                  className="bg-white dark:bg-fun-blue-600 rounded-2xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125 transition-all duration-300 overflow-hidden border-l-4 border-green-500"
+                                  className="bg-white dark:bg-fun-blue-600 rounded-2xl drop-shadow-lg hover:drop-shadow-xl transition-all duration-300 overflow-hidden border-l-4 border-green-500 group"
                                 >
                                   {/* Event Header */}
-                                  <div className="relative">
+                                  <div className="relative group-hover:brightness-110 transition-all duration-300">
                                     <div className="aspect-w-16 aspect-h-6 lg:aspect-h-4">
                                       <Image 
                                         src={inviteEvent.image_url ?? `/mountains.jpg`} 
@@ -341,7 +341,7 @@ function Invite() {
                                   {/* Event Content */}
                                   <div className="p-6 lg:p-8">
                                     {/* Event Details */}
-                                    <div className="mb-8">
+                                    <div className="mb-8 group-hover:brightness-105 transition-all duration-300">
                                       <h3 className="text-xl font-semibold text-blog-black dark:text-blog-white mb-4">
                                         <FormattedMessage
                                           id="invite-event-details-title"
@@ -408,7 +408,7 @@ function Invite() {
                                     </div>
 
                                     {/* RSVP Section Toggle */}
-                                    <div className="border-t border-gray-200 dark:border-fun-blue-500 pt-6">
+                                    <div className="border-t border-gray-200 dark:border-fun-blue-500 pt-6 brightness-100">
                                       <button
                                         onClick={() => toggleEventExpansion(inviteEvent.id)}
                                         className="w-full flex items-center justify-between p-4 bg-gray-50 dark:bg-fun-blue-700 rounded-lg hover:bg-gray-100 dark:hover:bg-fun-blue-600 transition-colors duration-200"
@@ -549,10 +549,10 @@ function Invite() {
                                   {yearEvents.map((inviteEvent) => (
                                     <div 
                                       key={inviteEvent.id} 
-                                      className="bg-white dark:bg-fun-blue-600 rounded-2xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125 transition-all duration-300 overflow-hidden border-l-4 border-gray-400 opacity-75"
+                                      className="bg-white dark:bg-fun-blue-600 rounded-2xl drop-shadow-lg hover:drop-shadow-xl transition-all duration-300 overflow-hidden border-l-4 border-gray-400 opacity-75 group"
                                     >
                                       {/* Event Header */}
-                                      <div className="relative">
+                                      <div className="relative group-hover:brightness-110 transition-all duration-300">
                                         <div className="aspect-w-16 aspect-h-6 lg:aspect-h-4">
                                           <Image 
                                             src={inviteEvent.image_url ?? `/mountains.jpg`} 
