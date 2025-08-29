@@ -11,7 +11,11 @@ import {
   faUsers, 
   faHeart,
   faChevronDown,
-  faChevronUp
+  faChevronUp,
+  faHistory,
+  faCalendarCheck,
+  faEye,
+  faEyeSlash
 } from "@fortawesome/free-solid-svg-icons";
 import { FormattedMessage, useIntl } from "react-intl";
 import Image from "next/image";
@@ -34,52 +38,149 @@ function Invite() {
   
   const [expandedEvent, setExpandedEvent] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [collapsedYears, setCollapsedYears] = useState<Set<number>>(new Set());
+  const [showPastEvents, setShowPastEvents] = useState(false);
+
+  // Event organization helpers
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Reset time to start of day for accurate comparison
+
+  const organizeEventsByTimeAndYear = (events: any[]) => {
+    const upcomingEvents: any[] = [];
+    const pastEvents: any[] = [];
+    
+    events.forEach(event => {
+      const eventDate = new Date(event.date);
+      eventDate.setHours(0, 0, 0, 0);
+      
+      if (eventDate >= today) {
+        upcomingEvents.push(event);
+      } else {
+        pastEvents.push(event);
+      }
+    });
+
+    // Group events by year
+    const groupByYear = (eventList: any[]) => {
+      return eventList.reduce((acc, event) => {
+        const year = new Date(event.date).getFullYear();
+        if (!acc[year]) {
+          acc[year] = [];
+        }
+        acc[year].push(event);
+        return acc;
+      }, {});
+    };
+
+    return {
+      upcoming: groupByYear(upcomingEvents.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())),
+      past: groupByYear(pastEvents.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())) // Past events in reverse chronological order
+    };
+  };
+
+  const toggleYearCollapse = (year: number) => {
+    const newCollapsedYears = new Set(collapsedYears);
+    if (newCollapsedYears.has(year)) {
+      newCollapsedYears.delete(year);
+    } else {
+      newCollapsedYears.add(year);
+    }
+    setCollapsedYears(newCollapsedYears);
+  };
+
+  const getEventStatus = (eventDate: string) => {
+    const eventDay = new Date(eventDate);
+    eventDay.setHours(0, 0, 0, 0);
+    const todayDay = new Date();
+    todayDay.setHours(0, 0, 0, 0);
+
+    if (eventDay > todayDay) {
+      return 'upcoming';
+    } else if (eventDay.getTime() === todayDay.getTime()) {
+      return 'today';
+    } else {
+      return 'past';
+    }
+  };
+
+  const getEventStatusBadge = (status: string) => {
+    switch (status) {
+      case 'upcoming':
+        return (
+          <span className="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full">
+            <FontAwesomeIcon icon={faCalendarCheck} className="w-3 h-3" />
+            <FormattedMessage id="event-status-upcoming" defaultMessage="Upcoming" />
+          </span>
+        );
+      case 'today':
+        return (
+          <span className="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-full animate-pulse">
+            <FontAwesomeIcon icon={faClock} className="w-3 h-3" />
+            <FormattedMessage id="event-status-today" defaultMessage="Today" />
+          </span>
+        );
+      case 'past':
+        return (
+          <span className="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full">
+            <FontAwesomeIcon icon={faHistory} className="w-3 h-3" />
+            <FormattedMessage id="event-status-past" defaultMessage="Past Event" />
+          </span>
+        );
+      default:
+        return null;
+    }
+  };
 
   const toggleEventExpansion = (eventId: string) => {
     setExpandedEvent(expandedEvent === eventId ? null : eventId);
   };
 
   useEffect(() => {
-    const fetchEventDetails = async () => {
+    const fetchEvents = async () => {
+      setLoading(true);
       try {
-        setLoading(true);
-        const { data: eventsData, error } = await supaClient
+        const { data: events, error } = await supaClient
           .from('events')
           .select('*')
           .order('date', { ascending: true });
-  
-        if (error) throw error;
-  
-        if (eventsData && eventsData.length > 0) {
-          dispatch(fetchInviteEvents(eventsData));
-          toast.success(intl.formatMessage({
-            id: "invite-events-retrieved",
-            description: "Retrieved Events",
-            defaultMessage: "Events loaded successfully"
+
+        if (error) {
+          console.error('Error fetching events:', error);
+          toast.error(intl.formatMessage({
+            id: "invite-fetch-events-error",
+            description: "Error message when events cannot be loaded",
+            defaultMessage: "Failed to load events. Please try again."
           }));
         } else {
-          toast.success(intl.formatMessage({
-            id: "invite-no-events-data",
-            description: "No events found",
-            defaultMessage: "No upcoming events found"
-          }));
+          dispatch(fetchInviteEvents(events || []));
+          
+          // Initially collapse past years (2024 and earlier)
+          const pastYearsToCollapse = new Set<number>();
+          const currentYear = new Date().getFullYear();
+          
+          events?.forEach(event => {
+            const eventYear = new Date(event.date).getFullYear();
+            if (eventYear < currentYear) {
+              pastYearsToCollapse.add(eventYear);
+            }
+          });
+          
+          setCollapsedYears(pastYearsToCollapse);
         }
       } catch (error) {
-        console.error('Error fetching events:', error);
+        console.error('Unexpected error:', error);
         toast.error(intl.formatMessage({
-          id: "invite-error-fetching-events",
-          description: "Error fetching events",
-          defaultMessage: "Error loading events: {error}"
-        }, { error: error.message }));
+          id: "invite-unexpected-error",
+          description: "Unexpected error message",
+          defaultMessage: "An unexpected error occurred. Please refresh the page."
+        }));
       } finally {
         setLoading(false);
       }
     };
 
-    fetchEventDetails();
-  }, [dispatch, intl]);
-
-  if (loading) {
+    fetchEvents();
+  }, [dispatch, intl]);  if (loading) {
     return (
       <div className="min-h-screen bg-blog-white dark:bg-fun-blue-500 flex items-center justify-center">
         <div className="animate-pulse text-blog-black dark:text-blog-white font-poppins">
@@ -122,146 +223,346 @@ function Invite() {
       {/* Events Section */}
       <div className="max-w-6xl mx-auto px-6 py-12">
         {inviteEvents && inviteEvents.length > 0 ? (
-          <div className="space-y-8">
-            {inviteEvents.map((inviteEvent) => (
-              <div 
-                key={inviteEvent.id} 
-                className="bg-white dark:bg-fun-blue-600 rounded-2xl drop-shadow-lg hover:drop-shadow-xl transition-all duration-300 overflow-hidden"
-              >
-                {/* Event Header */}
-                <div className="relative">
-                  <div className="aspect-w-16 aspect-h-6 lg:aspect-h-4">
-                    <Image 
-                      src={inviteEvent.image_url ?? `/mountains.jpg`} 
-                      alt={inviteEvent.title}
-                      width={1200}
-                      height={400}
-                      className="w-full h-64 lg:h-80 object-cover"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                  <div className="absolute bottom-6 left-6 right-6">
-                    <h2 className="text-3xl lg:text-4xl font-bold text-white mb-2">
-                      {inviteEvent.title}
-                    </h2>
-                    <div className="flex flex-wrap gap-4 text-white/90">
-                      <div className="flex items-center gap-2">
-                        <FontAwesomeIcon icon={faCalendar} className="text-hit-pink-400" />
-                        <span className="font-medium">{inviteEvent.date}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <FontAwesomeIcon icon={faClock} className="text-hit-pink-400" />
-                        <span className="font-medium">{inviteEvent.time}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <FontAwesomeIcon icon={faMapMarkerAlt} className="text-hit-pink-400" />
-                        <span className="font-medium">{inviteEvent.location}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+          (() => {
+            const organizedEvents = organizeEventsByTimeAndYear(inviteEvents);
+            const hasUpcomingEvents = Object.keys(organizedEvents.upcoming).length > 0;
+            const hasPastEvents = Object.keys(organizedEvents.past).length > 0;
 
-                {/* Event Content */}
-                <div className="p-6 lg:p-8">
-                  {/* Event Details */}
-                  <div className="mb-8">
-                    <h3 className="text-xl font-semibold text-blog-black dark:text-blog-white mb-4">
-                      <FormattedMessage
-                        id="invite-event-details-title"
-                        description="Event Details"
-                        defaultMessage="Event Details"
-                      />
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                      <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-4 text-center">
-                        <FontAwesomeIcon icon={faCalendar} className="text-fun-blue-500 text-2xl mb-2" />
-                        <div className="text-sm text-gray-600 dark:text-gray-300 uppercase tracking-wide mb-1">
-                          <FormattedMessage
-                            id="invite-date-label"
-                            description="Date"
-                            defaultMessage="Date"
-                          />
-                        </div>
-                        <div className="font-semibold text-blog-black dark:text-blog-white">
-                          {inviteEvent.date}
-                        </div>
-                      </div>
-                      <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-4 text-center">
-                        <FontAwesomeIcon icon={faClock} className="text-fun-blue-500 text-2xl mb-2" />
-                        <div className="text-sm text-gray-600 dark:text-gray-300 uppercase tracking-wide mb-1">
-                          <FormattedMessage
-                            id="invite-time-label"
-                            description="Time"
-                            defaultMessage="Time"
-                          />
-                        </div>
-                        <div className="font-semibold text-blog-black dark:text-blog-white">
-                          {inviteEvent.time}
-                        </div>
-                      </div>
-                      <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-4 text-center">
-                        <FontAwesomeIcon icon={faMapMarkerAlt} className="text-fun-blue-500 text-2xl mb-2" />
-                        <div className="text-sm text-gray-600 dark:text-gray-300 uppercase tracking-wide mb-1">
-                          <FormattedMessage
-                            id="invite-location-label"
-                            description="Location"
-                            defaultMessage="Location"
-                          />
-                        </div>
-                        <div className="font-semibold text-blog-black dark:text-blog-white">
-                          <a 
-                            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(inviteEvent.location)}`} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="hover:text-fun-blue-500 transition-colors duration-200"
-                          >
-                            {inviteEvent.location}
-                          </a>
-                        </div>
-                      </div>
+            return (
+              <div className="space-y-12">
+                {/* Upcoming Events Section */}
+                {hasUpcomingEvents && (
+                  <div>
+                    <div className="flex items-center gap-3 mb-8">
+                      <FontAwesomeIcon icon={faCalendarCheck} className="text-green-500 text-2xl" />
+                      <h2 className="text-3xl font-bold text-blog-black dark:text-blog-white">
+                        <FormattedMessage
+                          id="invite-upcoming-events-title"
+                          description="Upcoming Events"
+                          defaultMessage="Upcoming Events"
+                        />
+                      </h2>
                     </div>
                     
-                    {inviteEvent.description && (
-                      <div className="mt-6 p-4 bg-gray-50 dark:bg-fun-blue-700 rounded-lg">
-                        <p className="text-blog-black dark:text-blog-white leading-relaxed">
-                          {inviteEvent.description}
-                        </p>
-                      </div>
-                    )}
-                  </div>
+                    {Object.entries(organizedEvents.upcoming)
+                      .sort(([a], [b]) => parseInt(a) - parseInt(b))
+                      .map(([year, yearEvents]: [string, any[]]) => (
+                        <div key={`upcoming-${year}`} className="mb-10">
+                          {/* Year Header for Upcoming */}
+                          <div className="flex items-center justify-between mb-6">
+                            <button
+                              onClick={() => toggleYearCollapse(parseInt(year))}
+                              className="flex items-center gap-3 hover:text-fun-blue-500 transition-colors duration-200"
+                            >
+                              <h3 className="text-2xl font-semibold text-blog-black dark:text-blog-white">
+                                {year}
+                              </h3>
+                              <span className="text-sm bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 px-2 py-1 rounded-full">
+                                {yearEvents.length} {yearEvents.length === 1 ? 'event' : 'events'}
+                              </span>
+                              <FontAwesomeIcon 
+                                icon={collapsedYears.has(parseInt(year)) ? faChevronDown : faChevronUp} 
+                                className="text-gray-500 dark:text-gray-400"
+                              />
+                            </button>
+                          </div>
 
-                  {/* RSVP Section Toggle */}
-                  <div className="border-t border-gray-200 dark:border-fun-blue-500 pt-6">
-                    <button
-                      onClick={() => toggleEventExpansion(inviteEvent.id)}
-                      className="w-full flex items-center justify-between p-4 bg-gray-50 dark:bg-fun-blue-700 rounded-lg hover:bg-gray-100 dark:hover:bg-fun-blue-600 transition-colors duration-200"
-                    >
+                          {/* Year Events */}
+                          {!collapsedYears.has(parseInt(year)) && (
+                            <div className="space-y-8">
+                              {yearEvents.map((inviteEvent) => (
+                                <div 
+                                  key={inviteEvent.id} 
+                                  className="bg-white dark:bg-fun-blue-600 rounded-2xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125 transition-all duration-300 overflow-hidden border-l-4 border-green-500"
+                                >
+                                  {/* Event Header */}
+                                  <div className="relative">
+                                    <div className="aspect-w-16 aspect-h-6 lg:aspect-h-4">
+                                      <Image 
+                                        src={inviteEvent.image_url ?? `/mountains.jpg`} 
+                                        alt={inviteEvent.title}
+                                        width={1200}
+                                        height={400}
+                                        className="w-full h-64 lg:h-80 object-cover"
+                                      />
+                                    </div>
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                                    <div className="absolute top-4 right-4">
+                                      {getEventStatusBadge(getEventStatus(inviteEvent.date))}
+                                    </div>
+                                    <div className="absolute bottom-6 left-6 right-6">
+                                      <h2 className="text-3xl lg:text-4xl font-bold text-white mb-2">
+                                        {inviteEvent.title}
+                                      </h2>
+                                      <div className="flex flex-wrap gap-4 text-white/90">
+                                        <div className="flex items-center gap-2">
+                                          <FontAwesomeIcon icon={faCalendar} className="text-hit-pink-400" />
+                                          <span className="font-medium">{inviteEvent.date}</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                          <FontAwesomeIcon icon={faClock} className="text-hit-pink-400" />
+                                          <span className="font-medium">{inviteEvent.time}</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                          <FontAwesomeIcon icon={faMapMarkerAlt} className="text-hit-pink-400" />
+                                          <span className="font-medium">{inviteEvent.location}</span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  {/* Event Content */}
+                                  <div className="p-6 lg:p-8">
+                                    {/* Event Details */}
+                                    <div className="mb-8">
+                                      <h3 className="text-xl font-semibold text-blog-black dark:text-blog-white mb-4">
+                                        <FormattedMessage
+                                          id="invite-event-details-title"
+                                          description="Event Details"
+                                          defaultMessage="Event Details"
+                                        />
+                                      </h3>
+                                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                        <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-4 text-center">
+                                          <FontAwesomeIcon icon={faCalendar} className="text-fun-blue-500 text-2xl mb-2" />
+                                          <div className="text-sm text-gray-600 dark:text-gray-300 uppercase tracking-wide mb-1">
+                                            <FormattedMessage
+                                              id="invite-date-label"
+                                              description="Date"
+                                              defaultMessage="Date"
+                                            />
+                                          </div>
+                                          <div className="font-semibold text-blog-black dark:text-blog-white">
+                                            {inviteEvent.date}
+                                          </div>
+                                        </div>
+                                        <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-4 text-center">
+                                          <FontAwesomeIcon icon={faClock} className="text-fun-blue-500 text-2xl mb-2" />
+                                          <div className="text-sm text-gray-600 dark:text-gray-300 uppercase tracking-wide mb-1">
+                                            <FormattedMessage
+                                              id="invite-time-label"
+                                              description="Time"
+                                              defaultMessage="Time"
+                                            />
+                                          </div>
+                                          <div className="font-semibold text-blog-black dark:text-blog-white">
+                                            {inviteEvent.time}
+                                          </div>
+                                        </div>
+                                        <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-4 text-center">
+                                          <FontAwesomeIcon icon={faMapMarkerAlt} className="text-fun-blue-500 text-2xl mb-2" />
+                                          <div className="text-sm text-gray-600 dark:text-gray-300 uppercase tracking-wide mb-1">
+                                            <FormattedMessage
+                                              id="invite-location-label"
+                                              description="Location"
+                                              defaultMessage="Location"
+                                            />
+                                          </div>
+                                          <div className="font-semibold text-blog-black dark:text-blog-white">
+                                            <a 
+                                              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(inviteEvent.location)}`} 
+                                              target="_blank" 
+                                              rel="noopener noreferrer"
+                                              className="hover:text-fun-blue-500 transition-colors duration-200"
+                                            >
+                                              {inviteEvent.location}
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      
+                                      {inviteEvent.description && (
+                                        <div className="mt-6 p-4 bg-gray-50 dark:bg-fun-blue-700 rounded-lg">
+                                          <p className="text-blog-black dark:text-blog-white leading-relaxed">
+                                            {inviteEvent.description}
+                                          </p>
+                                        </div>
+                                      )}
+                                    </div>
+
+                                    {/* RSVP Section Toggle */}
+                                    <div className="border-t border-gray-200 dark:border-fun-blue-500 pt-6">
+                                      <button
+                                        onClick={() => toggleEventExpansion(inviteEvent.id)}
+                                        className="w-full flex items-center justify-between p-4 bg-gray-50 dark:bg-fun-blue-700 rounded-lg hover:bg-gray-100 dark:hover:bg-fun-blue-600 transition-colors duration-200"
+                                      >
+                                        <div className="flex items-center gap-3">
+                                          <FontAwesomeIcon icon={faUsers} className="text-fun-blue-500" />
+                                          <span className="font-semibold text-blog-black dark:text-blog-white">
+                                            <FormattedMessage
+                                              id="invite-rsvp-toggle-title"
+                                              description="RSVP for this Event"
+                                              defaultMessage="RSVP for this Event"
+                                            />
+                                          </span>
+                                        </div>
+                                        <FontAwesomeIcon 
+                                          icon={expandedEvent === inviteEvent.id ? faChevronUp : faChevronDown} 
+                                          className="text-gray-500 dark:text-gray-400"
+                                        />
+                                      </button>
+                                      
+                                      {expandedEvent === inviteEvent.id && (
+                                        <div className="mt-6 animate-fadeIn">
+                                          <RSVPForm eventId={inviteEvent.id} />
+                                        </div>
+                                      )}
+                                    </div>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                  </div>
+                )}
+
+                {/* Past Events Section */}
+                {hasPastEvents && (
+                  <div>
+                    <div className="flex items-center justify-between mb-8">
                       <div className="flex items-center gap-3">
-                        <FontAwesomeIcon icon={faUsers} className="text-fun-blue-500" />
-                        <span className="font-semibold text-blog-black dark:text-blog-white">
+                        <FontAwesomeIcon icon={faHistory} className="text-gray-500 text-2xl" />
+                        <h2 className="text-3xl font-bold text-blog-black dark:text-blog-white">
                           <FormattedMessage
-                            id="invite-rsvp-toggle-title"
-                            description="RSVP for this Event"
-                            defaultMessage="RSVP for this Event"
+                            id="invite-past-events-title"
+                            description="Past Events"
+                            defaultMessage="Past Events"
                           />
-                        </span>
+                        </h2>
                       </div>
-                      <FontAwesomeIcon 
-                        icon={expandedEvent === inviteEvent.id ? faChevronUp : faChevronDown} 
-                        className="text-gray-500 dark:text-gray-400"
-                      />
-                    </button>
-                    
-                    {expandedEvent === inviteEvent.id && (
-                      <div className="mt-6 animate-fadeIn">
-                        <RSVPForm eventId={inviteEvent.id} />
+                      <button
+                        onClick={() => setShowPastEvents(!showPastEvents)}
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-fun-blue-700 text-blog-black dark:text-blog-white rounded-lg hover:bg-gray-200 dark:hover:bg-fun-blue-600 transition-colors duration-200"
+                      >
+                        <FontAwesomeIcon icon={showPastEvents ? faEyeSlash : faEye} />
+                        <span className="font-medium">
+                          {showPastEvents ? (
+                            <FormattedMessage
+                              id="invite-hide-past-events"
+                              description="Hide Past Events"
+                              defaultMessage="Hide Past Events"
+                            />
+                          ) : (
+                            <FormattedMessage
+                              id="invite-show-past-events"
+                              description="Show Past Events"
+                              defaultMessage="Show Past Events"
+                            />
+                          )}
+                        </span>
+                      </button>
+                    </div>
+
+                    {showPastEvents && (
+                      <div className="space-y-8">
+                        {Object.entries(organizedEvents.past)
+                          .sort(([a], [b]) => parseInt(b) - parseInt(a)) // Past events: newest years first
+                          .map(([year, yearEvents]: [string, any[]]) => (
+                            <div key={`past-${year}`} className="mb-10">
+                              {/* Year Header for Past Events */}
+                              <div className="flex items-center justify-between mb-6">
+                                <button
+                                  onClick={() => toggleYearCollapse(parseInt(year))}
+                                  className="flex items-center gap-3 hover:text-fun-blue-500 transition-colors duration-200"
+                                >
+                                  <h3 className="text-2xl font-semibold text-gray-600 dark:text-gray-300">
+                                    {year}
+                                  </h3>
+                                  <span className="text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-full">
+                                    {yearEvents.length} {yearEvents.length === 1 ? 'event' : 'events'}
+                                  </span>
+                                  <FontAwesomeIcon 
+                                    icon={collapsedYears.has(parseInt(year)) ? faChevronDown : faChevronUp} 
+                                    className="text-gray-500 dark:text-gray-400"
+                                  />
+                                </button>
+                              </div>
+
+                              {/* Year Events */}
+                              {!collapsedYears.has(parseInt(year)) && (
+                                <div className="space-y-8">
+                                  {yearEvents.map((inviteEvent) => (
+                                    <div 
+                                      key={inviteEvent.id} 
+                                      className="bg-white dark:bg-fun-blue-600 rounded-2xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125 transition-all duration-300 overflow-hidden border-l-4 border-gray-400 opacity-75"
+                                    >
+                                      {/* Event Header */}
+                                      <div className="relative">
+                                        <div className="aspect-w-16 aspect-h-6 lg:aspect-h-4">
+                                          <Image 
+                                            src={inviteEvent.image_url ?? `/mountains.jpg`} 
+                                            alt={inviteEvent.title}
+                                            width={1200}
+                                            height={400}
+                                            className="w-full h-64 lg:h-80 object-cover grayscale-50"
+                                          />
+                                        </div>
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                                        <div className="absolute top-4 right-4">
+                                          {getEventStatusBadge(getEventStatus(inviteEvent.date))}
+                                        </div>
+                                        <div className="absolute bottom-6 left-6 right-6">
+                                          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-2">
+                                            {inviteEvent.title}
+                                          </h2>
+                                          <div className="flex flex-wrap gap-4 text-white/90">
+                                            <div className="flex items-center gap-2">
+                                              <FontAwesomeIcon icon={faCalendar} className="text-hit-pink-400" />
+                                              <span className="font-medium">{inviteEvent.date}</span>
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                              <FontAwesomeIcon icon={faClock} className="text-hit-pink-400" />
+                                              <span className="font-medium">{inviteEvent.time}</span>
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                              <FontAwesomeIcon icon={faMapMarkerAlt} className="text-hit-pink-400" />
+                                              <span className="font-medium">{inviteEvent.location}</span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      {/* Event Content - Limited for Past Events */}
+                                      <div className="p-6 lg:p-8">
+                                        <div className="flex items-center justify-between">
+                                          <div>
+                                            <h3 className="text-xl font-semibold text-blog-black dark:text-blog-white mb-2">
+                                              <FormattedMessage
+                                                id="invite-past-event-summary"
+                                                description="Past Event"
+                                                defaultMessage="Past Event"
+                                              />
+                                            </h3>
+                                            {inviteEvent.description && (
+                                              <p className="text-gray-600 dark:text-gray-300 line-clamp-2">
+                                                {inviteEvent.description}
+                                              </p>
+                                            )}
+                                          </div>
+                                          <div className="text-sm text-gray-500 dark:text-gray-400 text-right">
+                                            <FormattedMessage
+                                              id="invite-event-completed"
+                                              description="Event Completed"
+                                              defaultMessage="Event Completed"
+                                            />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          ))}
                       </div>
                     )}
                   </div>
-                </div>
+                )}
               </div>
-            ))}
-          </div>
+            );
+          })()
         ) : (
           <div className="text-center py-16">
             <div className="bg-white dark:bg-fun-blue-600 rounded-2xl p-12 drop-shadow-lg">

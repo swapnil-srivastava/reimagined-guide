@@ -1191,6 +1191,24 @@
       "value": "End of articles"
     }
   ],
+  "event-status-past": [
+    {
+      "type": 0,
+      "value": "Past Event"
+    }
+  ],
+  "event-status-today": [
+    {
+      "type": 0,
+      "value": "Today"
+    }
+  ],
+  "event-status-upcoming": [
+    {
+      "type": 0,
+      "value": "Upcoming"
+    }
+  ],
   "favorite-button-add": [
     {
       "type": 0,
@@ -1569,14 +1587,10 @@
       "value": "Date"
     }
   ],
-  "invite-error-fetching-events": [
+  "invite-event-completed": [
     {
       "type": 0,
-      "value": "Error loading events: "
-    },
-    {
-      "type": 1,
-      "value": "error"
+      "value": "Event Completed"
     }
   ],
   "invite-event-details-title": [
@@ -1585,10 +1599,16 @@
       "value": "Event Details"
     }
   ],
-  "invite-events-retrieved": [
+  "invite-fetch-events-error": [
     {
       "type": 0,
-      "value": "Events loaded successfully"
+      "value": "Failed to load events. Please try again."
+    }
+  ],
+  "invite-hide-past-events": [
+    {
+      "type": 0,
+      "value": "Hide Past Events"
     }
   ],
   "invite-loading": [
@@ -1601,12 +1621,6 @@
     {
       "type": 0,
       "value": "Location"
-    }
-  ],
-  "invite-no-events-data": [
-    {
-      "type": 0,
-      "value": "No upcoming events found"
     }
   ],
   "invite-no-events-description": [
@@ -1633,10 +1647,28 @@
       "value": "You're Invited!"
     }
   ],
+  "invite-past-event-summary": [
+    {
+      "type": 0,
+      "value": "Past Event"
+    }
+  ],
+  "invite-past-events-title": [
+    {
+      "type": 0,
+      "value": "Past Events"
+    }
+  ],
   "invite-rsvp-toggle-title": [
     {
       "type": 0,
       "value": "RSVP for this Event"
+    }
+  ],
+  "invite-show-past-events": [
+    {
+      "type": 0,
+      "value": "Show Past Events"
     }
   ],
   "invite-stay-tuned": [
@@ -1649,6 +1681,18 @@
     {
       "type": 0,
       "value": "Time"
+    }
+  ],
+  "invite-unexpected-error": [
+    {
+      "type": 0,
+      "value": "An unexpected error occurred. Please refresh the page."
+    }
+  ],
+  "invite-upcoming-events-title": [
+    {
+      "type": 0,
+      "value": "Upcoming Events"
     }
   ],
   "load_more_button": [
