@@ -17,6 +17,7 @@ import {
   faBasketShopping,
   faHeart,
   faCalendarPlus,
+  faCalendarCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import { CSSTransition } from "react-transition-group";
 import { useSelector } from "react-redux";
@@ -459,6 +460,18 @@ function DropdownMenu({ closeDropdown }: { closeDropdown?: () => void }) {
               id="nav-bar-favorites-text"
               description="Favorites"
               defaultMessage="Favorites"
+            />
+          </DropdownItem>
+
+          {/* Invite Navigation */}
+          <DropdownItem
+            leftIcon={<FontAwesomeIcon icon={faCalendarCheck} size="lg" />}
+            onClick={() => router.push('/invite')}
+          >
+            <FormattedMessage
+              id="nav-bar-invite-text"
+              description="Invites"
+              defaultMessage="Invites"
             />
           </DropdownItem>
 
