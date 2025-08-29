@@ -22,6 +22,7 @@ import Image from "next/image";
 import moment from "moment";
 
 import { supaClient } from "../../supa-client";
+import CalendarButton from "../../components/CalendarButton";
 
 import { RootState } from "../../lib/interfaces/interface";
 import { fetchInviteEvents } from "../../redux/actions/actions";
@@ -398,6 +399,18 @@ function Invite() {
                                         </div>
                                       </div>
                                       
+                                      {/* Add to Calendar Button */}
+                                      <div className="mt-6">
+                                        <CalendarButton
+                                          title={inviteEvent.title}
+                                          description={inviteEvent.description}
+                                          location={inviteEvent.location}
+                                          date={inviteEvent.date}
+                                          time={inviteEvent.time}
+                                          className="w-full"
+                                        />
+                                      </div>
+                                      
                                       {inviteEvent.description && (
                                         <div className="mt-6 p-4 bg-gray-50 dark:bg-fun-blue-700 rounded-lg">
                                           <p className="text-blog-black dark:text-blog-white leading-relaxed">
@@ -611,6 +624,18 @@ function Invite() {
                                               defaultMessage="Event Completed"
                                             />
                                           </div>
+                                        </div>
+                                        
+                                        {/* Add to Calendar Button for Past Events */}
+                                        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-fun-blue-500">
+                                          <CalendarButton
+                                            title={`${inviteEvent.title} (Past Event)`}
+                                            description={inviteEvent.description}
+                                            location={inviteEvent.location}
+                                            date={inviteEvent.date}
+                                            time={inviteEvent.time}
+                                            className="w-full opacity-75"
+                                          />
                                         </div>
                                       </div>
                                     </div>

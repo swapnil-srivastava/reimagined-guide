@@ -1023,6 +1023,12 @@
       "value": "Total:"
     }
   ],
+  "calendar-button-add-to-calendar": [
+    {
+      "type": 0,
+      "value": "Add to Calendar"
+    }
+  ],
   "cancel-cancelled": [
     {
       "type": 0,
