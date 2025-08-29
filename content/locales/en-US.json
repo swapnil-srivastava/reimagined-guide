@@ -453,7 +453,7 @@
   "rsvp-list-no-responses": "No RSVP responses yet for this event.",
   "rsvp-list-not-attending-title": "Not Attending ({count})",
   "rsvp-list-responded-on": "Responded on {date}",
-  "rsvp-list-summary": "{attending} attending • {total} total responses • {guests} guests",
+  "rsvp-list-summary": "{attending} attending • {total} total responses • {guests} guests • {kids} kids",
   "rsvp-list-unexpected-error": "An unexpected error occurred",
   "rsvpform-contact-optional": "(optional)",
   "rsvpform-contact-section-title": "Contact Information",

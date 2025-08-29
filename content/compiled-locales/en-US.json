@@ -3042,7 +3042,15 @@
     },
     {
       "type": 0,
-      "value": " guests"
+      "value": " guests • "
+    },
+    {
+      "type": 1,
+      "value": "kids"
+    },
+    {
+      "type": 0,
+      "value": " kids"
     }
   ],
   "rsvp-list-unexpected-error": [

@@ -105,6 +105,7 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle }) => {
   const attendingRsvps = rsvps.filter(rsvp => rsvp.is_attending);
   const notAttendingRsvps = rsvps.filter(rsvp => !rsvp.is_attending);
   const totalGuests = attendingRsvps.reduce((total, rsvp) => total + 1 + (rsvp.kids?.length || 0), 0);
+  const totalKids = attendingRsvps.reduce((total, rsvp) => total + (rsvp.kids?.length || 0), 0);
   const totalFamilies = attendingRsvps.length;
 
   if (loading) {
@@ -150,11 +151,12 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle }) => {
               <FormattedMessage
                 id="rsvp-list-summary"
                 description="RSVP summary"
-                defaultMessage="{attending} attending • {total} total responses • {guests} guests"
+                defaultMessage="{attending} attending • {total} total responses • {guests} guests • {kids} kids"
                 values={{
                   attending: totalFamilies,
                   total: rsvps.length,
-                  guests: totalGuests
+                  guests: totalGuests,
+                  kids: totalKids
                 }}
               />
             </p>
@@ -185,16 +187,28 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle }) => {
               {/* Attending Section */}
               {attendingRsvps.length > 0 && (
                 <div>
-                  <div className="flex items-center gap-2 mb-4">
-                    <FontAwesomeIcon icon={faCheckCircle} className="text-green-500" />
-                    <h5 className="font-semibold text-blog-black dark:text-blog-white">
-                      <FormattedMessage
-                        id="rsvp-list-attending-title"
-                        description="Attending"
-                        defaultMessage="Attending ({count})"
-                        values={{ count: attendingRsvps.length }}
-                      />
-                    </h5>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-2">
+                      <FontAwesomeIcon icon={faCheckCircle} className="text-green-500" />
+                      <h5 className="font-semibold text-blog-black dark:text-blog-white">
+                        <FormattedMessage
+                          id="rsvp-list-attending-title"
+                          description="Attending"
+                          defaultMessage="Attending ({count})"
+                          values={{ count: attendingRsvps.length }}
+                        />
+                      </h5>
+                    </div>
+                    <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+                      <div className="flex items-center gap-1">
+                        <FontAwesomeIcon icon={faUsers} className="text-xs" />
+                        <span>{totalFamilies} families</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <FontAwesomeIcon icon={faChild} className="text-xs" />
+                        <span>{totalKids} kids</span>
+                      </div>
+                    </div>
                   </div>
                   <div className="space-y-4">
                     {attendingRsvps.map((rsvp) => (
@@ -205,9 +219,16 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle }) => {
                           <h6 className="font-medium text-blog-black dark:text-blog-white">
                             {rsvp.family_name}
                           </h6>
-                          <span className="text-xs bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-200 px-2 py-1 rounded-full">
-                            +{1 + (rsvp.kids?.length || 0)} guests
-                          </span>
+                          <div className="flex gap-1">
+                            <span className="text-xs bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-200 px-2 py-1 rounded-full">
+                              {1 + (rsvp.kids?.length || 0)} total
+                            </span>
+                            {rsvp.kids && rsvp.kids.length > 0 && (
+                              <span className="text-xs bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200 px-2 py-1 rounded-full">
+                                {rsvp.kids.length} kids
+                              </span>
+                            )}
+                          </div>
                         </div>
 
                         {/* Children */}
