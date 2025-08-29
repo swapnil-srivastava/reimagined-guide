@@ -87,6 +87,38 @@ function EventManagement() {
     }
   };
 
+  // Convert 24-hour time to HTML time input format (HH:MM)
+  const formatTimeForInput = (time: string) => {
+    if (!time) return '';
+    
+    // Handle both "HH:MM:SS" and "HH:MM" formats
+    const timeParts = time.split(':');
+    return `${timeParts[0].padStart(2, '0')}:${timeParts[1].padStart(2, '0')}`;
+  };
+
+  // Convert 12-hour format to 24-hour format for API
+  const convertTo24Hour = (time12h: string) => {
+    if (!time12h) return '';
+    
+    const timeRegex12Hour = /^(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)$/i;
+    if (timeRegex12Hour.test(time12h)) {
+      const [timePart, period] = time12h.split(/\s+/);
+      const [hours, minutes] = timePart.split(':').map(Number);
+      let convertedHours = hours;
+      
+      if (period.toUpperCase() === 'PM' && hours !== 12) {
+        convertedHours += 12;
+      } else if (period.toUpperCase() === 'AM' && hours === 12) {
+        convertedHours = 0;
+      }
+      
+      return `${convertedHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    }
+    
+    // If it's already in 24-hour format or time picker format, return as is
+    return time12h;
+  };
+
   useEffect(() => {
     if (isAuthorized) {
       fetchEvents();
@@ -147,14 +179,33 @@ function EventManagement() {
     try {
       const endpoint = '/api/events';
       const method = editingEvent ? 'PUT' : 'POST';
+      
+      // Convert time to 24-hour format if it's in 12-hour format
+      const convertedTime = convertTo24Hour(formData.time);
+      
       const payload = editingEvent 
-        ? { ...formData, id: editingEvent.id, organizer_id: userInfo.session?.user?.id }
-        : { ...formData, organizer_id: userInfo.session?.user?.id };
+        ? { ...formData, time: convertedTime, id: editingEvent.id }
+        : { ...formData, time: convertedTime };
+
+      // Get the access token from the session
+      const { data: { session } } = await supaClient.auth.getSession();
+      const accessToken = session?.access_token;
+
+      if (!accessToken) {
+        toast.error(intl.formatMessage({
+          id: "admin-events-no-session",
+          description: "No session found",
+          defaultMessage: "No authentication session found. Please log in again."
+        }));
+        setSubmitting(false);
+        return;
+      }
 
       const response = await fetch(endpoint, {
         method,
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`
         },
         body: JSON.stringify(payload),
       });
@@ -197,7 +248,7 @@ function EventManagement() {
       title: event.title,
       description: event.description || '',
       date: moment(event.date).format('YYYY-MM-DD'),
-      time: formatTimeFor12Hour(event.time),
+      time: formatTimeForInput(event.time), // Use HTML time input format
       location: event.location,
       image_url: event.image_url || ''
     });
@@ -223,14 +274,27 @@ function EventManagement() {
     if (!confirmDelete) return;
 
     try {
+      // Get the access token from the session
+      const { data: { session } } = await supaClient.auth.getSession();
+      const accessToken = session?.access_token;
+
+      if (!accessToken) {
+        toast.error(intl.formatMessage({
+          id: "admin-events-no-session",
+          description: "No session found",
+          defaultMessage: "No authentication session found. Please log in again."
+        }));
+        return;
+      }
+
       const response = await fetch('/api/events', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`
         },
         body: JSON.stringify({ 
-          id: eventId, 
-          organizer_id: userInfo.session?.user?.id 
+          id: eventId
         }),
       });
 
@@ -418,17 +482,12 @@ function EventManagement() {
                   />
                 </label>
                 <input
-                  type="text"
+                  type="time"
                   name="time"
                   value={formData.time}
                   onChange={handleInputChange}
                   required
                   className="w-full px-4 py-3 bg-white dark:bg-fun-blue-600 border border-gray-200 dark:border-fun-blue-600 rounded-lg text-blog-black dark:text-blog-white focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:border-transparent"
-                  placeholder={intl.formatMessage({
-                    id: "admin-events-form-time-placeholder",
-                    description: "Event time placeholder",
-                    defaultMessage: "e.g., 7:00 PM"
-                  })}
                 />
               </div>
             </div>

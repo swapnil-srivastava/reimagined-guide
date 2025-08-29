@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import moment from 'moment';
-import { supaClient } from '../../supa-client';
+import { supaServerClient } from '../../supa-server-client';
+import { Database } from '../../database.types';
 
 export default async function handler(
   req: NextApiRequest,
@@ -9,11 +10,42 @@ export default async function handler(
   if (req.method === 'POST') {
     try {
       console.log('POST request received:', req.body);
+      console.log('Request headers authorization:', req.headers.authorization ? 'Present' : 'Missing');
       
-      const { title, description, date, time, location, image_url, organizer_id } = req.body;
+      // Get the authorization token from the request headers
+      const authToken = req.headers.authorization?.replace('Bearer ', '');
+      
+      if (!authToken) {
+        console.log('No authorization token provided');
+        return res.status(401).json({ 
+          error: 'Authentication required. Please log in and try again.' 
+        });
+      }
+
+      if (!supaServerClient) {
+        console.log('Server client not available');
+        return res.status(500).json({ 
+          error: 'Server configuration error.' 
+        });
+      }
+      
+      // Get the current user from the JWT token using server client
+      const { data: { user }, error: authError } = await supaServerClient.auth.getUser(authToken);
+      console.log('Authenticated user ID:', user?.id);
+      console.log('Auth error:', authError);
+      
+      if (authError || !user) {
+        console.log('Authentication failed:', authError?.message);
+        return res.status(401).json({ 
+          error: 'Authentication failed. Please log in and try again.' 
+        });
+      }
+      
+      const { title, description, date, time, location, image_url } = req.body;
+      const organizer_id = user.id;
       
       console.log('Extracted data:', { title, description, date, time, location, image_url, organizer_id });
-      console.log('Expected organizer ID:', process.env.NEXT_PUBLIC_SWAPNIL_ID);
+      console.log('Expected admin ID:', process.env.NEXT_PUBLIC_SWAPNIL_ID);
 
       // Validate that the user is authorized (must be the admin user)
       if (organizer_id !== process.env.NEXT_PUBLIC_SWAPNIL_ID) {
@@ -72,7 +104,8 @@ export default async function handler(
         organizer_id
       });
 
-      const { data, error } = await supaClient
+      // Use the server client to insert the data
+      const { data, error } = await supaServerClient
         .from('events')
         .insert([
           {
@@ -110,7 +143,34 @@ export default async function handler(
     }
   } else if (req.method === 'PUT') {
     try {
-      const { id, title, description, date, time, location, image_url, organizer_id } = req.body;
+      console.log('PUT request received:', req.body);
+      
+      // Get the authorization token from the request headers
+      const authToken = req.headers.authorization?.replace('Bearer ', '');
+      
+      if (!authToken) {
+        return res.status(401).json({ 
+          error: 'Authentication required. Please log in and try again.' 
+        });
+      }
+
+      if (!supaServerClient) {
+        return res.status(500).json({ 
+          error: 'Server configuration error.' 
+        });
+      }
+      
+      // Get the current user from the JWT token using server client
+      const { data: { user }, error: authError } = await supaServerClient.auth.getUser(authToken);
+      
+      if (authError || !user) {
+        return res.status(401).json({ 
+          error: 'Authentication failed. Please log in and try again.' 
+        });
+      }
+
+      const { id, title, description, date, time, location, image_url } = req.body;
+      const organizer_id = user.id;
 
       // Validate that the user is authorized (must be the admin user)
       if (organizer_id !== process.env.NEXT_PUBLIC_SWAPNIL_ID) {
@@ -158,7 +218,7 @@ export default async function handler(
       
       const convertedTime = `${convertedHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:00`;
 
-      const { data, error } = await supaClient
+      const { data, error } = await supaServerClient
         .from('events')
         .update({
           title: title.trim(),
@@ -192,7 +252,34 @@ export default async function handler(
     }
   } else if (req.method === 'DELETE') {
     try {
-      const { id, organizer_id } = req.body;
+      console.log('DELETE request received:', req.body);
+      
+      // Get the authorization token from the request headers
+      const authToken = req.headers.authorization?.replace('Bearer ', '');
+      
+      if (!authToken) {
+        return res.status(401).json({ 
+          error: 'Authentication required. Please log in and try again.' 
+        });
+      }
+
+      if (!supaServerClient) {
+        return res.status(500).json({ 
+          error: 'Server configuration error.' 
+        });
+      }
+      
+      // Get the current user from the JWT token using server client
+      const { data: { user }, error: authError } = await supaServerClient.auth.getUser(authToken);
+      
+      if (authError || !user) {
+        return res.status(401).json({ 
+          error: 'Authentication failed. Please log in and try again.' 
+        });
+      }
+
+      const { id } = req.body;
+      const organizer_id = user.id;
 
       // Validate that the user is authorized (must be the admin user)
       if (organizer_id !== process.env.NEXT_PUBLIC_SWAPNIL_ID) {
@@ -207,7 +294,7 @@ export default async function handler(
         });
       }
 
-      const { error } = await supaClient
+      const { error } = await supaServerClient
         .from('events')
         .delete()
         .eq('id', id);
