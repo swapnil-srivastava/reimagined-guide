@@ -257,12 +257,6 @@
       "value": "Time *"
     }
   ],
-  "admin-events-form-time-placeholder": [
-    {
-      "type": 0,
-      "value": "e.g., 7:00 PM"
-    }
-  ],
   "admin-events-form-title-label": [
     {
       "type": 0,
@@ -297,6 +291,12 @@
     {
       "type": 0,
       "value": "No events found. Create your first event to get started!"
+    }
+  ],
+  "admin-events-no-session": [
+    {
+      "type": 0,
+      "value": "No authentication session found. Please log in again."
     }
   ],
   "admin-events-page-subtitle": [
@@ -1809,12 +1809,6 @@
       "value": "Date"
     }
   ],
-  "invite-event-completed": [
-    {
-      "type": 0,
-      "value": "Event Completed"
-    }
-  ],
   "invite-event-details-title": [
     {
       "type": 0,
@@ -1957,6 +1951,12 @@
     {
       "type": 0,
       "value": "Favorites"
+    }
+  ],
+  "nav-bar-invite-text": [
+    {
+      "type": 0,
+      "value": "Invites"
     }
   ],
   "nav-bar-login-text": [
@@ -2943,6 +2943,112 @@
     {
       "type": 0,
       "value": "Skill successfully created"
+    }
+  ],
+  "rsvp-list-admin-title": [
+    {
+      "type": 0,
+      "value": "RSVP Responses (Admin Only)"
+    }
+  ],
+  "rsvp-list-attending-title": [
+    {
+      "type": 0,
+      "value": "Attending ("
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "rsvp-list-children-label": [
+    {
+      "type": 0,
+      "value": "Children:"
+    }
+  ],
+  "rsvp-list-fetch-error": [
+    {
+      "type": 0,
+      "value": "Failed to load RSVP responses"
+    }
+  ],
+  "rsvp-list-loading": [
+    {
+      "type": 0,
+      "value": "Loading RSVP responses..."
+    }
+  ],
+  "rsvp-list-message-label": [
+    {
+      "type": 0,
+      "value": "Message:"
+    }
+  ],
+  "rsvp-list-no-responses": [
+    {
+      "type": 0,
+      "value": "No RSVP responses yet for this event."
+    }
+  ],
+  "rsvp-list-not-attending-title": [
+    {
+      "type": 0,
+      "value": "Not Attending ("
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "rsvp-list-responded-on": [
+    {
+      "type": 0,
+      "value": "Responded on "
+    },
+    {
+      "type": 1,
+      "value": "date"
+    }
+  ],
+  "rsvp-list-summary": [
+    {
+      "type": 1,
+      "value": "attending"
+    },
+    {
+      "type": 0,
+      "value": " attending • "
+    },
+    {
+      "type": 1,
+      "value": "total"
+    },
+    {
+      "type": 0,
+      "value": " total responses • "
+    },
+    {
+      "type": 1,
+      "value": "guests"
+    },
+    {
+      "type": 0,
+      "value": " guests"
+    }
+  ],
+  "rsvp-list-unexpected-error": [
+    {
+      "type": 0,
+      "value": "An unexpected error occurred"
     }
   ],
   "rsvpform-contact-optional": [

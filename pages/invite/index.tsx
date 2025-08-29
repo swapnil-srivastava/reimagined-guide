@@ -30,6 +30,7 @@ import { fetchInviteEvents } from "../../redux/actions/actions";
 // CSS
 import styles from "../../styles/Admin.module.css";
 import RSVPForm from "../../components/RSVPForm";
+import RSVPList from "../../components/RSVPList";
 
 function Invite() {
   const intl = useIntl();
@@ -445,6 +446,10 @@ function Invite() {
                                       {expandedEvent === inviteEvent.id && (
                                         <div className="mt-6 animate-fadeIn">
                                           <RSVPForm eventId={inviteEvent.id} />
+                                          <RSVPList 
+                                            eventId={inviteEvent.id} 
+                                            eventTitle={inviteEvent.title}
+                                          />
                                         </div>
                                       )}
                                     </div>
@@ -603,7 +608,7 @@ function Invite() {
                                       {/* Event Content - Limited for Past Events */}
                                       <div className="p-6 lg:p-8">
                                         <div className="flex items-center justify-between">
-                                          <div>
+                                          <div className="flex-1">
                                             <h3 className="text-xl font-semibold text-blog-black dark:text-blog-white mb-2">
                                               <FormattedMessage
                                                 id="invite-past-event-summary"
@@ -617,13 +622,17 @@ function Invite() {
                                               </p>
                                             )}
                                           </div>
-                                          <div className="text-sm text-gray-500 dark:text-gray-400 text-right">
-                                            <FormattedMessage
-                                              id="invite-event-completed"
-                                              description="Event Completed"
-                                              defaultMessage="Event Completed"
+                                          
+                                          {/* Expand Button for Past Events */}
+                                          <button
+                                            onClick={() => toggleEventExpansion(inviteEvent.id)}
+                                            className="ml-4 p-2 hover:bg-gray-100 dark:hover:bg-fun-blue-500 rounded-lg transition-colors duration-200"
+                                          >
+                                            <FontAwesomeIcon 
+                                              icon={expandedEvent === inviteEvent.id ? faChevronUp : faChevronDown} 
+                                              className="text-gray-500 dark:text-gray-400"
                                             />
-                                          </div>
+                                          </button>
                                         </div>
                                         
                                         {/* Add to Calendar Button for Past Events */}
@@ -637,6 +646,16 @@ function Invite() {
                                             className="w-full opacity-75"
                                           />
                                         </div>
+
+                                        {/* Expanded Past Event Details */}
+                                        {expandedEvent === inviteEvent.id && (
+                                          <div className="mt-6 animate-fadeIn">
+                                            <RSVPList 
+                                              eventId={inviteEvent.id} 
+                                              eventTitle={inviteEvent.title}
+                                            />
+                                          </div>
+                                        )}
                                       </div>
                                     </div>
                                   ))}
