@@ -1839,6 +1839,12 @@
       "value": "Loading events..."
     }
   ],
+  "invite-location-button": [
+    {
+      "type": 0,
+      "value": "Location"
+    }
+  ],
   "invite-location-label": [
     {
       "type": 0,
@@ -1921,6 +1927,12 @@
     {
       "type": 0,
       "value": "Stay Tuned"
+    }
+  ],
+  "invite-tap-to-navigate": [
+    {
+      "type": 0,
+      "value": "Tap to navigate"
     }
   ],
   "invite-time-label": [

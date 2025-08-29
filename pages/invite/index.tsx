@@ -471,12 +471,25 @@ function Invite({ seoData }: InvitePageProps) {
                                             {formatTime(inviteEvent.time)}
                                           </div>
                                         </div>
-                                        <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-2 text-center">
+                                        <a 
+                                          href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(inviteEvent.location)}`} 
+                                          target="_blank" 
+                                          rel="noopener noreferrer"
+                                          title={`Open in Google Maps: ${inviteEvent.location}`}
+                                          className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-2 text-center block hover:bg-gray-100 dark:hover:bg-fun-blue-600 transition-colors duration-200 active:scale-95 transform"
+                                        >
                                           <FontAwesomeIcon icon={faMapMarkerAlt} className="text-fun-blue-500 text-sm mb-1" />
                                           <div className="text-xs font-medium text-blog-black dark:text-blog-white truncate">
                                             {inviteEvent.location.split(',')[0]} {/* Show only first part of location */}
                                           </div>
-                                        </div>
+                                          <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                            <FormattedMessage
+                                              id="invite-tap-to-navigate"
+                                              description="Tap to navigate"
+                                              defaultMessage="Tap to navigate"
+                                            />
+                                          </div>
+                                        </a>
                                       </div>
 
                                       {/* Mobile Calendar Button */}
@@ -890,15 +903,33 @@ function Invite({ seoData }: InvitePageProps) {
                                             </button>
                                           </div>
                                           
-                                          {/* Calendar Button - Compact */}
-                                          <CalendarButton
-                                            title={`${inviteEvent.title} (Past Event)`}
-                                            description={inviteEvent.description}
-                                            location={inviteEvent.location}
-                                            date={inviteEvent.date}
-                                            time={inviteEvent.time}
-                                            className="w-full opacity-75 text-xs"
-                                          />
+                                          {/* Action Buttons - Compact */}
+                                          <div className="flex gap-2">
+                                            <CalendarButton
+                                              title={`${inviteEvent.title} (Past Event)`}
+                                              description={inviteEvent.description}
+                                              location={inviteEvent.location}
+                                              date={inviteEvent.date}
+                                              time={inviteEvent.time}
+                                              className="flex-1 opacity-75 text-xs"
+                                            />
+                                            <a 
+                                              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(inviteEvent.location)}`} 
+                                              target="_blank" 
+                                              rel="noopener noreferrer"
+                                              title={`Open in Google Maps: ${inviteEvent.location}`}
+                                              className="px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200 active:scale-95 transform flex items-center gap-1"
+                                            >
+                                              <FontAwesomeIcon icon={faMapMarkerAlt} className="text-xs" />
+                                              <span className="text-xs font-medium">
+                                                <FormattedMessage
+                                                  id="invite-location-button"
+                                                  description="Location"
+                                                  defaultMessage="Location"
+                                                />
+                                              </span>
+                                            </a>
+                                          </div>
 
                                           {/* Expanded Details */}
                                           {expandedEvent === inviteEvent.id && (
