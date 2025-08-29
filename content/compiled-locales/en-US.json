@@ -1809,6 +1809,12 @@
       "value": "Date"
     }
   ],
+  "invite-event-details-mobile": [
+    {
+      "type": 0,
+      "value": "Event Details"
+    }
+  ],
   "invite-event-details-title": [
     {
       "type": 0,
@@ -1839,6 +1845,12 @@
       "value": "Location"
     }
   ],
+  "invite-mobile-celebration": [
+    {
+      "type": 0,
+      "value": "Celebration"
+    }
+  ],
   "invite-no-events-description": [
     {
       "type": 0,
@@ -1863,6 +1875,12 @@
       "value": "You're Invited!"
     }
   ],
+  "invite-past-event-mobile": [
+    {
+      "type": 0,
+      "value": "Past Event"
+    }
+  ],
   "invite-past-event-summary": [
     {
       "type": 0,
@@ -1873,6 +1891,18 @@
     {
       "type": 0,
       "value": "Past Events"
+    }
+  ],
+  "invite-past-mobile-label": [
+    {
+      "type": 0,
+      "value": "Past event"
+    }
+  ],
+  "invite-rsvp-toggle-mobile": [
+    {
+      "type": 0,
+      "value": "RSVP"
     }
   ],
   "invite-rsvp-toggle-title": [

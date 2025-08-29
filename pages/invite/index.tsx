@@ -417,156 +417,288 @@ function Invite({ seoData }: InvitePageProps) {
                               {yearEvents.map((inviteEvent) => (
                                 <div 
                                   key={inviteEvent.id} 
-                                  className="bg-white dark:bg-fun-blue-600 rounded-2xl drop-shadow-lg hover:drop-shadow-xl transition-all duration-300 overflow-hidden border-l-4 border-green-500 group"
+                                  className="bg-white dark:bg-fun-blue-600 rounded-xl drop-shadow-lg hover:drop-shadow-xl transition-all duration-300 overflow-hidden border-l-4 border-green-500 group"
                                 >
-                                  {/* Event Header */}
-                                  <div className="relative group-hover:brightness-110 transition-all duration-300">
-                                    <div className="aspect-w-16 aspect-h-6 lg:aspect-h-4">
-                                      <Image 
-                                        src={inviteEvent.image_url ?? `/mountains.jpg`} 
-                                        alt={inviteEvent.title}
-                                        width={1200}
-                                        height={400}
-                                        className="w-full h-64 lg:h-80 object-cover"
+                                  {/* Mobile Compact Layout */}
+                                  <div className="block md:hidden">
+                                    {/* Mobile Header - Compact */}
+                                    <div className="relative">
+                                      <div className="h-32 relative overflow-hidden">
+                                        <Image 
+                                          src={inviteEvent.image_url ?? `/mountains.jpg`} 
+                                          alt={inviteEvent.title}
+                                          width={800}
+                                          height={200}
+                                          className="w-full h-full object-cover"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
+                                        <div className="absolute top-2 right-2">
+                                          {getEventStatusBadge(getEventStatus(inviteEvent.date))}
+                                        </div>
+                                        <div className="absolute inset-0 flex items-center">
+                                          <div className="p-3 flex-1">
+                                            <h2 className="text-lg font-bold text-white mb-1 line-clamp-2">
+                                              {inviteEvent.title}
+                                            </h2>
+                                            <div className="flex items-center gap-2 text-white/90 text-xs">
+                                              <FontAwesomeIcon icon={faHeart} className="text-hit-pink-400" />
+                                              <span>
+                                                <FormattedMessage
+                                                  id="invite-mobile-celebration"
+                                                  description="Celebration"
+                                                  defaultMessage="Celebration"
+                                                />
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    {/* Mobile Content - Compact */}
+                                    <div className="p-3">
+                                      {/* Quick Info Grid - Now 3 columns with Date */}
+                                      <div className="grid grid-cols-3 gap-2 mb-3">
+                                        <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-2 text-center">
+                                          <FontAwesomeIcon icon={faCalendar} className="text-fun-blue-500 text-sm mb-1" />
+                                          <div className="text-xs font-medium text-blog-black dark:text-blog-white">
+                                            {moment(inviteEvent.date).format('MMM DD')}
+                                          </div>
+                                        </div>
+                                        <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-2 text-center">
+                                          <FontAwesomeIcon icon={faClock} className="text-fun-blue-500 text-sm mb-1" />
+                                          <div className="text-xs font-medium text-blog-black dark:text-blog-white">
+                                            {formatTime(inviteEvent.time)}
+                                          </div>
+                                        </div>
+                                        <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-2 text-center">
+                                          <FontAwesomeIcon icon={faMapMarkerAlt} className="text-fun-blue-500 text-sm mb-1" />
+                                          <div className="text-xs font-medium text-blog-black dark:text-blog-white truncate">
+                                            {inviteEvent.location.split(',')[0]} {/* Show only first part of location */}
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      {/* Mobile Calendar Button */}
+                                      <CalendarButton
+                                        title={inviteEvent.title}
+                                        description={inviteEvent.description}
+                                        location={inviteEvent.location}
+                                        date={inviteEvent.date}
+                                        time={inviteEvent.time}
+                                        className="w-full mb-3"
                                       />
-                                    </div>
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                                    <div className="absolute top-4 right-4">
-                                      {getEventStatusBadge(getEventStatus(inviteEvent.date))}
-                                    </div>
-                                    <div className="absolute bottom-6 left-6 right-6">
-                                      <h2 className="text-3xl lg:text-4xl font-bold text-white mb-2">
-                                        {inviteEvent.title}
-                                      </h2>
-                                      <div className="flex flex-wrap gap-4 text-white/90">
-                                        <div className="flex items-center gap-2">
-                                          <FontAwesomeIcon icon={faCalendar} className="text-hit-pink-400" />
-                                          <span className="font-medium">{formatDate(inviteEvent.date)}</span>
+
+                                      {/* Mobile Description - Collapsed by default */}
+                                      {inviteEvent.description && (
+                                        <div className="mb-3">
+                                          <details className="group">
+                                            <summary className="cursor-pointer text-sm font-medium text-blog-black dark:text-blog-white flex items-center gap-2">
+                                              <FormattedMessage
+                                                id="invite-event-details-mobile"
+                                                description="Event Details"
+                                                defaultMessage="Event Details"
+                                              />
+                                              <FontAwesomeIcon 
+                                                icon={faChevronDown} 
+                                                className="text-xs group-open:rotate-180 transition-transform"
+                                              />
+                                            </summary>
+                                            <div className="mt-2 p-2 bg-gray-50 dark:bg-fun-blue-700 rounded-lg">
+                                              <p className="text-xs text-blog-black dark:text-blog-white leading-relaxed">
+                                                {inviteEvent.description}
+                                              </p>
+                                            </div>
+                                          </details>
                                         </div>
-                                        <div className="flex items-center gap-2">
-                                          <FontAwesomeIcon icon={faClock} className="text-hit-pink-400" />
-                                          <span className="font-medium">{formatTime(inviteEvent.time)}</span>
-                                        </div>
-                                        <div className="flex items-center gap-2">
-                                          <FontAwesomeIcon icon={faMapMarkerAlt} className="text-hit-pink-400" />
-                                          <span className="font-medium">{inviteEvent.location}</span>
-                                        </div>
+                                      )}
+
+                                      {/* Mobile RSVP Section */}
+                                      <div className="border-t border-gray-200 dark:border-fun-blue-500 pt-3">
+                                        <button
+                                          onClick={() => toggleEventExpansion(inviteEvent.id)}
+                                          className="w-full flex items-center justify-between p-2 bg-gray-50 dark:bg-fun-blue-700 rounded-lg hover:bg-gray-100 dark:hover:bg-fun-blue-600 transition-colors duration-200"
+                                        >
+                                          <div className="flex items-center gap-2">
+                                            <FontAwesomeIcon icon={faUsers} className="text-fun-blue-500 text-sm" />
+                                            <span className="text-sm font-semibold text-blog-black dark:text-blog-white">
+                                              <FormattedMessage
+                                                id="invite-rsvp-toggle-mobile"
+                                                description="RSVP"
+                                                defaultMessage="RSVP"
+                                              />
+                                            </span>
+                                          </div>
+                                          <FontAwesomeIcon 
+                                            icon={expandedEvent === inviteEvent.id ? faChevronUp : faChevronDown} 
+                                            className="text-gray-500 dark:text-gray-400 text-sm"
+                                          />
+                                        </button>
+                                        
+                                        {expandedEvent === inviteEvent.id && (
+                                          <div className="mt-3 animate-fadeIn">
+                                            <RSVPForm eventId={inviteEvent.id} />
+                                            <RSVPList 
+                                              eventId={inviteEvent.id} 
+                                              eventTitle={inviteEvent.title}
+                                            />
+                                          </div>
+                                        )}
                                       </div>
                                     </div>
                                   </div>
 
-                                  {/* Event Content */}
-                                  <div className="p-6 lg:p-8">
-                                    {/* Event Details */}
-                                    <div className="mb-8 group-hover:brightness-105 transition-all duration-300">
-                                      <h3 className="text-xl font-semibold text-blog-black dark:text-blog-white mb-4">
-                                        <FormattedMessage
-                                          id="invite-event-details-title"
-                                          description="Event Details"
-                                          defaultMessage="Event Details"
+                                  {/* Desktop Layout - Keep Original */}
+                                  <div className="hidden md:block">
+                                    {/* Event Header */}
+                                    <div className="relative group-hover:brightness-110 transition-all duration-300">
+                                      <div className="aspect-w-16 aspect-h-6 lg:aspect-h-4">
+                                        <Image 
+                                          src={inviteEvent.image_url ?? `/mountains.jpg`} 
+                                          alt={inviteEvent.title}
+                                          width={1200}
+                                          height={400}
+                                          className="w-full h-64 lg:h-80 object-cover"
                                         />
-                                      </h3>
-                                      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-                                        <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-4 text-center">
-                                          <FontAwesomeIcon icon={faCalendar} className="text-fun-blue-500 text-2xl mb-2" />
-                                          <div className="text-sm text-gray-600 dark:text-gray-300 uppercase tracking-wide mb-1">
-                                            <FormattedMessage
-                                              id="invite-date-label"
-                                              description="Date"
-                                              defaultMessage="Date"
-                                            />
+                                      </div>
+                                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                                      <div className="absolute top-4 right-4">
+                                        {getEventStatusBadge(getEventStatus(inviteEvent.date))}
+                                      </div>
+                                      <div className="absolute bottom-6 left-6 right-6">
+                                        <h2 className="text-3xl lg:text-4xl font-bold text-white mb-2">
+                                          {inviteEvent.title}
+                                        </h2>
+                                        <div className="flex flex-wrap gap-4 text-white/90">
+                                          <div className="flex items-center gap-2">
+                                            <FontAwesomeIcon icon={faCalendar} className="text-hit-pink-400" />
+                                            <span className="font-medium">{formatDate(inviteEvent.date)}</span>
                                           </div>
-                                          <div className="font-semibold text-blog-black dark:text-blog-white">
-                                            {formatDate(inviteEvent.date)}
+                                          <div className="flex items-center gap-2">
+                                            <FontAwesomeIcon icon={faClock} className="text-hit-pink-400" />
+                                            <span className="font-medium">{formatTime(inviteEvent.time)}</span>
                                           </div>
-                                        </div>
-                                        <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-4 text-center">
-                                          <FontAwesomeIcon icon={faClock} className="text-fun-blue-500 text-2xl mb-2" />
-                                          <div className="text-sm text-gray-600 dark:text-gray-300 uppercase tracking-wide mb-1">
-                                            <FormattedMessage
-                                              id="invite-time-label"
-                                              description="Time"
-                                              defaultMessage="Time"
-                                            />
-                                          </div>
-                                          <div className="font-semibold text-blog-black dark:text-blog-white">
-                                            {formatTime(inviteEvent.time)}
-                                          </div>
-                                        </div>
-                                        <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-4 text-center col-span-2 md:col-span-1">
-                                          <FontAwesomeIcon icon={faMapMarkerAlt} className="text-fun-blue-500 text-2xl mb-2" />
-                                          <div className="text-sm text-gray-600 dark:text-gray-300 uppercase tracking-wide mb-1">
-                                            <FormattedMessage
-                                              id="invite-location-label"
-                                              description="Location"
-                                              defaultMessage="Location"
-                                            />
-                                          </div>
-                                          <div className="font-semibold text-blog-black dark:text-blog-white">
-                                            <a 
-                                              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(inviteEvent.location)}`} 
-                                              target="_blank" 
-                                              rel="noopener noreferrer"
-                                              className="hover:text-fun-blue-500 transition-colors duration-200"
-                                            >
-                                              {inviteEvent.location}
-                                            </a>
+                                          <div className="flex items-center gap-2">
+                                            <FontAwesomeIcon icon={faMapMarkerAlt} className="text-hit-pink-400" />
+                                            <span className="font-medium">{inviteEvent.location}</span>
                                           </div>
                                         </div>
                                       </div>
-                                      
-                                      {/* Add to Calendar Button */}
-                                      <div className="mt-6">
-                                        <CalendarButton
-                                          title={inviteEvent.title}
-                                          description={inviteEvent.description}
-                                          location={inviteEvent.location}
-                                          date={inviteEvent.date}
-                                          time={inviteEvent.time}
-                                          className="w-full"
-                                        />
-                                      </div>
-                                      
-                                      {inviteEvent.description && (
-                                        <div className="mt-6 p-4 bg-gray-50 dark:bg-fun-blue-700 rounded-lg">
-                                          <p className="text-blog-black dark:text-blog-white leading-relaxed">
-                                            {inviteEvent.description}
-                                          </p>
-                                        </div>
-                                      )}
                                     </div>
 
-                                    {/* RSVP Section Toggle */}
-                                    <div className="border-t border-gray-200 dark:border-fun-blue-500 pt-6 brightness-100">
-                                      <button
-                                        onClick={() => toggleEventExpansion(inviteEvent.id)}
-                                        className="w-full flex items-center justify-between p-4 bg-gray-50 dark:bg-fun-blue-700 rounded-lg hover:bg-gray-100 dark:hover:bg-fun-blue-600 transition-colors duration-200"
-                                      >
-                                        <div className="flex items-center gap-3">
-                                          <FontAwesomeIcon icon={faUsers} className="text-fun-blue-500" />
-                                          <span className="font-semibold text-blog-black dark:text-blog-white">
-                                            <FormattedMessage
-                                              id="invite-rsvp-toggle-title"
-                                              description="RSVP for this Event"
-                                              defaultMessage="RSVP for this Event"
-                                            />
-                                          </span>
+                                    {/* Event Content */}
+                                    <div className="p-6 lg:p-8">
+                                      {/* Event Details */}
+                                      <div className="mb-8 group-hover:brightness-105 transition-all duration-300">
+                                        <h3 className="text-xl font-semibold text-blog-black dark:text-blog-white mb-4">
+                                          <FormattedMessage
+                                            id="invite-event-details-title"
+                                            description="Event Details"
+                                            defaultMessage="Event Details"
+                                          />
+                                        </h3>
+                                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+                                          <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-4 text-center">
+                                            <FontAwesomeIcon icon={faCalendar} className="text-fun-blue-500 text-2xl mb-2" />
+                                            <div className="text-sm text-gray-600 dark:text-gray-300 uppercase tracking-wide mb-1">
+                                              <FormattedMessage
+                                                id="invite-date-label"
+                                                description="Date"
+                                                defaultMessage="Date"
+                                              />
+                                            </div>
+                                            <div className="font-semibold text-blog-black dark:text-blog-white">
+                                              {formatDate(inviteEvent.date)}
+                                            </div>
+                                          </div>
+                                          <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-4 text-center">
+                                            <FontAwesomeIcon icon={faClock} className="text-fun-blue-500 text-2xl mb-2" />
+                                            <div className="text-sm text-gray-600 dark:text-gray-300 uppercase tracking-wide mb-1">
+                                              <FormattedMessage
+                                                id="invite-time-label"
+                                                description="Time"
+                                                defaultMessage="Time"
+                                              />
+                                            </div>
+                                            <div className="font-semibold text-blog-black dark:text-blog-white">
+                                              {formatTime(inviteEvent.time)}
+                                            </div>
+                                          </div>
+                                          <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-4 text-center col-span-2 md:col-span-1">
+                                            <FontAwesomeIcon icon={faMapMarkerAlt} className="text-fun-blue-500 text-2xl mb-2" />
+                                            <div className="text-sm text-gray-600 dark:text-gray-300 uppercase tracking-wide mb-1">
+                                              <FormattedMessage
+                                                id="invite-location-label"
+                                                description="Location"
+                                                defaultMessage="Location"
+                                              />
+                                            </div>
+                                            <div className="font-semibold text-blog-black dark:text-blog-white">
+                                              <a 
+                                                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(inviteEvent.location)}`} 
+                                                target="_blank" 
+                                                rel="noopener noreferrer"
+                                                className="hover:text-fun-blue-500 transition-colors duration-200"
+                                              >
+                                                {inviteEvent.location}
+                                              </a>
+                                            </div>
+                                          </div>
                                         </div>
-                                        <FontAwesomeIcon 
-                                          icon={expandedEvent === inviteEvent.id ? faChevronUp : faChevronDown} 
-                                          className="text-gray-500 dark:text-gray-400"
-                                        />
-                                      </button>
-                                      
-                                      {expandedEvent === inviteEvent.id && (
-                                        <div className="mt-6 animate-fadeIn">
-                                          <RSVPForm eventId={inviteEvent.id} />
-                                          <RSVPList 
-                                            eventId={inviteEvent.id} 
-                                            eventTitle={inviteEvent.title}
+                                        
+                                        {/* Add to Calendar Button */}
+                                        <div className="mt-6">
+                                          <CalendarButton
+                                            title={inviteEvent.title}
+                                            description={inviteEvent.description}
+                                            location={inviteEvent.location}
+                                            date={inviteEvent.date}
+                                            time={inviteEvent.time}
+                                            className="w-full"
                                           />
                                         </div>
-                                      )}
+                                        
+                                        {inviteEvent.description && (
+                                          <div className="mt-6 p-4 bg-gray-50 dark:bg-fun-blue-700 rounded-lg">
+                                            <p className="text-blog-black dark:text-blog-white leading-relaxed">
+                                              {inviteEvent.description}
+                                            </p>
+                                          </div>
+                                        )}
+                                      </div>
+
+                                      {/* RSVP Section Toggle */}
+                                      <div className="border-t border-gray-200 dark:border-fun-blue-500 pt-6 brightness-100">
+                                        <button
+                                          onClick={() => toggleEventExpansion(inviteEvent.id)}
+                                          className="w-full flex items-center justify-between p-4 bg-gray-50 dark:bg-fun-blue-700 rounded-lg hover:bg-gray-100 dark:hover:bg-fun-blue-600 transition-colors duration-200"
+                                        >
+                                          <div className="flex items-center gap-3">
+                                            <FontAwesomeIcon icon={faUsers} className="text-fun-blue-500" />
+                                            <span className="font-semibold text-blog-black dark:text-blog-white">
+                                              <FormattedMessage
+                                                id="invite-rsvp-toggle-title"
+                                                description="RSVP for this Event"
+                                                defaultMessage="RSVP for this Event"
+                                              />
+                                            </span>
+                                          </div>
+                                          <FontAwesomeIcon 
+                                            icon={expandedEvent === inviteEvent.id ? faChevronUp : faChevronDown} 
+                                            className="text-gray-500 dark:text-gray-400"
+                                          />
+                                        </button>
+                                        
+                                        {expandedEvent === inviteEvent.id && (
+                                          <div className="mt-6 animate-fadeIn">
+                                            <RSVPForm eventId={inviteEvent.id} />
+                                            <RSVPList 
+                                              eventId={inviteEvent.id} 
+                                              eventTitle={inviteEvent.title}
+                                            />
+                                          </div>
+                                        )}
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
@@ -682,95 +814,194 @@ function Invite({ seoData }: InvitePageProps) {
                                   {yearEvents.map((inviteEvent) => (
                                     <div 
                                       key={inviteEvent.id} 
-                                      className="bg-white dark:bg-fun-blue-600 rounded-2xl drop-shadow-lg hover:drop-shadow-xl transition-all duration-300 overflow-hidden border-l-4 border-gray-400 opacity-75 group"
+                                      className="bg-white dark:bg-fun-blue-600 rounded-xl drop-shadow-lg hover:drop-shadow-xl transition-all duration-300 overflow-hidden border-l-4 border-gray-400 opacity-75 group"
                                     >
-                                      {/* Event Header */}
-                                      <div className="relative group-hover:brightness-110 transition-all duration-300">
-                                        <div className="aspect-w-16 aspect-h-6 lg:aspect-h-4">
-                                          <Image 
-                                            src={inviteEvent.image_url ?? `/mountains.jpg`} 
-                                            alt={inviteEvent.title}
-                                            width={1200}
-                                            height={400}
-                                            className="w-full h-64 lg:h-80 object-cover grayscale-50"
-                                          />
-                                        </div>
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                                        <div className="absolute top-4 right-4">
-                                          {getEventStatusBadge(getEventStatus(inviteEvent.date))}
-                                        </div>
-                                        <div className="absolute bottom-6 left-6 right-6">
-                                          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-2">
-                                            {inviteEvent.title}
-                                          </h2>
-                                          <div className="flex flex-wrap gap-4 text-white/90">
-                                            <div className="flex items-center gap-2">
-                                              <FontAwesomeIcon icon={faCalendar} className="text-hit-pink-400" />
-                                              <span className="font-medium">{formatDate(inviteEvent.date)}</span>
+                                      {/* Mobile Compact Layout for Past Events */}
+                                      <div className="block md:hidden">
+                                        {/* Mobile Header - Compact with Grayscale */}
+                                        <div className="relative">
+                                          <div className="h-24 relative overflow-hidden">
+                                            <Image 
+                                              src={inviteEvent.image_url ?? `/mountains.jpg`} 
+                                              alt={inviteEvent.title}
+                                              width={800}
+                                              height={150}
+                                              className="w-full h-full object-cover grayscale-75"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
+                                            <div className="absolute top-1 right-2">
+                                              {getEventStatusBadge(getEventStatus(inviteEvent.date))}
                                             </div>
-                                            <div className="flex items-center gap-2">
-                                              <FontAwesomeIcon icon={faClock} className="text-hit-pink-400" />
-                                              <span className="font-medium">{formatTime(inviteEvent.time)}</span>
-                                            </div>
-                                            <div className="flex items-center gap-2">
-                                              <FontAwesomeIcon icon={faMapMarkerAlt} className="text-hit-pink-400" />
-                                              <span className="font-medium">{inviteEvent.location}</span>
+                                            <div className="absolute inset-0 flex items-center">
+                                              <div className="p-2 flex-1">
+                                                <h2 className="text-sm font-bold text-white/90 mb-1 line-clamp-1">
+                                                  {inviteEvent.title}
+                                                </h2>
+                                                <div className="flex items-center gap-2 text-white/75 text-xs">
+                                                  <FontAwesomeIcon icon={faHistory} className="text-gray-300" />
+                                                  <span>
+                                                    <FormattedMessage
+                                                      id="invite-past-mobile-label"
+                                                      description="Past event"
+                                                      defaultMessage="Past event"
+                                                    />
+                                                  </span>
+                                                </div>
+                                              </div>
                                             </div>
                                           </div>
                                         </div>
-                                      </div>
 
-                                      {/* Event Content - Limited for Past Events */}
-                                      <div className="p-6 lg:p-8">
-                                        <div className="flex items-center justify-between">
-                                          <div className="flex-1">
-                                            <h3 className="text-xl font-semibold text-blog-black dark:text-blog-white mb-2">
-                                              <FormattedMessage
-                                                id="invite-past-event-summary"
-                                                description="Past Event"
-                                                defaultMessage="Past Event"
+                                        {/* Mobile Content - Simplified for Past Events */}
+                                        <div className="p-2">
+                                          {/* Past Event Info */}
+                                          <div className="flex items-center justify-between mb-2">
+                                            <div className="flex items-center gap-2 flex-1">
+                                              <div className="bg-gray-100 dark:bg-gray-700 rounded px-2 py-1">
+                                                <div className="text-xs font-medium text-gray-600 dark:text-gray-300">
+                                                  {moment(inviteEvent.date).format('MMM DD, YYYY')}
+                                                </div>
+                                              </div>
+                                              <div className="flex-1">
+                                                <h3 className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                                                  <FormattedMessage
+                                                    id="invite-past-event-mobile"
+                                                    description="Past Event"
+                                                    defaultMessage="Past Event"
+                                                  />
+                                                </h3>
+                                                {inviteEvent.description && (
+                                                  <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-1 mt-1">
+                                                    {inviteEvent.description}
+                                                  </p>
+                                                )}
+                                              </div>
+                                            </div>
+                                            
+                                            {/* Expand Button */}
+                                            <button
+                                              onClick={() => toggleEventExpansion(inviteEvent.id)}
+                                              className="ml-2 p-1 hover:bg-gray-100 dark:hover:bg-fun-blue-500 rounded transition-colors duration-200"
+                                            >
+                                              <FontAwesomeIcon 
+                                                icon={expandedEvent === inviteEvent.id ? faChevronUp : faChevronDown} 
+                                                className="text-gray-500 dark:text-gray-400 text-xs"
                                               />
-                                            </h3>
-                                            {inviteEvent.description && (
-                                              <p className="text-gray-600 dark:text-gray-300 line-clamp-2">
-                                                {inviteEvent.description}
-                                              </p>
-                                            )}
+                                            </button>
                                           </div>
                                           
-                                          {/* Expand Button for Past Events */}
-                                          <button
-                                            onClick={() => toggleEventExpansion(inviteEvent.id)}
-                                            className="ml-4 p-2 hover:bg-gray-100 dark:hover:bg-fun-blue-500 rounded-lg transition-colors duration-200"
-                                          >
-                                            <FontAwesomeIcon 
-                                              icon={expandedEvent === inviteEvent.id ? faChevronUp : faChevronDown} 
-                                              className="text-gray-500 dark:text-gray-400"
-                                            />
-                                          </button>
-                                        </div>
-                                        
-                                        {/* Add to Calendar Button for Past Events */}
-                                        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-fun-blue-500">
+                                          {/* Calendar Button - Compact */}
                                           <CalendarButton
                                             title={`${inviteEvent.title} (Past Event)`}
                                             description={inviteEvent.description}
                                             location={inviteEvent.location}
                                             date={inviteEvent.date}
                                             time={inviteEvent.time}
-                                            className="w-full opacity-75"
+                                            className="w-full opacity-75 text-xs"
                                           />
-                                        </div>
 
-                                        {/* Expanded Past Event Details */}
-                                        {expandedEvent === inviteEvent.id && (
-                                          <div className="mt-6 animate-fadeIn">
-                                            <RSVPList 
-                                              eventId={inviteEvent.id} 
-                                              eventTitle={inviteEvent.title}
+                                          {/* Expanded Details */}
+                                          {expandedEvent === inviteEvent.id && (
+                                            <div className="mt-2 animate-fadeIn">
+                                              <RSVPList 
+                                                eventId={inviteEvent.id} 
+                                                eventTitle={inviteEvent.title}
+                                              />
+                                            </div>
+                                          )}
+                                        </div>
+                                      </div>
+
+                                      {/* Desktop Layout for Past Events - Keep Original */}
+                                      <div className="hidden md:block">
+                                        {/* Event Header */}
+                                        <div className="relative group-hover:brightness-110 transition-all duration-300">
+                                          <div className="aspect-w-16 aspect-h-6 lg:aspect-h-4">
+                                            <Image 
+                                              src={inviteEvent.image_url ?? `/mountains.jpg`} 
+                                              alt={inviteEvent.title}
+                                              width={1200}
+                                              height={400}
+                                              className="w-full h-64 lg:h-80 object-cover grayscale-50"
                                             />
                                           </div>
-                                        )}
+                                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                                          <div className="absolute top-4 right-4">
+                                            {getEventStatusBadge(getEventStatus(inviteEvent.date))}
+                                          </div>
+                                          <div className="absolute bottom-6 left-6 right-6">
+                                            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-2">
+                                              {inviteEvent.title}
+                                            </h2>
+                                            <div className="flex flex-wrap gap-4 text-white/90">
+                                              <div className="flex items-center gap-2">
+                                                <FontAwesomeIcon icon={faCalendar} className="text-hit-pink-400" />
+                                                <span className="font-medium">{formatDate(inviteEvent.date)}</span>
+                                              </div>
+                                              <div className="flex items-center gap-2">
+                                                <FontAwesomeIcon icon={faClock} className="text-hit-pink-400" />
+                                                <span className="font-medium">{formatTime(inviteEvent.time)}</span>
+                                              </div>
+                                              <div className="flex items-center gap-2">
+                                                <FontAwesomeIcon icon={faMapMarkerAlt} className="text-hit-pink-400" />
+                                                <span className="font-medium">{inviteEvent.location}</span>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        {/* Event Content - Limited for Past Events */}
+                                        <div className="p-6 lg:p-8">
+                                          <div className="flex items-center justify-between">
+                                            <div className="flex-1">
+                                              <h3 className="text-xl font-semibold text-blog-black dark:text-blog-white mb-2">
+                                                <FormattedMessage
+                                                  id="invite-past-event-summary"
+                                                  description="Past Event"
+                                                  defaultMessage="Past Event"
+                                                />
+                                              </h3>
+                                              {inviteEvent.description && (
+                                                <p className="text-gray-600 dark:text-gray-300 line-clamp-2">
+                                                  {inviteEvent.description}
+                                                </p>
+                                              )}
+                                            </div>
+                                            
+                                            {/* Expand Button for Past Events */}
+                                            <button
+                                              onClick={() => toggleEventExpansion(inviteEvent.id)}
+                                              className="ml-4 p-2 hover:bg-gray-100 dark:hover:bg-fun-blue-500 rounded-lg transition-colors duration-200"
+                                            >
+                                              <FontAwesomeIcon 
+                                                icon={expandedEvent === inviteEvent.id ? faChevronUp : faChevronDown} 
+                                                className="text-gray-500 dark:text-gray-400"
+                                              />
+                                            </button>
+                                          </div>
+                                          
+                                          {/* Add to Calendar Button for Past Events */}
+                                          <div className="mt-4 pt-4 border-t border-gray-200 dark:border-fun-blue-500">
+                                            <CalendarButton
+                                              title={`${inviteEvent.title} (Past Event)`}
+                                              description={inviteEvent.description}
+                                              location={inviteEvent.location}
+                                              date={inviteEvent.date}
+                                              time={inviteEvent.time}
+                                              className="w-full opacity-75"
+                                            />
+                                          </div>
+
+                                          {/* Expanded Past Event Details */}
+                                          {expandedEvent === inviteEvent.id && (
+                                            <div className="mt-6 animate-fadeIn">
+                                              <RSVPList 
+                                                eventId={inviteEvent.id} 
+                                                eventTitle={inviteEvent.title}
+                                              />
+                                            </div>
+                                          )}
+                                        </div>
                                       </div>
                                     </div>
                                   ))}
