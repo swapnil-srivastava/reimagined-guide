@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
@@ -54,15 +54,7 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle }) => {
   // Check if user is authorized admin
   const isAuthorized = userInfo.session?.user?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID;
 
-  useEffect(() => {
-    if (isAuthorized) {
-      fetchRSVPs();
-    } else {
-      setLoading(false);
-    }
-  }, [eventId, isAuthorized]);
-
-  const fetchRSVPs = async () => {
+  const fetchRSVPs = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -95,7 +87,15 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [eventId, intl]);
+
+  useEffect(() => {
+    if (isAuthorized) {
+      fetchRSVPs();
+    } else {
+      setLoading(false);
+    }
+  }, [eventId, isAuthorized, fetchRSVPs]);
 
   // Don't render anything if user is not authorized
   if (!isAuthorized) {
@@ -269,7 +269,7 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle }) => {
                               </span>
                             </div>
                             <p className="text-sm text-gray-600 dark:text-gray-300 italic ml-4">
-                              "{rsvp.message}"
+                              &quot;{rsvp.message}&quot;
                             </p>
                           </div>
                         )}
@@ -321,7 +321,7 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle }) => {
                         </div>
                         {rsvp.message && (
                           <p className="text-sm text-gray-600 dark:text-gray-300 italic mt-2">
-                            "{rsvp.message}"
+                            &quot;{rsvp.message}&quot;
                           </p>
                         )}
                       </div>
