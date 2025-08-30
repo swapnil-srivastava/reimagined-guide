@@ -528,9 +528,16 @@ function Invite({ seoData }: InvitePageProps) {
 
                                       {/* Mobile RSVP Section */}
                                       <div className="border-t border-gray-200 dark:border-fun-blue-500 pt-3">
+                                        {/* RSVP Summary - Admin Only */}
+                                        <RSVPList 
+                                          eventId={inviteEvent.id} 
+                                          eventTitle={inviteEvent.title}
+                                          showSummaryOnly={true}
+                                        />
+                                        
                                         <button
                                           onClick={() => toggleEventExpansion(inviteEvent.id)}
-                                          className="w-full flex items-center justify-between p-2 bg-gray-50 dark:bg-fun-blue-700 rounded-lg hover:bg-gray-100 dark:hover:bg-fun-blue-600 transition-colors duration-200"
+                                          className="w-full flex items-center justify-between p-2 bg-gray-50 dark:bg-fun-blue-700 rounded-lg hover:bg-gray-100 dark:hover:bg-fun-blue-600 transition-colors duration-200 mt-3"
                                         >
                                           <div className="flex items-center gap-2">
                                             <FontAwesomeIcon icon={faUsers} className="text-fun-blue-500 text-sm" />
@@ -682,6 +689,15 @@ function Invite({ seoData }: InvitePageProps) {
 
                                       {/* RSVP Section Toggle */}
                                       <div className="border-t border-gray-200 dark:border-fun-blue-500 pt-6 brightness-100">
+                                        {/* RSVP Summary - Admin Only */}
+                                        <div className="mb-4">
+                                          <RSVPList 
+                                            eventId={inviteEvent.id} 
+                                            eventTitle={inviteEvent.title}
+                                            showSummaryOnly={true}
+                                          />
+                                        </div>
+                                        
                                         <button
                                           onClick={() => toggleEventExpansion(inviteEvent.id)}
                                           className="w-full flex items-center justify-between p-4 bg-gray-50 dark:bg-fun-blue-700 rounded-lg hover:bg-gray-100 dark:hover:bg-fun-blue-600 transition-colors duration-200"
@@ -903,8 +919,15 @@ function Invite({ seoData }: InvitePageProps) {
                                             </button>
                                           </div>
                                           
+                                          {/* RSVP Summary - Admin Only for Past Events */}
+                                          <RSVPList 
+                                            eventId={inviteEvent.id} 
+                                            eventTitle={inviteEvent.title}
+                                            showSummaryOnly={true}
+                                          />
+                                          
                                           {/* Action Buttons - Compact */}
-                                          <div className="flex gap-2">
+                                          <div className="flex gap-2 mt-3">
                                             <CalendarButton
                                               title={`Ria's Birthday Celebration - ${inviteEvent.title} (Past Event)`}
                                               description={inviteEvent.description}
@@ -1009,6 +1032,15 @@ function Invite({ seoData }: InvitePageProps) {
                                                 className="text-gray-500 dark:text-gray-400"
                                               />
                                             </button>
+                                          </div>
+                                          
+                                          {/* RSVP Summary - Admin Only for Past Events */}
+                                          <div className="mt-4 pt-4 border-t border-gray-200 dark:border-fun-blue-500">
+                                            <RSVPList 
+                                              eventId={inviteEvent.id} 
+                                              eventTitle={inviteEvent.title}
+                                              showSummaryOnly={true}
+                                            />
                                           </div>
                                           
                                           {/* Add to Calendar Button for Past Events */}

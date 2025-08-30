@@ -41,9 +41,10 @@ interface RSVP {
 interface RSVPListProps {
   eventId: string;
   eventTitle: string;
+  showSummaryOnly?: boolean; // New prop to show only summary
 }
 
-const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle }) => {
+const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnly = false }) => {
   const intl = useIntl();
   const userInfo = useSession();
   const [rsvps, setRsvps] = useState<RSVP[]>([]);
@@ -127,6 +128,19 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle }) => {
   }, { toddlers: 0, children: 0, teens: 0 });
 
   if (loading) {
+    if (showSummaryOnly) {
+      return (
+        <div className="mt-3 p-2 bg-gray-50 dark:bg-fun-blue-700 rounded-lg">
+          <div className="animate-pulse text-xs text-gray-500 dark:text-gray-400">
+            <FormattedMessage
+              id="rsvp-summary-loading"
+              description="Loading RSVP summary"
+              defaultMessage="Loading RSVPs..."
+            />
+          </div>
+        </div>
+      );
+    }
     return (
       <div className="mt-6 p-4 bg-gray-50 dark:bg-fun-blue-700 rounded-lg">
         <div className="animate-pulse text-blog-black dark:text-blog-white">
@@ -141,9 +155,82 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle }) => {
   }
 
   if (error) {
+    if (showSummaryOnly) {
+      return null; // Don't show errors in summary mode
+    }
     return (
       <div className="mt-6 p-4 bg-red-50 dark:bg-red-900/30 rounded-lg">
         <p className="text-red-600 dark:text-red-400 text-sm">{error}</p>
+      </div>
+    );
+  }
+
+  // Summary-only mode for main event card
+  if (showSummaryOnly) {
+    if (totalFamilies === 0) {
+      return null; // Don't show anything if no RSVPs
+    }
+
+    return (
+      <div className="mt-3">
+        {/* Mobile-First: Single Row on Mobile, Grid on Larger Screens */}
+        <div className="flex gap-1 sm:grid sm:grid-cols-3 sm:gap-2">
+          {/* Adults Counter - Ultra Compact for Mobile */}
+          <div className="flex-1 bg-green-50 dark:bg-green-900/20 rounded-lg p-1.5 sm:p-2 text-center border border-green-200 dark:border-green-800">
+            <div className="text-sm sm:text-lg font-bold text-green-700 dark:text-green-300">
+              {totalAdults}
+            </div>
+            <div className="text-[10px] sm:text-xs text-green-600 dark:text-green-400 font-medium leading-tight">
+              <FormattedMessage
+                id="rsvp-summary-adults"
+                description="Adults"
+                defaultMessage="Adults"
+              />
+            </div>
+          </div>
+
+          {/* Kids Counter - Ultra Compact for Mobile */}
+          <div className="flex-1 bg-blue-50 dark:bg-blue-900/20 rounded-lg p-1.5 sm:p-2 text-center border border-blue-200 dark:border-blue-800">
+            <div className="text-sm sm:text-lg font-bold text-blue-700 dark:text-blue-300">
+              {totalKids}
+            </div>
+            <div className="text-[10px] sm:text-xs text-blue-600 dark:text-blue-400 font-medium leading-tight">
+              <FormattedMessage
+                id="rsvp-summary-kids"
+                description="Kids"
+                defaultMessage="Kids"
+              />
+            </div>
+          </div>
+
+          {/* Total Counter - Ultra Compact for Mobile */}
+          <div className="flex-1 bg-purple-50 dark:bg-purple-900/20 rounded-lg p-1.5 sm:p-2 text-center border border-purple-200 dark:border-purple-800">
+            <div className="text-sm sm:text-lg font-bold text-purple-700 dark:text-purple-300">
+              {totalAdults + totalKids}
+            </div>
+            <div className="text-[10px] sm:text-xs text-purple-600 dark:text-purple-400 font-medium leading-tight">
+              <FormattedMessage
+                id="rsvp-summary-total"
+                description="Total"
+                defaultMessage="Total"
+              />
+            </div>
+          </div>
+        </div>
+        
+        {/* Additional Summary Info - Only on larger screens */}
+        <div className="hidden sm:block mt-2">
+          <div className="text-center">
+            <p className="text-xs text-gray-600 dark:text-gray-400">
+              <FormattedMessage
+                id="rsvp-summary-families"
+                description="{count} families attending"
+                defaultMessage="{count, plural, one {# family} other {# families}} attending"
+                values={{ count: totalFamilies }}
+              />
+            </p>
+          </div>
+        </div>
       </div>
     );
   }
