@@ -11,8 +11,15 @@ interface CalendarEventData {
 
 // Convert time to different formats for calendar links
 const formatTimeForCalendar = (date: string, time: string): { start: string; end: string } => {
-  // Parse the date and time
-  const eventDateTime = moment(`${date} ${time}`, 'YYYY-MM-DD HH:mm:ss');
+  // Parse the date and time - handle both HH:MM and HH:MM:SS formats
+  let timeForParsing = time;
+  if (time && time.split(':').length === 2) {
+    // Add seconds if not present (HH:MM -> HH:MM:00)
+    timeForParsing = `${time}:00`;
+  }
+  
+  // Parse the date and time in local timezone
+  const eventDateTime = moment(`${date} ${timeForParsing}`, 'YYYY-MM-DD HH:mm:ss');
   
   // Add 2 hours as default event duration
   const endDateTime = eventDateTime.clone().add(2, 'hours');
@@ -87,8 +94,8 @@ PRODID:-//Your App//Your App//EN
 BEGIN:VEVENT
 UID:${now}@yourdomain.com
 DTSTAMP:${now}Z
-DTSTART:${start}Z
-DTEND:${end}Z
+DTSTART:${start}
+DTEND:${end}
 SUMMARY:${eventData.title}
 DESCRIPTION:${eventData.description || ''}
 LOCATION:${eventData.location}

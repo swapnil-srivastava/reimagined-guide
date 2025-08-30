@@ -71,13 +71,13 @@ const CalendarButton: React.FC<CalendarButtonProps> = ({
 
       {/* Dropdown Menu */}
       {showDropdown && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-fun-blue-600 rounded-lg shadow-lg border border-gray-200 dark:border-fun-blue-500 z-50 overflow-hidden">
+        <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-fun-blue-600 rounded-lg shadow-xl border border-gray-200 dark:border-fun-blue-500 z-[9999] overflow-visible min-w-max">
           <div className="py-2">
             {allCalendarOptions.map((option, index) => (
               <button
                 key={index}
                 onClick={() => handleOptionClick(option)}
-                className="w-full px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-fun-blue-500 transition-colors duration-200 flex items-center gap-3"
+                className="w-full px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-fun-blue-500 transition-colors duration-200 flex items-center gap-3 whitespace-nowrap"
               >
                 <span className="text-lg">{option.icon}</span>
                 <span className="font-medium text-blog-black dark:text-blog-white">
@@ -97,7 +97,7 @@ const CalendarButton: React.FC<CalendarButtonProps> = ({
       {/* Overlay to close dropdown */}
       {showDropdown && (
         <div 
-          className="fixed inset-0 z-40" 
+          className="fixed inset-0 z-[9998]" 
           onClick={() => setShowDropdown(false)}
         />
       )}

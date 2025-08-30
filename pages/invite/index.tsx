@@ -417,7 +417,7 @@ function Invite({ seoData }: InvitePageProps) {
                               {yearEvents.map((inviteEvent) => (
                                 <div 
                                   key={inviteEvent.id} 
-                                  className="bg-white dark:bg-fun-blue-600 rounded-xl drop-shadow-lg hover:drop-shadow-xl transition-all duration-300 overflow-hidden border-l-4 border-green-500 group"
+                                  className="bg-white dark:bg-fun-blue-600 rounded-xl drop-shadow-lg hover:drop-shadow-xl transition-all duration-300 overflow-visible border-l-4 border-green-500 group"
                                 >
                                   {/* Mobile Compact Layout */}
                                   <div className="block md:hidden">
@@ -827,7 +827,7 @@ function Invite({ seoData }: InvitePageProps) {
                                   {yearEvents.map((inviteEvent) => (
                                     <div 
                                       key={inviteEvent.id} 
-                                      className="bg-white dark:bg-fun-blue-600 rounded-xl drop-shadow-lg hover:drop-shadow-xl transition-all duration-300 overflow-hidden border-l-4 border-gray-400 opacity-75 group"
+                                      className="bg-white dark:bg-fun-blue-600 rounded-xl drop-shadow-lg hover:drop-shadow-xl transition-all duration-300 overflow-visible border-l-4 border-gray-400 opacity-75 group"
                                     >
                                       {/* Mobile Compact Layout for Past Events */}
                                       <div className="block md:hidden">
