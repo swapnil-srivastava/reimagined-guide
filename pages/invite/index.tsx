@@ -494,7 +494,7 @@ function Invite({ seoData }: InvitePageProps) {
 
                                       {/* Mobile Calendar Button */}
                                       <CalendarButton
-                                        title={inviteEvent.title}
+                                        title={`Ria's Birthday Celebration - ${inviteEvent.title}`}
                                         description={inviteEvent.description}
                                         location={inviteEvent.location}
                                         date={inviteEvent.date}
@@ -662,7 +662,7 @@ function Invite({ seoData }: InvitePageProps) {
                                         {/* Add to Calendar Button */}
                                         <div className="mt-6">
                                           <CalendarButton
-                                            title={inviteEvent.title}
+                                            title={`Ria's Birthday Celebration - ${inviteEvent.title}`}
                                             description={inviteEvent.description}
                                             location={inviteEvent.location}
                                             date={inviteEvent.date}
@@ -906,7 +906,7 @@ function Invite({ seoData }: InvitePageProps) {
                                           {/* Action Buttons - Compact */}
                                           <div className="flex gap-2">
                                             <CalendarButton
-                                              title={`${inviteEvent.title} (Past Event)`}
+                                              title={`Ria's Birthday Celebration - ${inviteEvent.title} (Past Event)`}
                                               description={inviteEvent.description}
                                               location={inviteEvent.location}
                                               date={inviteEvent.date}
@@ -1014,7 +1014,7 @@ function Invite({ seoData }: InvitePageProps) {
                                           {/* Add to Calendar Button for Past Events */}
                                           <div className="mt-4 pt-4 border-t border-gray-200 dark:border-fun-blue-500">
                                             <CalendarButton
-                                              title={`${inviteEvent.title} (Past Event)`}
+                                              title={`Ria's Birthday Celebration - ${inviteEvent.title} (Past Event)`}
                                               description={inviteEvent.description}
                                               location={inviteEvent.location}
                                               date={inviteEvent.date}
