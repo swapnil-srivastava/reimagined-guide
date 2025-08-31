@@ -52,6 +52,7 @@ function Invite({ seoData }: InvitePageProps) {
   const { inviteEvents } = useSelector(selectInviteEvents);
   
   const [expandedEvent, setExpandedEvent] = useState<string | null>(null);
+  const [expandedRSVP, setExpandedRSVP] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [collapsedYears, setCollapsedYears] = useState<Set<number>>(new Set());
   const [showPastEvents, setShowPastEvents] = useState(false);
@@ -174,6 +175,10 @@ function Invite({ seoData }: InvitePageProps) {
 
   const toggleEventExpansion = (eventId: string) => {
     setExpandedEvent(expandedEvent === eventId ? null : eventId);
+  };
+
+  const toggleRSVPExpansion = (eventId: string) => {
+    setExpandedRSVP(expandedRSVP === eventId ? null : eventId);
   };
 
   useEffect(() => {
@@ -590,13 +595,34 @@ function Invite({ seoData }: InvitePageProps) {
 
                                           {/* RSVP Section */}
                                           <div className="border-t border-gray-200 dark:border-fun-blue-500 pt-3 sm:pt-4 lg:pt-6">
-                                            {/* RSVP Summary - Always Visible */}
+                                            {/* RSVP Summary - Clickable Accordion */}
                                             <div className="mb-3 sm:mb-4">
-                                              <RSVPList
-                                                eventId={inviteEvent.id}
-                                                eventTitle={inviteEvent.title}
-                                                showSummaryOnly={true}
-                                              />
+                                              {expandedRSVP === inviteEvent.id ? (
+                                                // Full RSVP Details when expanded - Clickable to collapse
+                                                <div
+                                                  onClick={() => toggleRSVPExpansion(inviteEvent.id)}
+                                                  className="cursor-pointer"
+                                                >
+                                                  <RSVPList
+                                                    eventId={inviteEvent.id}
+                                                    eventTitle={inviteEvent.title}
+                                                    showSummaryOnly={false}
+                                                  />
+                                                </div>
+                                              ) : (
+                                                // Summary view with click to expand
+                                                <button
+                                                  onClick={() => toggleRSVPExpansion(inviteEvent.id)}
+                                                  className="w-full text-left focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:ring-offset-2 rounded-lg"
+                                                >
+                                                  <RSVPList
+                                                    eventId={inviteEvent.id}
+                                                    eventTitle={inviteEvent.title}
+                                                    showSummaryOnly={true}
+                                                    isClickable={true}
+                                                  />
+                                                </button>
+                                              )}
                                             </div>
 
                                             {/* RSVP Toggle Button */}
@@ -782,13 +808,34 @@ function Invite({ seoData }: InvitePageProps) {
                                                 </button>
                                               </div>
                                               
-                                              {/* RSVP Summary for Past Events - Always Visible */}
+                                              {/* RSVP Summary - Clickable Accordion */}
                                               <div className="mb-3 sm:mb-4">
-                                                <RSVPList 
-                                                  eventId={inviteEvent.id} 
-                                                  eventTitle={inviteEvent.title}
-                                                  showSummaryOnly={true}
-                                                />
+                                                {expandedRSVP === inviteEvent.id ? (
+                                                  // Full RSVP Details when expanded - Clickable to collapse
+                                                  <div
+                                                    onClick={() => toggleRSVPExpansion(inviteEvent.id)}
+                                                    className="cursor-pointer"
+                                                  >
+                                                    <RSVPList
+                                                      eventId={inviteEvent.id}
+                                                      eventTitle={inviteEvent.title}
+                                                      showSummaryOnly={false}
+                                                    />
+                                                  </div>
+                                                ) : (
+                                                  // Summary view with click to expand
+                                                  <button
+                                                    onClick={() => toggleRSVPExpansion(inviteEvent.id)}
+                                                    className="w-full text-left focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:ring-offset-2 rounded-lg"
+                                                  >
+                                                    <RSVPList
+                                                      eventId={inviteEvent.id}
+                                                      eventTitle={inviteEvent.title}
+                                                      showSummaryOnly={true}
+                                                      isClickable={true}
+                                                    />
+                                                  </button>
+                                                )}
                                               </div>
                                               
                                               {/* Past Event Action Buttons - Compact */}

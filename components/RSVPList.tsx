@@ -38,9 +38,10 @@ interface RSVPListProps {
   eventId: string;
   eventTitle: string;
   showSummaryOnly?: boolean;
+  isClickable?: boolean;
 }
 
-const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnly = false }) => {
+const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnly = false, isClickable = false }) => {
   const [rsvps, setRsvps] = useState<RSVP[]>([]);
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState(false);
@@ -99,7 +100,7 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
 
   if (showSummaryOnly) {
     return (
-      <div className="bg-white dark:bg-fun-blue-600 rounded-lg p-3 sm:p-4 drop-shadow-lg hover:drop-shadow-xl transition-all duration-300">
+      <div className={`bg-white dark:bg-fun-blue-600 rounded-lg p-3 sm:p-4 drop-shadow-lg hover:drop-shadow-xl transition-all duration-300 ${isClickable ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-fun-blue-700' : ''}`}>
         {/* Mobile-First Summary Header */}
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
@@ -112,9 +113,17 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
               />
             </span>
           </div>
-          <span className="text-xs bg-fun-blue-100 dark:bg-fun-blue-700 text-fun-blue-600 dark:text-fun-blue-300 px-2 py-1 rounded-full font-medium">
-            {rsvps.length} {rsvps.length === 1 ? 'response' : 'responses'}
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="text-xs bg-fun-blue-100 dark:bg-fun-blue-700 text-fun-blue-600 dark:text-fun-blue-300 px-2 py-1 rounded-full font-medium">
+              {rsvps.length} {rsvps.length === 1 ? 'response' : 'responses'}
+            </span>
+            {isClickable && (
+              <FontAwesomeIcon
+                icon={faChevronDown}
+                className="text-gray-500 dark:text-blog-white text-sm transition-transform duration-200"
+              />
+            )}
+          </div>
         </div>
 
         {/* Mobile-First Summary Stats Grid */}
@@ -226,10 +235,19 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
               </p>
             </div>
           </div>
-          <FontAwesomeIcon
-            icon={expanded ? faChevronUp : faChevronDown}
-            className="text-gray-500 dark:text-blog-white text-lg transition-transform duration-200"
-          />
+          <div className="flex items-center gap-2">
+            <span className="text-xs bg-gray-100 dark:bg-fun-blue-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-full">
+              <FormattedMessage
+                id="rsvp-click-to-collapse"
+                description="Click to collapse"
+                defaultMessage="Click to collapse"
+              />
+            </span>
+            <FontAwesomeIcon
+              icon={faChevronUp}
+              className="text-gray-500 dark:text-blog-white text-lg transition-transform duration-200"
+            />
+          </div>
         </div>
       </button>
 
