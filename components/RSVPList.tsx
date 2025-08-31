@@ -51,6 +51,27 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
   // Check if user is admin
   const isAdmin = session?.user?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID;
 
+  // Debug logging
+  useEffect(() => {
+    console.log('RSVPList Debug:', {
+      isAdmin,
+      userId: session?.user?.id,
+      adminId: process.env.NEXT_PUBLIC_SWAPNIL_ID,
+      session: !!session,
+      eventId,
+      rsvpsCount: rsvps.length
+    });
+  }, [isAdmin, session, rsvps.length, eventId]);
+
+  // Auto-expand for admins - always expand when not in summary mode
+  useEffect(() => {
+    if (isAdmin && !showSummaryOnly) {
+      setExpanded(true);
+    } else if (!isAdmin && showSummaryOnly) {
+      setExpanded(false);
+    }
+  }, [isAdmin, showSummaryOnly]);
+
   useEffect(() => {
     fetchRSVPs();
   }, [eventId]);
@@ -65,6 +86,9 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
 
       if (error) throw error;
       setRsvps(data || []);
+      
+      // Debug: Log the actual data structure
+      console.log('RSVP Data Loaded:', data);
     } catch (error) {
       console.error('Error fetching RSVPs:', error);
       toast.error(intl.formatMessage({
@@ -327,7 +351,7 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                             <div className="flex flex-wrap gap-1 mt-1">
                               {rsvp.kids.map((kid, index) => (
                                 <span key={index} className="bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-300 px-2 py-1 rounded text-xs">
-                                  {kid.name} ({kid.age}y)
+                                  {kid.name} ({kid.age}y){kid.allergies && kid.allergies.trim() !== '' ? ` - ${kid.allergies}` : ''}
                                 </span>
                               ))}
                             </div>
@@ -391,7 +415,7 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
               )}
 
               {/* Allergies & Dietary Restrictions */}
-              {attendingRSVPs.some(rsvp => rsvp.kids?.some(kid => kid.allergies)) && (
+              {attendingRSVPs.some(rsvp => rsvp.kids?.some(kid => kid.allergies && kid.allergies.trim() !== '')) && (
                 <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-4 border border-yellow-200 dark:border-yellow-800">
                   <div className="flex items-center gap-2 mb-3">
                     <FontAwesomeIcon icon={faExclamationTriangle} className="text-yellow-600 dark:text-yellow-400" />
@@ -400,11 +424,11 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                     </h4>
                   </div>
                   <div className="space-y-2">
-                    {attendingRSVPs.filter(rsvp => rsvp.kids?.some(kid => kid.allergies)).map((rsvp) => (
+                    {attendingRSVPs.filter(rsvp => rsvp.kids?.some(kid => kid.allergies && kid.allergies.trim() !== '')).map((rsvp) => (
                       <div key={rsvp.id} className="bg-white dark:bg-yellow-900/10 rounded p-3 border-l-4 border-yellow-400">
                         <div className="font-medium text-sm text-blog-black dark:text-blog-white mb-1">{rsvp.family_name}</div>
                         <div className="space-y-1">
-                          {rsvp.kids?.filter(kid => kid.allergies).map((kid, index) => (
+                          {rsvp.kids?.filter(kid => kid.allergies && kid.allergies.trim() !== '').map((kid, index) => (
                             <div key={index} className="text-sm text-gray-700 dark:text-gray-300">
                               <span className="font-medium">{kid.name}:</span> {kid.allergies}
                             </div>
