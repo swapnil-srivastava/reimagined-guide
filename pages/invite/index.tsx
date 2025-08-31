@@ -439,7 +439,8 @@ function Invite({ seoData }: InvitePageProps) {
                                   {yearEvents.map((inviteEvent) => (
                                     <div 
                                       key={inviteEvent.id} 
-                                      className="bg-white dark:bg-fun-blue-600 rounded-lg sm:rounded-xl drop-shadow-lg hover:drop-shadow-xl transition-all duration-300 overflow-hidden border-l-4 border-green-500 group"
+                                      className="bg-white dark:bg-fun-blue-600 rounded-lg sm:rounded-xl drop-shadow-lg hover:drop-shadow-xl transition-all duration-300 border-l-4 border-green-500 group relative"
+                                      style={{ isolation: 'isolate' }}
                                     >
                                       {/* Mobile-First Event Layout */}
                                       <div className="relative">

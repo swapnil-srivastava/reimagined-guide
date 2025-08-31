@@ -43,7 +43,7 @@ const CalendarButton: React.FC<CalendarButtonProps> = ({
   };
 
   return (
-    <div className={`relative ${className}`}>
+    <div className={`relative z-0 ${className}`} style={{ isolation: 'isolate' }}>
       {/* Primary Add to Calendar Button */}
       <div className="flex">
         <button
@@ -71,7 +71,7 @@ const CalendarButton: React.FC<CalendarButtonProps> = ({
 
       {/* Dropdown Menu */}
       {showDropdown && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-fun-blue-600 rounded-lg shadow-xl border border-gray-200 dark:border-fun-blue-500 z-[9999] overflow-visible min-w-max">
+        <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-fun-blue-600 rounded-lg shadow-xl border border-gray-200 dark:border-fun-blue-500 z-[99999] overflow-visible min-w-max">
           <div className="py-2">
             {allCalendarOptions.map((option, index) => (
               <button
@@ -97,7 +97,7 @@ const CalendarButton: React.FC<CalendarButtonProps> = ({
       {/* Overlay to close dropdown */}
       {showDropdown && (
         <div 
-          className="fixed inset-0 z-[9998]" 
+          className="fixed inset-0 z-[99998]" 
           onClick={() => setShowDropdown(false)}
         />
       )}

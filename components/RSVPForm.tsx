@@ -27,6 +27,82 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
   const [phone, setPhone] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Use CSS custom properties for dark mode that work with Tailwind
+  const getInputStyles = () => ({
+    '& .MuiOutlinedInput-root': {
+      backgroundColor: 'transparent',
+      color: '#0a0a0a',
+      '& input': {
+        color: '#0a0a0a',
+        '&::placeholder': {
+          color: 'rgba(156, 163, 175, 0.7)',
+          opacity: 1,
+        },
+      },
+      '& textarea': {
+        color: '#0a0a0a',
+        '&::placeholder': {
+          color: 'rgba(156, 163, 175, 0.7)',
+          opacity: 1,
+        },
+      },
+      '& fieldset': {
+        borderColor: 'rgba(156, 163, 175, 0.5)',
+      },
+      '&:hover fieldset': {
+        borderColor: '#00539c',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#00539c',
+      },
+      // Dark mode overrides
+      'html.dark &': {
+        color: '#fbfbfb',
+        '& input': {
+          color: '#fbfbfb !important',
+        },
+        '& textarea': {
+          color: '#fbfbfb !important',
+        },
+      },
+    },
+    '& .MuiInputLabel-root': {
+      color: 'rgba(156, 163, 175, 0.8)',
+      '&.Mui-focused': {
+        color: '#00539c',
+      },
+    },
+  });
+
+  const getChildInputStyles = () => ({
+    '& .MuiOutlinedInput-root': {
+      backgroundColor: 'white',
+      color: '#0a0a0a',
+      '& input': {
+        color: '#0a0a0a',
+        '&::placeholder': {
+          color: 'rgba(107, 114, 128, 0.7)',
+          opacity: 1,
+        },
+      },
+      '& fieldset': {
+        borderColor: 'rgba(156, 163, 175, 0.5)',
+      },
+      '&:hover fieldset': {
+        borderColor: '#00539c',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#00539c',
+      },
+    },
+    '& .MuiInputLabel-root': {
+      color: 'rgba(107, 114, 128, 0.8)',
+      '&.Mui-focused': {
+        color: '#00539c',
+      },
+    },
+  });
+
   const handleAddKid = () => {
     setKids([...kids, { name: '', age: '', allergies: '' }]);
   };
@@ -128,39 +204,24 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
 
         {/* Family Name */}
         <div className="space-y-2">
-          <TextField
-            label={intl.formatMessage({
-              id: "rsvpform-family-name-label",
-              description: "Family Name",
-              defaultMessage: "Family Name"
-            })}
-            value={familyName}
-            onChange={(e) => setFamilyName(e.target.value)}
-            fullWidth
-            required
-            variant="outlined"
-            className="bg-white dark:bg-fun-blue-600"
-            sx={{
-              '& .MuiOutlinedInput-root': {
-                backgroundColor: 'transparent',
-                '& fieldset': {
-                  borderColor: 'rgba(156, 163, 175, 0.5)',
-                },
-                '&:hover fieldset': {
-                  borderColor: '#00539c',
-                },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#00539c',
-                },
-              },
-              '& .MuiInputLabel-root': {
-                color: 'rgba(156, 163, 175, 0.8)',
-                '&.Mui-focused': {
-                  color: '#00539c',
-                },
-              },
-            }}
-          />
+          <div className="[&_input]:text-blog-black [&_textarea]:text-blog-black dark:[&_input]:!text-blog-white dark:[&_textarea]:!text-blog-white">
+            <TextField
+              label={intl.formatMessage({
+                id: "rsvpform-family-name-label",
+                description: "Family Name",
+                defaultMessage: "Family Name"
+              })}
+              value={familyName}
+              onChange={(e) => setFamilyName(e.target.value)}
+              fullWidth
+              required
+              variant="outlined"
+              className="bg-white dark:bg-fun-blue-600"
+              InputLabelProps={{ className: 'text-blog-black dark:text-blog-white' }}
+              inputProps={{ className: 'text-blog-black dark:text-blog-white placeholder:text-gray-500 dark:placeholder:text-gray-300' }}
+              sx={getInputStyles()}
+            />
+          </div>
         </div>
 
         {/* Attendance Checkbox */}
@@ -242,20 +303,9 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
                   variant="outlined"
                   size="small"
                   fullWidth
-                  sx={{
-                    '& .MuiOutlinedInput-root': {
-                      backgroundColor: 'white',
-                      '& fieldset': {
-                        borderColor: 'rgba(156, 163, 175, 0.5)',
-                      },
-                      '&:hover fieldset': {
-                        borderColor: '#00539c',
-                      },
-                      '&.Mui-focused fieldset': {
-                        borderColor: '#00539c',
-                      },
-                    },
-                  }}
+                  InputLabelProps={{ className: 'text-blog-black dark:text-blog-white' }}
+                  inputProps={{ className: 'text-blog-black dark:text-blog-white placeholder:text-gray-500 dark:placeholder:text-gray-300' }}
+                  sx={getChildInputStyles()}
                 />
                 <Box display="flex" gap={2} flexDirection={{ xs: 'column', sm: 'row' }}>
                   <TextField
@@ -269,20 +319,11 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
                     variant="outlined"
                     size="small"
                     type="number"
+                    InputLabelProps={{ className: 'text-blog-black dark:text-blog-white' }}
+                    inputProps={{ className: 'text-blog-black dark:text-blog-white placeholder:text-gray-500 dark:placeholder:text-gray-300' }}
                     sx={{
                       width: { xs: '100%', sm: '120px' },
-                      '& .MuiOutlinedInput-root': {
-                        backgroundColor: 'white',
-                        '& fieldset': {
-                          borderColor: 'rgba(156, 163, 175, 0.5)',
-                        },
-                        '&:hover fieldset': {
-                          borderColor: '#00539c',
-                        },
-                        '&.Mui-focused fieldset': {
-                          borderColor: '#00539c',
-                        },
-                      },
+                      ...getChildInputStyles(),
                     }}
                   />
                   <TextField
@@ -301,20 +342,9 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
                       description: "e.g., peanuts, dairy, gluten-free",
                       defaultMessage: "e.g., peanuts, dairy, gluten-free"
                     })}
-                    sx={{
-                      '& .MuiOutlinedInput-root': {
-                        backgroundColor: 'white',
-                        '& fieldset': {
-                          borderColor: 'rgba(156, 163, 175, 0.5)',
-                        },
-                        '&:hover fieldset': {
-                          borderColor: '#00539c',
-                        },
-                        '&.Mui-focused fieldset': {
-                          borderColor: '#00539c',
-                        },
-                      },
-                    }}
+                    InputLabelProps={{ className: 'text-blog-black dark:text-blog-white' }}
+                    inputProps={{ className: 'text-blog-black dark:text-blog-white placeholder:text-gray-500 dark:placeholder:text-gray-300' }}
+                    sx={getChildInputStyles()}
                   />
                 </Box>
               </Box>
@@ -340,114 +370,69 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
           </Typography>
           
           <Box display="flex" gap={2} flexDirection={{ xs: 'column', sm: 'row' }}>
-            <TextField
-              label={intl.formatMessage({
-                id: "rsvpform-email-label",
-                description: "Email",
-                defaultMessage: "Email"
-              })}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              fullWidth
-              type="email"
-              variant="outlined"
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  backgroundColor: 'transparent',
-                  '& fieldset': {
-                    borderColor: 'rgba(156, 163, 175, 0.5)',
-                  },
-                  '&:hover fieldset': {
-                    borderColor: '#00539c',
-                  },
-                  '&.Mui-focused fieldset': {
-                    borderColor: '#00539c',
-                  },
-                },
-                '& .MuiInputLabel-root': {
-                  color: 'rgba(156, 163, 175, 0.8)',
-                  '&.Mui-focused': {
-                    color: '#00539c',
-                  },
-                },
-              }}
-            />
+            <div className="flex-1 [&_input]:text-blog-black dark:[&_input]:!text-blog-white">
+              <TextField
+                label={intl.formatMessage({
+                  id: "rsvpform-email-label",
+                  description: "Email",
+                  defaultMessage: "Email"
+                })}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                fullWidth
+                type="email"
+                variant="outlined"
+                InputLabelProps={{ className: 'text-blog-black dark:text-blog-white' }}
+                inputProps={{ className: 'text-blog-black dark:text-blog-white placeholder:text-gray-500 dark:placeholder:text-gray-300' }}
+                sx={getInputStyles()}
+              />
+            </div>
 
-            <TextField
-              label={intl.formatMessage({
-                id: "rsvpform-phone-label",
-                description: "Phone Number",
-                defaultMessage: "Phone Number"
-              })}
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              fullWidth
-              type="tel"
-              variant="outlined"
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  backgroundColor: 'transparent',
-                  '& fieldset': {
-                    borderColor: 'rgba(156, 163, 175, 0.5)',
-                  },
-                  '&:hover fieldset': {
-                    borderColor: '#00539c',
-                  },
-                  '&.Mui-focused fieldset': {
-                    borderColor: '#00539c',
-                  },
-                },
-                '& .MuiInputLabel-root': {
-                  color: 'rgba(156, 163, 175, 0.8)',
-                  '&.Mui-focused': {
-                    color: '#00539c',
-                  },
-                },
-              }}
-            />
+            <div className="flex-1 [&_input]:text-blog-black dark:[&_input]:!text-blog-white">
+              <TextField
+                label={intl.formatMessage({
+                  id: "rsvpform-phone-label",
+                  description: "Phone Number",
+                  defaultMessage: "Phone Number"
+                })}
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                fullWidth
+                type="tel"
+                variant="outlined"
+                InputLabelProps={{ className: 'text-blog-black dark:text-blog-white' }}
+                inputProps={{ className: 'text-blog-black dark:text-blog-white placeholder:text-gray-500 dark:placeholder:text-gray-300' }}
+                sx={getInputStyles()}
+              />
+            </div>
           </Box>
         </div>
 
         {/* Message */}
         <div className="space-y-2">
-          <TextField
-            label={intl.formatMessage({
-              id: "rsvpform-message-label",
-              description: "Special message or notes",
-              defaultMessage: "Special message or notes"
-            })}
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            fullWidth
-            multiline
-            rows={4}
-            variant="outlined"
-            placeholder={intl.formatMessage({
-              id: "rsvpform-message-placeholder",
-              description: "Share your excitement or any special requests...",
-              defaultMessage: "Share your excitement or any special requests..."
-            })}
-            sx={{
-              '& .MuiOutlinedInput-root': {
-                backgroundColor: 'transparent',
-                '& fieldset': {
-                  borderColor: 'rgba(156, 163, 175, 0.5)',
-                },
-                '&:hover fieldset': {
-                  borderColor: '#00539c',
-                },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#00539c',
-                },
-              },
-              '& .MuiInputLabel-root': {
-                color: 'rgba(156, 163, 175, 0.8)',
-                '&.Mui-focused': {
-                  color: '#00539c',
-                },
-              },
-            }}
-          />
+          <div className="[&_input]:text-blog-black [&_textarea]:text-blog-black dark:[&_input]:!text-blog-white dark:[&_textarea]:!text-blog-white">
+            <TextField
+              label={intl.formatMessage({
+                id: "rsvpform-message-label",
+                description: "Special message or notes",
+                defaultMessage: "Special message or notes"
+              })}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              fullWidth
+              multiline
+              rows={4}
+              variant="outlined"
+              placeholder={intl.formatMessage({
+                id: "rsvpform-message-placeholder",
+                description: "Share your excitement or any special requests...",
+                defaultMessage: "Share your excitement or any special requests..."
+              })}
+              InputLabelProps={{ className: 'text-blog-black dark:text-blog-white' }}
+              inputProps={{ className: 'text-blog-black dark:text-blog-white placeholder:text-gray-500 dark:placeholder:text-gray-300' }}
+              sx={getInputStyles()}
+            />
+          </div>
         </div>
 
         {/* Submit Button */}
