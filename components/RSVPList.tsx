@@ -51,18 +51,6 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
   // Check if user is admin
   const isAdmin = session?.user?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID;
 
-  // Debug logging
-  useEffect(() => {
-    console.log('RSVPList Debug:', {
-      isAdmin,
-      userId: session?.user?.id,
-      adminId: process.env.NEXT_PUBLIC_SWAPNIL_ID,
-      session: !!session,
-      eventId,
-      rsvpsCount: rsvps.length
-    });
-  }, [isAdmin, session, rsvps.length, eventId]);
-
   // Auto-expand for admins - always expand when not in summary mode
   useEffect(() => {
     if (isAdmin && !showSummaryOnly) {
@@ -78,6 +66,7 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
 
   const fetchRSVPs = async () => {
     try {
+      setLoading(true);
       const { data, error } = await supaClient
         .from('rsvps')
         .select('*')
@@ -86,9 +75,6 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
 
       if (error) throw error;
       setRsvps(data || []);
-      
-      // Debug: Log the actual data structure
-      console.log('RSVP Data Loaded:', data);
     } catch (error) {
       console.error('Error fetching RSVPs:', error);
       toast.error(intl.formatMessage({
@@ -573,13 +559,13 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                             </div>
                           )}
 
-                          {rsvp.kids?.some(kid => kid.allergies) && (
+                          {rsvp.kids?.some(kid => kid.allergies && kid.allergies.trim() !== '') && (
                             <div>
                               <span className="text-gray-600 dark:text-gray-300 text-xs">
                                 <FormattedMessage id="rsvp-dietary" description="Dietary restrictions:" defaultMessage="Dietary restrictions:" />
                               </span>
                               <div className="mt-1 space-y-1">
-                                {rsvp.kids.filter(kid => kid.allergies).map((kid, index) => (
+                                {rsvp.kids.filter(kid => kid.allergies && kid.allergies.trim() !== '').map((kid, index) => (
                                   <p key={index} className="text-blog-black dark:text-blog-white">
                                     {kid.name}: {kid.allergies}
                                   </p>
