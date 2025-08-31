@@ -1827,6 +1827,44 @@
       "value": "Failed to load events. Please try again."
     }
   ],
+  "invite-hero-upcoming-count": [
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " Special "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Event"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Events"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " Awaiting"
+    }
+  ],
   "invite-hide-past-events": [
     {
       "type": 0,
@@ -1849,12 +1887,6 @@
     {
       "type": 0,
       "value": "Location"
-    }
-  ],
-  "invite-mobile-celebration": [
-    {
-      "type": 0,
-      "value": "Celebration"
     }
   ],
   "invite-no-events-description": [
@@ -1881,16 +1913,10 @@
       "value": "You're Invited!"
     }
   ],
-  "invite-past-event-mobile": [
+  "invite-past-event-label": [
     {
       "type": 0,
-      "value": "Past Event"
-    }
-  ],
-  "invite-past-event-summary": [
-    {
-      "type": 0,
-      "value": "Past Event"
+      "value": "Past event"
     }
   ],
   "invite-past-events-title": [
@@ -1899,19 +1925,7 @@
       "value": "Past Events"
     }
   ],
-  "invite-past-mobile-label": [
-    {
-      "type": 0,
-      "value": "Past event"
-    }
-  ],
   "invite-rsvp-toggle-mobile": [
-    {
-      "type": 0,
-      "value": "RSVP"
-    }
-  ],
-  "invite-rsvp-toggle-title": [
     {
       "type": 0,
       "value": "RSVP for this Event"
@@ -1929,10 +1943,10 @@
       "value": "Stay Tuned"
     }
   ],
-  "invite-tap-to-navigate": [
+  "invite-tap-for-directions": [
     {
       "type": 0,
-      "value": "Tap to navigate"
+      "value": "Tap for directions"
     }
   ],
   "invite-time-label": [
@@ -2987,6 +3001,12 @@
       "value": "Skill successfully created"
     }
   ],
+  "rsvp-admin-badge": [
+    {
+      "type": 0,
+      "value": "Admin Only"
+    }
+  ],
   "rsvp-adults-counter-subtitle": [
     {
       "type": 0,
@@ -2997,6 +3017,24 @@
     {
       "type": 0,
       "value": "Adults"
+    }
+  ],
+  "rsvp-contact-info-label": [
+    {
+      "type": 0,
+      "value": "Contact:"
+    }
+  ],
+  "rsvp-decline-reason-label": [
+    {
+      "type": 0,
+      "value": "Note:"
+    }
+  ],
+  "rsvp-declined-label": [
+    {
+      "type": 0,
+      "value": "Declined invitation"
     }
   ],
   "rsvp-kids-counter-subtitle": [
@@ -3014,7 +3052,7 @@
   "rsvp-list-admin-title": [
     {
       "type": 0,
-      "value": "RSVP Responses (Admin Only)"
+      "value": "RSVP Responses"
     }
   ],
   "rsvp-list-attending-title": [
@@ -3050,7 +3088,7 @@
     },
     {
       "type": 0,
-      "value": " kids RSVP'd"
+      "value": " kids attending"
     }
   ],
   "rsvp-list-kids-label": [
@@ -3126,37 +3164,11 @@
   "rsvp-list-responded-on": [
     {
       "type": 0,
-      "value": "Responded on "
+      "value": "Responded "
     },
     {
       "type": 1,
       "value": "date"
-    }
-  ],
-  "rsvp-list-summary": [
-    {
-      "type": 1,
-      "value": "attending"
-    },
-    {
-      "type": 0,
-      "value": " families attending • "
-    },
-    {
-      "type": 1,
-      "value": "total"
-    },
-    {
-      "type": 0,
-      "value": " total responses • "
-    },
-    {
-      "type": 1,
-      "value": "guests"
-    },
-    {
-      "type": 0,
-      "value": " total guests"
     }
   ],
   "rsvp-list-teens-label": [
@@ -3175,6 +3187,66 @@
     {
       "type": 0,
       "value": "An unexpected error occurred"
+    }
+  ],
+  "rsvp-summary-adults": [
+    {
+      "type": 0,
+      "value": "Adults"
+    }
+  ],
+  "rsvp-summary-families-enhanced": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " family"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " families"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " confirmed"
+    }
+  ],
+  "rsvp-summary-kids": [
+    {
+      "type": 0,
+      "value": "Kids"
+    }
+  ],
+  "rsvp-summary-loading": [
+    {
+      "type": 0,
+      "value": "Loading RSVPs..."
+    }
+  ],
+  "rsvp-summary-total": [
+    {
+      "type": 0,
+      "value": "Total"
     }
   ],
   "rsvp-total-counter-subtitle": [
