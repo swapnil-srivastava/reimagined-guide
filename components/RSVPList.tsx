@@ -23,14 +23,12 @@ import { toast } from 'react-hot-toast';
 interface RSVP {
   id: string;
   event_id: string;
-  name: string;
-  email: string;
+  family_name: string; // Fixed: was 'name'
+  email?: string;
   phone?: string;
-  is_attending: boolean; // Fixed: was 'attending'
-  number_of_guests: number;
-  guest_names?: string[];
-  dietary_restrictions?: string;
-  special_requests?: string;
+  is_attending: boolean;
+  kids: Array<{name: string; age: string; allergies?: string}>; // Fixed: was number_of_guests, guest_names
+  message?: string; // Fixed: was dietary_restrictions, special_requests
   created_at: string;
   updated_at: string;
 }
@@ -80,13 +78,13 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
 
   // Calculate summary statistics
   const totalAttending = rsvps.filter(rsvp => rsvp.is_attending).length;
-  const totalGuests = rsvps.reduce((sum, rsvp) => sum + (rsvp.is_attending ? rsvp.number_of_guests : 0), 0);
+  const totalGuests = rsvps.reduce((sum, rsvp) => sum + (rsvp.is_attending ? (rsvp.kids?.length || 0) + 1 : 0), 0); // +1 for the family member
   const totalNotAttending = rsvps.filter(rsvp => !rsvp.is_attending).length;
 
   // Age breakdown for attending guests
   const attendingRSVPs = rsvps.filter(rsvp => rsvp.is_attending);
-  const adultCount = attendingRSVPs.length;
-  const childCount = attendingRSVPs.reduce((sum, rsvp) => sum + (rsvp.number_of_guests - 1), 0);
+  const adultCount = attendingRSVPs.length; // Each RSVP represents one adult/family
+  const childCount = attendingRSVPs.reduce((sum, rsvp) => sum + (rsvp.kids?.length || 0), 0);
 
   if (loading) {
     return (
@@ -315,20 +313,20 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                     {attendingRSVPs.map((rsvp) => (
                       <div key={rsvp.id} className="bg-white dark:bg-green-900/10 rounded p-2">
                         <div className="flex items-center justify-between">
-                          <span className="text-sm font-medium text-blog-black dark:text-blog-white">{rsvp.name}</span>
+                          <span className="text-sm font-medium text-blog-black dark:text-blog-white">{rsvp.family_name}</span>
                           <span className="text-xs bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-300 px-2 py-1 rounded-full">
-                            {rsvp.number_of_guests} {rsvp.number_of_guests === 1 ? 'guest' : 'guests'}
+                            {(rsvp.kids?.length || 0) + 1} {((rsvp.kids?.length || 0) + 1) === 1 ? 'guest' : 'guests'}
                           </span>
                         </div>
-                        {rsvp.guest_names && rsvp.guest_names.length > 0 && (
+                        {rsvp.kids && rsvp.kids.length > 0 && (
                           <div className="mt-1">
                             <span className="text-xs text-gray-600 dark:text-gray-300">
                               <FormattedMessage id="rsvp-with" description="With:" defaultMessage="With:" />
                             </span>
                             <div className="flex flex-wrap gap-1 mt-1">
-                              {rsvp.guest_names.map((name, index) => (
+                              {rsvp.kids.map((kid, index) => (
                                 <span key={index} className="bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-300 px-2 py-1 rounded text-xs">
-                                  {name}
+                                  {kid.name} ({kid.age}y)
                                 </span>
                               ))}
                             </div>
@@ -350,7 +348,7 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                   <div className="space-y-2">
                     {rsvps.filter(rsvp => !rsvp.is_attending).map((rsvp) => (
                       <div key={rsvp.id} className="bg-white dark:bg-red-900/10 rounded p-2">
-                        <span className="text-sm font-medium text-blog-black dark:text-blog-white">{rsvp.name}</span>
+                        <span className="text-sm font-medium text-blog-black dark:text-blog-white">{rsvp.family_name}</span>
                       </div>
                     ))}
                     {totalNotAttending === 0 && (
@@ -363,7 +361,7 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
               </div>
 
               {/* Allergies and Dietary Information */}
-              {attendingRSVPs.some(rsvp => rsvp.dietary_restrictions) && (
+              {attendingRSVPs.some(rsvp => rsvp.kids?.some(kid => kid.allergies)) && (
                 <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-4 border border-yellow-200 dark:border-yellow-800">
                   <div className="flex items-center gap-2 mb-3">
                     <FontAwesomeIcon icon={faExclamationTriangle} className="text-yellow-600 dark:text-yellow-400" />
@@ -372,16 +370,16 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                     </h4>
                   </div>
                   <div className="space-y-2">
-                    {attendingRSVPs.filter(rsvp => rsvp.dietary_restrictions).map((rsvp) => (
+                    {attendingRSVPs.filter(rsvp => rsvp.kids?.some(kid => kid.allergies)).map((rsvp) => (
                       <div key={rsvp.id} className="bg-white dark:bg-yellow-900/10 rounded p-3 border-l-4 border-yellow-400">
-                        <div className="font-medium text-sm text-blog-black dark:text-blog-white mb-1">{rsvp.name}</div>
-                        <p className="text-sm text-gray-700 dark:text-gray-300">{rsvp.dietary_restrictions}</p>
-                        {rsvp.guest_names && rsvp.guest_names.length > 0 && (
-                          <div className="mt-2 text-xs text-gray-600 dark:text-gray-400">
-                            <FormattedMessage id="rsvp-applies-to-guests" description="Applies to guests:" defaultMessage="Applies to guests:" />
-                            {' '}{rsvp.guest_names.join(', ')}
-                          </div>
-                        )}
+                        <div className="font-medium text-sm text-blog-black dark:text-blog-white mb-1">{rsvp.family_name}</div>
+                        <div className="space-y-1">
+                          {rsvp.kids?.filter(kid => kid.allergies).map((kid, index) => (
+                            <div key={index} className="text-sm text-gray-700 dark:text-gray-300">
+                              <span className="font-medium">{kid.name}:</span> {kid.allergies}
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -389,17 +387,11 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
               )}
 
               {/* Toddler Identification */}
-              {attendingRSVPs.some(rsvp => rsvp.guest_names && rsvp.guest_names.some(name =>
-                name.toLowerCase().includes('toddler') ||
-                name.toLowerCase().includes('baby') ||
-                name.toLowerCase().includes('infant') ||
-                rsvp.special_requests && (
-                  rsvp.special_requests.toLowerCase().includes('toddler') ||
-                  rsvp.special_requests.toLowerCase().includes('baby') ||
-                  rsvp.special_requests.toLowerCase().includes('infant') ||
-                  rsvp.special_requests.toLowerCase().includes('crib') ||
-                  rsvp.special_requests.toLowerCase().includes('high chair')
-                )
+              {attendingRSVPs.some(rsvp => rsvp.kids?.some(kid =>
+                parseInt(kid.age) <= 5 ||
+                kid.name.toLowerCase().includes('toddler') ||
+                kid.name.toLowerCase().includes('baby') ||
+                kid.name.toLowerCase().includes('infant')
               )) && (
                 <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-4 border border-purple-200 dark:border-purple-800">
                   <div className="flex items-center gap-2 mb-3">
@@ -410,44 +402,32 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                   </div>
                   <div className="space-y-2">
                     {attendingRSVPs.filter(rsvp =>
-                      rsvp.guest_names && rsvp.guest_names.some(name =>
-                        name.toLowerCase().includes('toddler') ||
-                        name.toLowerCase().includes('baby') ||
-                        name.toLowerCase().includes('infant')
-                      ) || (rsvp.special_requests && (
-                        rsvp.special_requests.toLowerCase().includes('toddler') ||
-                        rsvp.special_requests.toLowerCase().includes('baby') ||
-                        rsvp.special_requests.toLowerCase().includes('infant') ||
-                        rsvp.special_requests.toLowerCase().includes('crib') ||
-                        rsvp.special_requests.toLowerCase().includes('high chair')
-                      ))
+                      rsvp.kids?.some(kid =>
+                        parseInt(kid.age) <= 5 ||
+                        kid.name.toLowerCase().includes('toddler') ||
+                        kid.name.toLowerCase().includes('baby') ||
+                        kid.name.toLowerCase().includes('infant')
+                      )
                     ).map((rsvp) => (
                       <div key={rsvp.id} className="bg-white dark:bg-purple-900/10 rounded p-3 border-l-4 border-purple-400">
-                        <div className="font-medium text-sm text-blog-black dark:text-blog-white mb-1">{rsvp.name}</div>
-                        {rsvp.guest_names && (
+                        <div className="font-medium text-sm text-blog-black dark:text-blog-white mb-1">{rsvp.family_name}</div>
+                        {rsvp.kids && (
                           <div className="mb-2">
                             <span className="text-xs text-gray-600 dark:text-gray-300">
                               <FormattedMessage id="rsvp-little-ones" description="Little ones:" defaultMessage="Little ones:" />
                             </span>
                             <div className="flex flex-wrap gap-1 mt-1">
-                              {rsvp.guest_names.filter(name =>
-                                name.toLowerCase().includes('toddler') ||
-                                name.toLowerCase().includes('baby') ||
-                                name.toLowerCase().includes('infant')
-                              ).map((name, index) => (
+                              {rsvp.kids.filter(kid =>
+                                parseInt(kid.age) <= 5 ||
+                                kid.name.toLowerCase().includes('toddler') ||
+                                kid.name.toLowerCase().includes('baby') ||
+                                kid.name.toLowerCase().includes('infant')
+                              ).map((kid, index) => (
                                 <span key={index} className="bg-purple-100 dark:bg-purple-800 text-purple-700 dark:text-purple-300 px-2 py-1 rounded text-xs">
-                                  {name}
+                                  {kid.name} ({kid.age}y)
                                 </span>
                               ))}
                             </div>
-                          </div>
-                        )}
-                        {rsvp.special_requests && (
-                          <div className="text-xs text-gray-600 dark:text-gray-400">
-                            <span className="font-medium">
-                              <FormattedMessage id="rsvp-special-needs" description="Special needs:" defaultMessage="Special needs:" />
-                            </span>
-                            {' '}{rsvp.special_requests}
                           </div>
                         )}
                       </div>
@@ -468,7 +448,7 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                     <div key={rsvp.id} className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-4 border border-gray-200 dark:border-fun-blue-500">
                       <div className="flex items-start justify-between mb-3">
                         <div>
-                          <h5 className="font-semibold text-blog-black dark:text-blog-white">{rsvp.name}</h5>
+                          <h5 className="font-semibold text-blog-black dark:text-blog-white">{rsvp.family_name}</h5>
                           <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-300 mt-1">
                             <div className="flex items-center gap-1">
                               <FontAwesomeIcon icon={faEnvelope} className="text-xs" />
@@ -500,40 +480,46 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                           <div className="flex items-center gap-2">
                             <FontAwesomeIcon icon={faUsers} className="text-gray-500 dark:text-blog-white text-xs" />
                             <span className="text-blog-black dark:text-blog-white">
-                              {rsvp.number_of_guests} {rsvp.number_of_guests === 1 ? 'guest' : 'guests'}
+                              {(rsvp.kids?.length || 0) + 1} {(rsvp.kids?.length || 0) + 1 === 1 ? 'guest' : 'guests'}
                             </span>
                           </div>
 
-                          {rsvp.guest_names && rsvp.guest_names.length > 0 && (
+                          {rsvp.kids && rsvp.kids.length > 0 && (
                             <div>
                               <span className="text-gray-600 dark:text-gray-300 text-xs">
                                 <FormattedMessage id="rsvp-guest-names" description="Guest names:" defaultMessage="Guest names:" />
                               </span>
                               <div className="flex flex-wrap gap-1 mt-1">
-                                {rsvp.guest_names.map((name, index) => (
+                                {rsvp.kids.map((kid, index) => (
                                   <span key={index} className="bg-white dark:bg-fun-blue-600 px-2 py-1 rounded text-xs text-blog-black dark:text-blog-white">
-                                    {name}
+                                    {kid.name} ({kid.age}y)
                                   </span>
                                 ))}
                               </div>
                             </div>
                           )}
 
-                          {rsvp.dietary_restrictions && (
+                          {rsvp.kids?.some(kid => kid.allergies) && (
                             <div>
                               <span className="text-gray-600 dark:text-gray-300 text-xs">
                                 <FormattedMessage id="rsvp-dietary" description="Dietary restrictions:" defaultMessage="Dietary restrictions:" />
                               </span>
-                              <p className="text-blog-black dark:text-blog-white mt-1">{rsvp.dietary_restrictions}</p>
+                              <div className="mt-1 space-y-1">
+                                {rsvp.kids.filter(kid => kid.allergies).map((kid, index) => (
+                                  <p key={index} className="text-blog-black dark:text-blog-white">
+                                    {kid.name}: {kid.allergies}
+                                  </p>
+                                ))}
+                              </div>
                             </div>
                           )}
 
-                          {rsvp.special_requests && (
+                          {rsvp.message && (
                             <div>
                               <span className="text-gray-600 dark:text-gray-300 text-xs">
                                 <FormattedMessage id="rsvp-special-requests" description="Special requests:" defaultMessage="Special requests:" />
                               </span>
-                              <p className="text-blog-black dark:text-blog-white mt-1">{rsvp.special_requests}</p>
+                              <p className="text-blog-black dark:text-blog-white mt-1">{rsvp.message}</p>
                             </div>
                           )}
                         </div>
