@@ -624,10 +624,6 @@ function Invite({ seoData }: InvitePageProps) {
                                             {expandedEvent === inviteEvent.id && (
                                               <div className="mt-3 sm:mt-4 lg:mt-6 animate-fadeIn">
                                                 <RSVPForm eventId={inviteEvent.id} />
-                                                <RSVPList
-                                                  eventId={inviteEvent.id}
-                                                  eventTitle={inviteEvent.title}
-                                                />
                                               </div>
                                             )}
                                           </div>
@@ -825,10 +821,6 @@ function Invite({ seoData }: InvitePageProps) {
                                               {/* Expanded Past Event Details */}
                                               {expandedEvent === inviteEvent.id && (
                                                 <div className="mt-3 sm:mt-4 animate-fadeIn border-t border-gray-200 dark:border-fun-blue-500 pt-3 sm:pt-4">
-                                                  <RSVPList 
-                                                    eventId={inviteEvent.id} 
-                                                    eventTitle={inviteEvent.title}
-                                                  />
                                                 </div>
                                               )}
                                             </div>
