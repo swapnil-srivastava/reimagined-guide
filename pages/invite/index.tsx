@@ -522,7 +522,7 @@ function Invite({ seoData }: InvitePageProps) {
                                               href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(inviteEvent.location)}`} 
                                               target="_blank" 
                                               rel="noopener noreferrer"
-                                              className="col-span-2 sm:col-span-1 bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-2 sm:p-3 lg:p-4 text-center hover:bg-gray-100 dark:hover:bg-fun-blue-600 transition-colors duration-200 active:scale-95 block group/location"
+                                              className="col-span-2 sm:col-span-1 bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-2 sm:p-3 lg:p-4 text-center hover:bg-gray-100 dark:hover:bg-fun-blue-800 transition-colors duration-200 active:scale-95 block group/location"
                                             >
                                               <FontAwesomeIcon icon={faMapMarkerAlt} className="text-fun-blue-500 text-sm sm:text-base lg:text-xl mb-1 sm:mb-2 group-hover/location:text-fun-blue-600" />
                                               <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 uppercase tracking-wide mb-1">
@@ -602,7 +602,7 @@ function Invite({ seoData }: InvitePageProps) {
                                             {/* RSVP Toggle Button */}
                                             <button
                                               onClick={() => toggleEventExpansion(inviteEvent.id)}
-                                              className="w-full flex items-center justify-center sm:justify-between p-3 sm:p-4 bg-gray-50 dark:bg-fun-blue-700 rounded-lg hover:bg-gray-100 dark:hover:bg-fun-blue-600 transition-colors duration-200 active:scale-[0.98]"
+                                              className="w-full flex items-center justify-center sm:justify-between p-3 sm:p-4 bg-gray-50 dark:bg-fun-blue-700 rounded-lg hover:bg-gray-100 dark:hover:bg-fun-blue-800 transition-colors duration-200 active:scale-[0.98]"
                                             >
                                               <div className="flex items-center gap-2 sm:gap-3">
                                                 <FontAwesomeIcon icon={faUsers} className="text-fun-blue-500 text-sm sm:text-base" />
@@ -659,7 +659,7 @@ function Invite({ seoData }: InvitePageProps) {
                           </div>
                           <button
                             onClick={() => setShowPastEvents(!showPastEvents)}
-                            className="flex items-center justify-center gap-2 px-3 py-2 sm:px-4 sm:py-2 bg-gray-100 dark:bg-fun-blue-700 text-blog-black dark:text-blog-white rounded-lg hover:bg-gray-200 dark:hover:bg-fun-blue-600 transition-colors duration-200 active:scale-95"
+                            className="flex items-center justify-center gap-2 px-3 py-2 sm:px-4 sm:py-2 bg-gray-100 dark:bg-fun-blue-700 text-blog-black dark:text-blog-white rounded-lg hover:bg-gray-200 dark:hover:bg-fun-blue-800 transition-colors duration-200 active:scale-95"
                           >
                             <FontAwesomeIcon icon={showPastEvents ? faEyeSlash : faEye} className="text-sm" />
                             <span className="font-medium text-sm sm:text-base">
@@ -777,7 +777,7 @@ function Invite({ seoData }: InvitePageProps) {
                                                 {/* Expand Button for Past Events */}
                                                 <button
                                                   onClick={() => toggleEventExpansion(inviteEvent.id)}
-                                                  className="ml-2 sm:ml-3 p-1 sm:p-2 hover:bg-gray-100 dark:hover:bg-fun-blue-500 rounded transition-colors duration-200 active:scale-95 flex-shrink-0"
+                                                  className="ml-2 sm:ml-3 p-1 sm:p-2 hover:bg-gray-100 dark:hover:bg-fun-blue-700 rounded transition-colors duration-200 active:scale-95 flex-shrink-0"
                                                 >
                                                   <FontAwesomeIcon 
                                                     icon={expandedEvent === inviteEvent.id ? faChevronUp : faChevronDown} 

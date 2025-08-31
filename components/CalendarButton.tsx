@@ -77,7 +77,7 @@ const CalendarButton: React.FC<CalendarButtonProps> = ({
               <button
                 key={index}
                 onClick={() => handleOptionClick(option)}
-                className="w-full px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-fun-blue-500 transition-colors duration-200 flex items-center gap-3 whitespace-nowrap"
+                className="w-full px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-fun-blue-700 transition-colors duration-200 flex items-center gap-3 whitespace-nowrap"
               >
                 <span className="text-lg">{option.icon}</span>
                 <span className="font-medium text-blog-black dark:text-blog-white">

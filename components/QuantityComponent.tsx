@@ -38,7 +38,7 @@ const QuantityComponent: React.FC<QuantityComponentProps> = ({ product, children
             {/* Minus Button */}
             <button
               onClick={decrement}
-              className="w-8 h-8 bg-gray-100 dark:bg-fun-blue-600 hover:bg-gray-200 dark:hover:bg-fun-blue-500 rounded-full flex items-center justify-center transition-colors duration-200 text-gray-600 dark:text-white"
+              className="w-8 h-8 bg-gray-100 dark:bg-fun-blue-600 hover:bg-gray-200 dark:hover:bg-fun-blue-700 rounded-full flex items-center justify-center transition-colors duration-200 text-gray-600 dark:text-white"
             >
               <FontAwesomeIcon icon={faCircleMinus} className="w-4 h-4" />
             </button>
@@ -51,7 +51,7 @@ const QuantityComponent: React.FC<QuantityComponentProps> = ({ product, children
             {/* Plus Button */}
             <button
               onClick={increment}
-              className="w-8 h-8 bg-gray-100 dark:bg-fun-blue-600 hover:bg-gray-200 dark:hover:bg-fun-blue-500 rounded-full flex items-center justify-center transition-colors duration-200 text-gray-600 dark:text-white"
+              className="w-8 h-8 bg-gray-100 dark:bg-fun-blue-600 hover:bg-gray-200 dark:hover:bg-fun-blue-700 rounded-full flex items-center justify-center transition-colors duration-200 text-gray-600 dark:text-white"
             >
               <FontAwesomeIcon icon={faCirclePlus} className="w-4 h-4" />
             </button>

@@ -29,7 +29,7 @@ const QuantityComponent: React.FC<SimpleQuantityComponentProps> = ({ quantity, s
           <button
             onClick={decrement}
             disabled={quantity <= 1}
-            className="w-10 h-10 bg-fun-blue-300 hover:bg-fun-blue-400 dark:bg-fun-blue-600 dark:hover:bg-fun-blue-500 rounded-full flex items-center justify-center transition-all duration-200 text-blog-black dark:text-blog-white shadow-sm disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:ring-offset-2"
+            className="w-10 h-10 bg-fun-blue-300 hover:bg-fun-blue-400 dark:bg-fun-blue-600 dark:hover:bg-fun-blue-700 rounded-full flex items-center justify-center transition-all duration-200 text-blog-black dark:text-blog-white shadow-sm disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:ring-offset-2"
           >
             <FontAwesomeIcon icon={faCircleMinus} className="w-4 h-4" />
           </button>
