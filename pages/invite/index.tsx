@@ -22,16 +22,15 @@ import Image from "next/image";
 import moment from "moment";
 
 import { supaClient } from "../../supa-client";
-import CalendarButton from "../../components/CalendarButton";
+import { useSession } from "../../lib/use-session";
 
 import { RootState } from "../../lib/interfaces/interface";
 import { fetchInviteEvents } from "../../redux/actions/actions";
 
-// CSS
-import styles from "../../styles/Admin.module.css";
 import RSVPForm from "../../components/RSVPForm";
 import RSVPList from "../../components/RSVPList";
-import { useSession } from "../../lib/use-session";
+import CalendarButton from "../../components/CalendarButton";
+
 
 interface InvitePageProps {
   seoData: {
@@ -986,25 +985,38 @@ function Invite({ seoData }: InvitePageProps) {
 
 // Server-side rendering for SEO
 export const getServerSideProps: GetServerSideProps<InvitePageProps> = async (context) => {
+  console.log('getServerSideProps: Starting server-side rendering for invite page');
+
   try {
     // Import server client here to avoid client-side issues
     const { supaServerClient } = await import('../../supa-server-client');
-    
+    console.log('getServerSideProps: Server client imported', !!supaServerClient);
+
+    // Get full URL from request
+    const protocol = context.req.headers['x-forwarded-proto'] || 'https';
+    const host = context.req.headers.host || 'swapnilsrivastava.eu';
+    const baseUrl = `${protocol}://${host}`;
+    const url = `${baseUrl}/invite`;
+
+    // Default SEO data
+    const defaultSeoData = {
+      title: "You're Invited to Ria's Birthday! - Swapnil & Mudrika",
+      description: "Join Swapnil Srivastava and Mudrika Mishra for Ria's special birthday celebration. RSVP to this exclusive birthday party.",
+      imageUrl: `${baseUrl}/mountains.jpg`,
+      url,
+      upcomingEventsCount: 0,
+    };
+
     if (!supaServerClient) {
-      // Fallback if server client is not available
+      console.log('getServerSideProps: Server client not available, using default SEO data');
       return {
         props: {
-          seoData: {
-            title: "You're Invited to Ria's Birthday! - Swapnil & Mudrika",
-            description: "Join Swapnil Srivastava and Mudrika Mishra for Ria's special birthday celebration. RSVP to this exclusive birthday party.",
-            imageUrl: "https://swapnilsrivastava.eu/mountains.jpg",
-            url: "https://swapnilsrivastava.eu/invite",
-            upcomingEventsCount: 0,
-          }
+          seoData: defaultSeoData
         }
       };
     }
 
+    console.log('getServerSideProps: Fetching events from database');
     // Fetch upcoming events from the database
     const { data: events, error } = await supaServerClient
       .from('events')
@@ -1014,78 +1026,75 @@ export const getServerSideProps: GetServerSideProps<InvitePageProps> = async (co
       .limit(5); // Limit for performance
 
     if (error) {
-      console.error('Error fetching events for SEO:', error);
-      // Return default SEO data if database query fails
+      console.error('getServerSideProps: Error fetching events for SEO:', error);
       return {
         props: {
-          seoData: {
-            title: "You're Invited to Ria's Birthday! - Swapnil & Mudrika",
-            description: "Join Swapnil Srivastava and Mudrika Mishra for Ria's special birthday celebration. RSVP to this exclusive birthday party.",
-            imageUrl: "https://swapnilsrivastava.eu/mountains.jpg",
-            url: "https://swapnilsrivastava.eu/invite",
-            upcomingEventsCount: 0,
-          }
+          seoData: defaultSeoData
         }
       };
     }
 
     const upcomingEvents = events || [];
+    console.log('getServerSideProps: Found', upcomingEvents.length, 'upcoming events');
+
     const nextEvent = upcomingEvents[0];
-    
-    // Get full URL from request
-    const protocol = context.req.headers['x-forwarded-proto'] || 'https';
-    const host = context.req.headers.host || 'swapnilsrivastava.eu';
-    const baseUrl = `${protocol}://${host}`;
-    
+
     // Generate dynamic SEO data based on events
-    const title = upcomingEvents.length > 0 
+    const title = upcomingEvents.length > 0
       ? `You're Invited to Ria's Birthday! ${upcomingEvents.length} Special Events - Swapnil & Mudrika`
       : "You're Invited to Ria's Birthday! - Swapnil & Mudrika";
-      
-    const description = nextEvent 
-      ? `Join Swapnil Srivastava and Mudrika Mishra for Ria's birthday celebration "${nextEvent.title}" on ${new Date(nextEvent.date).toLocaleDateString('en-US', { 
-          weekday: 'long', 
-          year: 'numeric', 
-          month: 'long', 
-          day: 'numeric' 
+
+    const description = nextEvent
+      ? `Join Swapnil Srivastava and Mudrika Mishra for Ria's birthday celebration "${nextEvent.title}" on ${new Date(nextEvent.date).toLocaleDateString('en-US', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
         })} at ${nextEvent.location}. ${upcomingEvents.length > 1 ? `Plus ${upcomingEvents.length - 1} more special birthday events!` : ''} RSVP now for Ria's special day!`
       : "Join Swapnil Srivastava and Mudrika Mishra for Ria's upcoming birthday celebrations. RSVP to exclusive birthday parties and special occasions. Let's make Ria's day unforgettable!";
-    
-    // Ensure image URL is absolute
+
+    // Ensure image URL is absolute and accessible
     let imageUrl = `${baseUrl}/mountains.jpg`; // Default fallback
     if (nextEvent?.image_url) {
       // If it's already a full URL, use it; otherwise make it absolute
-      imageUrl = nextEvent.image_url.startsWith('http') 
-        ? nextEvent.image_url 
+      imageUrl = nextEvent.image_url.startsWith('http')
+        ? nextEvent.image_url
         : `${baseUrl}${nextEvent.image_url}`;
     }
-    
-    const url = `${baseUrl}/invite`;
+
+    const seoData = {
+      title,
+      description,
+      imageUrl,
+      url,
+      upcomingEventsCount: upcomingEvents.length,
+      nextEventDate: nextEvent?.date,
+      nextEventTitle: nextEvent?.title,
+    };
+
+    console.log('getServerSideProps: Generated SEO data:', { title: seoData.title, imageUrl: seoData.imageUrl });
 
     return {
       props: {
-        seoData: {
-          title,
-          description,
-          imageUrl,
-          url,
-          upcomingEventsCount: upcomingEvents.length,
-          nextEventDate: nextEvent?.date,
-          nextEventTitle: nextEvent?.title,
-        }
+        seoData
       }
     };
   } catch (error) {
-    console.error('Error in getServerSideProps:', error);
-    
+    console.error('getServerSideProps: Unexpected error:', error);
+
+    // Get base URL for fallback
+    const protocol = context?.req?.headers?.['x-forwarded-proto'] || 'https';
+    const host = context?.req?.headers?.host || 'swapnilsrivastava.eu';
+    const baseUrl = `${protocol}://${host}`;
+
     // Fallback SEO data if anything goes wrong
     return {
       props: {
         seoData: {
           title: "You're Invited to Ria's Birthday! - Swapnil & Mudrika",
           description: "Join Swapnil Srivastava and Mudrika Mishra for Ria's special birthday celebration. RSVP to this exclusive birthday party.",
-          imageUrl: "https://swapnilsrivastava.eu/mountains.jpg",
-          url: "https://swapnilsrivastava.eu/invite",
+          imageUrl: `${baseUrl}/mountains.jpg`,
+          url: `${baseUrl}/invite`,
           upcomingEventsCount: 0,
         }
       }
