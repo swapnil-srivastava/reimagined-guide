@@ -34,16 +34,35 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
       color: '#0a0a0a',
       '& input': {
         color: '#0a0a0a',
+        WebkitTextFillColor: 'currentColor',
         '&::placeholder': {
           color: 'rgba(156, 163, 175, 0.7)',
           opacity: 1,
         },
+        '::placeholder': {
+          color: 'rgba(156, 163, 175, 0.7)',
+          opacity: 1,
+        },
+        '::-webkit-input-placeholder': {
+          color: 'rgba(156, 163, 175, 0.7)',
+        },
+        ':-ms-input-placeholder': {
+          color: 'rgba(156, 163, 175, 0.7)',
+        },
       },
       '& textarea': {
         color: '#0a0a0a',
+        WebkitTextFillColor: 'currentColor',
         '&::placeholder': {
           color: 'rgba(156, 163, 175, 0.7)',
           opacity: 1,
+        },
+        '::placeholder': {
+          color: 'rgba(156, 163, 175, 0.7)',
+          opacity: 1,
+        },
+        '::-webkit-input-placeholder': {
+          color: 'rgba(156, 163, 175, 0.7)',
         },
       },
       '& fieldset': {
@@ -59,10 +78,34 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
       'html.dark &': {
         color: '#fbfbfb',
         '& input': {
-          color: '#fbfbfb !important',
+          color: '#fbfbfb',
+          WebkitTextFillColor: '#fbfbfb',
+          '&::placeholder': {
+            color: 'rgba(235, 235, 235, 0.6)',
+            opacity: 1,
+          },
+          '::placeholder': {
+            color: 'rgba(235, 235, 235, 0.6)',
+            opacity: 1,
+          },
+          '::-webkit-input-placeholder': {
+            color: 'rgba(235, 235, 235, 0.6)',
+          },
         },
         '& textarea': {
-          color: '#fbfbfb !important',
+          color: '#fbfbfb',
+          WebkitTextFillColor: '#fbfbfb',
+          '&::placeholder': {
+            color: 'rgba(235, 235, 235, 0.6)',
+            opacity: 1,
+          },
+          '::placeholder': {
+            color: 'rgba(235, 235, 235, 0.6)',
+            opacity: 1,
+          },
+          '::-webkit-input-placeholder': {
+            color: 'rgba(235, 235, 235, 0.6)',
+          },
         },
       },
     },
@@ -80,9 +123,13 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
       color: '#0a0a0a',
       '& input': {
         color: '#0a0a0a',
+        WebkitTextFillColor: 'currentColor',
         '&::placeholder': {
           color: 'rgba(107, 114, 128, 0.7)',
           opacity: 1,
+        },
+        '::-webkit-input-placeholder': {
+          color: 'rgba(107, 114, 128, 0.7)',
         },
       },
       '& fieldset': {
@@ -102,6 +149,7 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
       },
     },
   });
+
 
   const handleAddKid = () => {
     setKids([...kids, { name: '', age: '', allergies: '' }]);
@@ -204,7 +252,7 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
 
         {/* Family Name */}
         <div className="space-y-2">
-          <div className="[&_input]:text-blog-black [&_textarea]:text-blog-black dark:[&_input]:!text-blog-white dark:[&_textarea]:!text-blog-white">
+          <div className="[&_input]:text-blog-black [&_textarea]:text-blog-black dark:[&_input]:text-blog-white dark:[&_textarea]:text-blog-white">
             <TextField
               label={intl.formatMessage({
                 id: "rsvpform-family-name-label",
@@ -370,7 +418,7 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
           </Typography>
           
           <Box display="flex" gap={2} flexDirection={{ xs: 'column', sm: 'row' }}>
-            <div className="flex-1 [&_input]:text-blog-black dark:[&_input]:!text-blog-white">
+            <div className="flex-1 [&_input]:text-blog-black dark:[&_input]:text-blog-white">
               <TextField
                 label={intl.formatMessage({
                   id: "rsvpform-email-label",
@@ -388,7 +436,7 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
               />
             </div>
 
-            <div className="flex-1 [&_input]:text-blog-black dark:[&_input]:!text-blog-white">
+            <div className="flex-1 [&_input]:text-blog-black dark:[&_input]:text-blog-white">
               <TextField
                 label={intl.formatMessage({
                   id: "rsvpform-phone-label",
@@ -410,7 +458,7 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
 
         {/* Message */}
         <div className="space-y-2">
-          <div className="[&_input]:text-blog-black [&_textarea]:text-blog-black dark:[&_input]:!text-blog-white dark:[&_textarea]:!text-blog-white">
+          <div className="[&_input]:text-blog-black [&_textarea]:text-blog-black dark:[&_input]:text-blog-white dark:[&_textarea]:text-blog-white">
             <TextField
               label={intl.formatMessage({
                 id: "rsvpform-message-label",
