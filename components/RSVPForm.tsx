@@ -10,6 +10,7 @@ import toast from 'react-hot-toast';
 interface Kid {
   name: string;
   age: string;
+  allergies: string;
 }
 
 interface RSVPFormProps {
@@ -19,7 +20,7 @@ interface RSVPFormProps {
 const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
   const intl = useIntl();
   const [familyName, setFamilyName] = useState('');
-  const [kids, setKids] = useState<Kid[]>([{ name: '', age: '' }]);
+  const [kids, setKids] = useState<Kid[]>([{ name: '', age: '', allergies: '' }]);
   const [message, setMessage] = useState('');
   const [isAttending, setIsAttending] = useState(false);
   const [email, setEmail] = useState('');
@@ -27,7 +28,7 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleAddKid = () => {
-    setKids([...kids, { name: '', age: '' }]);
+    setKids([...kids, { name: '', age: '', allergies: '' }]);
   };
 
   const handleRemoveKid = (index: number) => {
@@ -82,7 +83,7 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
         }));
         // Reset form
         setFamilyName('');
-        setKids([{ name: '', age: '' }]);
+        setKids([{ name: '', age: '', allergies: '' }]);
         setMessage('');
         setIsAttending(false);
         setEmail('');
@@ -229,7 +230,7 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
                   </IconButton>
                 )}
               </div>
-              <Box display="flex" gap={2} flexDirection={{ xs: 'column', sm: 'row' }}>
+              <Box display="flex" gap={2} flexDirection="column">
                 <TextField
                   label={intl.formatMessage({
                     id: "rsvpform-kid-name-label",
@@ -256,33 +257,66 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
                     },
                   }}
                 />
-                <TextField
-                  label={intl.formatMessage({
-                    id: "rsvpform-kid-age-label",
-                    description: "Age",
-                    defaultMessage: "Age"
-                  })}
-                  value={kid.age}
-                  onChange={(e) => handleKidChange(index, 'age', e.target.value)}
-                  variant="outlined"
-                  size="small"
-                  type="number"
-                  sx={{
-                    width: { xs: '100%', sm: '120px' },
-                    '& .MuiOutlinedInput-root': {
-                      backgroundColor: 'white',
-                      '& fieldset': {
-                        borderColor: 'rgba(156, 163, 175, 0.5)',
+                <Box display="flex" gap={2} flexDirection={{ xs: 'column', sm: 'row' }}>
+                  <TextField
+                    label={intl.formatMessage({
+                      id: "rsvpform-kid-age-label",
+                      description: "Age",
+                      defaultMessage: "Age"
+                    })}
+                    value={kid.age}
+                    onChange={(e) => handleKidChange(index, 'age', e.target.value)}
+                    variant="outlined"
+                    size="small"
+                    type="number"
+                    sx={{
+                      width: { xs: '100%', sm: '120px' },
+                      '& .MuiOutlinedInput-root': {
+                        backgroundColor: 'white',
+                        '& fieldset': {
+                          borderColor: 'rgba(156, 163, 175, 0.5)',
+                        },
+                        '&:hover fieldset': {
+                          borderColor: '#00539c',
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: '#00539c',
+                        },
                       },
-                      '&:hover fieldset': {
-                        borderColor: '#00539c',
+                    }}
+                  />
+                  <TextField
+                    label={intl.formatMessage({
+                      id: "rsvpform-kid-allergies-label",
+                      description: "Allergies/Dietary Restrictions",
+                      defaultMessage: "Allergies/Dietary Restrictions"
+                    })}
+                    value={kid.allergies}
+                    onChange={(e) => handleKidChange(index, 'allergies', e.target.value)}
+                    variant="outlined"
+                    size="small"
+                    fullWidth
+                    placeholder={intl.formatMessage({
+                      id: "rsvpform-kid-allergies-placeholder",
+                      description: "e.g., peanuts, dairy, gluten-free",
+                      defaultMessage: "e.g., peanuts, dairy, gluten-free"
+                    })}
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        backgroundColor: 'white',
+                        '& fieldset': {
+                          borderColor: 'rgba(156, 163, 175, 0.5)',
+                        },
+                        '&:hover fieldset': {
+                          borderColor: '#00539c',
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: '#00539c',
+                        },
                       },
-                      '&.Mui-focused fieldset': {
-                        borderColor: '#00539c',
-                      },
-                    },
-                  }}
-                />
+                    }}
+                  />
+                </Box>
               </Box>
             </div>
           ))}

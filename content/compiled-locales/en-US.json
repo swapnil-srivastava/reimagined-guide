@@ -3019,6 +3019,12 @@
       "value": "Adults"
     }
   ],
+  "rsvp-allergies-label": [
+    {
+      "type": 0,
+      "value": "Allergies/Dietary"
+    }
+  ],
   "rsvp-contact-info-label": [
     {
       "type": 0,
@@ -3295,6 +3301,18 @@
     {
       "type": 0,
       "value": "Age"
+    }
+  ],
+  "rsvpform-kid-allergies-label": [
+    {
+      "type": 0,
+      "value": "Allergies/Dietary Restrictions"
+    }
+  ],
+  "rsvpform-kid-allergies-placeholder": [
+    {
+      "type": 0,
+      "value": "e.g., peanuts, dairy, gluten-free"
     }
   ],
   "rsvpform-kid-name-label": [

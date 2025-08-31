@@ -24,6 +24,7 @@ import { useSession } from '../lib/use-session';
 interface Kid {
   name: string;
   age: string;
+  allergies: string;
 }
 
 interface RSVP {
@@ -675,15 +676,38 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                               </span>
                             </div>
                             
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <div className="grid grid-cols-1 gap-3">
                               {rsvp.kids.map((kid, index) => (
-                                <div key={index} className="flex items-center gap-2 p-2 bg-white/80 dark:bg-sky-900/30 rounded-lg border border-sky-100 dark:border-sky-800">
-                                  <div className="p-1 bg-sky-100 dark:bg-sky-800 rounded-full">
-                                    <FontAwesomeIcon icon={faChild} className="text-sky-600 dark:text-sky-400 text-xs" />
-                                  </div>
-                                  <div className="text-sm">
-                                    <span className="font-medium text-blog-black dark:text-blog-white">{kid.name}</span>
-                                    <span className="text-gray-500 dark:text-gray-400 ml-1">({kid.age})</span>
+                                <div key={index} className="p-3 bg-white/80 dark:bg-sky-900/30 rounded-lg border border-sky-100 dark:border-sky-800">
+                                  <div className="flex items-start gap-3">
+                                    <div className="p-1.5 bg-sky-100 dark:bg-sky-800 rounded-full flex-shrink-0 mt-0.5">
+                                      <FontAwesomeIcon icon={faChild} className="text-sky-600 dark:text-sky-400 text-sm" />
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                      <div className="flex items-center gap-2 mb-1">
+                                        <span className="font-semibold text-blog-black dark:text-blog-white text-sm">{kid.name}</span>
+                                        <span className="px-2 py-0.5 bg-sky-100 dark:bg-sky-800 text-sky-700 dark:text-sky-300 rounded-full text-xs font-medium">
+                                          Age {kid.age}
+                                        </span>
+                                      </div>
+                                      {kid.allergies && kid.allergies.trim() && (
+                                        <div className="mt-2">
+                                          <div className="flex items-center gap-1 mb-1">
+                                            <div className="w-1.5 h-1.5 bg-orange-500 rounded-full"></div>
+                                            <span className="text-xs font-medium text-orange-600 dark:text-orange-400 uppercase tracking-wide">
+                                              <FormattedMessage
+                                                id="rsvp-allergies-label"
+                                                description="Allergies/Dietary"
+                                                defaultMessage="Allergies/Dietary"
+                                              />
+                                            </span>
+                                          </div>
+                                          <div className="px-2 py-1 bg-orange-50 dark:bg-orange-900/30 border border-orange-200 dark:border-orange-700 rounded text-xs text-orange-700 dark:text-orange-300">
+                                            {kid.allergies}
+                                          </div>
+                                        </div>
+                                      )}
+                                    </div>
                                   </div>
                                 </div>
                               ))}

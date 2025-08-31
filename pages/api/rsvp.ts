@@ -4,6 +4,7 @@ import { supaClient } from '../../supa-client';
 interface Kid {
   name: string;
   age: string;
+  allergies: string;
 }
 
 interface RSVPData {
