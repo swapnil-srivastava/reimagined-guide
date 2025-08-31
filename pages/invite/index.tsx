@@ -595,49 +595,19 @@ function Invite({ seoData }: InvitePageProps) {
                                             </div>
                                           )}
 
-                                          {/* RSVP Section - Admin Only */}
-                                          {session?.user?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID && (
-                                            <div className="border-t border-gray-200 dark:border-fun-blue-500 pt-3 sm:pt-4 lg:pt-6">
-                                              {/* RSVP Summary - Clickable Accordion */}
-                                              <div className="mb-3 sm:mb-4">
-                                                {expandedRSVP === inviteEvent.id ? (
-                                                  // Full RSVP Details when expanded - Clickable to collapse
-                                                  <div
-                                                    onClick={() => toggleRSVPExpansion(inviteEvent.id)}
-                                                    className="cursor-pointer"
-                                                  >
-                                                    <RSVPList
-                                                      eventId={inviteEvent.id}
-                                                      eventTitle={inviteEvent.title}
-                                                      showSummaryOnly={false}
-                                                    />
-                                                  </div>
-                                                ) : (
-                                                  // Summary view with click to expand
-                                                  <button
-                                                    onClick={() => toggleRSVPExpansion(inviteEvent.id)}
-                                                    className="w-full text-left focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:ring-offset-2 rounded-lg"
-                                                  >
-                                                    <RSVPList
-                                                      eventId={inviteEvent.id}
-                                                      eventTitle={inviteEvent.title}
-                                                      showSummaryOnly={true}
-                                                      isClickable={true}
-                                                    />
-                                                  </button>
-                                                )}
-                                              </div>
-
-                                              {/* RSVP Toggle Button */}
+                                          {/* RSVP Section */}
+                                          <div className="border-t border-gray-200 dark:border-fun-blue-500 pt-3 sm:pt-4 lg:pt-6">
+                                            {/* RSVP Form - Visible to Everyone */}
+                                            <div className="mb-4 sm:mb-6">
                                               <button
                                                 onClick={() => toggleEventExpansion(inviteEvent.id)}
-                                                className="w-full flex items-center justify-center sm:justify-between p-3 sm:p-4 bg-gray-50 dark:bg-fun-blue-700 rounded-lg hover:bg-gray-100 dark:hover:bg-fun-blue-800 transition-colors duration-200 active:scale-[0.98]"
+                                                className="w-full flex items-center justify-center sm:justify-between p-3 sm:p-4 bg-gradient-to-r from-hit-pink-500 to-hit-pink-600 hover:from-hit-pink-600 hover:to-hit-pink-700 text-white rounded-lg transition-all duration-200 active:scale-[0.98] shadow-sm"
                                               >
                                                 <div className="flex items-center gap-2 sm:gap-3">
-                                                  <FontAwesomeIcon icon={faUsers} className="text-fun-blue-500 dark:text-blog-white text-sm sm:text-base" />
-                                                  <span className="text-sm sm:text-base font-semibold text-blog-black dark:text-blog-white">
+                                                  <FontAwesomeIcon icon={faUsers} className="text-white text-sm sm:text-base" />
+                                                  <span className="text-sm sm:text-base font-semibold">
                                                     <FormattedMessage
-                                                      id="invite-rsvp-toggle-mobile"
+                                                      id="invite-rsvp-form-toggle"
                                                       description="RSVP for this Event"
                                                       defaultMessage="RSVP for this Event"
                                                     />
@@ -645,18 +615,53 @@ function Invite({ seoData }: InvitePageProps) {
                                                 </div>
                                                 <FontAwesomeIcon
                                                   icon={expandedEvent === inviteEvent.id ? faChevronUp : faChevronDown}
-                                                  className="text-gray-500 dark:text-blog-white text-sm"
+                                                  className="text-white text-sm"
                                                 />
                                               </button>
 
-                                              {/* RSVP Form and List - Expandable */}
+                                              {/* RSVP Form - Expandable */}
                                               {expandedEvent === inviteEvent.id && (
                                                 <div className="mt-3 sm:mt-4 lg:mt-6 animate-fadeIn">
                                                   <RSVPForm eventId={inviteEvent.id} />
                                                 </div>
                                               )}
                                             </div>
-                                          )}
+
+                                            {/* RSVP Management - Admin Only */}
+                                            {session?.user?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID && (
+                                              <>
+                                                {/* RSVP Summary - Clickable Accordion */}
+                                                <div className="mb-3 sm:mb-4">
+                                                  {expandedRSVP === inviteEvent.id ? (
+                                                    // Full RSVP Details when expanded - Clickable to collapse
+                                                    <div
+                                                      onClick={() => toggleRSVPExpansion(inviteEvent.id)}
+                                                      className="cursor-pointer"
+                                                    >
+                                                      <RSVPList
+                                                        eventId={inviteEvent.id}
+                                                        eventTitle={inviteEvent.title}
+                                                        showSummaryOnly={false}
+                                                      />
+                                                    </div>
+                                                  ) : (
+                                                    // Summary view with click to expand
+                                                    <button
+                                                      onClick={() => toggleRSVPExpansion(inviteEvent.id)}
+                                                      className="w-full text-left focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:ring-offset-2 rounded-lg"
+                                                    >
+                                                      <RSVPList
+                                                        eventId={inviteEvent.id}
+                                                        eventTitle={inviteEvent.title}
+                                                        showSummaryOnly={true}
+                                                        isClickable={true}
+                                                      />
+                                                    </button>
+                                                  )}
+                                                </div>
+                                              </>
+                                            )}
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
@@ -812,6 +817,36 @@ function Invite({ seoData }: InvitePageProps) {
                                                 </button>
                                               </div>
                                               
+                                              {/* RSVP Form - Visible to Everyone for Past Events */}
+                                              <div className="mb-3 sm:mb-4">
+                                                <button
+                                                  onClick={() => toggleEventExpansion(inviteEvent.id)}
+                                                  className="w-full flex items-center justify-center sm:justify-between p-3 sm:p-4 bg-gradient-to-r from-hit-pink-500 to-hit-pink-600 hover:from-hit-pink-600 hover:to-hit-pink-700 text-white rounded-lg transition-all duration-200 active:scale-[0.98] shadow-sm opacity-75"
+                                                >
+                                                  <div className="flex items-center gap-2 sm:gap-3">
+                                                    <FontAwesomeIcon icon={faUsers} className="text-white text-sm sm:text-base" />
+                                                    <span className="text-sm sm:text-base font-semibold">
+                                                      <FormattedMessage
+                                                        id="invite-rsvp-form-toggle-past"
+                                                        description="RSVP for Past Event"
+                                                        defaultMessage="RSVP for Past Event"
+                                                      />
+                                                    </span>
+                                                  </div>
+                                                  <FontAwesomeIcon
+                                                    icon={expandedEvent === inviteEvent.id ? faChevronUp : faChevronDown}
+                                                    className="text-white text-sm"
+                                                  />
+                                                </button>
+
+                                                {/* RSVP Form - Expandable */}
+                                                {expandedEvent === inviteEvent.id && (
+                                                  <div className="mt-3 sm:mt-4 animate-fadeIn">
+                                                    <RSVPForm eventId={inviteEvent.id} />
+                                                  </div>
+                                                )}
+                                              </div>
+
                                               {/* RSVP Summary - Clickable Accordion - Admin Only */}
                                               {session?.user?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID && (
                                                 <div className="mb-3 sm:mb-4">
