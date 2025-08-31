@@ -143,16 +143,40 @@
       "value": "Access Denied"
     }
   ],
-  "admin-events-create-button": [
+  "admin-events-cancel-btn": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "admin-events-create-btn": [
     {
       "type": 0,
       "value": "Create Event"
+    }
+  ],
+  "admin-events-create-first": [
+    {
+      "type": 0,
+      "value": "Create Your First Event"
+    }
+  ],
+  "admin-events-create-new": [
+    {
+      "type": 0,
+      "value": "Create New Event"
     }
   ],
   "admin-events-create-title": [
     {
       "type": 0,
       "value": "Create New Event"
+    }
+  ],
+  "admin-events-delete-btn": [
+    {
+      "type": 0,
+      "value": "Delete"
     }
   ],
   "admin-events-delete-confirm": [
@@ -179,10 +203,34 @@
       "value": "An unexpected error occurred while deleting the event"
     }
   ],
+  "admin-events-description-placeholder": [
+    {
+      "type": 0,
+      "value": "Enter event description"
+    }
+  ],
+  "admin-events-edit-btn": [
+    {
+      "type": 0,
+      "value": "Edit"
+    }
+  ],
   "admin-events-edit-title": [
     {
       "type": 0,
       "value": "Edit Event"
+    }
+  ],
+  "admin-events-empty-description": [
+    {
+      "type": 0,
+      "value": "Get started by creating your first event"
+    }
+  ],
+  "admin-events-empty-title": [
+    {
+      "type": 0,
+      "value": "No events yet"
     }
   ],
   "admin-events-fetch-error": [
@@ -191,106 +239,112 @@
       "value": "Failed to load events"
     }
   ],
-  "admin-events-form-cancel": [
+  "admin-events-filter-all": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "All Events"
     }
   ],
-  "admin-events-form-create": [
+  "admin-events-filter-past": [
     {
       "type": 0,
-      "value": "Create Event"
+      "value": "Past Events"
     }
   ],
-  "admin-events-form-date-label": [
+  "admin-events-filter-status": [
+    {
+      "type": 0,
+      "value": "Status"
+    }
+  ],
+  "admin-events-filter-upcoming": [
+    {
+      "type": 0,
+      "value": "Upcoming"
+    }
+  ],
+  "admin-events-filters": [
+    {
+      "type": 0,
+      "value": "Filters"
+    }
+  ],
+  "admin-events-form-date": [
     {
       "type": 0,
       "value": "Date *"
     }
   ],
-  "admin-events-form-description-label": [
+  "admin-events-form-description": [
     {
       "type": 0,
-      "value": "Description (Optional)"
+      "value": "Description"
     }
   ],
-  "admin-events-form-description-placeholder": [
+  "admin-events-form-image": [
     {
       "type": 0,
-      "value": "Enter event description..."
+      "value": "Image URL"
     }
   ],
-  "admin-events-form-image-label": [
-    {
-      "type": 0,
-      "value": "Image URL (Optional)"
-    }
-  ],
-  "admin-events-form-image-placeholder": [
-    {
-      "type": 0,
-      "value": "https://example.com/image.jpg"
-    }
-  ],
-  "admin-events-form-location-label": [
+  "admin-events-form-location": [
     {
       "type": 0,
       "value": "Location *"
     }
   ],
-  "admin-events-form-location-placeholder": [
+  "admin-events-form-max-attendees": [
     {
       "type": 0,
-      "value": "Enter event location"
+      "value": "Max Attendees"
     }
   ],
-  "admin-events-form-saving": [
+  "admin-events-form-public": [
     {
       "type": 0,
-      "value": "Saving..."
+      "value": "Make this event public"
     }
   ],
-  "admin-events-form-time-label": [
+  "admin-events-form-time": [
     {
       "type": 0,
       "value": "Time *"
     }
   ],
-  "admin-events-form-title-label": [
+  "admin-events-form-title": [
     {
       "type": 0,
       "value": "Event Title *"
     }
   ],
-  "admin-events-form-title-placeholder": [
+  "admin-events-image-placeholder": [
     {
       "type": 0,
-      "value": "Enter event title"
+      "value": "https://example.com/image.jpg"
     }
   ],
-  "admin-events-form-update": [
+  "admin-events-location-placeholder": [
     {
       "type": 0,
-      "value": "Update Event"
+      "value": "Enter event location"
     }
   ],
-  "admin-events-list-title": [
+  "admin-events-max-attendees-placeholder": [
     {
       "type": 0,
-      "value": "Existing Events"
+      "value": "Optional"
     }
   ],
-  "admin-events-loading": [
+  "admin-events-no-results-description": [
     {
       "type": 0,
-      "value": "Loading events..."
+      "value": "Try adjusting your search or filters"
     }
   ],
-  "admin-events-no-events": [
+  "admin-events-no-results-title": [
     {
       "type": 0,
-      "value": "No events found. Create your first event to get started!"
+      "value": "No events found"
     }
   ],
   "admin-events-no-session": [
@@ -302,13 +356,67 @@
   "admin-events-page-subtitle": [
     {
       "type": 0,
-      "value": "Manage events and invitations for your community"
+      "value": "Manage events and RSVPs"
     }
   ],
   "admin-events-page-title": [
     {
       "type": 0,
-      "value": "Admin Panel"
+      "value": "Admin Events"
+    }
+  ],
+  "admin-events-public": [
+    {
+      "type": 0,
+      "value": "Public Events"
+    }
+  ],
+  "admin-events-saving": [
+    {
+      "type": 0,
+      "value": "Saving..."
+    }
+  ],
+  "admin-events-search-placeholder": [
+    {
+      "type": 0,
+      "value": "Search events..."
+    }
+  ],
+  "admin-events-sort-asc": [
+    {
+      "type": 0,
+      "value": "Oldest First"
+    }
+  ],
+  "admin-events-sort-by": [
+    {
+      "type": 0,
+      "value": "Sort By"
+    }
+  ],
+  "admin-events-sort-date": [
+    {
+      "type": 0,
+      "value": "Date"
+    }
+  ],
+  "admin-events-sort-desc": [
+    {
+      "type": 0,
+      "value": "Newest First"
+    }
+  ],
+  "admin-events-sort-order": [
+    {
+      "type": 0,
+      "value": "Order"
+    }
+  ],
+  "admin-events-sort-title": [
+    {
+      "type": 0,
+      "value": "Title"
     }
   ],
   "admin-events-submit-error": [
@@ -326,13 +434,25 @@
   "admin-events-subtitle": [
     {
       "type": 0,
-      "value": "Create and manage events for your community"
+      "value": "Create and manage your events"
     }
   ],
   "admin-events-title": [
     {
       "type": 0,
       "value": "Event Management"
+    }
+  ],
+  "admin-events-title-placeholder": [
+    {
+      "type": 0,
+      "value": "Enter event title"
+    }
+  ],
+  "admin-events-total": [
+    {
+      "type": 0,
+      "value": "Total Events"
     }
   ],
   "admin-events-unauthorized": [
@@ -345,6 +465,18 @@
     {
       "type": 0,
       "value": "An unexpected error occurred"
+    }
+  ],
+  "admin-events-upcoming": [
+    {
+      "type": 0,
+      "value": "Upcoming"
+    }
+  ],
+  "admin-events-update-btn": [
+    {
+      "type": 0,
+      "value": "Update Event"
     }
   ],
   "admin-mobile-tip-1": [

@@ -3,7 +3,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarPlus, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 
 import EventManagement from '../../components/EventManagement';
 import { useSession } from '../../lib/use-session';
@@ -13,52 +13,26 @@ function AdminEventsPage() {
 
   return (
     <div className="min-h-screen bg-blog-white dark:bg-fun-blue-500">
-      {/* Page Header */}
-      <div className="bg-gradient-to-br from-fun-blue-500 to-fun-blue-700 dark:from-fun-blue-600 dark:to-fun-blue-800 py-8 md:py-16 px-4 md:px-6">
-        <div className="max-w-6xl mx-auto">
-          {/* Mobile Layout */}
-          <div className="block md:hidden text-center mb-6">
-            <div className="flex justify-center mb-4">
-              <FontAwesomeIcon icon={faShieldAlt} className="text-hit-pink-500 text-2xl" />
+      {/* Header Section */}
+      <div className="bg-white dark:bg-fun-blue-600 border-b border-gray-200 dark:border-fun-blue-500">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-fun-blue-100 dark:bg-fun-blue-800 rounded-lg">
+              <FontAwesomeIcon icon={faCalendar} className="w-6 h-6 text-fun-blue-600 dark:text-fun-blue-400" />
             </div>
-            <h1 className="text-2xl font-bold text-blog-white mb-4">
-              <FormattedMessage
-                id="admin-events-page-title"
-                description="Admin Events page title"
-                defaultMessage="Admin Panel"
-              />
-            </h1>
-            <div className="flex items-center justify-center gap-2">
-              <FontAwesomeIcon icon={faCalendarPlus} className="text-hit-pink-400 text-sm" />
-              <p className="text-sm text-blog-white">
-                <FormattedMessage
-                  id="admin-events-page-subtitle"
-                  description="Admin Events page subtitle"
-                  defaultMessage="Manage events and invitations for your community"
-                />
-              </p>
-            </div>
-          </div>
-
-          {/* Desktop Layout */}
-          <div className="hidden md:block">
-            <div className="flex items-center gap-4 mb-6">
-              <FontAwesomeIcon icon={faShieldAlt} className="text-hit-pink-500 text-3xl" />
-              <h1 className="text-4xl font-bold text-blog-white">
+            <div>
+              <h1 className="text-2xl font-bold text-blog-black dark:text-blog-white">
                 <FormattedMessage
                   id="admin-events-page-title"
-                  description="Admin Events page title"
-                  defaultMessage="Admin Panel"
+                  description="Admin Events"
+                  defaultMessage="Admin Events"
                 />
               </h1>
-            </div>
-            <div className="flex items-center gap-3 text-blog-white">
-              <FontAwesomeIcon icon={faCalendarPlus} className="text-hit-pink-400" />
-              <p className="text-lg text-blog-white">
+              <p className="text-gray-600 dark:text-gray-400 mt-1">
                 <FormattedMessage
                   id="admin-events-page-subtitle"
-                  description="Admin Events page subtitle"
-                  defaultMessage="Manage events and invitations for your community"
+                  description="Manage events and RSVPs"
+                  defaultMessage="Manage events and RSVPs"
                 />
               </p>
             </div>
@@ -66,8 +40,10 @@ function AdminEventsPage() {
         </div>
       </div>
 
-      {/* Event Management Component */}
-      <EventManagement />
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <EventManagement />
+      </div>
     </div>
   );
 }
