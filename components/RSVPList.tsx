@@ -14,7 +14,8 @@ import {
   faCalendarAlt,
   faMapMarkerAlt,
   faClock,
-  faExclamationTriangle
+  faExclamationTriangle,
+  faComment
 } from '@fortawesome/free-solid-svg-icons';
 import { supaClient } from '../supa-client';
 import { useSession } from '../lib/use-session';
@@ -360,7 +361,36 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                 </div>
               </div>
 
-              {/* Allergies and Dietary Information */}
+              {/* Special Requests Section - Shows for all RSVPs with messages */}
+              {rsvps.some(rsvp => rsvp.message && rsvp.message.trim() !== '') && (
+                <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
+                  <div className="flex items-center gap-2 mb-3">
+                    <FontAwesomeIcon icon={faExclamationTriangle} className="text-blue-600 dark:text-blue-400" />
+                    <h4 className="text-sm font-semibold text-blue-600 dark:text-blue-400">
+                      <FormattedMessage id="rsvp-all-special-requests" description="All Special Requests" defaultMessage="All Special Requests" />
+                    </h4>
+                  </div>
+                  <div className="space-y-2">
+                    {rsvps.filter(rsvp => rsvp.message && rsvp.message.trim() !== '').map((rsvp) => (
+                      <div key={rsvp.id} className="bg-white dark:bg-blue-900/10 rounded p-3 border-l-4 border-blue-400">
+                        <div className="flex items-center justify-between mb-1">
+                          <div className="font-medium text-sm text-blog-black dark:text-blog-white">{rsvp.family_name}</div>
+                          <div className={`px-2 py-1 rounded-full text-xs font-medium ${
+                            rsvp.is_attending
+                              ? 'bg-green-100 dark:bg-green-900/20 text-green-600 dark:text-green-400'
+                              : 'bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400'
+                          }`}>
+                            {rsvp.is_attending ? 'Attending' : 'Not Attending'}
+                          </div>
+                        </div>
+                        <p className="text-sm text-gray-700 dark:text-gray-300">{rsvp.message}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Allergies & Dietary Restrictions */}
               {attendingRSVPs.some(rsvp => rsvp.kids?.some(kid => kid.allergies)) && (
                 <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-4 border border-yellow-200 dark:border-yellow-800">
                   <div className="flex items-center gap-2 mb-3">
@@ -430,6 +460,26 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                             </div>
                           </div>
                         )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* All Special Requests - Visible to Everyone */}
+              {rsvps.some(rsvp => rsvp.message && rsvp.message.trim() !== '') && (
+                <div className="bg-orange-50 dark:bg-orange-900/20 rounded-lg p-4 border border-orange-200 dark:border-orange-800">
+                  <div className="flex items-center gap-2 mb-3">
+                    <FontAwesomeIcon icon={faComment} className="text-orange-600 dark:text-orange-400" />
+                    <h4 className="text-sm font-semibold text-orange-600 dark:text-orange-400">
+                      <FormattedMessage id="rsvp-all-special-requests" description="All Special Requests" defaultMessage="All Special Requests" />
+                    </h4>
+                  </div>
+                  <div className="space-y-2">
+                    {rsvps.filter(rsvp => rsvp.message && rsvp.message.trim() !== '').map((rsvp) => (
+                      <div key={rsvp.id} className="bg-white dark:bg-orange-900/10 rounded p-3 border-l-4 border-orange-400">
+                        <div className="font-medium text-sm text-blog-black dark:text-blog-white mb-1">{rsvp.family_name}</div>
+                        <div className="text-sm text-gray-700 dark:text-gray-300">{rsvp.message}</div>
                       </div>
                     ))}
                   </div>
@@ -514,7 +564,7 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                             </div>
                           )}
 
-                          {rsvp.message && (
+                          {rsvp.message && rsvp.message.trim() !== '' && (
                             <div>
                               <span className="text-gray-600 dark:text-gray-300 text-xs">
                                 <FormattedMessage id="rsvp-special-requests" description="Special requests:" defaultMessage="Special requests:" />
@@ -522,6 +572,31 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                               <p className="text-blog-black dark:text-blog-white mt-1">{rsvp.message}</p>
                             </div>
                           )}
+                        </div>
+                      )}
+
+                      {/* Show special requests for non-attending RSVPs too */}
+                      {!rsvp.is_attending && rsvp.message && rsvp.message.trim() !== '' && (
+                        <div className="space-y-2 text-sm">
+                          <div>
+                            <span className="text-gray-600 dark:text-gray-300 text-xs">
+                              <FormattedMessage id="rsvp-special-requests" description="Special requests:" defaultMessage="Special requests:" />
+                            </span>
+                            <p className="text-blog-black dark:text-blog-white mt-1">{rsvp.message}</p>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Admin-only detailed information */}
+                      {isAdmin && (
+                        <div className="mt-3 pt-3 border-t border-gray-200 dark:border-fun-blue-500">
+                          <div className="text-xs text-gray-500 dark:text-gray-400">
+                            <FormattedMessage
+                              id="rsvp-admin-details"
+                              description="Admin details only"
+                              defaultMessage="Admin details only"
+                            />
+                          </div>
                         </div>
                       )}
 
