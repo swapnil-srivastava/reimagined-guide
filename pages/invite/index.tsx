@@ -591,7 +591,45 @@ function Invite({ seoData }: InvitePageProps) {
                                           {/* RSVP Section */}
                                           <div className="border-t border-gray-200 dark:border-fun-blue-500 pt-3 sm:pt-4 lg:pt-6">
                                             {/* RSVP Summary - Always Visible */}
+                                            <div className="mb-3 sm:mb-4">
+                                              <RSVPList
+                                                eventId={inviteEvent.id}
+                                                eventTitle={inviteEvent.title}
+                                                showSummaryOnly={true}
+                                              />
+                                            </div>
 
+                                            {/* RSVP Toggle Button */}
+                                            <button
+                                              onClick={() => toggleEventExpansion(inviteEvent.id)}
+                                              className="w-full flex items-center justify-center sm:justify-between p-3 sm:p-4 bg-gray-50 dark:bg-fun-blue-700 rounded-lg hover:bg-gray-100 dark:hover:bg-fun-blue-800 transition-colors duration-200 active:scale-[0.98]"
+                                            >
+                                              <div className="flex items-center gap-2 sm:gap-3">
+                                                <FontAwesomeIcon icon={faUsers} className="text-fun-blue-500 dark:text-blog-white text-sm sm:text-base" />
+                                                <span className="text-sm sm:text-base font-semibold text-blog-black dark:text-blog-white">
+                                                  <FormattedMessage
+                                                    id="invite-rsvp-toggle-mobile"
+                                                    description="RSVP for this Event"
+                                                    defaultMessage="RSVP for this Event"
+                                                  />
+                                                </span>
+                                              </div>
+                                              <FontAwesomeIcon
+                                                icon={expandedEvent === inviteEvent.id ? faChevronUp : faChevronDown}
+                                                className="text-gray-500 dark:text-blog-white text-sm"
+                                              />
+                                            </button>
+
+                                            {/* RSVP Form and List - Expandable */}
+                                            {expandedEvent === inviteEvent.id && (
+                                              <div className="mt-3 sm:mt-4 lg:mt-6 animate-fadeIn">
+                                                <RSVPForm eventId={inviteEvent.id} />
+                                                <RSVPList
+                                                  eventId={inviteEvent.id}
+                                                  eventTitle={inviteEvent.title}
+                                                />
+                                              </div>
+                                            )}
                                           </div>
                                         </div>
                                       </div>
