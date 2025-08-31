@@ -14,7 +14,17 @@ import {
   faCheckCircle,
   faTimesCircle,
   faCalendarCheck,
-  faUser
+  faUser,
+  faCrown,
+  faChartBar,
+  faListUl,
+  faEye,
+  faEyeSlash,
+  faUserCheck,
+  faUserTimes,
+  faClock,
+  faMapMarkerAlt,
+  faExclamationTriangle
 } from '@fortawesome/free-solid-svg-icons';
 import toast from 'react-hot-toast';
 
@@ -305,160 +315,200 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
 
   return (
     <div className="mt-6 border-t border-gray-200 dark:border-fun-blue-500 pt-6">
-      {/* Guest Count Summary - Outside Accordion */}
+      {/* Modern Guest Count Summary Cards */}
       {totalFamilies > 0 && (
-        <div className="mb-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {/* Adults Counter */}
-          <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg p-4 border border-green-200 dark:border-green-800">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="p-2 bg-green-100 dark:bg-green-800 rounded-full">
-                  <FontAwesomeIcon icon={faUsers} className="text-green-600 dark:text-green-300 text-sm" />
-                </div>
-                <div>
-                  <h6 className="font-semibold text-green-800 dark:text-green-200 text-sm">
-                    <FormattedMessage
-                      id="rsvp-adults-counter-title"
-                      description="Adults attending"
-                      defaultMessage="Adults"
-                    />
-                  </h6>
-                  <p className="text-xs text-green-600 dark:text-green-400">
-                    <FormattedMessage
-                      id="rsvp-adults-counter-subtitle"
-                      description="2 per family"
-                      defaultMessage="(2 per family)"
-                    />
-                  </p>
-                </div>
+        <div className="mb-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {/* Adults Counter - Modern Design */}
+          <div className="group relative overflow-hidden bg-gradient-to-br from-emerald-50 via-green-50 to-emerald-100 dark:from-emerald-900/30 dark:via-green-900/20 dark:to-emerald-800/30 rounded-2xl p-6 border border-emerald-200/60 dark:border-emerald-700/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-1">
+            {/* Animated Background Pattern */}
+            <div className="absolute inset-0 bg-gradient-to-br from-transparent via-emerald-100/40 to-green-200/30 dark:from-transparent dark:via-emerald-800/30 dark:to-green-700/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+            {/* Floating Icon */}
+            <div className="relative flex items-center justify-between mb-4">
+              <div className="p-3 bg-gradient-to-br from-emerald-500 to-green-600 rounded-2xl shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
+                <FontAwesomeIcon icon={faUsers} className="text-white text-lg" />
               </div>
               <div className="text-right">
-                <div className="text-2xl font-bold text-green-700 dark:text-green-300">
+                <div className="text-3xl font-black text-emerald-700 dark:text-emerald-300 mb-1 group-hover:text-emerald-800 dark:group-hover:text-emerald-200 transition-colors duration-300">
                   {totalAdults}
                 </div>
+                <div className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
+                  <FormattedMessage
+                    id="rsvp-adults-counter-title"
+                    description="Adults attending"
+                    defaultMessage="Adults"
+                  />
+                </div>
               </div>
+            </div>
+
+            {/* Enhanced Subtitle */}
+            <div className="relative">
+              <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-300 group-hover:text-emerald-800 dark:group-hover:text-emerald-200 transition-colors duration-300">
+                <FormattedMessage
+                  id="rsvp-adults-counter-subtitle"
+                  description="2 per family"
+                  defaultMessage="2 per family"
+                />
+              </p>
             </div>
           </div>
 
-          {/* Kids Counter */}
-          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="p-2 bg-blue-100 dark:bg-blue-800 rounded-full">
-                  <FontAwesomeIcon icon={faChild} className="text-blue-600 dark:text-blue-300 text-sm" />
-                </div>
-                <div>
-                  <h6 className="font-semibold text-blue-800 dark:text-blue-200 text-sm">
-                    <FormattedMessage
-                      id="rsvp-kids-counter-title"
-                      description="Kids attending"
-                      defaultMessage="Kids"
-                    />
-                  </h6>
-                  <p className="text-xs text-blue-600 dark:text-blue-400">
-                    <FormattedMessage
-                      id="rsvp-kids-counter-subtitle"
-                      description="All children"
-                      defaultMessage="All children"
-                    />
-                  </p>
-                </div>
+          {/* Kids Counter - Modern Design */}
+          <div className="group relative overflow-hidden bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-100 dark:from-sky-900/30 dark:via-blue-900/20 dark:to-indigo-800/30 rounded-2xl p-6 border border-sky-200/60 dark:border-sky-700/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-1">
+            {/* Animated Background Pattern */}
+            <div className="absolute inset-0 bg-gradient-to-br from-transparent via-sky-100/40 to-blue-200/30 dark:from-transparent dark:via-sky-800/30 dark:to-blue-700/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+            {/* Floating Icon */}
+            <div className="relative flex items-center justify-between mb-4">
+              <div className="p-3 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
+                <FontAwesomeIcon icon={faChild} className="text-white text-lg" />
               </div>
               <div className="text-right">
-                <div className="text-2xl font-bold text-blue-700 dark:text-blue-300">
+                <div className="text-3xl font-black text-sky-700 dark:text-sky-300 mb-1 group-hover:text-sky-800 dark:group-hover:text-sky-200 transition-colors duration-300">
                   {totalKids}
                 </div>
+                <div className="text-xs font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider">
+                  <FormattedMessage
+                    id="rsvp-kids-counter-title"
+                    description="Kids attending"
+                    defaultMessage="Kids"
+                  />
+                </div>
               </div>
+            </div>
+
+            {/* Enhanced Subtitle */}
+            <div className="relative">
+              <p className="text-sm font-semibold text-sky-700 dark:text-sky-300 group-hover:text-sky-800 dark:group-hover:text-sky-200 transition-colors duration-300">
+                <FormattedMessage
+                  id="rsvp-kids-counter-subtitle"
+                  description="All children"
+                  defaultMessage="All children"
+                />
+              </p>
             </div>
           </div>
 
-          {/* Total Counter */}
-          <div className="bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 rounded-lg p-4 border border-purple-200 dark:border-purple-800">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="p-2 bg-purple-100 dark:bg-purple-800 rounded-full">
-                  <FontAwesomeIcon icon={faCalendarCheck} className="text-purple-600 dark:text-purple-300 text-sm" />
-                </div>
-                <div>
-                  <h6 className="font-semibold text-purple-800 dark:text-purple-200 text-sm">
-                    <FormattedMessage
-                      id="rsvp-total-counter-title"
-                      description="Total guests"
-                      defaultMessage="Total"
-                    />
-                  </h6>
-                  <p className="text-xs text-purple-600 dark:text-purple-400">
-                    <FormattedMessage
-                      id="rsvp-total-counter-subtitle"
-                      description="All guests"
-                      defaultMessage="All guests"
-                    />
-                  </p>
-                </div>
+          {/* Total Counter - Modern Design */}
+          <div className="group relative overflow-hidden bg-gradient-to-br from-violet-50 via-purple-50 to-fuchsia-100 dark:from-violet-900/30 dark:via-purple-900/20 dark:to-fuchsia-800/30 rounded-2xl p-6 border border-violet-200/60 dark:border-violet-700/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-1">
+            {/* Animated Background Pattern */}
+            <div className="absolute inset-0 bg-gradient-to-br from-transparent via-violet-100/40 to-purple-200/30 dark:from-transparent dark:via-violet-800/30 dark:to-purple-700/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+            {/* Floating Icon */}
+            <div className="relative flex items-center justify-between mb-4">
+              <div className="p-3 bg-gradient-to-br from-violet-500 to-purple-600 rounded-2xl shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
+                <FontAwesomeIcon icon={faCalendarCheck} className="text-white text-lg" />
               </div>
               <div className="text-right">
-                <div className="text-2xl font-bold text-purple-700 dark:text-purple-300">
+                <div className="text-3xl font-black text-violet-700 dark:text-violet-300 mb-1 group-hover:text-violet-800 dark:group-hover:text-violet-200 transition-colors duration-300">
                   {totalAdults + totalKids}
                 </div>
+                <div className="text-xs font-bold text-violet-600 dark:text-violet-400 uppercase tracking-wider">
+                  <FormattedMessage
+                    id="rsvp-total-counter-title"
+                    description="Total guests"
+                    defaultMessage="Total"
+                  />
+                </div>
               </div>
+            </div>
+
+            {/* Enhanced Subtitle */}
+            <div className="relative">
+              <p className="text-sm font-semibold text-violet-700 dark:text-violet-300 group-hover:text-violet-800 dark:group-hover:text-violet-200 transition-colors duration-300">
+                <FormattedMessage
+                  id="rsvp-total-counter-subtitle"
+                  description="All guests"
+                  defaultMessage="All guests"
+                />
+              </p>
             </div>
           </div>
         </div>
       )}
 
-      {/* Enhanced RSVP Summary Header */}
+      {/* Modern RSVP Accordion Header */}
       <div className="relative">
-        {/* Decorative Background */}
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 dark:from-blue-900/20 dark:via-indigo-900/20 dark:to-purple-900/20 rounded-xl opacity-50"></div>
-        
+        {/* Enhanced Decorative Background */}
+        <div className="absolute inset-0 bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 dark:from-indigo-900/20 dark:via-purple-900/20 dark:to-pink-900/20 rounded-3xl opacity-60"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-white/10 dark:from-gray-800/10 dark:via-transparent dark:to-gray-700/10 rounded-3xl"></div>
+
         <button
           onClick={() => setExpanded(!expanded)}
-          className="relative w-full flex items-center justify-between p-5 bg-gradient-to-r from-blue-50/80 via-indigo-50/80 to-purple-50/80 dark:from-blue-900/30 dark:via-indigo-900/30 dark:to-purple-900/30 rounded-xl hover:from-blue-100/80 hover:via-indigo-100/80 hover:to-purple-100/80 dark:hover:from-blue-900/50 dark:hover:via-indigo-900/50 dark:hover:to-purple-900/50 transition-all duration-300 shadow-lg hover:shadow-xl border border-blue-200/50 dark:border-blue-700/50 group"
+          className="relative w-full flex items-center justify-between p-6 bg-gradient-to-r from-white/90 via-indigo-50/80 to-purple-50/80 dark:from-gray-800/90 dark:via-indigo-900/30 dark:to-purple-900/30 rounded-3xl hover:from-white/95 hover:via-indigo-100/80 hover:to-purple-100/80 dark:hover:from-gray-800/95 dark:hover:via-indigo-900/50 dark:hover:to-purple-900/50 transition-all duration-500 shadow-2xl hover:shadow-3xl border border-indigo-200/40 dark:border-indigo-700/40 group backdrop-blur-sm"
         >
           {/* Left Content */}
-          <div className="flex items-center gap-4">
-            {/* Enhanced Icon */}
+          <div className="flex items-center gap-6">
+            {/* Enhanced Icon with Glow Effect */}
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-              <div className="relative p-3 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full shadow-lg">
-                <FontAwesomeIcon icon={faUsers} className="text-white text-lg" />
+              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-500"></div>
+              <div className="relative p-4 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-2xl shadow-2xl group-hover:shadow-3xl transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
+                <FontAwesomeIcon icon={faUsers} className="text-white text-xl" />
               </div>
             </div>
-            
+
             <div className="text-left flex-1">
-              {/* Title */}
-              <h4 className="font-bold text-lg text-blog-black dark:text-blog-white mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors duration-300">
+              {/* Enhanced Title */}
+              <h4 className="font-black text-xl text-blog-black dark:text-blog-white mb-2 group-hover:text-indigo-700 dark:group-hover:text-indigo-300 transition-colors duration-300">
                 <FormattedMessage
                   id="rsvp-list-admin-title"
                   description="RSVP Responses (Admin Only)"
                   defaultMessage="RSVP Responses"
                 />
-                <span className="ml-2 text-sm font-normal text-indigo-500 dark:text-indigo-400">
-                  (Admin Only)
+                <span className="ml-3 text-sm font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900/50 px-3 py-1 rounded-full border border-indigo-200 dark:border-indigo-700">
+                  <FormattedMessage
+                    id="rsvp-admin-only-badge"
+                    description="Admin Only"
+                    defaultMessage="Admin Only"
+                  />
                 </span>
               </h4>
-              
-              {/* Enhanced Summary Line */}
-              <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-300">
-                  <div className="flex items-center gap-1">
-                    <FontAwesomeIcon icon={faCheckCircle} className="text-green-500 text-xs" />
-                    <span className="font-medium">{totalFamilies} families</span>
+
+              {/* Enhanced Summary Stats */}
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                <div className="flex items-center gap-6 text-sm">
+                  <div className="flex items-center gap-2 bg-emerald-100 dark:bg-emerald-900/40 px-3 py-1.5 rounded-full border border-emerald-200 dark:border-emerald-700">
+                    <FontAwesomeIcon icon={faCheckCircle} className="text-emerald-600 dark:text-emerald-400 text-xs" />
+                    <span className="font-bold text-emerald-800 dark:text-emerald-200">{totalFamilies}</span>
+                    <span className="text-emerald-700 dark:text-emerald-300">
+                      <FormattedMessage
+                        id="rsvp-families-label"
+                        description="families"
+                        defaultMessage="families"
+                      />
+                    </span>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <FontAwesomeIcon icon={faUsers} className="text-blue-500 text-xs" />
-                    <span className="font-medium">{totalGuests} guests</span>
+                  <div className="flex items-center gap-2 bg-blue-100 dark:bg-blue-900/40 px-3 py-1.5 rounded-full border border-blue-200 dark:border-blue-700">
+                    <FontAwesomeIcon icon={faUsers} className="text-blue-600 dark:text-blue-400 text-xs" />
+                    <span className="font-bold text-blue-800 dark:text-blue-200">{totalGuests}</span>
+                    <span className="text-blue-700 dark:text-blue-300">
+                      <FormattedMessage
+                        id="rsvp-guests-label"
+                        description="guests"
+                        defaultMessage="guests"
+                      />
+                    </span>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <FontAwesomeIcon icon={faEnvelope} className="text-purple-500 text-xs" />
-                    <span className="font-medium">{rsvps.length} responses</span>
+                  <div className="flex items-center gap-2 bg-purple-100 dark:bg-purple-900/40 px-3 py-1.5 rounded-full border border-purple-200 dark:border-purple-700">
+                    <FontAwesomeIcon icon={faEnvelope} className="text-purple-600 dark:text-purple-400 text-xs" />
+                    <span className="font-bold text-purple-800 dark:text-purple-200">{rsvps.length}</span>
+                    <span className="text-purple-700 dark:text-purple-300">
+                      <FormattedMessage
+                        id="rsvp-responses-label"
+                        description="responses"
+                        defaultMessage="responses"
+                      />
+                    </span>
                   </div>
                 </div>
-                
-                {/* Kids Highlight Badge */}
+
+                {/* Kids Highlight Badge - Enhanced */}
                 {totalKids > 0 && (
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900/40 dark:to-indigo-900/40 text-blue-800 dark:text-blue-200 rounded-full text-sm font-semibold shadow-sm border border-blue-200 dark:border-blue-700">
-                    <FontAwesomeIcon icon={faChild} className="text-xs" />
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-sky-100 via-blue-100 to-indigo-100 dark:from-sky-900/50 dark:via-blue-900/50 dark:to-indigo-900/50 text-sky-800 dark:text-sky-200 rounded-2xl text-sm font-black shadow-lg border border-sky-200 dark:border-sky-700 group-hover:shadow-xl transition-all duration-300">
+                    <div className="p-1 bg-gradient-to-br from-sky-500 to-blue-600 rounded-full">
+                      <FontAwesomeIcon icon={faChild} className="text-white text-xs" />
+                    </div>
                     <span>
                       <FormattedMessage
                         id="rsvp-list-kids-highlight"
@@ -472,13 +522,13 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
               </div>
             </div>
           </div>
-          
+
           {/* Enhanced Toggle Icon */}
           <div className="relative">
-            <div className="p-2 bg-white/50 dark:bg-gray-800/50 rounded-full group-hover:bg-white/70 dark:group-hover:bg-gray-700/70 transition-all duration-300 shadow-sm">
-              <FontAwesomeIcon 
-                icon={expanded ? faChevronUp : faChevronDown} 
-                className="text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors duration-300"
+            <div className="p-3 bg-gradient-to-br from-white/80 to-gray-50/80 dark:from-gray-700/80 dark:to-gray-600/80 rounded-2xl group-hover:from-white/90 group-hover:to-gray-100/80 dark:group-hover:from-gray-600/90 dark:group-hover:to-gray-500/80 transition-all duration-300 shadow-lg group-hover:shadow-xl backdrop-blur-sm">
+              <FontAwesomeIcon
+                icon={expanded ? faChevronUp : faChevronDown}
+                className="text-gray-600 dark:text-gray-300 group-hover:text-gray-800 dark:group-hover:text-gray-100 transition-colors duration-300 text-lg"
               />
             </div>
           </div>
@@ -501,23 +551,27 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
             </div>
           ) : (
             <>
-              {/* Kids Summary Card */}
+              {/* Modern Kids Summary Card */}
               {totalKids > 0 && (
-                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 bg-blue-100 dark:bg-blue-800 rounded-full">
-                        <FontAwesomeIcon icon={faChild} className="text-blue-600 dark:text-blue-300" />
+                <div className="bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-100 dark:from-sky-900/30 dark:via-blue-900/20 dark:to-indigo-800/30 rounded-3xl p-8 border border-sky-200/60 dark:border-sky-700/50 shadow-2xl hover:shadow-3xl transition-all duration-500 group">
+                  {/* Animated Background Pattern */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-transparent via-sky-100/40 to-blue-200/30 dark:from-transparent dark:via-sky-800/30 dark:to-blue-700/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl"></div>
+
+                  <div className="relative flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-4">
+                      {/* Enhanced Icon */}
+                      <div className="p-4 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl shadow-xl group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110">
+                        <FontAwesomeIcon icon={faChild} className="text-white text-xl" />
                       </div>
                       <div>
-                        <h6 className="font-semibold text-blog-black dark:text-blog-white">
+                        <h6 className="font-black text-xl text-blog-black dark:text-blog-white mb-1 group-hover:text-sky-700 dark:group-hover:text-sky-300 transition-colors duration-300">
                           <FormattedMessage
                             id="rsvp-list-kids-summary-title"
                             description="Kids RSVP Summary"
                             defaultMessage="Kids Attending This Event"
                           />
                         </h6>
-                        <p className="text-sm text-gray-600 dark:text-gray-300">
+                        <p className="text-sm font-semibold text-sky-700 dark:text-sky-300 group-hover:text-sky-800 dark:group-hover:text-sky-200 transition-colors duration-300">
                           <FormattedMessage
                             id="rsvp-list-kids-summary-description"
                             description="Kids summary description"
@@ -527,10 +581,10 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-3xl font-bold text-blue-600 dark:text-blue-300">
+                      <div className="text-4xl font-black text-sky-700 dark:text-sky-300 mb-1 group-hover:text-sky-800 dark:group-hover:text-sky-200 transition-colors duration-300">
                         {totalKids}
                       </div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                      <div className="text-sm font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider">
                         <FormattedMessage
                           id="rsvp-list-kids-label"
                           description="Kids label"
@@ -540,50 +594,56 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                       </div>
                     </div>
                   </div>
-                  
-                  {/* Age Breakdown */}
+
+                  {/* Enhanced Age Breakdown */}
                   {(kidsAgeBreakdown.toddlers > 0 || kidsAgeBreakdown.children > 0 || kidsAgeBreakdown.teens > 0) && (
-                    <div className="mt-3 pt-3 border-t border-blue-200 dark:border-blue-700">
-                      <div className="grid grid-cols-3 gap-3 text-center">
+                    <div className="pt-6 border-t border-sky-200/50 dark:border-sky-700/50">
+                      <div className="grid grid-cols-3 gap-4">
                         {kidsAgeBreakdown.toddlers > 0 && (
-                          <div className="bg-white dark:bg-blue-800/50 rounded-lg p-2">
-                            <div className="text-lg font-semibold text-blue-600 dark:text-blue-300">
-                              {kidsAgeBreakdown.toddlers}
-                            </div>
-                            <div className="text-xs text-gray-600 dark:text-gray-300">
-                              <FormattedMessage
-                                id="rsvp-list-toddlers-label"
-                                description="Toddlers (0-5 years)"
-                                defaultMessage="Toddlers (0-5)"
-                              />
+                          <div className="group/age bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-900/30 dark:to-green-900/30 rounded-2xl p-4 border border-emerald-200/50 dark:border-emerald-700/50 hover:shadow-xl transition-all duration-300 hover:scale-105">
+                            <div className="text-center">
+                              <div className="text-2xl font-black text-emerald-700 dark:text-emerald-300 mb-2 group-hover/age:text-emerald-800 dark:group-hover/age:text-emerald-200 transition-colors duration-300">
+                                {kidsAgeBreakdown.toddlers}
+                              </div>
+                              <div className="text-sm font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
+                                <FormattedMessage
+                                  id="rsvp-list-toddlers-label"
+                                  description="Toddlers (0-5 years)"
+                                  defaultMessage="Toddlers (0-5)"
+                                />
+                              </div>
                             </div>
                           </div>
                         )}
                         {kidsAgeBreakdown.children > 0 && (
-                          <div className="bg-white dark:bg-blue-800/50 rounded-lg p-2">
-                            <div className="text-lg font-semibold text-blue-600 dark:text-blue-300">
-                              {kidsAgeBreakdown.children}
-                            </div>
-                            <div className="text-xs text-gray-600 dark:text-gray-300">
-                              <FormattedMessage
-                                id="rsvp-list-children-label"
-                                description="Children (6-12 years)"
-                                defaultMessage="Children (6-12)"
-                              />
+                          <div className="group/age bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-2xl p-4 border border-blue-200/50 dark:border-blue-700/50 hover:shadow-xl transition-all duration-300 hover:scale-105">
+                            <div className="text-center">
+                              <div className="text-2xl font-black text-blue-700 dark:text-blue-300 mb-2 group-hover/age:text-blue-800 dark:group-hover/age:text-blue-200 transition-colors duration-300">
+                                {kidsAgeBreakdown.children}
+                              </div>
+                              <div className="text-sm font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
+                                <FormattedMessage
+                                  id="rsvp-list-children-label"
+                                  description="Children (6-12 years)"
+                                  defaultMessage="Children (6-12)"
+                                />
+                              </div>
                             </div>
                           </div>
                         )}
                         {kidsAgeBreakdown.teens > 0 && (
-                          <div className="bg-white dark:bg-blue-800/50 rounded-lg p-2">
-                            <div className="text-lg font-semibold text-blue-600 dark:text-blue-300">
-                              {kidsAgeBreakdown.teens}
-                            </div>
-                            <div className="text-xs text-gray-600 dark:text-gray-300">
-                              <FormattedMessage
-                                id="rsvp-list-teens-label"
-                                description="Teens (13+)"
-                                defaultMessage="Teens (13+)"
-                              />
+                          <div className="group/age bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-900/30 dark:to-violet-900/30 rounded-2xl p-4 border border-purple-200/50 dark:border-purple-700/50 hover:shadow-xl transition-all duration-300 hover:scale-105">
+                            <div className="text-center">
+                              <div className="text-2xl font-black text-purple-700 dark:text-purple-300 mb-2 group-hover/age:text-purple-800 dark:group-hover/age:text-purple-200 transition-colors duration-300">
+                                {kidsAgeBreakdown.teens}
+                              </div>
+                              <div className="text-sm font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider">
+                                <FormattedMessage
+                                  id="rsvp-list-teens-label"
+                                  description="Teens (13+)"
+                                  defaultMessage="Teens (13+)"
+                                />
+                              </div>
                             </div>
                           </div>
                         )}
@@ -593,29 +653,58 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                 </div>
               )}
 
-              {/* Attending Section */}
+              {/* Attending Section - Modern Header */}
               {attendingRsvps.length > 0 && (
                 <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                      <FontAwesomeIcon icon={faCheckCircle} className="text-green-500" />
-                      <h5 className="font-semibold text-blog-black dark:text-blog-white">
-                        <FormattedMessage
-                          id="rsvp-list-attending-title"
-                          description="Attending"
-                          defaultMessage="Attending ({count})"
-                          values={{ count: attendingRsvps.length }}
-                        />
-                      </h5>
-                    </div>
-                    <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
-                      <div className="flex items-center gap-1">
-                        <FontAwesomeIcon icon={faUsers} className="text-xs" />
-                        <span>{totalFamilies} families</span>
+                  <div className="flex items-center justify-between mb-8">
+                    <div className="flex items-center gap-4">
+                      {/* Enhanced Success Icon */}
+                      <div className="relative">
+                        <div className="absolute inset-0 bg-gradient-to-br from-emerald-500 to-green-600 rounded-2xl blur-lg opacity-30"></div>
+                        <div className="relative p-3 bg-gradient-to-br from-emerald-500 to-green-600 rounded-2xl shadow-xl">
+                          <FontAwesomeIcon icon={faCheckCircle} className="text-white text-lg" />
+                        </div>
                       </div>
-                      <div className="flex items-center gap-1">
-                        <FontAwesomeIcon icon={faChild} className="text-xs" />
-                        <span>{totalKids} kids</span>
+                      <div>
+                        <h5 className="font-black text-2xl text-blog-black dark:text-blog-white mb-1">
+                          <FormattedMessage
+                            id="rsvp-list-attending-title"
+                            description="Attending"
+                            defaultMessage="Attending ({count})"
+                            values={{ count: attendingRsvps.length }}
+                          />
+                        </h5>
+                        <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-300">
+                          <FormattedMessage
+                            id="rsvp-attending-description"
+                            description="Families who confirmed attendance"
+                            defaultMessage="Families who confirmed attendance"
+                          />
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-6 text-sm">
+                      <div className="flex items-center gap-2 bg-emerald-100 dark:bg-emerald-900/40 px-4 py-2 rounded-2xl border border-emerald-200 dark:border-emerald-700">
+                        <FontAwesomeIcon icon={faUsers} className="text-emerald-600 dark:text-emerald-400 text-xs" />
+                        <span className="font-bold text-emerald-800 dark:text-emerald-200">{totalFamilies}</span>
+                        <span className="text-emerald-700 dark:text-emerald-300">
+                          <FormattedMessage
+                            id="rsvp-families-short"
+                            description="families"
+                            defaultMessage="families"
+                          />
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2 bg-sky-100 dark:bg-sky-900/40 px-4 py-2 rounded-2xl border border-sky-200 dark:border-sky-700">
+                        <FontAwesomeIcon icon={faChild} className="text-sky-600 dark:text-sky-400 text-xs" />
+                        <span className="font-bold text-sky-800 dark:text-sky-200">{totalKids}</span>
+                        <span className="text-sky-700 dark:text-sky-300">
+                          <FormattedMessage
+                            id="rsvp-kids-short"
+                            description="kids"
+                            defaultMessage="kids"
+                          />
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -809,21 +898,34 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                 </div>
               )}
 
-              {/* Enhanced Not Attending Section */}
+              {/* Not Attending Section - Modern Header */}
               {notAttendingRsvps.length > 0 && (
                 <div>
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-full">
-                      <FontAwesomeIcon icon={faTimesCircle} className="text-red-600 dark:text-red-400" />
+                  <div className="flex items-center gap-4 mb-8">
+                    {/* Enhanced Decline Icon */}
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-gradient-to-br from-red-500 to-pink-600 rounded-2xl blur-lg opacity-30"></div>
+                      <div className="relative p-3 bg-gradient-to-br from-red-500 to-pink-600 rounded-2xl shadow-xl">
+                        <FontAwesomeIcon icon={faTimesCircle} className="text-white text-lg" />
+                      </div>
                     </div>
-                    <h5 className="font-bold text-lg text-blog-black dark:text-blog-white">
-                      <FormattedMessage
-                        id="rsvp-list-not-attending-title"
-                        description="Not Attending"
-                        defaultMessage="Not Attending ({count})"
-                        values={{ count: notAttendingRsvps.length }}
-                      />
-                    </h5>
+                    <div>
+                      <h5 className="font-black text-2xl text-blog-black dark:text-blog-white mb-1">
+                        <FormattedMessage
+                          id="rsvp-list-not-attending-title"
+                          description="Not Attending"
+                          defaultMessage="Not Attending ({count})"
+                          values={{ count: notAttendingRsvps.length }}
+                        />
+                      </h5>
+                      <p className="text-sm font-semibold text-red-700 dark:text-red-300">
+                        <FormattedMessage
+                          id="rsvp-not-attending-description"
+                          description="Families who declined the invitation"
+                          defaultMessage="Families who declined the invitation"
+                        />
+                      </p>
+                    </div>
                   </div>
                   
                   <div className="space-y-3">

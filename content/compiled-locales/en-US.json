@@ -2057,12 +2057,6 @@
       "value": "Past Events"
     }
   ],
-  "invite-rsvp-toggle-mobile": [
-    {
-      "type": 0,
-      "value": "RSVP for this Event"
-    }
-  ],
   "invite-show-past-events": [
     {
       "type": 0,
@@ -3139,10 +3133,16 @@
       "value": "Admin Only"
     }
   ],
+  "rsvp-admin-only-badge": [
+    {
+      "type": 0,
+      "value": "Admin Only"
+    }
+  ],
   "rsvp-adults-counter-subtitle": [
     {
       "type": 0,
-      "value": "(2 per family)"
+      "value": "2 per family"
     }
   ],
   "rsvp-adults-counter-title": [
@@ -3155,6 +3155,12 @@
     {
       "type": 0,
       "value": "Allergies/Dietary"
+    }
+  ],
+  "rsvp-attending-description": [
+    {
+      "type": 0,
+      "value": "Families who confirmed attendance"
     }
   ],
   "rsvp-contact-info-label": [
@@ -3175,6 +3181,24 @@
       "value": "Declined invitation"
     }
   ],
+  "rsvp-families-label": [
+    {
+      "type": 0,
+      "value": "families"
+    }
+  ],
+  "rsvp-families-short": [
+    {
+      "type": 0,
+      "value": "families"
+    }
+  ],
+  "rsvp-guests-label": [
+    {
+      "type": 0,
+      "value": "guests"
+    }
+  ],
   "rsvp-kids-counter-subtitle": [
     {
       "type": 0,
@@ -3185,6 +3209,12 @@
     {
       "type": 0,
       "value": "Kids"
+    }
+  ],
+  "rsvp-kids-short": [
+    {
+      "type": 0,
+      "value": "kids"
     }
   ],
   "rsvp-list-admin-title": [
@@ -3325,6 +3355,18 @@
     {
       "type": 0,
       "value": "An unexpected error occurred"
+    }
+  ],
+  "rsvp-not-attending-description": [
+    {
+      "type": 0,
+      "value": "Families who declined the invitation"
+    }
+  ],
+  "rsvp-responses-label": [
+    {
+      "type": 0,
+      "value": "responses"
     }
   ],
   "rsvp-summary-adults": [
