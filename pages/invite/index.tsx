@@ -992,10 +992,23 @@ export const getServerSideProps: GetServerSideProps<InvitePageProps> = async (co
     const { supaServerClient } = await import('../../supa-server-client');
     console.log('getServerSideProps: Server client imported', !!supaServerClient);
 
-    // Get full URL from request
+    // Get full URL from request - handle Codespaces environment
     const protocol = context.req.headers['x-forwarded-proto'] || 'https';
     const host = context.req.headers.host || 'swapnilsrivastava.eu';
-    const baseUrl = `${protocol}://${host}`;
+    
+    // Handle GitHub Codespaces - use environment variable or detect from headers
+    let baseUrl = `${protocol}://${host}`;
+    
+    // Check if we're in Codespaces (host contains localhost or specific patterns)
+    const isCodespaces = host.includes('localhost') || host.includes('github.dev') || 
+                        context.req.headers['x-codespaces-environment'] ||
+                        process.env.CODESPACE_NAME;
+    
+    if (isCodespaces) {
+      // In Codespaces, use the production domain for images and canonical URLs
+      baseUrl = 'https://swapnilsrivastava.eu';
+    }
+    
     const url = `${baseUrl}/invite`;
 
     // Default SEO data
@@ -1082,10 +1095,22 @@ export const getServerSideProps: GetServerSideProps<InvitePageProps> = async (co
   } catch (error) {
     console.error('getServerSideProps: Unexpected error:', error);
 
-    // Get base URL for fallback
+    // Get base URL for fallback - handle Codespaces environment
     const protocol = context?.req?.headers?.['x-forwarded-proto'] || 'https';
     const host = context?.req?.headers?.host || 'swapnilsrivastava.eu';
-    const baseUrl = `${protocol}://${host}`;
+    
+    // Handle GitHub Codespaces - use environment variable or detect from headers
+    let baseUrl = `${protocol}://${host}`;
+    
+    // Check if we're in Codespaces (host contains localhost or specific patterns)
+    const isCodespaces = host.includes('localhost') || host.includes('github.dev') || 
+                        context?.req?.headers?.['x-codespaces-environment'] ||
+                        process.env.CODESPACE_NAME;
+    
+    if (isCodespaces) {
+      // In Codespaces, use the production domain for images and canonical URLs
+      baseUrl = 'https://swapnilsrivastava.eu';
+    }
 
     // Fallback SEO data if anything goes wrong
     return {
