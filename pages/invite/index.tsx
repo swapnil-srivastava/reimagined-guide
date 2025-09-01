@@ -250,17 +250,16 @@ function Invite({ seoData }: InvitePageProps) {
         <title>{seoData.title}</title>
         <meta name="description" content={seoData.description} />
 
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@swapnilsrivastava" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="Blog Post" />
         <meta name="twitter:title" content={seoData.title} />
         <meta name="twitter:description" content={seoData.description} />
-        <meta name="twitter:image" content={seoData.imageUrl} />
+        <meta name="twitter:image" content="https://dbydvpdhbaqudqqjteoq.supabase.co/storage/v1/object/sign/avatars/profile.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJhdmF0YXJzL3Byb2ZpbGUucG5nIiwiaWF0IjoxNzIyMDMzMzMwLCJleHAiOjIwMzczOTMzMzB9.2fCp8-hDw_e05QacUp-MRSDYVp08Z-4TJzJ8RJqmyKo" />
 
-        <meta property="og:type" content="article" />
+        <meta property="og:type" content="website" />
         <meta property="og:title" content={seoData.title} />
         <meta property="og:description" content={seoData.description} />
-        <meta property="og:image" content={seoData.imageUrl} />
-        <meta property="og:url" content={seoData.url} />
+        <meta property="og:image" content="https://dbydvpdhbaqudqqjteoq.supabase.co/storage/v1/object/sign/avatars/profile.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJhdmF0YXJzL3Byb2ZpbGUucG5nIiwiaWF0IjoxNzIyMDMzMzMwLCJleHAiOjIwMzczOTMzMzB9.2fCp8-hDw_e05QacUp-MRSDYVp08Z-4TJzJ8RJqmyKo" />
         
         <meta property="article:author" content="Swapnil Srivastava" />
         <meta property="article:published_time" content={new Date().toISOString()} />
@@ -1003,7 +1002,12 @@ export const getServerSideProps: GetServerSideProps<InvitePageProps> = async (co
       nextEventTitle: nextEvent?.title,
     };
 
-    console.log('getServerSideProps: Generated SEO data:', { title: seoData.title, imageUrl: seoData.imageUrl });
+    console.log('getServerSideProps: Generated SEO data:', { 
+      title: seoData.title, 
+      imageUrl: seoData.imageUrl,
+      url: seoData.url,
+      description: seoData.description.substring(0, 100) + '...'
+    });
 
     return {
       props: {
