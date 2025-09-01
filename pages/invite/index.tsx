@@ -1116,7 +1116,7 @@ export const getServerSideProps: GetServerSideProps<InvitePageProps> = async (co
     return {
       props: {
         seoData: {
-          title: "You're Invited to Ria's Birthday! - Swapnil & Mudrika",
+          title: "You're Invited to Ria's Birthday! -  Swapnil & Mudrika",
           description: "Join Swapnil Srivastava and Mudrika Mishra for Ria's special birthday celebration. RSVP to this exclusive birthday party.",
           imageUrl: `${baseUrl}/mountains.jpg`,
           url: `${baseUrl}/invite`,
