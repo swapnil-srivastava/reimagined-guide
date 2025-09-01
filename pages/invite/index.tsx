@@ -250,11 +250,7 @@ function Invite({ seoData }: InvitePageProps) {
         {/* Basic Meta Tags */}
         <title>{seoData.title}</title>
         <meta name="description" content={seoData.description} />
-        <meta name="keywords" content="Ria birthday, birthday party, birthday celebration, events, invitations, RSVP, celebrations, parties, gatherings, social events" />
-        <meta name="author" content="Swapnil Srivastava, Mudrika Mishra" />
-        <meta name="robots" content="index, follow" />
-        <meta name="language" content="en" />
-        <meta name="revisit-after" content="7 days" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         
         {/* Open Graph / Facebook / WhatsApp */}
         <meta property="og:type" content="website" />
@@ -262,45 +258,24 @@ function Invite({ seoData }: InvitePageProps) {
         <meta property="og:title" content={seoData.title} />
         <meta property="og:description" content={seoData.description} />
         <meta property="og:image" content={seoData.imageUrl} />
-        <meta property="og:image:secure_url" content={seoData.imageUrl} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content={seoData.title} />
         <meta property="og:site_name" content="Ria's Birthday Celebrations" />
-        <meta property="og:locale" content="en_US" />
-        <meta property="article:author" content="Swapnil Srivastava" />
-        <meta property="article:author" content="Mudrika Mishra" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@swapnilsrivastava" />
-        <meta name="twitter:creator" content="@swapnilsrivastava" />
-        <meta name="twitter:url" content={seoData.url} />
         <meta name="twitter:title" content={seoData.title} />
         <meta name="twitter:description" content={seoData.description} />
         <meta name="twitter:image" content={seoData.imageUrl} />
-        <meta name="twitter:image:alt" content={seoData.title} />
         
-        {/* LinkedIn */}
-        <meta property="linkedin:owner" content="swapnil-srivastava" />
+        {/* Additional Meta Tags for SEO */}
+        <meta name="keywords" content="Ria birthday, birthday party, birthday celebration, events, invitations, RSVP, celebrations, parties, gatherings, social events" />
+        <meta name="author" content="Swapnil Srivastava, Mudrika Mishra" />
+        <meta name="robots" content="index, follow" />
         
-        {/* WhatsApp Specific */}
-        <meta property="whatsapp:title" content={seoData.title} />
-        <meta property="whatsapp:description" content={seoData.description} />
-        <meta property="whatsapp:image" content={seoData.imageUrl} />
-        
-        {/* Additional Social Media Meta Tags */}
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="application-name" content="Ria's Birthday Invitations" />
-        <meta name="msapplication-TileColor" content="#00539c" />
-        <meta name="msapplication-config" content="/browserconfig.xml" />
-        
-        {/* Additional Mobile Meta Tags */}
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="theme-color" content="#00539c" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="Ria's Birthday Invitations" />
+        {/* Canonical URL */}
+        <link rel="canonical" href={seoData.url} />
         
         {/* Structured Data for Events */}
         {seoData.nextEventDate && seoData.nextEventTitle && (
@@ -338,14 +313,6 @@ function Invite({ seoData }: InvitePageProps) {
             }}
           />
         )}
-        
-        {/* Canonical URL */}
-        <link rel="canonical" href={seoData.url} />
-        
-        {/* Favicon and Icons */}
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/favicon.ico" />
-        <link rel="manifest" href="/manifest.json" />
       </Head>
       
       <div className="min-h-screen bg-blog-white dark:bg-fun-blue-500 font-poppins">
