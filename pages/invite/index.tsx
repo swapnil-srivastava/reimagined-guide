@@ -252,8 +252,8 @@ function Invite({ seoData }: InvitePageProps) {
         <meta name="description" content={seoData.description} />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         
-        {/* Open Graph / Facebook / WhatsApp */}
-        <meta property="og:type" content="website" />
+        {/* Open Graph / Facebook / WhatsApp / LinkedIn */}
+        <meta property="og:type" content="article" />
         <meta property="og:url" content={seoData.url} />
         <meta property="og:title" content={seoData.title} />
         <meta property="og:description" content={seoData.description} />
@@ -265,6 +265,17 @@ function Invite({ seoData }: InvitePageProps) {
         <meta property="og:site_name" content="Ria's Birthday Celebrations" />
         <meta property="og:locale" content="en_US" />
         
+        {/* Article-specific meta tags for LinkedIn */}
+        <meta property="article:author" content="Swapnil Srivastava" />
+        <meta property="article:author" content="Mudrika Mishra" />
+        <meta property="article:published_time" content={new Date().toISOString()} />
+        <meta property="article:modified_time" content={new Date().toISOString()} />
+        <meta property="article:section" content="Events" />
+        <meta property="article:tag" content="birthday party" />
+        <meta property="article:tag" content="celebration" />
+        <meta property="article:tag" content="events" />
+        <meta property="article:tag" content="RSVP" />
+        
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@swapnilsrivastava" />
@@ -274,13 +285,70 @@ function Invite({ seoData }: InvitePageProps) {
         <meta name="twitter:image" content={seoData.imageUrl} />
         <meta name="twitter:image:alt" content={seoData.title} />
         
-        {/* Additional Meta Tags for SEO */}
+        {/* Additional Meta Tags for SEO and LinkedIn */}
         <meta name="keywords" content="Ria birthday, birthday party, birthday celebration, events, invitations, RSVP, celebrations, parties, gatherings, social events" />
         <meta name="author" content="Swapnil Srivastava, Mudrika Mishra" />
         <meta name="robots" content="index, follow" />
+        <meta name="application-name" content="Ria's Birthday Celebrations" />
+        
+        {/* LinkedIn specific meta tags */}
+        <meta name="linkedin:owner" content="swapnil-srivastava" />
+        <meta property="profile:first_name" content="Swapnil" />
+        <meta property="profile:last_name" content="Srivastava" />
+        <meta property="profile:username" content="swapnil-srivastava" />
         
         {/* Canonical URL */}
         <link rel="canonical" href={seoData.url} />
+        
+        {/* Structured Data for LinkedIn and SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Article",
+              "headline": seoData.title,
+              "description": seoData.description,
+              "image": {
+                "@type": "ImageObject",
+                "url": seoData.imageUrl,
+                "width": 1200,
+                "height": 630
+              },
+              "author": [
+                {
+                  "@type": "Person",
+                  "name": "Swapnil Srivastava",
+                  "url": "https://swapnilsrivastava.eu"
+                },
+                {
+                  "@type": "Person",
+                  "name": "Mudrika Mishra"
+                }
+              ],
+              "publisher": {
+                "@type": "Organization",
+                "name": "Swapnil's Odyssey",
+                "url": "https://swapnilsrivastava.eu",
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": seoData.imageUrl,
+                  "width": 1200,
+                  "height": 630
+                }
+              },
+              "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": seoData.url
+              },
+              "datePublished": new Date().toISOString(),
+              "dateModified": new Date().toISOString(),
+              "url": seoData.url,
+              "articleSection": "Events",
+              "keywords": ["birthday party", "celebration", "events", "RSVP", "invitation"]
+            })
+          }}
+        />
         
         {/* Structured Data for Events */}
         {seoData.nextEventDate && seoData.nextEventTitle && (
@@ -985,8 +1053,8 @@ export const getServerSideProps: GetServerSideProps<InvitePageProps> = async (co
 
     // Default SEO data
     const defaultSeoData = {
-      title: "You're Invited to Ria's Birthday! - Swapnil & Mudrika",
-      description: "Join Swapnil Srivastava and Mudrika Mishra for Ria's special birthday celebration. RSVP to this exclusive birthday party.",
+      title: "You Are Invited to Ria Birthday Celebration! - Swapnil and Mudrika",
+      description: "Join Swapnil Srivastava and Mudrika Mishra for Ria special birthday celebration. RSVP to this exclusive birthday party and special events.",
       imageUrl: 'https://swapnilsrivastava.eu/mountains.jpg', // Always use production domain for images
       url,
       upcomingEventsCount: 0,
@@ -1024,10 +1092,10 @@ export const getServerSideProps: GetServerSideProps<InvitePageProps> = async (co
 
     const nextEvent = upcomingEvents[0];
 
-    // Generate dynamic SEO data based on events
+    // Generate dynamic SEO data based on events - LinkedIn-friendly
     const title = upcomingEvents.length > 0
-      ? `You're Invited to Ria's Birthday! ${upcomingEvents.length} Special Events - Swapnil & Mudrika`
-      : "You're Invited to Ria's Birthday! - Swapnil & Mudrika";
+      ? `You Are Invited to Ria Birthday Celebration! ${upcomingEvents.length} Special Events - Swapnil and Mudrika`
+      : "You Are Invited to Ria Birthday Celebration! - Swapnil and Mudrika";
 
     const description = nextEvent
       ? `Join Swapnil Srivastava and Mudrika Mishra for Ria's birthday celebration "${nextEvent.title}" on ${new Date(nextEvent.date).toLocaleDateString('en-US', {
@@ -1088,8 +1156,8 @@ export const getServerSideProps: GetServerSideProps<InvitePageProps> = async (co
     return {
       props: {
         seoData: {
-          title: "You're Invited to Ria's Birthday! -  Swapnil & Mudrika",
-          description: "Join Swapnil Srivastava and Mudrika Mishra for Ria's special birthday celebration. RSVP to this exclusive birthday party.",
+          title: "You Are Invited to Ria Birthday Celebration! - Swapnil and Mudrika",
+          description: "Join Swapnil Srivastava and Mudrika Mishra for Ria special birthday celebration. RSVP to this exclusive birthday party and special events.",
           imageUrl: 'https://swapnilsrivastava.eu/mountains.jpg', // Always use production domain
           url: `${baseUrl}/invite`,
           upcomingEventsCount: 0,
