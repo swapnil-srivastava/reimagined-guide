@@ -258,16 +258,21 @@ function Invite({ seoData }: InvitePageProps) {
         <meta property="og:title" content={seoData.title} />
         <meta property="og:description" content={seoData.description} />
         <meta property="og:image" content={seoData.imageUrl} />
+        <meta property="og:image:secure_url" content={seoData.imageUrl} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content={seoData.title} />
         <meta property="og:site_name" content="Ria's Birthday Celebrations" />
+        <meta property="og:locale" content="en_US" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@swapnilsrivastava" />
+        <meta name="twitter:creator" content="@swapnilsrivastava" />
         <meta name="twitter:title" content={seoData.title} />
         <meta name="twitter:description" content={seoData.description} />
         <meta name="twitter:image" content={seoData.imageUrl} />
+        <meta name="twitter:image:alt" content={seoData.title} />
         
         {/* Additional Meta Tags for SEO */}
         <meta name="keywords" content="Ria birthday, birthday party, birthday celebration, events, invitations, RSVP, celebrations, parties, gatherings, social events" />
@@ -982,7 +987,7 @@ export const getServerSideProps: GetServerSideProps<InvitePageProps> = async (co
     const defaultSeoData = {
       title: "You're Invited to Ria's Birthday! - Swapnil & Mudrika",
       description: "Join Swapnil Srivastava and Mudrika Mishra for Ria's special birthday celebration. RSVP to this exclusive birthday party.",
-      imageUrl: `${baseUrl}/mountains.jpg`,
+      imageUrl: 'https://swapnilsrivastava.eu/mountains.jpg', // Always use production domain for images
       url,
       upcomingEventsCount: 0,
     };
@@ -1033,13 +1038,13 @@ export const getServerSideProps: GetServerSideProps<InvitePageProps> = async (co
         })} at ${nextEvent.location}. ${upcomingEvents.length > 1 ? `Plus ${upcomingEvents.length - 1} more special birthday events!` : ''} RSVP now for Ria's special day!`
       : "Join Swapnil Srivastava and Mudrika Mishra for Ria's upcoming birthday celebrations. RSVP to exclusive birthday parties and special occasions. Let's make Ria's day unforgettable!";
 
-    // Ensure image URL is absolute and accessible
-    let imageUrl = `${baseUrl}/mountains.jpg`; // Default fallback
+    // Ensure image URL is absolute and accessible - always use production domain for social media
+    let imageUrl = 'https://swapnilsrivastava.eu/mountains.jpg'; // Default fallback
     if (nextEvent?.image_url) {
-      // If it's already a full URL, use it; otherwise make it absolute
+      // If it's already a full URL, use it; otherwise make it absolute with production domain
       imageUrl = nextEvent.image_url.startsWith('http')
         ? nextEvent.image_url
-        : `${baseUrl}${nextEvent.image_url}`;
+        : `https://swapnilsrivastava.eu${nextEvent.image_url}`;
     }
 
     const seoData = {
@@ -1085,7 +1090,7 @@ export const getServerSideProps: GetServerSideProps<InvitePageProps> = async (co
         seoData: {
           title: "You're Invited to Ria's Birthday! -  Swapnil & Mudrika",
           description: "Join Swapnil Srivastava and Mudrika Mishra for Ria's special birthday celebration. RSVP to this exclusive birthday party.",
-          imageUrl: `${baseUrl}/mountains.jpg`,
+          imageUrl: 'https://swapnilsrivastava.eu/mountains.jpg', // Always use production domain
           url: `${baseUrl}/invite`,
           upcomingEventsCount: 0,
         }
