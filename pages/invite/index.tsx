@@ -245,147 +245,25 @@ function Invite({ seoData }: InvitePageProps) {
   }
 
   return (
-    <>
+    <main>
       <Head>
-        {/* Basic Meta Tags */}
         <title>{seoData.title}</title>
         <meta name="description" content={seoData.description} />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        
-        {/* Open Graph / Facebook / WhatsApp / LinkedIn */}
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content={seoData.url} />
-        <meta property="og:title" content={seoData.title} />
-        <meta property="og:description" content={seoData.description} />
-        <meta property="og:image" content={seoData.imageUrl} />
-        <meta property="og:image:secure_url" content={seoData.imageUrl} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content={seoData.title} />
-        <meta property="og:site_name" content="Ria's Birthday Celebrations" />
-        <meta property="og:locale" content="en_US" />
-        
-        {/* Article-specific meta tags for LinkedIn */}
-        <meta property="article:author" content="Swapnil Srivastava" />
-        <meta property="article:author" content="Mudrika Mishra" />
-        <meta property="article:published_time" content={new Date().toISOString()} />
-        <meta property="article:modified_time" content={new Date().toISOString()} />
-        <meta property="article:section" content="Events" />
-        <meta property="article:tag" content="birthday party" />
-        <meta property="article:tag" content="celebration" />
-        <meta property="article:tag" content="events" />
-        <meta property="article:tag" content="RSVP" />
-        
-        {/* Twitter */}
+
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@swapnilsrivastava" />
-        <meta name="twitter:creator" content="@swapnilsrivastava" />
         <meta name="twitter:title" content={seoData.title} />
         <meta name="twitter:description" content={seoData.description} />
         <meta name="twitter:image" content={seoData.imageUrl} />
-        <meta name="twitter:image:alt" content={seoData.title} />
+
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={seoData.title} />
+        <meta property="og:description" content={seoData.description} />
+        <meta property="og:image" content={seoData.imageUrl} />
+        <meta property="og:url" content={seoData.url} />
         
-        {/* Additional Meta Tags for SEO and LinkedIn */}
-        <meta name="keywords" content="Ria birthday, birthday party, birthday celebration, events, invitations, RSVP, celebrations, parties, gatherings, social events" />
-        <meta name="author" content="Swapnil Srivastava, Mudrika Mishra" />
-        <meta name="robots" content="index, follow" />
-        <meta name="application-name" content="Ria's Birthday Celebrations" />
-        
-        {/* LinkedIn specific meta tags */}
-        <meta name="linkedin:owner" content="swapnil-srivastava" />
-        <meta property="profile:first_name" content="Swapnil" />
-        <meta property="profile:last_name" content="Srivastava" />
-        <meta property="profile:username" content="swapnil-srivastava" />
-        
-        {/* Canonical URL */}
-        <link rel="canonical" href={seoData.url} />
-        
-        {/* Structured Data for LinkedIn and SEO */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Article",
-              "headline": seoData.title,
-              "description": seoData.description,
-              "image": {
-                "@type": "ImageObject",
-                "url": seoData.imageUrl,
-                "width": 1200,
-                "height": 630
-              },
-              "author": [
-                {
-                  "@type": "Person",
-                  "name": "Swapnil Srivastava",
-                  "url": "https://swapnilsrivastava.eu"
-                },
-                {
-                  "@type": "Person",
-                  "name": "Mudrika Mishra"
-                }
-              ],
-              "publisher": {
-                "@type": "Organization",
-                "name": "Swapnil's Odyssey",
-                "url": "https://swapnilsrivastava.eu",
-                "logo": {
-                  "@type": "ImageObject",
-                  "url": seoData.imageUrl,
-                  "width": 1200,
-                  "height": 630
-                }
-              },
-              "mainEntityOfPage": {
-                "@type": "WebPage",
-                "@id": seoData.url
-              },
-              "datePublished": new Date().toISOString(),
-              "dateModified": new Date().toISOString(),
-              "url": seoData.url,
-              "articleSection": "Events",
-              "keywords": ["birthday party", "celebration", "events", "RSVP", "invitation"]
-            })
-          }}
-        />
-        
-        {/* Structured Data for Events */}
-        {seoData.nextEventDate && seoData.nextEventTitle && (
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "Event",
-                "name": seoData.nextEventTitle,
-                "startDate": seoData.nextEventDate,
-                "eventStatus": "https://schema.org/EventScheduled",
-                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-                "organizer": [
-                  {
-                    "@type": "Person",
-                    "name": "Swapnil Srivastava",
-                    "url": "https://swapnilsrivastava.eu"
-                  },
-                  {
-                    "@type": "Person",
-                    "name": "Mudrika Mishra"
-                  }
-                ],
-                "offers": {
-                  "@type": "Offer",
-                  "price": "0",
-                  "priceCurrency": "USD",
-                  "availability": "https://schema.org/InStock"
-                },
-                "image": seoData.imageUrl,
-                "description": seoData.description,
-                "url": seoData.url
-              })
-            }}
-          />
-        )}
+        <meta property="article:author" content="Swapnil Srivastava" />
+        <meta property="article:published_time" content={new Date().toISOString()} />
       </Head>
       
       <div className="min-h-screen bg-blog-white dark:bg-fun-blue-500 font-poppins">
@@ -1019,7 +897,7 @@ function Invite({ seoData }: InvitePageProps) {
           </div>
         </div>
       </div>
-    </>
+    </main>
   );
 }
 
