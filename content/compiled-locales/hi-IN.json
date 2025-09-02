@@ -2,25 +2,25 @@
   "404-go-home": [
     {
       "type": 0,
-      "value": "Go home"
+      "value": "होम पर जाएं"
     }
   ],
   "404-page-not-found": [
     {
       "type": 0,
-      "value": "404 - That page does not seem to exist..."
+      "value": "404 - ऐसा लगता है यह पृष्ठ मौजूद नहीं है..."
     }
   ],
   "address-add-failed": [
     {
       "type": 0,
-      "value": "Failed to add address"
+      "value": "पता जोड़ने में विफल"
     }
   ],
   "address-added-success": [
     {
       "type": 0,
-      "value": "Address added!!"
+      "value": "पता जोड़ दिया गया!!"
     }
   ],
   "address-customer-cancel-btn": [
@@ -32,31 +32,31 @@
   "address-customer-save-btn": [
     {
       "type": 0,
-      "value": "सेव"
+      "value": "सहेजें"
     }
   ],
   "addressform-address-updated": [
     {
       "type": 0,
-      "value": "Address updated!!"
+      "value": "पता अपडेट किया गया!!"
     }
   ],
   "addressform-failed-to-update": [
     {
       "type": 0,
-      "value": "Failed to update address"
+      "value": "पता अपडेट करने में विफल"
     }
   ],
   "admin-article-cancel-btn": [
     {
       "type": 0,
-      "value": "Clear"
+      "value": "साफ़ करें"
     }
   ],
   "admin-article-create-btn": [
     {
       "type": 0,
-      "value": "Create Article"
+      "value": "लेख बनाएँ"
     }
   ],
   "admin-article-input-text": [
@@ -68,7 +68,7 @@
   "admin-article-placeholder": [
     {
       "type": 0,
-      "value": "What's your story about?"
+      "value": "आपकी कहानी किस बारे में है?"
     }
   ],
   "admin-article-sr-only-text": [
@@ -80,571 +80,571 @@
   "admin-article-url": [
     {
       "type": 0,
-      "value": "Article URL:"
+      "value": "लेख URL:"
     }
   ],
   "admin-create-subtitle": [
     {
       "type": 0,
-      "value": "Share your thoughts with the world and inspire others with your story"
+      "value": "दुनिया के साथ अपने विचार साझा करें और अपने अनुभव से दूसरों को प्रेरित करें"
     }
   ],
   "admin-create-title": [
     {
       "type": 0,
-      "value": "Create New Article"
+      "value": "नया लेख बनाएं"
     }
   ],
   "admin-empty-description": [
     {
       "type": 0,
-      "value": "Get started by creating your first post"
+      "value": "अपना पहला पोस्ट बनाकर शुरू करें"
     }
   ],
   "admin-empty-drafts-description": [
     {
       "type": 0,
-      "value": "Create your first draft to get started"
+      "value": "शुरू करने के लिए अपना पहला ड्राफ्ट बनाएं"
     }
   ],
   "admin-empty-drafts-title": [
     {
       "type": 0,
-      "value": "No draft articles yet"
+      "value": "कोई ड्राफ्ट लेख नहीं"
     }
   ],
   "admin-empty-published-description": [
     {
       "type": 0,
-      "value": "Publish your first draft to see it here"
+      "value": "अपना पहला ड्राफ्ट प्रकाशित करें ताकि यह यहाँ दिखे"
     }
   ],
   "admin-empty-published-title": [
     {
       "type": 0,
-      "value": "No published articles yet"
+      "value": "कोई प्रकाशित लेख नहीं"
     }
   ],
   "admin-empty-title": [
     {
       "type": 0,
-      "value": "No articles yet"
+      "value": "कोई लेख नहीं"
     }
   ],
   "admin-events-access-denied-message": [
     {
       "type": 0,
-      "value": "You are not authorized to access this page. Only the admin user can manage events."
+      "value": "आपको इस पृष्ठ तक पहुँचने की अनुमति नहीं है। केवल एडमिन उपयोगकर्ता ही ईवेंट प्रबंधित कर सकता है।"
     }
   ],
   "admin-events-access-denied-title": [
     {
       "type": 0,
-      "value": "Access Denied"
+      "value": "पहुँच अस्वीकृत"
     }
   ],
   "admin-events-cancel-btn": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "रद्द करें"
     }
   ],
   "admin-events-create-btn": [
     {
       "type": 0,
-      "value": "Create Event"
+      "value": "ईवेंट बनाएँ"
     }
   ],
   "admin-events-create-first": [
     {
       "type": 0,
-      "value": "Create Your First Event"
+      "value": "अपना पहला ईवेंट बनाएं"
     }
   ],
   "admin-events-create-new": [
     {
       "type": 0,
-      "value": "Create New Event"
+      "value": "नया ईवेंट बनाएं"
     }
   ],
   "admin-events-create-title": [
     {
       "type": 0,
-      "value": "Create New Event"
+      "value": "नया ईवेंट बनाएं"
     }
   ],
   "admin-events-delete-btn": [
     {
       "type": 0,
-      "value": "Delete"
+      "value": "हटाएँ"
     }
   ],
   "admin-events-delete-confirm": [
     {
       "type": 0,
-      "value": "Are you sure you want to delete this event? This action cannot be undone."
+      "value": "क्या आप वाकई इस ईवेंट को हटाना चाहते हैं? यह क्रिया रद्द नहीं की जा सकती।"
     }
   ],
   "admin-events-delete-error": [
     {
       "type": 0,
-      "value": "Failed to delete event"
+      "value": "ईवेंट हटाने में विफल"
     }
   ],
   "admin-events-delete-success": [
     {
       "type": 0,
-      "value": "Event deleted successfully!"
+      "value": "ईवेंट सफलतापूर्वक हटाया गया!"
     }
   ],
   "admin-events-delete-unexpected-error": [
     {
       "type": 0,
-      "value": "An unexpected error occurred while deleting the event"
+      "value": "ईवेंट हटाते समय एक अप्रत्याशित त्रुटि हुई"
     }
   ],
   "admin-events-description-placeholder": [
     {
       "type": 0,
-      "value": "Enter event description"
+      "value": "इवेंट का विवरण दर्ज करें"
     }
   ],
   "admin-events-edit-btn": [
     {
       "type": 0,
-      "value": "Edit"
+      "value": "संपादित करें"
     }
   ],
   "admin-events-edit-title": [
     {
       "type": 0,
-      "value": "Edit Event"
+      "value": "ईवेंट संपादित करें"
     }
   ],
   "admin-events-empty-description": [
     {
       "type": 0,
-      "value": "Get started by creating your first event"
+      "value": "अपना पहला ईवेंट बनाकर शुरू करें"
     }
   ],
   "admin-events-empty-title": [
     {
       "type": 0,
-      "value": "No events yet"
+      "value": "कोई ईवेंट नहीं"
     }
   ],
   "admin-events-fetch-error": [
     {
       "type": 0,
-      "value": "Failed to load events"
+      "value": "ईवेंट लोड करने में विफल"
     }
   ],
   "admin-events-filter-all": [
     {
       "type": 0,
-      "value": "All Events"
+      "value": "सभी ईवेंट"
     }
   ],
   "admin-events-filter-past": [
     {
       "type": 0,
-      "value": "Past Events"
+      "value": "पुराने ईवेंट"
     }
   ],
   "admin-events-filter-status": [
     {
       "type": 0,
-      "value": "Status"
+      "value": "स्थिति"
     }
   ],
   "admin-events-filter-upcoming": [
     {
       "type": 0,
-      "value": "Upcoming"
+      "value": "आगामी"
     }
   ],
   "admin-events-filters": [
     {
       "type": 0,
-      "value": "Filters"
+      "value": "फ़िल्टर"
     }
   ],
   "admin-events-form-date": [
     {
       "type": 0,
-      "value": "Date *"
+      "value": "तिथि *"
     }
   ],
   "admin-events-form-description": [
     {
       "type": 0,
-      "value": "Description"
+      "value": "विवरण"
     }
   ],
   "admin-events-form-image": [
     {
       "type": 0,
-      "value": "Image URL"
+      "value": "इमेज URL"
     }
   ],
   "admin-events-form-location": [
     {
       "type": 0,
-      "value": "Location *"
+      "value": "स्थान *"
     }
   ],
   "admin-events-form-max-attendees": [
     {
       "type": 0,
-      "value": "Max Attendees"
+      "value": "अधिकतम प्रतिभागी"
     }
   ],
   "admin-events-form-public": [
     {
       "type": 0,
-      "value": "Make this event public"
+      "value": "इवेंट को सार्वजनिक बनाएं"
     }
   ],
   "admin-events-form-time": [
     {
       "type": 0,
-      "value": "Time *"
+      "value": "समय *"
     }
   ],
   "admin-events-form-title": [
     {
       "type": 0,
-      "value": "Event Title *"
+      "value": "ईवेंट का शीर्षक *"
     }
   ],
   "admin-events-image-placeholder": [
     {
       "type": 0,
-      "value": "https://example.com/image.jpg"
+      "value": "https://example.com/image.jpg (अनुवाद आवश्यकता)"
     }
   ],
   "admin-events-location-placeholder": [
     {
       "type": 0,
-      "value": "Enter event location"
+      "value": "इवेंट स्थान दर्ज करें"
     }
   ],
   "admin-events-max-attendees-placeholder": [
     {
       "type": 0,
-      "value": "Optional"
+      "value": "वैकल्पिक"
     }
   ],
   "admin-events-no-results-description": [
     {
       "type": 0,
-      "value": "Try adjusting your search or filters"
+      "value": "अपनी खोज या फ़िल्टर समायोजित करने का प्रयास करें"
     }
   ],
   "admin-events-no-results-title": [
     {
       "type": 0,
-      "value": "No events found"
+      "value": "कोई ईवेंट नहीं मिला"
     }
   ],
   "admin-events-no-session": [
     {
       "type": 0,
-      "value": "No authentication session found. Please log in again."
+      "value": "कोई प्रमाणीकरण सत्र नहीं मिला। कृपया पुनः लॉगिन करें।"
     }
   ],
   "admin-events-page-subtitle": [
     {
       "type": 0,
-      "value": "ईवेंट और RSVP प्रबंधित करें"
+      "value": "इवेंट और RSVP प्रबंधित करें"
     }
   ],
   "admin-events-page-title": [
     {
       "type": 0,
-      "value": "Admin Events"
+      "value": "एडमिन ईवेंट"
     }
   ],
   "admin-events-public": [
     {
       "type": 0,
-      "value": "Public Events"
+      "value": "सार्वजनिक ईवेंट"
     }
   ],
   "admin-events-saving": [
     {
       "type": 0,
-      "value": "Saving..."
+      "value": "सहेजा जा रहा है..."
     }
   ],
   "admin-events-search-placeholder": [
     {
       "type": 0,
-      "value": "Search events..."
+      "value": "ईवेंट खोजें..."
     }
   ],
   "admin-events-sort-asc": [
     {
       "type": 0,
-      "value": "Oldest First"
+      "value": "सबसे पुराने पहले"
     }
   ],
   "admin-events-sort-by": [
     {
       "type": 0,
-      "value": "Sort By"
+      "value": "के अनुसार सॉर्ट करें"
     }
   ],
   "admin-events-sort-date": [
     {
       "type": 0,
-      "value": "Date"
+      "value": "तिथि"
     }
   ],
   "admin-events-sort-desc": [
     {
       "type": 0,
-      "value": "Newest First"
+      "value": "नवीनतम पहले"
     }
   ],
   "admin-events-sort-order": [
     {
       "type": 0,
-      "value": "Order"
+      "value": "क्रम"
     }
   ],
   "admin-events-sort-title": [
     {
       "type": 0,
-      "value": "Title"
+      "value": "शीर्षक"
     }
   ],
   "admin-events-submit-error": [
     {
       "type": 0,
-      "value": "Failed to save event"
+      "value": "ईवेंट सहेजने में विफल"
     }
   ],
   "admin-events-submit-unexpected-error": [
     {
       "type": 0,
-      "value": "An unexpected error occurred while saving the event"
+      "value": "ईवेंट सहेजते समय एक अप्रत्याशित त्रुटि हुई"
     }
   ],
   "admin-events-subtitle": [
     {
       "type": 0,
-      "value": "Create and manage your events"
+      "value": "अपने ईवेंट बनाएँ और प्रबंधित करें"
     }
   ],
   "admin-events-title": [
     {
       "type": 0,
-      "value": "Event Management"
+      "value": "ईवेंट प्रबंधन"
     }
   ],
   "admin-events-title-placeholder": [
     {
       "type": 0,
-      "value": "Enter event title"
+      "value": "ईवेंट शीर्षक दर्ज करें"
     }
   ],
   "admin-events-total": [
     {
       "type": 0,
-      "value": "Total Events"
+      "value": "कुल ईवेंट"
     }
   ],
   "admin-events-unauthorized": [
     {
       "type": 0,
-      "value": "You are not authorized to perform this action"
+      "value": "आपके पास यह क्रिया करने की अनुमति नहीं है"
     }
   ],
   "admin-events-unexpected-error": [
     {
       "type": 0,
-      "value": "An unexpected error occurred"
+      "value": "एक अप्रत्याशित त्रुटि हुई"
     }
   ],
   "admin-events-upcoming": [
     {
       "type": 0,
-      "value": "Upcoming"
+      "value": "आगामी"
     }
   ],
   "admin-events-update-btn": [
     {
       "type": 0,
-      "value": "Update Event"
+      "value": "ईवेंट अपडेट करें"
     }
   ],
   "admin-mobile-tip-1": [
     {
       "type": 0,
-      "value": "Keep your title clear and descriptive"
+      "value": "अपना शीर्षक स्पष्ट और वर्णनात्मक रखें"
     }
   ],
   "admin-mobile-tip-2": [
     {
       "type": 0,
-      "value": "Use keywords that readers might search for"
+      "value": "ऐसे कीवर्ड उपयोग करें जिन्हें पाठक खोज सकते हैं"
     }
   ],
   "admin-mobile-tip-3": [
     {
       "type": 0,
-      "value": "Aim for 6-12 words for optimal engagement"
+      "value": "इष्टतम सहभागिता के लिए 6-12 शब्दों का लक्ष्य रखें"
     }
   ],
   "admin-mobile-tips-title": [
     {
       "type": 0,
-      "value": "Writing Tips"
+      "value": "लिखने के सुझाव"
     }
   ],
   "admin-post-created-success": [
     {
       "type": 0,
-      "value": "Post created!"
+      "value": "पोस्ट बनाई गई!"
     }
   ],
   "admin-readability-good": [
     {
       "type": 0,
-      "value": "Good"
+      "value": "उचित"
     }
   ],
   "admin-readability-needs-work": [
     {
       "type": 0,
-      "value": "Needs work"
+      "value": "सुधार की आवश्यकता"
     }
   ],
   "admin-slug-save-btn": [
     {
       "type": 0,
-      "value": "बदलाव सेव करें"
+      "value": "बदलाव सहेजें"
     }
   ],
   "admin-stats-characters": [
     {
       "type": 0,
-      "value": "Characters"
+      "value": "अक्षर"
     }
   ],
   "admin-stats-drafts": [
     {
       "type": 0,
-      "value": "Drafts"
+      "value": "ड्राफ्ट"
     }
   ],
   "admin-stats-published": [
     {
       "type": 0,
-      "value": "Published"
+      "value": "प्रकाशित"
     }
   ],
   "admin-stats-readability": [
     {
       "type": 0,
-      "value": "Readability"
+      "value": "पठनीयता"
     }
   ],
   "admin-stats-sidebar-title": [
     {
       "type": 0,
-      "value": "Article Stats"
+      "value": "लेख आँकड़े"
     }
   ],
   "admin-stats-total": [
     {
       "type": 0,
-      "value": "Total Posts"
+      "value": "कुल पोस्ट"
     }
   ],
   "admin-stats-words": [
     {
       "type": 0,
-      "value": "Words"
+      "value": "शब्द"
     }
   ],
   "admin-subtitle": [
     {
       "type": 0,
-      "value": "Create, edit, and publish your articles"
+      "value": "लेख बनाएं, संपादित करें और प्रकाशित करें"
     }
   ],
   "admin-tab-all-posts": [
     {
       "type": 0,
-      "value": "All Posts"
+      "value": "सभी पोस्ट"
     }
   ],
   "admin-tab-drafts-posts": [
     {
       "type": 0,
-      "value": "Drafts"
+      "value": "ड्राफ्ट"
     }
   ],
   "admin-tab-published-posts": [
     {
       "type": 0,
-      "value": "Published"
+      "value": "प्रकाशित"
     }
   ],
   "admin-tip-1": [
     {
       "type": 0,
-      "value": "Keep your title clear and descriptive"
+      "value": "अपना शीर्षक स्पष्ट और वर्णनात्मक रखें"
     }
   ],
   "admin-tip-2": [
     {
       "type": 0,
-      "value": "Use keywords that readers might search for"
+      "value": "ऐसे कीवर्ड उपयोग करें जिन्हें पाठक खोज सकते हैं"
     }
   ],
   "admin-tip-3": [
     {
       "type": 0,
-      "value": "Aim for 6-12 words for optimal engagement"
+      "value": "इष्टतम सहभागिता के लिए 6-12 शब्दों का लक्ष्य रखें"
     }
   ],
   "admin-tip-4": [
     {
       "type": 0,
-      "value": "Make it compelling enough to click"
+      "value": "इसे क्लिक के योग्य बनाएं"
     }
   ],
   "admin-tips-title": [
     {
       "type": 0,
-      "value": "Writing Tips"
+      "value": "लिखने के सुझाव"
     }
   ],
   "admin-title": [
     {
       "type": 0,
-      "value": "अपनी पोस्ट प्रबंधित करें"
+      "value": "अपनी पोस्ट प्रकाशित करें"
     }
   ],
   "admin-username-article-url": [
     {
       "type": 0,
-      "value": "अनुच्छेद यू आ रएल:"
+      "value": "लेख URL:"
     }
   ],
   "admin-validation-error": [
     {
       "type": 0,
-      "value": "Title must be 4-100 characters"
+      "value": "शीर्षक 4-100 अक्षरों का होना चाहिए"
     }
   ],
   "admin-validation-success": [
     {
       "type": 0,
-      "value": "Title looks perfect!"
+      "value": "शीर्षक सही दिखता है!"
     }
   ],
   "animation.string1": [
@@ -668,7 +668,7 @@
   "animation.string4": [
     {
       "type": 0,
-      "value": "एक फुलस्टैक इंजीनियर"
+      "value": "एक फुल स्टैक इंजीनियर"
     }
   ],
   "animation.string5": [
@@ -680,86 +680,82 @@
   "animation.string6": [
     {
       "type": 0,
-      "value": "एक वास्तुकार"
+      "value": "एक आर्किटेक्ट"
     }
   ],
   "animation.string7": [
     {
       "type": 0,
-      "value": "एक समाधान वास्तुकार"
+      "value": "एक समाधान आर्किटेक्ट"
     }
   ],
   "approve-clear-search": [
     {
       "type": 0,
-      "value": "Clear search"
+      "value": "खोज साफ़ करें"
     }
   ],
   "approve-empty-approved-description": [
     {
       "type": 0,
-      "value": "Approved posts will appear here"
+      "value": "स्वीकृत पोस्ट यहाँ दिखाई देंगी"
     }
   ],
   "approve-empty-approved-title": [
     {
       "type": 0,
-      "value": "No approved posts yet"
+      "value": "अभी तक कोई स्वीकृत पोस्ट नहीं"
     }
   ],
   "approve-empty-description": [
     {
       "type": 0,
-      "value": "No content available for moderation"
+      "value": "मॉडरेशन के लिए कोई सामग्री उपलब्ध नहीं"
     }
   ],
   "approve-empty-pending-description": [
     {
       "type": 0,
-      "value": "All posts have been reviewed"
+      "value": "सभी पोस्ट की समीक्षा की जा चुकी है"
     }
   ],
   "approve-empty-pending-title": [
     {
       "type": 0,
-      "value": "No posts pending review"
+      "value": "कोई पोस्ट लंबित समीक्षा नहीं"
     }
   ],
   "approve-empty-title": [
     {
       "type": 0,
-      "value": "No posts to review"
+      "value": "कोई पोस्ट समीक्षा के लिए नहीं"
     }
   ],
   "approve-loading": [
     {
       "type": 0,
-      "value": "Loading posts..."
+      "value": "पोस्ट लोड हो रहे हैं..."
     }
   ],
   "approve-no-search-results-description": [
     {
       "type": 0,
-      "value": "Try adjusting your search terms"
+      "value": "अपने खोज शब्द समायोजित करने का प्रयास करें"
     }
   ],
   "approve-no-search-results-title": [
     {
       "type": 0,
-      "value": "No results found"
+      "value": "कोई परिणाम नहीं मिला"
     }
   ],
   "approve-search-placeholder": [
     {
       "type": 0,
-      "value": "Search posts..."
+      "value": "पोस्ट खोजें..."
     }
   ],
   "approve-search-results": [
-    {
-      "type": 0,
-      "value": "Showing "
-    },
     {
       "type": 1,
       "value": "count"
@@ -775,7 +771,7 @@
           "value": [
             {
               "type": 0,
-              "value": "result"
+              "value": "परिणाम"
             }
           ]
         },
@@ -783,7 +779,7 @@
           "value": [
             {
               "type": 0,
-              "value": "results"
+              "value": "परिणाम"
             }
           ]
         }
@@ -794,7 +790,7 @@
     },
     {
       "type": 0,
-      "value": " for \""
+      "value": " दिख रहे हैं \""
     },
     {
       "type": 1,
@@ -802,253 +798,253 @@
     },
     {
       "type": 0,
-      "value": "\""
+      "value": "\" के लिए"
     }
   ],
   "approve-stats-approved": [
     {
       "type": 0,
-      "value": "Approved"
+      "value": "स्वीकृत"
     }
   ],
   "approve-stats-pending": [
     {
       "type": 0,
-      "value": "Pending"
+      "value": "लंबि"
     }
   ],
   "approve-stats-total": [
     {
       "type": 0,
-      "value": "Total Posts"
+      "value": "Total Posts (अनुवाद आवश्यकता)"
     }
   ],
   "approve-subtitle": [
     {
       "type": 0,
-      "value": "Review and approve user-submitted content"
+      "value": "Review and approve user-submitted content (अनुवाद आवश्यकता)"
     }
   ],
   "approve-tab-all": [
     {
       "type": 0,
-      "value": "All Posts"
+      "value": "All Posts (अनुवाद आवश्यकता)"
     }
   ],
   "approve-tab-approved": [
     {
       "type": 0,
-      "value": "Approved"
+      "value": "Approved (अनुवाद आवश्यकता)"
     }
   ],
   "approve-tab-pending": [
     {
       "type": 0,
-      "value": "Pending Review"
+      "value": "Pending Review (अनुवाद आवश्यकता)"
     }
   ],
   "approve-title": [
     {
       "type": 0,
-      "value": "Content Moderation"
+      "value": "Content Moderation (अनुवाद आवश्यकता)"
     }
   ],
   "audio-uploader-upload-label": [
     {
       "type": 0,
-      "value": "Upload Audio File"
+      "value": "ऑडियो फ़ाइल अपलोड करें"
     }
   ],
   "audioplayer-backward-5-seconds": [
     {
       "type": 0,
-      "value": "Backwards 5 seconds"
+      "value": "Backwards 5 seconds (अनुवाद आवश्यकता)"
     }
   ],
   "audioplayer-forward-5-seconds": [
     {
       "type": 0,
-      "value": "Forward 5 seconds"
+      "value": "Forward 5 seconds (अनुवाद आवश्यकता)"
     }
   ],
   "audioplayer-mute": [
     {
       "type": 0,
-      "value": "Mute"
+      "value": "म्यूट"
     }
   ],
   "audioplayer-unmute": [
     {
       "type": 0,
-      "value": "Unmute"
+      "value": "अन-म्यूट"
     }
   ],
   "audioplayer-volume-aria": [
     {
       "type": 0,
-      "value": "Volume"
+      "value": "वॉल्यूम"
     }
   ],
   "audioplayer-volume-slider-aria": [
     {
       "type": 0,
-      "value": "Volume"
+      "value": "वॉल्यूम"
     }
   ],
   "auth-check-email-verification": [
     {
       "type": 0,
-      "value": "Please check your email for verification link!"
+      "value": "कृपया check आपका email के लिए verification link!"
     }
   ],
   "auth-check-fallback": [
     {
       "type": 0,
-      "value": "आपको साइन इन करना होगा"
+      "value": "आप must be signed in"
     }
   ],
   "auth-checking-username": [
     {
       "type": 0,
-      "value": "Checking..."
+      "value": "Checking... (अनुवाद आवश्यकता)"
     }
   ],
   "auth-choose-username-subtitle": [
     {
       "type": 0,
-      "value": "This will be your unique identifier and profile URL"
+      "value": "This will be आपका unique identifier and profile URL"
     }
   ],
   "auth-choose-username-title": [
     {
       "type": 0,
-      "value": "Choose your username"
+      "value": "Choose आपका username"
     }
   ],
   "auth-confirm-password-label": [
     {
       "type": 0,
-      "value": "Confirm password"
+      "value": "Confirm password (अनुवाद आवश्यकता)"
     }
   ],
   "auth-confirm-password-placeholder": [
     {
       "type": 0,
-      "value": "Confirm your password"
+      "value": "Confirm आपका password"
     }
   ],
   "auth-continue-google": [
     {
       "type": 0,
-      "value": "Continue with Google"
+      "value": "Continue with Google (अनुवाद आवश्यकता)"
     }
   ],
   "auth-continue-to-profile": [
     {
       "type": 0,
-      "value": "Continue to Profile"
+      "value": "Continue को Profile"
     }
   ],
   "auth-email-label": [
     {
       "type": 0,
-      "value": "Email address"
+      "value": "Email address (अनुवाद आवश्यकता)"
     }
   ],
   "auth-email-placeholder": [
     {
       "type": 0,
-      "value": "Enter your email"
+      "value": "Enter आपका email"
     }
   ],
   "auth-email-verified-success": [
     {
       "type": 0,
-      "value": "Your email has been verified successfully!"
+      "value": "आपका email has been verified successfully!"
     }
   ],
   "auth-error-generic": [
     {
       "type": 0,
-      "value": "Something went wrong. Please try again."
+      "value": "Something went wrong. कृपया try again."
     }
   ],
   "auth-go-to-dashboard": [
     {
       "type": 0,
-      "value": "Go to Dashboard"
+      "value": "Go को Dashboard"
     }
   ],
   "auth-google-error": [
     {
       "type": 0,
-      "value": "Google sign in failed. Please try again."
+      "value": "Google sign in विफल. कृपया try again."
     }
   ],
   "auth-or-divider": [
     {
       "type": 0,
-      "value": "or"
+      "value": "or (अनुवाद आवश्यकता)"
     }
   ],
   "auth-password-label": [
     {
       "type": 0,
-      "value": "Password"
+      "value": "Password (अनुवाद आवश्यकता)"
     }
   ],
   "auth-password-mismatch": [
     {
       "type": 0,
-      "value": "Passwords don't match"
+      "value": "Passwords don't match (अनुवाद आवश्यकता)"
     }
   ],
   "auth-password-placeholder": [
     {
       "type": 0,
-      "value": "Enter your password"
+      "value": "Enter आपका password"
     }
   ],
   "auth-profile-preview": [
     {
       "type": 0,
-      "value": "Your profile will be available at:"
+      "value": "आपका profile will be उपलब्ध at:"
     }
   ],
   "auth-sign-in-success": [
     {
       "type": 0,
-      "value": "Welcome back!"
+      "value": "स्वागत है!"
     }
   ],
   "auth-sign-out": [
     {
       "type": 0,
-      "value": "Sign Out"
+      "value": "साइन आउट"
     }
   ],
   "auth-signed-in-message": [
     {
       "type": 0,
-      "value": "You are successfully signed in"
+      "value": "आप are successfully signed in"
     }
   ],
   "auth-signout-error": [
     {
       "type": 0,
-      "value": "Failed to sign out. Please try again."
+      "value": "विफल को sign out. कृपया try again."
     }
   ],
   "auth-signout-success": [
     {
       "type": 0,
-      "value": "You've been signed out successfully!"
+      "value": "You've been signed out successfully! (अनुवाद आवश्यकता)"
     }
   ],
   "auth-signup-success": [
     {
       "type": 0,
-      "value": "Account created successfully!"
+      "value": "Account created successfully! (अनुवाद आवश्यकता)"
     }
   ],
   "auth-username-available": [
@@ -1058,49 +1054,49 @@
     },
     {
       "type": 0,
-      "value": " is available!"
+      "value": " is उपलब्ध!"
     }
   ],
   "auth-username-help": [
     {
       "type": 0,
-      "value": "You can change this later in your profile settings"
+      "value": "आप can change this later in आपका profile सेटिंग्स"
     }
   ],
   "auth-username-label": [
     {
       "type": 0,
-      "value": "Username"
+      "value": "Username (अनुवाद आवश्यकता)"
     }
   ],
   "auth-username-placeholder": [
     {
       "type": 0,
-      "value": "your-username"
+      "value": "your-username (अनुवाद आवश्यकता)"
     }
   ],
   "auth-username-requirements": [
     {
       "type": 0,
-      "value": "3-15 characters, letters, numbers, dots and underscores only"
+      "value": "3-15 characters, letters, numbers, dots and underscores only (अनुवाद आवश्यकता)"
     }
   ],
   "auth-username-taken": [
     {
       "type": 0,
-      "value": "That username is taken!"
+      "value": "That username is taken! (अनुवाद आवश्यकता)"
     }
   ],
   "auth-username-update-error": [
     {
       "type": 0,
-      "value": "Failed to update username. Please try again."
+      "value": "विफल को update username. कृपया try again."
     }
   ],
   "auth-username-updated": [
     {
       "type": 0,
-      "value": "Username updated successfully!"
+      "value": "Username updated successfully! (अनुवाद आवश्यकता)"
     }
   ],
   "auth-welcome-back": [
@@ -1114,7 +1110,7 @@
     },
     {
       "type": 0,
-      "value": "!"
+      "value": "! (अनुवाद आवश्यकता)"
     }
   ],
   "auth-welcome-verified": [
@@ -1128,7 +1124,7 @@
     },
     {
       "type": 0,
-      "value": "!"
+      "value": "! (अनुवाद आवश्यकता)"
     }
   ],
   "calculate-total-delivery-cost-text": [
@@ -1158,31 +1154,31 @@
   "calendar-button-add-to-calendar": [
     {
       "type": 0,
-      "value": "Add to Calendar"
+      "value": "Add को Calendar"
     }
   ],
   "cancel-cancelled": [
     {
       "type": 0,
-      "value": "Cancelled"
+      "value": "Cancelled (अनुवाद आवश्यकता)"
     }
   ],
   "cancel-go-home": [
     {
       "type": 0,
-      "value": "Go home"
+      "value": "होम पर जाएँ"
     }
   ],
   "cart-add-address": [
     {
       "type": 0,
-      "value": "Add Address"
+      "value": "पता जोड़ें"
     }
   ],
   "cart-continue-shopping": [
     {
       "type": 0,
-      "value": "Continue Shopping"
+      "value": "खरीदारी जारी रखें"
     }
   ],
   "cart-items-count": [
@@ -1220,37 +1216,37 @@
     },
     {
       "type": 0,
-      "value": " in your cart"
+      "value": " in आपका cart"
     }
   ],
   "cart-no-address": [
     {
       "type": 0,
-      "value": "No delivery address added"
+      "value": "कोई delivery address जोड़ा गया"
     }
   ],
   "cart-order-summary": [
     {
       "type": 0,
-      "value": "Order Summary"
+      "value": "Order Summary (अनुवाद आवश्यकता)"
     }
   ],
   "cart-page-address-card-heading": [
     {
       "type": 0,
-      "value": "Delivery Address"
+      "value": "Delivery Address (अनुवाद आवश्यकता)"
     }
   ],
   "cart-page-checkout-btn": [
     {
       "type": 0,
-      "value": "Proceed to Checkout"
+      "value": "चेकआउट पर जाएँ"
     }
   ],
   "cart-page-delivery-cards-heading": [
     {
       "type": 0,
-      "value": "Delivery Options"
+      "value": "Delivery Options (अनुवाद आवश्यकता)"
     }
   ],
   "cart-page-empty-cart": [
@@ -1262,7 +1258,7 @@
   "cart-page-empty-cart-title": [
     {
       "type": 0,
-      "value": "Your cart is empty"
+      "value": "आपकी कार्ट खाली है"
     }
   ],
   "cart-page-no-products-redirect-btn": [
@@ -1280,61 +1276,61 @@
   "checkout-complete-order": [
     {
       "type": 0,
-      "value": "Complete Order"
+      "value": "Complete Order (अनुवाद आवश्यकता)"
     }
   ],
   "checkout-delivery-address": [
     {
       "type": 0,
-      "value": "Delivery Address"
+      "value": "Delivery Address (अनुवाद आवश्यकता)"
     }
   ],
   "checkout-delivery-cost": [
     {
       "type": 0,
-      "value": "Delivery:"
+      "value": "Delivery: (अनुवाद आवश्यकता)"
     }
   ],
   "checkout-delivery-method": [
     {
       "type": 0,
-      "value": "Delivery Method"
+      "value": "Delivery Method (अनुवाद आवश्यकता)"
     }
   ],
   "checkout-empty-cart": [
     {
       "type": 0,
-      "value": "Your cart is empty"
+      "value": "आपकी कार्ट खाली है"
     }
   ],
   "checkout-empty-cart-description": [
     {
       "type": 0,
-      "value": "Add some amazing products to your cart and come back to complete your order. We have great deals waiting for you!"
+      "value": "Add some amazing products को आपका cart and come back को complete आपका order. We have great deals waiting के लिए आप!"
     }
   ],
   "checkout-error": [
     {
       "type": 0,
-      "value": "Error starting checkout"
+      "value": "त्रुटि starting checkout"
     }
   ],
   "checkout-free-delivery": [
     {
       "type": 0,
-      "value": "FREE"
+      "value": "मुफ्त"
     }
   ],
   "checkout-go-shopping": [
     {
       "type": 0,
-      "value": "Start Shopping"
+      "value": "खरीदारी शुरू करें"
     }
   ],
   "checkout-item-each": [
     {
       "type": 0,
-      "value": "each"
+      "value": "each (अनुवाद आवश्यकता)"
     }
   ],
   "checkout-item-quantity-label": [
@@ -1345,12 +1341,16 @@
     {
       "type": 1,
       "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " (अनुवाद आवश्यकता)"
     }
   ],
   "checkout-item-subtotal": [
     {
       "type": 0,
-      "value": "Item Total"
+      "value": "Item Total (अनुवाद आवश्यकता)"
     }
   ],
   "checkout-order-summary": [
@@ -1392,109 +1392,109 @@
     },
     {
       "type": 0,
-      "value": ")"
+      "value": ") (अनुवाद आवश्यकता)"
     }
   ],
   "checkout-page-heading": [
     {
       "type": 0,
-      "value": "Secure Checkout"
+      "value": "सुरक्षित चेकआउट"
     }
   ],
   "checkout-payment-summary": [
     {
       "type": 0,
-      "value": "Payment Summary"
+      "value": "Payment Summary (अनुवाद आवश्यकता)"
     }
   ],
   "checkout-processing": [
     {
       "type": 0,
-      "value": "Processing..."
+      "value": "प्रसंस्करण..."
     }
   ],
   "checkout-security-notice": [
     {
       "type": 0,
-      "value": "Your payment information is secure and encrypted"
+      "value": "आपका payment information is secure and encrypted"
     }
   ],
   "checkout-ssl-secured": [
     {
       "type": 0,
-      "value": "SSL Secured"
+      "value": "SSL Secured (अनुवाद आवश्यकता)"
     }
   ],
   "checkout-subtotal": [
     {
       "type": 0,
-      "value": "Subtotal:"
+      "value": "उप-योग:"
     }
   ],
   "checkout-tax": [
     {
       "type": 0,
-      "value": "Tax (19%):"
+      "value": "टैक्स (19%):"
     }
   ],
   "checkout-total": [
     {
       "type": 0,
-      "value": "Total:"
+      "value": "Total: (अनुवाद आवश्यकता)"
     }
   ],
   "checkoutbutton-login-required": [
     {
       "type": 0,
-      "value": "Please log in to create a new Stripe Checkout session"
+      "value": "कृपया log in को create a new Stripe Checkout session"
     }
   ],
   "cookies-manage-preferences-aria": [
     {
       "type": 0,
-      "value": "Manage Cookie Preferences"
+      "value": "कुकी प्राथमिकताएँ प्रबंधित करें"
     }
   ],
   "cookies-privacy-policy-aria": [
     {
       "type": 0,
-      "value": "Privacy Policy"
+      "value": "प्राइवेसी पॉलिसी"
     }
   ],
   "cookies_accept_button": [
     {
       "type": 0,
-      "value": "Accept All"
+      "value": "सभी स्वीकार करें"
     }
   ],
   "cookies_deny_button": [
     {
       "type": 0,
-      "value": "Necessary Only"
+      "value": "केवल आवश्यक"
     }
   ],
   "cookies_description": [
     {
       "type": 0,
-      "value": "We use cookies to enhance your browsing experience, analyze site traffic, and personalize content. Necessary cookies enable core functionality while optional cookies help us improve our services. By clicking 'Accept All', you consent to our use of cookies as described in our Privacy Policy."
+      "value": "We use cookies को enhance आपका browsing experience, analyze site traffic, and personalize content. Necessary cookies enable core functionality while optional cookies help us improve our services. By clicking 'Accept All', आप consent को our use of cookies as described in our Privacy Policy."
     }
   ],
   "cookies_heading": [
     {
       "type": 0,
-      "value": "Cookie Preferences"
+      "value": "कुकी प्राथमिकताएँ"
     }
   ],
   "cookies_privacy_link": [
     {
       "type": 0,
-      "value": "Read our Privacy Policy for more information"
+      "value": "Read our Privacy Policy के लिए more information"
     }
   ],
   "cookies_small_text": [
     {
       "type": 0,
-      "value": "Your Privacy Matters"
+      "value": "आपका Privacy Matters"
     }
   ],
   "create-product-cancel-btn": [
@@ -1512,31 +1512,31 @@
   "doctor-page-doctor-name": [
     {
       "type": 0,
-      "value": "Doctor name"
+      "value": "Doctor name (अनुवाद आवश्यकता)"
     }
   ],
   "dummylogin-email-label": [
     {
       "type": 0,
-      "value": "Email address"
+      "value": "Email address (अनुवाद आवश्यकता)"
     }
   ],
   "dummylogin-password-label": [
     {
       "type": 0,
-      "value": "Password"
+      "value": "Password (अनुवाद आवश्यकता)"
     }
   ],
   "dummylogin-password-placeholder": [
     {
       "type": 0,
-      "value": "Password"
+      "value": "Password (अनुवाद आवश्यकता)"
     }
   ],
   "dummylogin-signin-button": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "साइन इन"
     }
   ],
   "end_of_articles": [
@@ -1548,73 +1548,73 @@
   "event-status-past": [
     {
       "type": 0,
-      "value": "Past Event"
+      "value": "Past Event (अनुवाद आवश्यकता)"
     }
   ],
   "event-status-today": [
     {
       "type": 0,
-      "value": "Today"
+      "value": "Today (अनुवाद आवश्यकता)"
     }
   ],
   "event-status-upcoming": [
     {
       "type": 0,
-      "value": "Upcoming"
+      "value": "Upcoming (अनुवाद आवश्यकता)"
     }
   ],
   "favorite-button-add": [
     {
       "type": 0,
-      "value": "Add to favorites"
+      "value": "पसंद में जोड़ें"
     }
   ],
   "favorite-button-remove": [
     {
       "type": 0,
-      "value": "Remove from favorites"
+      "value": "पसंद से हटाएँ"
     }
   ],
   "favorites-browse-products-button": [
     {
       "type": 0,
-      "value": "Browse Products"
+      "value": "Browse Products (अनुवाद आवश्यकता)"
     }
   ],
   "favorites-empty-message": [
     {
       "type": 0,
-      "value": "You haven't added any products to your favorites yet."
+      "value": "आप haven't जोड़ा गया any products को आपका favorites yet."
     }
   ],
   "favorites-fetch-error": [
     {
       "type": 0,
-      "value": "Failed to load favorites"
+      "value": "विफल को लोड favorites"
     }
   ],
   "favorites-page-title": [
     {
       "type": 0,
-      "value": "My Favorite Products"
+      "value": "मेरे पसंदीदा उत्पाद"
     }
   ],
   "favorites-remove-error": [
     {
       "type": 0,
-      "value": "Failed to remove from favorites"
+      "value": "विफल को remove from favorites"
     }
   ],
   "favorites-remove-success": [
     {
       "type": 0,
-      "value": "Removed from favorites"
+      "value": "हटा दिया गया from favorites"
     }
   ],
   "floating-cart-tooltip": [
     {
       "type": 0,
-      "value": "View Cart ("
+      "value": "कार्ट देखें ("
     },
     {
       "type": 1,
@@ -1631,7 +1631,7 @@
           "value": [
             {
               "type": 0,
-              "value": "item"
+              "value": "आइटम"
             }
           ]
         },
@@ -1639,7 +1639,7 @@
           "value": [
             {
               "type": 0,
-              "value": "items"
+              "value": "आइटम"
             }
           ]
         }
@@ -1656,55 +1656,55 @@
   "footer.built-with-love": [
     {
       "type": 0,
-      "value": "Built with"
+      "value": "Built with (अनुवाद आवश्यकता)"
     }
   ],
   "footer.by-swapnil": [
     {
       "type": 0,
-      "value": "by Swapnil Srivastava"
+      "value": "by Swapnil Srivastava (अनुवाद आवश्यकता)"
     }
   ],
   "footer.preferences": [
     {
       "type": 0,
-      "value": "Settings"
+      "value": "सेटिंग्स"
     }
   ],
   "footer.privacy-policy": [
     {
       "type": 0,
-      "value": "Privacy"
+      "value": "Privacy (अनुवाद आवश्यकता)"
     }
   ],
   "footer.rights": [
     {
       "type": 0,
-      "value": "All rights reserved"
+      "value": "All rights reserved (अनुवाद आवश्यकता)"
     }
   ],
   "footer.technology": [
     {
       "type": 0,
-      "value": "Tech"
+      "value": "Tech (अनुवाद आवश्यकता)"
     }
   ],
   "heart-button-add-to-favorites": [
     {
       "type": 0,
-      "value": "Add to favorites"
+      "value": "पसंद में जोड़ें"
     }
   ],
   "heart-button-added-to-favorites": [
     {
       "type": 0,
-      "value": "Added to favorites"
+      "value": "जोड़ा गया को favorites"
     }
   ],
   "heart-button-error": [
     {
       "type": 0,
-      "value": "Something went wrong. Please try again."
+      "value": "Something went wrong. कृपया try again."
     }
   ],
   "heart-button-heart": [
@@ -1716,25 +1716,25 @@
   "heart-button-login-required": [
     {
       "type": 0,
-      "value": "Please log in to save products to favorites"
+      "value": "कृपया उत्पादों को पसंदीदा में सहेजने के लिए लॉगिन करें"
     }
   ],
   "heart-button-remove-from-favorites": [
     {
       "type": 0,
-      "value": "Remove from favorites"
+      "value": "पसंद से हटाएँ"
     }
   ],
   "heart-button-removed-from-favorites": [
     {
       "type": 0,
-      "value": "Removed from favorites"
+      "value": "हटा दिया गया from favorites"
     }
   ],
   "heartbutton-like-post-tooltip": [
     {
       "type": 0,
-      "value": "Do you like the post?"
+      "value": "Do आप like the post?"
     }
   ],
   "horizatal-five-tag-five-solid": [
@@ -1920,43 +1920,43 @@
   "imageuploader-choose-image-sr": [
     {
       "type": 0,
-      "value": "Choose Image"
+      "value": "Choose Image (अनुवाद आवश्यकता)"
     }
   ],
   "invite-coming-soon-description": [
     {
       "type": 0,
-      "value": "We're working on exciting new features for event management and guest interaction. Stay tuned!"
+      "value": "We're working on exciting new features के लिए event management and guest interaction. Stay tuned!"
     }
   ],
   "invite-coming-soon-title": [
     {
       "type": 0,
-      "value": "More Features Coming Soon"
+      "value": "More Features Coming Soon (अनुवाद आवश्यकता)"
     }
   ],
   "invite-date-label": [
     {
       "type": 0,
-      "value": "Date"
+      "value": "तिथि"
     }
   ],
   "invite-event-details-mobile": [
     {
       "type": 0,
-      "value": "Event Details"
+      "value": "Event Details (अनुवाद आवश्यकता)"
     }
   ],
   "invite-event-details-title": [
     {
       "type": 0,
-      "value": "Event Details"
+      "value": "Event Details (अनुवाद आवश्यकता)"
     }
   ],
   "invite-fetch-events-error": [
     {
       "type": 0,
-      "value": "Failed to load events. Please try again."
+      "value": "विफल को लोड events. कृपया try again."
     }
   ],
   "invite-hero-upcoming-count": [
@@ -1994,67 +1994,67 @@
     },
     {
       "type": 0,
-      "value": " Awaiting"
+      "value": " Awaiting (अनुवाद आवश्यकता)"
     }
   ],
   "invite-hide-past-events": [
     {
       "type": 0,
-      "value": "Hide Past Events"
+      "value": "Hide Past Events (अनुवाद आवश्यकता)"
     }
   ],
   "invite-loading": [
     {
       "type": 0,
-      "value": "Loading events..."
+      "value": "ईवेंट लोड हो रहे हैं..."
     }
   ],
   "invite-location-button": [
     {
       "type": 0,
-      "value": "Location"
+      "value": "स्थान"
     }
   ],
   "invite-location-label": [
     {
       "type": 0,
-      "value": "Location"
+      "value": "स्थान"
     }
   ],
   "invite-no-events-description": [
     {
       "type": 0,
-      "value": "There are no upcoming events at the moment. Check back soon!"
+      "value": "There are कोई upcoming events at the moment. Check back soon!"
     }
   ],
   "invite-no-events-title": [
     {
       "type": 0,
-      "value": "No Events Available"
+      "value": "कोई Events उपलब्ध"
     }
   ],
   "invite-page-hero-subtitle": [
     {
       "type": 0,
-      "value": "Join us for special celebrations and memorable moments"
+      "value": "Join us के लिए special celebrations and memorable moments"
     }
   ],
   "invite-page-hero-title": [
     {
       "type": 0,
-      "value": "You're Invited!"
+      "value": "You're Invited! (अनुवाद आवश्यकता)"
     }
   ],
   "invite-past-event-label": [
     {
       "type": 0,
-      "value": "Past event"
+      "value": "Past event (अनुवाद आवश्यकता)"
     }
   ],
   "invite-past-events-title": [
     {
       "type": 0,
-      "value": "Past Events"
+      "value": "Past Events (अनुवाद आवश्यकता)"
     }
   ],
   "invite-rsvp-form-toggle": [
@@ -2072,37 +2072,37 @@
   "invite-show-past-events": [
     {
       "type": 0,
-      "value": "Show Past Events"
+      "value": "Show Past Events (अनुवाद आवश्यकता)"
     }
   ],
   "invite-stay-tuned": [
     {
       "type": 0,
-      "value": "Stay Tuned"
+      "value": "Stay Tuned (अनुवाद आवश्यकता)"
     }
   ],
   "invite-tap-for-directions": [
     {
       "type": 0,
-      "value": "Tap for directions"
+      "value": "Tap के लिए directions"
     }
   ],
   "invite-time-label": [
     {
       "type": 0,
-      "value": "Time"
+      "value": "समय"
     }
   ],
   "invite-unexpected-error": [
     {
       "type": 0,
-      "value": "An unexpected error occurred. Please refresh the page."
+      "value": "An unexpected त्रुटि occurred. कृपया refresh the page."
     }
   ],
   "invite-upcoming-events-title": [
     {
       "type": 0,
-      "value": "Upcoming Events"
+      "value": "Upcoming Events (अनुवाद आवश्यकता)"
     }
   ],
   "load_more_button": [
@@ -2126,13 +2126,13 @@
   "nav-admin-events-tooltip": [
     {
       "type": 0,
-      "value": "Manage Events"
+      "value": "ईवेंट प्रबंधित करें"
     }
   ],
   "nav-bar-admin-events-text": [
     {
       "type": 0,
-      "value": "Manage Events"
+      "value": "ईवेंट प्रबंधित करें"
     }
   ],
   "nav-bar-cart-text": [
@@ -2144,13 +2144,13 @@
   "nav-bar-favorites-text": [
     {
       "type": 0,
-      "value": "Favorites"
+      "value": "पसंदीदा"
     }
   ],
   "nav-bar-invite-text": [
     {
       "type": 0,
-      "value": "Invites"
+      "value": "निमंत्रण"
     }
   ],
   "nav-bar-login-text": [
@@ -2180,61 +2180,61 @@
   "nav-dark-mode-tooltip": [
     {
       "type": 0,
-      "value": "Dark Mode"
+      "value": "डार्क मोड"
     }
   ],
   "nav-light-mode-tooltip": [
     {
       "type": 0,
-      "value": "Light Mode"
+      "value": "लाइट मोड"
     }
   ],
   "nav-login-tooltip": [
     {
       "type": 0,
-      "value": "Login"
+      "value": "लॉगिन"
     }
   ],
   "nav-tech-stack-tooltip": [
     {
       "type": 0,
-      "value": "Tech Stack"
+      "value": "Tech Stack (अनुवाद आवश्यकता)"
     }
   ],
   "nav-write-post-tooltip": [
     {
       "type": 0,
-      "value": "Write a post"
+      "value": "Write a post (अनुवाद आवश्यकता)"
     }
   ],
   "navbar-my-tutorial": [
     {
       "type": 0,
-      "value": "My Tutorial"
+      "value": "My Tutorial (अनुवाद आवश्यकता)"
     }
   ],
   "personalization-accept-cookies-alert": [
     {
       "type": 0,
-      "value": "To save personalization preferences, please accept cookies in the cookie banner."
+      "value": "को save personalization प्राथमिकताएँ, कृपया accept cookies in the cookie banner."
     }
   ],
   "personalization_consent_required": [
     {
       "type": 0,
-      "value": "To enable personalization features, please accept cookies in the cookie banner at the bottom of the page."
+      "value": "को enable personalization features, कृपया accept cookies in the cookie banner at the bottom of the page."
     }
   ],
   "personalization_history": [
     {
       "type": 0,
-      "value": "Remember browsing history"
+      "value": "Remember browsing history (अनुवाद आवश्यकता)"
     }
   ],
   "personalization_privacy_note": [
     {
       "type": 0,
-      "value": "Your preferences are stored in a cookie on your device. See our "
+      "value": "आपका प्राथमिकताएँ are stored in a cookie on आपका device. See our "
     },
     {
       "type": 1,
@@ -2242,19 +2242,19 @@
     },
     {
       "type": 0,
-      "value": " for more information."
+      "value": " के लिए more information."
     }
   ],
   "personalization_recommendations": [
     {
       "type": 0,
-      "value": "Enable personalized recommendations"
+      "value": "Enable personalized recommendations (अनुवाद आवश्यकता)"
     }
   ],
   "personalization_title": [
     {
       "type": 0,
-      "value": "Personalization Settings"
+      "value": "Personalization सेटिंग्स"
     }
   ],
   "post-content-auth-check-signup": [
@@ -2266,7 +2266,7 @@
   "post-feed-no-parent-function": [
     {
       "type": 0,
-      "value": "No Parent Function"
+      "value": "कोई Parent Function"
     }
   ],
   "post-list-published": [
@@ -2284,157 +2284,157 @@
   "postcontent-approve-button": [
     {
       "type": 0,
-      "value": "Approve"
+      "value": "Approve (अनुवाद आवश्यकता)"
     }
   ],
   "postcontent-copy-ready": [
     {
       "type": 0,
-      "value": "Copy Ready"
+      "value": "Copy Ready (अनुवाद आवश्यकता)"
     }
   ],
   "postcontent-draft-status": [
     {
       "type": 0,
-      "value": "● Draft"
+      "value": "● Draft (अनुवाद आवश्यकता)"
     }
   ],
   "postcontent-edit-post-aria": [
     {
       "type": 0,
-      "value": "Edit post"
+      "value": "Edit post (अनुवाद आवश्यकता)"
     }
   ],
   "postcontent-email-confirmation-sent": [
     {
       "type": 0,
-      "value": "Email confirmation sent!"
+      "value": "Email confirmation sent! (अनुवाद आवश्यकता)"
     }
   ],
   "postcontent-mark-copy-ready-aria": [
     {
       "type": 0,
-      "value": "Mark as copy ready"
+      "value": "Mark as copy ready (अनुवाद आवश्यकता)"
     }
   ],
   "postcontent-mark-web-ready-aria": [
     {
       "type": 0,
-      "value": "Mark as web ready"
+      "value": "Mark as web ready (अनुवाद आवश्यकता)"
     }
   ],
   "postcontent-min-read": [
     {
       "type": 0,
-      "value": "min read"
+      "value": "min read (अनुवाद आवश्यकता)"
     }
   ],
   "postcontent-min-read-2": [
     {
       "type": 0,
-      "value": "min read"
+      "value": "min read (अनुवाद आवश्यकता)"
     }
   ],
   "postcontent-post-approved": [
     {
       "type": 0,
-      "value": "Post approved successfully!"
+      "value": "Post approved successfully! (अनुवाद आवश्यकता)"
     }
   ],
   "postcontent-publish": [
     {
       "type": 0,
-      "value": "Publish"
+      "value": "Publish (अनुवाद आवश्यकता)"
     }
   ],
   "postcontent-publish-post-aria": [
     {
       "type": 0,
-      "value": "Publish post"
+      "value": "Publish post (अनुवाद आवश्यकता)"
     }
   ],
   "postcontent-published-status": [
     {
       "type": 0,
-      "value": "● Published"
+      "value": "● Published (अनुवाद आवश्यकता)"
     }
   ],
   "postcontent-share-facebook": [
     {
       "type": 0,
-      "value": "Share on Facebook"
+      "value": "Share on Facebook (अनुवाद आवश्यकता)"
     }
   ],
   "postcontent-share-label": [
     {
       "type": 0,
-      "value": "Share:"
+      "value": "Share: (अनुवाद आवश्यकता)"
     }
   ],
   "postcontent-share-linkedin": [
     {
       "type": 0,
-      "value": "Share on LinkedIn"
+      "value": "Share on LinkedIn (अनुवाद आवश्यकता)"
     }
   ],
   "postcontent-share-twitter": [
     {
       "type": 0,
-      "value": "Share on Twitter"
+      "value": "Share on Twitter (अनुवाद आवश्यकता)"
     }
   ],
   "postcontent-web-ready": [
     {
       "type": 0,
-      "value": "Web Ready"
+      "value": "Web Ready (अनुवाद आवश्यकता)"
     }
   ],
   "postcontent-words": [
     {
       "type": 0,
-      "value": "words"
+      "value": "words (अनुवाद आवश्यकता)"
     }
   ],
   "postcontent-workflow-complete": [
     {
       "type": 0,
-      "value": "2/4 Complete"
+      "value": "2/4 Complete (अनुवाद आवश्यकता)"
     }
   ],
   "postcontent-workflow-progress": [
     {
       "type": 0,
-      "value": "Workflow Progress"
+      "value": "Workflow Progress (अनुवाद आवश्यकता)"
     }
   ],
   "postfeed-min-read": [
     {
       "type": 0,
-      "value": "min read"
+      "value": "min read (अनुवाद आवश्यकता)"
     }
   ],
   "postfeed-no-posts": [
     {
       "type": 0,
-      "value": "No posts available"
+      "value": "कोई पोस्ट उपलब्ध नहीं"
     }
   ],
   "postfeed-status-draft": [
     {
       "type": 0,
-      "value": "Draft"
+      "value": "Draft (अनुवाद आवश्यकता)"
     }
   ],
   "postfeed-status-live": [
     {
       "type": 0,
-      "value": "Live"
+      "value": "Live (अनुवाद आवश्यकता)"
     }
   ],
   "postfeed-words": [
     {
       "type": 0,
-      "value": "words"
+      "value": "words (अनुवाद आवश्यकता)"
     }
   ],
   "posts_list_end": [
@@ -2446,205 +2446,205 @@
   "preferences.back_to_home": [
     {
       "type": 0,
-      "value": "Back to Home"
+      "value": "Back को Home"
     }
   ],
   "preferences.intro": [
     {
       "type": 0,
-      "value": "Customize your experience on our platform by adjusting your personalization settings. These settings will be saved according to your cookie preferences."
+      "value": "Customize आपका experience on our platform by adjusting आपका personalization सेटिंग्स. These सेटिंग्स will be saved according को आपका cookie प्राथमिकताएँ."
     }
   ],
   "preferences.title": [
     {
       "type": 0,
-      "value": "User Preferences"
+      "value": "User प्राथमिकताएँ"
     }
   ],
   "pricing-advanced-seo-setup": [
     {
       "type": 0,
-      "value": "Advanced SEO setup"
+      "value": "Advanced SEO setup (अनुवाद आवश्यकता)"
     }
   ],
   "pricing-basic-1-hour-call": [
     {
       "type": 0,
-      "value": "1 hour call"
+      "value": "1 hour call (अनुवाद आवश्यकता)"
     }
   ],
   "pricing-basic-consultation-subtitle": [
     {
       "type": 0,
-      "value": "Ideal For: Small businesses and startups needing foundational advice"
+      "value": "Ideal के लिए: Small businesses and startups needing foundational advice"
     }
   ],
   "pricing-basic-consultation-title": [
     {
       "type": 0,
-      "value": "Basic Consultation"
+      "value": "Basic Consultation (अनुवाद आवश्यकता)"
     }
   ],
   "pricing-basic-email-support": [
     {
       "type": 0,
-      "value": "Follow-up email support"
+      "value": "Follow-up email support (अनुवाद आवश्यकता)"
     }
   ],
   "pricing-basic-initial-audit": [
     {
       "type": 0,
-      "value": "Initial site audit"
+      "value": "Initial site audit (अनुवाद आवश्यकता)"
     }
   ],
   "pricing-basic-package-subtitle": [
     {
       "type": 0,
-      "value": "Ideal For: Growing businesses looking to optimize their online presence."
+      "value": "Ideal के लिए: Growing businesses looking को optimize their online presence."
     }
   ],
   "pricing-basic-package-title": [
     {
       "type": 0,
-      "value": "Basic Package"
+      "value": "Basic Package (अनुवाद आवश्यकता)"
     }
   ],
   "pricing-basic-seo-recommendations": [
     {
       "type": 0,
-      "value": "Basic SEO recommendations"
+      "value": "Basic SEO recommendations (अनुवाद आवश्यकता)"
     }
   ],
   "pricing-basic-seo-setup": [
     {
       "type": 0,
-      "value": "Basic SEO setup"
+      "value": "Basic SEO setup (अनुवाद आवश्यकता)"
     }
   ],
   "pricing-custom-website-design": [
     {
       "type": 0,
-      "value": "Custom website design"
+      "value": "Custom website design (अनुवाद आवश्यकता)"
     }
   ],
   "pricing-feature-custom-design": [
     {
       "type": 0,
-      "value": "Fully custom design and development"
+      "value": "Fully custom design and development (अनुवाद आवश्यकता)"
     }
   ],
   "pricing-feature-ecommerce": [
     {
       "type": 0,
-      "value": "Advanced e-commerce functionality"
+      "value": "Advanced e-commerce functionality (अनुवाद आवश्यकता)"
     }
   ],
   "pricing-feature-seo": [
     {
       "type": 0,
-      "value": "Comprehensive SEO"
+      "value": "Comprehensive SEO (अनुवाद आवश्यकता)"
     }
   ],
   "pricing-feature-tshirt": [
     {
       "type": 0,
-      "value": "Official t-shirt"
+      "value": "Official t-shirt (अनुवाद आवश्यकता)"
     }
   ],
   "pricing-invoices-receipts-available": [
     {
       "type": 0,
-      "value": "Invoices and receipts available for easy company reimbursement"
+      "value": "Invoices and receipts उपलब्ध के लिए easy company reimbursement"
     }
   ],
   "pricing-pay-once-own-forever": [
     {
       "type": 0,
-      "value": "Pay once, own it forever"
+      "value": "Pay once, own it forever (अनुवाद आवश्यकता)"
     }
   ],
   "pricing-premium-package": [
     {
       "type": 0,
-      "value": "Premium Package"
+      "value": "Premium Package (अनुवाद आवश्यकता)"
     }
   ],
   "pricing-premium-package-description": [
     {
       "type": 0,
-      "value": "Unlock the expertise with a single investment - pay once, and your success is in good hands."
+      "value": "Unlock the expertise with a single investment - pay once, and आपका success is in good hands."
     }
   ],
   "pricing-simple-no-tricks-pricing": [
     {
       "type": 0,
-      "value": "Simple no-tricks pricing"
+      "value": "Simple no-tricks pricing (अनुवाद आवश्यकता)"
     }
   ],
   "pricing-simple-website-design": [
     {
       "type": 0,
-      "value": "Simple website design"
+      "value": "Simple website design (अनुवाद आवश्यकता)"
     }
   ],
   "pricing-standard-package": [
     {
       "type": 0,
-      "value": "Standard Package"
+      "value": "Standard Package (अनुवाद आवश्यकता)"
     }
   ],
   "pricing-standard-package-description": [
     {
       "type": 0,
-      "value": "Ideal For: Businesses with specific, large-scale projects"
+      "value": "Ideal के लिए: Businesses with specific, large-scale projects"
     }
   ],
   "pricing-title": [
     {
       "type": 0,
-      "value": "Choose the right package which is best for you!"
+      "value": "Choose the right package which is best के लिए आप!"
     }
   ],
   "pricing-up-to-10-pages": [
     {
       "type": 0,
-      "value": "Up to 10 pages"
+      "value": "Up को 10 pages"
     }
   ],
   "pricing-up-to-5-pages": [
     {
       "type": 0,
-      "value": "Up to 5 pages"
+      "value": "Up को 5 pages"
     }
   ],
   "pricing-whats-included": [
     {
       "type": 0,
-      "value": "What's included"
+      "value": "What's included (अनुवाद आवश्यकता)"
     }
   ],
   "privacy-policy-overview-text": [
     {
       "type": 0,
-      "value": "This Privacy & Cookie Policy explains how we collect, use, and protect your information when you visit our website. We are committed to ensuring the privacy and security of your data."
+      "value": "This Privacy & Cookie Policy explains how we collect, use, and protect आपका information when आप visit our website. We are committed को ensuring the privacy and security of आपका data."
     }
   ],
   "privacy-policy-overview-title": [
     {
       "type": 0,
-      "value": "Overview"
+      "value": "Overview (अनुवाद आवश्यकता)"
     }
   ],
   "privacy-policy-title": [
     {
       "type": 0,
-      "value": "Privacy & Cookie Policy"
+      "value": "Privacy & Cookie Policy (अनुवाद आवश्यकता)"
     }
   ],
   "privacy.back_to_home": [
     {
       "type": 0,
-      "value": "Back to Home"
+      "value": "Back को Home"
     }
   ],
   "product-card-add-to-cart": [
@@ -2656,13 +2656,13 @@
   "product-card-add-to-cart-error": [
     {
       "type": 0,
-      "value": "Failed to add item to cart. Please try again."
+      "value": "विफल को add item को cart. कृपया try again."
     }
   ],
   "product-card-added": [
     {
       "type": 0,
-      "value": "Added!"
+      "value": "जोड़ा गया!"
     }
   ],
   "product-card-added-to-cart-toast": [
@@ -2672,7 +2672,7 @@
     },
     {
       "type": 0,
-      "value": " added to cart!"
+      "value": " जोड़ा गया को cart!"
     }
   ],
   "product-card-create-product": [
@@ -2684,73 +2684,73 @@
   "product-card-in-stock": [
     {
       "type": 0,
-      "value": "In Stock"
+      "value": "स्टॉक में"
     }
   ],
   "product-card-invalid-product": [
     {
       "type": 0,
-      "value": "Invalid product. Please try again."
+      "value": "Invalid product. कृपया try again."
     }
   ],
   "product-card-no-image": [
     {
       "type": 0,
-      "value": "No image available"
+      "value": "कोई image उपलब्ध"
     }
   ],
   "product-card-out-of-stock": [
     {
       "type": 0,
-      "value": "Out of Stock"
+      "value": "स्टॉक में नहीं"
     }
   ],
   "product-card-quick-view": [
     {
       "type": 0,
-      "value": "Quick view"
+      "value": "Quick देखें"
     }
   ],
   "product-detail-add-to-cart": [
     {
       "type": 0,
-      "value": "Add to Cart"
+      "value": "कार्ट में डालें"
     }
   ],
   "product-detail-add-to-cart-error": [
     {
       "type": 0,
-      "value": "Failed to add item to cart. Please try again."
+      "value": "विफल को add item को cart. कृपया try again."
     }
   ],
   "product-detail-added": [
     {
       "type": 0,
-      "value": "Added!"
+      "value": "जोड़ा गया!"
     }
   ],
   "product-detail-added-to-cart": [
     {
       "type": 0,
-      "value": "Added to cart!"
+      "value": "जोड़ा गया को cart!"
     }
   ],
   "product-detail-back": [
     {
       "type": 0,
-      "value": "Back"
+      "value": "वापस"
     }
   ],
   "product-detail-back-to-products": [
     {
       "type": 0,
-      "value": "Back to Products"
+      "value": "Back को Products"
     }
   ],
   "product-detail-fetch-error": [
     {
       "type": 0,
-      "value": "Failed to load product details. Please try again."
+      "value": "विफल को लोड product details. कृपया try again."
     }
   ],
   "product-detail-heading": [
@@ -2762,37 +2762,37 @@
   "product-detail-in-stock": [
     {
       "type": 0,
-      "value": "In Stock"
+      "value": "स्टॉक में"
     }
   ],
   "product-detail-not-found": [
     {
       "type": 0,
-      "value": "Product not found"
+      "value": "उत्पाद नहीं मिला"
     }
   ],
   "product-detail-not-found-description": [
     {
       "type": 0,
-      "value": "The product you are looking for doesn't exist or has been removed."
+      "value": "The product आप are looking के लिए doesn't exist or has been हटा दिया गया."
     }
   ],
   "product-detail-out-of-stock": [
     {
       "type": 0,
-      "value": "Out of Stock"
+      "value": "स्टॉक में नहीं"
     }
   ],
   "product-detail-quantity": [
     {
       "type": 0,
-      "value": "Quantity"
+      "value": "मात्रा"
     }
   ],
   "product-detail-related-products": [
     {
       "type": 0,
-      "value": "You might also like"
+      "value": "आप might also like"
     }
   ],
   "product-detail-stock-count": [
@@ -2802,13 +2802,13 @@
     },
     {
       "type": 0,
-      "value": " available"
+      "value": " उपलब्ध"
     }
   ],
   "product-detail-stock-level": [
     {
       "type": 0,
-      "value": "Stock Level"
+      "value": "Stock Level (अनुवाद आवश्यकता)"
     }
   ],
   "product-index-cart-items-count": [
@@ -2846,31 +2846,31 @@
     },
     {
       "type": 0,
-      "value": " in your cart"
+      "value": " in आपका cart"
     }
   ],
   "product-index-cart-ready": [
     {
       "type": 0,
-      "value": "Ready to checkout when you are"
+      "value": "Ready को checkout when आप are"
     }
   ],
   "product-index-cart-total-label": [
     {
       "type": 0,
-      "value": "Total"
+      "value": "कुल"
     }
   ],
   "product-index-cart-view-button": [
     {
       "type": 0,
-      "value": "View Cart"
+      "value": "देखें Cart"
     }
   ],
   "productcard-error-creating-product": [
     {
       "type": 0,
-      "value": "Error creating product: "
+      "value": "त्रुटि creating product: "
     },
     {
       "type": 1,
@@ -2880,7 +2880,7 @@
   "productcard-error-uploading-image": [
     {
       "type": 0,
-      "value": "Error uploading image: "
+      "value": "त्रुटि uploading image: "
     },
     {
       "type": 1,
@@ -2890,25 +2890,25 @@
   "productcard-product-created": [
     {
       "type": 0,
-      "value": "Product Created!!"
+      "value": "Product Created!! (अनुवाद आवश्यकता)"
     }
   ],
   "products-category-label": [
     {
       "type": 0,
-      "value": "Category"
+      "value": "Category (अनुवाद आवश्यकता)"
     }
   ],
   "products-clear-filters": [
     {
       "type": 0,
-      "value": "Clear Filters"
+      "value": "Clear Filters (अनुवाद आवश्यकता)"
     }
   ],
   "products-error-loading": [
     {
       "type": 0,
-      "value": "Error loading products: "
+      "value": "त्रुटि loading products: "
     },
     {
       "type": 1,
@@ -2918,43 +2918,43 @@
   "products-filter-all": [
     {
       "type": 0,
-      "value": "All Categories"
+      "value": "All Categories (अनुवाद आवश्यकता)"
     }
   ],
   "products-filter-books": [
     {
       "type": 0,
-      "value": "Books"
+      "value": "Books (अनुवाद आवश्यकता)"
     }
   ],
   "products-filter-clothing": [
     {
       "type": 0,
-      "value": "Clothing"
+      "value": "Clothing (अनुवाद आवश्यकता)"
     }
   ],
   "products-filter-electronics": [
     {
       "type": 0,
-      "value": "Electronics"
+      "value": "Electronics (अनुवाद आवश्यकता)"
     }
   ],
   "products-filter-home": [
     {
       "type": 0,
-      "value": "Home & Garden"
+      "value": "Home & Garden (अनुवाद आवश्यकता)"
     }
   ],
   "products-filters": [
     {
       "type": 0,
-      "value": "Filters"
+      "value": "Filters (अनुवाद आवश्यकता)"
     }
   ],
   "products-heading": [
     {
       "type": 0,
-      "value": "Our Products"
+      "value": "Our Products (अनुवाद आवश्यकता)"
     }
   ],
   "products-in-stock": [
@@ -2964,49 +2964,49 @@
     },
     {
       "type": 0,
-      "value": " in stock"
+      "value": " in stock (अनुवाद आवश्यकता)"
     }
   ],
   "products-loaded-successfully": [
     {
       "type": 0,
-      "value": "Products loaded successfully!"
+      "value": "Products loaded successfully! (अनुवाद आवश्यकता)"
     }
   ],
   "products-price-25-50": [
     {
       "type": 0,
-      "value": "$25 - $50"
+      "value": "$25 - $50 (अनुवाद आवश्यकता)"
     }
   ],
   "products-price-50-100": [
     {
       "type": 0,
-      "value": "$50 - $100"
+      "value": "$50 - $100 (अनुवाद आवश्यकता)"
     }
   ],
   "products-price-all": [
     {
       "type": 0,
-      "value": "All Prices"
+      "value": "All Prices (अनुवाद आवश्यकता)"
     }
   ],
   "products-price-over-100": [
     {
       "type": 0,
-      "value": "Over $100"
+      "value": "Over $100 (अनुवाद आवश्यकता)"
     }
   ],
   "products-price-range-label": [
     {
       "type": 0,
-      "value": "Price Range"
+      "value": "Price Range (अनुवाद आवश्यकता)"
     }
   ],
   "products-price-under-25": [
     {
       "type": 0,
-      "value": "Under $25"
+      "value": "Under $25 (अनुवाद आवश्यकता)"
     }
   ],
   "products-results-count": [
@@ -3045,18 +3045,22 @@
       "pluralType": "cardinal",
       "type": 6,
       "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " (अनुवाद आवश्यकता)"
     }
   ],
   "products-search-placeholder": [
     {
       "type": 0,
-      "value": "Search products..."
+      "value": "Search products... (अनुवाद आवश्यकता)"
     }
   ],
   "products-search-results": [
     {
       "type": 0,
-      "value": "for \""
+      "value": "के लिए \""
     },
     {
       "type": 1,
@@ -3070,73 +3074,73 @@
   "products-sort-name": [
     {
       "type": 0,
-      "value": "Sort by Name"
+      "value": "Sort by Name (अनुवाद आवश्यकता)"
     }
   ],
   "products-sort-newest": [
     {
       "type": 0,
-      "value": "Newest First"
+      "value": "Newest First (अनुवाद आवश्यकता)"
     }
   ],
   "products-sort-price-high": [
     {
       "type": 0,
-      "value": "Price: High to Low"
+      "value": "Price: High को Low"
     }
   ],
   "products-sort-price-low": [
     {
       "type": 0,
-      "value": "Price: Low to High"
+      "value": "Price: Low को High"
     }
   ],
   "products-subtitle": [
     {
       "type": 0,
-      "value": "Discover our amazing collection of carefully curated products"
+      "value": "Discover our amazing collection of carefully curated products (अनुवाद आवश्यकता)"
     }
   ],
   "profile-cancel-button": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "रद्द करें"
     }
   ],
   "profile-cancel-skill-button": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "रद्द करें"
     }
   ],
   "profile-create-button": [
     {
       "type": 0,
-      "value": "Create"
+      "value": "बनाएँ"
     }
   ],
   "profile-create-skill-button": [
     {
       "type": 0,
-      "value": "Create"
+      "value": "बनाएँ"
     }
   ],
   "profile-experience-created": [
     {
       "type": 0,
-      "value": "Experience successfully created"
+      "value": "Experience successfully created (अनुवाद आवश्यकता)"
     }
   ],
   "profile-present": [
     {
       "type": 0,
-      "value": "Present"
+      "value": "Present (अनुवाद आवश्यकता)"
     }
   ],
   "profile-skill-created": [
     {
       "type": 0,
-      "value": "Skill successfully created"
+      "value": "Skill successfully created (अनुवाद आवश्यकता)"
     }
   ],
   "rsvp-admin-badge": [
@@ -3740,13 +3744,13 @@
   "success-go-home": [
     {
       "type": 0,
-      "value": "Go home"
+      "value": "होम पर जाएँ"
     }
   ],
   "success-hurray": [
     {
       "type": 0,
-      "value": "Hurray..."
+      "value": "Hurray... (अनुवाद आवश्यकता)"
     }
   ],
   "swapnil_architect_hello": [
@@ -3764,343 +3768,343 @@
   "technology-bounty-board-subtitle": [
     {
       "type": 0,
-      "value": "Most wanted technologies"
+      "value": "Most wanted technologies (अनुवाद आवश्यकता)"
     }
   ],
   "technology-bounty-description": [
     {
       "type": 0,
-      "value": "High-value target. Essential for core system operations. Handle with care."
+      "value": "High-value target. Essential के लिए core system operations. Handle with care."
     }
   ],
   "technology-cancel-button": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "रद्द करें"
     }
   ],
   "technology-clear-button": [
     {
       "type": 0,
-      "value": "Clear"
+      "value": "Clear (अनुवाद आवश्यकता)"
     }
   ],
   "technology-create-button": [
     {
       "type": 0,
-      "value": "Create"
+      "value": "बनाएँ"
     }
   ],
   "technology-create-error": [
     {
       "type": 0,
-      "value": "Matrix connection failed"
+      "value": "Matrix connection विफल"
     }
   ],
   "technology-create-error-cyber": [
     {
       "type": 0,
-      "value": "Grid connection unstable"
+      "value": "Grid connection unstable (अनुवाद आवश्यकता)"
     }
   ],
   "technology-create-success": [
     {
       "type": 0,
-      "value": "Technology uploaded to the matrix!"
+      "value": "Technology uploaded को the matrix!"
     }
   ],
   "technology-create-success-cyber": [
     {
       "type": 0,
-      "value": "Technology integrated into the grid!"
+      "value": "Technology integrated into the grid! (अनुवाद आवश्यकता)"
     }
   ],
   "technology-cyber-creator-subtitle": [
     {
       "type": 0,
-      "value": "Fabricate new tech entities"
+      "value": "Fabricate new tech entities (अनुवाद आवश्यकता)"
     }
   ],
   "technology-cyber-hero-subtitle": [
     {
       "type": 0,
-      "value": "High Tech, Low Life"
+      "value": "High Tech, Low Life (अनुवाद आवश्यकता)"
     }
   ],
   "technology-data-stream-subtitle": [
     {
       "type": 0,
-      "value": "Live feed of available technologies"
+      "value": "Live feed of उपलब्ध technologies"
     }
   ],
   "technology-dimensional-display": [
     {
       "type": 0,
-      "value": "Technology Constellation"
+      "value": "Technology Constellation (अनुवाद आवश्यकता)"
     }
   ],
   "technology-dimensional-subtitle": [
     {
       "type": 0,
-      "value": "Navigate through the quantum field of innovation"
+      "value": "Navigate through the quantum field of innovation (अनुवाद आवश्यकता)"
     }
   ],
   "technology-fabricate-button": [
     {
       "type": 0,
-      "value": "Fabricate"
+      "value": "Fabricate (अनुवाद आवश्यकता)"
     }
   ],
   "technology-hero-subtitle": [
     {
       "type": 0,
-      "value": "Explore the cutting-edge technologies that power innovation and creativity in modern development"
+      "value": "Explore the cutting-edge technologies that power innovation and creativity in modern development (अनुवाद आवश्यकता)"
     }
   ],
   "technology-hero-title": [
     {
       "type": 0,
-      "value": "Tech Arsenal"
+      "value": "Tech Arsenal (अनुवाद आवश्यकता)"
     }
   ],
   "technology-leading-tech-created": [
     {
       "type": 0,
-      "value": "Leading Tech Stack created"
+      "value": "Leading Tech Stack created (अनुवाद आवश्यकता)"
     }
   ],
   "technology-leading-tech-subtitle": [
     {
       "type": 0,
-      "value": "The pioneering technologies that define the future of development"
+      "value": "The pioneering technologies that define the future of development (अनुवाद आवश्यकता)"
     }
   ],
   "technology-leading-tech-title": [
     {
       "type": 0,
-      "value": "Leading Technologies"
+      "value": "Leading Technologies (अनुवाद आवश्यकता)"
     }
   ],
   "technology-multiverse-description": [
     {
       "type": 0,
-      "value": "Navigate through infinite dimensions where technology transcends reality. Experience the convergence of AI, quantum computing, and digital consciousness."
+      "value": "Navigate through infinite dimensions where technology transcends reality. Experience the convergence of AI, quantum computing, and digital consciousness. (अनुवाद आवश्यकता)"
     }
   ],
   "technology-multiverse-subtitle": [
     {
       "type": 0,
-      "value": "Digital Multiverse Explorer"
+      "value": "Digital Multiverse Explorer (अनुवाद आवश्यकता)"
     }
   ],
   "technology-multiverse-title": [
     {
       "type": 0,
-      "value": "TECH∞"
+      "value": "TECH∞ (अनुवाद आवश्यकता)"
     }
   ],
   "technology-page-description-cyber": [
     {
       "type": 0,
-      "value": "Explore the high-tech, low-life world of modern technology"
+      "value": "Explore the high-tech, low-life world of modern technology (अनुवाद आवश्यकता)"
     }
   ],
   "technology-page-description-new": [
     {
       "type": 0,
-      "value": "Journey through infinite dimensions of technological innovation"
+      "value": "Journey through infinite dimensions of technological innovation (अनुवाद आवश्यकता)"
     }
   ],
   "technology-page-title-cyber": [
     {
       "type": 0,
-      "value": "Tech Grid 2077"
+      "value": "Tech Grid 2077 (अनुवाद आवश्यकता)"
     }
   ],
   "technology-page-title-new": [
     {
       "type": 0,
-      "value": "TECH∞ - Digital Multiverse Explorer"
+      "value": "TECH∞ - Digital Multiverse Explorer (अनुवाद आवश्यकता)"
     }
   ],
   "technology-quantum-chamber-subtitle": [
     {
       "type": 0,
-      "value": "Elite-tier technologies transcending dimensional boundaries"
+      "value": "Elite-tier technologies transcending dimensional boundaries (अनुवाद आवश्यकता)"
     }
   ],
   "technology-quantum-chamber-title": [
     {
       "type": 0,
-      "value": "⚡ QUANTUM CORE"
+      "value": "⚡ QUANTUM CORE (अनुवाद आवश्यकता)"
     }
   ],
   "technology-quantum-creator-subtitle": [
     {
       "type": 0,
-      "value": "Manifest new technologies into the digital multiverse"
+      "value": "Manifest new technologies into the digital multiverse (अनुवाद आवश्यकता)"
     }
   ],
   "technology-quantum-creator-title": [
     {
       "type": 0,
-      "value": "Quantum Tech Synthesizer"
+      "value": "Quantum Tech Synthesizer (अनुवाद आवश्यकता)"
     }
   ],
   "technology-quantum-elite-badge": [
     {
       "type": 0,
-      "value": "⚡ QUANTUM CORE"
+      "value": "⚡ QUANTUM CORE (अनुवाद आवश्यकता)"
     }
   ],
   "technology-realm-navigation": [
     {
       "type": 0,
-      "value": "Reality Realms"
+      "value": "Reality Realms (अनुवाद आवश्यकता)"
     }
   ],
   "technology-reset-button": [
     {
       "type": 0,
-      "value": "Reset Matrix"
+      "value": "Reset Matrix (अनुवाद आवश्यकता)"
     }
   ],
   "technology-stats-innovation": [
     {
       "type": 0,
-      "value": "100%"
+      "value": "100% (अनुवाद आवश्यकता)"
     }
   ],
   "technology-stats-innovation-label": [
     {
       "type": 0,
-      "value": "Innovation Level"
+      "value": "Innovation Level (अनुवाद आवश्यकता)"
     }
   ],
   "technology-stats-leading": [
     {
       "type": 0,
-      "value": "Leading Technologies"
+      "value": "Leading Technologies (अनुवाद आवश्यकता)"
     }
   ],
   "technology-stats-total": [
     {
       "type": 0,
-      "value": "Total Technologies"
+      "value": "Total Technologies (अनुवाद आवश्यकता)"
     }
   ],
   "technology-synthesize-button": [
     {
       "type": 0,
-      "value": "Synthesize"
+      "value": "Synthesize (अनुवाद आवश्यकता)"
     }
   ],
   "technology-tech-stack-created": [
     {
       "type": 0,
-      "value": "Tech Stack created!"
+      "value": "Tech Stack created! (अनुवाद आवश्यकता)"
     }
   ],
   "technology-tech-stack-subtitle": [
     {
       "type": 0,
-      "value": "The comprehensive toolkit for building exceptional digital experiences"
+      "value": "The comprehensive toolkit के लिए building exceptional digital experiences"
     }
   ],
   "technology-tech-stack-title": [
     {
       "type": 0,
-      "value": "Technology Stack"
+      "value": "Technology Stack (अनुवाद आवश्यकता)"
     }
   ],
   "user-profile-about-title": [
     {
       "type": 0,
-      "value": "About"
+      "value": "About (अनुवाद आवश्यकता)"
     }
   ],
   "user-profile-bio-title": [
     {
       "type": 0,
-      "value": "Bio"
+      "value": "Bio (अनुवाद आवश्यकता)"
     }
   ],
   "user-profile-contact-title": [
     {
       "type": 0,
-      "value": "Contact"
+      "value": "Contact (अनुवाद आवश्यकता)"
     }
   ],
   "user-profile-email": [
     {
       "type": 0,
-      "value": "Email"
+      "value": "ईमेल"
     }
   ],
   "user-profile-no-bio": [
     {
       "type": 0,
-      "value": "No bio available"
+      "value": "कोई bio उपलब्ध"
     }
   ],
   "user-profile-no-posts-description": [
     {
       "type": 0,
-      "value": "This user hasn't published any posts yet"
+      "value": "This user hasn't published any posts yet (अनुवाद आवश्यकता)"
     }
   ],
   "user-profile-no-posts-title": [
     {
       "type": 0,
-      "value": "No posts yet"
+      "value": "कोई posts yet"
     }
   ],
   "user-profile-stats-active": [
     {
       "type": 0,
-      "value": "Active"
+      "value": "Active (अनुवाद आवश्यकता)"
     }
   ],
   "user-profile-stats-joined": [
     {
       "type": 0,
-      "value": "Joined"
+      "value": "Joined (अनुवाद आवश्यकता)"
     }
   ],
   "user-profile-stats-posts": [
     {
       "type": 0,
-      "value": "Published Posts"
+      "value": "Published Posts (अनुवाद आवश्यकता)"
     }
   ],
   "user-profile-stats-status": [
     {
       "type": 0,
-      "value": "Status"
+      "value": "Status (अनुवाद आवश्यकता)"
     }
   ],
   "user-profile-tab-about": [
     {
       "type": 0,
-      "value": "About"
+      "value": "About (अनुवाद आवश्यकता)"
     }
   ],
   "user-profile-tab-posts": [
     {
       "type": 0,
-      "value": "Posts"
+      "value": "Posts (अनुवाद आवश्यकता)"
     }
   ],
   "user-profile-website": [
     {
       "type": 0,
-      "value": "Website"
+      "value": "Website (अनुवाद आवश्यकता)"
     }
   ],
   "userprofile-anonymous-user": [
     {
       "type": 0,
-      "value": "Anonymous User"
+      "value": "Anonymous User (अनुवाद आवश्यकता)"
     }
   ]
 }
