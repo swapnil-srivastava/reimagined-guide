@@ -1,4 +1,28 @@
 {
+  "404-go-home": [
+    {
+      "type": 0,
+      "value": "Nach Hause gehen"
+    }
+  ],
+  "404-page-not-found": [
+    {
+      "type": 0,
+      "value": "404 - Diese Seite scheint nicht zu existieren..."
+    }
+  ],
+  "address-add-failed": [
+    {
+      "type": 0,
+      "value": "Fehler beim Hinzufügen der Adresse"
+    }
+  ],
+  "address-added-success": [
+    {
+      "type": 0,
+      "value": "Adresse hinzugefügt!!"
+    }
+  ],
   "address-customer-cancel-btn": [
     {
       "type": 0,
@@ -11,52 +35,616 @@
       "value": "Speichern"
     }
   ],
+  "addressform-address-updated": [
+    {
+      "type": 0,
+      "value": "Adresse aktualisiert!!"
+    }
+  ],
+  "addressform-failed-to-update": [
+    {
+      "type": 0,
+      "value": "Fehler beim Aktualisieren der Adresse"
+    }
+  ],
   "admin-article-cancel-btn": [
     {
       "type": 0,
-      "value": "Abbrechen"
+      "value": "Löschen"
     }
   ],
   "admin-article-create-btn": [
     {
       "type": 0,
-      "value": "Erstellen"
+      "value": "Artikel Erstellen"
     }
   ],
   "admin-article-input-text": [
     {
       "type": 0,
-      "value": "Geben Sie Ihren nächsten großen Artikeltitel ein!"
+      "value": "Geben Sie den Titel Ihres nächsten großen Artikels ein!"
+    }
+  ],
+  "admin-article-placeholder": [
+    {
+      "type": 0,
+      "value": "Worum geht es in Ihrer Geschichte?"
     }
   ],
   "admin-article-sr-only-text": [
     {
       "type": 0,
-      "value": "Neuen Artikeltitel hinzufügen und den Beitrag erstellen"
+      "value": "Neuen Artikeltitel hinzufügen und Beitrag erstellen"
     }
   ],
   "admin-article-url": [
     {
       "type": 0,
-      "value": "Artikel-URL :"
+      "value": "Artikel-URL:"
+    }
+  ],
+  "admin-create-subtitle": [
+    {
+      "type": 0,
+      "value": "Teilen Sie Ihre Gedanken mit der Welt und inspirieren Sie andere mit Ihrer Geschichte"
+    }
+  ],
+  "admin-create-title": [
+    {
+      "type": 0,
+      "value": "Neuen Artikel Erstellen"
+    }
+  ],
+  "admin-empty-description": [
+    {
+      "type": 0,
+      "value": "Beginnen Sie, indem Sie Ihren ersten Beitrag erstellen"
+    }
+  ],
+  "admin-empty-drafts-description": [
+    {
+      "type": 0,
+      "value": "Erstellen Sie Ihren ersten Entwurf, um zu beginnen"
+    }
+  ],
+  "admin-empty-drafts-title": [
+    {
+      "type": 0,
+      "value": "Noch keine Artikelentwürfe"
+    }
+  ],
+  "admin-empty-published-description": [
+    {
+      "type": 0,
+      "value": "Veröffentlichen Sie Ihren ersten Entwurf, um ihn hier zu sehen"
+    }
+  ],
+  "admin-empty-published-title": [
+    {
+      "type": 0,
+      "value": "Noch keine veröffentlichten Artikel"
+    }
+  ],
+  "admin-empty-title": [
+    {
+      "type": 0,
+      "value": "Noch keine Artikel"
+    }
+  ],
+  "admin-events-access-denied-message": [
+    {
+      "type": 0,
+      "value": "Sie sind nicht berechtigt, auf diese Seite zuzugreifen. Nur der Admin-Benutzer kann Ereignisse verwalten."
+    }
+  ],
+  "admin-events-access-denied-title": [
+    {
+      "type": 0,
+      "value": "Zugriff Verweigert"
+    }
+  ],
+  "admin-events-cancel-btn": [
+    {
+      "type": 0,
+      "value": "Abbrechen"
+    }
+  ],
+  "admin-events-create-btn": [
+    {
+      "type": 0,
+      "value": "Ereignis Erstellen"
+    }
+  ],
+  "admin-events-create-first": [
+    {
+      "type": 0,
+      "value": "Erstellen Sie Ihr Erstes Ereignis"
+    }
+  ],
+  "admin-events-create-new": [
+    {
+      "type": 0,
+      "value": "Neues Ereignis Erstellen"
+    }
+  ],
+  "admin-events-create-title": [
+    {
+      "type": 0,
+      "value": "Neues Ereignis Erstellen"
+    }
+  ],
+  "admin-events-delete-btn": [
+    {
+      "type": 0,
+      "value": "Löschen"
+    }
+  ],
+  "admin-events-delete-confirm": [
+    {
+      "type": 0,
+      "value": "Sind Sie sicher, dass Sie dieses Ereignis löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden."
+    }
+  ],
+  "admin-events-delete-error": [
+    {
+      "type": 0,
+      "value": "Fehler beim Löschen des Ereignisses"
+    }
+  ],
+  "admin-events-delete-success": [
+    {
+      "type": 0,
+      "value": "Ereignis erfolgreich gelöscht!"
+    }
+  ],
+  "admin-events-delete-unexpected-error": [
+    {
+      "type": 0,
+      "value": "Ein unerwarteter Fehler ist beim Löschen des Ereignisses aufgetreten"
+    }
+  ],
+  "admin-events-description-placeholder": [
+    {
+      "type": 0,
+      "value": "Ereignisbeschreibung eingeben"
+    }
+  ],
+  "admin-events-edit-btn": [
+    {
+      "type": 0,
+      "value": "Bearbeiten"
+    }
+  ],
+  "admin-events-edit-title": [
+    {
+      "type": 0,
+      "value": "Ereignis Bearbeiten"
+    }
+  ],
+  "admin-events-empty-description": [
+    {
+      "type": 0,
+      "value": "Beginnen Sie, indem Sie Ihr erstes Ereignis erstellen"
+    }
+  ],
+  "admin-events-empty-title": [
+    {
+      "type": 0,
+      "value": "Noch keine Ereignisse"
+    }
+  ],
+  "admin-events-fetch-error": [
+    {
+      "type": 0,
+      "value": "Fehler beim Laden der Ereignisse"
+    }
+  ],
+  "admin-events-filter-all": [
+    {
+      "type": 0,
+      "value": "Alle Ereignisse"
+    }
+  ],
+  "admin-events-filter-past": [
+    {
+      "type": 0,
+      "value": "Vergangene Ereignisse"
+    }
+  ],
+  "admin-events-filter-status": [
+    {
+      "type": 0,
+      "value": "Status"
+    }
+  ],
+  "admin-events-filter-upcoming": [
+    {
+      "type": 0,
+      "value": "Bevorstehend"
+    }
+  ],
+  "admin-events-filters": [
+    {
+      "type": 0,
+      "value": "Filter"
+    }
+  ],
+  "admin-events-form-date": [
+    {
+      "type": 0,
+      "value": "Datum *"
+    }
+  ],
+  "admin-events-form-description": [
+    {
+      "type": 0,
+      "value": "Beschreibung"
+    }
+  ],
+  "admin-events-form-image": [
+    {
+      "type": 0,
+      "value": "Bild-URL"
+    }
+  ],
+  "admin-events-form-location": [
+    {
+      "type": 0,
+      "value": "Ort *"
+    }
+  ],
+  "admin-events-form-max-attendees": [
+    {
+      "type": 0,
+      "value": "Max. Teilnehmer"
+    }
+  ],
+  "admin-events-form-public": [
+    {
+      "type": 0,
+      "value": "Dieses Ereignis öffentlich machen"
+    }
+  ],
+  "admin-events-form-time": [
+    {
+      "type": 0,
+      "value": "Zeit *"
+    }
+  ],
+  "admin-events-form-title": [
+    {
+      "type": 0,
+      "value": "Ereignistitel *"
+    }
+  ],
+  "admin-events-image-placeholder": [
+    {
+      "type": 0,
+      "value": "https://beispiel.com/bild.jpg"
+    }
+  ],
+  "admin-events-location-placeholder": [
+    {
+      "type": 0,
+      "value": "Ereignisort eingeben"
+    }
+  ],
+  "admin-events-max-attendees-placeholder": [
+    {
+      "type": 0,
+      "value": "Optional"
+    }
+  ],
+  "admin-events-no-results-description": [
+    {
+      "type": 0,
+      "value": "Versuchen Sie, Ihre Suche oder Filter anzupassen"
+    }
+  ],
+  "admin-events-no-results-title": [
+    {
+      "type": 0,
+      "value": "Keine Ereignisse gefunden"
+    }
+  ],
+  "admin-events-no-session": [
+    {
+      "type": 0,
+      "value": "Keine Authentifizierungssitzung gefunden. Bitte melden Sie sich erneut an."
+    }
+  ],
+  "admin-events-page-subtitle": [
+    {
+      "type": 0,
+      "value": "Ereignisse und RSVPs verwalten"
+    }
+  ],
+  "admin-events-page-title": [
+    {
+      "type": 0,
+      "value": "Admin-Ereignisse"
+    }
+  ],
+  "admin-events-public": [
+    {
+      "type": 0,
+      "value": "Öffentliche Ereignisse"
+    }
+  ],
+  "admin-events-saving": [
+    {
+      "type": 0,
+      "value": "Speichern..."
+    }
+  ],
+  "admin-events-search-placeholder": [
+    {
+      "type": 0,
+      "value": "Ereignisse suchen..."
+    }
+  ],
+  "admin-events-sort-asc": [
+    {
+      "type": 0,
+      "value": "Älteste Zuerst"
+    }
+  ],
+  "admin-events-sort-by": [
+    {
+      "type": 0,
+      "value": "Sortieren Nach"
+    }
+  ],
+  "admin-events-sort-date": [
+    {
+      "type": 0,
+      "value": "Datum"
+    }
+  ],
+  "admin-events-sort-desc": [
+    {
+      "type": 0,
+      "value": "Neueste Zuerst"
+    }
+  ],
+  "admin-events-sort-order": [
+    {
+      "type": 0,
+      "value": "Reihenfolge"
+    }
+  ],
+  "admin-events-sort-title": [
+    {
+      "type": 0,
+      "value": "Titel"
+    }
+  ],
+  "admin-events-submit-error": [
+    {
+      "type": 0,
+      "value": "Fehler beim Speichern des Ereignisses"
+    }
+  ],
+  "admin-events-submit-unexpected-error": [
+    {
+      "type": 0,
+      "value": "Ein unerwarteter Fehler ist beim Speichern des Ereignisses aufgetreten"
+    }
+  ],
+  "admin-events-subtitle": [
+    {
+      "type": 0,
+      "value": "Erstellen und verwalten Sie Ihre Ereignisse"
+    }
+  ],
+  "admin-events-title": [
+    {
+      "type": 0,
+      "value": "Ereignisverwaltung"
+    }
+  ],
+  "admin-events-title-placeholder": [
+    {
+      "type": 0,
+      "value": "Ereignistitel eingeben"
+    }
+  ],
+  "admin-events-total": [
+    {
+      "type": 0,
+      "value": "Gesamte Ereignisse"
+    }
+  ],
+  "admin-events-unauthorized": [
+    {
+      "type": 0,
+      "value": "Sie sind nicht berechtigt, diese Aktion auszuführen"
+    }
+  ],
+  "admin-events-unexpected-error": [
+    {
+      "type": 0,
+      "value": "Ein unerwarteter Fehler ist aufgetreten"
+    }
+  ],
+  "admin-events-upcoming": [
+    {
+      "type": 0,
+      "value": "Bevorstehend"
+    }
+  ],
+  "admin-events-update-btn": [
+    {
+      "type": 0,
+      "value": "Ereignis Aktualisieren"
+    }
+  ],
+  "admin-mobile-tip-1": [
+    {
+      "type": 0,
+      "value": "Halten Sie Ihren Titel klar und beschreibend"
+    }
+  ],
+  "admin-mobile-tip-2": [
+    {
+      "type": 0,
+      "value": "Verwenden Sie Schlüsselwörter, nach denen Leser suchen könnten"
+    }
+  ],
+  "admin-mobile-tip-3": [
+    {
+      "type": 0,
+      "value": "Zielen Sie auf 6-12 Wörter für optimales Engagement ab"
+    }
+  ],
+  "admin-mobile-tips-title": [
+    {
+      "type": 0,
+      "value": "Schreibtipps"
+    }
+  ],
+  "admin-post-created-success": [
+    {
+      "type": 0,
+      "value": "Beitrag erstellt!"
+    }
+  ],
+  "admin-readability-good": [
+    {
+      "type": 0,
+      "value": "Gut"
+    }
+  ],
+  "admin-readability-needs-work": [
+    {
+      "type": 0,
+      "value": "Verbesserungsbedürftig"
     }
   ],
   "admin-slug-save-btn": [
     {
       "type": 0,
-      "value": "Änderungen speichern"
+      "value": "Änderungen Speichern"
+    }
+  ],
+  "admin-stats-characters": [
+    {
+      "type": 0,
+      "value": "Zeichen"
+    }
+  ],
+  "admin-stats-drafts": [
+    {
+      "type": 0,
+      "value": "Entwürfe"
+    }
+  ],
+  "admin-stats-published": [
+    {
+      "type": 0,
+      "value": "Veröffentlicht"
+    }
+  ],
+  "admin-stats-readability": [
+    {
+      "type": 0,
+      "value": "Lesbarkeit"
+    }
+  ],
+  "admin-stats-sidebar-title": [
+    {
+      "type": 0,
+      "value": "Artikel-Statistiken"
+    }
+  ],
+  "admin-stats-total": [
+    {
+      "type": 0,
+      "value": "Gesamte Beiträge"
+    }
+  ],
+  "admin-stats-words": [
+    {
+      "type": 0,
+      "value": "Wörter"
+    }
+  ],
+  "admin-subtitle": [
+    {
+      "type": 0,
+      "value": "Erstellen, bearbeiten und veröffentlichen Sie Ihre Artikel"
+    }
+  ],
+  "admin-tab-all-posts": [
+    {
+      "type": 0,
+      "value": "Alle Beiträge"
+    }
+  ],
+  "admin-tab-drafts-posts": [
+    {
+      "type": 0,
+      "value": "Entwürfe"
+    }
+  ],
+  "admin-tab-published-posts": [
+    {
+      "type": 0,
+      "value": "Veröffentlicht"
+    }
+  ],
+  "admin-tip-1": [
+    {
+      "type": 0,
+      "value": "Halten Sie Ihren Titel klar und beschreibend"
+    }
+  ],
+  "admin-tip-2": [
+    {
+      "type": 0,
+      "value": "Verwenden Sie Schlüsselwörter, nach denen Leser suchen könnten"
+    }
+  ],
+  "admin-tip-3": [
+    {
+      "type": 0,
+      "value": "Zielen Sie auf 6-12 Wörter für optimales Engagement ab"
+    }
+  ],
+  "admin-tip-4": [
+    {
+      "type": 0,
+      "value": "Machen Sie es verlockend genug zum Klicken"
+    }
+  ],
+  "admin-tips-title": [
+    {
+      "type": 0,
+      "value": "Schreibtipps"
     }
   ],
   "admin-title": [
     {
       "type": 0,
-      "value": "Ihre Beiträge verwalten"
+      "value": "Verwalten Sie Ihre Beiträge"
     }
   ],
   "admin-username-article-url": [
     {
       "type": 0,
-      "value": "Artikel-URL :"
+      "value": "Artikel-URL:"
+    }
+  ],
+  "admin-validation-error": [
+    {
+      "type": 0,
+      "value": "Titel muss 4-100 Zeichen lang sein"
+    }
+  ],
+  "admin-validation-success": [
+    {
+      "type": 0,
+      "value": "Titel sieht perfekt aus!"
     }
   ],
   "animation.string1": [
@@ -80,19 +668,19 @@
   "animation.string4": [
     {
       "type": 0,
-      "value": "ein Füllsack-Ingenieur"
+      "value": "ein Full-Stack-Ingenieur"
     }
   ],
   "animation.string5": [
     {
       "type": 0,
-      "value": "Einen technischen Leiter"
+      "value": "ein Tech-Lead"
     }
   ],
   "animation.string6": [
     {
       "type": 0,
-      "value": "Ein Architekt!"
+      "value": "ein Architekt"
     }
   ],
   "animation.string7": [
@@ -101,10 +689,446 @@
       "value": "ein Lösungsarchitekt"
     }
   ],
+  "approve-clear-search": [
+    {
+      "type": 0,
+      "value": "Suche löschen"
+    }
+  ],
+  "approve-empty-approved-description": [
+    {
+      "type": 0,
+      "value": "Genehmigte Beiträge werden hier angezeigt"
+    }
+  ],
+  "approve-empty-approved-title": [
+    {
+      "type": 0,
+      "value": "Noch keine genehmigten Beiträge"
+    }
+  ],
+  "approve-empty-description": [
+    {
+      "type": 0,
+      "value": "Kein Inhalt für Moderation verfügbar"
+    }
+  ],
+  "approve-empty-pending-description": [
+    {
+      "type": 0,
+      "value": "Alle Beiträge wurden überprüft"
+    }
+  ],
+  "approve-empty-pending-title": [
+    {
+      "type": 0,
+      "value": "Keine Beiträge zur Überprüfung"
+    }
+  ],
+  "approve-empty-title": [
+    {
+      "type": 0,
+      "value": "Keine Beiträge zu überprüfen"
+    }
+  ],
+  "approve-loading": [
+    {
+      "type": 0,
+      "value": "Lade Beiträge..."
+    }
+  ],
+  "approve-no-search-results-description": [
+    {
+      "type": 0,
+      "value": "Versuchen Sie, Ihre Suchbegriffe anzupassen"
+    }
+  ],
+  "approve-no-search-results-title": [
+    {
+      "type": 0,
+      "value": "Keine Ergebnisse gefunden"
+    }
+  ],
+  "approve-search-placeholder": [
+    {
+      "type": 0,
+      "value": "Beiträge suchen..."
+    }
+  ],
+  "approve-search-results": [
+    {
+      "type": 0,
+      "value": "Zeige "
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ergebnis"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ergebnisse"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " für \""
+    },
+    {
+      "type": 1,
+      "value": "searchTerm"
+    },
+    {
+      "type": 0,
+      "value": "\""
+    }
+  ],
+  "approve-stats-approved": [
+    {
+      "type": 0,
+      "value": "Genehmigt"
+    }
+  ],
+  "approve-stats-pending": [
+    {
+      "type": 0,
+      "value": "Ausstehend"
+    }
+  ],
+  "approve-stats-total": [
+    {
+      "type": 0,
+      "value": "Gesamte Beiträge"
+    }
+  ],
+  "approve-subtitle": [
+    {
+      "type": 0,
+      "value": "Überprüfen und genehmigen Sie von Benutzern übermittelte Inhalte"
+    }
+  ],
+  "approve-tab-all": [
+    {
+      "type": 0,
+      "value": "Alle Beiträge"
+    }
+  ],
+  "approve-tab-approved": [
+    {
+      "type": 0,
+      "value": "Genehmigt"
+    }
+  ],
+  "approve-tab-pending": [
+    {
+      "type": 0,
+      "value": "Zur Überprüfung"
+    }
+  ],
+  "approve-title": [
+    {
+      "type": 0,
+      "value": "Inhaltsmoderation"
+    }
+  ],
+  "audio-uploader-upload-label": [
+    {
+      "type": 0,
+      "value": "Audio-Datei Hochladen"
+    }
+  ],
+  "audioplayer-backward-5-seconds": [
+    {
+      "type": 0,
+      "value": "5 Sekunden zurück"
+    }
+  ],
+  "audioplayer-forward-5-seconds": [
+    {
+      "type": 0,
+      "value": "5 Sekunden vor"
+    }
+  ],
+  "audioplayer-mute": [
+    {
+      "type": 0,
+      "value": "Stumm"
+    }
+  ],
+  "audioplayer-unmute": [
+    {
+      "type": 0,
+      "value": "Ton ein"
+    }
+  ],
+  "audioplayer-volume-aria": [
+    {
+      "type": 0,
+      "value": "Lautstärke"
+    }
+  ],
+  "audioplayer-volume-slider-aria": [
+    {
+      "type": 0,
+      "value": "Lautstärke"
+    }
+  ],
+  "auth-check-email-verification": [
+    {
+      "type": 0,
+      "value": "Bitte überprüfen Sie Ihre E-Mail für den Bestätigungslink!"
+    }
+  ],
   "auth-check-fallback": [
     {
       "type": 0,
-      "value": "Du musst eingeloggt sein"
+      "value": "Sie müssen angemeldet sein"
+    }
+  ],
+  "auth-checking-username": [
+    {
+      "type": 0,
+      "value": "Überprüfung..."
+    }
+  ],
+  "auth-choose-username-subtitle": [
+    {
+      "type": 0,
+      "value": "Dies wird Ihr eindeutiger Identifikator und Ihre Profil-URL sein"
+    }
+  ],
+  "auth-choose-username-title": [
+    {
+      "type": 0,
+      "value": "Wählen Sie Ihren Benutzernamen"
+    }
+  ],
+  "auth-confirm-password-label": [
+    {
+      "type": 0,
+      "value": "Passwort bestätigen"
+    }
+  ],
+  "auth-confirm-password-placeholder": [
+    {
+      "type": 0,
+      "value": "Bestätigen Sie Ihr Passwort"
+    }
+  ],
+  "auth-continue-google": [
+    {
+      "type": 0,
+      "value": "Mit Google fortfahren"
+    }
+  ],
+  "auth-continue-to-profile": [
+    {
+      "type": 0,
+      "value": "Zum Profil fortfahren"
+    }
+  ],
+  "auth-email-label": [
+    {
+      "type": 0,
+      "value": "E-Mail-Adresse"
+    }
+  ],
+  "auth-email-placeholder": [
+    {
+      "type": 0,
+      "value": "Geben Sie Ihre E-Mail ein"
+    }
+  ],
+  "auth-email-verified-success": [
+    {
+      "type": 0,
+      "value": "Ihre E-Mail wurde erfolgreich verifiziert!"
+    }
+  ],
+  "auth-error-generic": [
+    {
+      "type": 0,
+      "value": "Etwas ist schief gelaufen. Bitte versuchen Sie es erneut."
+    }
+  ],
+  "auth-go-to-dashboard": [
+    {
+      "type": 0,
+      "value": "Zum Dashboard"
+    }
+  ],
+  "auth-google-error": [
+    {
+      "type": 0,
+      "value": "Google-Anmeldung fehlgeschlagen. Bitte versuchen Sie es erneut."
+    }
+  ],
+  "auth-or-divider": [
+    {
+      "type": 0,
+      "value": "oder"
+    }
+  ],
+  "auth-password-label": [
+    {
+      "type": 0,
+      "value": "Passwort"
+    }
+  ],
+  "auth-password-mismatch": [
+    {
+      "type": 0,
+      "value": "Passwörter stimmen nicht überein"
+    }
+  ],
+  "auth-password-placeholder": [
+    {
+      "type": 0,
+      "value": "Geben Sie Ihr Passwort ein"
+    }
+  ],
+  "auth-profile-preview": [
+    {
+      "type": 0,
+      "value": "Ihr Profil wird verfügbar sein unter:"
+    }
+  ],
+  "auth-sign-in-success": [
+    {
+      "type": 0,
+      "value": "Willkommen zurück!"
+    }
+  ],
+  "auth-sign-out": [
+    {
+      "type": 0,
+      "value": "Abmelden"
+    }
+  ],
+  "auth-signed-in-message": [
+    {
+      "type": 0,
+      "value": "Sie sind erfolgreich angemeldet"
+    }
+  ],
+  "auth-signout-error": [
+    {
+      "type": 0,
+      "value": "Fehler beim Abmelden. Bitte versuchen Sie es erneut."
+    }
+  ],
+  "auth-signout-success": [
+    {
+      "type": 0,
+      "value": "Sie wurden erfolgreich abgemeldet!"
+    }
+  ],
+  "auth-signup-success": [
+    {
+      "type": 0,
+      "value": "Konto erfolgreich erstellt!"
+    }
+  ],
+  "auth-username-available": [
+    {
+      "type": 1,
+      "value": "username"
+    },
+    {
+      "type": 0,
+      "value": " ist verfügbar!"
+    }
+  ],
+  "auth-username-help": [
+    {
+      "type": 0,
+      "value": "Sie können dies später in Ihren Profileinstellungen ändern"
+    }
+  ],
+  "auth-username-label": [
+    {
+      "type": 0,
+      "value": "Benutzername"
+    }
+  ],
+  "auth-username-placeholder": [
+    {
+      "type": 0,
+      "value": "ihr-benutzername"
+    }
+  ],
+  "auth-username-requirements": [
+    {
+      "type": 0,
+      "value": "3-15 Zeichen, nur Buchstaben, Zahlen, Punkte und Unterstriche"
+    }
+  ],
+  "auth-username-taken": [
+    {
+      "type": 0,
+      "value": "Dieser Benutzername ist vergeben!"
+    }
+  ],
+  "auth-username-update-error": [
+    {
+      "type": 0,
+      "value": "Fehler beim Aktualisieren des Benutzernamens. Bitte versuchen Sie es erneut."
+    }
+  ],
+  "auth-username-updated": [
+    {
+      "type": 0,
+      "value": "Benutzername erfolgreich aktualisiert!"
+    }
+  ],
+  "auth-welcome-back": [
+    {
+      "type": 0,
+      "value": "Willkommen zurück, "
+    },
+    {
+      "type": 1,
+      "value": "username"
+    },
+    {
+      "type": 0,
+      "value": "!"
+    }
+  ],
+  "auth-welcome-verified": [
+    {
+      "type": 0,
+      "value": "Willkommen "
+    },
+    {
+      "type": 1,
+      "value": "name"
+    },
+    {
+      "type": 0,
+      "value": "!"
     }
   ],
   "calculate-total-delivery-cost-text": [
@@ -131,64 +1155,120 @@
       "value": "Gesamt:"
     }
   ],
-  "card_live": [
+  "calendar-button-add-to-calendar": [
     {
       "type": 0,
-      "value": " Wörter"
+      "value": "Zum Kalender Hinzufügen"
     }
   ],
-  "card_mins_read": [
+  "cancel-cancelled": [
     {
       "type": 0,
-      "value": "min. lesen"
+      "value": "Abgebrochen"
     }
   ],
-  "card_unpublished": [
+  "cancel-go-home": [
     {
       "type": 0,
-      "value": "Unveröffentlicht"
+      "value": "Nach Hause gehen"
     }
   ],
-  "card_words": [
+  "cart-add-address": [
     {
       "type": 0,
-      "value": "Worte"
+      "value": "Adresse Hinzufügen"
     }
   ],
-  "cart-heading": [
+  "cart-continue-shopping": [
     {
       "type": 0,
-      "value": "Warenkorb"
+      "value": "Einkauf Fortsetzen"
+    }
+  ],
+  "cart-items-count": [
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Artikel"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Artikel"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " in Ihrem Warenkorb"
+    }
+  ],
+  "cart-no-address": [
+    {
+      "type": 0,
+      "value": "Keine Lieferadresse hinzugefügt"
+    }
+  ],
+  "cart-order-summary": [
+    {
+      "type": 0,
+      "value": "Bestellübersicht"
     }
   ],
   "cart-page-address-card-heading": [
     {
       "type": 0,
-      "value": "Anschrift"
+      "value": "Lieferadresse"
     }
   ],
   "cart-page-checkout-btn": [
     {
       "type": 0,
-      "value": "Kaufen"
+      "value": "Zur Kasse"
     }
   ],
   "cart-page-delivery-cards-heading": [
     {
       "type": 0,
-      "value": "Lieferung"
+      "value": "Lieferoptionen"
     }
   ],
   "cart-page-empty-cart": [
     {
       "type": 0,
-      "value": "Bitte fügen Sie Artikel in den Warenkorb"
+      "value": "Bitte fügen Sie Artikel in den Warenkorb hinzu"
+    }
+  ],
+  "cart-page-empty-cart-title": [
+    {
+      "type": 0,
+      "value": "Ihr Warenkorb ist leer"
     }
   ],
   "cart-page-no-products-redirect-btn": [
     {
       "type": 0,
-      "value": "Produktseite öffnen"
+      "value": "Zur Produktseite"
     }
   ],
   "cart-page-shopping-cart-card-heading": [
@@ -197,46 +1277,224 @@
       "value": "Warenkorb"
     }
   ],
-  "cart-page-subtotal-heading": [
+  "checkout-complete-order": [
     {
       "type": 0,
-      "value": "Zwischensumme"
+      "value": "Bestellung Abschließen"
     }
   ],
-  "checkout-heading": [
+  "checkout-delivery-address": [
     {
       "type": 0,
-      "value": "Kasse"
+      "value": "Lieferadresse"
+    }
+  ],
+  "checkout-delivery-cost": [
+    {
+      "type": 0,
+      "value": "Lieferung:"
+    }
+  ],
+  "checkout-delivery-method": [
+    {
+      "type": 0,
+      "value": "Liefermethode"
+    }
+  ],
+  "checkout-empty-cart": [
+    {
+      "type": 0,
+      "value": "Ihr Warenkorb ist leer"
+    }
+  ],
+  "checkout-empty-cart-description": [
+    {
+      "type": 0,
+      "value": "Fügen Sie einige großartige Produkte zu Ihrem Warenkorb hinzu und kommen Sie zurück, um Ihre Bestellung abzuschließen. Wir haben tolle Angebote für Sie!"
+    }
+  ],
+  "checkout-error": [
+    {
+      "type": 0,
+      "value": "Fehler beim Starten der Kasse"
+    }
+  ],
+  "checkout-free-delivery": [
+    {
+      "type": 0,
+      "value": "KOSTENLOS"
+    }
+  ],
+  "checkout-go-shopping": [
+    {
+      "type": 0,
+      "value": "Einkaufen Gehen"
+    }
+  ],
+  "checkout-item-each": [
+    {
+      "type": 0,
+      "value": "je"
+    }
+  ],
+  "checkout-item-quantity-label": [
+    {
+      "type": 0,
+      "value": "Menge: "
+    },
+    {
+      "type": 1,
+      "value": "count"
+    }
+  ],
+  "checkout-item-subtotal": [
+    {
+      "type": 0,
+      "value": "Artikel Gesamt"
+    }
+  ],
+  "checkout-order-summary": [
+    {
+      "type": 0,
+      "value": "Bestellübersicht ("
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Artikel"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Artikel"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "checkout-page-heading": [
+    {
+      "type": 0,
+      "value": "Sichere Kasse"
+    }
+  ],
+  "checkout-payment-summary": [
+    {
+      "type": 0,
+      "value": "Zahlungsübersicht"
+    }
+  ],
+  "checkout-processing": [
+    {
+      "type": 0,
+      "value": "Verarbeitung..."
+    }
+  ],
+  "checkout-security-notice": [
+    {
+      "type": 0,
+      "value": "Ihre Zahlungsinformationen sind sicher und verschlüsselt"
+    }
+  ],
+  "checkout-ssl-secured": [
+    {
+      "type": 0,
+      "value": "SSL Gesichert"
+    }
+  ],
+  "checkout-subtotal": [
+    {
+      "type": 0,
+      "value": "Zwischensumme:"
+    }
+  ],
+  "checkout-tax": [
+    {
+      "type": 0,
+      "value": "Steuer (19%):"
+    }
+  ],
+  "checkout-total": [
+    {
+      "type": 0,
+      "value": "Gesamt:"
+    }
+  ],
+  "checkoutbutton-login-required": [
+    {
+      "type": 0,
+      "value": "Bitte melden Sie sich an, um eine neue Stripe-Checkout-Sitzung zu erstellen"
+    }
+  ],
+  "cookies-manage-preferences-aria": [
+    {
+      "type": 0,
+      "value": "Cookie-Einstellungen Verwalten"
+    }
+  ],
+  "cookies-privacy-policy-aria": [
+    {
+      "type": 0,
+      "value": "Datenschutzerklärung"
     }
   ],
   "cookies_accept_button": [
     {
       "type": 0,
-      "value": "Off-Kurs"
+      "value": "Alle Akzeptieren"
     }
   ],
   "cookies_deny_button": [
     {
       "type": 0,
-      "value": "Nein, danke!"
+      "value": "Nur Notwendige"
     }
   ],
   "cookies_description": [
     {
       "type": 0,
-      "value": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, accusamus aliquid aperiam beatae consectetur culpa dolores eum expedita, ipsam iure laboriosam nobis odit quos, sed sunt veritatis voluptas voluptate voluptatum!"
+      "value": "Wir verwenden Cookies, um Ihr Browsing-Erlebnis zu verbessern, den Site-Traffic zu analysieren und Inhalte zu personalisieren. Notwendige Cookies ermöglichen Kernfunktionalitäten, während optionale Cookies uns helfen, unsere Services zu verbessern. Durch Klicken auf 'Alle Akzeptieren' stimmen Sie unserer Verwendung von Cookies zu, wie in unserer Datenschutzerklärung beschrieben."
     }
   ],
   "cookies_heading": [
     {
       "type": 0,
-      "value": "Wir sind die Cookies!"
+      "value": "Cookie-Einstellungen"
+    }
+  ],
+  "cookies_privacy_link": [
+    {
+      "type": 0,
+      "value": "Lesen Sie unsere Datenschutzerklärung für weitere Informationen"
     }
   ],
   "cookies_small_text": [
     {
       "type": 0,
-      "value": "Hallo da ..."
+      "value": "Ihre Privatsphäre Ist Wichtig"
     }
   ],
   "create-product-cancel-btn": [
@@ -251,10 +1509,202 @@
       "value": "Erstellen"
     }
   ],
+  "doctor-page-doctor-name": [
+    {
+      "type": 0,
+      "value": "Arztname"
+    }
+  ],
+  "dummylogin-email-label": [
+    {
+      "type": 0,
+      "value": "E-Mail-Adresse"
+    }
+  ],
+  "dummylogin-password-label": [
+    {
+      "type": 0,
+      "value": "Passwort"
+    }
+  ],
+  "dummylogin-password-placeholder": [
+    {
+      "type": 0,
+      "value": "Passwort"
+    }
+  ],
+  "dummylogin-signin-button": [
+    {
+      "type": 0,
+      "value": "Anmelden"
+    }
+  ],
   "end_of_articles": [
     {
       "type": 0,
       "value": "Ende der Artikel"
+    }
+  ],
+  "event-status-past": [
+    {
+      "type": 0,
+      "value": "Vergangenes Ereignis"
+    }
+  ],
+  "event-status-today": [
+    {
+      "type": 0,
+      "value": "Heute"
+    }
+  ],
+  "event-status-upcoming": [
+    {
+      "type": 0,
+      "value": "Bevorstehend"
+    }
+  ],
+  "favorite-button-add": [
+    {
+      "type": 0,
+      "value": "Zu Favoriten hinzufügen"
+    }
+  ],
+  "favorite-button-remove": [
+    {
+      "type": 0,
+      "value": "Aus Favoriten entfernen"
+    }
+  ],
+  "favorites-browse-products-button": [
+    {
+      "type": 0,
+      "value": "Produkte Durchsuchen"
+    }
+  ],
+  "favorites-empty-message": [
+    {
+      "type": 0,
+      "value": "Sie haben noch keine Produkte zu Ihren Favoriten hinzugefügt."
+    }
+  ],
+  "favorites-fetch-error": [
+    {
+      "type": 0,
+      "value": "Fehler beim Laden der Favoriten"
+    }
+  ],
+  "favorites-page-title": [
+    {
+      "type": 0,
+      "value": "Meine Lieblingsprodukte"
+    }
+  ],
+  "favorites-remove-error": [
+    {
+      "type": 0,
+      "value": "Fehler beim Entfernen aus Favoriten"
+    }
+  ],
+  "favorites-remove-success": [
+    {
+      "type": 0,
+      "value": "Aus Favoriten entfernt"
+    }
+  ],
+  "floating-cart-tooltip": [
+    {
+      "type": 0,
+      "value": "Warenkorb Anzeigen ("
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Artikel"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Artikel"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "footer.built-with-love": [
+    {
+      "type": 0,
+      "value": "Erstellt mit"
+    }
+  ],
+  "footer.by-swapnil": [
+    {
+      "type": 0,
+      "value": "von Swapnil Srivastava"
+    }
+  ],
+  "footer.preferences": [
+    {
+      "type": 0,
+      "value": "Einstellungen"
+    }
+  ],
+  "footer.privacy-policy": [
+    {
+      "type": 0,
+      "value": "Datenschutz"
+    }
+  ],
+  "footer.rights": [
+    {
+      "type": 0,
+      "value": "Alle Rechte vorbehalten"
+    }
+  ],
+  "footer.technology": [
+    {
+      "type": 0,
+      "value": "Tech"
+    }
+  ],
+  "heart-button-add-to-favorites": [
+    {
+      "type": 0,
+      "value": "Zu Favoriten hinzufügen"
+    }
+  ],
+  "heart-button-added-to-favorites": [
+    {
+      "type": 0,
+      "value": "Zu Favoriten hinzugefügt"
+    }
+  ],
+  "heart-button-error": [
+    {
+      "type": 0,
+      "value": "Etwas ist schief gelaufen. Bitte versuchen Sie es erneut."
     }
   ],
   "heart-button-heart": [
@@ -263,208 +1713,444 @@
       "value": "Herz"
     }
   ],
+  "heart-button-login-required": [
+    {
+      "type": 0,
+      "value": "Bitte melden Sie sich an, um Produkte in Favoriten zu speichern"
+    }
+  ],
+  "heart-button-remove-from-favorites": [
+    {
+      "type": 0,
+      "value": "Aus Favoriten entfernen"
+    }
+  ],
+  "heart-button-removed-from-favorites": [
+    {
+      "type": 0,
+      "value": "Aus Favoriten entfernt"
+    }
+  ],
+  "heartbutton-like-post-tooltip": [
+    {
+      "type": 0,
+      "value": "Gefällt Ihnen der Beitrag?"
+    }
+  ],
   "horizatal-five-tag-five-solid": [
     {
       "type": 0,
-      "value": "Führer"
+      "value": "Leader"
     }
   ],
   "horizatal-five-tag-four-outline": [
     {
       "type": 0,
-      "value": "Führer"
+      "value": "Leader"
     }
   ],
   "horizatal-five-tag-one-solid": [
     {
       "type": 0,
-      "value": "Führer"
+      "value": "Leader"
     }
   ],
   "horizatal-five-tag-six-solid": [
     {
       "type": 0,
-      "value": "Führer"
+      "value": "Leader"
     }
   ],
   "horizatal-five-tag-three-solid": [
     {
       "type": 0,
-      "value": "Führer"
+      "value": "Leader"
     }
   ],
   "horizatal-five-tag-two-outline": [
     {
       "type": 0,
-      "value": "Führer"
+      "value": "Leader"
     }
   ],
   "horizatal-four-tag-five-solid": [
     {
       "type": 0,
-      "value": "Fleißig"
+      "value": "Harte Arbeit"
     }
   ],
   "horizatal-four-tag-four-outline": [
     {
       "type": 0,
-      "value": "Fleißig"
+      "value": "Harte Arbeit"
     }
   ],
   "horizatal-four-tag-one-solid": [
     {
       "type": 0,
-      "value": "Fleißig"
+      "value": "Harte Arbeit"
     }
   ],
   "horizatal-four-tag-six-outline": [
     {
       "type": 0,
-      "value": "Fleißig"
+      "value": "Harte Arbeit"
     }
   ],
   "horizatal-four-tag-three-solid": [
     {
       "type": 0,
-      "value": "Fleißig"
+      "value": "Harte Arbeit"
     }
   ],
   "horizatal-four-tag-two-outline": [
     {
       "type": 0,
-      "value": "Fleißig"
+      "value": "Harte Arbeit"
     }
   ],
   "horizatal-one-tag-five-solid": [
     {
       "type": 0,
-      "value": "Crack Debugger"
+      "value": "Crack-Debugger"
     }
   ],
   "horizatal-one-tag-four-outline": [
     {
       "type": 0,
-      "value": "Crack Debugger"
+      "value": "Crack-Debugger"
     }
   ],
   "horizatal-one-tag-one-solid": [
     {
       "type": 0,
-      "value": "Crack Debugger"
+      "value": "Crack-Debugger"
     }
   ],
   "horizatal-one-tag-six-outline": [
     {
       "type": 0,
-      "value": "Crack Debugger"
+      "value": "Crack-Debugger"
     }
   ],
   "horizatal-one-tag-three-solid": [
     {
       "type": 0,
-      "value": "Crack Debugger"
+      "value": "Crack-Debugger"
     }
   ],
   "horizatal-one-tag-two-outline": [
     {
       "type": 0,
-      "value": "Crack Debugger"
+      "value": "Crack-Debugger"
     }
   ],
   "horizatal-three-tag-five-solid": [
     {
       "type": 0,
-      "value": "Beharrlichkeit"
+      "value": "Ausdauer"
     }
   ],
   "horizatal-three-tag-four-outline": [
     {
       "type": 0,
-      "value": "Beharrlichkeit"
+      "value": "Ausdauer"
     }
   ],
   "horizatal-three-tag-one-solid": [
     {
       "type": 0,
-      "value": "Beharrlichkeit"
+      "value": "Ausdauer"
     }
   ],
   "horizatal-three-tag-six-outline": [
     {
       "type": 0,
-      "value": "Beharrlichkeit"
+      "value": "Ausdauer"
     }
   ],
   "horizatal-three-tag-three-solid": [
     {
       "type": 0,
-      "value": "Beharrlichkeit"
+      "value": "Ausdauer"
     }
   ],
   "horizatal-three-tag-two-outline": [
     {
       "type": 0,
-      "value": "Beharrlichkeit"
+      "value": "Ausdauer"
     }
   ],
   "horizatal-two-tag-five-solid": [
     {
       "type": 0,
-      "value": "Sei innovativ"
+      "value": "Innovieren"
     }
   ],
   "horizatal-two-tag-four-outline": [
     {
       "type": 0,
-      "value": "Sei innovativ"
+      "value": "Innovieren"
     }
   ],
   "horizatal-two-tag-one-solid": [
     {
       "type": 0,
-      "value": "Sei innovativ"
+      "value": "Innovieren"
     }
   ],
   "horizatal-two-tag-six-outline": [
     {
       "type": 0,
-      "value": "Sei innovativ"
+      "value": "Innovieren"
     }
   ],
   "horizatal-two-tag-three-solid": [
     {
       "type": 0,
-      "value": "Sei innovativ"
+      "value": "Innovieren"
     }
   ],
   "horizatal-two-tag-two-outline": [
     {
       "type": 0,
-      "value": "Sei innovativ"
+      "value": "Innovieren"
+    }
+  ],
+  "imageuploader-choose-image-sr": [
+    {
+      "type": 0,
+      "value": "Bild Auswählen"
+    }
+  ],
+  "invite-coming-soon-description": [
+    {
+      "type": 0,
+      "value": "Wir arbeiten an aufregenden neuen Funktionen für Ereignisverwaltung und Gästeinteraktion. Bleiben Sie dran!"
+    }
+  ],
+  "invite-coming-soon-title": [
+    {
+      "type": 0,
+      "value": "Weitere Funktionen Kommen Bald"
+    }
+  ],
+  "invite-date-label": [
+    {
+      "type": 0,
+      "value": "Datum"
+    }
+  ],
+  "invite-event-details-mobile": [
+    {
+      "type": 0,
+      "value": "Ereignisdetails"
+    }
+  ],
+  "invite-event-details-title": [
+    {
+      "type": 0,
+      "value": "Ereignisdetails"
+    }
+  ],
+  "invite-fetch-events-error": [
+    {
+      "type": 0,
+      "value": "Fehler beim Laden der Ereignisse. Bitte versuchen Sie es erneut."
+    }
+  ],
+  "invite-hero-upcoming-count": [
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " Besondere "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ereignis"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ereignisse"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " Erwarten"
+    }
+  ],
+  "invite-hide-past-events": [
+    {
+      "type": 0,
+      "value": "Vergangene Ereignisse Ausblenden"
+    }
+  ],
+  "invite-loading": [
+    {
+      "type": 0,
+      "value": "Lade Ereignisse..."
+    }
+  ],
+  "invite-location-button": [
+    {
+      "type": 0,
+      "value": "Ort"
+    }
+  ],
+  "invite-location-label": [
+    {
+      "type": 0,
+      "value": "Ort"
+    }
+  ],
+  "invite-no-events-description": [
+    {
+      "type": 0,
+      "value": "Es gibt momentan keine bevorstehenden Ereignisse. Schauen Sie bald wieder vorbei!"
+    }
+  ],
+  "invite-no-events-title": [
+    {
+      "type": 0,
+      "value": "Keine Ereignisse Verfügbar"
+    }
+  ],
+  "invite-page-hero-subtitle": [
+    {
+      "type": 0,
+      "value": "Begleiten Sie uns bei besonderen Feiern und unvergesslichen Momenten"
+    }
+  ],
+  "invite-page-hero-title": [
+    {
+      "type": 0,
+      "value": "Sie sind Eingeladen!"
+    }
+  ],
+  "invite-past-event-label": [
+    {
+      "type": 0,
+      "value": "Vergangenes Ereignis"
+    }
+  ],
+  "invite-past-events-title": [
+    {
+      "type": 0,
+      "value": "Vergangene Ereignisse"
+    }
+  ],
+  "invite-rsvp-form-toggle": [
+    {
+      "type": 0,
+      "value": "RSVP für diese Veranstaltung"
+    }
+  ],
+  "invite-rsvp-form-toggle-past": [
+    {
+      "type": 0,
+      "value": "RSVP für vergangene Veranstaltung"
+    }
+  ],
+  "invite-show-past-events": [
+    {
+      "type": 0,
+      "value": "Vergangene Ereignisse Anzeigen"
+    }
+  ],
+  "invite-stay-tuned": [
+    {
+      "type": 0,
+      "value": "Bleiben Sie Dran"
+    }
+  ],
+  "invite-tap-for-directions": [
+    {
+      "type": 0,
+      "value": "Für Wegbeschreibung tippen"
+    }
+  ],
+  "invite-time-label": [
+    {
+      "type": 0,
+      "value": "Zeit"
+    }
+  ],
+  "invite-unexpected-error": [
+    {
+      "type": 0,
+      "value": "Ein unerwarteter Fehler ist aufgetreten. Bitte aktualisieren Sie die Seite."
+    }
+  ],
+  "invite-upcoming-events-title": [
+    {
+      "type": 0,
+      "value": "Bevorstehende Ereignisse"
     }
   ],
   "load_more_button": [
     {
       "type": 0,
-      "value": "Mehr laden"
+      "value": "Mehr Laden"
     }
   ],
   "main-title-post": [
     {
       "type": 0,
-      "value": "Die Geheimnisse enthüllen: Tauchen Sie ein in meinen neuesten Artikel"
+      "value": "Geheimnisse Enthüllen: Tauchen Sie ein in meinen neuesten Artikel"
     }
   ],
   "main_tagline": [
     {
       "type": 0,
-      "value": "TECHNOLOGIEN ... DIE MEINEN CHARAKTER BILDEN"
+      "value": "TECHNOLOGIEN ... DIE MEINEN CHARAKTER PRÄGEN"
+    }
+  ],
+  "nav-admin-events-tooltip": [
+    {
+      "type": 0,
+      "value": "Ereignisse Verwalten"
+    }
+  ],
+  "nav-bar-admin-events-text": [
+    {
+      "type": 0,
+      "value": "Ereignisse Verwalten"
     }
   ],
   "nav-bar-cart-text": [
     {
       "type": 0,
       "value": "Warenkorb"
+    }
+  ],
+  "nav-bar-favorites-text": [
+    {
+      "type": 0,
+      "value": "Favoriten"
+    }
+  ],
+  "nav-bar-invite-text": [
+    {
+      "type": 0,
+      "value": "Einladungen"
     }
   ],
   "nav-bar-login-text": [
@@ -491,10 +2177,96 @@
       "value": "Abmelden"
     }
   ],
+  "nav-dark-mode-tooltip": [
+    {
+      "type": 0,
+      "value": "Dunkler Modus"
+    }
+  ],
+  "nav-light-mode-tooltip": [
+    {
+      "type": 0,
+      "value": "Heller Modus"
+    }
+  ],
+  "nav-login-tooltip": [
+    {
+      "type": 0,
+      "value": "Anmelden"
+    }
+  ],
+  "nav-tech-stack-tooltip": [
+    {
+      "type": 0,
+      "value": "Tech-Stack"
+    }
+  ],
+  "nav-write-post-tooltip": [
+    {
+      "type": 0,
+      "value": "Einen Beitrag schreiben"
+    }
+  ],
+  "navbar-my-tutorial": [
+    {
+      "type": 0,
+      "value": "Mein Tutorial"
+    }
+  ],
+  "personalization-accept-cookies-alert": [
+    {
+      "type": 0,
+      "value": "Um Personalisierungseinstellungen zu speichern, akzeptieren Sie bitte Cookies im Cookie-Banner."
+    }
+  ],
+  "personalization_consent_required": [
+    {
+      "type": 0,
+      "value": "Um Personalisierungsfunktionen zu aktivieren, akzeptieren Sie bitte Cookies im Cookie-Banner am unteren Seitenrand."
+    }
+  ],
+  "personalization_history": [
+    {
+      "type": 0,
+      "value": "Browsing-Verlauf merken"
+    }
+  ],
+  "personalization_privacy_note": [
+    {
+      "type": 0,
+      "value": "Ihre Einstellungen werden in einem Cookie auf Ihrem Gerät gespeichert. Siehe unsere "
+    },
+    {
+      "type": 1,
+      "value": "privacyLink"
+    },
+    {
+      "type": 0,
+      "value": " für weitere Informationen."
+    }
+  ],
+  "personalization_recommendations": [
+    {
+      "type": 0,
+      "value": "Personalisierte Empfehlungen aktivieren"
+    }
+  ],
+  "personalization_title": [
+    {
+      "type": 0,
+      "value": "Personalisierungseinstellungen"
+    }
+  ],
   "post-content-auth-check-signup": [
     {
       "type": 0,
       "value": "Registrieren"
+    }
+  ],
+  "post-feed-no-parent-function": [
+    {
+      "type": 0,
+      "value": "Keine Elternfunktion"
     }
   ],
   "post-list-published": [
@@ -509,10 +2281,370 @@
       "value": "Weiterlesen"
     }
   ],
+  "postcontent-approve-button": [
+    {
+      "type": 0,
+      "value": "Genehmigen"
+    }
+  ],
+  "postcontent-copy-ready": [
+    {
+      "type": 0,
+      "value": "Kopierbereit"
+    }
+  ],
+  "postcontent-draft-status": [
+    {
+      "type": 0,
+      "value": "● Entwurf"
+    }
+  ],
+  "postcontent-edit-post-aria": [
+    {
+      "type": 0,
+      "value": "Beitrag bearbeiten"
+    }
+  ],
+  "postcontent-email-confirmation-sent": [
+    {
+      "type": 0,
+      "value": "E-Mail-Bestätigung gesendet!"
+    }
+  ],
+  "postcontent-mark-copy-ready-aria": [
+    {
+      "type": 0,
+      "value": "Als kopierbereit markieren"
+    }
+  ],
+  "postcontent-mark-web-ready-aria": [
+    {
+      "type": 0,
+      "value": "Als webbereit markieren"
+    }
+  ],
+  "postcontent-min-read": [
+    {
+      "type": 0,
+      "value": "Min. Lesezeit"
+    }
+  ],
+  "postcontent-min-read-2": [
+    {
+      "type": 0,
+      "value": "Min. Lesezeit"
+    }
+  ],
+  "postcontent-post-approved": [
+    {
+      "type": 0,
+      "value": "Beitrag erfolgreich genehmigt!"
+    }
+  ],
+  "postcontent-publish": [
+    {
+      "type": 0,
+      "value": "Veröffentlichen"
+    }
+  ],
+  "postcontent-publish-post-aria": [
+    {
+      "type": 0,
+      "value": "Beitrag veröffentlichen"
+    }
+  ],
+  "postcontent-published-status": [
+    {
+      "type": 0,
+      "value": "● Veröffentlicht"
+    }
+  ],
+  "postcontent-share-facebook": [
+    {
+      "type": 0,
+      "value": "Auf Facebook teilen"
+    }
+  ],
+  "postcontent-share-label": [
+    {
+      "type": 0,
+      "value": "Teilen:"
+    }
+  ],
+  "postcontent-share-linkedin": [
+    {
+      "type": 0,
+      "value": "Auf LinkedIn teilen"
+    }
+  ],
+  "postcontent-share-twitter": [
+    {
+      "type": 0,
+      "value": "Auf Twitter teilen"
+    }
+  ],
+  "postcontent-web-ready": [
+    {
+      "type": 0,
+      "value": "Webbereit"
+    }
+  ],
+  "postcontent-words": [
+    {
+      "type": 0,
+      "value": "Wörter"
+    }
+  ],
+  "postcontent-workflow-complete": [
+    {
+      "type": 0,
+      "value": "2/4 Abgeschlossen"
+    }
+  ],
+  "postcontent-workflow-progress": [
+    {
+      "type": 0,
+      "value": "Workflow-Fortschritt"
+    }
+  ],
+  "postfeed-min-read": [
+    {
+      "type": 0,
+      "value": "Min. Lesezeit"
+    }
+  ],
+  "postfeed-no-posts": [
+    {
+      "type": 0,
+      "value": "Keine Beiträge verfügbar"
+    }
+  ],
+  "postfeed-status-draft": [
+    {
+      "type": 0,
+      "value": "Entwurf"
+    }
+  ],
+  "postfeed-status-live": [
+    {
+      "type": 0,
+      "value": "Live"
+    }
+  ],
+  "postfeed-words": [
+    {
+      "type": 0,
+      "value": "Wörter"
+    }
+  ],
   "posts_list_end": [
     {
       "type": 0,
-      "value": "Keine Artikel mehr"
+      "value": "Keine weiteren Artikel"
+    }
+  ],
+  "preferences.back_to_home": [
+    {
+      "type": 0,
+      "value": "Zurück zur Startseite"
+    }
+  ],
+  "preferences.intro": [
+    {
+      "type": 0,
+      "value": "Passen Sie Ihr Erlebnis auf unserer Plattform an, indem Sie Ihre Personalisierungseinstellungen anpassen. Diese Einstellungen werden entsprechend Ihren Cookie-Einstellungen gespeichert."
+    }
+  ],
+  "preferences.title": [
+    {
+      "type": 0,
+      "value": "Benutzereinstellungen"
+    }
+  ],
+  "pricing-advanced-seo-setup": [
+    {
+      "type": 0,
+      "value": "Erweiterte SEO-Einrichtung"
+    }
+  ],
+  "pricing-basic-1-hour-call": [
+    {
+      "type": 0,
+      "value": "1-Stunden-Anruf"
+    }
+  ],
+  "pricing-basic-consultation-subtitle": [
+    {
+      "type": 0,
+      "value": "Ideal Für: Kleine Unternehmen und Startups, die grundlegende Beratung benötigen"
+    }
+  ],
+  "pricing-basic-consultation-title": [
+    {
+      "type": 0,
+      "value": "Grundberatung"
+    }
+  ],
+  "pricing-basic-email-support": [
+    {
+      "type": 0,
+      "value": "Follow-up E-Mail-Support"
+    }
+  ],
+  "pricing-basic-initial-audit": [
+    {
+      "type": 0,
+      "value": "Erste Website-Prüfung"
+    }
+  ],
+  "pricing-basic-package-subtitle": [
+    {
+      "type": 0,
+      "value": "Ideal Für: Wachsende Unternehmen, die ihre Online-Präsenz optimieren möchten."
+    }
+  ],
+  "pricing-basic-package-title": [
+    {
+      "type": 0,
+      "value": "Basis-Paket"
+    }
+  ],
+  "pricing-basic-seo-recommendations": [
+    {
+      "type": 0,
+      "value": "Grundlegende SEO-Empfehlungen"
+    }
+  ],
+  "pricing-basic-seo-setup": [
+    {
+      "type": 0,
+      "value": "Grundlegende SEO-Einrichtung"
+    }
+  ],
+  "pricing-custom-website-design": [
+    {
+      "type": 0,
+      "value": "Individuelles Website-Design"
+    }
+  ],
+  "pricing-feature-custom-design": [
+    {
+      "type": 0,
+      "value": "Vollständig individuelles Design und Entwicklung"
+    }
+  ],
+  "pricing-feature-ecommerce": [
+    {
+      "type": 0,
+      "value": "Erweiterte E-Commerce-Funktionalität"
+    }
+  ],
+  "pricing-feature-seo": [
+    {
+      "type": 0,
+      "value": "Umfassendes SEO"
+    }
+  ],
+  "pricing-feature-tshirt": [
+    {
+      "type": 0,
+      "value": "Offizielles T-Shirt"
+    }
+  ],
+  "pricing-invoices-receipts-available": [
+    {
+      "type": 0,
+      "value": "Rechnungen und Belege für einfache Firmenerstattung verfügbar"
+    }
+  ],
+  "pricing-pay-once-own-forever": [
+    {
+      "type": 0,
+      "value": "Einmal zahlen, für immer besitzen"
+    }
+  ],
+  "pricing-premium-package": [
+    {
+      "type": 0,
+      "value": "Premium-Paket"
+    }
+  ],
+  "pricing-premium-package-description": [
+    {
+      "type": 0,
+      "value": "Erschließen Sie die Expertise mit einer einzigen Investition - einmal zahlen, und Ihr Erfolg ist in guten Händen."
+    }
+  ],
+  "pricing-simple-no-tricks-pricing": [
+    {
+      "type": 0,
+      "value": "Einfache Preisgestaltung ohne Tricks"
+    }
+  ],
+  "pricing-simple-website-design": [
+    {
+      "type": 0,
+      "value": "Einfaches Website-Design"
+    }
+  ],
+  "pricing-standard-package": [
+    {
+      "type": 0,
+      "value": "Standard-Paket"
+    }
+  ],
+  "pricing-standard-package-description": [
+    {
+      "type": 0,
+      "value": "Ideal Für: Unternehmen mit spezifischen, großangelegten Projekten"
+    }
+  ],
+  "pricing-title": [
+    {
+      "type": 0,
+      "value": "Wählen Sie das richtige Paket, das am besten für Sie ist!"
+    }
+  ],
+  "pricing-up-to-10-pages": [
+    {
+      "type": 0,
+      "value": "Bis zu 10 Seiten"
+    }
+  ],
+  "pricing-up-to-5-pages": [
+    {
+      "type": 0,
+      "value": "Bis zu 5 Seiten"
+    }
+  ],
+  "pricing-whats-included": [
+    {
+      "type": 0,
+      "value": "Was ist enthalten"
+    }
+  ],
+  "privacy-policy-overview-text": [
+    {
+      "type": 0,
+      "value": "Diese Datenschutz- und Cookie-Richtlinie erklärt, wie wir Ihre Informationen sammeln, verwenden und schützen, wenn Sie unsere Website besuchen. Wir verpflichten uns, die Privatsphäre und Sicherheit Ihrer Daten zu gewährleisten."
+    }
+  ],
+  "privacy-policy-overview-title": [
+    {
+      "type": 0,
+      "value": "Überblick"
+    }
+  ],
+  "privacy-policy-title": [
+    {
+      "type": 0,
+      "value": "Datenschutz- und Cookie-Richtlinie"
+    }
+  ],
+  "privacy.back_to_home": [
+    {
+      "type": 0,
+      "value": "Zurück zur Startseite"
     }
   ],
   "product-card-add-to-cart": [
@@ -521,58 +2653,1140 @@
       "value": "In den Warenkorb"
     }
   ],
+  "product-card-add-to-cart-error": [
+    {
+      "type": 0,
+      "value": "Fehler beim Hinzufügen zum Warenkorb. Bitte versuchen Sie es erneut."
+    }
+  ],
+  "product-card-added": [
+    {
+      "type": 0,
+      "value": "Hinzugefügt!"
+    }
+  ],
+  "product-card-added-to-cart-toast": [
+    {
+      "type": 1,
+      "value": "productName"
+    },
+    {
+      "type": 0,
+      "value": " zum Warenkorb hinzugefügt!"
+    }
+  ],
   "product-card-create-product": [
     {
       "type": 0,
-      "value": "Produkt erstellen"
+      "value": "Produkt Erstellen"
+    }
+  ],
+  "product-card-in-stock": [
+    {
+      "type": 0,
+      "value": "Auf Lager"
+    }
+  ],
+  "product-card-invalid-product": [
+    {
+      "type": 0,
+      "value": "Ungültiges Produkt. Bitte versuchen Sie es erneut."
+    }
+  ],
+  "product-card-no-image": [
+    {
+      "type": 0,
+      "value": "Kein Bild verfügbar"
+    }
+  ],
+  "product-card-out-of-stock": [
+    {
+      "type": 0,
+      "value": "Ausverkauft"
+    }
+  ],
+  "product-card-quick-view": [
+    {
+      "type": 0,
+      "value": "Schnellansicht"
+    }
+  ],
+  "product-detail-add-to-cart": [
+    {
+      "type": 0,
+      "value": "In den Warenkorb"
+    }
+  ],
+  "product-detail-add-to-cart-error": [
+    {
+      "type": 0,
+      "value": "Fehler beim Hinzufügen zum Warenkorb. Bitte versuchen Sie es erneut."
+    }
+  ],
+  "product-detail-added": [
+    {
+      "type": 0,
+      "value": "Hinzugefügt!"
+    }
+  ],
+  "product-detail-added-to-cart": [
+    {
+      "type": 0,
+      "value": "Zum Warenkorb hinzugefügt!"
+    }
+  ],
+  "product-detail-back": [
+    {
+      "type": 0,
+      "value": "Zurück"
+    }
+  ],
+  "product-detail-back-to-products": [
+    {
+      "type": 0,
+      "value": "Zurück zu Produkten"
+    }
+  ],
+  "product-detail-fetch-error": [
+    {
+      "type": 0,
+      "value": "Fehler beim Laden der Produktdetails. Bitte versuchen Sie es erneut."
     }
   ],
   "product-detail-heading": [
     {
       "type": 0,
-      "value": "Produkt Detail"
+      "value": "Produktdetails"
     }
   ],
-  "product-index-cart-added": [
+  "product-detail-in-stock": [
     {
       "type": 0,
-      "value": "Artikel zum Warenkorb hinzugefügt"
+      "value": "Auf Lager"
     }
   ],
-  "product-index-cart-added-redirect-btn": [
+  "product-detail-not-found": [
     {
       "type": 0,
-      "value": "Zum Warenkorb"
+      "value": "Produkt nicht gefunden"
+    }
+  ],
+  "product-detail-not-found-description": [
+    {
+      "type": 0,
+      "value": "Das gesuchte Produkt existiert nicht oder wurde entfernt."
+    }
+  ],
+  "product-detail-out-of-stock": [
+    {
+      "type": 0,
+      "value": "Ausverkauft"
+    }
+  ],
+  "product-detail-quantity": [
+    {
+      "type": 0,
+      "value": "Menge"
+    }
+  ],
+  "product-detail-related-products": [
+    {
+      "type": 0,
+      "value": "Das könnte Ihnen auch gefallen"
+    }
+  ],
+  "product-detail-stock-count": [
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " verfügbar"
+    }
+  ],
+  "product-detail-stock-level": [
+    {
+      "type": 0,
+      "value": "Lagerbestand"
+    }
+  ],
+  "product-index-cart-items-count": [
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Artikel"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Artikel"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " in Ihrem Warenkorb"
+    }
+  ],
+  "product-index-cart-ready": [
+    {
+      "type": 0,
+      "value": "Bereit zur Kasse, wenn Sie es sind"
+    }
+  ],
+  "product-index-cart-total-label": [
+    {
+      "type": 0,
+      "value": "Gesamt"
+    }
+  ],
+  "product-index-cart-view-button": [
+    {
+      "type": 0,
+      "value": "Warenkorb Anzeigen"
+    }
+  ],
+  "productcard-error-creating-product": [
+    {
+      "type": 0,
+      "value": "Fehler beim Erstellen des Produkts: "
+    },
+    {
+      "type": 1,
+      "value": "error"
+    }
+  ],
+  "productcard-error-uploading-image": [
+    {
+      "type": 0,
+      "value": "Fehler beim Hochladen des Bildes: "
+    },
+    {
+      "type": 1,
+      "value": "error"
+    }
+  ],
+  "productcard-product-created": [
+    {
+      "type": 0,
+      "value": "Produkt Erstellt!!"
+    }
+  ],
+  "products-category-label": [
+    {
+      "type": 0,
+      "value": "Kategorie"
+    }
+  ],
+  "products-clear-filters": [
+    {
+      "type": 0,
+      "value": "Filter Löschen"
+    }
+  ],
+  "products-error-loading": [
+    {
+      "type": 0,
+      "value": "Fehler beim Laden der Produkte: "
+    },
+    {
+      "type": 1,
+      "value": "error"
+    }
+  ],
+  "products-filter-all": [
+    {
+      "type": 0,
+      "value": "Alle Kategorien"
+    }
+  ],
+  "products-filter-books": [
+    {
+      "type": 0,
+      "value": "Bücher"
+    }
+  ],
+  "products-filter-clothing": [
+    {
+      "type": 0,
+      "value": "Kleidung"
+    }
+  ],
+  "products-filter-electronics": [
+    {
+      "type": 0,
+      "value": "Elektronik"
+    }
+  ],
+  "products-filter-home": [
+    {
+      "type": 0,
+      "value": "Haus & Garten"
+    }
+  ],
+  "products-filters": [
+    {
+      "type": 0,
+      "value": "Filter"
     }
   ],
   "products-heading": [
     {
       "type": 0,
-      "value": "Produkte"
+      "value": "Unsere Produkte"
+    }
+  ],
+  "products-in-stock": [
+    {
+      "type": 1,
+      "value": "inStock"
+    },
+    {
+      "type": 0,
+      "value": " auf Lager"
+    }
+  ],
+  "products-loaded-successfully": [
+    {
+      "type": 0,
+      "value": "Produkte erfolgreich geladen!"
+    }
+  ],
+  "products-price-25-50": [
+    {
+      "type": 0,
+      "value": "25€ - 50€"
+    }
+  ],
+  "products-price-50-100": [
+    {
+      "type": 0,
+      "value": "50€ - 100€"
+    }
+  ],
+  "products-price-all": [
+    {
+      "type": 0,
+      "value": "Alle Preise"
+    }
+  ],
+  "products-price-over-100": [
+    {
+      "type": 0,
+      "value": "Über 100€"
+    }
+  ],
+  "products-price-range-label": [
+    {
+      "type": 0,
+      "value": "Preisspanne"
+    }
+  ],
+  "products-price-under-25": [
+    {
+      "type": 0,
+      "value": "Unter 25€"
+    }
+  ],
+  "products-results-count": [
+    {
+      "type": 0,
+      "value": "Zeige "
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Produkt"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Produkte"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "products-search-placeholder": [
+    {
+      "type": 0,
+      "value": "Produkte suchen..."
+    }
+  ],
+  "products-search-results": [
+    {
+      "type": 0,
+      "value": "für \""
+    },
+    {
+      "type": 1,
+      "value": "searchTerm"
+    },
+    {
+      "type": 0,
+      "value": "\""
+    }
+  ],
+  "products-sort-name": [
+    {
+      "type": 0,
+      "value": "Nach Name sortieren"
+    }
+  ],
+  "products-sort-newest": [
+    {
+      "type": 0,
+      "value": "Neueste Zuerst"
+    }
+  ],
+  "products-sort-price-high": [
+    {
+      "type": 0,
+      "value": "Preis: Hoch zu Niedrig"
+    }
+  ],
+  "products-sort-price-low": [
+    {
+      "type": 0,
+      "value": "Preis: Niedrig zu Hoch"
+    }
+  ],
+  "products-subtitle": [
+    {
+      "type": 0,
+      "value": "Entdecken Sie unsere erstaunliche Sammlung sorgfältig kuratierter Produkte"
+    }
+  ],
+  "profile-cancel-button": [
+    {
+      "type": 0,
+      "value": "Abbrechen"
+    }
+  ],
+  "profile-cancel-skill-button": [
+    {
+      "type": 0,
+      "value": "Abbrechen"
+    }
+  ],
+  "profile-create-button": [
+    {
+      "type": 0,
+      "value": "Erstellen"
+    }
+  ],
+  "profile-create-skill-button": [
+    {
+      "type": 0,
+      "value": "Erstellen"
+    }
+  ],
+  "profile-experience-created": [
+    {
+      "type": 0,
+      "value": "Erfahrung erfolgreich erstellt"
+    }
+  ],
+  "profile-present": [
+    {
+      "type": 0,
+      "value": "Gegenwart"
+    }
+  ],
+  "profile-skill-created": [
+    {
+      "type": 0,
+      "value": "Fähigkeit erfolgreich erstellt"
+    }
+  ],
+  "rsvp-admin-details": [
+    {
+      "type": 0,
+      "value": "Nur Admin-Details"
+    }
+  ],
+  "rsvp-adults": [
+    {
+      "type": 0,
+      "value": "Erwachsene"
+    }
+  ],
+  "rsvp-age-breakdown": [
+    {
+      "type": 0,
+      "value": "Altersaufschlüsselung"
+    }
+  ],
+  "rsvp-all-special-requests": [
+    {
+      "type": 0,
+      "value": "Alle besonderen Wünsche"
+    }
+  ],
+  "rsvp-allergies-dietary": [
+    {
+      "type": 0,
+      "value": "Allergien und Ernährungseinschränkungen"
+    }
+  ],
+  "rsvp-attending": [
+    {
+      "type": 0,
+      "value": "Teilnehmend"
+    }
+  ],
+  "rsvp-attending-details": [
+    {
+      "type": 0,
+      "value": "Teilnahme-Details"
+    }
+  ],
+  "rsvp-children": [
+    {
+      "type": 0,
+      "value": "Kinder"
+    }
+  ],
+  "rsvp-click-to-collapse": [
+    {
+      "type": 0,
+      "value": "Zum Reduzieren klicken"
+    }
+  ],
+  "rsvp-detailed-responses": [
+    {
+      "type": 0,
+      "value": "Detaillierte Antworten"
+    }
+  ],
+  "rsvp-dietary": [
+    {
+      "type": 0,
+      "value": "Ernährungseinschränkungen:"
+    }
+  ],
+  "rsvp-fetch-error": [
+    {
+      "type": 0,
+      "value": "Fehler beim Laden der RSVPs"
+    }
+  ],
+  "rsvp-guest-names": [
+    {
+      "type": 0,
+      "value": "Gästenamen:"
+    }
+  ],
+  "rsvp-little-ones": [
+    {
+      "type": 0,
+      "value": "Kleine:"
+    }
+  ],
+  "rsvp-no-one-not-attending": [
+    {
+      "type": 0,
+      "value": "Alle nehmen teil!"
+    }
+  ],
+  "rsvp-no-responses": [
+    {
+      "type": 0,
+      "value": "Noch keine RSVP-Antworten"
+    }
+  ],
+  "rsvp-not-attending": [
+    {
+      "type": 0,
+      "value": "Nicht teilnehmend"
+    }
+  ],
+  "rsvp-not-attending-details": [
+    {
+      "type": 0,
+      "value": "Nicht teilnehmend"
+    }
+  ],
+  "rsvp-responded-on": [
+    {
+      "type": 0,
+      "value": "Geantwortet am "
+    },
+    {
+      "type": 1,
+      "value": "date"
+    }
+  ],
+  "rsvp-responses-title": [
+    {
+      "type": 0,
+      "value": "RSVP-Antworten"
+    }
+  ],
+  "rsvp-special-requests": [
+    {
+      "type": 0,
+      "value": "Besondere Wünsche:"
+    }
+  ],
+  "rsvp-summary-title": [
+    {
+      "type": 0,
+      "value": "RSVP-Zusammenfassung"
+    }
+  ],
+  "rsvp-toddlers-babies": [
+    {
+      "type": 0,
+      "value": "Kleinkinder und Babys"
+    }
+  ],
+  "rsvp-total-guests": [
+    {
+      "type": 0,
+      "value": "Gesamtgäste"
+    }
+  ],
+  "rsvp-with": [
+    {
+      "type": 0,
+      "value": "Mit:"
+    }
+  ],
+  "rsvpform-contact-optional": [
+    {
+      "type": 0,
+      "value": "(Optional)"
+    }
+  ],
+  "rsvpform-contact-section-title": [
+    {
+      "type": 0,
+      "value": "Kontaktinformationen"
+    }
+  ],
+  "rsvpform-email-label": [
+    {
+      "type": 0,
+      "value": "E-Mail"
+    }
+  ],
+  "rsvpform-family-name-label": [
+    {
+      "type": 0,
+      "value": "Familienname"
+    }
+  ],
+  "rsvpform-family-name-required": [
+    {
+      "type": 0,
+      "value": "Familienname ist erforderlich"
+    }
+  ],
+  "rsvpform-kid-age-label": [
+    {
+      "type": 0,
+      "value": "Alter"
+    }
+  ],
+  "rsvpform-kid-allergies-label": [
+    {
+      "type": 0,
+      "value": "Allergien/Ernährungsbeschränkungen"
+    }
+  ],
+  "rsvpform-kid-allergies-placeholder": [
+    {
+      "type": 0,
+      "value": "z. B. Erdnüsse, Molkerei, glutenfrei"
+    }
+  ],
+  "rsvpform-kid-name-label": [
+    {
+      "type": 0,
+      "value": "Name des Kindes"
+    }
+  ],
+  "rsvpform-kid-section-title": [
+    {
+      "type": 0,
+      "value": "Kind "
+    },
+    {
+      "type": 1,
+      "value": "index"
+    }
+  ],
+  "rsvpform-kids-section-title": [
+    {
+      "type": 0,
+      "value": "Teilnehmende Kinder"
+    }
+  ],
+  "rsvpform-message-label": [
+    {
+      "type": 0,
+      "value": "Spezielle Nachrichten oder Notizen"
+    }
+  ],
+  "rsvpform-message-placeholder": [
+    {
+      "type": 0,
+      "value": "Teilen Sie Ihre Begeisterung oder spezielle Wünsche mit..."
+    }
+  ],
+  "rsvpform-phone-label": [
+    {
+      "type": 0,
+      "value": "Rufnummer"
+    }
+  ],
+  "rsvpform-submit-error": [
+    {
+      "type": 0,
+      "value": "RSVP konnte nicht gesendet werden. Bitte versuchen Sie es erneut."
+    }
+  ],
+  "rsvpform-submit-success": [
+    {
+      "type": 0,
+      "value": "RSVP erfolgreich übermittelt! Vielen Dank für Ihre Antwort."
+    }
+  ],
+  "rsvpform-subtitle": [
+    {
+      "type": 0,
+      "value": "Lassen Sie es uns wissen, wenn Sie bei uns zu diesem besonderen Fest teilnehmen können!"
+    }
+  ],
+  "rsvpform-title": [
+    {
+      "type": 0,
+      "value": "RSVP für Event"
+    }
+  ],
+  "rsvpform-will-attend-label": [
+    {
+      "type": 0,
+      "value": "Ja, wir werden an der Veranstaltung teilnehmen!"
     }
   ],
   "secondary_tagline": [
     {
       "type": 0,
-      "value": "Schreiben.. Code.. Posten.. Schlafen.. Wiederholen"
+      "value": "SCHREIBEN .. CODIEREN .. POSTEN .. SCHLAFEN .. WIEDERHOLEN"
     }
   ],
   "secondary_tagline_description": [
     {
       "type": 0,
-      "value": "Schreiben des Artikels ... Kodierung des Codes ... Beitrag des Artikels ... endlich schlafen ... und der Zyklus wiederholt sich"
+      "value": "Den Artikel schreiben ... den Code codieren ... den Artikel posten ... endlich schlafen ... und der Zyklus wiederholt sich"
+    }
+  ],
+  "success-go-home": [
+    {
+      "type": 0,
+      "value": "Nach Hause gehen"
+    }
+  ],
+  "success-hurray": [
+    {
+      "type": 0,
+      "value": "Hurra..."
     }
   ],
   "swapnil_architect_hello": [
     {
       "type": 0,
-      "value": "Hallo, Ich bin"
+      "value": "Hallo, ich bin"
     }
   ],
   "swapnil_name": [
     {
       "type": 0,
       "value": "Swapnil Srivastava"
+    }
+  ],
+  "technology-bounty-board-subtitle": [
+    {
+      "type": 0,
+      "value": "Meistgesuchte Technologien"
+    }
+  ],
+  "technology-bounty-description": [
+    {
+      "type": 0,
+      "value": "Hochwertiges Ziel. Wesentlich für zentrale Systemoperationen. Mit Vorsicht handhaben."
+    }
+  ],
+  "technology-cancel-button": [
+    {
+      "type": 0,
+      "value": "Abbrechen"
+    }
+  ],
+  "technology-clear-button": [
+    {
+      "type": 0,
+      "value": "Löschen"
+    }
+  ],
+  "technology-create-button": [
+    {
+      "type": 0,
+      "value": "Erstellen"
+    }
+  ],
+  "technology-create-error": [
+    {
+      "type": 0,
+      "value": "Matrix-Verbindung fehlgeschlagen"
+    }
+  ],
+  "technology-create-error-cyber": [
+    {
+      "type": 0,
+      "value": "Grid-Verbindung instabil"
+    }
+  ],
+  "technology-create-success": [
+    {
+      "type": 0,
+      "value": "Technologie in die Matrix hochgeladen!"
+    }
+  ],
+  "technology-create-success-cyber": [
+    {
+      "type": 0,
+      "value": "Technologie in das Grid integriert!"
+    }
+  ],
+  "technology-cyber-creator-subtitle": [
+    {
+      "type": 0,
+      "value": "Neue Tech-Entitäten herstellen"
+    }
+  ],
+  "technology-cyber-hero-subtitle": [
+    {
+      "type": 0,
+      "value": "High Tech, Low Life"
+    }
+  ],
+  "technology-data-stream-subtitle": [
+    {
+      "type": 0,
+      "value": "Live-Feed verfügbarer Technologien"
+    }
+  ],
+  "technology-dimensional-display": [
+    {
+      "type": 0,
+      "value": "Technologie-Konstellation"
+    }
+  ],
+  "technology-dimensional-subtitle": [
+    {
+      "type": 0,
+      "value": "Navigieren Sie durch das Quantenfeld der Innovation"
+    }
+  ],
+  "technology-fabricate-button": [
+    {
+      "type": 0,
+      "value": "Herstellen"
+    }
+  ],
+  "technology-hero-subtitle": [
+    {
+      "type": 0,
+      "value": "Erkunden Sie die hochmodernen Technologien, die Innovation und Kreativität in der modernen Entwicklung antreiben"
+    }
+  ],
+  "technology-hero-title": [
+    {
+      "type": 0,
+      "value": "Tech-Arsenal"
+    }
+  ],
+  "technology-leading-tech-created": [
+    {
+      "type": 0,
+      "value": "Führender Tech-Stack erstellt"
+    }
+  ],
+  "technology-leading-tech-subtitle": [
+    {
+      "type": 0,
+      "value": "Die wegweisenden Technologien, die die Zukunft der Entwicklung definieren"
+    }
+  ],
+  "technology-leading-tech-title": [
+    {
+      "type": 0,
+      "value": "Führende Technologien"
+    }
+  ],
+  "technology-multiverse-description": [
+    {
+      "type": 0,
+      "value": "Navigieren Sie durch unendliche Dimensionen, wo Technologie die Realität überschreitet. Erleben Sie die Konvergenz von KI, Quantencomputing und digitalem Bewusstsein."
+    }
+  ],
+  "technology-multiverse-subtitle": [
+    {
+      "type": 0,
+      "value": "Digitaler Multiversum-Explorer"
+    }
+  ],
+  "technology-multiverse-title": [
+    {
+      "type": 0,
+      "value": "TECH∞"
+    }
+  ],
+  "technology-page-description-cyber": [
+    {
+      "type": 0,
+      "value": "Erkunden Sie die High-Tech, Low-Life-Welt moderner Technologie"
+    }
+  ],
+  "technology-page-description-new": [
+    {
+      "type": 0,
+      "value": "Reisen Sie durch unendliche Dimensionen technologischer Innovation"
+    }
+  ],
+  "technology-page-title-cyber": [
+    {
+      "type": 0,
+      "value": "Tech Grid 2077"
+    }
+  ],
+  "technology-page-title-new": [
+    {
+      "type": 0,
+      "value": "TECH∞ - Digitaler Multiversum-Explorer"
+    }
+  ],
+  "technology-quantum-chamber-subtitle": [
+    {
+      "type": 0,
+      "value": "Elite-Technologien, die dimensionale Grenzen überschreiten"
+    }
+  ],
+  "technology-quantum-chamber-title": [
+    {
+      "type": 0,
+      "value": "⚡ QUANTENKERN"
+    }
+  ],
+  "technology-quantum-creator-subtitle": [
+    {
+      "type": 0,
+      "value": "Neue Technologien in das digitale Multiversum manifestieren"
+    }
+  ],
+  "technology-quantum-creator-title": [
+    {
+      "type": 0,
+      "value": "Quanten-Tech-Synthesizer"
+    }
+  ],
+  "technology-quantum-elite-badge": [
+    {
+      "type": 0,
+      "value": "⚡ QUANTENKERN"
+    }
+  ],
+  "technology-realm-navigation": [
+    {
+      "type": 0,
+      "value": "Realitäts-Reiche"
+    }
+  ],
+  "technology-reset-button": [
+    {
+      "type": 0,
+      "value": "Matrix Zurücksetzen"
+    }
+  ],
+  "technology-stats-innovation": [
+    {
+      "type": 0,
+      "value": "100%"
+    }
+  ],
+  "technology-stats-innovation-label": [
+    {
+      "type": 0,
+      "value": "Innovationsgrad"
+    }
+  ],
+  "technology-stats-leading": [
+    {
+      "type": 0,
+      "value": "Führende Technologien"
+    }
+  ],
+  "technology-stats-total": [
+    {
+      "type": 0,
+      "value": "Gesamte Technologien"
+    }
+  ],
+  "technology-synthesize-button": [
+    {
+      "type": 0,
+      "value": "Synthetisieren"
+    }
+  ],
+  "technology-tech-stack-created": [
+    {
+      "type": 0,
+      "value": "Tech-Stack erstellt!"
+    }
+  ],
+  "technology-tech-stack-subtitle": [
+    {
+      "type": 0,
+      "value": "Das umfassende Toolkit zum Erstellen außergewöhnlicher digitaler Erfahrungen"
+    }
+  ],
+  "technology-tech-stack-title": [
+    {
+      "type": 0,
+      "value": "Technologie-Stack"
+    }
+  ],
+  "user-profile-about-title": [
+    {
+      "type": 0,
+      "value": "Über"
+    }
+  ],
+  "user-profile-bio-title": [
+    {
+      "type": 0,
+      "value": "Biografie"
+    }
+  ],
+  "user-profile-contact-title": [
+    {
+      "type": 0,
+      "value": "Kontakt"
+    }
+  ],
+  "user-profile-email": [
+    {
+      "type": 0,
+      "value": "E-Mail"
+    }
+  ],
+  "user-profile-no-bio": [
+    {
+      "type": 0,
+      "value": "Keine Biografie verfügbar"
+    }
+  ],
+  "user-profile-no-posts-description": [
+    {
+      "type": 0,
+      "value": "Dieser Benutzer hat noch keine Beiträge veröffentlicht"
+    }
+  ],
+  "user-profile-no-posts-title": [
+    {
+      "type": 0,
+      "value": "Noch keine Beiträge"
+    }
+  ],
+  "user-profile-stats-active": [
+    {
+      "type": 0,
+      "value": "Aktiv"
+    }
+  ],
+  "user-profile-stats-joined": [
+    {
+      "type": 0,
+      "value": "Beigetreten"
+    }
+  ],
+  "user-profile-stats-posts": [
+    {
+      "type": 0,
+      "value": "Veröffentlichte Beiträge"
+    }
+  ],
+  "user-profile-stats-status": [
+    {
+      "type": 0,
+      "value": "Status"
+    }
+  ],
+  "user-profile-tab-about": [
+    {
+      "type": 0,
+      "value": "Über"
+    }
+  ],
+  "user-profile-tab-posts": [
+    {
+      "type": 0,
+      "value": "Beiträge"
+    }
+  ],
+  "user-profile-website": [
+    {
+      "type": 0,
+      "value": "Website"
+    }
+  ],
+  "userprofile-anonymous-user": [
+    {
+      "type": 0,
+      "value": "Anonymer Benutzer"
     }
   ]
 }

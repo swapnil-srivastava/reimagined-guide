@@ -1,4 +1,28 @@
 {
+  "404-go-home": [
+    {
+      "type": 0,
+      "value": "Retourner à l'accueil"
+    }
+  ],
+  "404-page-not-found": [
+    {
+      "type": 0,
+      "value": "404 - Cette page ne semble pas exister..."
+    }
+  ],
+  "address-add-failed": [
+    {
+      "type": 0,
+      "value": "Échec de l'ajout de l'adresse"
+    }
+  ],
+  "address-added-success": [
+    {
+      "type": 0,
+      "value": "Adresse ajoutée !!"
+    }
+  ],
   "address-customer-cancel-btn": [
     {
       "type": 0,
@@ -11,22 +35,40 @@
       "value": "Sauvegarder"
     }
   ],
+  "addressform-address-updated": [
+    {
+      "type": 0,
+      "value": "Adresse mise à jour !!"
+    }
+  ],
+  "addressform-failed-to-update": [
+    {
+      "type": 0,
+      "value": "Échec de la mise à jour de l'adresse"
+    }
+  ],
   "admin-article-cancel-btn": [
     {
       "type": 0,
-      "value": "Annuler"
+      "value": "Effacer"
     }
   ],
   "admin-article-create-btn": [
     {
       "type": 0,
-      "value": "Créer"
+      "value": "Créer un Article"
     }
   ],
   "admin-article-input-text": [
     {
       "type": 0,
       "value": "Entrez le titre de votre prochain gros article !"
+    }
+  ],
+  "admin-article-placeholder": [
+    {
+      "type": 0,
+      "value": "De quoi parle votre histoire ?"
     }
   ],
   "admin-article-sr-only-text": [
@@ -41,22 +83,568 @@
       "value": "URL de l'article :"
     }
   ],
+  "admin-create-subtitle": [
+    {
+      "type": 0,
+      "value": "Partagez vos pensées avec le monde et inspirez les autres avec votre histoire"
+    }
+  ],
+  "admin-create-title": [
+    {
+      "type": 0,
+      "value": "Créer un Nouvel Article"
+    }
+  ],
+  "admin-empty-description": [
+    {
+      "type": 0,
+      "value": "Commencez par créer votre premier article"
+    }
+  ],
+  "admin-empty-drafts-description": [
+    {
+      "type": 0,
+      "value": "Créez votre premier brouillon pour commencer"
+    }
+  ],
+  "admin-empty-drafts-title": [
+    {
+      "type": 0,
+      "value": "Aucun brouillon d'article pour le moment"
+    }
+  ],
+  "admin-empty-published-description": [
+    {
+      "type": 0,
+      "value": "Publiez votre premier brouillon pour le voir ici"
+    }
+  ],
+  "admin-empty-published-title": [
+    {
+      "type": 0,
+      "value": "Aucun article publié pour le moment"
+    }
+  ],
+  "admin-empty-title": [
+    {
+      "type": 0,
+      "value": "Aucun article pour le moment"
+    }
+  ],
+  "admin-events-access-denied-message": [
+    {
+      "type": 0,
+      "value": "Vous n'êtes pas autorisé à accéder à cette page. Seul l'utilisateur administrateur peut gérer les événements."
+    }
+  ],
+  "admin-events-access-denied-title": [
+    {
+      "type": 0,
+      "value": "Accès Refusé"
+    }
+  ],
+  "admin-events-cancel-btn": [
+    {
+      "type": 0,
+      "value": "Annuler"
+    }
+  ],
+  "admin-events-create-btn": [
+    {
+      "type": 0,
+      "value": "Créer un Événement"
+    }
+  ],
+  "admin-events-create-first": [
+    {
+      "type": 0,
+      "value": "Créez Votre Premier Événement"
+    }
+  ],
+  "admin-events-create-new": [
+    {
+      "type": 0,
+      "value": "Créer un Nouvel Événement"
+    }
+  ],
+  "admin-events-create-title": [
+    {
+      "type": 0,
+      "value": "Créer un Nouvel Événement"
+    }
+  ],
+  "admin-events-delete-btn": [
+    {
+      "type": 0,
+      "value": "Supprimer"
+    }
+  ],
+  "admin-events-delete-confirm": [
+    {
+      "type": 0,
+      "value": "Êtes-vous sûr de vouloir supprimer cet événement ? Cette action ne peut pas être annulée."
+    }
+  ],
+  "admin-events-delete-error": [
+    {
+      "type": 0,
+      "value": "Échec de la suppression de l'événement"
+    }
+  ],
+  "admin-events-delete-success": [
+    {
+      "type": 0,
+      "value": "Événement supprimé avec succès !"
+    }
+  ],
+  "admin-events-delete-unexpected-error": [
+    {
+      "type": 0,
+      "value": "Une erreur inattendue s'est produite lors de la suppression de l'événement"
+    }
+  ],
+  "admin-events-description-placeholder": [
+    {
+      "type": 0,
+      "value": "Entrez la description de l'événement"
+    }
+  ],
+  "admin-events-edit-btn": [
+    {
+      "type": 0,
+      "value": "Modifier"
+    }
+  ],
+  "admin-events-edit-title": [
+    {
+      "type": 0,
+      "value": "Modifier l'Événement"
+    }
+  ],
+  "admin-events-empty-description": [
+    {
+      "type": 0,
+      "value": "Commencez par créer votre premier événement"
+    }
+  ],
+  "admin-events-empty-title": [
+    {
+      "type": 0,
+      "value": "Aucun événement pour le moment"
+    }
+  ],
+  "admin-events-fetch-error": [
+    {
+      "type": 0,
+      "value": "Échec du chargement des événements"
+    }
+  ],
+  "admin-events-filter-all": [
+    {
+      "type": 0,
+      "value": "Tous les Événements"
+    }
+  ],
+  "admin-events-filter-past": [
+    {
+      "type": 0,
+      "value": "Événements Passés"
+    }
+  ],
+  "admin-events-filter-status": [
+    {
+      "type": 0,
+      "value": "Statut"
+    }
+  ],
+  "admin-events-filter-upcoming": [
+    {
+      "type": 0,
+      "value": "À Venir"
+    }
+  ],
+  "admin-events-filters": [
+    {
+      "type": 0,
+      "value": "Filtres"
+    }
+  ],
+  "admin-events-form-date": [
+    {
+      "type": 0,
+      "value": "Date *"
+    }
+  ],
+  "admin-events-form-description": [
+    {
+      "type": 0,
+      "value": "Description"
+    }
+  ],
+  "admin-events-form-image": [
+    {
+      "type": 0,
+      "value": "URL de l'Image"
+    }
+  ],
+  "admin-events-form-location": [
+    {
+      "type": 0,
+      "value": "Lieu *"
+    }
+  ],
+  "admin-events-form-max-attendees": [
+    {
+      "type": 0,
+      "value": "Participants Maximum"
+    }
+  ],
+  "admin-events-form-public": [
+    {
+      "type": 0,
+      "value": "Rendre cet événement public"
+    }
+  ],
+  "admin-events-form-time": [
+    {
+      "type": 0,
+      "value": "Heure *"
+    }
+  ],
+  "admin-events-form-title": [
+    {
+      "type": 0,
+      "value": "Titre de l'Événement *"
+    }
+  ],
+  "admin-events-image-placeholder": [
+    {
+      "type": 0,
+      "value": "https://exemple.com/image.jpg"
+    }
+  ],
+  "admin-events-location-placeholder": [
+    {
+      "type": 0,
+      "value": "Entrez le lieu de l'événement"
+    }
+  ],
+  "admin-events-max-attendees-placeholder": [
+    {
+      "type": 0,
+      "value": "Facultatif"
+    }
+  ],
+  "admin-events-no-results-description": [
+    {
+      "type": 0,
+      "value": "Essayez d'ajuster votre recherche ou vos filtres"
+    }
+  ],
+  "admin-events-no-results-title": [
+    {
+      "type": 0,
+      "value": "Aucun événement trouvé"
+    }
+  ],
+  "admin-events-no-session": [
+    {
+      "type": 0,
+      "value": "Aucune session d'authentification trouvée. Veuillez vous connecter à nouveau."
+    }
+  ],
+  "admin-events-page-subtitle": [
+    {
+      "type": 0,
+      "value": "Gérer les événements et RSVPs"
+    }
+  ],
+  "admin-events-page-title": [
+    {
+      "type": 0,
+      "value": "Événements Admin"
+    }
+  ],
+  "admin-events-public": [
+    {
+      "type": 0,
+      "value": "Événements Publics"
+    }
+  ],
+  "admin-events-saving": [
+    {
+      "type": 0,
+      "value": "Sauvegarde..."
+    }
+  ],
+  "admin-events-search-placeholder": [
+    {
+      "type": 0,
+      "value": "Rechercher des événements..."
+    }
+  ],
+  "admin-events-sort-asc": [
+    {
+      "type": 0,
+      "value": "Plus Ancien en Premier"
+    }
+  ],
+  "admin-events-sort-by": [
+    {
+      "type": 0,
+      "value": "Trier Par"
+    }
+  ],
+  "admin-events-sort-date": [
+    {
+      "type": 0,
+      "value": "Date"
+    }
+  ],
+  "admin-events-sort-desc": [
+    {
+      "type": 0,
+      "value": "Plus Récent en Premier"
+    }
+  ],
+  "admin-events-sort-order": [
+    {
+      "type": 0,
+      "value": "Ordre"
+    }
+  ],
+  "admin-events-sort-title": [
+    {
+      "type": 0,
+      "value": "Titre"
+    }
+  ],
+  "admin-events-submit-error": [
+    {
+      "type": 0,
+      "value": "Échec de la sauvegarde de l'événement"
+    }
+  ],
+  "admin-events-submit-unexpected-error": [
+    {
+      "type": 0,
+      "value": "Une erreur inattendue s'est produite lors de la sauvegarde de l'événement"
+    }
+  ],
+  "admin-events-subtitle": [
+    {
+      "type": 0,
+      "value": "Créer et gérer vos événements"
+    }
+  ],
+  "admin-events-title": [
+    {
+      "type": 0,
+      "value": "Gestion des Événements"
+    }
+  ],
+  "admin-events-title-placeholder": [
+    {
+      "type": 0,
+      "value": "Entrez le titre de l'événement"
+    }
+  ],
+  "admin-events-total": [
+    {
+      "type": 0,
+      "value": "Total des Événements"
+    }
+  ],
+  "admin-events-unauthorized": [
+    {
+      "type": 0,
+      "value": "Vous n'êtes pas autorisé à effectuer cette action"
+    }
+  ],
+  "admin-events-unexpected-error": [
+    {
+      "type": 0,
+      "value": "Une erreur inattendue s'est produite"
+    }
+  ],
+  "admin-events-upcoming": [
+    {
+      "type": 0,
+      "value": "À Venir"
+    }
+  ],
+  "admin-events-update-btn": [
+    {
+      "type": 0,
+      "value": "Mettre à Jour l'Événement"
+    }
+  ],
+  "admin-mobile-tip-1": [
+    {
+      "type": 0,
+      "value": "Gardez votre titre clair et descriptif"
+    }
+  ],
+  "admin-mobile-tip-2": [
+    {
+      "type": 0,
+      "value": "Utilisez des mots-clés que les lecteurs pourraient rechercher"
+    }
+  ],
+  "admin-mobile-tip-3": [
+    {
+      "type": 0,
+      "value": "Visez 6-12 mots pour un engagement optimal"
+    }
+  ],
+  "admin-mobile-tips-title": [
+    {
+      "type": 0,
+      "value": "Conseils d'Écriture"
+    }
+  ],
+  "admin-post-created-success": [
+    {
+      "type": 0,
+      "value": "Article créé !"
+    }
+  ],
+  "admin-readability-good": [
+    {
+      "type": 0,
+      "value": "Bon"
+    }
+  ],
+  "admin-readability-needs-work": [
+    {
+      "type": 0,
+      "value": "À Améliorer"
+    }
+  ],
   "admin-slug-save-btn": [
     {
       "type": 0,
       "value": "Enregistrer les Modifications"
     }
   ],
+  "admin-stats-characters": [
+    {
+      "type": 0,
+      "value": "Caractères"
+    }
+  ],
+  "admin-stats-drafts": [
+    {
+      "type": 0,
+      "value": "Brouillons"
+    }
+  ],
+  "admin-stats-published": [
+    {
+      "type": 0,
+      "value": "Publiés"
+    }
+  ],
+  "admin-stats-readability": [
+    {
+      "type": 0,
+      "value": "Lisibilité"
+    }
+  ],
+  "admin-stats-sidebar-title": [
+    {
+      "type": 0,
+      "value": "Statistiques de l'Article"
+    }
+  ],
+  "admin-stats-total": [
+    {
+      "type": 0,
+      "value": "Total des Articles"
+    }
+  ],
+  "admin-stats-words": [
+    {
+      "type": 0,
+      "value": "Mots"
+    }
+  ],
+  "admin-subtitle": [
+    {
+      "type": 0,
+      "value": "Créer, modifier et publier vos articles"
+    }
+  ],
+  "admin-tab-all-posts": [
+    {
+      "type": 0,
+      "value": "Tous les Articles"
+    }
+  ],
+  "admin-tab-drafts-posts": [
+    {
+      "type": 0,
+      "value": "Brouillons"
+    }
+  ],
+  "admin-tab-published-posts": [
+    {
+      "type": 0,
+      "value": "Publiés"
+    }
+  ],
+  "admin-tip-1": [
+    {
+      "type": 0,
+      "value": "Gardez votre titre clair et descriptif"
+    }
+  ],
+  "admin-tip-2": [
+    {
+      "type": 0,
+      "value": "Utilisez des mots-clés que les lecteurs pourraient rechercher"
+    }
+  ],
+  "admin-tip-3": [
+    {
+      "type": 0,
+      "value": "Visez 6-12 mots pour un engagement optimal"
+    }
+  ],
+  "admin-tip-4": [
+    {
+      "type": 0,
+      "value": "Rendez-le assez attrayant pour cliquer"
+    }
+  ],
+  "admin-tips-title": [
+    {
+      "type": 0,
+      "value": "Conseils d'Écriture"
+    }
+  ],
   "admin-title": [
     {
       "type": 0,
-      "value": "Gérer vos messages"
+      "value": "Gérer vos Articles"
     }
   ],
   "admin-username-article-url": [
     {
       "type": 0,
-      "value": "URL de l'article :"
+      "value": "URL de l'Article :"
+    }
+  ],
+  "admin-validation-error": [
+    {
+      "type": 0,
+      "value": "Le titre doit contenir 4-100 caractères"
+    }
+  ],
+  "admin-validation-success": [
+    {
+      "type": 0,
+      "value": "Le titre semble parfait !"
     }
   ],
   "animation.string1": [
@@ -68,19 +656,19 @@
   "animation.string2": [
     {
       "type": 0,
-      "value": "un ingénieur de la Frontend"
+      "value": "un Ingénieur Frontend"
     }
   ],
   "animation.string3": [
     {
       "type": 0,
-      "value": "un ingénieur du backend"
+      "value": "un Ingénieur Backend"
     }
   ],
   "animation.string4": [
     {
       "type": 0,
-      "value": "un ingénieur fullstack"
+      "value": "un Ingénieur Full Stack"
     }
   ],
   "animation.string5": [
@@ -101,22 +689,458 @@
       "value": "un Architecte de Solutions"
     }
   ],
+  "approve-clear-search": [
+    {
+      "type": 0,
+      "value": "Effacer la recherche"
+    }
+  ],
+  "approve-empty-approved-description": [
+    {
+      "type": 0,
+      "value": "Les articles approuvés apparaîtront ici"
+    }
+  ],
+  "approve-empty-approved-title": [
+    {
+      "type": 0,
+      "value": "Aucun article approuvé pour le moment"
+    }
+  ],
+  "approve-empty-description": [
+    {
+      "type": 0,
+      "value": "Aucun contenu disponible pour la modération"
+    }
+  ],
+  "approve-empty-pending-description": [
+    {
+      "type": 0,
+      "value": "Tous les articles ont été examinés"
+    }
+  ],
+  "approve-empty-pending-title": [
+    {
+      "type": 0,
+      "value": "Aucun article en attente d'examen"
+    }
+  ],
+  "approve-empty-title": [
+    {
+      "type": 0,
+      "value": "Aucun article à examiner"
+    }
+  ],
+  "approve-loading": [
+    {
+      "type": 0,
+      "value": "Chargement des articles..."
+    }
+  ],
+  "approve-no-search-results-description": [
+    {
+      "type": 0,
+      "value": "Essayez d'ajuster vos termes de recherche"
+    }
+  ],
+  "approve-no-search-results-title": [
+    {
+      "type": 0,
+      "value": "Aucun résultat trouvé"
+    }
+  ],
+  "approve-search-placeholder": [
+    {
+      "type": 0,
+      "value": "Rechercher des articles..."
+    }
+  ],
+  "approve-search-results": [
+    {
+      "type": 0,
+      "value": "Affichage de "
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "résultat"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "résultats"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " pour \""
+    },
+    {
+      "type": 1,
+      "value": "searchTerm"
+    },
+    {
+      "type": 0,
+      "value": "\""
+    }
+  ],
+  "approve-stats-approved": [
+    {
+      "type": 0,
+      "value": "Approuvés"
+    }
+  ],
+  "approve-stats-pending": [
+    {
+      "type": 0,
+      "value": "En Attente"
+    }
+  ],
+  "approve-stats-total": [
+    {
+      "type": 0,
+      "value": "Total des Articles"
+    }
+  ],
+  "approve-subtitle": [
+    {
+      "type": 0,
+      "value": "Examiner et approuver le contenu soumis par les utilisateurs"
+    }
+  ],
+  "approve-tab-all": [
+    {
+      "type": 0,
+      "value": "Tous les Articles"
+    }
+  ],
+  "approve-tab-approved": [
+    {
+      "type": 0,
+      "value": "Approuvés"
+    }
+  ],
+  "approve-tab-pending": [
+    {
+      "type": 0,
+      "value": "En Attente d'Examen"
+    }
+  ],
+  "approve-title": [
+    {
+      "type": 0,
+      "value": "Modération de Contenu"
+    }
+  ],
+  "audio-uploader-upload-label": [
+    {
+      "type": 0,
+      "value": "Télécharger un Fichier Audio"
+    }
+  ],
+  "audioplayer-backward-5-seconds": [
+    {
+      "type": 0,
+      "value": "Reculer de 5 secondes"
+    }
+  ],
+  "audioplayer-forward-5-seconds": [
+    {
+      "type": 0,
+      "value": "Avancer de 5 secondes"
+    }
+  ],
+  "audioplayer-mute": [
+    {
+      "type": 0,
+      "value": "Muet"
+    }
+  ],
+  "audioplayer-unmute": [
+    {
+      "type": 0,
+      "value": "Activer le Son"
+    }
+  ],
+  "audioplayer-volume-aria": [
+    {
+      "type": 0,
+      "value": "Volume"
+    }
+  ],
+  "audioplayer-volume-slider-aria": [
+    {
+      "type": 0,
+      "value": "Volume"
+    }
+  ],
+  "auth-check-email-verification": [
+    {
+      "type": 0,
+      "value": "Veuillez vérifier votre email pour le lien de vérification !"
+    }
+  ],
   "auth-check-fallback": [
     {
       "type": 0,
       "value": "Vous devez être connecté"
     }
   ],
+  "auth-checking-username": [
+    {
+      "type": 0,
+      "value": "Vérification..."
+    }
+  ],
+  "auth-choose-username-subtitle": [
+    {
+      "type": 0,
+      "value": "Ce sera votre identifiant unique et l'URL de votre profil"
+    }
+  ],
+  "auth-choose-username-title": [
+    {
+      "type": 0,
+      "value": "Choisissez votre nom d'utilisateur"
+    }
+  ],
+  "auth-confirm-password-label": [
+    {
+      "type": 0,
+      "value": "Confirmer le mot de passe"
+    }
+  ],
+  "auth-confirm-password-placeholder": [
+    {
+      "type": 0,
+      "value": "Confirmez votre mot de passe"
+    }
+  ],
+  "auth-continue-google": [
+    {
+      "type": 0,
+      "value": "Continuer avec Google"
+    }
+  ],
+  "auth-continue-to-profile": [
+    {
+      "type": 0,
+      "value": "Continuer vers le Profil"
+    }
+  ],
+  "auth-email-label": [
+    {
+      "type": 0,
+      "value": "Adresse email"
+    }
+  ],
+  "auth-email-placeholder": [
+    {
+      "type": 0,
+      "value": "Entrez votre email"
+    }
+  ],
+  "auth-email-verified-success": [
+    {
+      "type": 0,
+      "value": "Votre email a été vérifié avec succès !"
+    }
+  ],
+  "auth-error-generic": [
+    {
+      "type": 0,
+      "value": "Quelque chose s'est mal passé. Veuillez réessayer."
+    }
+  ],
+  "auth-go-to-dashboard": [
+    {
+      "type": 0,
+      "value": "Aller au Tableau de Bord"
+    }
+  ],
+  "auth-google-error": [
+    {
+      "type": 0,
+      "value": "La connexion Google a échoué. Veuillez réessayer."
+    }
+  ],
+  "auth-or-divider": [
+    {
+      "type": 0,
+      "value": "ou"
+    }
+  ],
+  "auth-password-label": [
+    {
+      "type": 0,
+      "value": "Mot de passe"
+    }
+  ],
+  "auth-password-mismatch": [
+    {
+      "type": 0,
+      "value": "Les mots de passe ne correspondent pas"
+    }
+  ],
+  "auth-password-placeholder": [
+    {
+      "type": 0,
+      "value": "Entrez votre mot de passe"
+    }
+  ],
+  "auth-profile-preview": [
+    {
+      "type": 0,
+      "value": "Votre profil sera disponible à :"
+    }
+  ],
+  "auth-sign-in-success": [
+    {
+      "type": 0,
+      "value": "Bon retour !"
+    }
+  ],
+  "auth-sign-out": [
+    {
+      "type": 0,
+      "value": "Se Déconnecter"
+    }
+  ],
+  "auth-signed-in-message": [
+    {
+      "type": 0,
+      "value": "Vous êtes connecté avec succès"
+    }
+  ],
+  "auth-signout-error": [
+    {
+      "type": 0,
+      "value": "Échec de la déconnexion. Veuillez réessayer."
+    }
+  ],
+  "auth-signout-success": [
+    {
+      "type": 0,
+      "value": "Vous avez été déconnecté avec succès !"
+    }
+  ],
+  "auth-signup-success": [
+    {
+      "type": 0,
+      "value": "Compte créé avec succès !"
+    }
+  ],
+  "auth-username-available": [
+    {
+      "type": 1,
+      "value": "username"
+    },
+    {
+      "type": 0,
+      "value": " est disponible !"
+    }
+  ],
+  "auth-username-help": [
+    {
+      "type": 0,
+      "value": "Vous pouvez modifier ceci plus tard dans les paramètres de votre profil"
+    }
+  ],
+  "auth-username-label": [
+    {
+      "type": 0,
+      "value": "Nom d'utilisateur"
+    }
+  ],
+  "auth-username-placeholder": [
+    {
+      "type": 0,
+      "value": "votre-nom-utilisateur"
+    }
+  ],
+  "auth-username-requirements": [
+    {
+      "type": 0,
+      "value": "3-15 caractères, lettres, chiffres, points et underscores uniquement"
+    }
+  ],
+  "auth-username-taken": [
+    {
+      "type": 0,
+      "value": "Ce nom d'utilisateur est pris !"
+    }
+  ],
+  "auth-username-update-error": [
+    {
+      "type": 0,
+      "value": "Échec de la mise à jour du nom d'utilisateur. Veuillez réessayer."
+    }
+  ],
+  "auth-username-updated": [
+    {
+      "type": 0,
+      "value": "Nom d'utilisateur mis à jour avec succès !"
+    }
+  ],
+  "auth-welcome-back": [
+    {
+      "type": 0,
+      "value": "Bon retour, "
+    },
+    {
+      "type": 1,
+      "value": "username"
+    },
+    {
+      "type": 0,
+      "value": " !"
+    }
+  ],
+  "auth-welcome-verified": [
+    {
+      "type": 0,
+      "value": "Bienvenue "
+    },
+    {
+      "type": 1,
+      "value": "name"
+    },
+    {
+      "type": 0,
+      "value": " !"
+    }
+  ],
   "calculate-total-delivery-cost-text": [
     {
       "type": 0,
-      "value": "Frais de livraison :"
+      "value": "Coût de Livraison :"
     }
   ],
   "calculate-total-subtotal-text": [
     {
       "type": 0,
-      "value": "Sous-total :"
+      "value": "Sous-total :"
     }
   ],
   "calculate-total-tax-text": [
@@ -131,52 +1155,102 @@
       "value": "Total :"
     }
   ],
-  "card_live": [
+  "calendar-button-add-to-calendar": [
     {
       "type": 0,
-      "value": "Vivre"
+      "value": "Ajouter au Calendrier"
     }
   ],
-  "card_mins_read": [
+  "cancel-cancelled": [
     {
       "type": 0,
-      "value": "lecture min"
+      "value": "Annulé"
     }
   ],
-  "card_unpublished": [
+  "cancel-go-home": [
     {
       "type": 0,
-      "value": "Non publié"
+      "value": "Retourner à l'accueil"
     }
   ],
-  "card_words": [
+  "cart-add-address": [
     {
       "type": 0,
-      "value": "mots"
+      "value": "Ajouter une Adresse"
     }
   ],
-  "cart-heading": [
+  "cart-continue-shopping": [
     {
       "type": 0,
-      "value": "Panier"
+      "value": "Continuer les Achats"
+    }
+  ],
+  "cart-items-count": [
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "article"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "articles"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " dans votre panier"
+    }
+  ],
+  "cart-no-address": [
+    {
+      "type": 0,
+      "value": "Aucune adresse de livraison ajoutée"
+    }
+  ],
+  "cart-order-summary": [
+    {
+      "type": 0,
+      "value": "Résumé de la Commande"
     }
   ],
   "cart-page-address-card-heading": [
     {
       "type": 0,
-      "value": "Adresse"
+      "value": "Adresse de Livraison"
     }
   ],
   "cart-page-checkout-btn": [
     {
       "type": 0,
-      "value": "Paiement"
+      "value": "Procéder au Paiement"
     }
   ],
   "cart-page-delivery-cards-heading": [
     {
       "type": 0,
-      "value": "Distribution"
+      "value": "Options de Livraison"
     }
   ],
   "cart-page-empty-cart": [
@@ -185,58 +1259,242 @@
       "value": "Veuillez ajouter des articles dans le panier"
     }
   ],
+  "cart-page-empty-cart-title": [
+    {
+      "type": 0,
+      "value": "Votre panier est vide"
+    }
+  ],
   "cart-page-no-products-redirect-btn": [
     {
       "type": 0,
-      "value": "Accéder à la page produit"
+      "value": "Aller à la page des produits"
     }
   ],
   "cart-page-shopping-cart-card-heading": [
     {
       "type": 0,
-      "value": "Panier"
+      "value": "Panier d'Achats"
     }
   ],
-  "cart-page-subtotal-heading": [
+  "checkout-complete-order": [
     {
       "type": 0,
-      "value": "Sous-total "
+      "value": "Finaliser la Commande"
     }
   ],
-  "checkout-heading": [
+  "checkout-delivery-address": [
     {
       "type": 0,
-      "value": "Paiement"
+      "value": "Adresse de Livraison"
+    }
+  ],
+  "checkout-delivery-cost": [
+    {
+      "type": 0,
+      "value": "Livraison :"
+    }
+  ],
+  "checkout-delivery-method": [
+    {
+      "type": 0,
+      "value": "Mode de Livraison"
+    }
+  ],
+  "checkout-empty-cart": [
+    {
+      "type": 0,
+      "value": "Votre panier est vide"
+    }
+  ],
+  "checkout-empty-cart-description": [
+    {
+      "type": 0,
+      "value": "Ajoutez quelques produits incroyables à votre panier et revenez pour finaliser votre commande. Nous avons de super offres qui vous attendent !"
+    }
+  ],
+  "checkout-error": [
+    {
+      "type": 0,
+      "value": "Erreur lors du démarrage du paiement"
+    }
+  ],
+  "checkout-free-delivery": [
+    {
+      "type": 0,
+      "value": "GRATUIT"
+    }
+  ],
+  "checkout-go-shopping": [
+    {
+      "type": 0,
+      "value": "Commencer les Achats"
+    }
+  ],
+  "checkout-item-each": [
+    {
+      "type": 0,
+      "value": "chacun"
+    }
+  ],
+  "checkout-item-quantity-label": [
+    {
+      "type": 0,
+      "value": "Quantité : "
+    },
+    {
+      "type": 1,
+      "value": "count"
+    }
+  ],
+  "checkout-item-subtotal": [
+    {
+      "type": 0,
+      "value": "Total de l'Article"
+    }
+  ],
+  "checkout-order-summary": [
+    {
+      "type": 0,
+      "value": "Résumé de la Commande ("
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "article"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "articles"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "checkout-page-heading": [
+    {
+      "type": 0,
+      "value": "Paiement Sécurisé"
+    }
+  ],
+  "checkout-payment-summary": [
+    {
+      "type": 0,
+      "value": "Résumé du Paiement"
+    }
+  ],
+  "checkout-processing": [
+    {
+      "type": 0,
+      "value": "Traitement..."
+    }
+  ],
+  "checkout-security-notice": [
+    {
+      "type": 0,
+      "value": "Vos informations de paiement sont sécurisées et cryptées"
+    }
+  ],
+  "checkout-ssl-secured": [
+    {
+      "type": 0,
+      "value": "Sécurisé SSL"
+    }
+  ],
+  "checkout-subtotal": [
+    {
+      "type": 0,
+      "value": "Sous-total :"
+    }
+  ],
+  "checkout-tax": [
+    {
+      "type": 0,
+      "value": "Taxe (19%) :"
+    }
+  ],
+  "checkout-total": [
+    {
+      "type": 0,
+      "value": "Total :"
+    }
+  ],
+  "checkoutbutton-login-required": [
+    {
+      "type": 0,
+      "value": "Veuillez vous connecter pour créer une nouvelle session de paiement Stripe"
+    }
+  ],
+  "cookies-manage-preferences-aria": [
+    {
+      "type": 0,
+      "value": "Gérer les Préférences des Cookies"
+    }
+  ],
+  "cookies-privacy-policy-aria": [
+    {
+      "type": 0,
+      "value": "Politique de Confidentialité"
     }
   ],
   "cookies_accept_button": [
     {
       "type": 0,
-      "value": "Oui"
+      "value": "Tout Accepter"
     }
   ],
   "cookies_deny_button": [
     {
       "type": 0,
-      "value": "Non merci !"
+      "value": "Nécessaires Uniquement"
     }
   ],
   "cookies_description": [
     {
       "type": 0,
-      "value": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, accusamus aliquid aperiam beatae consectetur culpa dolores eum expedita, ipsam iure laboriosam nobis odit quos, sed sunt veritatis voluptas voluptate voluptatum!"
+      "value": "Nous utilisons des cookies pour améliorer votre expérience de navigation, analyser le trafic du site et personnaliser le contenu. Les cookies nécessaires permettent les fonctionnalités de base tandis que les cookies optionnels nous aident à améliorer nos services. En cliquant sur 'Tout Accepter', vous consentez à notre utilisation des cookies comme décrit dans notre Politique de Confidentialité."
     }
   ],
   "cookies_heading": [
     {
       "type": 0,
-      "value": "Nous sommes les cookies !"
+      "value": "Préférences des Cookies"
+    }
+  ],
+  "cookies_privacy_link": [
+    {
+      "type": 0,
+      "value": "Lisez notre Politique de Confidentialité pour plus d'informations"
     }
   ],
   "cookies_small_text": [
     {
       "type": 0,
-      "value": "Bonjour ..."
+      "value": "Votre Vie Privée Compte"
     }
   ],
   "create-product-cancel-btn": [
@@ -251,16 +1509,232 @@
       "value": "Créer"
     }
   ],
+  "doctor-page-doctor-name": [
+    {
+      "type": 0,
+      "value": "Nom du docteur"
+    }
+  ],
+  "dummylogin-email-label": [
+    {
+      "type": 0,
+      "value": "Adresse email"
+    }
+  ],
+  "dummylogin-password-label": [
+    {
+      "type": 0,
+      "value": "Mot de passe"
+    }
+  ],
+  "dummylogin-password-placeholder": [
+    {
+      "type": 0,
+      "value": "Mot de passe"
+    }
+  ],
+  "dummylogin-signin-button": [
+    {
+      "type": 0,
+      "value": "Se connecter"
+    }
+  ],
   "end_of_articles": [
     {
       "type": 0,
-      "value": "Fin de l'article"
+      "value": "Fin des articles"
+    }
+  ],
+  "event-status-past": [
+    {
+      "type": 0,
+      "value": "Événement Passé"
+    }
+  ],
+  "event-status-today": [
+    {
+      "type": 0,
+      "value": "Aujourd'hui"
+    }
+  ],
+  "event-status-upcoming": [
+    {
+      "type": 0,
+      "value": "À Venir"
+    }
+  ],
+  "favorite-button-add": [
+    {
+      "type": 0,
+      "value": "Ajouter aux favoris"
+    }
+  ],
+  "favorite-button-remove": [
+    {
+      "type": 0,
+      "value": "Retirer des favoris"
+    }
+  ],
+  "favorites-browse-products-button": [
+    {
+      "type": 0,
+      "value": "Parcourir les Produits"
+    }
+  ],
+  "favorites-empty-message": [
+    {
+      "type": 0,
+      "value": "Vous n'avez encore ajouté aucun produit à vos favoris."
+    }
+  ],
+  "favorites-fetch-error": [
+    {
+      "type": 0,
+      "value": "Échec du chargement des favoris"
+    }
+  ],
+  "favorites-page-title": [
+    {
+      "type": 0,
+      "value": "Mes Produits Favoris"
+    }
+  ],
+  "favorites-remove-error": [
+    {
+      "type": 0,
+      "value": "Échec de la suppression des favoris"
+    }
+  ],
+  "favorites-remove-success": [
+    {
+      "type": 0,
+      "value": "Retiré des favoris"
+    }
+  ],
+  "floating-cart-tooltip": [
+    {
+      "type": 0,
+      "value": "Voir le Panier ("
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "article"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "articles"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "footer.built-with-love": [
+    {
+      "type": 0,
+      "value": "Conçu avec"
+    }
+  ],
+  "footer.by-swapnil": [
+    {
+      "type": 0,
+      "value": "par Swapnil Srivastava"
+    }
+  ],
+  "footer.preferences": [
+    {
+      "type": 0,
+      "value": "Paramètres"
+    }
+  ],
+  "footer.privacy-policy": [
+    {
+      "type": 0,
+      "value": "Confidentialité"
+    }
+  ],
+  "footer.rights": [
+    {
+      "type": 0,
+      "value": "Tous droits réservés"
+    }
+  ],
+  "footer.technology": [
+    {
+      "type": 0,
+      "value": "Tech"
+    }
+  ],
+  "heart-button-add-to-favorites": [
+    {
+      "type": 0,
+      "value": "Ajouter aux favoris"
+    }
+  ],
+  "heart-button-added-to-favorites": [
+    {
+      "type": 0,
+      "value": "Ajouté aux favoris"
+    }
+  ],
+  "heart-button-error": [
+    {
+      "type": 0,
+      "value": "Quelque chose s'est mal passé. Veuillez réessayer."
     }
   ],
   "heart-button-heart": [
     {
       "type": 0,
       "value": "Cœur"
+    }
+  ],
+  "heart-button-login-required": [
+    {
+      "type": 0,
+      "value": "Veuillez vous connecter pour sauvegarder des produits en favoris"
+    }
+  ],
+  "heart-button-remove-from-favorites": [
+    {
+      "type": 0,
+      "value": "Retirer des favoris"
+    }
+  ],
+  "heart-button-removed-from-favorites": [
+    {
+      "type": 0,
+      "value": "Retiré des favoris"
+    }
+  ],
+  "heartbutton-like-post-tooltip": [
+    {
+      "type": 0,
+      "value": "Aimez-vous l'article ?"
     }
   ],
   "horizatal-five-tag-five-solid": [
@@ -302,73 +1776,73 @@
   "horizatal-four-tag-five-solid": [
     {
       "type": 0,
-      "value": "Travailleur acharné"
+      "value": "Travail Acharné"
     }
   ],
   "horizatal-four-tag-four-outline": [
     {
       "type": 0,
-      "value": "Travailleur acharné"
+      "value": "Travail Acharné"
     }
   ],
   "horizatal-four-tag-one-solid": [
     {
       "type": 0,
-      "value": "Travailleur acharné"
+      "value": "Travail Acharné"
     }
   ],
   "horizatal-four-tag-six-outline": [
     {
       "type": 0,
-      "value": "Travailleur acharné"
+      "value": "Travail Acharné"
     }
   ],
   "horizatal-four-tag-three-solid": [
     {
       "type": 0,
-      "value": "Travailleur acharné"
+      "value": "Travail Acharné"
     }
   ],
   "horizatal-four-tag-two-outline": [
     {
       "type": 0,
-      "value": "Travailleur acharné"
+      "value": "Travail Acharné"
     }
   ],
   "horizatal-one-tag-five-solid": [
     {
       "type": 0,
-      "value": "Débogueur de craquage"
+      "value": "Débogueur Expert"
     }
   ],
   "horizatal-one-tag-four-outline": [
     {
       "type": 0,
-      "value": "Débogueur de craquage"
+      "value": "Débogueur Expert"
     }
   ],
   "horizatal-one-tag-one-solid": [
     {
       "type": 0,
-      "value": "Débogueur de craquage"
+      "value": "Débogueur Expert"
     }
   ],
   "horizatal-one-tag-six-outline": [
     {
       "type": 0,
-      "value": "Débogueur de craquage"
+      "value": "Débogueur Expert"
     }
   ],
   "horizatal-one-tag-three-solid": [
     {
       "type": 0,
-      "value": "Débogueur de craquage"
+      "value": "Débogueur Expert"
     }
   ],
   "horizatal-one-tag-two-outline": [
     {
       "type": 0,
-      "value": "Débogueur de craquage"
+      "value": "Débogueur Expert"
     }
   ],
   "horizatal-three-tag-five-solid": [
@@ -410,61 +1884,273 @@
   "horizatal-two-tag-five-solid": [
     {
       "type": 0,
-      "value": "Innovez"
+      "value": "Innover"
     }
   ],
   "horizatal-two-tag-four-outline": [
     {
       "type": 0,
-      "value": "Innovez"
+      "value": "Innover"
     }
   ],
   "horizatal-two-tag-one-solid": [
     {
       "type": 0,
-      "value": "Innovez"
+      "value": "Innover"
     }
   ],
   "horizatal-two-tag-six-outline": [
     {
       "type": 0,
-      "value": "Innovez"
+      "value": "Innover"
     }
   ],
   "horizatal-two-tag-three-solid": [
     {
       "type": 0,
-      "value": "Innovez"
+      "value": "Innover"
     }
   ],
   "horizatal-two-tag-two-outline": [
     {
       "type": 0,
-      "value": "Innovez"
+      "value": "Innover"
+    }
+  ],
+  "imageuploader-choose-image-sr": [
+    {
+      "type": 0,
+      "value": "Choisir une Image"
+    }
+  ],
+  "invite-coming-soon-description": [
+    {
+      "type": 0,
+      "value": "Nous travaillons sur de nouvelles fonctionnalités passionnantes pour la gestion d'événements et l'interaction avec les invités. Restez à l'écoute !"
+    }
+  ],
+  "invite-coming-soon-title": [
+    {
+      "type": 0,
+      "value": "Plus de Fonctionnalités Bientôt"
+    }
+  ],
+  "invite-date-label": [
+    {
+      "type": 0,
+      "value": "Date"
+    }
+  ],
+  "invite-event-details-mobile": [
+    {
+      "type": 0,
+      "value": "Détails de l'Événement"
+    }
+  ],
+  "invite-event-details-title": [
+    {
+      "type": 0,
+      "value": "Détails de l'Événement"
+    }
+  ],
+  "invite-fetch-events-error": [
+    {
+      "type": 0,
+      "value": "Échec du chargement des événements. Veuillez réessayer."
+    }
+  ],
+  "invite-hero-upcoming-count": [
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Événement Spécial"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Événements Spéciaux"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " en Attente"
+    }
+  ],
+  "invite-hide-past-events": [
+    {
+      "type": 0,
+      "value": "Masquer les Événements Passés"
+    }
+  ],
+  "invite-loading": [
+    {
+      "type": 0,
+      "value": "Chargement des événements..."
+    }
+  ],
+  "invite-location-button": [
+    {
+      "type": 0,
+      "value": "Lieu"
+    }
+  ],
+  "invite-location-label": [
+    {
+      "type": 0,
+      "value": "Lieu"
+    }
+  ],
+  "invite-no-events-description": [
+    {
+      "type": 0,
+      "value": "Il n'y a pas d'événements à venir pour le moment. Revenez bientôt !"
+    }
+  ],
+  "invite-no-events-title": [
+    {
+      "type": 0,
+      "value": "Aucun Événement Disponible"
+    }
+  ],
+  "invite-page-hero-subtitle": [
+    {
+      "type": 0,
+      "value": "Rejoignez-nous pour des célébrations spéciales et des moments mémorables"
+    }
+  ],
+  "invite-page-hero-title": [
+    {
+      "type": 0,
+      "value": "Vous êtes Invité !"
+    }
+  ],
+  "invite-past-event-label": [
+    {
+      "type": 0,
+      "value": "Événement passé"
+    }
+  ],
+  "invite-past-events-title": [
+    {
+      "type": 0,
+      "value": "Événements Passés"
+    }
+  ],
+  "invite-rsvp-form-toggle": [
+    {
+      "type": 0,
+      "value": "RSVP pour cet événement"
+    }
+  ],
+  "invite-rsvp-form-toggle-past": [
+    {
+      "type": 0,
+      "value": "RSVP pour événement passé"
+    }
+  ],
+  "invite-show-past-events": [
+    {
+      "type": 0,
+      "value": "Afficher les Événements Passés"
+    }
+  ],
+  "invite-stay-tuned": [
+    {
+      "type": 0,
+      "value": "Restez à l'Écoute"
+    }
+  ],
+  "invite-tap-for-directions": [
+    {
+      "type": 0,
+      "value": "Appuyez pour les directions"
+    }
+  ],
+  "invite-time-label": [
+    {
+      "type": 0,
+      "value": "Heure"
+    }
+  ],
+  "invite-unexpected-error": [
+    {
+      "type": 0,
+      "value": "Une erreur inattendue s'est produite. Veuillez actualiser la page."
+    }
+  ],
+  "invite-upcoming-events-title": [
+    {
+      "type": 0,
+      "value": "Événements à Venir"
     }
   ],
   "load_more_button": [
     {
       "type": 0,
-      "value": "Afficher Plus"
+      "value": "Charger Plus"
     }
   ],
   "main-title-post": [
     {
       "type": 0,
-      "value": "Dévoiler les secrets : plongez dans mon dernier article"
+      "value": "Révélation des Secrets : Plongez dans mon dernier article"
     }
   ],
   "main_tagline": [
     {
       "type": 0,
-      "value": "TECHNOLOGIES ... QUI FORGENT MON CARACTÈRE"
+      "value": "TECHNOLOGIES ... QUI CONSTRUISENT MON CARACTÈRE"
+    }
+  ],
+  "nav-admin-events-tooltip": [
+    {
+      "type": 0,
+      "value": "Gérer les Événements"
+    }
+  ],
+  "nav-bar-admin-events-text": [
+    {
+      "type": 0,
+      "value": "Gérer les Événements"
     }
   ],
   "nav-bar-cart-text": [
     {
       "type": 0,
       "value": "Panier"
+    }
+  ],
+  "nav-bar-favorites-text": [
+    {
+      "type": 0,
+      "value": "Favoris"
+    }
+  ],
+  "nav-bar-invite-text": [
+    {
+      "type": 0,
+      "value": "Invitations"
     }
   ],
   "nav-bar-login-text": [
@@ -476,7 +2162,7 @@
   "nav-bar-my-profile": [
     {
       "type": 0,
-      "value": "Mon profil"
+      "value": "Mon Profil"
     }
   ],
   "nav-bar-products-text": [
@@ -488,13 +2174,99 @@
   "nav-bar-sign-out-text": [
     {
       "type": 0,
-      "value": "Sé déconnecter"
+      "value": "Se Déconnecter"
+    }
+  ],
+  "nav-dark-mode-tooltip": [
+    {
+      "type": 0,
+      "value": "Mode Sombre"
+    }
+  ],
+  "nav-light-mode-tooltip": [
+    {
+      "type": 0,
+      "value": "Mode Clair"
+    }
+  ],
+  "nav-login-tooltip": [
+    {
+      "type": 0,
+      "value": "Connexion"
+    }
+  ],
+  "nav-tech-stack-tooltip": [
+    {
+      "type": 0,
+      "value": "Stack Technologique"
+    }
+  ],
+  "nav-write-post-tooltip": [
+    {
+      "type": 0,
+      "value": "Écrire un article"
+    }
+  ],
+  "navbar-my-tutorial": [
+    {
+      "type": 0,
+      "value": "Mon Tutoriel"
+    }
+  ],
+  "personalization-accept-cookies-alert": [
+    {
+      "type": 0,
+      "value": "Pour sauvegarder les préférences de personnalisation, veuillez accepter les cookies dans la bannière de cookies."
+    }
+  ],
+  "personalization_consent_required": [
+    {
+      "type": 0,
+      "value": "Pour activer les fonctionnalités de personnalisation, veuillez accepter les cookies dans la bannière de cookies en bas de la page."
+    }
+  ],
+  "personalization_history": [
+    {
+      "type": 0,
+      "value": "Se souvenir de l'historique de navigation"
+    }
+  ],
+  "personalization_privacy_note": [
+    {
+      "type": 0,
+      "value": "Vos préférences sont stockées dans un cookie sur votre appareil. Voir notre "
+    },
+    {
+      "type": 1,
+      "value": "privacyLink"
+    },
+    {
+      "type": 0,
+      "value": " pour plus d'informations."
+    }
+  ],
+  "personalization_recommendations": [
+    {
+      "type": 0,
+      "value": "Activer les recommandations personnalisées"
+    }
+  ],
+  "personalization_title": [
+    {
+      "type": 0,
+      "value": "Paramètres de Personnalisation"
     }
   ],
   "post-content-auth-check-signup": [
     {
       "type": 0,
-      "value": "Inscription"
+      "value": "S'inscrire"
+    }
+  ],
+  "post-feed-no-parent-function": [
+    {
+      "type": 0,
+      "value": "Aucune Fonction Parent"
     }
   ],
   "post-list-published": [
@@ -506,7 +2278,163 @@
   "post-list-read-more": [
     {
       "type": 0,
-      "value": "En savoir plus"
+      "value": "Lire la suite"
+    }
+  ],
+  "postcontent-approve-button": [
+    {
+      "type": 0,
+      "value": "Approuver"
+    }
+  ],
+  "postcontent-copy-ready": [
+    {
+      "type": 0,
+      "value": "Prêt à Copier"
+    }
+  ],
+  "postcontent-draft-status": [
+    {
+      "type": 0,
+      "value": "● Brouillon"
+    }
+  ],
+  "postcontent-edit-post-aria": [
+    {
+      "type": 0,
+      "value": "Modifier l'article"
+    }
+  ],
+  "postcontent-email-confirmation-sent": [
+    {
+      "type": 0,
+      "value": "Email de confirmation envoyé !"
+    }
+  ],
+  "postcontent-mark-copy-ready-aria": [
+    {
+      "type": 0,
+      "value": "Marquer comme prêt à copier"
+    }
+  ],
+  "postcontent-mark-web-ready-aria": [
+    {
+      "type": 0,
+      "value": "Marquer comme prêt pour le web"
+    }
+  ],
+  "postcontent-min-read": [
+    {
+      "type": 0,
+      "value": "min de lecture"
+    }
+  ],
+  "postcontent-min-read-2": [
+    {
+      "type": 0,
+      "value": "min de lecture"
+    }
+  ],
+  "postcontent-post-approved": [
+    {
+      "type": 0,
+      "value": "Article approuvé avec succès !"
+    }
+  ],
+  "postcontent-publish": [
+    {
+      "type": 0,
+      "value": "Publier"
+    }
+  ],
+  "postcontent-publish-post-aria": [
+    {
+      "type": 0,
+      "value": "Publier l'article"
+    }
+  ],
+  "postcontent-published-status": [
+    {
+      "type": 0,
+      "value": "● Publié"
+    }
+  ],
+  "postcontent-share-facebook": [
+    {
+      "type": 0,
+      "value": "Partager sur Facebook"
+    }
+  ],
+  "postcontent-share-label": [
+    {
+      "type": 0,
+      "value": "Partager :"
+    }
+  ],
+  "postcontent-share-linkedin": [
+    {
+      "type": 0,
+      "value": "Partager sur LinkedIn"
+    }
+  ],
+  "postcontent-share-twitter": [
+    {
+      "type": 0,
+      "value": "Partager sur Twitter"
+    }
+  ],
+  "postcontent-web-ready": [
+    {
+      "type": 0,
+      "value": "Prêt pour le Web"
+    }
+  ],
+  "postcontent-words": [
+    {
+      "type": 0,
+      "value": "mots"
+    }
+  ],
+  "postcontent-workflow-complete": [
+    {
+      "type": 0,
+      "value": "2/4 Terminé"
+    }
+  ],
+  "postcontent-workflow-progress": [
+    {
+      "type": 0,
+      "value": "Progression du Workflow"
+    }
+  ],
+  "postfeed-min-read": [
+    {
+      "type": 0,
+      "value": "min de lecture"
+    }
+  ],
+  "postfeed-no-posts": [
+    {
+      "type": 0,
+      "value": "Aucun article disponible"
+    }
+  ],
+  "postfeed-status-draft": [
+    {
+      "type": 0,
+      "value": "Brouillon"
+    }
+  ],
+  "postfeed-status-live": [
+    {
+      "type": 0,
+      "value": "En Direct"
+    }
+  ],
+  "postfeed-words": [
+    {
+      "type": 0,
+      "value": "mots"
     }
   ],
   "posts_list_end": [
@@ -515,64 +2443,1350 @@
       "value": "Plus d'articles"
     }
   ],
+  "preferences.back_to_home": [
+    {
+      "type": 0,
+      "value": "Retour à l'Accueil"
+    }
+  ],
+  "preferences.intro": [
+    {
+      "type": 0,
+      "value": "Personnalisez votre expérience sur notre plateforme en ajustant vos paramètres de personnalisation. Ces paramètres seront sauvegardés selon vos préférences de cookies."
+    }
+  ],
+  "preferences.title": [
+    {
+      "type": 0,
+      "value": "Préférences Utilisateur"
+    }
+  ],
+  "pricing-advanced-seo-setup": [
+    {
+      "type": 0,
+      "value": "Configuration SEO avancée"
+    }
+  ],
+  "pricing-basic-1-hour-call": [
+    {
+      "type": 0,
+      "value": "Appel d'1 heure"
+    }
+  ],
+  "pricing-basic-consultation-subtitle": [
+    {
+      "type": 0,
+      "value": "Idéal Pour : Petites entreprises et startups ayant besoin de conseils de base"
+    }
+  ],
+  "pricing-basic-consultation-title": [
+    {
+      "type": 0,
+      "value": "Consultation de Base"
+    }
+  ],
+  "pricing-basic-email-support": [
+    {
+      "type": 0,
+      "value": "Support email de suivi"
+    }
+  ],
+  "pricing-basic-initial-audit": [
+    {
+      "type": 0,
+      "value": "Audit initial du site"
+    }
+  ],
+  "pricing-basic-package-subtitle": [
+    {
+      "type": 0,
+      "value": "Idéal Pour : Entreprises en croissance cherchant à optimiser leur présence en ligne."
+    }
+  ],
+  "pricing-basic-package-title": [
+    {
+      "type": 0,
+      "value": "Package de Base"
+    }
+  ],
+  "pricing-basic-seo-recommendations": [
+    {
+      "type": 0,
+      "value": "Recommandations SEO de base"
+    }
+  ],
+  "pricing-basic-seo-setup": [
+    {
+      "type": 0,
+      "value": "Configuration SEO de base"
+    }
+  ],
+  "pricing-custom-website-design": [
+    {
+      "type": 0,
+      "value": "Design de site web personnalisé"
+    }
+  ],
+  "pricing-feature-custom-design": [
+    {
+      "type": 0,
+      "value": "Design et développement entièrement personnalisés"
+    }
+  ],
+  "pricing-feature-ecommerce": [
+    {
+      "type": 0,
+      "value": "Fonctionnalité e-commerce avancée"
+    }
+  ],
+  "pricing-feature-seo": [
+    {
+      "type": 0,
+      "value": "SEO complet"
+    }
+  ],
+  "pricing-feature-tshirt": [
+    {
+      "type": 0,
+      "value": "T-shirt officiel"
+    }
+  ],
+  "pricing-invoices-receipts-available": [
+    {
+      "type": 0,
+      "value": "Factures et reçus disponibles pour un remboursement facile de l'entreprise"
+    }
+  ],
+  "pricing-pay-once-own-forever": [
+    {
+      "type": 0,
+      "value": "Payez une fois, possédez-le pour toujours"
+    }
+  ],
+  "pricing-premium-package": [
+    {
+      "type": 0,
+      "value": "Package Premium"
+    }
+  ],
+  "pricing-premium-package-description": [
+    {
+      "type": 0,
+      "value": "Débloquez l'expertise avec un seul investissement - payez une fois, et votre succès est entre de bonnes mains."
+    }
+  ],
+  "pricing-simple-no-tricks-pricing": [
+    {
+      "type": 0,
+      "value": "Tarification simple sans astuces"
+    }
+  ],
+  "pricing-simple-website-design": [
+    {
+      "type": 0,
+      "value": "Design de site web simple"
+    }
+  ],
+  "pricing-standard-package": [
+    {
+      "type": 0,
+      "value": "Package Standard"
+    }
+  ],
+  "pricing-standard-package-description": [
+    {
+      "type": 0,
+      "value": "Idéal Pour : Entreprises avec des projets spécifiques à grande échelle"
+    }
+  ],
+  "pricing-title": [
+    {
+      "type": 0,
+      "value": "Choisissez le bon package qui est le mieux pour vous !"
+    }
+  ],
+  "pricing-up-to-10-pages": [
+    {
+      "type": 0,
+      "value": "Jusqu'à 10 pages"
+    }
+  ],
+  "pricing-up-to-5-pages": [
+    {
+      "type": 0,
+      "value": "Jusqu'à 5 pages"
+    }
+  ],
+  "pricing-whats-included": [
+    {
+      "type": 0,
+      "value": "Ce qui est inclus"
+    }
+  ],
+  "privacy-policy-overview-text": [
+    {
+      "type": 0,
+      "value": "Cette Politique de Confidentialité et de Cookies explique comment nous collectons, utilisons et protégeons vos informations lorsque vous visitez notre site web. Nous nous engageons à assurer la confidentialité et la sécurité de vos données."
+    }
+  ],
+  "privacy-policy-overview-title": [
+    {
+      "type": 0,
+      "value": "Aperçu"
+    }
+  ],
+  "privacy-policy-title": [
+    {
+      "type": 0,
+      "value": "Politique de Confidentialité et de Cookies"
+    }
+  ],
+  "privacy.back_to_home": [
+    {
+      "type": 0,
+      "value": "Retour à l'Accueil"
+    }
+  ],
   "product-card-add-to-cart": [
     {
       "type": 0,
-      "value": "Ajouter au panier"
+      "value": "Ajouter au Panier"
+    }
+  ],
+  "product-card-add-to-cart-error": [
+    {
+      "type": 0,
+      "value": "Échec de l'ajout de l'article au panier. Veuillez réessayer."
+    }
+  ],
+  "product-card-added": [
+    {
+      "type": 0,
+      "value": "Ajouté !"
+    }
+  ],
+  "product-card-added-to-cart-toast": [
+    {
+      "type": 1,
+      "value": "productName"
+    },
+    {
+      "type": 0,
+      "value": " ajouté au panier !"
     }
   ],
   "product-card-create-product": [
     {
       "type": 0,
-      "value": "Créer un produit"
+      "value": "Créer un Produit"
+    }
+  ],
+  "product-card-in-stock": [
+    {
+      "type": 0,
+      "value": "En Stock"
+    }
+  ],
+  "product-card-invalid-product": [
+    {
+      "type": 0,
+      "value": "Produit invalide. Veuillez réessayer."
+    }
+  ],
+  "product-card-no-image": [
+    {
+      "type": 0,
+      "value": "Aucune image disponible"
+    }
+  ],
+  "product-card-out-of-stock": [
+    {
+      "type": 0,
+      "value": "Rupture de Stock"
+    }
+  ],
+  "product-card-quick-view": [
+    {
+      "type": 0,
+      "value": "Aperçu rapide"
+    }
+  ],
+  "product-detail-add-to-cart": [
+    {
+      "type": 0,
+      "value": "Ajouter au Panier"
+    }
+  ],
+  "product-detail-add-to-cart-error": [
+    {
+      "type": 0,
+      "value": "Échec de l'ajout de l'article au panier. Veuillez réessayer."
+    }
+  ],
+  "product-detail-added": [
+    {
+      "type": 0,
+      "value": "Ajouté !"
+    }
+  ],
+  "product-detail-added-to-cart": [
+    {
+      "type": 0,
+      "value": "Ajouté au panier !"
+    }
+  ],
+  "product-detail-back": [
+    {
+      "type": 0,
+      "value": "Retour"
+    }
+  ],
+  "product-detail-back-to-products": [
+    {
+      "type": 0,
+      "value": "Retour aux Produits"
+    }
+  ],
+  "product-detail-fetch-error": [
+    {
+      "type": 0,
+      "value": "Échec du chargement des détails du produit. Veuillez réessayer."
     }
   ],
   "product-detail-heading": [
     {
       "type": 0,
-      "value": "Détail du produit"
+      "value": "Détail du Produit"
     }
   ],
-  "product-index-cart-added": [
+  "product-detail-in-stock": [
     {
       "type": 0,
-      "value": "Produit ajouté au panier"
+      "value": "En Stock"
     }
   ],
-  "product-index-cart-added-redirect-btn": [
+  "product-detail-not-found": [
     {
       "type": 0,
-      "value": "Accéder au panier"
+      "value": "Produit non trouvé"
+    }
+  ],
+  "product-detail-not-found-description": [
+    {
+      "type": 0,
+      "value": "Le produit que vous recherchez n'existe pas ou a été supprimé."
+    }
+  ],
+  "product-detail-out-of-stock": [
+    {
+      "type": 0,
+      "value": "Rupture de Stock"
+    }
+  ],
+  "product-detail-quantity": [
+    {
+      "type": 0,
+      "value": "Quantité"
+    }
+  ],
+  "product-detail-related-products": [
+    {
+      "type": 0,
+      "value": "Vous pourriez aussi aimer"
+    }
+  ],
+  "product-detail-stock-count": [
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " disponible"
+    }
+  ],
+  "product-detail-stock-level": [
+    {
+      "type": 0,
+      "value": "Niveau de Stock"
+    }
+  ],
+  "product-index-cart-items-count": [
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "article"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "articles"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " dans votre panier"
+    }
+  ],
+  "product-index-cart-ready": [
+    {
+      "type": 0,
+      "value": "Prêt à commander quand vous l'êtes"
+    }
+  ],
+  "product-index-cart-total-label": [
+    {
+      "type": 0,
+      "value": "Total"
+    }
+  ],
+  "product-index-cart-view-button": [
+    {
+      "type": 0,
+      "value": "Voir le Panier"
+    }
+  ],
+  "productcard-error-creating-product": [
+    {
+      "type": 0,
+      "value": "Erreur lors de la création du produit : "
+    },
+    {
+      "type": 1,
+      "value": "error"
+    }
+  ],
+  "productcard-error-uploading-image": [
+    {
+      "type": 0,
+      "value": "Erreur lors du téléchargement de l'image : "
+    },
+    {
+      "type": 1,
+      "value": "error"
+    }
+  ],
+  "productcard-product-created": [
+    {
+      "type": 0,
+      "value": "Produit Créé !!"
+    }
+  ],
+  "products-category-label": [
+    {
+      "type": 0,
+      "value": "Catégorie"
+    }
+  ],
+  "products-clear-filters": [
+    {
+      "type": 0,
+      "value": "Effacer les Filtres"
+    }
+  ],
+  "products-error-loading": [
+    {
+      "type": 0,
+      "value": "Erreur lors du chargement des produits : "
+    },
+    {
+      "type": 1,
+      "value": "error"
+    }
+  ],
+  "products-filter-all": [
+    {
+      "type": 0,
+      "value": "Toutes les Catégories"
+    }
+  ],
+  "products-filter-books": [
+    {
+      "type": 0,
+      "value": "Livres"
+    }
+  ],
+  "products-filter-clothing": [
+    {
+      "type": 0,
+      "value": "Vêtements"
+    }
+  ],
+  "products-filter-electronics": [
+    {
+      "type": 0,
+      "value": "Électronique"
+    }
+  ],
+  "products-filter-home": [
+    {
+      "type": 0,
+      "value": "Maison et Jardin"
+    }
+  ],
+  "products-filters": [
+    {
+      "type": 0,
+      "value": "Filtres"
     }
   ],
   "products-heading": [
     {
       "type": 0,
-      "value": "Produits"
+      "value": "Nos Produits"
+    }
+  ],
+  "products-in-stock": [
+    {
+      "type": 1,
+      "value": "inStock"
+    },
+    {
+      "type": 0,
+      "value": " en stock"
+    }
+  ],
+  "products-loaded-successfully": [
+    {
+      "type": 0,
+      "value": "Produits chargés avec succès !"
+    }
+  ],
+  "products-price-25-50": [
+    {
+      "type": 0,
+      "value": "25€ - 50€"
+    }
+  ],
+  "products-price-50-100": [
+    {
+      "type": 0,
+      "value": "50€ - 100€"
+    }
+  ],
+  "products-price-all": [
+    {
+      "type": 0,
+      "value": "Tous les Prix"
+    }
+  ],
+  "products-price-over-100": [
+    {
+      "type": 0,
+      "value": "Plus de 100€"
+    }
+  ],
+  "products-price-range-label": [
+    {
+      "type": 0,
+      "value": "Gamme de Prix"
+    }
+  ],
+  "products-price-under-25": [
+    {
+      "type": 0,
+      "value": "Moins de 25€"
+    }
+  ],
+  "products-results-count": [
+    {
+      "type": 0,
+      "value": "Affichage de "
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "produit"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "produits"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "products-search-placeholder": [
+    {
+      "type": 0,
+      "value": "Rechercher des produits..."
+    }
+  ],
+  "products-search-results": [
+    {
+      "type": 0,
+      "value": "pour \""
+    },
+    {
+      "type": 1,
+      "value": "searchTerm"
+    },
+    {
+      "type": 0,
+      "value": "\""
+    }
+  ],
+  "products-sort-name": [
+    {
+      "type": 0,
+      "value": "Trier par Nom"
+    }
+  ],
+  "products-sort-newest": [
+    {
+      "type": 0,
+      "value": "Plus Récent d'Abord"
+    }
+  ],
+  "products-sort-price-high": [
+    {
+      "type": 0,
+      "value": "Prix : Élevé à Bas"
+    }
+  ],
+  "products-sort-price-low": [
+    {
+      "type": 0,
+      "value": "Prix : Bas à Élevé"
+    }
+  ],
+  "products-subtitle": [
+    {
+      "type": 0,
+      "value": "Découvrez notre incroyable collection de produits soigneusement sélectionnés"
+    }
+  ],
+  "profile-cancel-button": [
+    {
+      "type": 0,
+      "value": "Annuler"
+    }
+  ],
+  "profile-cancel-skill-button": [
+    {
+      "type": 0,
+      "value": "Annuler"
+    }
+  ],
+  "profile-create-button": [
+    {
+      "type": 0,
+      "value": "Créer"
+    }
+  ],
+  "profile-create-skill-button": [
+    {
+      "type": 0,
+      "value": "Créer"
+    }
+  ],
+  "profile-experience-created": [
+    {
+      "type": 0,
+      "value": "Expérience créée avec succès"
+    }
+  ],
+  "profile-present": [
+    {
+      "type": 0,
+      "value": "Présent"
+    }
+  ],
+  "profile-skill-created": [
+    {
+      "type": 0,
+      "value": "Compétence créée avec succès"
+    }
+  ],
+  "rsvp-admin-details": [
+    {
+      "type": 0,
+      "value": "Détails administrateur uniquement"
+    }
+  ],
+  "rsvp-adults": [
+    {
+      "type": 0,
+      "value": "adultes"
+    }
+  ],
+  "rsvp-age-breakdown": [
+    {
+      "type": 0,
+      "value": "Répartition par âge"
+    }
+  ],
+  "rsvp-all-special-requests": [
+    {
+      "type": 0,
+      "value": "Toutes les demandes spéciales"
+    }
+  ],
+  "rsvp-allergies-dietary": [
+    {
+      "type": 0,
+      "value": "Allergies et restrictions alimentaires"
+    }
+  ],
+  "rsvp-attending": [
+    {
+      "type": 0,
+      "value": "Présent"
+    }
+  ],
+  "rsvp-attending-details": [
+    {
+      "type": 0,
+      "value": "Détails de présence"
+    }
+  ],
+  "rsvp-children": [
+    {
+      "type": 0,
+      "value": "enfants"
+    }
+  ],
+  "rsvp-click-to-collapse": [
+    {
+      "type": 0,
+      "value": "Cliquer pour réduire"
+    }
+  ],
+  "rsvp-detailed-responses": [
+    {
+      "type": 0,
+      "value": "Réponses détaillées"
+    }
+  ],
+  "rsvp-dietary": [
+    {
+      "type": 0,
+      "value": "Restrictions alimentaires :"
+    }
+  ],
+  "rsvp-fetch-error": [
+    {
+      "type": 0,
+      "value": "Impossible de charger les RSVP"
+    }
+  ],
+  "rsvp-guest-names": [
+    {
+      "type": 0,
+      "value": "Noms des invités :"
+    }
+  ],
+  "rsvp-little-ones": [
+    {
+      "type": 0,
+      "value": "Petits :"
+    }
+  ],
+  "rsvp-no-one-not-attending": [
+    {
+      "type": 0,
+      "value": "Tout le monde est présent !"
+    }
+  ],
+  "rsvp-no-responses": [
+    {
+      "type": 0,
+      "value": "Aucune réponse RSVP pour le moment"
+    }
+  ],
+  "rsvp-not-attending": [
+    {
+      "type": 0,
+      "value": "Absent"
+    }
+  ],
+  "rsvp-not-attending-details": [
+    {
+      "type": 0,
+      "value": "Absent"
+    }
+  ],
+  "rsvp-responded-on": [
+    {
+      "type": 0,
+      "value": "A répondu le "
+    },
+    {
+      "type": 1,
+      "value": "date"
+    }
+  ],
+  "rsvp-responses-title": [
+    {
+      "type": 0,
+      "value": "Réponses RSVP"
+    }
+  ],
+  "rsvp-special-requests": [
+    {
+      "type": 0,
+      "value": "Demandes spéciales :"
+    }
+  ],
+  "rsvp-summary-title": [
+    {
+      "type": 0,
+      "value": "Résumé RSVP"
+    }
+  ],
+  "rsvp-toddlers-babies": [
+    {
+      "type": 0,
+      "value": "Tout-petits et bébés"
+    }
+  ],
+  "rsvp-total-guests": [
+    {
+      "type": 0,
+      "value": "Total des invités"
+    }
+  ],
+  "rsvp-with": [
+    {
+      "type": 0,
+      "value": "Avec :"
+    }
+  ],
+  "rsvpform-contact-optional": [
+    {
+      "type": 0,
+      "value": "(facultatif)"
+    }
+  ],
+  "rsvpform-contact-section-title": [
+    {
+      "type": 0,
+      "value": "Informations de contact"
+    }
+  ],
+  "rsvpform-email-label": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "rsvpform-family-name-label": [
+    {
+      "type": 0,
+      "value": "Nom de famille"
+    }
+  ],
+  "rsvpform-family-name-required": [
+    {
+      "type": 0,
+      "value": "Le nom de famille est obligatoire"
+    }
+  ],
+  "rsvpform-kid-age-label": [
+    {
+      "type": 0,
+      "value": "Age"
+    }
+  ],
+  "rsvpform-kid-allergies-label": [
+    {
+      "type": 0,
+      "value": "Allergies/Restrictions alimentaires"
+    }
+  ],
+  "rsvpform-kid-allergies-placeholder": [
+    {
+      "type": 0,
+      "value": "Ex : arachides, laiteries, sans gluten"
+    }
+  ],
+  "rsvpform-kid-name-label": [
+    {
+      "type": 0,
+      "value": "Nom de l'enfant"
+    }
+  ],
+  "rsvpform-kid-section-title": [
+    {
+      "type": 0,
+      "value": "Enfant "
+    },
+    {
+      "type": 1,
+      "value": "index"
+    }
+  ],
+  "rsvpform-kids-section-title": [
+    {
+      "type": 0,
+      "value": "Enfants participants"
+    }
+  ],
+  "rsvpform-message-label": [
+    {
+      "type": 0,
+      "value": "Message spécial ou notes"
+    }
+  ],
+  "rsvpform-message-placeholder": [
+    {
+      "type": 0,
+      "value": "Partagez votre excitation ou toute demande spéciale..."
+    }
+  ],
+  "rsvpform-phone-label": [
+    {
+      "type": 0,
+      "value": "Numéro de téléphone"
+    }
+  ],
+  "rsvpform-submit-error": [
+    {
+      "type": 0,
+      "value": "Impossible de soumettre RSVP. Veuillez réessayer."
+    }
+  ],
+  "rsvpform-submit-success": [
+    {
+      "type": 0,
+      "value": "Le RSVP a été soumis avec succès."
+    }
+  ],
+  "rsvpform-subtitle": [
+    {
+      "type": 0,
+      "value": "Faites-nous savoir si vous pouvez nous rejoindre pour cette célébration spéciale !"
+    }
+  ],
+  "rsvpform-title": [
+    {
+      "type": 0,
+      "value": "RSVP pour l'événement"
+    }
+  ],
+  "rsvpform-will-attend-label": [
+    {
+      "type": 0,
+      "value": "Oui, nous allons assister à l'événement !"
     }
   ],
   "secondary_tagline": [
     {
       "type": 0,
-      "value": "ÉCRIRE.. CODE.. POSTER.. DORMIR.. RÉPÉTER"
+      "value": "ÉCRIRE .. CODER .. PUBLIER .. DORMIR .. RÉPÉTER"
     }
   ],
   "secondary_tagline_description": [
     {
       "type": 0,
-      "value": "Écriture de l'article ... en codant le code ... poster l'article ... enfin dormir ... et le cycle se répète"
+      "value": "Écrire l'article ... coder le code ... publier l'article ... enfin dormir ... et le cycle recommence"
+    }
+  ],
+  "success-go-home": [
+    {
+      "type": 0,
+      "value": "Retourner à l'accueil"
+    }
+  ],
+  "success-hurray": [
+    {
+      "type": 0,
+      "value": "Hourra..."
     }
   ],
   "swapnil_architect_hello": [
     {
       "type": 0,
-      "value": "Salut, je m'appe-"
+      "value": "Salut, je suis"
     }
   ],
   "swapnil_name": [
     {
       "type": 0,
       "value": "Swapnil Srivastava"
+    }
+  ],
+  "technology-bounty-board-subtitle": [
+    {
+      "type": 0,
+      "value": "Technologies les plus recherchées"
+    }
+  ],
+  "technology-bounty-description": [
+    {
+      "type": 0,
+      "value": "Cible de haute valeur. Essentiel pour les opérations du système central. Manipuler avec précaution."
+    }
+  ],
+  "technology-cancel-button": [
+    {
+      "type": 0,
+      "value": "Annuler"
+    }
+  ],
+  "technology-clear-button": [
+    {
+      "type": 0,
+      "value": "Effacer"
+    }
+  ],
+  "technology-create-button": [
+    {
+      "type": 0,
+      "value": "Créer"
+    }
+  ],
+  "technology-create-error": [
+    {
+      "type": 0,
+      "value": "Connexion à la matrice échouée"
+    }
+  ],
+  "technology-create-error-cyber": [
+    {
+      "type": 0,
+      "value": "Connexion au réseau instable"
+    }
+  ],
+  "technology-create-success": [
+    {
+      "type": 0,
+      "value": "Technologie téléchargée dans la matrice !"
+    }
+  ],
+  "technology-create-success-cyber": [
+    {
+      "type": 0,
+      "value": "Technologie intégrée dans le réseau !"
+    }
+  ],
+  "technology-cyber-creator-subtitle": [
+    {
+      "type": 0,
+      "value": "Fabriquer de nouvelles entités technologiques"
+    }
+  ],
+  "technology-cyber-hero-subtitle": [
+    {
+      "type": 0,
+      "value": "Haute Technologie, Vie Modeste"
+    }
+  ],
+  "technology-data-stream-subtitle": [
+    {
+      "type": 0,
+      "value": "Flux en direct des technologies disponibles"
+    }
+  ],
+  "technology-dimensional-display": [
+    {
+      "type": 0,
+      "value": "Constellation Technologique"
+    }
+  ],
+  "technology-dimensional-subtitle": [
+    {
+      "type": 0,
+      "value": "Naviguez à travers le champ quantique de l'innovation"
+    }
+  ],
+  "technology-fabricate-button": [
+    {
+      "type": 0,
+      "value": "Fabriquer"
+    }
+  ],
+  "technology-hero-subtitle": [
+    {
+      "type": 0,
+      "value": "Explorez les technologies de pointe qui alimentent l'innovation et la créativité dans le développement moderne"
+    }
+  ],
+  "technology-hero-title": [
+    {
+      "type": 0,
+      "value": "Arsenal Technologique"
+    }
+  ],
+  "technology-leading-tech-created": [
+    {
+      "type": 0,
+      "value": "Stack Tech Leader créé"
+    }
+  ],
+  "technology-leading-tech-subtitle": [
+    {
+      "type": 0,
+      "value": "Les technologies pionnières qui définissent l'avenir du développement"
+    }
+  ],
+  "technology-leading-tech-title": [
+    {
+      "type": 0,
+      "value": "Technologies de Pointe"
+    }
+  ],
+  "technology-multiverse-description": [
+    {
+      "type": 0,
+      "value": "Naviguez à travers des dimensions infinies où la technologie transcende la réalité. Expérimentez la convergence de l'IA, de l'informatique quantique et de la conscience numérique."
+    }
+  ],
+  "technology-multiverse-subtitle": [
+    {
+      "type": 0,
+      "value": "Explorateur du Multivers Numérique"
+    }
+  ],
+  "technology-multiverse-title": [
+    {
+      "type": 0,
+      "value": "TECH∞"
+    }
+  ],
+  "technology-page-description-cyber": [
+    {
+      "type": 0,
+      "value": "Explorez le monde high-tech, low-life de la technologie moderne"
+    }
+  ],
+  "technology-page-description-new": [
+    {
+      "type": 0,
+      "value": "Voyagez à travers des dimensions infinies d'innovation technologique"
+    }
+  ],
+  "technology-page-title-cyber": [
+    {
+      "type": 0,
+      "value": "Réseau Tech 2077"
+    }
+  ],
+  "technology-page-title-new": [
+    {
+      "type": 0,
+      "value": "TECH∞ - Explorateur du Multivers Numérique"
+    }
+  ],
+  "technology-quantum-chamber-subtitle": [
+    {
+      "type": 0,
+      "value": "Technologies d'élite transcendant les frontières dimensionnelles"
+    }
+  ],
+  "technology-quantum-chamber-title": [
+    {
+      "type": 0,
+      "value": "⚡ NOYAU QUANTIQUE"
+    }
+  ],
+  "technology-quantum-creator-subtitle": [
+    {
+      "type": 0,
+      "value": "Manifester de nouvelles technologies dans le multivers numérique"
+    }
+  ],
+  "technology-quantum-creator-title": [
+    {
+      "type": 0,
+      "value": "Synthétiseur Tech Quantique"
+    }
+  ],
+  "technology-quantum-elite-badge": [
+    {
+      "type": 0,
+      "value": "⚡ NOYAU QUANTIQUE"
+    }
+  ],
+  "technology-realm-navigation": [
+    {
+      "type": 0,
+      "value": "Royaumes de Réalité"
+    }
+  ],
+  "technology-reset-button": [
+    {
+      "type": 0,
+      "value": "Réinitialiser la Matrice"
+    }
+  ],
+  "technology-stats-innovation": [
+    {
+      "type": 0,
+      "value": "100%"
+    }
+  ],
+  "technology-stats-innovation-label": [
+    {
+      "type": 0,
+      "value": "Niveau d'Innovation"
+    }
+  ],
+  "technology-stats-leading": [
+    {
+      "type": 0,
+      "value": "Technologies de Pointe"
+    }
+  ],
+  "technology-stats-total": [
+    {
+      "type": 0,
+      "value": "Total des Technologies"
+    }
+  ],
+  "technology-synthesize-button": [
+    {
+      "type": 0,
+      "value": "Synthétiser"
+    }
+  ],
+  "technology-tech-stack-created": [
+    {
+      "type": 0,
+      "value": "Stack Tech créé !"
+    }
+  ],
+  "technology-tech-stack-subtitle": [
+    {
+      "type": 0,
+      "value": "La boîte à outils complète pour construire des expériences numériques exceptionnelles"
+    }
+  ],
+  "technology-tech-stack-title": [
+    {
+      "type": 0,
+      "value": "Stack Technologique"
+    }
+  ],
+  "user-profile-about-title": [
+    {
+      "type": 0,
+      "value": "À Propos"
+    }
+  ],
+  "user-profile-bio-title": [
+    {
+      "type": 0,
+      "value": "Biographie"
+    }
+  ],
+  "user-profile-contact-title": [
+    {
+      "type": 0,
+      "value": "Contact"
+    }
+  ],
+  "user-profile-email": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "user-profile-no-bio": [
+    {
+      "type": 0,
+      "value": "Aucune biographie disponible"
+    }
+  ],
+  "user-profile-no-posts-description": [
+    {
+      "type": 0,
+      "value": "Cet utilisateur n'a encore publié aucun article"
+    }
+  ],
+  "user-profile-no-posts-title": [
+    {
+      "type": 0,
+      "value": "Aucun article pour le moment"
+    }
+  ],
+  "user-profile-stats-active": [
+    {
+      "type": 0,
+      "value": "Actif"
+    }
+  ],
+  "user-profile-stats-joined": [
+    {
+      "type": 0,
+      "value": "Rejoint"
+    }
+  ],
+  "user-profile-stats-posts": [
+    {
+      "type": 0,
+      "value": "Articles Publiés"
+    }
+  ],
+  "user-profile-stats-status": [
+    {
+      "type": 0,
+      "value": "Statut"
+    }
+  ],
+  "user-profile-tab-about": [
+    {
+      "type": 0,
+      "value": "À Propos"
+    }
+  ],
+  "user-profile-tab-posts": [
+    {
+      "type": 0,
+      "value": "Articles"
+    }
+  ],
+  "user-profile-website": [
+    {
+      "type": 0,
+      "value": "Site Web"
+    }
+  ],
+  "userprofile-anonymous-user": [
+    {
+      "type": 0,
+      "value": "Utilisateur Anonyme"
     }
   ]
 }

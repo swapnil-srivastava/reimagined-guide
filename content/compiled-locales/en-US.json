@@ -2057,6 +2057,18 @@
       "value": "Past Events"
     }
   ],
+  "invite-rsvp-form-toggle": [
+    {
+      "type": 0,
+      "value": "RSVP for this Event"
+    }
+  ],
+  "invite-rsvp-form-toggle-past": [
+    {
+      "type": 0,
+      "value": "RSVP for Past Event"
+    }
+  ],
   "invite-show-past-events": [
     {
       "type": 0,
@@ -3127,318 +3139,158 @@
       "value": "Skill successfully created"
     }
   ],
-  "rsvp-admin-badge": [
+  "rsvp-admin-details": [
     {
       "type": 0,
-      "value": "Admin Only"
+      "value": "Admin details only"
     }
   ],
-  "rsvp-admin-only-badge": [
+  "rsvp-adults": [
     {
       "type": 0,
-      "value": "Admin Only"
+      "value": "adults"
     }
   ],
-  "rsvp-adults-counter-subtitle": [
+  "rsvp-age-breakdown": [
     {
       "type": 0,
-      "value": "2 per family"
+      "value": "Age Breakdown"
     }
   ],
-  "rsvp-adults-counter-title": [
+  "rsvp-all-special-requests": [
     {
       "type": 0,
-      "value": "Adults"
+      "value": "All Special Requests"
     }
   ],
-  "rsvp-allergies-label": [
+  "rsvp-allergies-dietary": [
     {
       "type": 0,
-      "value": "Allergies/Dietary"
+      "value": "Allergies & Dietary Restrictions"
     }
   ],
-  "rsvp-attending-description": [
+  "rsvp-attending": [
     {
       "type": 0,
-      "value": "Families who confirmed attendance"
+      "value": "Attending"
     }
   ],
-  "rsvp-contact-info-label": [
+  "rsvp-attending-details": [
     {
       "type": 0,
-      "value": "Contact:"
+      "value": "Attending Details"
     }
   ],
-  "rsvp-decline-reason-label": [
+  "rsvp-children": [
     {
       "type": 0,
-      "value": "Note:"
+      "value": "children"
     }
   ],
-  "rsvp-declined-label": [
+  "rsvp-click-to-collapse": [
     {
       "type": 0,
-      "value": "Declined invitation"
+      "value": "Click to collapse"
     }
   ],
-  "rsvp-families-label": [
+  "rsvp-detailed-responses": [
     {
       "type": 0,
-      "value": "families"
+      "value": "Detailed Responses"
     }
   ],
-  "rsvp-families-short": [
+  "rsvp-dietary": [
     {
       "type": 0,
-      "value": "families"
+      "value": "Dietary restrictions:"
     }
   ],
-  "rsvp-guests-label": [
+  "rsvp-fetch-error": [
     {
       "type": 0,
-      "value": "guests"
+      "value": "Failed to load RSVPs"
     }
   ],
-  "rsvp-kids-counter-subtitle": [
+  "rsvp-guest-names": [
     {
       "type": 0,
-      "value": "All children"
+      "value": "Guest names:"
     }
   ],
-  "rsvp-kids-counter-title": [
+  "rsvp-little-ones": [
     {
       "type": 0,
-      "value": "Kids"
+      "value": "Little ones:"
     }
   ],
-  "rsvp-kids-short": [
+  "rsvp-no-one-not-attending": [
     {
       "type": 0,
-      "value": "kids"
+      "value": "Everyone is attending!"
     }
   ],
-  "rsvp-list-admin-title": [
+  "rsvp-no-responses": [
     {
       "type": 0,
-      "value": "RSVP Responses"
+      "value": "No RSVP responses yet"
     }
   ],
-  "rsvp-list-attending-title": [
+  "rsvp-not-attending": [
     {
       "type": 0,
-      "value": "Attending ("
-    },
-    {
-      "type": 1,
-      "value": "count"
-    },
-    {
-      "type": 0,
-      "value": ")"
+      "value": "Not Attending"
     }
   ],
-  "rsvp-list-children-label": [
+  "rsvp-not-attending-details": [
     {
       "type": 0,
-      "value": "Children:"
+      "value": "Not Attending"
     }
   ],
-  "rsvp-list-fetch-error": [
+  "rsvp-responded-on": [
     {
       "type": 0,
-      "value": "Failed to load RSVP responses"
-    }
-  ],
-  "rsvp-list-kids-highlight": [
-    {
-      "type": 1,
-      "value": "count"
-    },
-    {
-      "type": 0,
-      "value": " kids attending"
-    }
-  ],
-  "rsvp-list-kids-label": [
-    {
-      "offset": 0,
-      "options": {
-        "one": {
-          "value": [
-            {
-              "type": 0,
-              "value": "kid"
-            }
-          ]
-        },
-        "other": {
-          "value": [
-            {
-              "type": 0,
-              "value": "kids"
-            }
-          ]
-        }
-      },
-      "pluralType": "cardinal",
-      "type": 6,
-      "value": "count"
-    }
-  ],
-  "rsvp-list-kids-summary-description": [
-    {
-      "type": 0,
-      "value": "Total children who have RSVP'd"
-    }
-  ],
-  "rsvp-list-kids-summary-title": [
-    {
-      "type": 0,
-      "value": "Kids Attending This Event"
-    }
-  ],
-  "rsvp-list-loading": [
-    {
-      "type": 0,
-      "value": "Loading RSVP responses..."
-    }
-  ],
-  "rsvp-list-message-label": [
-    {
-      "type": 0,
-      "value": "Message:"
-    }
-  ],
-  "rsvp-list-no-responses": [
-    {
-      "type": 0,
-      "value": "No RSVP responses yet for this event."
-    }
-  ],
-  "rsvp-list-not-attending-title": [
-    {
-      "type": 0,
-      "value": "Not Attending ("
-    },
-    {
-      "type": 1,
-      "value": "count"
-    },
-    {
-      "type": 0,
-      "value": ")"
-    }
-  ],
-  "rsvp-list-responded-on": [
-    {
-      "type": 0,
-      "value": "Responded "
+      "value": "Responded on "
     },
     {
       "type": 1,
       "value": "date"
     }
   ],
-  "rsvp-list-teens-label": [
+  "rsvp-responses-title": [
     {
       "type": 0,
-      "value": "Teens (13+)"
+      "value": "RSVP Responses"
     }
   ],
-  "rsvp-list-toddlers-label": [
+  "rsvp-special-requests": [
     {
       "type": 0,
-      "value": "Toddlers (0-5)"
+      "value": "Special requests:"
     }
   ],
-  "rsvp-list-unexpected-error": [
+  "rsvp-summary-title": [
     {
       "type": 0,
-      "value": "An unexpected error occurred"
+      "value": "RSVP Summary"
     }
   ],
-  "rsvp-not-attending-description": [
+  "rsvp-toddlers-babies": [
     {
       "type": 0,
-      "value": "Families who declined the invitation"
+      "value": "Toddlers & Babies"
     }
   ],
-  "rsvp-responses-label": [
+  "rsvp-total-guests": [
     {
       "type": 0,
-      "value": "responses"
+      "value": "Total Guests"
     }
   ],
-  "rsvp-summary-adults": [
+  "rsvp-with": [
     {
       "type": 0,
-      "value": "Adults"
-    }
-  ],
-  "rsvp-summary-families-enhanced": [
-    {
-      "offset": 0,
-      "options": {
-        "one": {
-          "value": [
-            {
-              "type": 7
-            },
-            {
-              "type": 0,
-              "value": " family"
-            }
-          ]
-        },
-        "other": {
-          "value": [
-            {
-              "type": 7
-            },
-            {
-              "type": 0,
-              "value": " families"
-            }
-          ]
-        }
-      },
-      "pluralType": "cardinal",
-      "type": 6,
-      "value": "count"
-    },
-    {
-      "type": 0,
-      "value": " confirmed"
-    }
-  ],
-  "rsvp-summary-kids": [
-    {
-      "type": 0,
-      "value": "Kids"
-    }
-  ],
-  "rsvp-summary-loading": [
-    {
-      "type": 0,
-      "value": "Loading RSVPs..."
-    }
-  ],
-  "rsvp-summary-total": [
-    {
-      "type": 0,
-      "value": "Total"
-    }
-  ],
-  "rsvp-total-counter-subtitle": [
-    {
-      "type": 0,
-      "value": "All guests"
-    }
-  ],
-  "rsvp-total-counter-title": [
-    {
-      "type": 0,
-      "value": "Total"
+      "value": "With:"
     }
   ],
   "rsvpform-contact-optional": [

@@ -1,4 +1,28 @@
 {
+  "404-go-home": [
+    {
+      "type": 0,
+      "value": "Go home"
+    }
+  ],
+  "404-page-not-found": [
+    {
+      "type": 0,
+      "value": "404 - That page does not seem to exist..."
+    }
+  ],
+  "address-add-failed": [
+    {
+      "type": 0,
+      "value": "Failed to add address"
+    }
+  ],
+  "address-added-success": [
+    {
+      "type": 0,
+      "value": "Address added!!"
+    }
+  ],
   "address-customer-cancel-btn": [
     {
       "type": 0,
@@ -11,22 +35,40 @@
       "value": "सेव"
     }
   ],
+  "addressform-address-updated": [
+    {
+      "type": 0,
+      "value": "Address updated!!"
+    }
+  ],
+  "addressform-failed-to-update": [
+    {
+      "type": 0,
+      "value": "Failed to update address"
+    }
+  ],
   "admin-article-cancel-btn": [
     {
       "type": 0,
-      "value": "रद्द करें"
+      "value": "Clear"
     }
   ],
   "admin-article-create-btn": [
     {
       "type": 0,
-      "value": "बनाएँ"
+      "value": "Create Article"
     }
   ],
   "admin-article-input-text": [
     {
       "type": 0,
       "value": "अपना अगला बड़ा लेख शीर्षक दर्ज करें!"
+    }
+  ],
+  "admin-article-placeholder": [
+    {
+      "type": 0,
+      "value": "What's your story about?"
     }
   ],
   "admin-article-sr-only-text": [
@@ -38,13 +80,547 @@
   "admin-article-url": [
     {
       "type": 0,
-      "value": "अनुच्छेद यू आ रएल:"
+      "value": "Article URL:"
+    }
+  ],
+  "admin-create-subtitle": [
+    {
+      "type": 0,
+      "value": "Share your thoughts with the world and inspire others with your story"
+    }
+  ],
+  "admin-create-title": [
+    {
+      "type": 0,
+      "value": "Create New Article"
+    }
+  ],
+  "admin-empty-description": [
+    {
+      "type": 0,
+      "value": "Get started by creating your first post"
+    }
+  ],
+  "admin-empty-drafts-description": [
+    {
+      "type": 0,
+      "value": "Create your first draft to get started"
+    }
+  ],
+  "admin-empty-drafts-title": [
+    {
+      "type": 0,
+      "value": "No draft articles yet"
+    }
+  ],
+  "admin-empty-published-description": [
+    {
+      "type": 0,
+      "value": "Publish your first draft to see it here"
+    }
+  ],
+  "admin-empty-published-title": [
+    {
+      "type": 0,
+      "value": "No published articles yet"
+    }
+  ],
+  "admin-empty-title": [
+    {
+      "type": 0,
+      "value": "No articles yet"
+    }
+  ],
+  "admin-events-access-denied-message": [
+    {
+      "type": 0,
+      "value": "You are not authorized to access this page. Only the admin user can manage events."
+    }
+  ],
+  "admin-events-access-denied-title": [
+    {
+      "type": 0,
+      "value": "Access Denied"
+    }
+  ],
+  "admin-events-cancel-btn": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "admin-events-create-btn": [
+    {
+      "type": 0,
+      "value": "Create Event"
+    }
+  ],
+  "admin-events-create-first": [
+    {
+      "type": 0,
+      "value": "Create Your First Event"
+    }
+  ],
+  "admin-events-create-new": [
+    {
+      "type": 0,
+      "value": "Create New Event"
+    }
+  ],
+  "admin-events-create-title": [
+    {
+      "type": 0,
+      "value": "Create New Event"
+    }
+  ],
+  "admin-events-delete-btn": [
+    {
+      "type": 0,
+      "value": "Delete"
+    }
+  ],
+  "admin-events-delete-confirm": [
+    {
+      "type": 0,
+      "value": "Are you sure you want to delete this event? This action cannot be undone."
+    }
+  ],
+  "admin-events-delete-error": [
+    {
+      "type": 0,
+      "value": "Failed to delete event"
+    }
+  ],
+  "admin-events-delete-success": [
+    {
+      "type": 0,
+      "value": "Event deleted successfully!"
+    }
+  ],
+  "admin-events-delete-unexpected-error": [
+    {
+      "type": 0,
+      "value": "An unexpected error occurred while deleting the event"
+    }
+  ],
+  "admin-events-description-placeholder": [
+    {
+      "type": 0,
+      "value": "Enter event description"
+    }
+  ],
+  "admin-events-edit-btn": [
+    {
+      "type": 0,
+      "value": "Edit"
+    }
+  ],
+  "admin-events-edit-title": [
+    {
+      "type": 0,
+      "value": "Edit Event"
+    }
+  ],
+  "admin-events-empty-description": [
+    {
+      "type": 0,
+      "value": "Get started by creating your first event"
+    }
+  ],
+  "admin-events-empty-title": [
+    {
+      "type": 0,
+      "value": "No events yet"
+    }
+  ],
+  "admin-events-fetch-error": [
+    {
+      "type": 0,
+      "value": "Failed to load events"
+    }
+  ],
+  "admin-events-filter-all": [
+    {
+      "type": 0,
+      "value": "All Events"
+    }
+  ],
+  "admin-events-filter-past": [
+    {
+      "type": 0,
+      "value": "Past Events"
+    }
+  ],
+  "admin-events-filter-status": [
+    {
+      "type": 0,
+      "value": "Status"
+    }
+  ],
+  "admin-events-filter-upcoming": [
+    {
+      "type": 0,
+      "value": "Upcoming"
+    }
+  ],
+  "admin-events-filters": [
+    {
+      "type": 0,
+      "value": "Filters"
+    }
+  ],
+  "admin-events-form-date": [
+    {
+      "type": 0,
+      "value": "Date *"
+    }
+  ],
+  "admin-events-form-description": [
+    {
+      "type": 0,
+      "value": "Description"
+    }
+  ],
+  "admin-events-form-image": [
+    {
+      "type": 0,
+      "value": "Image URL"
+    }
+  ],
+  "admin-events-form-location": [
+    {
+      "type": 0,
+      "value": "Location *"
+    }
+  ],
+  "admin-events-form-max-attendees": [
+    {
+      "type": 0,
+      "value": "Max Attendees"
+    }
+  ],
+  "admin-events-form-public": [
+    {
+      "type": 0,
+      "value": "Make this event public"
+    }
+  ],
+  "admin-events-form-time": [
+    {
+      "type": 0,
+      "value": "Time *"
+    }
+  ],
+  "admin-events-form-title": [
+    {
+      "type": 0,
+      "value": "Event Title *"
+    }
+  ],
+  "admin-events-image-placeholder": [
+    {
+      "type": 0,
+      "value": "https://example.com/image.jpg"
+    }
+  ],
+  "admin-events-location-placeholder": [
+    {
+      "type": 0,
+      "value": "Enter event location"
+    }
+  ],
+  "admin-events-max-attendees-placeholder": [
+    {
+      "type": 0,
+      "value": "Optional"
+    }
+  ],
+  "admin-events-no-results-description": [
+    {
+      "type": 0,
+      "value": "Try adjusting your search or filters"
+    }
+  ],
+  "admin-events-no-results-title": [
+    {
+      "type": 0,
+      "value": "No events found"
+    }
+  ],
+  "admin-events-no-session": [
+    {
+      "type": 0,
+      "value": "No authentication session found. Please log in again."
+    }
+  ],
+  "admin-events-page-subtitle": [
+    {
+      "type": 0,
+      "value": "ईवेंट और RSVP प्रबंधित करें"
+    }
+  ],
+  "admin-events-page-title": [
+    {
+      "type": 0,
+      "value": "Admin Events"
+    }
+  ],
+  "admin-events-public": [
+    {
+      "type": 0,
+      "value": "Public Events"
+    }
+  ],
+  "admin-events-saving": [
+    {
+      "type": 0,
+      "value": "Saving..."
+    }
+  ],
+  "admin-events-search-placeholder": [
+    {
+      "type": 0,
+      "value": "Search events..."
+    }
+  ],
+  "admin-events-sort-asc": [
+    {
+      "type": 0,
+      "value": "Oldest First"
+    }
+  ],
+  "admin-events-sort-by": [
+    {
+      "type": 0,
+      "value": "Sort By"
+    }
+  ],
+  "admin-events-sort-date": [
+    {
+      "type": 0,
+      "value": "Date"
+    }
+  ],
+  "admin-events-sort-desc": [
+    {
+      "type": 0,
+      "value": "Newest First"
+    }
+  ],
+  "admin-events-sort-order": [
+    {
+      "type": 0,
+      "value": "Order"
+    }
+  ],
+  "admin-events-sort-title": [
+    {
+      "type": 0,
+      "value": "Title"
+    }
+  ],
+  "admin-events-submit-error": [
+    {
+      "type": 0,
+      "value": "Failed to save event"
+    }
+  ],
+  "admin-events-submit-unexpected-error": [
+    {
+      "type": 0,
+      "value": "An unexpected error occurred while saving the event"
+    }
+  ],
+  "admin-events-subtitle": [
+    {
+      "type": 0,
+      "value": "Create and manage your events"
+    }
+  ],
+  "admin-events-title": [
+    {
+      "type": 0,
+      "value": "Event Management"
+    }
+  ],
+  "admin-events-title-placeholder": [
+    {
+      "type": 0,
+      "value": "Enter event title"
+    }
+  ],
+  "admin-events-total": [
+    {
+      "type": 0,
+      "value": "Total Events"
+    }
+  ],
+  "admin-events-unauthorized": [
+    {
+      "type": 0,
+      "value": "You are not authorized to perform this action"
+    }
+  ],
+  "admin-events-unexpected-error": [
+    {
+      "type": 0,
+      "value": "An unexpected error occurred"
+    }
+  ],
+  "admin-events-upcoming": [
+    {
+      "type": 0,
+      "value": "Upcoming"
+    }
+  ],
+  "admin-events-update-btn": [
+    {
+      "type": 0,
+      "value": "Update Event"
+    }
+  ],
+  "admin-mobile-tip-1": [
+    {
+      "type": 0,
+      "value": "Keep your title clear and descriptive"
+    }
+  ],
+  "admin-mobile-tip-2": [
+    {
+      "type": 0,
+      "value": "Use keywords that readers might search for"
+    }
+  ],
+  "admin-mobile-tip-3": [
+    {
+      "type": 0,
+      "value": "Aim for 6-12 words for optimal engagement"
+    }
+  ],
+  "admin-mobile-tips-title": [
+    {
+      "type": 0,
+      "value": "Writing Tips"
+    }
+  ],
+  "admin-post-created-success": [
+    {
+      "type": 0,
+      "value": "Post created!"
+    }
+  ],
+  "admin-readability-good": [
+    {
+      "type": 0,
+      "value": "Good"
+    }
+  ],
+  "admin-readability-needs-work": [
+    {
+      "type": 0,
+      "value": "Needs work"
     }
   ],
   "admin-slug-save-btn": [
     {
       "type": 0,
       "value": "बदलाव सेव करें"
+    }
+  ],
+  "admin-stats-characters": [
+    {
+      "type": 0,
+      "value": "Characters"
+    }
+  ],
+  "admin-stats-drafts": [
+    {
+      "type": 0,
+      "value": "Drafts"
+    }
+  ],
+  "admin-stats-published": [
+    {
+      "type": 0,
+      "value": "Published"
+    }
+  ],
+  "admin-stats-readability": [
+    {
+      "type": 0,
+      "value": "Readability"
+    }
+  ],
+  "admin-stats-sidebar-title": [
+    {
+      "type": 0,
+      "value": "Article Stats"
+    }
+  ],
+  "admin-stats-total": [
+    {
+      "type": 0,
+      "value": "Total Posts"
+    }
+  ],
+  "admin-stats-words": [
+    {
+      "type": 0,
+      "value": "Words"
+    }
+  ],
+  "admin-subtitle": [
+    {
+      "type": 0,
+      "value": "Create, edit, and publish your articles"
+    }
+  ],
+  "admin-tab-all-posts": [
+    {
+      "type": 0,
+      "value": "All Posts"
+    }
+  ],
+  "admin-tab-drafts-posts": [
+    {
+      "type": 0,
+      "value": "Drafts"
+    }
+  ],
+  "admin-tab-published-posts": [
+    {
+      "type": 0,
+      "value": "Published"
+    }
+  ],
+  "admin-tip-1": [
+    {
+      "type": 0,
+      "value": "Keep your title clear and descriptive"
+    }
+  ],
+  "admin-tip-2": [
+    {
+      "type": 0,
+      "value": "Use keywords that readers might search for"
+    }
+  ],
+  "admin-tip-3": [
+    {
+      "type": 0,
+      "value": "Aim for 6-12 words for optimal engagement"
+    }
+  ],
+  "admin-tip-4": [
+    {
+      "type": 0,
+      "value": "Make it compelling enough to click"
+    }
+  ],
+  "admin-tips-title": [
+    {
+      "type": 0,
+      "value": "Writing Tips"
     }
   ],
   "admin-title": [
@@ -57,6 +633,18 @@
     {
       "type": 0,
       "value": "अनुच्छेद यू आ रएल:"
+    }
+  ],
+  "admin-validation-error": [
+    {
+      "type": 0,
+      "value": "Title must be 4-100 characters"
+    }
+  ],
+  "admin-validation-success": [
+    {
+      "type": 0,
+      "value": "Title looks perfect!"
     }
   ],
   "animation.string1": [
@@ -101,10 +689,446 @@
       "value": "एक समाधान वास्तुकार"
     }
   ],
+  "approve-clear-search": [
+    {
+      "type": 0,
+      "value": "Clear search"
+    }
+  ],
+  "approve-empty-approved-description": [
+    {
+      "type": 0,
+      "value": "Approved posts will appear here"
+    }
+  ],
+  "approve-empty-approved-title": [
+    {
+      "type": 0,
+      "value": "No approved posts yet"
+    }
+  ],
+  "approve-empty-description": [
+    {
+      "type": 0,
+      "value": "No content available for moderation"
+    }
+  ],
+  "approve-empty-pending-description": [
+    {
+      "type": 0,
+      "value": "All posts have been reviewed"
+    }
+  ],
+  "approve-empty-pending-title": [
+    {
+      "type": 0,
+      "value": "No posts pending review"
+    }
+  ],
+  "approve-empty-title": [
+    {
+      "type": 0,
+      "value": "No posts to review"
+    }
+  ],
+  "approve-loading": [
+    {
+      "type": 0,
+      "value": "Loading posts..."
+    }
+  ],
+  "approve-no-search-results-description": [
+    {
+      "type": 0,
+      "value": "Try adjusting your search terms"
+    }
+  ],
+  "approve-no-search-results-title": [
+    {
+      "type": 0,
+      "value": "No results found"
+    }
+  ],
+  "approve-search-placeholder": [
+    {
+      "type": 0,
+      "value": "Search posts..."
+    }
+  ],
+  "approve-search-results": [
+    {
+      "type": 0,
+      "value": "Showing "
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "result"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "results"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " for \""
+    },
+    {
+      "type": 1,
+      "value": "searchTerm"
+    },
+    {
+      "type": 0,
+      "value": "\""
+    }
+  ],
+  "approve-stats-approved": [
+    {
+      "type": 0,
+      "value": "Approved"
+    }
+  ],
+  "approve-stats-pending": [
+    {
+      "type": 0,
+      "value": "Pending"
+    }
+  ],
+  "approve-stats-total": [
+    {
+      "type": 0,
+      "value": "Total Posts"
+    }
+  ],
+  "approve-subtitle": [
+    {
+      "type": 0,
+      "value": "Review and approve user-submitted content"
+    }
+  ],
+  "approve-tab-all": [
+    {
+      "type": 0,
+      "value": "All Posts"
+    }
+  ],
+  "approve-tab-approved": [
+    {
+      "type": 0,
+      "value": "Approved"
+    }
+  ],
+  "approve-tab-pending": [
+    {
+      "type": 0,
+      "value": "Pending Review"
+    }
+  ],
+  "approve-title": [
+    {
+      "type": 0,
+      "value": "Content Moderation"
+    }
+  ],
+  "audio-uploader-upload-label": [
+    {
+      "type": 0,
+      "value": "Upload Audio File"
+    }
+  ],
+  "audioplayer-backward-5-seconds": [
+    {
+      "type": 0,
+      "value": "Backwards 5 seconds"
+    }
+  ],
+  "audioplayer-forward-5-seconds": [
+    {
+      "type": 0,
+      "value": "Forward 5 seconds"
+    }
+  ],
+  "audioplayer-mute": [
+    {
+      "type": 0,
+      "value": "Mute"
+    }
+  ],
+  "audioplayer-unmute": [
+    {
+      "type": 0,
+      "value": "Unmute"
+    }
+  ],
+  "audioplayer-volume-aria": [
+    {
+      "type": 0,
+      "value": "Volume"
+    }
+  ],
+  "audioplayer-volume-slider-aria": [
+    {
+      "type": 0,
+      "value": "Volume"
+    }
+  ],
+  "auth-check-email-verification": [
+    {
+      "type": 0,
+      "value": "Please check your email for verification link!"
+    }
+  ],
   "auth-check-fallback": [
     {
       "type": 0,
       "value": "आपको साइन इन करना होगा"
+    }
+  ],
+  "auth-checking-username": [
+    {
+      "type": 0,
+      "value": "Checking..."
+    }
+  ],
+  "auth-choose-username-subtitle": [
+    {
+      "type": 0,
+      "value": "This will be your unique identifier and profile URL"
+    }
+  ],
+  "auth-choose-username-title": [
+    {
+      "type": 0,
+      "value": "Choose your username"
+    }
+  ],
+  "auth-confirm-password-label": [
+    {
+      "type": 0,
+      "value": "Confirm password"
+    }
+  ],
+  "auth-confirm-password-placeholder": [
+    {
+      "type": 0,
+      "value": "Confirm your password"
+    }
+  ],
+  "auth-continue-google": [
+    {
+      "type": 0,
+      "value": "Continue with Google"
+    }
+  ],
+  "auth-continue-to-profile": [
+    {
+      "type": 0,
+      "value": "Continue to Profile"
+    }
+  ],
+  "auth-email-label": [
+    {
+      "type": 0,
+      "value": "Email address"
+    }
+  ],
+  "auth-email-placeholder": [
+    {
+      "type": 0,
+      "value": "Enter your email"
+    }
+  ],
+  "auth-email-verified-success": [
+    {
+      "type": 0,
+      "value": "Your email has been verified successfully!"
+    }
+  ],
+  "auth-error-generic": [
+    {
+      "type": 0,
+      "value": "Something went wrong. Please try again."
+    }
+  ],
+  "auth-go-to-dashboard": [
+    {
+      "type": 0,
+      "value": "Go to Dashboard"
+    }
+  ],
+  "auth-google-error": [
+    {
+      "type": 0,
+      "value": "Google sign in failed. Please try again."
+    }
+  ],
+  "auth-or-divider": [
+    {
+      "type": 0,
+      "value": "or"
+    }
+  ],
+  "auth-password-label": [
+    {
+      "type": 0,
+      "value": "Password"
+    }
+  ],
+  "auth-password-mismatch": [
+    {
+      "type": 0,
+      "value": "Passwords don't match"
+    }
+  ],
+  "auth-password-placeholder": [
+    {
+      "type": 0,
+      "value": "Enter your password"
+    }
+  ],
+  "auth-profile-preview": [
+    {
+      "type": 0,
+      "value": "Your profile will be available at:"
+    }
+  ],
+  "auth-sign-in-success": [
+    {
+      "type": 0,
+      "value": "Welcome back!"
+    }
+  ],
+  "auth-sign-out": [
+    {
+      "type": 0,
+      "value": "Sign Out"
+    }
+  ],
+  "auth-signed-in-message": [
+    {
+      "type": 0,
+      "value": "You are successfully signed in"
+    }
+  ],
+  "auth-signout-error": [
+    {
+      "type": 0,
+      "value": "Failed to sign out. Please try again."
+    }
+  ],
+  "auth-signout-success": [
+    {
+      "type": 0,
+      "value": "You've been signed out successfully!"
+    }
+  ],
+  "auth-signup-success": [
+    {
+      "type": 0,
+      "value": "Account created successfully!"
+    }
+  ],
+  "auth-username-available": [
+    {
+      "type": 1,
+      "value": "username"
+    },
+    {
+      "type": 0,
+      "value": " is available!"
+    }
+  ],
+  "auth-username-help": [
+    {
+      "type": 0,
+      "value": "You can change this later in your profile settings"
+    }
+  ],
+  "auth-username-label": [
+    {
+      "type": 0,
+      "value": "Username"
+    }
+  ],
+  "auth-username-placeholder": [
+    {
+      "type": 0,
+      "value": "your-username"
+    }
+  ],
+  "auth-username-requirements": [
+    {
+      "type": 0,
+      "value": "3-15 characters, letters, numbers, dots and underscores only"
+    }
+  ],
+  "auth-username-taken": [
+    {
+      "type": 0,
+      "value": "That username is taken!"
+    }
+  ],
+  "auth-username-update-error": [
+    {
+      "type": 0,
+      "value": "Failed to update username. Please try again."
+    }
+  ],
+  "auth-username-updated": [
+    {
+      "type": 0,
+      "value": "Username updated successfully!"
+    }
+  ],
+  "auth-welcome-back": [
+    {
+      "type": 0,
+      "value": "Welcome back, "
+    },
+    {
+      "type": 1,
+      "value": "username"
+    },
+    {
+      "type": 0,
+      "value": "!"
+    }
+  ],
+  "auth-welcome-verified": [
+    {
+      "type": 0,
+      "value": "Welcome "
+    },
+    {
+      "type": 1,
+      "value": "name"
+    },
+    {
+      "type": 0,
+      "value": "!"
     }
   ],
   "calculate-total-delivery-cost-text": [
@@ -131,58 +1155,114 @@
       "value": "कुल:"
     }
   ],
-  "card_live": [
+  "calendar-button-add-to-calendar": [
     {
       "type": 0,
-      "value": "प्रकाशित"
+      "value": "Add to Calendar"
     }
   ],
-  "card_mins_read": [
+  "cancel-cancelled": [
     {
       "type": 0,
-      "value": "मिनट मे पढ़ेंं"
+      "value": "Cancelled"
     }
   ],
-  "card_unpublished": [
+  "cancel-go-home": [
     {
       "type": 0,
-      "value": "अप्रकाशित"
+      "value": "Go home"
     }
   ],
-  "card_words": [
+  "cart-add-address": [
     {
       "type": 0,
-      "value": "शब्द"
+      "value": "Add Address"
     }
   ],
-  "cart-heading": [
+  "cart-continue-shopping": [
     {
       "type": 0,
-      "value": "कार्ट"
+      "value": "Continue Shopping"
+    }
+  ],
+  "cart-items-count": [
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "item"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "items"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " in your cart"
+    }
+  ],
+  "cart-no-address": [
+    {
+      "type": 0,
+      "value": "No delivery address added"
+    }
+  ],
+  "cart-order-summary": [
+    {
+      "type": 0,
+      "value": "Order Summary"
     }
   ],
   "cart-page-address-card-heading": [
     {
       "type": 0,
-      "value": "पता"
+      "value": "Delivery Address"
     }
   ],
   "cart-page-checkout-btn": [
     {
       "type": 0,
-      "value": "चेक आउट"
+      "value": "Proceed to Checkout"
     }
   ],
   "cart-page-delivery-cards-heading": [
     {
       "type": 0,
-      "value": "डिलीवरी"
+      "value": "Delivery Options"
     }
   ],
   "cart-page-empty-cart": [
     {
       "type": 0,
       "value": "कृपया शॉपिंग कार्ट में आइटम जोड़ें"
+    }
+  ],
+  "cart-page-empty-cart-title": [
+    {
+      "type": 0,
+      "value": "Your cart is empty"
     }
   ],
   "cart-page-no-products-redirect-btn": [
@@ -197,46 +1277,224 @@
       "value": "शॉपिंग कार्ट"
     }
   ],
-  "cart-page-subtotal-heading": [
+  "checkout-complete-order": [
     {
       "type": 0,
-      "value": "उप-योग"
+      "value": "Complete Order"
     }
   ],
-  "checkout-heading": [
+  "checkout-delivery-address": [
     {
       "type": 0,
-      "value": "चेकआउट"
+      "value": "Delivery Address"
+    }
+  ],
+  "checkout-delivery-cost": [
+    {
+      "type": 0,
+      "value": "Delivery:"
+    }
+  ],
+  "checkout-delivery-method": [
+    {
+      "type": 0,
+      "value": "Delivery Method"
+    }
+  ],
+  "checkout-empty-cart": [
+    {
+      "type": 0,
+      "value": "Your cart is empty"
+    }
+  ],
+  "checkout-empty-cart-description": [
+    {
+      "type": 0,
+      "value": "Add some amazing products to your cart and come back to complete your order. We have great deals waiting for you!"
+    }
+  ],
+  "checkout-error": [
+    {
+      "type": 0,
+      "value": "Error starting checkout"
+    }
+  ],
+  "checkout-free-delivery": [
+    {
+      "type": 0,
+      "value": "FREE"
+    }
+  ],
+  "checkout-go-shopping": [
+    {
+      "type": 0,
+      "value": "Start Shopping"
+    }
+  ],
+  "checkout-item-each": [
+    {
+      "type": 0,
+      "value": "each"
+    }
+  ],
+  "checkout-item-quantity-label": [
+    {
+      "type": 0,
+      "value": "Quantity: "
+    },
+    {
+      "type": 1,
+      "value": "count"
+    }
+  ],
+  "checkout-item-subtotal": [
+    {
+      "type": 0,
+      "value": "Item Total"
+    }
+  ],
+  "checkout-order-summary": [
+    {
+      "type": 0,
+      "value": "Order Summary ("
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "item"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "items"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "checkout-page-heading": [
+    {
+      "type": 0,
+      "value": "Secure Checkout"
+    }
+  ],
+  "checkout-payment-summary": [
+    {
+      "type": 0,
+      "value": "Payment Summary"
+    }
+  ],
+  "checkout-processing": [
+    {
+      "type": 0,
+      "value": "Processing..."
+    }
+  ],
+  "checkout-security-notice": [
+    {
+      "type": 0,
+      "value": "Your payment information is secure and encrypted"
+    }
+  ],
+  "checkout-ssl-secured": [
+    {
+      "type": 0,
+      "value": "SSL Secured"
+    }
+  ],
+  "checkout-subtotal": [
+    {
+      "type": 0,
+      "value": "Subtotal:"
+    }
+  ],
+  "checkout-tax": [
+    {
+      "type": 0,
+      "value": "Tax (19%):"
+    }
+  ],
+  "checkout-total": [
+    {
+      "type": 0,
+      "value": "Total:"
+    }
+  ],
+  "checkoutbutton-login-required": [
+    {
+      "type": 0,
+      "value": "Please log in to create a new Stripe Checkout session"
+    }
+  ],
+  "cookies-manage-preferences-aria": [
+    {
+      "type": 0,
+      "value": "Manage Cookie Preferences"
+    }
+  ],
+  "cookies-privacy-policy-aria": [
+    {
+      "type": 0,
+      "value": "Privacy Policy"
     }
   ],
   "cookies_accept_button": [
     {
       "type": 0,
-      "value": "बिल्कुल"
+      "value": "Accept All"
     }
   ],
   "cookies_deny_button": [
     {
       "type": 0,
-      "value": "जी नहीं, धन्यवाद"
+      "value": "Necessary Only"
     }
   ],
   "cookies_description": [
     {
       "type": 0,
-      "value": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, accusamus aliquid aperiam beatae consectetur culpa dolores eum expedita, ipsam iure laboriosam nobis odit quos, sed sunt veritatis voluptas voluptate voluptatum!"
+      "value": "We use cookies to enhance your browsing experience, analyze site traffic, and personalize content. Necessary cookies enable core functionality while optional cookies help us improve our services. By clicking 'Accept All', you consent to our use of cookies as described in our Privacy Policy."
     }
   ],
   "cookies_heading": [
     {
       "type": 0,
-      "value": "हम कुकीज़ हैं!"
+      "value": "Cookie Preferences"
+    }
+  ],
+  "cookies_privacy_link": [
+    {
+      "type": 0,
+      "value": "Read our Privacy Policy for more information"
     }
   ],
   "cookies_small_text": [
     {
       "type": 0,
-      "value": "नमस्ते ..."
+      "value": "Your Privacy Matters"
     }
   ],
   "create-product-cancel-btn": [
@@ -251,16 +1509,232 @@
       "value": "बनाएँ"
     }
   ],
+  "doctor-page-doctor-name": [
+    {
+      "type": 0,
+      "value": "Doctor name"
+    }
+  ],
+  "dummylogin-email-label": [
+    {
+      "type": 0,
+      "value": "Email address"
+    }
+  ],
+  "dummylogin-password-label": [
+    {
+      "type": 0,
+      "value": "Password"
+    }
+  ],
+  "dummylogin-password-placeholder": [
+    {
+      "type": 0,
+      "value": "Password"
+    }
+  ],
+  "dummylogin-signin-button": [
+    {
+      "type": 0,
+      "value": "Sign in"
+    }
+  ],
   "end_of_articles": [
     {
       "type": 0,
       "value": "ब्लॉग पोस्ट का अंत"
     }
   ],
+  "event-status-past": [
+    {
+      "type": 0,
+      "value": "Past Event"
+    }
+  ],
+  "event-status-today": [
+    {
+      "type": 0,
+      "value": "Today"
+    }
+  ],
+  "event-status-upcoming": [
+    {
+      "type": 0,
+      "value": "Upcoming"
+    }
+  ],
+  "favorite-button-add": [
+    {
+      "type": 0,
+      "value": "Add to favorites"
+    }
+  ],
+  "favorite-button-remove": [
+    {
+      "type": 0,
+      "value": "Remove from favorites"
+    }
+  ],
+  "favorites-browse-products-button": [
+    {
+      "type": 0,
+      "value": "Browse Products"
+    }
+  ],
+  "favorites-empty-message": [
+    {
+      "type": 0,
+      "value": "You haven't added any products to your favorites yet."
+    }
+  ],
+  "favorites-fetch-error": [
+    {
+      "type": 0,
+      "value": "Failed to load favorites"
+    }
+  ],
+  "favorites-page-title": [
+    {
+      "type": 0,
+      "value": "My Favorite Products"
+    }
+  ],
+  "favorites-remove-error": [
+    {
+      "type": 0,
+      "value": "Failed to remove from favorites"
+    }
+  ],
+  "favorites-remove-success": [
+    {
+      "type": 0,
+      "value": "Removed from favorites"
+    }
+  ],
+  "floating-cart-tooltip": [
+    {
+      "type": 0,
+      "value": "View Cart ("
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "item"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "items"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "footer.built-with-love": [
+    {
+      "type": 0,
+      "value": "Built with"
+    }
+  ],
+  "footer.by-swapnil": [
+    {
+      "type": 0,
+      "value": "by Swapnil Srivastava"
+    }
+  ],
+  "footer.preferences": [
+    {
+      "type": 0,
+      "value": "Settings"
+    }
+  ],
+  "footer.privacy-policy": [
+    {
+      "type": 0,
+      "value": "Privacy"
+    }
+  ],
+  "footer.rights": [
+    {
+      "type": 0,
+      "value": "All rights reserved"
+    }
+  ],
+  "footer.technology": [
+    {
+      "type": 0,
+      "value": "Tech"
+    }
+  ],
+  "heart-button-add-to-favorites": [
+    {
+      "type": 0,
+      "value": "Add to favorites"
+    }
+  ],
+  "heart-button-added-to-favorites": [
+    {
+      "type": 0,
+      "value": "Added to favorites"
+    }
+  ],
+  "heart-button-error": [
+    {
+      "type": 0,
+      "value": "Something went wrong. Please try again."
+    }
+  ],
   "heart-button-heart": [
     {
       "type": 0,
       "value": "दिल"
+    }
+  ],
+  "heart-button-login-required": [
+    {
+      "type": 0,
+      "value": "Please log in to save products to favorites"
+    }
+  ],
+  "heart-button-remove-from-favorites": [
+    {
+      "type": 0,
+      "value": "Remove from favorites"
+    }
+  ],
+  "heart-button-removed-from-favorites": [
+    {
+      "type": 0,
+      "value": "Removed from favorites"
+    }
+  ],
+  "heartbutton-like-post-tooltip": [
+    {
+      "type": 0,
+      "value": "Do you like the post?"
     }
   ],
   "horizatal-five-tag-five-solid": [
@@ -443,6 +1917,194 @@
       "value": "कुछ नया"
     }
   ],
+  "imageuploader-choose-image-sr": [
+    {
+      "type": 0,
+      "value": "Choose Image"
+    }
+  ],
+  "invite-coming-soon-description": [
+    {
+      "type": 0,
+      "value": "We're working on exciting new features for event management and guest interaction. Stay tuned!"
+    }
+  ],
+  "invite-coming-soon-title": [
+    {
+      "type": 0,
+      "value": "More Features Coming Soon"
+    }
+  ],
+  "invite-date-label": [
+    {
+      "type": 0,
+      "value": "Date"
+    }
+  ],
+  "invite-event-details-mobile": [
+    {
+      "type": 0,
+      "value": "Event Details"
+    }
+  ],
+  "invite-event-details-title": [
+    {
+      "type": 0,
+      "value": "Event Details"
+    }
+  ],
+  "invite-fetch-events-error": [
+    {
+      "type": 0,
+      "value": "Failed to load events. Please try again."
+    }
+  ],
+  "invite-hero-upcoming-count": [
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " Special "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Event"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Events"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " Awaiting"
+    }
+  ],
+  "invite-hide-past-events": [
+    {
+      "type": 0,
+      "value": "Hide Past Events"
+    }
+  ],
+  "invite-loading": [
+    {
+      "type": 0,
+      "value": "Loading events..."
+    }
+  ],
+  "invite-location-button": [
+    {
+      "type": 0,
+      "value": "Location"
+    }
+  ],
+  "invite-location-label": [
+    {
+      "type": 0,
+      "value": "Location"
+    }
+  ],
+  "invite-no-events-description": [
+    {
+      "type": 0,
+      "value": "There are no upcoming events at the moment. Check back soon!"
+    }
+  ],
+  "invite-no-events-title": [
+    {
+      "type": 0,
+      "value": "No Events Available"
+    }
+  ],
+  "invite-page-hero-subtitle": [
+    {
+      "type": 0,
+      "value": "Join us for special celebrations and memorable moments"
+    }
+  ],
+  "invite-page-hero-title": [
+    {
+      "type": 0,
+      "value": "You're Invited!"
+    }
+  ],
+  "invite-past-event-label": [
+    {
+      "type": 0,
+      "value": "Past event"
+    }
+  ],
+  "invite-past-events-title": [
+    {
+      "type": 0,
+      "value": "Past Events"
+    }
+  ],
+  "invite-rsvp-form-toggle": [
+    {
+      "type": 0,
+      "value": "इस इवेंट के लिए RSVP करें"
+    }
+  ],
+  "invite-rsvp-form-toggle-past": [
+    {
+      "type": 0,
+      "value": "पिछले इवेंट के लिए RSVP करें"
+    }
+  ],
+  "invite-show-past-events": [
+    {
+      "type": 0,
+      "value": "Show Past Events"
+    }
+  ],
+  "invite-stay-tuned": [
+    {
+      "type": 0,
+      "value": "Stay Tuned"
+    }
+  ],
+  "invite-tap-for-directions": [
+    {
+      "type": 0,
+      "value": "Tap for directions"
+    }
+  ],
+  "invite-time-label": [
+    {
+      "type": 0,
+      "value": "Time"
+    }
+  ],
+  "invite-unexpected-error": [
+    {
+      "type": 0,
+      "value": "An unexpected error occurred. Please refresh the page."
+    }
+  ],
+  "invite-upcoming-events-title": [
+    {
+      "type": 0,
+      "value": "Upcoming Events"
+    }
+  ],
   "load_more_button": [
     {
       "type": 0,
@@ -461,10 +2123,34 @@
       "value": "प्रौद्योगिकियों ... जो मेरे चरित्र का निर्माण करता है"
     }
   ],
+  "nav-admin-events-tooltip": [
+    {
+      "type": 0,
+      "value": "Manage Events"
+    }
+  ],
+  "nav-bar-admin-events-text": [
+    {
+      "type": 0,
+      "value": "Manage Events"
+    }
+  ],
   "nav-bar-cart-text": [
     {
       "type": 0,
       "value": "कार्ट"
+    }
+  ],
+  "nav-bar-favorites-text": [
+    {
+      "type": 0,
+      "value": "Favorites"
+    }
+  ],
+  "nav-bar-invite-text": [
+    {
+      "type": 0,
+      "value": "Invites"
     }
   ],
   "nav-bar-login-text": [
@@ -491,10 +2177,96 @@
       "value": "साइन आउट करें"
     }
   ],
+  "nav-dark-mode-tooltip": [
+    {
+      "type": 0,
+      "value": "Dark Mode"
+    }
+  ],
+  "nav-light-mode-tooltip": [
+    {
+      "type": 0,
+      "value": "Light Mode"
+    }
+  ],
+  "nav-login-tooltip": [
+    {
+      "type": 0,
+      "value": "Login"
+    }
+  ],
+  "nav-tech-stack-tooltip": [
+    {
+      "type": 0,
+      "value": "Tech Stack"
+    }
+  ],
+  "nav-write-post-tooltip": [
+    {
+      "type": 0,
+      "value": "Write a post"
+    }
+  ],
+  "navbar-my-tutorial": [
+    {
+      "type": 0,
+      "value": "My Tutorial"
+    }
+  ],
+  "personalization-accept-cookies-alert": [
+    {
+      "type": 0,
+      "value": "To save personalization preferences, please accept cookies in the cookie banner."
+    }
+  ],
+  "personalization_consent_required": [
+    {
+      "type": 0,
+      "value": "To enable personalization features, please accept cookies in the cookie banner at the bottom of the page."
+    }
+  ],
+  "personalization_history": [
+    {
+      "type": 0,
+      "value": "Remember browsing history"
+    }
+  ],
+  "personalization_privacy_note": [
+    {
+      "type": 0,
+      "value": "Your preferences are stored in a cookie on your device. See our "
+    },
+    {
+      "type": 1,
+      "value": "privacyLink"
+    },
+    {
+      "type": 0,
+      "value": " for more information."
+    }
+  ],
+  "personalization_recommendations": [
+    {
+      "type": 0,
+      "value": "Enable personalized recommendations"
+    }
+  ],
+  "personalization_title": [
+    {
+      "type": 0,
+      "value": "Personalization Settings"
+    }
+  ],
   "post-content-auth-check-signup": [
     {
       "type": 0,
       "value": "साइन अप करें"
+    }
+  ],
+  "post-feed-no-parent-function": [
+    {
+      "type": 0,
+      "value": "No Parent Function"
     }
   ],
   "post-list-published": [
@@ -509,10 +2281,370 @@
       "value": "और पढ़ें"
     }
   ],
+  "postcontent-approve-button": [
+    {
+      "type": 0,
+      "value": "Approve"
+    }
+  ],
+  "postcontent-copy-ready": [
+    {
+      "type": 0,
+      "value": "Copy Ready"
+    }
+  ],
+  "postcontent-draft-status": [
+    {
+      "type": 0,
+      "value": "● Draft"
+    }
+  ],
+  "postcontent-edit-post-aria": [
+    {
+      "type": 0,
+      "value": "Edit post"
+    }
+  ],
+  "postcontent-email-confirmation-sent": [
+    {
+      "type": 0,
+      "value": "Email confirmation sent!"
+    }
+  ],
+  "postcontent-mark-copy-ready-aria": [
+    {
+      "type": 0,
+      "value": "Mark as copy ready"
+    }
+  ],
+  "postcontent-mark-web-ready-aria": [
+    {
+      "type": 0,
+      "value": "Mark as web ready"
+    }
+  ],
+  "postcontent-min-read": [
+    {
+      "type": 0,
+      "value": "min read"
+    }
+  ],
+  "postcontent-min-read-2": [
+    {
+      "type": 0,
+      "value": "min read"
+    }
+  ],
+  "postcontent-post-approved": [
+    {
+      "type": 0,
+      "value": "Post approved successfully!"
+    }
+  ],
+  "postcontent-publish": [
+    {
+      "type": 0,
+      "value": "Publish"
+    }
+  ],
+  "postcontent-publish-post-aria": [
+    {
+      "type": 0,
+      "value": "Publish post"
+    }
+  ],
+  "postcontent-published-status": [
+    {
+      "type": 0,
+      "value": "● Published"
+    }
+  ],
+  "postcontent-share-facebook": [
+    {
+      "type": 0,
+      "value": "Share on Facebook"
+    }
+  ],
+  "postcontent-share-label": [
+    {
+      "type": 0,
+      "value": "Share:"
+    }
+  ],
+  "postcontent-share-linkedin": [
+    {
+      "type": 0,
+      "value": "Share on LinkedIn"
+    }
+  ],
+  "postcontent-share-twitter": [
+    {
+      "type": 0,
+      "value": "Share on Twitter"
+    }
+  ],
+  "postcontent-web-ready": [
+    {
+      "type": 0,
+      "value": "Web Ready"
+    }
+  ],
+  "postcontent-words": [
+    {
+      "type": 0,
+      "value": "words"
+    }
+  ],
+  "postcontent-workflow-complete": [
+    {
+      "type": 0,
+      "value": "2/4 Complete"
+    }
+  ],
+  "postcontent-workflow-progress": [
+    {
+      "type": 0,
+      "value": "Workflow Progress"
+    }
+  ],
+  "postfeed-min-read": [
+    {
+      "type": 0,
+      "value": "min read"
+    }
+  ],
+  "postfeed-no-posts": [
+    {
+      "type": 0,
+      "value": "No posts available"
+    }
+  ],
+  "postfeed-status-draft": [
+    {
+      "type": 0,
+      "value": "Draft"
+    }
+  ],
+  "postfeed-status-live": [
+    {
+      "type": 0,
+      "value": "Live"
+    }
+  ],
+  "postfeed-words": [
+    {
+      "type": 0,
+      "value": "words"
+    }
+  ],
   "posts_list_end": [
     {
       "type": 0,
       "value": "कोई और लेख नहीं"
+    }
+  ],
+  "preferences.back_to_home": [
+    {
+      "type": 0,
+      "value": "Back to Home"
+    }
+  ],
+  "preferences.intro": [
+    {
+      "type": 0,
+      "value": "Customize your experience on our platform by adjusting your personalization settings. These settings will be saved according to your cookie preferences."
+    }
+  ],
+  "preferences.title": [
+    {
+      "type": 0,
+      "value": "User Preferences"
+    }
+  ],
+  "pricing-advanced-seo-setup": [
+    {
+      "type": 0,
+      "value": "Advanced SEO setup"
+    }
+  ],
+  "pricing-basic-1-hour-call": [
+    {
+      "type": 0,
+      "value": "1 hour call"
+    }
+  ],
+  "pricing-basic-consultation-subtitle": [
+    {
+      "type": 0,
+      "value": "Ideal For: Small businesses and startups needing foundational advice"
+    }
+  ],
+  "pricing-basic-consultation-title": [
+    {
+      "type": 0,
+      "value": "Basic Consultation"
+    }
+  ],
+  "pricing-basic-email-support": [
+    {
+      "type": 0,
+      "value": "Follow-up email support"
+    }
+  ],
+  "pricing-basic-initial-audit": [
+    {
+      "type": 0,
+      "value": "Initial site audit"
+    }
+  ],
+  "pricing-basic-package-subtitle": [
+    {
+      "type": 0,
+      "value": "Ideal For: Growing businesses looking to optimize their online presence."
+    }
+  ],
+  "pricing-basic-package-title": [
+    {
+      "type": 0,
+      "value": "Basic Package"
+    }
+  ],
+  "pricing-basic-seo-recommendations": [
+    {
+      "type": 0,
+      "value": "Basic SEO recommendations"
+    }
+  ],
+  "pricing-basic-seo-setup": [
+    {
+      "type": 0,
+      "value": "Basic SEO setup"
+    }
+  ],
+  "pricing-custom-website-design": [
+    {
+      "type": 0,
+      "value": "Custom website design"
+    }
+  ],
+  "pricing-feature-custom-design": [
+    {
+      "type": 0,
+      "value": "Fully custom design and development"
+    }
+  ],
+  "pricing-feature-ecommerce": [
+    {
+      "type": 0,
+      "value": "Advanced e-commerce functionality"
+    }
+  ],
+  "pricing-feature-seo": [
+    {
+      "type": 0,
+      "value": "Comprehensive SEO"
+    }
+  ],
+  "pricing-feature-tshirt": [
+    {
+      "type": 0,
+      "value": "Official t-shirt"
+    }
+  ],
+  "pricing-invoices-receipts-available": [
+    {
+      "type": 0,
+      "value": "Invoices and receipts available for easy company reimbursement"
+    }
+  ],
+  "pricing-pay-once-own-forever": [
+    {
+      "type": 0,
+      "value": "Pay once, own it forever"
+    }
+  ],
+  "pricing-premium-package": [
+    {
+      "type": 0,
+      "value": "Premium Package"
+    }
+  ],
+  "pricing-premium-package-description": [
+    {
+      "type": 0,
+      "value": "Unlock the expertise with a single investment - pay once, and your success is in good hands."
+    }
+  ],
+  "pricing-simple-no-tricks-pricing": [
+    {
+      "type": 0,
+      "value": "Simple no-tricks pricing"
+    }
+  ],
+  "pricing-simple-website-design": [
+    {
+      "type": 0,
+      "value": "Simple website design"
+    }
+  ],
+  "pricing-standard-package": [
+    {
+      "type": 0,
+      "value": "Standard Package"
+    }
+  ],
+  "pricing-standard-package-description": [
+    {
+      "type": 0,
+      "value": "Ideal For: Businesses with specific, large-scale projects"
+    }
+  ],
+  "pricing-title": [
+    {
+      "type": 0,
+      "value": "Choose the right package which is best for you!"
+    }
+  ],
+  "pricing-up-to-10-pages": [
+    {
+      "type": 0,
+      "value": "Up to 10 pages"
+    }
+  ],
+  "pricing-up-to-5-pages": [
+    {
+      "type": 0,
+      "value": "Up to 5 pages"
+    }
+  ],
+  "pricing-whats-included": [
+    {
+      "type": 0,
+      "value": "What's included"
+    }
+  ],
+  "privacy-policy-overview-text": [
+    {
+      "type": 0,
+      "value": "This Privacy & Cookie Policy explains how we collect, use, and protect your information when you visit our website. We are committed to ensuring the privacy and security of your data."
+    }
+  ],
+  "privacy-policy-overview-title": [
+    {
+      "type": 0,
+      "value": "Overview"
+    }
+  ],
+  "privacy-policy-title": [
+    {
+      "type": 0,
+      "value": "Privacy & Cookie Policy"
+    }
+  ],
+  "privacy.back_to_home": [
+    {
+      "type": 0,
+      "value": "Back to Home"
     }
   ],
   "product-card-add-to-cart": [
@@ -521,10 +2653,104 @@
       "value": "कार्ट में डालें"
     }
   ],
+  "product-card-add-to-cart-error": [
+    {
+      "type": 0,
+      "value": "Failed to add item to cart. Please try again."
+    }
+  ],
+  "product-card-added": [
+    {
+      "type": 0,
+      "value": "Added!"
+    }
+  ],
+  "product-card-added-to-cart-toast": [
+    {
+      "type": 1,
+      "value": "productName"
+    },
+    {
+      "type": 0,
+      "value": " added to cart!"
+    }
+  ],
   "product-card-create-product": [
     {
       "type": 0,
       "value": "उत्पाद बनाएँ"
+    }
+  ],
+  "product-card-in-stock": [
+    {
+      "type": 0,
+      "value": "In Stock"
+    }
+  ],
+  "product-card-invalid-product": [
+    {
+      "type": 0,
+      "value": "Invalid product. Please try again."
+    }
+  ],
+  "product-card-no-image": [
+    {
+      "type": 0,
+      "value": "No image available"
+    }
+  ],
+  "product-card-out-of-stock": [
+    {
+      "type": 0,
+      "value": "Out of Stock"
+    }
+  ],
+  "product-card-quick-view": [
+    {
+      "type": 0,
+      "value": "Quick view"
+    }
+  ],
+  "product-detail-add-to-cart": [
+    {
+      "type": 0,
+      "value": "Add to Cart"
+    }
+  ],
+  "product-detail-add-to-cart-error": [
+    {
+      "type": 0,
+      "value": "Failed to add item to cart. Please try again."
+    }
+  ],
+  "product-detail-added": [
+    {
+      "type": 0,
+      "value": "Added!"
+    }
+  ],
+  "product-detail-added-to-cart": [
+    {
+      "type": 0,
+      "value": "Added to cart!"
+    }
+  ],
+  "product-detail-back": [
+    {
+      "type": 0,
+      "value": "Back"
+    }
+  ],
+  "product-detail-back-to-products": [
+    {
+      "type": 0,
+      "value": "Back to Products"
+    }
+  ],
+  "product-detail-fetch-error": [
+    {
+      "type": 0,
+      "value": "Failed to load product details. Please try again."
     }
   ],
   "product-detail-heading": [
@@ -533,22 +2759,970 @@
       "value": "उत्पाद विवरण"
     }
   ],
-  "product-index-cart-added": [
+  "product-detail-in-stock": [
     {
       "type": 0,
-      "value": "उत्पाद कार्ट में जोड़ा गया"
+      "value": "In Stock"
     }
   ],
-  "product-index-cart-added-redirect-btn": [
+  "product-detail-not-found": [
     {
       "type": 0,
-      "value": "कार्ट पर जाएं"
+      "value": "Product not found"
+    }
+  ],
+  "product-detail-not-found-description": [
+    {
+      "type": 0,
+      "value": "The product you are looking for doesn't exist or has been removed."
+    }
+  ],
+  "product-detail-out-of-stock": [
+    {
+      "type": 0,
+      "value": "Out of Stock"
+    }
+  ],
+  "product-detail-quantity": [
+    {
+      "type": 0,
+      "value": "Quantity"
+    }
+  ],
+  "product-detail-related-products": [
+    {
+      "type": 0,
+      "value": "You might also like"
+    }
+  ],
+  "product-detail-stock-count": [
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " available"
+    }
+  ],
+  "product-detail-stock-level": [
+    {
+      "type": 0,
+      "value": "Stock Level"
+    }
+  ],
+  "product-index-cart-items-count": [
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "item"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "items"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " in your cart"
+    }
+  ],
+  "product-index-cart-ready": [
+    {
+      "type": 0,
+      "value": "Ready to checkout when you are"
+    }
+  ],
+  "product-index-cart-total-label": [
+    {
+      "type": 0,
+      "value": "Total"
+    }
+  ],
+  "product-index-cart-view-button": [
+    {
+      "type": 0,
+      "value": "View Cart"
+    }
+  ],
+  "productcard-error-creating-product": [
+    {
+      "type": 0,
+      "value": "Error creating product: "
+    },
+    {
+      "type": 1,
+      "value": "error"
+    }
+  ],
+  "productcard-error-uploading-image": [
+    {
+      "type": 0,
+      "value": "Error uploading image: "
+    },
+    {
+      "type": 1,
+      "value": "error"
+    }
+  ],
+  "productcard-product-created": [
+    {
+      "type": 0,
+      "value": "Product Created!!"
+    }
+  ],
+  "products-category-label": [
+    {
+      "type": 0,
+      "value": "Category"
+    }
+  ],
+  "products-clear-filters": [
+    {
+      "type": 0,
+      "value": "Clear Filters"
+    }
+  ],
+  "products-error-loading": [
+    {
+      "type": 0,
+      "value": "Error loading products: "
+    },
+    {
+      "type": 1,
+      "value": "error"
+    }
+  ],
+  "products-filter-all": [
+    {
+      "type": 0,
+      "value": "All Categories"
+    }
+  ],
+  "products-filter-books": [
+    {
+      "type": 0,
+      "value": "Books"
+    }
+  ],
+  "products-filter-clothing": [
+    {
+      "type": 0,
+      "value": "Clothing"
+    }
+  ],
+  "products-filter-electronics": [
+    {
+      "type": 0,
+      "value": "Electronics"
+    }
+  ],
+  "products-filter-home": [
+    {
+      "type": 0,
+      "value": "Home & Garden"
+    }
+  ],
+  "products-filters": [
+    {
+      "type": 0,
+      "value": "Filters"
     }
   ],
   "products-heading": [
     {
       "type": 0,
-      "value": "उत्पाद"
+      "value": "Our Products"
+    }
+  ],
+  "products-in-stock": [
+    {
+      "type": 1,
+      "value": "inStock"
+    },
+    {
+      "type": 0,
+      "value": " in stock"
+    }
+  ],
+  "products-loaded-successfully": [
+    {
+      "type": 0,
+      "value": "Products loaded successfully!"
+    }
+  ],
+  "products-price-25-50": [
+    {
+      "type": 0,
+      "value": "$25 - $50"
+    }
+  ],
+  "products-price-50-100": [
+    {
+      "type": 0,
+      "value": "$50 - $100"
+    }
+  ],
+  "products-price-all": [
+    {
+      "type": 0,
+      "value": "All Prices"
+    }
+  ],
+  "products-price-over-100": [
+    {
+      "type": 0,
+      "value": "Over $100"
+    }
+  ],
+  "products-price-range-label": [
+    {
+      "type": 0,
+      "value": "Price Range"
+    }
+  ],
+  "products-price-under-25": [
+    {
+      "type": 0,
+      "value": "Under $25"
+    }
+  ],
+  "products-results-count": [
+    {
+      "type": 0,
+      "value": "Showing "
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "product"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "products"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "products-search-placeholder": [
+    {
+      "type": 0,
+      "value": "Search products..."
+    }
+  ],
+  "products-search-results": [
+    {
+      "type": 0,
+      "value": "for \""
+    },
+    {
+      "type": 1,
+      "value": "searchTerm"
+    },
+    {
+      "type": 0,
+      "value": "\""
+    }
+  ],
+  "products-sort-name": [
+    {
+      "type": 0,
+      "value": "Sort by Name"
+    }
+  ],
+  "products-sort-newest": [
+    {
+      "type": 0,
+      "value": "Newest First"
+    }
+  ],
+  "products-sort-price-high": [
+    {
+      "type": 0,
+      "value": "Price: High to Low"
+    }
+  ],
+  "products-sort-price-low": [
+    {
+      "type": 0,
+      "value": "Price: Low to High"
+    }
+  ],
+  "products-subtitle": [
+    {
+      "type": 0,
+      "value": "Discover our amazing collection of carefully curated products"
+    }
+  ],
+  "profile-cancel-button": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "profile-cancel-skill-button": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "profile-create-button": [
+    {
+      "type": 0,
+      "value": "Create"
+    }
+  ],
+  "profile-create-skill-button": [
+    {
+      "type": 0,
+      "value": "Create"
+    }
+  ],
+  "profile-experience-created": [
+    {
+      "type": 0,
+      "value": "Experience successfully created"
+    }
+  ],
+  "profile-present": [
+    {
+      "type": 0,
+      "value": "Present"
+    }
+  ],
+  "profile-skill-created": [
+    {
+      "type": 0,
+      "value": "Skill successfully created"
+    }
+  ],
+  "rsvp-admin-badge": [
+    {
+      "type": 0,
+      "value": "केवल एडमिन"
+    }
+  ],
+  "rsvp-admin-details": [
+    {
+      "type": 0,
+      "value": "केवल एडमिन विवरण"
+    }
+  ],
+  "rsvp-admin-only-badge": [
+    {
+      "type": 0,
+      "value": "केवल एडमिन"
+    }
+  ],
+  "rsvp-adults": [
+    {
+      "type": 0,
+      "value": "वयस्क"
+    }
+  ],
+  "rsvp-adults-counter-subtitle": [
+    {
+      "type": 0,
+      "value": "प्रति परिवार 2"
+    }
+  ],
+  "rsvp-adults-counter-title": [
+    {
+      "type": 0,
+      "value": "वयस्कों"
+    }
+  ],
+  "rsvp-age-breakdown": [
+    {
+      "type": 0,
+      "value": "आयु वितरण"
+    }
+  ],
+  "rsvp-all-special-requests": [
+    {
+      "type": 0,
+      "value": "सभी विशेष अनुरोध"
+    }
+  ],
+  "rsvp-allergies-dietary": [
+    {
+      "type": 0,
+      "value": "एलर्जी और आहार प्रतिबंध"
+    }
+  ],
+  "rsvp-allergies-label": [
+    {
+      "type": 0,
+      "value": "एलर्जी/आहार संबंधी"
+    }
+  ],
+  "rsvp-attending": [
+    {
+      "type": 0,
+      "value": "उपस्थित"
+    }
+  ],
+  "rsvp-attending-description": [
+    {
+      "type": 0,
+      "value": "जिन परिवारों ने उपस्थिति की पुष्टि की"
+    }
+  ],
+  "rsvp-attending-details": [
+    {
+      "type": 0,
+      "value": "उपस्थिति विवरण"
+    }
+  ],
+  "rsvp-children": [
+    {
+      "type": 0,
+      "value": "बच्चे"
+    }
+  ],
+  "rsvp-click-to-collapse": [
+    {
+      "type": 0,
+      "value": "संक्षिप्त करने के लिए क्लिक करें"
+    }
+  ],
+  "rsvp-contact-info-label": [
+    {
+      "type": 0,
+      "value": "संपर्क:"
+    }
+  ],
+  "rsvp-decline-reason-label": [
+    {
+      "type": 0,
+      "value": "नोट:"
+    }
+  ],
+  "rsvp-declined-label": [
+    {
+      "type": 0,
+      "value": "आमंत्रण अस्वीकार करें"
+    }
+  ],
+  "rsvp-detailed-responses": [
+    {
+      "type": 0,
+      "value": "विस्तृत उत्तर"
+    }
+  ],
+  "rsvp-dietary": [
+    {
+      "type": 0,
+      "value": "आहार प्रतिबंध:"
+    }
+  ],
+  "rsvp-families-label": [
+    {
+      "type": 0,
+      "value": "परिवार"
+    }
+  ],
+  "rsvp-families-short": [
+    {
+      "type": 0,
+      "value": "परिवार"
+    }
+  ],
+  "rsvp-fetch-error": [
+    {
+      "type": 0,
+      "value": "RSVP लोड करने में विफल"
+    }
+  ],
+  "rsvp-guest-names": [
+    {
+      "type": 0,
+      "value": "अतिथियों के नाम:"
+    }
+  ],
+  "rsvp-guests-label": [
+    {
+      "type": 0,
+      "value": "अतिथियों"
+    }
+  ],
+  "rsvp-kids-counter-subtitle": [
+    {
+      "type": 0,
+      "value": "सभी बच्चे"
+    }
+  ],
+  "rsvp-kids-counter-title": [
+    {
+      "type": 0,
+      "value": "बच्चे"
+    }
+  ],
+  "rsvp-kids-short": [
+    {
+      "type": 0,
+      "value": "बच्चे"
+    }
+  ],
+  "rsvp-list-admin-title": [
+    {
+      "type": 0,
+      "value": "RSVP प्रतिक्रियाएँ"
+    }
+  ],
+  "rsvp-list-attending-title": [
+    {
+      "type": 0,
+      "value": "उपस्थित ("
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "rsvp-list-children-label": [
+    {
+      "type": 0,
+      "value": "बच्चे:"
+    }
+  ],
+  "rsvp-list-fetch-error": [
+    {
+      "type": 0,
+      "value": "RSVP प्रतिक्रियाएँ लोड करने में विफल"
+    }
+  ],
+  "rsvp-list-kids-highlight": [
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " बच्चे भाग ले रहे हैं"
+    }
+  ],
+  "rsvp-list-kids-label": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "बच्चा"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "बच्चे"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "rsvp-list-kids-summary-description": [
+    {
+      "type": 0,
+      "value": "कुल बच्चे जिन्होंने RSVP किया है"
+    }
+  ],
+  "rsvp-list-kids-summary-title": [
+    {
+      "type": 0,
+      "value": "इस कार्यक्रम में भाग लेने वाले बच्चे"
+    }
+  ],
+  "rsvp-list-loading": [
+    {
+      "type": 0,
+      "value": "RSVP प्रतिक्रियाएं लोड हो रही हैं..."
+    }
+  ],
+  "rsvp-list-message-label": [
+    {
+      "type": 0,
+      "value": "संदेश:"
+    }
+  ],
+  "rsvp-list-no-responses": [
+    {
+      "type": 0,
+      "value": "इस कार्यक्रम के लिए अभी तक कोई RSVP प्रतिक्रिया नहीं मिली है।"
+    }
+  ],
+  "rsvp-list-not-attending-title": [
+    {
+      "type": 0,
+      "value": "उपस्थित नहीं ("
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "rsvp-list-responded-on": [
+    {
+      "type": 0,
+      "value": "उत्तर दिया "
+    },
+    {
+      "type": 1,
+      "value": "date"
+    }
+  ],
+  "rsvp-list-teens-label": [
+    {
+      "type": 0,
+      "value": "किशोर (13+)"
+    }
+  ],
+  "rsvp-list-toddlers-label": [
+    {
+      "type": 0,
+      "value": "छोटे बच्चे (0-5)"
+    }
+  ],
+  "rsvp-list-unexpected-error": [
+    {
+      "type": 0,
+      "value": "एक अप्रत्याशित त्रुटि हुई है!"
+    }
+  ],
+  "rsvp-little-ones": [
+    {
+      "type": 0,
+      "value": "छोटे बच्चे:"
+    }
+  ],
+  "rsvp-no-one-not-attending": [
+    {
+      "type": 0,
+      "value": "सभी उपस्थित हो रहे हैं!"
+    }
+  ],
+  "rsvp-no-responses": [
+    {
+      "type": 0,
+      "value": "अभी तक कोई RSVP उत्तर नहीं"
+    }
+  ],
+  "rsvp-not-attending": [
+    {
+      "type": 0,
+      "value": "उपस्थित नहीं"
+    }
+  ],
+  "rsvp-not-attending-description": [
+    {
+      "type": 0,
+      "value": "जिन परिवारों ने निमंत्रण अस्वीकार कर दिया"
+    }
+  ],
+  "rsvp-not-attending-details": [
+    {
+      "type": 0,
+      "value": "उपस्थित नहीं"
+    }
+  ],
+  "rsvp-responded-on": [
+    {
+      "type": 1,
+      "value": "date"
+    },
+    {
+      "type": 0,
+      "value": " को उत्तर दिया"
+    }
+  ],
+  "rsvp-responses-label": [
+    {
+      "type": 0,
+      "value": "जवाब"
+    }
+  ],
+  "rsvp-responses-title": [
+    {
+      "type": 0,
+      "value": "RSVP उत्तर"
+    }
+  ],
+  "rsvp-special-requests": [
+    {
+      "type": 0,
+      "value": "विशेष अनुरोध:"
+    }
+  ],
+  "rsvp-summary-adults": [
+    {
+      "type": 0,
+      "value": "वयस्कों"
+    }
+  ],
+  "rsvp-summary-families-enhanced": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " परिवार"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " परिवार"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " की पुष्टि"
+    }
+  ],
+  "rsvp-summary-kids": [
+    {
+      "type": 0,
+      "value": "बच्चे"
+    }
+  ],
+  "rsvp-summary-loading": [
+    {
+      "type": 0,
+      "value": "RSVP लोड हो रहा है..."
+    }
+  ],
+  "rsvp-summary-title": [
+    {
+      "type": 0,
+      "value": "RSVP सारांश"
+    }
+  ],
+  "rsvp-summary-total": [
+    {
+      "type": 0,
+      "value": "कुल"
+    }
+  ],
+  "rsvp-toddlers-babies": [
+    {
+      "type": 0,
+      "value": "बच्चे और शिशु"
+    }
+  ],
+  "rsvp-total-counter-subtitle": [
+    {
+      "type": 0,
+      "value": "सभी अतिथि"
+    }
+  ],
+  "rsvp-total-counter-title": [
+    {
+      "type": 0,
+      "value": "कुल"
+    }
+  ],
+  "rsvp-total-guests": [
+    {
+      "type": 0,
+      "value": "कुल अतिथि"
+    }
+  ],
+  "rsvp-with": [
+    {
+      "type": 0,
+      "value": "के साथ:"
+    }
+  ],
+  "rsvpform-contact-optional": [
+    {
+      "type": 0,
+      "value": "(वैकल्पिक)"
+    }
+  ],
+  "rsvpform-contact-section-title": [
+    {
+      "type": 0,
+      "value": "संपर्क जानकारी"
+    }
+  ],
+  "rsvpform-email-label": [
+    {
+      "type": 0,
+      "value": "ईमेल"
+    }
+  ],
+  "rsvpform-family-name-label": [
+    {
+      "type": 0,
+      "value": "पारिवारिक नाम"
+    }
+  ],
+  "rsvpform-family-name-required": [
+    {
+      "type": 0,
+      "value": "पारिवारिक नाम आवश्यक है"
+    }
+  ],
+  "rsvpform-kid-age-label": [
+    {
+      "type": 0,
+      "value": "आयु"
+    }
+  ],
+  "rsvpform-kid-allergies-label": [
+    {
+      "type": 0,
+      "value": "एलर्जी/आहार प्रतिबंध"
+    }
+  ],
+  "rsvpform-kid-allergies-placeholder": [
+    {
+      "type": 0,
+      "value": "जैसे: मूंगफली, डेयरी, ग्लूटन-फ्री"
+    }
+  ],
+  "rsvpform-kid-name-label": [
+    {
+      "type": 0,
+      "value": "बच्चे का नाम"
+    }
+  ],
+  "rsvpform-kid-section-title": [
+    {
+      "type": 0,
+      "value": "बच्चा "
+    },
+    {
+      "type": 1,
+      "value": "index"
+    }
+  ],
+  "rsvpform-kids-section-title": [
+    {
+      "type": 0,
+      "value": "उपस्थित बच्चे"
+    }
+  ],
+  "rsvpform-message-label": [
+    {
+      "type": 0,
+      "value": "विशेष संदेश या नोट्स"
+    }
+  ],
+  "rsvpform-message-placeholder": [
+    {
+      "type": 0,
+      "value": "अपना उत्साह या कोई विशेष अनुरोध साझा करें..."
+    }
+  ],
+  "rsvpform-phone-label": [
+    {
+      "type": 0,
+      "value": "फ़ोन नंबर"
+    }
+  ],
+  "rsvpform-submit-error": [
+    {
+      "type": 0,
+      "value": "RSVP सबमिट करने में विफल। कृपया पुनः प्रयास करें।"
+    }
+  ],
+  "rsvpform-submit-success": [
+    {
+      "type": 0,
+      "value": "RSVP सफलतापूर्वक सबमिट किया गया! प्रतिक्रिया के लिए धन्यवाद।"
+    }
+  ],
+  "rsvpform-subtitle": [
+    {
+      "type": 0,
+      "value": "कृपया हमें बताएं कि क्या आप इस विशेष उत्सव में हमारे साथ शामिल हो सकते हैं!"
+    }
+  ],
+  "rsvpform-title": [
+    {
+      "type": 0,
+      "value": "इवेंट के लिए RSVP"
+    }
+  ],
+  "rsvpform-will-attend-label": [
+    {
+      "type": 0,
+      "value": "हाँ, हम इवेंट में भाग लेंगे!"
     }
   ],
   "secondary_tagline": [
@@ -563,6 +3737,18 @@
       "value": "लेख लिखना... कोड को कोड करना... लेख पोस्ट करना... अंततः सो जाना... और चक्र दोहराता है"
     }
   ],
+  "success-go-home": [
+    {
+      "type": 0,
+      "value": "Go home"
+    }
+  ],
+  "success-hurray": [
+    {
+      "type": 0,
+      "value": "Hurray..."
+    }
+  ],
   "swapnil_architect_hello": [
     {
       "type": 0,
@@ -573,6 +3759,348 @@
     {
       "type": 0,
       "value": "स्वप्निल श्रीवास्तव"
+    }
+  ],
+  "technology-bounty-board-subtitle": [
+    {
+      "type": 0,
+      "value": "Most wanted technologies"
+    }
+  ],
+  "technology-bounty-description": [
+    {
+      "type": 0,
+      "value": "High-value target. Essential for core system operations. Handle with care."
+    }
+  ],
+  "technology-cancel-button": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "technology-clear-button": [
+    {
+      "type": 0,
+      "value": "Clear"
+    }
+  ],
+  "technology-create-button": [
+    {
+      "type": 0,
+      "value": "Create"
+    }
+  ],
+  "technology-create-error": [
+    {
+      "type": 0,
+      "value": "Matrix connection failed"
+    }
+  ],
+  "technology-create-error-cyber": [
+    {
+      "type": 0,
+      "value": "Grid connection unstable"
+    }
+  ],
+  "technology-create-success": [
+    {
+      "type": 0,
+      "value": "Technology uploaded to the matrix!"
+    }
+  ],
+  "technology-create-success-cyber": [
+    {
+      "type": 0,
+      "value": "Technology integrated into the grid!"
+    }
+  ],
+  "technology-cyber-creator-subtitle": [
+    {
+      "type": 0,
+      "value": "Fabricate new tech entities"
+    }
+  ],
+  "technology-cyber-hero-subtitle": [
+    {
+      "type": 0,
+      "value": "High Tech, Low Life"
+    }
+  ],
+  "technology-data-stream-subtitle": [
+    {
+      "type": 0,
+      "value": "Live feed of available technologies"
+    }
+  ],
+  "technology-dimensional-display": [
+    {
+      "type": 0,
+      "value": "Technology Constellation"
+    }
+  ],
+  "technology-dimensional-subtitle": [
+    {
+      "type": 0,
+      "value": "Navigate through the quantum field of innovation"
+    }
+  ],
+  "technology-fabricate-button": [
+    {
+      "type": 0,
+      "value": "Fabricate"
+    }
+  ],
+  "technology-hero-subtitle": [
+    {
+      "type": 0,
+      "value": "Explore the cutting-edge technologies that power innovation and creativity in modern development"
+    }
+  ],
+  "technology-hero-title": [
+    {
+      "type": 0,
+      "value": "Tech Arsenal"
+    }
+  ],
+  "technology-leading-tech-created": [
+    {
+      "type": 0,
+      "value": "Leading Tech Stack created"
+    }
+  ],
+  "technology-leading-tech-subtitle": [
+    {
+      "type": 0,
+      "value": "The pioneering technologies that define the future of development"
+    }
+  ],
+  "technology-leading-tech-title": [
+    {
+      "type": 0,
+      "value": "Leading Technologies"
+    }
+  ],
+  "technology-multiverse-description": [
+    {
+      "type": 0,
+      "value": "Navigate through infinite dimensions where technology transcends reality. Experience the convergence of AI, quantum computing, and digital consciousness."
+    }
+  ],
+  "technology-multiverse-subtitle": [
+    {
+      "type": 0,
+      "value": "Digital Multiverse Explorer"
+    }
+  ],
+  "technology-multiverse-title": [
+    {
+      "type": 0,
+      "value": "TECH∞"
+    }
+  ],
+  "technology-page-description-cyber": [
+    {
+      "type": 0,
+      "value": "Explore the high-tech, low-life world of modern technology"
+    }
+  ],
+  "technology-page-description-new": [
+    {
+      "type": 0,
+      "value": "Journey through infinite dimensions of technological innovation"
+    }
+  ],
+  "technology-page-title-cyber": [
+    {
+      "type": 0,
+      "value": "Tech Grid 2077"
+    }
+  ],
+  "technology-page-title-new": [
+    {
+      "type": 0,
+      "value": "TECH∞ - Digital Multiverse Explorer"
+    }
+  ],
+  "technology-quantum-chamber-subtitle": [
+    {
+      "type": 0,
+      "value": "Elite-tier technologies transcending dimensional boundaries"
+    }
+  ],
+  "technology-quantum-chamber-title": [
+    {
+      "type": 0,
+      "value": "⚡ QUANTUM CORE"
+    }
+  ],
+  "technology-quantum-creator-subtitle": [
+    {
+      "type": 0,
+      "value": "Manifest new technologies into the digital multiverse"
+    }
+  ],
+  "technology-quantum-creator-title": [
+    {
+      "type": 0,
+      "value": "Quantum Tech Synthesizer"
+    }
+  ],
+  "technology-quantum-elite-badge": [
+    {
+      "type": 0,
+      "value": "⚡ QUANTUM CORE"
+    }
+  ],
+  "technology-realm-navigation": [
+    {
+      "type": 0,
+      "value": "Reality Realms"
+    }
+  ],
+  "technology-reset-button": [
+    {
+      "type": 0,
+      "value": "Reset Matrix"
+    }
+  ],
+  "technology-stats-innovation": [
+    {
+      "type": 0,
+      "value": "100%"
+    }
+  ],
+  "technology-stats-innovation-label": [
+    {
+      "type": 0,
+      "value": "Innovation Level"
+    }
+  ],
+  "technology-stats-leading": [
+    {
+      "type": 0,
+      "value": "Leading Technologies"
+    }
+  ],
+  "technology-stats-total": [
+    {
+      "type": 0,
+      "value": "Total Technologies"
+    }
+  ],
+  "technology-synthesize-button": [
+    {
+      "type": 0,
+      "value": "Synthesize"
+    }
+  ],
+  "technology-tech-stack-created": [
+    {
+      "type": 0,
+      "value": "Tech Stack created!"
+    }
+  ],
+  "technology-tech-stack-subtitle": [
+    {
+      "type": 0,
+      "value": "The comprehensive toolkit for building exceptional digital experiences"
+    }
+  ],
+  "technology-tech-stack-title": [
+    {
+      "type": 0,
+      "value": "Technology Stack"
+    }
+  ],
+  "user-profile-about-title": [
+    {
+      "type": 0,
+      "value": "About"
+    }
+  ],
+  "user-profile-bio-title": [
+    {
+      "type": 0,
+      "value": "Bio"
+    }
+  ],
+  "user-profile-contact-title": [
+    {
+      "type": 0,
+      "value": "Contact"
+    }
+  ],
+  "user-profile-email": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "user-profile-no-bio": [
+    {
+      "type": 0,
+      "value": "No bio available"
+    }
+  ],
+  "user-profile-no-posts-description": [
+    {
+      "type": 0,
+      "value": "This user hasn't published any posts yet"
+    }
+  ],
+  "user-profile-no-posts-title": [
+    {
+      "type": 0,
+      "value": "No posts yet"
+    }
+  ],
+  "user-profile-stats-active": [
+    {
+      "type": 0,
+      "value": "Active"
+    }
+  ],
+  "user-profile-stats-joined": [
+    {
+      "type": 0,
+      "value": "Joined"
+    }
+  ],
+  "user-profile-stats-posts": [
+    {
+      "type": 0,
+      "value": "Published Posts"
+    }
+  ],
+  "user-profile-stats-status": [
+    {
+      "type": 0,
+      "value": "Status"
+    }
+  ],
+  "user-profile-tab-about": [
+    {
+      "type": 0,
+      "value": "About"
+    }
+  ],
+  "user-profile-tab-posts": [
+    {
+      "type": 0,
+      "value": "Posts"
+    }
+  ],
+  "user-profile-website": [
+    {
+      "type": 0,
+      "value": "Website"
+    }
+  ],
+  "userprofile-anonymous-user": [
+    {
+      "type": 0,
+      "value": "Anonymous User"
     }
   ]
 }
