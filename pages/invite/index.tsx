@@ -392,15 +392,15 @@ function Invite({ seoData }: InvitePageProps) {
                                             <div className="flex flex-wrap gap-2 sm:gap-3 lg:gap-4 text-white/90">
                                               <div className="flex items-center gap-1 sm:gap-2">
                                                 <FontAwesomeIcon icon={faCalendar} className="text-hit-pink-400 text-xs sm:text-sm" />
-                                                <span className="text-xs sm:text-sm lg:text-base font-medium">{moment(inviteEvent.date).format('MMM DD')}</span>
+                                                <span className="text-xs sm:text-sm lg:text-base font-medium text-white">{moment(inviteEvent.date).format('MMM DD')}</span>
                                               </div>
                                               <div className="flex items-center gap-1 sm:gap-2">
                                                 <FontAwesomeIcon icon={faClock} className="text-hit-pink-400 text-xs sm:text-sm" />
-                                                <span className="text-xs sm:text-sm lg:text-base font-medium">{formatTime(inviteEvent.time)}</span>
+                                                <span className="text-xs sm:text-sm lg:text-base font-medium text-white">{formatTime(inviteEvent.time)}</span>
                                               </div>
                                               <div className="flex items-center gap-1 sm:gap-2 max-w-[140px] sm:max-w-none">
                                                 <FontAwesomeIcon icon={faMapMarkerAlt} className="text-hit-pink-400 text-xs sm:text-sm flex-shrink-0" />
-                                                <span className="text-xs sm:text-sm lg:text-base font-medium truncate">{inviteEvent.location}</span>
+                                                <span className="text-xs sm:text-sm lg:text-base font-medium text-white truncate">{inviteEvent.location}</span>
                                               </div>
                                             </div>
                                           </div>
