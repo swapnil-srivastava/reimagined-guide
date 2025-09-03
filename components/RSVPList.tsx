@@ -383,9 +383,9 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                   <div className="space-y-2">
                     {rsvps.filter(rsvp => rsvp.message && rsvp.message.trim() !== '').map((rsvp) => (
                       <div key={rsvp.id} className="bg-white dark:bg-blue-900/10 rounded p-3 border-l-4 border-blue-400">
-                        <div className="flex items-center justify-between mb-1">
-                          <div className="font-medium text-sm text-blog-black dark:text-blog-white">{rsvp.family_name}</div>
-                          <div className={`px-2 py-1 rounded-full text-xs font-medium ${
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1 gap-1 sm:gap-0">
+                          <div className="font-medium text-sm text-blog-black dark:text-blog-white min-w-0 truncate pr-2">{rsvp.family_name}</div>
+                          <div className={`px-2 py-1 rounded-full text-xs font-medium flex-shrink-0 self-start ${
                             rsvp.is_attending
                               ? 'bg-green-100 dark:bg-green-900/20 text-green-600 dark:text-green-400'
                               : 'bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400'
@@ -506,27 +506,27 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
 
                   {rsvps.map((rsvp) => (
                     <div key={rsvp.id} className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-4 border border-gray-200 dark:border-fun-blue-500">
-                      <div className="flex items-start justify-between mb-3">
-                        <div>
+                      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-3">
+                        <div className="min-w-0 flex-1">
                           <h5 className="font-semibold text-blog-black dark:text-blog-white">{rsvp.family_name}</h5>
-                          <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-300 mt-1">
-                            <div className="flex items-center gap-1">
-                              <FontAwesomeIcon icon={faEnvelope} className="text-xs" />
-                              <a href={`mailto:${rsvp.email}`} className="hover:text-fun-blue-500 transition-colors">
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-gray-600 dark:text-gray-300 mt-1">
+                            <div className="flex items-center gap-1 min-w-0">
+                              <FontAwesomeIcon icon={faEnvelope} className="text-xs flex-shrink-0" />
+                              <a href={`mailto:${rsvp.email}`} className="hover:text-fun-blue-500 transition-colors truncate">
                                 {rsvp.email}
                               </a>
                             </div>
                             {rsvp.phone && (
-                              <div className="flex items-center gap-1">
-                                <FontAwesomeIcon icon={faPhone} className="text-xs" />
-                                <a href={`tel:${rsvp.phone}`} className="hover:text-fun-blue-500 transition-colors">
+                              <div className="flex items-center gap-1 min-w-0">
+                                <FontAwesomeIcon icon={faPhone} className="text-xs flex-shrink-0" />
+                                <a href={`tel:${rsvp.phone}`} className="hover:text-fun-blue-500 transition-colors truncate">
                                   {rsvp.phone}
                                 </a>
                               </div>
                             )}
                           </div>
                         </div>
-                        <div className={`px-2 py-1 rounded-full text-xs font-medium ${
+                        <div className={`px-2 py-1 rounded-full text-xs font-medium flex-shrink-0 self-start ${
                           rsvp.is_attending
                             ? 'bg-green-100 dark:bg-green-900/20 text-green-600 dark:text-green-400'
                             : 'bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400'
