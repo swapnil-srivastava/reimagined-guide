@@ -137,16 +137,16 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
         </div>
 
         {/* Mobile-First Summary Stats Grid */}
-        <div className="grid grid-cols-3 gap-2 sm:gap-3 w-full">
+        <div className="grid grid-cols-3 gap-1 sm:gap-3">
           {/* Attending Card */}
-          <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-2 sm:p-3 text-center border border-green-200 dark:border-green-800 min-w-0 overflow-hidden">
+          <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-1 sm:p-3 text-center border border-green-200 dark:border-green-800 overflow-hidden">
             <div className="flex items-center justify-center mb-1">
               <FontAwesomeIcon icon={faHeart} className="text-green-600 dark:text-green-400 text-xs sm:text-sm" />
             </div>
             <div className="text-lg sm:text-xl font-bold text-green-600 dark:text-green-400">
               {totalAttending}
             </div>
-            <div className="text-xs text-green-600 dark:text-green-400 font-medium leading-tight px-1">
+            <div className="text-xs text-green-600 dark:text-green-400 font-medium leading-tight break-words hyphens-auto px-0.5">
               <FormattedMessage
                 id="rsvp-attending"
                 description="Attending"
@@ -156,14 +156,14 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
           </div>
 
           {/* Total Guests Card */}
-          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-2 sm:p-3 text-center border border-blue-200 dark:border-blue-800 min-w-0 overflow-hidden">
+          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-1 sm:p-3 text-center border border-blue-200 dark:border-blue-800 overflow-hidden">
             <div className="flex items-center justify-center mb-1">
               <FontAwesomeIcon icon={faUsers} className="text-blue-600 dark:text-blue-400 text-xs sm:text-sm" />
             </div>
             <div className="text-lg sm:text-xl font-bold text-blue-600 dark:text-blue-400">
               {totalGuests}
             </div>
-            <div className="text-xs text-blue-600 dark:text-blue-400 font-medium leading-tight">
+            <div className="text-xs text-blue-600 dark:text-blue-400 font-medium leading-tight break-words hyphens-auto px-0.5">
               <FormattedMessage
                 id="rsvp-total-guests"
                 description="Total Guests"
@@ -173,14 +173,14 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
           </div>
 
           {/* Not Attending Card */}
-          <div className="bg-red-50 dark:bg-red-900/20 rounded-lg p-2 sm:p-3 text-center border border-red-200 dark:border-red-800 min-w-0 overflow-hidden">
+          <div className="bg-red-50 dark:bg-red-900/20 rounded-lg p-1 sm:p-3 text-center border border-red-200 dark:border-red-800 overflow-hidden">
             <div className="flex items-center justify-center mb-1">
               <FontAwesomeIcon icon={faUser} className="text-red-600 dark:text-red-400 text-xs sm:text-sm" />
             </div>
             <div className="text-lg sm:text-xl font-bold text-red-600 dark:text-red-400">
               {totalNotAttending}
             </div>
-            <div className="text-xs text-red-600 dark:text-red-400 font-medium leading-tight">
+            <div className="text-xs text-red-600 dark:text-red-400 font-medium leading-tight break-words hyphens-auto px-0.5">
               <FormattedMessage
                 id="rsvp-not-attending"
                 description="Not Attending"
@@ -192,7 +192,7 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
 
         {/* Age Breakdown for Mobile */}
         {totalAttending > 0 && (
-          <div className="mt-3 pt-3 border-t border-gray-200 dark:border-fun-blue-500 w-full overflow-hidden">
+          <div className="mt-3 pt-3 border-t border-gray-200 dark:border-fun-blue-500">
             <div className="text-xs text-gray-600 dark:text-gray-300 mb-2 font-medium">
               <FormattedMessage
                 id="rsvp-age-breakdown"
@@ -200,16 +200,16 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                 defaultMessage="Age Breakdown"
               />
             </div>
-            <div className="grid grid-cols-2 gap-2 w-full">
-              <div className="flex items-center gap-2 text-xs min-w-0">
-                <FontAwesomeIcon icon={faUser} className="text-gray-500 dark:text-blog-white flex-shrink-0" />
-                <span className="text-blog-black dark:text-blog-white truncate">
+            <div className="grid grid-cols-2 gap-2">
+              <div className="flex items-center gap-2 text-xs">
+                <FontAwesomeIcon icon={faUser} className="text-gray-500 dark:text-blog-white" />
+                <span className="text-blog-black dark:text-blog-white">
                   {adultCount} <FormattedMessage id="rsvp-adults" description="adults" defaultMessage="adults" />
                 </span>
               </div>
-              <div className="flex items-center gap-2 text-xs min-w-0">
-                <FontAwesomeIcon icon={faChild} className="text-gray-500 dark:text-blog-white flex-shrink-0" />
-                <span className="text-blog-black dark:text-blog-white truncate">
+              <div className="flex items-center gap-2 text-xs">
+                <FontAwesomeIcon icon={faChild} className="text-gray-500 dark:text-blog-white" />
+                <span className="text-blog-black dark:text-blog-white">
                   {childCount} <FormattedMessage id="rsvp-children" description="children" defaultMessage="children" />
                 </span>
               </div>
