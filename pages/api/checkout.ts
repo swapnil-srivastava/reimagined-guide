@@ -46,15 +46,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(400).json({ message: 'Invalid request: Provide items array, priceId, or price and name' });
       }
 
-      const session = await stripe.checkout.sessions.create({
+      const sessionOptions: Stripe.Checkout.SessionCreateParams = {
         metadata: { user_id: userId },
-        customer_email: email,
         payment_method_types: ['card'],
         line_items,
         mode: 'payment',
         success_url: `${req.headers.origin}/success`,
         cancel_url: `${req.headers.origin}/cancel`,
-      });
+      };
+
+      if (email) {
+        sessionOptions.customer_email = email;
+      }
+
+      const session = await stripe.checkout.sessions.create(sessionOptions);
       res.status(200).json({ id: session.id });
     } catch (error: any) {
       console.error("Error creating checkout session:", error);
