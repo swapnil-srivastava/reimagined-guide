@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import Image from "next/image";
 import Link from "next/link";
+import { loadStripe } from "@stripe/stripe-js";
+import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 
   faArrowLeft,
@@ -30,6 +32,9 @@ import { supaClient } from "../../supa-client";
 
 // Actions
 import { addToCartAddressCreate } from "../../redux/actions/actions";
+
+// Initialize Stripe outside component to avoid recreating it on every render
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 export interface ProductWithQuantity extends PRODUCT {
   quantity: number;
@@ -77,12 +82,43 @@ function Checkout() {
 
   const handleStripeCheckout = async () => {
     setIsProcessing(true);
-    // TODO: Implement Stripe checkout logic here
-    // This will be called when user clicks the "Complete Order" button
-    setTimeout(() => {
+    
+    try {
+      const stripe = await stripePromise;
+      if (!stripe) throw new Error("Stripe failed to initialize.");
+
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          items: cartItems,
+          email: profile?.email,
+          userId: profile?.id,
+          currency: 'EUR', // Or dynamic currency if supported
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Checkout failed');
+      }
+
+      const { id: sessionId } = await response.json();
+
+      const result = await stripe.redirectToCheckout({
+        sessionId,
+      });
+
+      if (result.error) {
+        throw new Error(result.error.message);
+      }
+    } catch (error: any) {
+      console.error("Checkout error:", error);
+      toast.error(error.message || "An error occurred during checkout.");
       setIsProcessing(false);
-      // Redirect to success page or handle response
-    }, 2000);
+    }
   };
 
   const totalItemsCount = cartItems?.reduce((total, item) => total + (item.quantity || 0), 0) || 0;

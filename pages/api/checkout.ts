@@ -9,11 +9,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       // Accept either a pre-created Stripe priceId OR raw price data (price, name, currency).
       // This enables "Buy now" flows from product listings without requiring a stored Stripe Price object.
-      const { priceId, price, currency = 'EUR', name, email, userId } = req.body;
+      const { priceId, price, currency = 'EUR', name, email, userId, items } = req.body;
 
       let line_items;
 
-      if (priceId) {
+      if (items && Array.isArray(items) && items.length > 0) {
+        // Handle multiple items from cart
+        line_items = items.map((item: any) => ({
+          price_data: {
+            currency: (currency || 'EUR').toLowerCase(),
+            product_data: {
+              name: item.name,
+              description: item.description,
+              images: item.image_url ? [item.image_url] : [],
+            },
+            unit_amount: Math.round(item.price * 100),
+          },
+          quantity: item.quantity,
+        }));
+      } else if (priceId) {
         line_items = [ { price: priceId, quantity: 1 } ];
       } else if (typeof price === 'number' && name) {
         // unit_amount expects cents
@@ -29,7 +43,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           },
         ];
       } else {
-        return res.status(400).json({ message: 'Either priceId or (price and name) must be provided' });
+        return res.status(400).json({ message: 'Invalid request: Provide items array, priceId, or price and name' });
       }
 
       const session = await stripe.checkout.sessions.create({
