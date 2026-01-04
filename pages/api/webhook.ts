@@ -83,7 +83,7 @@ const handler = async (
               total: totalAmount,
               status: 'completed',
               payment_method: 'stripe',
-              payment_intent_id: paymentIntent.id,
+              payment_intent_id: session.payment_intent as string,
             })
             .select()
             .single();
