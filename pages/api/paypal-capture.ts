@@ -9,6 +9,10 @@ function environment() {
   const clientSecret = process.env.PAYPAL_CLIENT_SECRET;
 
   if (!clientId || !clientSecret) {
+    console.error('PayPal Configuration Error:', {
+      hasClientId: !!clientId,
+      hasSecret: !!clientSecret,
+    });
     throw new Error('PayPal credentials are not configured');
   }
 

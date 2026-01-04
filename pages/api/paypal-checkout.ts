@@ -8,8 +8,18 @@ function environment() {
   const clientSecret = process.env.PAYPAL_CLIENT_SECRET;
 
   if (!clientId || !clientSecret) {
+    console.error('PayPal Configuration Error:', {
+      hasClientId: !!clientId,
+      hasSecret: !!clientSecret,
+      clientIdPrefix: clientId ? clientId.substring(0, 10) + '...' : 'missing',
+    });
     throw new Error('PayPal credentials are not configured');
   }
+
+  console.log('PayPal Environment:', {
+    mode: process.env.NODE_ENV === 'production' ? 'LIVE' : 'SANDBOX',
+    clientIdPrefix: clientId.substring(0, 10) + '...',
+  });
 
   // Use sandbox for development, live for production
   return process.env.NODE_ENV === 'production'

@@ -154,6 +154,8 @@ const PayPalCheckoutButton: React.FC<PayPalCheckoutButtonProps> = ({
           clientId,
           currency,
           intent: 'capture',
+          components: 'buttons',
+          'disable-funding': 'credit,card,venmo,paylater',
         }}
       >
         <PayPalButtons
@@ -168,7 +170,9 @@ const PayPalCheckoutButton: React.FC<PayPalCheckoutButtonProps> = ({
             shape: 'rect',
             label: 'paypal',
             height: 55,
+            tagline: false,
           }}
+          fundingSource={undefined}
           forceReRender={[totalCost, cartItems.length, disabled]}
         />
       </PayPalScriptProvider>
