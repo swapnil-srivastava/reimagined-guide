@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       // Accept either a pre-created Stripe priceId OR raw price data (price, name, currency).
       // This enables "Buy now" flows from product listings without requiring a stored Stripe Price object.
-      const { priceId, price, currency = 'EUR', name, email, userId, items } = req.body;
+      const { priceId, price, currency = 'EUR', name, email, userId, items, tax, deliveryCost } = req.body;
 
       let line_items;
 
@@ -27,6 +27,36 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           },
           quantity: item.quantity,
         }));
+
+        // Add tax as a separate line item if provided
+        if (tax && tax > 0) {
+          line_items.push({
+            price_data: {
+              currency: (currency || 'EUR').toLowerCase(),
+              product_data: {
+                name: 'Tax (19%)',
+                description: 'Sales tax',
+              },
+              unit_amount: Math.round(tax * 100),
+            },
+            quantity: 1,
+          });
+        }
+
+        // Add delivery cost as a separate line item if provided
+        if (deliveryCost && deliveryCost > 0) {
+          line_items.push({
+            price_data: {
+              currency: (currency || 'EUR').toLowerCase(),
+              product_data: {
+                name: 'Delivery',
+                description: 'Shipping and handling',
+              },
+              unit_amount: Math.round(deliveryCost * 100),
+            },
+            quantity: 1,
+          });
+        }
       } else if (priceId) {
         line_items = [ { price: priceId, quantity: 1 } ];
       } else if (typeof price === 'number' && name) {
