@@ -16,7 +16,11 @@ function environment() {
     throw new Error('PayPal credentials are not configured');
   }
 
-  return process.env.NODE_ENV === 'production'
+  // Use PAYPAL_MODE to explicitly control sandbox vs live
+  // Default to sandbox unless explicitly set to 'live'
+  const mode = process.env.PAYPAL_MODE?.toLowerCase() === 'live' ? 'live' : 'sandbox';
+
+  return mode === 'live'
     ? new paypal.core.LiveEnvironment(clientId, clientSecret)
     : new paypal.core.SandboxEnvironment(clientId, clientSecret);
 }

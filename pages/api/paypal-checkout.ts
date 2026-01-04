@@ -16,13 +16,18 @@ function environment() {
     throw new Error('PayPal credentials are not configured');
   }
 
+  // Use PAYPAL_MODE to explicitly control sandbox vs live
+  // Default to sandbox unless explicitly set to 'live'
+  const mode = process.env.PAYPAL_MODE?.toLowerCase() === 'live' ? 'live' : 'sandbox';
+
   console.log('PayPal Environment:', {
-    mode: process.env.NODE_ENV === 'production' ? 'LIVE' : 'SANDBOX',
+    mode: mode.toUpperCase(),
+    nodeEnv: process.env.NODE_ENV,
     clientIdPrefix: clientId.substring(0, 10) + '...',
   });
 
-  // Use sandbox for development, live for production
-  return process.env.NODE_ENV === 'production'
+  // Use sandbox by default, live only if explicitly configured
+  return mode === 'live'
     ? new paypal.core.LiveEnvironment(clientId, clientSecret)
     : new paypal.core.SandboxEnvironment(clientId, clientSecret);
 }
