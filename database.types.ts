@@ -273,6 +273,8 @@ export type Database = {
         Row: {
           created_at: string | null
           id: string
+          payment_intent_id: string | null
+          payment_method: string | null
           status: string
           total: number
           user_id: string | null
@@ -280,6 +282,8 @@ export type Database = {
         Insert: {
           created_at?: string | null
           id?: string
+          payment_intent_id?: string | null
+          payment_method?: string | null
           status: string
           total: number
           user_id?: string | null
@@ -287,6 +291,8 @@ export type Database = {
         Update: {
           created_at?: string | null
           id?: string
+          payment_intent_id?: string | null
+          payment_method?: string | null
           status?: string
           total?: number
           user_id?: string | null
