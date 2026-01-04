@@ -45,46 +45,8 @@ function AwesomeNavBar() {
   const { locales, asPath, locale: nextLocale } = useRouter();
 
   const [ currentLocale, setCurrentLocale] = useState(nextLocale);
-  const [logoSrc, setLogoSrc] = useState("/swapnil-odyssey-4.svg");
-
-  // Randomizer function for logo selection based on theme
-  const getRandomLogo = (currentTheme: string) => {
-    const lightModeLogos = [
-      "/swapnil-odyssey-4.svg", // with blue
-      "/swapnil-odyssey-6.svg", // with blue
-      "/swapnil-odyssey-1.svg",
-      "/swapnil-odyssey-2.svg",
-      "/swapnil-odyssey-3.svg",
-      "/swapnil-odyssey-5.svg",
-      "/swapnil-odyssey-7.svg"
-    ];
-    
-    const darkModeLogos = [
-      "/swapnil-odyssey-8.svg", // with white
-      "/swapnil-odyssey-9.svg",
-      "/swapnil-odyssey-1.svg",
-      "/swapnil-odyssey-2.svg",
-      "/swapnil-odyssey-3.svg",
-      "/swapnil-odyssey-5.svg",
-      "/swapnil-odyssey-7.svg"
-    ];
-
-    const logos = currentTheme === "dark" ? darkModeLogos : lightModeLogos;
-    const randomIndex = Math.floor(Math.random() * logos.length);
-    return logos[randomIndex];
-  };
-
-  // Update logo when theme changes
-  useEffect(() => {
-    if (theme) {
-      setLogoSrc(getRandomLogo(theme));
-    }
-  }, [theme]);
-
-  // Initialize logo on component mount
-  useEffect(() => {
-    setLogoSrc(getRandomLogo(theme || "light"));
-  }, []);
+  // Always use swapnil-odyssey-2.svg for consistent branding
+  const logoSrc = "/swapnil-odyssey-2.svg";
 
   const handleChange = (event: SelectChangeEvent) => {
     setCurrentLocale(event.target.value as string);
