@@ -49,19 +49,13 @@ const PayPalCheckoutButton: React.FC<PayPalCheckoutButtonProps> = ({
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error('PayPal API Error Response:', errorData);
         throw new Error(errorData.message || 'Failed to create PayPal order');
       }
 
       const { orderId } = await response.json();
-      console.log('PayPal order created successfully:', orderId);
       return orderId;
     } catch (error: any) {
-      console.error('PayPal create order error:', {
-        message: error.message,
-        stack: error.stack,
-        name: error.name
-      });
+      console.error('PayPal create order error:', error.message);
       toast.error(
         intl.formatMessage({
           id: 'paypal-create-order-error',
@@ -92,8 +86,7 @@ const PayPalCheckoutButton: React.FC<PayPalCheckoutButtonProps> = ({
         throw new Error(errorData.message || 'Failed to capture PayPal payment');
       }
 
-      const result = await response.json();
-      console.log('PayPal payment successful:', result);
+      await response.json();
 
       toast.success(
         intl.formatMessage({
