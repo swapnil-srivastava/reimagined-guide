@@ -60,25 +60,41 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       quantity: item.quantity.toString(),
     }));
 
-    // Build amount breakdown
+    // Build amount breakdown with precise calculations
+    const itemsTotal = items.reduce((sum: number, item: any) => sum + (item.price * item.quantity), 0);
+    const taxAmount = tax || 0;
+    const shippingAmount = deliveryCost || 0;
+    
+    // Calculate total to verify it matches
+    const calculatedTotal = itemsTotal + taxAmount + shippingAmount;
+    
+    console.log('PayPal Order Breakdown:', {
+      itemsTotal: itemsTotal.toFixed(2),
+      tax: taxAmount.toFixed(2),
+      shipping: shippingAmount.toFixed(2),
+      calculatedTotal: calculatedTotal.toFixed(2),
+      receivedTotal: totalCost.toFixed(2),
+      match: Math.abs(calculatedTotal - totalCost) < 0.01
+    });
+    
     const amountBreakdown: any = {
       item_total: {
         currency_code: currency.toUpperCase(),
-        value: items.reduce((sum: number, item: any) => sum + (item.price * item.quantity), 0).toFixed(2),
+        value: itemsTotal.toFixed(2),
       },
     };
 
-    if (tax && tax > 0) {
+    if (taxAmount > 0) {
       amountBreakdown.tax_total = {
         currency_code: currency.toUpperCase(),
-        value: tax.toFixed(2),
+        value: taxAmount.toFixed(2),
       };
     }
 
-    if (deliveryCost && deliveryCost > 0) {
+    if (shippingAmount > 0) {
       amountBreakdown.shipping = {
         currency_code: currency.toUpperCase(),
-        value: deliveryCost.toFixed(2),
+        value: shippingAmount.toFixed(2),
       };
     }
 
@@ -117,10 +133,28 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       status: order.result.status 
     });
   } catch (error: any) {
-    console.error('PayPal checkout error:', error);
+    console.error('PayPal checkout error:', {
+      message: error.message,
+      name: error.name,
+      details: error.details,
+      stack: error.stack,
+      statusCode: error.statusCode
+    });
+    
+    // Extract more specific error info
+    let errorMessage = error.message || 'Failed to create PayPal order';
+    let errorDetails = error.details || [];
+    
+    if (error.message && error.message.includes('CURRENCY_NOT_SUPPORTED')) {
+      errorMessage = 'Currency not supported. Please use USD for sandbox testing.';
+    } else if (error.message && error.message.includes('AMOUNT_MISMATCH')) {
+      errorMessage = 'Amount calculation error. Please try again.';
+    }
+    
     res.status(500).json({ 
-      message: error.message || 'Failed to create PayPal order',
-      details: error.details || []
+      message: errorMessage,
+      details: errorDetails,
+      error: error.message
     });
   }
 }
