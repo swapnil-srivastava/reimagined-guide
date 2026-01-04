@@ -7,17 +7,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ message: 'Method not allowed' });
   }
 
-  const clientId = process.env.PAYPAL_CLIENT_ID || process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
+  const clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
   const clientSecret = process.env.PAYPAL_CLIENT_SECRET;
-  const publicClientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
 
-  const diagnostics = {
+  const diagnostics: any = {
     hasClientId: !!clientId,
     hasSecret: !!clientSecret,
-    hasPublicClientId: !!publicClientId,
-    clientIdMatch: clientId === publicClientId,
     clientIdPrefix: clientId ? clientId.substring(0, 15) + '...' : 'MISSING',
-    publicClientIdPrefix: publicClientId ? publicClientId.substring(0, 15) + '...' : 'MISSING',
     secretPrefix: clientSecret ? clientSecret.substring(0, 10) + '...' : 'MISSING',
     nodeEnv: process.env.NODE_ENV,
     expectedMode: process.env.NODE_ENV === 'production' ? 'LIVE' : 'SANDBOX',
