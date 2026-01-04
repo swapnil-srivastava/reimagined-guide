@@ -97,6 +97,9 @@ function Checkout() {
           email: profile?.email,
           userId: profile?.id,
           currency: 'EUR', // Or dynamic currency if supported
+          tax: tax || 0,
+          deliveryCost: deliveryCost || 0,
+          totalCost: totalCost || 0,
         }),
       });
 
