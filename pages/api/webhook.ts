@@ -186,7 +186,16 @@ const handler = async (
                   <h2 style="color: #059669; margin: 0 0 10px 0; font-size: 18px;">👤 Customer Information</h2>
                   <p style="color: #374151; margin: 5px 0;"><strong>Email:</strong> ${customerEmail || 'Not provided'}</p>
                   <p style="color: #374151; margin: 5px 0;"><strong>User ID:</strong> ${userId || 'Guest'}</p>
-                  <p style="color: #374151; margin: 5px 0;"><strong>Payment ID:</strong> ${session.payment_intent}</p>
+                </div>
+                <div style="background-color: #f0f9ff; border-radius: 12px; padding: 20px; margin-bottom: 20px; border-left: 4px solid #5469d4;">
+                  <h2 style="color: #5469d4; margin: 0 0 15px 0; font-size: 18px;">💳 Payment Information</h2>
+                  <div style="margin-bottom: 10px;">
+                    <span style="display: inline-block; background-color: #5469d4; color: #ffffff; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: bold;">STRIPE</span>
+                  </div>
+                  <p style="color: #374151; margin: 10px 0 5px 0; font-size: 12px; text-transform: uppercase; font-weight: bold; color: #6b7280;">Transaction ID:</p>
+                  <div style="background-color: #f3f4f6; padding: 10px; border-radius: 6px; font-family: monospace; font-size: 13px; color: #1f2937; word-break: break-all;">
+                    ${session.payment_intent}
+                  </div>
                 </div>
                 <div style="background-color: #f9fafb; border-radius: 12px; padding: 20px;">
                   <h2 style="color: #00539c; margin: 0 0 15px 0; font-size: 18px;">📦 Order Details</h2>
