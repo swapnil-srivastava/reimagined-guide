@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { loadStripe } from "@stripe/stripe-js";
 import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,6 +27,7 @@ import { PRODUCT } from "../../database.types";
 // Components
 import AuthCheck from "../../components/AuthCheck";
 import CurrencyPriceComponent from "../../components/CurrencyPriceComponent";
+import PayPalCheckoutButton from "../../components/PayPalCheckoutButton";
 
 // Supabase
 import { supaClient } from "../../supa-client";
@@ -43,6 +45,7 @@ export interface ProductWithQuantity extends PRODUCT {
 function Checkout() {
 
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const selectStore = (state: RootState) => state.cart;
   const { cartItems } = useSelector(selectStore);
@@ -340,29 +343,61 @@ function Checkout() {
                   </div>
                 </div>
 
-                {/* Payment Button */}
-                <button
-                  onClick={handleStripeCheckout}
-                  disabled={isProcessing || !cartItems || cartItems.length === 0}
-                  className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 hover:brightness-110 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 hover:scale-105 disabled:transform-none"
-                >
-                  <div className="flex items-center justify-center gap-3">
-                    <FontAwesomeIcon icon={faCreditCard} className="w-5 h-5" />
-                    {isProcessing ? (
-                      <FormattedMessage
-                        id="checkout-processing"
-                        description="Processing..."
-                        defaultMessage="Processing..."
-                      />
-                    ) : (
-                      <FormattedMessage
-                        id="checkout-complete-order"
-                        description="Complete Order"
-                        defaultMessage="Complete Order"
-                      />
-                    )}
+                {/* Payment Buttons */}
+                <div className="space-y-4">
+                  {/* Stripe Payment Button */}
+                  <button
+                    onClick={handleStripeCheckout}
+                    disabled={isProcessing || !cartItems || cartItems.length === 0}
+                    className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 hover:brightness-110 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 hover:scale-105 disabled:transform-none"
+                  >
+                    <div className="flex items-center justify-center gap-3">
+                      <FontAwesomeIcon icon={faCreditCard} className="w-5 h-5" />
+                      {isProcessing ? (
+                        <FormattedMessage
+                          id="checkout-processing"
+                          description="Processing..."
+                          defaultMessage="Processing..."
+                        />
+                      ) : (
+                        <FormattedMessage
+                          id="checkout-pay-with-card"
+                          description="Pay with Card"
+                          defaultMessage="Pay with Card"
+                        />
+                      )}
+                    </div>
+                  </button>
+
+                  {/* Divider with OR */}
+                  <div className="relative">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full border-t border-gray-300 dark:border-fun-blue-600"></div>
+                    </div>
+                    <div className="relative flex justify-center text-sm">
+                      <span className="px-4 bg-white dark:bg-fun-blue-800 text-gray-500 dark:text-gray-400 font-medium">
+                        <FormattedMessage
+                          id="checkout-payment-or"
+                          description="OR"
+                          defaultMessage="OR"
+                        />
+                      </span>
+                    </div>
                   </div>
-                </button>
+
+                  {/* PayPal Payment Button */}
+                  <PayPalCheckoutButton
+                    totalCost={totalCost}
+                    tax={tax || 0}
+                    deliveryCost={deliveryCost}
+                    cartItems={cartItems}
+                    email={profile?.email || ''}
+                    userId={profile?.id || ''}
+                    disabled={isProcessing || !cartItems || cartItems.length === 0}
+                    onSuccess={() => router.push('/success')}
+                    currency="EUR"
+                  />
+                </div>
 
                 {/* Security Notice */}
                 <div className="flex items-center justify-center gap-2 mt-4 text-xs text-gray-500 dark:text-gray-400">

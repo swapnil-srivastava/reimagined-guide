@@ -1277,12 +1277,6 @@
       "value": "Shopping Cart"
     }
   ],
-  "checkout-complete-order": [
-    {
-      "type": 0,
-      "value": "Complete Order"
-    }
-  ],
   "checkout-delivery-address": [
     {
       "type": 0,
@@ -1399,6 +1393,18 @@
     {
       "type": 0,
       "value": "Secure Checkout"
+    }
+  ],
+  "checkout-pay-with-card": [
+    {
+      "type": 0,
+      "value": "Pay with Card"
+    }
+  ],
+  "checkout-payment-or": [
+    {
+      "type": 0,
+      "value": "OR"
     }
   ],
   "checkout-payment-summary": [
@@ -2211,6 +2217,50 @@
     {
       "type": 0,
       "value": "My Tutorial"
+    }
+  ],
+  "paypal-cancelled": [
+    {
+      "type": 0,
+      "value": "Payment cancelled."
+    }
+  ],
+  "paypal-capture-error": [
+    {
+      "type": 0,
+      "value": "Failed to process payment: "
+    },
+    {
+      "type": 1,
+      "value": "error"
+    }
+  ],
+  "paypal-config-error": [
+    {
+      "type": 0,
+      "value": "PayPal is not configured. Please contact support."
+    }
+  ],
+  "paypal-create-order-error": [
+    {
+      "type": 0,
+      "value": "Failed to create PayPal order: "
+    },
+    {
+      "type": 1,
+      "value": "error"
+    }
+  ],
+  "paypal-error": [
+    {
+      "type": 0,
+      "value": "PayPal payment failed. Please try again."
+    }
+  ],
+  "paypal-payment-success": [
+    {
+      "type": 0,
+      "value": "Payment successful! Your order is being processed."
     }
   ],
   "personalization-accept-cookies-alert": [
@@ -3423,16 +3473,46 @@
       "value": "Writing the article ... coding the code ... posting the article ... finally sleeping ... and the cycle repeats"
     }
   ],
+  "success-continue-shopping": [
+    {
+      "type": 0,
+      "value": "Continue Shopping"
+    }
+  ],
+  "success-email-notice": [
+    {
+      "type": 0,
+      "value": "A confirmation email with your order details has been sent to your email address."
+    }
+  ],
   "success-go-home": [
     {
       "type": 0,
-      "value": "Go home"
+      "value": "Go to Homepage"
     }
   ],
-  "success-hurray": [
+  "success-order-confirmed": [
     {
       "type": 0,
-      "value": "Hurray..."
+      "value": "Your order has been confirmed and is being processed. You will receive a confirmation email shortly."
+    }
+  ],
+  "success-payment-complete": [
+    {
+      "type": 0,
+      "value": "Payment Complete!"
+    }
+  ],
+  "success-questions": [
+    {
+      "type": 0,
+      "value": "Questions? Contact us at contact@swapnilsrivastava.eu"
+    }
+  ],
+  "success-thank-you": [
+    {
+      "type": 0,
+      "value": "Thank you for your purchase"
     }
   ],
   "swapnil_architect_hello": [
