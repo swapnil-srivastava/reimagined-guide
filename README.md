@@ -4,12 +4,14 @@ A modern, full-stack blog platform built with Next.js, TypeScript, Supabase, and
 
 **Now powered by Turborepo for 516x faster builds!** ⚡🚀
 
+[![Release](https://github.com/swapnil-srivastava/reimagined-guide/actions/workflows/release.yml/badge.svg)](https://github.com/swapnil-srivastava/reimagined-guide/actions/workflows/release.yml)
 ![Next.js](https://img.shields.io/badge/Next.js-14.2.35-black?style=flat-square&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-4.7.4-blue?style=flat-square&logo=typescript)
 ![Supabase](https://img.shields.io/badge/Supabase-2.2.1-green?style=flat-square&logo=supabase)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.1.4-38B2AC?style=flat-square&logo=tailwind-css)
 ![Turborepo](https://img.shields.io/badge/Turborepo-2.7.2-EF4444?style=flat-square&logo=turborepo)
 ![pnpm](https://img.shields.io/badge/pnpm-8.15.0-F69220?style=flat-square&logo=pnpm)
+![Changesets](https://img.shields.io/badge/Changesets-2.29.8-blue?style=flat-square)
 
 ## 🚀 Features
 
