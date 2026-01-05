@@ -2111,6 +2111,66 @@
       "value": "Upcoming Events"
     }
   ],
+  "links-attribution": [
+    {
+      "type": 0,
+      "value": "swapnilsrivastava.eu"
+    }
+  ],
+  "links-bio-line1": [
+    {
+      "type": 0,
+      "value": "Full Stack Engineer & Tech Lead"
+    }
+  ],
+  "links-bio-line2": [
+    {
+      "type": 0,
+      "value": "Building modern web experiences with passion"
+    }
+  ],
+  "links-email-input-label": [
+    {
+      "type": 0,
+      "value": "Email address for newsletter subscription"
+    }
+  ],
+  "links-email-placeholder": [
+    {
+      "type": 0,
+      "value": "Enter your email"
+    }
+  ],
+  "links-lead-magnet-subtitle": [
+    {
+      "type": 0,
+      "value": "Join 1,000+ developers"
+    }
+  ],
+  "links-lead-magnet-title": [
+    {
+      "type": 0,
+      "value": "Get Weekly Tech Insights"
+    }
+  ],
+  "links-subscribe-button": [
+    {
+      "type": 0,
+      "value": "Subscribe Free"
+    }
+  ],
+  "links-subscribe-button-label": [
+    {
+      "type": 0,
+      "value": "Subscribe to weekly newsletter"
+    }
+  ],
+  "links-subscribe-success": [
+    {
+      "type": 0,
+      "value": "🎉 Thanks for subscribing!"
+    }
+  ],
   "load_more_button": [
     {
       "type": 0,
