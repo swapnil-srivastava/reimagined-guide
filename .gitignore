@@ -40,6 +40,5 @@ yarn-error.log*
 .turbo
 
 # Package manager
-pnpm-lock.yaml
 yarn.lock
 package-lock.json
