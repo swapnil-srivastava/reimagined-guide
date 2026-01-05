@@ -4,10 +4,19 @@ Welcome to the Swapnil's Odyssey documentation. This directory contains comprehe
 
 ## 📚 Table of Contents
 
+- [Development](#development)
 - [Architecture](#architecture)
 - [Features](#features)
 - [Deployment](#deployment)
 - [Migration](#migration)
+
+---
+
+## 💻 Development
+
+Essential development guides and workflows.
+
+- **[Version Management](VERSIONING.md)** - Comprehensive guide to Changesets and conventional commits for version management
 
 ---
 

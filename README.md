@@ -52,6 +52,7 @@ This project has been migrated to a **Turborepo monorepo** for optimized builds 
 - **Database**: Supabase (PostgreSQL)
 - **Authentication**: Supabase Auth
 - **Build System**: Turborepo 2.7.2 with pnpm 8.15.0 workspaces
+- **Version Management**: Changesets 2.29.8 with conventional commits
 - **Styling**: Tailwind CSS 3.1.4 with custom design system
 - **State Management**: Redux 4.2.0 with Redux Thunk
 - **UI Components**: Material-UI 5.9.0, FontAwesome Icons
@@ -265,6 +266,25 @@ pnpm compile:i18n  # Compile translation files
 # Clean all build outputs and caches
 pnpm clean
 ```
+
+**Version Management:**
+```bash
+# Create a new changeset (after making changes)
+pnpm changeset
+# or
+pnpm changeset:add
+
+# Version packages (consume changesets and update versions)
+pnpm version-packages
+
+# Publish to npm (usually automated via GitHub Actions)
+pnpm changeset:publish
+
+# Check changeset status
+pnpm changeset status
+```
+
+> 📖 **See [Version Management Guide](docs/VERSIONING.md)** for comprehensive documentation on using Changesets with conventional commits.
 
 ### Turborepo-specific Commands
 
@@ -796,9 +816,10 @@ yarn build
 2. Create a feature branch: `git checkout -b feature/amazing-feature`
 3. Make your changes in the appropriate workspace (`apps/web/` or `packages/*`)
 4. Commit your changes: `git commit -m 'feat: add amazing feature'` (use conventional commits)
-5. Run tests and linting: `pnpm lint && pnpm build`
-6. Push to the branch: `git push origin feature/amazing-feature`
-7. Open a Pull Request
+5. Create a changeset: `pnpm changeset` (for version-bumping changes)
+6. Run tests and linting: `pnpm lint && pnpm build`
+7. Push to the branch: `git push origin feature/amazing-feature`
+8. Open a Pull Request
 
 ### Development Guidelines
 
@@ -808,9 +829,36 @@ yarn build
 - **Internationalization**: Use `FormattedMessage` for all user-facing text
 - **Styling**: Maintain the established color scheme and design system
 - **Commit Messages**: Use conventional commits (feat:, fix:, docs:, chore:, etc.)
+- **Changesets**: Create changesets for features and fixes that should bump versions
 - **Testing**: Test all functionality before submitting PR
 - **Build Validation**: Ensure `pnpm build` passes without errors
 - **Turborepo**: Leverage Turborepo tasks for consistent development workflow
+
+### Conventional Commit Format
+
+```bash
+# Features (minor version bump)
+git commit -m "feat: add user notification system"
+pnpm changeset  # Select "minor"
+
+# Bug fixes (patch version bump)
+git commit -m "fix: resolve cart calculation error"
+pnpm changeset  # Select "patch"
+
+# Breaking changes (major version bump)
+git commit -m "feat!: redesign API endpoints
+
+BREAKING CHANGE: API v1 removed, use v2"
+pnpm changeset  # Select "major"
+
+# No version bump needed
+git commit -m "docs: update README"
+git commit -m "chore: update dependencies"
+git commit -m "style: format code"
+# No changeset needed
+```
+
+> 📖 **See [Version Management Guide](docs/VERSIONING.md)** for detailed versioning workflow.
 
 ### Monorepo Commands for Contributors
 
