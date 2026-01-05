@@ -117,7 +117,7 @@ const jsonLdData = {
     name: 'Swapnil Srivastava',
     alternateName: 'swapnilsrivastava',
     description:
-      'Full Stack Engineer & Tech Lead. Building modern web applications with Next.js, TypeScript, and cloud technologies.',
+      'Architect & Full Stack Engineer. Building modern web applications with Next.js, TypeScript, and cloud technologies. Specialized in solutions architecture and end-to-end development.',
     url: 'https://swapnilsrivastava.eu',
     image: PROFILE_IMAGE_URL,
     sameAs: [
@@ -126,7 +126,7 @@ const jsonLdData = {
       'https://www.instagram.com/swapnilsrivastava',
       'https://youtube.com/@srivastava-swapnil',
     ],
-    jobTitle: 'Full Stack Engineer',
+    jobTitle: 'Architect & Full Stack Engineer',
     worksFor: {
       '@type': 'Organization',
       name: 'Tech Industry',
@@ -190,10 +190,10 @@ export default function LinksPage({ locale }: LinksPageProps) {
     <>
       {/* SEO Meta Tags */}
       <Head>
-        <title>Swapnil Srivastava | Links - Full Stack Engineer & Tech Lead</title>
+        <title>Swapnil Srivastava | Links - Architect & Full Stack Engineer</title>
         <meta
           name="description"
-          content="Connect with Swapnil Srivastava - Full Stack Engineer & Tech Lead. Book consultations, explore tech gear, watch latest videos, and view portfolio. Building modern web applications with Next.js, TypeScript, and cloud technologies."
+          content="Connect with Swapnil Srivastava - Architect & Full Stack Engineer. Book consultations, explore tech gear, watch latest videos, and view portfolio. Building modern web applications with Next.js, TypeScript, and cloud technologies."
         />
         <meta name="robots" content="index, follow" />
         <meta name="author" content="Swapnil Srivastava" />
@@ -203,20 +203,22 @@ export default function LinksPage({ locale }: LinksPageProps) {
         {/* Keywords for SEO */}
         <meta
           name="keywords"
-          content="Swapnil Srivastava, Full Stack Engineer, Tech Lead, Next.js, TypeScript, Web Development, Software Engineering, Tech Consultation"
+          content="Swapnil Srivastava, Architect, Full Stack Engineer, Solutions Architect, Next.js, TypeScript, Web Development, Software Engineering, Tech Consultation"
         />
 
         {/* Open Graph */}
         <meta property="og:type" content="profile" />
-        <meta property="og:title" content="Swapnil Srivastava | Links - Full Stack Engineer" />
+        <meta property="og:title" content="Swapnil Srivastava | Links - Architect & Full Stack Engineer" />
         <meta
           property="og:description"
-          content="Connect with Swapnil Srivastava - Full Stack Engineer & Tech Lead. Book consultations, explore tech gear, and view portfolio."
+          content="Connect with Swapnil Srivastava - Architect & Full Stack Engineer. Book consultations, explore tech gear, and view portfolio."
         />
         <meta property="og:image" content={PROFILE_IMAGE_URL} />
+        <meta property="og:image:secure_url" content={PROFILE_IMAGE_URL} />
+        <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="400" />
         <meta property="og:image:height" content="400" />
-        <meta property="og:image:alt" content="Swapnil Srivastava - Full Stack Engineer" />
+        <meta property="og:image:alt" content="Swapnil Srivastava - Architect & Full Stack Engineer" />
         <meta property="og:url" content="https://swapnilsrivastava.eu/links" />
         <meta property="og:site_name" content="Swapnil's Odyssey" />
         <meta property="og:locale" content={locale} />
@@ -231,9 +233,10 @@ export default function LinksPage({ locale }: LinksPageProps) {
         <meta name="twitter:title" content="Swapnil Srivastava | Links" />
         <meta
           name="twitter:description"
-          content="Connect with Swapnil Srivastava - Full Stack Engineer & Tech Lead."
+          content="Connect with Swapnil Srivastava - Architect & Full Stack Engineer."
         />
         <meta name="twitter:image" content={PROFILE_IMAGE_URL} />
+        <meta name="twitter:image:alt" content="Swapnil Srivastava - Architect & Full Stack Engineer" />
 
         {/* Additional SEO */}
         <link rel="canonical" href="https://swapnilsrivastava.eu/links" />
@@ -262,7 +265,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
           <div className="relative w-[120px] h-[120px] mb-4">
             <Image
               src={PROFILE_IMAGE_URL}
-              alt="Swapnil Srivastava - Full Stack Engineer and Tech Lead"
+              alt="Swapnil Srivastava - Architect and Full Stack Engineer"
               fill
               priority
               className="rounded-full object-cover ring-4 ring-hit-pink-500 dark:ring-caribbean-green-500 shadow-lg"
@@ -280,7 +283,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
             <FormattedMessage
               id="links-bio-line1"
               description="Bio first line"
-              defaultMessage="Full Stack Engineer & Tech Lead"
+              defaultMessage="Architect & Full Stack Engineer"
             />
             <br />
             <FormattedMessage
