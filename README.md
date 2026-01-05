@@ -2,6 +2,8 @@
 
 A modern, full-stack blog platform built with Next.js, TypeScript, Supabase, and comprehensive internationalization support. This platform features authentication, content management, e-commerce capabilities, and a responsive design with dark/light theme support.
 
+**Now powered by Turborepo for optimized monorepo builds!** ⚡
+
 ![Next.js](https://img.shields.io/badge/Next.js-14.0.4-black?style=flat-square&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-4.7.4-blue?style=flat-square&logo=typescript)
 ![Supabase](https://img.shields.io/badge/Supabase-2.2.1-green?style=flat-square&logo=supabase)
