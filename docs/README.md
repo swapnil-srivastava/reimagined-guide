@@ -17,6 +17,7 @@ Welcome to the Swapnil's Odyssey documentation. This directory contains comprehe
 Essential development guides and workflows.
 
 - **[Version Management](VERSIONING.md)** - Comprehensive guide to Changesets and conventional commits for version management
+- **[Changesets Quick Start Demo](CHANGESETS-DEMO.md)** - Practical examples and step-by-step workflow for creating changesets
 
 ---
 
