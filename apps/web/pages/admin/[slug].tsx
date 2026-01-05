@@ -224,7 +224,7 @@ function PostForm({ defaultValues, preview, editor }) {
         updated_at: new Date().toISOString(),
       })
       .eq("uid", profile?.id)
-      .eq("slug", slug);
+      .eq("slug", Array.isArray(slug) ? slug[0] : slug);
 
     const articleURL = `https://swapnilsrivastava.eu/approve/${defaultValues?.slug}`;
 

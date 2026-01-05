@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// @ts-ignore - Supabase type instantiation issue
+import { supaClient } from '../supa-client';
 import {
   faUsers,
   faUser,
@@ -17,7 +19,6 @@ import {
   faExclamationTriangle,
   faComment
 } from '@fortawesome/free-solid-svg-icons';
-import { supaClient } from '../supa-client';
 import { useSession } from '../lib/use-session';
 import { toast } from 'react-hot-toast';
 
@@ -67,14 +68,18 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
   const fetchRSVPs = async () => {
     try {
       setLoading(true);
-      const { data, error } = await supaClient
+      // @ts-ignore - rsvps table not in generated types yet
+      const result = await supaClient
+        // @ts-ignore
         .from('rsvps')
         .select('*')
         .eq('event_id', eventId)
         .order('created_at', { ascending: false });
+      
+      const { data, error } = result;
 
       if (error) throw error;
-      setRsvps(data || []);
+      setRsvps((data as any) || []);
     } catch (error) {
       console.error('Error fetching RSVPs:', error);
       toast.error(intl.formatMessage({

@@ -35,6 +35,7 @@ export default async function handler(
 
     // Insert RSVP into database
     const { data, error } = await supaClient
+      // @ts-ignore - rsvps table not in generated types
       .from('rsvps')
       .insert({
         event_id: eventId,
