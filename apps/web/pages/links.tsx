@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { GetStaticProps } from 'next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import CheckoutButton from '../components/CheckoutButton';
 import {
   faCalendarCheck,
   faShoppingCart,
@@ -56,6 +57,15 @@ const LINKS: LinkItem[] = [
     isPrimary: true,
   },
   {
+    id: 'website-pricing',
+    title: 'Website Development',
+    description: 'Custom website solutions & pricing',
+    url: '/pricing',
+    icon: faBriefcase,
+    isAffiliate: false,
+    isPrimary: false,
+  },
+  {
     id: 'affiliate-gear',
     title: 'My Tech Gear',
     description: 'Tools & gadgets I use daily (Amazon)',
@@ -70,15 +80,6 @@ const LINKS: LinkItem[] = [
     description: 'Watch my newest tech content',
     url: 'https://youtube.com/@srivastava-swapnil?si=s_N9hiut8vZX1KRW',
     icon: faPlayCircle,
-    isAffiliate: false,
-    isPrimary: false,
-  },
-  {
-    id: 'portfolio',
-    title: 'View My Work',
-    description: 'Projects, case studies & portfolio',
-    url: '/technology',
-    icon: faBriefcase,
     isAffiliate: false,
     isPrimary: false,
   },
@@ -371,6 +372,55 @@ export default function LinksPage({ locale }: LinksPageProps) {
             />
           </h2>
           {LINKS.map((link, index) => {
+            // Special handling for consultation link with CheckoutButton
+            if (link.id === 'consultation') {
+              return (
+                <div
+                  key={link.id}
+                  className={`
+                    flex items-center gap-4 w-full p-4 rounded-xl
+                    transition-all duration-300 transform hover:scale-[1.02]
+                    drop-shadow-lg hover:drop-shadow-xl
+                    bg-gradient-to-r from-hit-pink-500 to-hit-pink-600 hover:from-hit-pink-600 hover:to-hit-pink-700 text-blog-black dark:text-blog-black
+                  `}
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  {/* Icon */}
+                  <div
+                    className={`
+                      flex items-center justify-center w-12 h-12 rounded-full flex-shrink-0
+                      bg-white/20 text-blog-black dark:text-blog-black
+                    `}
+                  >
+                    <FontAwesomeIcon icon={link.icon} className="w-5 h-5" />
+                  </div>
+
+                  {/* Text Content */}
+                  <div className="flex-1 text-left">
+                    <h2 className="font-semibold text-base text-blog-black dark:text-blog-black">
+                      <FormattedMessage
+                        id={`links-${link.id}-title`}
+                        description={`Link title for ${link.id}`}
+                        defaultMessage={link.title}
+                      />
+                    </h2>
+                    <p className="text-sm text-blog-black/70 dark:text-blog-black/70">
+                      <FormattedMessage
+                        id={`links-${link.id}-description`}
+                        description={`Link description for ${link.id}`}
+                        defaultMessage={link.description}
+                      />
+                    </p>
+                  </div>
+
+                  {/* CheckoutButton */}
+                  <div className="flex-shrink-0">
+                    <CheckoutButton priceId={'price_1PepBzRomQdDoc7IMPkYqS78'} />
+                  </div>
+                </div>
+              );
+            }
+
             const isExternal = link.url.startsWith('http');
             const linkProps = {
               href: link.url,

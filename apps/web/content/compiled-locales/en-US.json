@@ -2129,6 +2129,12 @@
       "value": "Building modern web experiences with passion"
     }
   ],
+  "links-bio-line3": [
+    {
+      "type": 0,
+      "value": "Next.js • React • Spring Boot • Kafka • GCP • Azure • AWS"
+    }
+  ],
   "links-email-input-label": [
     {
       "type": 0,
@@ -2151,6 +2157,12 @@
     {
       "type": 0,
       "value": "Get Weekly Tech Insights"
+    }
+  ],
+  "links-section-heading": [
+    {
+      "type": 0,
+      "value": "Quick Access Links"
     }
   ],
   "links-subscribe-button": [
