@@ -46,9 +46,9 @@ const CookiesBanner = () => {
       <>
        <div className="fixed left-0 bottom-0 z-50">
             {/* Advise  */}
-            <div className={`fixed sm:left-4 bottom-24 sm:bottom-20 rounded-lg bg-white shadow-2xl w-full sm:w-1/2 xl:w-1/4 max-w-[450px] overflow-hidden transform transition-transform duration-300 ease-in-out ${cookiesVisible ? 'translate-y-0' : 'translate-y-full hidden'}`}>
+            <div className={`fixed sm:left-4 bottom-24 sm:bottom-20 rounded-lg bg-white dark:bg-fun-blue-600 shadow-2xl w-full sm:w-1/2 xl:w-1/4 max-w-[450px] overflow-hidden transform transition-transform duration-300 ease-in-out ${cookiesVisible ? 'translate-y-0' : 'translate-y-full hidden'}`}>
                     <div className="relative overflow-hidden px-8 pt-8">
-                        <div className="w-20 h-16 absolute -top-10 -right-10 text-yellow-500">
+                        <div className="w-20 h-16 absolute -top-10 -right-10 text-yellow-500 dark:text-caribbean-green-400">
                             <svg width="120" height="119" viewBox="0 0 120 119" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path opacity="0.3"
                                     d="M6.38128 49.1539C3.20326 32.893 13.809 17.1346 30.0699 13.9566L70.3846 6.07751C86.6455 2.89948 102.404 13.5052 105.582 29.7661L113.461 70.0808C116.639 86.3417 106.033 102.1 89.7724 105.278L49.4577 113.157C33.1968 116.335 17.4384 105.729 14.2604 89.4686L6.38128 49.1539Z"
@@ -60,7 +60,7 @@ const CookiesBanner = () => {
                 {/* Text */}
                 <div className="flex flex-col md:ml-12">
                     <div className="p-4">
-                        <div className="text-2xl flex flex-col pb-4">
+                        <div className="text-2xl flex flex-col pb-4 text-blog-black dark:text-blog-white">
                             <small>
                                 <FormattedMessage
                                     id="cookies_small_text"
@@ -77,7 +77,7 @@ const CookiesBanner = () => {
                             </span>
                         </div>
                         <div className="pb-4">
-                            <p>
+                            <p className="text-gray-700 dark:text-gray-300">
                                 <FormattedMessage
                                     id="cookies_description"
                                     description="Cookies Description" // Description should be a string literal
@@ -87,7 +87,7 @@ const CookiesBanner = () => {
                             <p className="mt-5">
                                 <Link 
                                     href="/privacy-policy" 
-                                    className="text-[#1249de] hover:underline"
+                                    className="text-[#1249de] dark:text-caribbean-green-400 hover:underline"
                                     onClick={() => setCookiesVisible(false)}
                                     prefetch={false}
                                 >
@@ -104,9 +104,9 @@ const CookiesBanner = () => {
                 </div>
 
                 {/* Button */}
-                <div className="w-full flex justify-center items-center border-t border-solid border-gray-200">
+                <div className="w-full flex justify-center items-center border-t border-solid border-gray-200 dark:border-fun-blue-500">
                     <button 
-                        className="border-r border-gray-200 flex-1 px-4 py-3 text-white bg-[#00539c] duration-150" 
+                        className="border-r border-gray-200 dark:border-fun-blue-500 flex-1 px-4 py-3 text-white bg-[#00539c] dark:bg-fun-blue-700 hover:brightness-110 duration-150" 
                         onClick={() => { 
                             setCookieConsent(false); 
                             setCookiesVisible(false);
@@ -121,7 +121,7 @@ const CookiesBanner = () => {
                         />
                     </button>
                     <button 
-                        className="flex-1 px-4 py-3 text-black bg-[#eea47f] hover:bg-opacity-90 duration-150" 
+                        className="flex-1 px-4 py-3 text-blog-black dark:text-blog-black bg-[#eea47f] dark:bg-hit-pink-500 hover:brightness-110 duration-150" 
                         onClick={() => { 
                             setCookieConsent(true); 
                             setCookiesVisible(false);
@@ -140,7 +140,7 @@ const CookiesBanner = () => {
             {/* Floating Buttons for Cookie Management and Privacy Policy */}
             <div className="fixed left-4 bottom-4 flex gap-2 z-50">
                 <button 
-                    className="uppercase text-sm px-4 py-4 bg-[#004b8c] text-white rounded-full transition-colors"
+                    className="uppercase text-sm px-4 py-4 bg-[#004b8c] dark:bg-fun-blue-700 text-white rounded-full transition-all duration-300 hover:brightness-110"
                     onClick={() => setCookiesVisible(!cookiesVisible)}
                     aria-label={intl.formatMessage({
                         id: "cookies-manage-preferences-aria",
@@ -153,7 +153,7 @@ const CookiesBanner = () => {
                 
                 <Link 
                     href="/privacy-policy" 
-                    className="uppercase text-sm px-4 py-4 bg-[#1249de] text-white rounded-full hover:bg-[#12dea8] transition-colors"
+                    className="uppercase text-sm px-4 py-4 bg-[#1249de] dark:bg-caribbean-green-600 text-white rounded-full hover:bg-[#12dea8] dark:hover:bg-caribbean-green-500 transition-all duration-300"
                     aria-label={intl.formatMessage({
                         id: "cookies-privacy-policy-aria",
                         description: "Privacy Policy",
