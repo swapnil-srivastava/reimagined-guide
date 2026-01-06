@@ -11,6 +11,18 @@
   --color-red: #df3b3b;
   --color-green: #3bdf72;
   --color-gray: #b5bdc4;
+  
+  /* Toast colors for light mode */
+  --toast-bg: #ffffff;
+  --toast-text: #0a0a0a;
+  --toast-border: #e5e7eb;
+}
+
+.dark {
+  /* Toast colors for dark mode */
+  --toast-bg: #004b8c;
+  --toast-text: #fbfbfb;
+  --toast-border: #003e75;
 }
 
 /* Base font and text color defaults */

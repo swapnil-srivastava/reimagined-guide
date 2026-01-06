@@ -82,7 +82,37 @@ function MyApp({ Component, pageProps }) {
                 <Footer />
                 <CookiesBanner />
               </div>
-              <Toaster />
+              <Toaster
+                position="top-center"
+                toastOptions={{
+                  duration: 4000,
+                  style: {
+                    background: 'var(--toast-bg, #fff)',
+                    color: 'var(--toast-text, #0a0a0a)',
+                    border: '1px solid var(--toast-border, #e5e7eb)',
+                  },
+                  success: {
+                    style: {
+                      background: 'var(--toast-bg, #fff)',
+                      color: 'var(--toast-text, #0a0a0a)',
+                    },
+                    iconTheme: {
+                      primary: '#10b981',
+                      secondary: '#fff',
+                    },
+                  },
+                  error: {
+                    style: {
+                      background: 'var(--toast-bg, #fff)',
+                      color: 'var(--toast-text, #0a0a0a)',
+                    },
+                    iconTheme: {
+                      primary: '#ef4444',
+                      secondary: '#fff',
+                    },
+                  },
+                }}
+              />
             </IntlProvider>
           </Provider>
         </ThemeProvider>
