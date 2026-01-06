@@ -2673,18 +2673,6 @@
       "value": "Official t-shirt"
     }
   ],
-  "pricing-invoices-receipts-available": [
-    {
-      "type": 0,
-      "value": "Invoices and receipts available for easy company reimbursement"
-    }
-  ],
-  "pricing-pay-once-own-forever": [
-    {
-      "type": 0,
-      "value": "Pay once, own it forever"
-    }
-  ],
   "pricing-premium-package": [
     {
       "type": 0,
@@ -2694,7 +2682,13 @@
   "pricing-premium-package-description": [
     {
       "type": 0,
-      "value": "Unlock the expertise with a single investment - pay once, and your success is in good hands."
+      "value": "Enterprise-level web development with e-commerce, advanced SEO, and custom design."
+    }
+  ],
+  "pricing-premium-package-price": [
+    {
+      "type": 0,
+      "value": "€3,500"
     }
   ],
   "pricing-simple-no-tricks-pricing": [
