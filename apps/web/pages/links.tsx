@@ -318,9 +318,9 @@ export default function LinksPage({ locale }: LinksPageProps) {
       </Head>
 
       {/* Main Container */}
-      <main className="min-h-screen bg-blog-white dark:bg-fun-blue-500 flex flex-col items-center px-4 py-8 sm:py-12">
+      <main className="min-h-screen bg-blog-white dark:bg-fun-blue-500 flex flex-col items-center px-4 py-8 sm:py-12 pb-24">
         {/* Hero Section */}
-        <section className="flex flex-col items-center text-center mb-8 animate-fadeIn">
+        <section className="flex flex-col items-center text-center mb-6 animate-fadeIn">
           {/* Profile Image */}
           <div className="relative w-[120px] h-[120px] mb-4">
             <Image
@@ -328,7 +328,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
               alt="Swapnil Srivastava - Architect and Full Stack Engineer"
               fill
               priority
-              className="rounded-full object-cover ring-4 ring-hit-pink-500 dark:ring-caribbean-green-500 shadow-lg"
+              className="rounded-full object-cover ring-4 ring-hit-pink-500 dark:ring-caribbean-green-500 shadow-lg hover:ring-[6px] transition-all duration-300"
               sizes="120px"
             />
           </div>
@@ -362,7 +362,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
         </section>
 
         {/* Links Stack */}
-        <section className="w-full max-w-md flex flex-col gap-3 mb-10" aria-label="Quick Links">
+        <section className="w-full max-w-md flex flex-col gap-2 sm:gap-3 mb-8" aria-label="Quick Links">
           <h2 className="sr-only">
             <FormattedMessage
               id="links-section-heading"
@@ -470,8 +470,8 @@ export default function LinksPage({ locale }: LinksPageProps) {
         </section>
 
         {/* Lead Magnet Section */}
-        <section className="w-full max-w-md mb-10" aria-labelledby="newsletter-heading">
-          <div className="bg-white dark:bg-fun-blue-600 rounded-xl p-6 drop-shadow-lg hover:drop-shadow-xl transition-all duration-300">
+        <section className="w-full max-w-md mb-8" aria-labelledby="newsletter-heading">
+          <div className="bg-white dark:bg-fun-blue-600 rounded-xl p-6 drop-shadow-lg hover:drop-shadow-xl transition-all duration-300 border-l-4 border-caribbean-green-500">
             <div className="flex items-center gap-3 mb-4">
               <div className="flex items-center justify-center w-10 h-10 rounded-full bg-caribbean-green-100 dark:bg-caribbean-green-900/30">
                 <FontAwesomeIcon
@@ -565,7 +565,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
         </section>
 
         {/* Social Links Footer */}
-        <footer className="flex items-center justify-center gap-6 mb-8" role="navigation" aria-label="Social Media Links">
+        <footer className="flex items-center justify-center gap-4 sm:gap-6 mb-12" role="navigation" aria-label="Social Media Links">
           {SOCIAL_LINKS.map((social) => (
             <a
               key={social.id}
@@ -578,20 +578,20 @@ export default function LinksPage({ locale }: LinksPageProps) {
                 description: `Social link label for ${social.label}`,
                 defaultMessage: `Follow on ${social.label}`,
               })}
-              className="w-12 h-12 flex items-center justify-center rounded-full
+              className="w-14 h-14 flex items-center justify-center rounded-full
                        bg-white dark:bg-fun-blue-600 
                        text-gray-600 dark:text-gray-300
                        hover:text-fun-blue-500 dark:hover:text-caribbean-green-400
                        drop-shadow-lg hover:drop-shadow-xl
                        transition-all duration-300 hover:scale-110"
             >
-              <FontAwesomeIcon icon={social.icon} className="w-5 h-5" />
+              <FontAwesomeIcon icon={social.icon} className="w-6 h-6" />
             </a>
           ))}
         </footer>
 
         {/* Attribution */}
-        <p className="text-xs text-gray-400 dark:text-gray-500">
+        <p className="text-xs text-gray-400 dark:text-gray-500 mb-8">
           <FormattedMessage
             id="links-attribution"
             description="Page attribution"
