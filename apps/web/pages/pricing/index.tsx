@@ -313,68 +313,82 @@ const Pricing = () => {
           </div>
 
         {/* Simple no-tricks Pricing */}
-        <section className="w-full max-w-7xl mx-auto py-12 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8 mb-12">
-          <article className="flex flex-col items-center justify-center bg-fun-blue-600 dark:bg-blog-white p-10 hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125 ring-1 ring-fun-blue-700 dark:ring-fun-blue-500">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl text-center font-bold mt-8 sm:mt-16 lg:mt-20 mb-8 text-blog-white dark:text-blog-black">
-              <FormattedMessage
-                id="pricing-simple-no-tricks-pricing"
-                description="Simple no-tricks pricing"
-                defaultMessage="Simple no-tricks pricing"
-              />
-            </h2>
-            <div className="text-center">
-              <div className="flex flex-col items-center justify-center p-2">
-                <p className="text-6xl text-blog-white dark:text-blog-black">
-                  <FormattedMessage
-                    id="pricing-premium-package-price"
-                    description="Premium package price"
-                    defaultMessage="€3,500"
-                  />
-                </p>
-                <h3 className="font-bold text-blog-white dark:text-blog-black">
+        <section className="bg-blog-white text-blog-black dark:bg-fun-blue-600 dark:text-blog-white py-12 sm:py-24 lg:py-32 rounded-lg mb-12 w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="mx-auto max-w-2xl sm:text-center px-4">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-blog-black dark:text-blog-white">
+                <FormattedMessage
+                  id="pricing-simple-no-tricks-pricing"
+                  description="Simple no-tricks pricing"
+                  defaultMessage="Simple no-tricks pricing"
+                />
+              </h2>
+            </div>
+            <div className="mx-auto mt-8 sm:mt-16 lg:mt-20 max-w-2xl rounded-3xl ring-1 ring-gray-200 dark:ring-fun-blue-500 lg:mx-0 lg:flex lg:max-w-none">
+              <div className="p-8 sm:p-10 lg:flex-auto">
+                <h3 className="text-2xl font-bold tracking-tight text-blog-black dark:text-blog-white">
                   <FormattedMessage
                     id="pricing-premium-package"
                     description="Premium Package"
                     defaultMessage="Premium Package"
                   />
                 </h3>
-                <p className="text-xs text-gray-600 dark:text-gray-300">
+                <p className="mt-6 text-base leading-7 text-gray-600 dark:text-gray-300">
                   <FormattedMessage
                     id="pricing-premium-package-description"
-                    description="Premium package description"
-                    defaultMessage="Enterprise-level web development with e-commerce, advanced SEO, and custom design."
+                    description="Unlock the expertise with a single investment - pay once, and your success is in good hands."
+                    defaultMessage="Unlock the expertise with a single investment - pay once, and your success is in good hands."
                   />
                 </p>
+                <div className="mt-10 flex items-center gap-x-4">
+                  <h4 className="flex-none text-sm font-semibold leading-6 text-fun-blue-600 dark:text-fun-blue-300">
+                    <FormattedMessage
+                      id="pricing-whats-included"
+                      description="What's included"
+                      defaultMessage="What's included"
+                    />
+                  </h4>
+                  <div className="h-px flex-auto bg-gray-100" />
+                </div>
+                <ul
+                  role="list"
+                  className="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-gray-600 dark:text-gray-300 sm:grid-cols-2 sm:gap-6"
+                >
+                  {includedFeatures.map((feature) => (
+                    <li key={feature} className="flex gap-x-3 items-center">
+                      <FontAwesomeIcon icon={faCheck} />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
               </div>
-
-              {/* button section */}
-              <div className="text-center font-thin flex items-center justify-center mb-3 text-blog-white dark:text-blog-black">
-                  <CheckoutButton priceId={'price_1Pe4WlRomQdDoc7IGLCdnGI1'}/>
+              <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
+                <div className="rounded-2xl bg-gray-50 dark:bg-fun-blue-700 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
+                  <div className="mx-auto max-w-xs px-8">
+                    <p className="text-base font-semibold text-gray-600 dark:text-gray-300">
+                      <FormattedMessage
+                        id="pricing-pay-once-own-forever"
+                        description="Pay once, own it forever"
+                        defaultMessage="Pay once, own it forever"
+                      />
+                    </p>
+                    <p className="mt-6 flex items-baseline justify-center gap-x-2">
+                      <span className="text-5xl font-bold tracking-tight text-blog-black dark:text-blog-white">€3500</span>
+                      <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600 dark:text-gray-400">EURO</span>
+                    </p>
+                    <CheckoutButton priceId={'price_1PepHnRomQdDoc7ILk13S3dE'} text={'Get it now'}/>
+                    <p className="mt-6 text-xs leading-5 text-gray-600 dark:text-gray-400">
+                      <FormattedMessage
+                        id="pricing-invoices-receipts-available"
+                        description="Invoices and receipts available for easy company reimbursement"
+                        defaultMessage="Invoices and receipts available for easy company reimbursement"
+                      />
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
-
-            <div className="mt-10 flex items-center gap-x-4 w-full max-w-2xl">
-              <h4 className="flex-none text-sm font-semibold leading-6 text-blog-white dark:text-fun-blue-600">
-                  <FormattedMessage
-                    id="pricing-whats-included"
-                    description="What's included"
-                    defaultMessage="What's included"
-                  />
-                </h4>
-                <div className="h-px flex-auto bg-gray-200 dark:bg-gray-600" />
-              </div>
-              <ul
-                role="list"
-                className="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-blog-white dark:text-blog-black sm:grid-cols-2 sm:gap-6"
-              >
-                {includedFeatures.map((feature) => (
-                  <li key={feature} className="flex gap-x-3 items-center text-blog-white dark:text-blog-black">
-                    <FontAwesomeIcon icon={faCheck} className="text-blog-white dark:text-blog-black" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-          </article>
+          </div>
         </section>
 
       </div>
