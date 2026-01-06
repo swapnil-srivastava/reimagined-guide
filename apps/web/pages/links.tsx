@@ -378,43 +378,46 @@ export default function LinksPage({ locale }: LinksPageProps) {
                 <div
                   key={link.id}
                   className={`
-                    flex items-center gap-4 w-full p-4 rounded-xl
+                    flex flex-col sm:flex-row sm:items-center gap-4 w-full p-4 rounded-xl
                     transition-all duration-300 transform hover:scale-[1.02]
                     drop-shadow-lg hover:drop-shadow-xl
                     bg-gradient-to-r from-hit-pink-500 to-hit-pink-600 hover:from-hit-pink-600 hover:to-hit-pink-700 text-blog-black dark:text-blog-black
                   `}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  {/* Icon */}
-                  <div
-                    className={`
-                      flex items-center justify-center w-12 h-12 rounded-full flex-shrink-0
-                      bg-white/20 text-blog-black dark:text-blog-black
-                    `}
-                  >
-                    <FontAwesomeIcon icon={link.icon} className="w-5 h-5" />
+                  {/* Icon and Text Content - Grouped on Mobile */}
+                  <div className="flex items-center gap-4 flex-1">
+                    {/* Icon */}
+                    <div
+                      className={`
+                        flex items-center justify-center w-12 h-12 rounded-full flex-shrink-0
+                        bg-white/20 text-blog-black dark:text-blog-black
+                      `}
+                    >
+                      <FontAwesomeIcon icon={link.icon} className="w-5 h-5" />
+                    </div>
+
+                    {/* Text Content */}
+                    <div className="flex-1 text-left">
+                      <h2 className="font-semibold text-base text-blog-black dark:text-blog-black">
+                        <FormattedMessage
+                          id={`links-${link.id}-title`}
+                          description={`Link title for ${link.id}`}
+                          defaultMessage={link.title}
+                        />
+                      </h2>
+                      <p className="text-sm text-blog-black/70 dark:text-blog-black/70">
+                        <FormattedMessage
+                          id={`links-${link.id}-description`}
+                          description={`Link description for ${link.id}`}
+                          defaultMessage={link.description}
+                        />
+                      </p>
+                    </div>
                   </div>
 
-                  {/* Text Content */}
-                  <div className="flex-1 text-left">
-                    <h2 className="font-semibold text-base text-blog-black dark:text-blog-black">
-                      <FormattedMessage
-                        id={`links-${link.id}-title`}
-                        description={`Link title for ${link.id}`}
-                        defaultMessage={link.title}
-                      />
-                    </h2>
-                    <p className="text-sm text-blog-black/70 dark:text-blog-black/70">
-                      <FormattedMessage
-                        id={`links-${link.id}-description`}
-                        description={`Link description for ${link.id}`}
-                        defaultMessage={link.description}
-                      />
-                    </p>
-                  </div>
-
-                  {/* CheckoutButton */}
-                  <div className="flex-shrink-0">
+                  {/* CheckoutButton - Full Width on Mobile */}
+                  <div className="w-full sm:w-auto sm:flex-shrink-0">
                     <CheckoutButton priceId={'price_1PepBzRomQdDoc7IMPkYqS78'} />
                   </div>
                 </div>

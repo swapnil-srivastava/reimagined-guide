@@ -32,9 +32,9 @@ const Pricing = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col items-center gap-2 font-poppins mt-10">
+    <div className="min-h-screen flex flex-col items-center gap-2 font-poppins mt-10 px-4">
         {/* Title */}
-        <div className="lg:text-4xl text-2xl text-blog-black dark:text-blog-white text-center">
+        <div className="lg:text-4xl text-2xl text-blog-black dark:text-blog-white text-center max-w-4xl px-4 mb-6">
           <FormattedMessage
             id="pricing-title"
             description="Choose the right package which is best for you!"
@@ -232,10 +232,10 @@ const Pricing = () => {
         </div>
 
         {/* Pricing  Single Page */}
-        <div className="bg-blog-white text-blog-black dark:bg-fun-blue-600 dark:text-blog-white py-24 sm:py-32 rounded-lg mb-12">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl sm:text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-blog-black dark:text-blog-white sm:text-4xl">
+        <div className="bg-blog-white text-blog-black dark:bg-fun-blue-600 dark:text-blog-white py-12 sm:py-24 lg:py-32 rounded-lg mb-12 w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+          <div className="mx-auto max-w-2xl sm:text-center px-4">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-blog-black dark:text-blog-white">
               <FormattedMessage
                 id="pricing-simple-no-tricks-pricing"
                 description="Simple no-tricks pricing"
@@ -247,7 +247,7 @@ const Pricing = () => {
               in. Explicabo id ut laborum.
             </p> */}
           </div>
-          <div className="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
+          <div className="mx-auto mt-8 sm:mt-16 lg:mt-20 max-w-2xl rounded-3xl ring-1 ring-gray-200 dark:ring-fun-blue-500 lg:mx-0 lg:flex lg:max-w-none">
             <div className="p-8 sm:p-10 lg:flex-auto">
               <h3 className="text-2xl font-bold tracking-tight text-blog-black dark:text-blog-white">
                 <FormattedMessage
