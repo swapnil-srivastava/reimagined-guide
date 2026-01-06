@@ -117,7 +117,7 @@ const jsonLdData = {
     name: 'Swapnil Srivastava',
     alternateName: 'swapnilsrivastava',
     description:
-      'Architect & Full Stack Engineer. Building modern web applications with Next.js, TypeScript, and cloud technologies. Specialized in solutions architecture and end-to-end development.',
+      'Architect & Full Stack Engineer. Building modern web applications with Next.js, React, TypeScript, Spring Boot, Apache Kafka, and cloud technologies (GCP, Azure, AWS). Specialized in solutions architecture, microservices, and end-to-end development.',
     url: 'https://swapnilsrivastava.eu',
     image: PROFILE_IMAGE_URL,
     sameAs: [
@@ -131,6 +131,59 @@ const jsonLdData = {
       '@type': 'Organization',
       name: 'Tech Industry',
     },
+    knowsAbout: [
+      'Next.js',
+      'TypeScript',
+      'React',
+      'Node.js',
+      'Spring Boot',
+      'Apache Kafka',
+      'Google Cloud Platform',
+      'Microsoft Azure',
+      'Amazon Web Services',
+      'Cloud Architecture',
+      'Full Stack Development',
+      'Solutions Architecture',
+      'Web Development',
+      'Software Engineering',
+      'Microservices',
+    ],
+  },
+};
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Swapnil Srivastava - Architect & Full Stack Engineer | Links',
+  description:
+    'Connect with Swapnil Srivastava. Book consultations, explore tech recommendations, watch latest videos, and view portfolio.',
+  url: 'https://swapnilsrivastava.eu/links',
+  inLanguage: 'en-US',
+  isPartOf: {
+    '@type': 'WebSite',
+    name: "Swapnil's Odyssey",
+    url: 'https://swapnilsrivastava.eu',
+  },
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://swapnilsrivastava.eu',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Links',
+        item: 'https://swapnilsrivastava.eu/links',
+      },
+    ],
+  },
+  potentialAction: {
+    '@type': 'ReadAction',
+    target: 'https://swapnilsrivastava.eu/links',
   },
 };
 
@@ -193,7 +246,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
         <title>Swapnil Srivastava | Links - Architect & Full Stack Engineer</title>
         <meta
           name="description"
-          content="Connect with Swapnil Srivastava - Architect & Full Stack Engineer. Book consultations, explore tech gear, watch latest videos, and view portfolio. Building modern web applications with Next.js, TypeScript, and cloud technologies."
+          content="Connect with Swapnil Srivastava - Architect & Full Stack Engineer specializing in Next.js, React, TypeScript, Spring Boot, Apache Kafka, and Cloud Solutions (GCP, Azure, AWS). Book 1:1 consultations, explore recommended tech gear, watch latest development tutorials, and view portfolio projects."
         />
         <meta name="robots" content="index, follow" />
         <meta name="author" content="Swapnil Srivastava" />
@@ -203,7 +256,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
         {/* Keywords for SEO */}
         <meta
           name="keywords"
-          content="Swapnil Srivastava, Architect, Full Stack Engineer, Solutions Architect, Next.js, TypeScript, Web Development, Software Engineering, Tech Consultation"
+          content="Swapnil Srivastava, Architect, Full Stack Engineer, Solutions Architect, Next.js, TypeScript, React, Spring Boot, Apache Kafka, GCP, Azure, AWS, Cloud Platform, Web Development, Software Engineering, Tech Consultation, Microservices"
         />
 
         {/* Open Graph */}
@@ -242,6 +295,9 @@ export default function LinksPage({ locale }: LinksPageProps) {
         <link rel="canonical" href="https://swapnilsrivastava.eu/links" />
         <link rel="alternate" hrefLang="en" href="https://swapnilsrivastava.eu/links" />
         <link rel="alternate" hrefLang="de" href="https://swapnilsrivastava.eu/de/links" />
+        <link rel="alternate" hrefLang="fr" href="https://swapnilsrivastava.eu/fr/links" />
+        <link rel="alternate" hrefLang="hi" href="https://swapnilsrivastava.eu/hi/links" />
+        <link rel="alternate" hrefLang="x-default" href="https://swapnilsrivastava.eu/links" />
 
         {/* Preconnect to external domains */}
         <link rel="preconnect" href="https://www.amazon.com" />
@@ -254,6 +310,10 @@ export default function LinksPage({ locale }: LinksPageProps) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
         />
       </Head>
 
@@ -279,7 +339,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
           </h1>
 
           {/* Bio */}
-          <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base max-w-xs leading-relaxed">
+          <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base max-w-xs leading-relaxed mb-2">
             <FormattedMessage
               id="links-bio-line1"
               description="Bio first line"
@@ -292,10 +352,24 @@ export default function LinksPage({ locale }: LinksPageProps) {
               defaultMessage="Building modern web experiences with passion"
             />
           </p>
+          <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm max-w-sm leading-relaxed">
+            <FormattedMessage
+              id="links-bio-line3"
+              description="Bio third line"
+              defaultMessage="Next.js • React • Spring Boot • Kafka • GCP • Azure • AWS"
+            />
+          </p>
         </section>
 
         {/* Links Stack */}
-        <section className="w-full max-w-md flex flex-col gap-3 mb-10">
+        <section className="w-full max-w-md flex flex-col gap-3 mb-10" aria-label="Quick Links">
+          <h2 className="sr-only">
+            <FormattedMessage
+              id="links-section-heading"
+              description="Links section heading for screen readers"
+              defaultMessage="Quick Access Links"
+            />
+          </h2>
           {LINKS.map((link, index) => {
             const isExternal = link.url.startsWith('http');
             const linkProps = {
@@ -396,7 +470,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
         </section>
 
         {/* Lead Magnet Section */}
-        <section className="w-full max-w-md mb-10">
+        <section className="w-full max-w-md mb-10" aria-labelledby="newsletter-heading">
           <div className="bg-white dark:bg-fun-blue-600 rounded-xl p-6 drop-shadow-lg hover:drop-shadow-xl transition-all duration-300">
             <div className="flex items-center gap-3 mb-4">
               <div className="flex items-center justify-center w-10 h-10 rounded-full bg-caribbean-green-100 dark:bg-caribbean-green-900/30">
@@ -406,7 +480,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
                 />
               </div>
               <div>
-                <h3 className="font-semibold text-blog-black dark:text-blog-white text-base">
+                <h3 id="newsletter-heading" className="font-semibold text-blog-black dark:text-blog-white text-base">
                   <FormattedMessage
                     id="links-lead-magnet-title"
                     description="Lead magnet section title"
@@ -491,7 +565,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
         </section>
 
         {/* Social Links Footer */}
-        <footer className="flex items-center justify-center gap-6 mb-8">
+        <footer className="flex items-center justify-center gap-6 mb-8" role="navigation" aria-label="Social Media Links">
           {SOCIAL_LINKS.map((social) => (
             <a
               key={social.id}
