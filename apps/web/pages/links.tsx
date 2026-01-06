@@ -50,7 +50,7 @@ const LINKS: LinkItem[] = [
     id: 'consultation',
     title: 'Book 1:1 Call',
     description: 'Schedule a personal consultation with me',
-    url: '/book-appointment',
+    url: '#',
     icon: faCalendarCheck,
     isAffiliate: false,
     isPrimary: true,
@@ -374,7 +374,12 @@ export default function LinksPage({ locale }: LinksPageProps) {
             const isExternal = link.url.startsWith('http');
             const linkProps = {
               href: link.url,
-              onClick: () => trackLinkClick(link.id),
+              onClick: (e: React.MouseEvent) => {
+                trackLinkClick(link.id);
+                if (link.id === 'consultation') {
+                  e.preventDefault();
+                }
+              },
               className: `
                 flex items-center gap-4 w-full p-4 rounded-xl
                 transition-all duration-300 transform hover:scale-[1.02]
