@@ -191,8 +191,15 @@ const handler = async (
           }
         }
 
-        // Email template for customer
-        const customerEmailHtml = `
+        // ============================================
+        // EMAIL TEMPLATES: Different for Cart vs Service Package
+        // ============================================
+        
+        // Get package name for service packages
+        const packageName = sessionMetadata.package_name || orderItemsData[0]?.name || 'Service Package';
+
+        // Customer email template - CART orders
+        const cartCustomerEmailHtml = `
           <!DOCTYPE html>
           <html>
           <head>
@@ -246,8 +253,84 @@ const handler = async (
           </html>
         `;
 
-        // Email template for admin
-        const adminEmailHtml = `
+        // Customer email template - SERVICE PACKAGE orders
+        const servicePackageCustomerEmailHtml = `
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          </head>
+          <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f3f4f6; margin: 0; padding: 20px;">
+            <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+              <div style="background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%); padding: 40px 30px; text-align: center;">
+                <h1 style="color: #ffffff; margin: 0; font-size: 28px;">🚀 Consultation Booked!</h1>
+                <p style="color: #ddd6fe; margin: 10px 0 0 0; font-size: 16px;">Your journey to an amazing website starts here</p>
+              </div>
+              <div style="padding: 30px;">
+                <p style="color: #374151; font-size: 16px; line-height: 1.6;">
+                  Hello! 👋<br><br>
+                  Thank you so much for booking a <strong>${packageName}</strong>! We're genuinely excited to connect with you and discuss your web development vision.
+                </p>
+                
+                <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-radius: 12px; padding: 20px; margin: 20px 0; border-left: 4px solid #f59e0b;">
+                  <p style="color: #92400e; margin: 0; font-size: 14px; font-style: italic;">
+                    💡 <strong>Fun fact:</strong> While you wait for our call, your future website is already dreaming about how awesome it's going to be. It told me it wants a "cool vibe" — whatever that means! 😄
+                  </p>
+                </div>
+
+                <div style="background-color: #f0fdf4; border-radius: 12px; padding: 20px; margin: 20px 0; border-left: 4px solid #22c55e;">
+                  <h2 style="color: #15803d; margin: 0 0 15px 0; font-size: 18px;">📅 What's Next?</h2>
+                  <p style="color: #374151; margin: 0; font-size: 14px; line-height: 1.8;">
+                    We're preparing your <strong>1-hour consultation call</strong>! Shortly, you'll receive another email with a <strong>calendar link</strong> where you can select a date and time that works best for you.
+                  </p>
+                  <p style="color: #374151; margin: 15px 0 0 0; font-size: 14px; line-height: 1.8;">
+                    Once you pick your slot, we'll send a meeting invite to <strong>${customerEmail}</strong> with all the details you need.
+                  </p>
+                </div>
+
+                <div style="background-color: #f9fafb; border-radius: 12px; padding: 20px; margin: 20px 0;">
+                  <h2 style="color: #7c3aed; margin: 0 0 15px 0; font-size: 18px;">🎯 Booking Summary</h2>
+                  <table style="width: 100%; font-size: 14px;">
+                    <tr>
+                      <td style="padding: 8px 0; color: #6b7280;">Package:</td>
+                      <td style="padding: 8px 0; color: #374151; font-weight: bold; text-align: right;">${packageName}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px 0; color: #6b7280;">Amount Paid:</td>
+                      <td style="padding: 8px 0; color: #15803d; font-weight: bold; text-align: right;">€${totalAmount.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px 0; color: #6b7280;">Call Duration:</td>
+                      <td style="padding: 8px 0; color: #374151; font-weight: bold; text-align: right;">1 Hour</td>
+                    </tr>
+                  </table>
+                </div>
+
+                <p style="color: #6b7280; font-size: 14px; line-height: 1.6;">
+                  Got questions before our call? Feel free to reply to this email — we're always happy to chat!
+                </p>
+
+                <div style="text-align: center; margin: 30px 0;">
+                  <a href="https://swapnilsrivastava.eu" style="display: inline-block; background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%); color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-weight: bold; font-size: 16px;">Explore Our Work</a>
+                </div>
+
+                <p style="color: #9ca3af; font-size: 13px; text-align: center; margin-top: 20px;">
+                  Can't wait to turn your ideas into pixels! ✨
+                </p>
+              </div>
+              <div style="background-color: #f9fafb; padding: 20px 30px; text-align: center; border-top: 1px solid #e5e7eb;">
+                <p style="color: #9ca3af; font-size: 12px; margin: 0;">
+                  © ${new Date().getFullYear()} Swapnil's Odyssey. All rights reserved.
+                </p>
+              </div>
+            </div>
+          </body>
+          </html>
+        `;
+
+        // Admin email template - CART orders
+        const cartAdminEmailHtml = `
           <!DOCTYPE html>
           <html>
           <head>
@@ -306,18 +389,135 @@ const handler = async (
           </html>
         `;
 
+        // Admin email template - SERVICE PACKAGE orders
+        const servicePackageAdminEmailHtml = `
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          </head>
+          <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f3f4f6; margin: 0; padding: 20px;">
+            <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+              <div style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); padding: 40px 30px; text-align: center;">
+                <h1 style="color: #ffffff; margin: 0; font-size: 28px;">📅 ACTION REQUIRED</h1>
+                <p style="color: #fecaca; margin: 10px 0 0 0; font-size: 16px;">New Consultation Booking - Send Calendar Invite!</p>
+              </div>
+              <div style="padding: 30px;">
+                
+                <div style="background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border-radius: 12px; padding: 20px; margin-bottom: 20px; border: 2px solid #fca5a5;">
+                  <h2 style="color: #dc2626; margin: 0 0 10px 0; font-size: 18px;">⚡ Immediate Action Needed</h2>
+                  <p style="color: #7f1d1d; margin: 0; font-size: 15px; line-height: 1.6;">
+                    This customer has booked a <strong>${packageName}</strong> and is waiting for a calendar invite to schedule their <strong>1-hour consultation call</strong>.
+                  </p>
+                  <p style="color: #7f1d1d; margin: 15px 0 0 0; font-size: 15px; font-weight: bold;">
+                    📧 Please send the calendar scheduling link to: <span style="background-color: #ffffff; padding: 4px 8px; border-radius: 4px;">${customerEmail}</span>
+                  </p>
+                </div>
+
+                <div style="background-color: #ecfdf5; border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+                  <h2 style="color: #059669; margin: 0 0 10px 0; font-size: 18px;">👤 Customer Information</h2>
+                  <table style="width: 100%; font-size: 14px;">
+                    <tr>
+                      <td style="padding: 8px 0; color: #6b7280;">Email:</td>
+                      <td style="padding: 8px 0; color: #374151; font-weight: bold;">${customerEmail || 'Not provided'}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px 0; color: #6b7280;">User ID:</td>
+                      <td style="padding: 8px 0; color: #374151;">${userId || 'Guest'}</td>
+                    </tr>
+                  </table>
+                </div>
+
+                <div style="background-color: #f5f3ff; border-radius: 12px; padding: 20px; margin-bottom: 20px; border-left: 4px solid #7c3aed;">
+                  <h2 style="color: #7c3aed; margin: 0 0 15px 0; font-size: 18px;">🎯 Booking Details</h2>
+                  <table style="width: 100%; font-size: 14px;">
+                    <tr>
+                      <td style="padding: 8px 0; color: #6b7280;">Package:</td>
+                      <td style="padding: 8px 0; color: #374151; font-weight: bold;">${packageName}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px 0; color: #6b7280;">Amount Paid:</td>
+                      <td style="padding: 8px 0; color: #15803d; font-weight: bold;">€${totalAmount.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px 0; color: #6b7280;">Call Duration:</td>
+                      <td style="padding: 8px 0; color: #374151; font-weight: bold;">1 Hour</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px 0; color: #6b7280;">Package ID:</td>
+                      <td style="padding: 8px 0; color: #374151; font-family: monospace;">${sessionMetadata.package_id || 'N/A'}</td>
+                    </tr>
+                  </table>
+                </div>
+
+                <div style="background-color: #f0f9ff; border-radius: 12px; padding: 20px; margin-bottom: 20px; border-left: 4px solid #5469d4;">
+                  <h2 style="color: #5469d4; margin: 0 0 15px 0; font-size: 18px;">💳 Payment Information</h2>
+                  <div style="margin-bottom: 10px;">
+                    <span style="display: inline-block; background-color: #5469d4; color: #ffffff; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: bold;">STRIPE</span>
+                    <span style="display: inline-block; background-color: #7c3aed; color: #ffffff; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: bold; margin-left: 8px;">SERVICE PACKAGE</span>
+                  </div>
+                  <p style="color: #374151; margin: 10px 0 5px 0; font-size: 12px; text-transform: uppercase; font-weight: bold; color: #6b7280;">Transaction ID:</p>
+                  <div style="background-color: #f3f4f6; padding: 10px; border-radius: 6px; font-family: monospace; font-size: 13px; color: #1f2937; word-break: break-all;">
+                    ${session.payment_intent}
+                  </div>
+                </div>
+
+                <div style="background-color: #fffbeb; border-radius: 12px; padding: 15px; text-align: center;">
+                  <p style="color: #92400e; margin: 0; font-size: 13px;">
+                    💡 <strong>Tip:</strong> Respond within 24 hours to maintain a great customer experience!
+                  </p>
+                </div>
+              </div>
+              <div style="background-color: #f9fafb; padding: 20px 30px; text-align: center; border-top: 1px solid #e5e7eb;">
+                <p style="color: #9ca3af; font-size: 12px; margin: 0;">
+                  Booking received at ${new Date().toLocaleString()}
+                </p>
+              </div>
+            </div>
+          </body>
+          </html>
+        `;
+
+        // Select appropriate email templates based on order type
+        const customerEmailHtml = orderType === 'service_package' 
+          ? servicePackageCustomerEmailHtml 
+          : cartCustomerEmailHtml;
+        
+        const adminEmailHtml = orderType === 'service_package' 
+          ? servicePackageAdminEmailHtml 
+          : cartAdminEmailHtml;
+
+        // Customer email subject and text based on order type
+        const customerEmailSubject = orderType === 'service_package'
+          ? `🚀 Consultation Booked! - ${packageName} - Swapnil's Odyssey`
+          : "🎉 Your Order is Confirmed! - Swapnil's Odyssey";
+
+        const customerEmailText = orderType === 'service_package'
+          ? `Consultation Booked!\n\nThank you for booking ${packageName}!\n\nWhat's Next:\nWe're preparing your 1-hour consultation call. Shortly, you'll receive another email with a calendar link where you can select a date and time that works best for you.\n\nBooking Summary:\nPackage: ${packageName}\nAmount Paid: €${totalAmount.toFixed(2)}\nCall Duration: 1 Hour\n\nCan't wait to turn your ideas into pixels!\n\nVisit us at https://swapnilsrivastava.eu`
+          : `Order Confirmed!\n\nThank you for your purchase!\n\nOrder Details:\n${orderItemsText}\nTotal: €${totalAmount.toFixed(2)}\n\nVisit us at https://swapnilsrivastava.eu`;
+
+        // Admin email subject and text based on order type
+        const adminEmailSubject = orderType === 'service_package'
+          ? `📅 ACTION REQUIRED: New Consultation Booking - ${packageName} - €${totalAmount.toFixed(2)}`
+          : `💰 New Order Received - €${totalAmount.toFixed(2)}`;
+
+        const adminEmailText = orderType === 'service_package'
+          ? `ACTION REQUIRED: New Consultation Booking!\n\n⚡ This customer needs a calendar invite for their 1-hour consultation call!\n\nCustomer Email: ${customerEmail || 'Not provided'}\nUser ID: ${userId || 'N/A'}\n\nBooking Details:\nPackage: ${packageName}\nAmount Paid: €${totalAmount.toFixed(2)}\nCall Duration: 1 Hour\nPackage ID: ${sessionMetadata.package_id || 'N/A'}\n\nPlease send the calendar scheduling link to: ${customerEmail}`
+          : `New Order Received!\n\nCustomer: ${customerEmail || 'Guest'}\nUser ID: ${userId || 'N/A'}\n\nOrder Details:\n${orderItemsText}\nTotal: €${totalAmount.toFixed(2)}`;
+
         // Send email to customer
         if (customerEmail) {
           try {
             await postMarkClient.sendEmail({
               From: process.env.EMAIL,
               To: customerEmail,
-              Subject: "🎉 Your Order is Confirmed! - Swapnil's Odyssey",
+              Subject: customerEmailSubject,
               HtmlBody: customerEmailHtml,
-              TextBody: `Order Confirmed!\n\nThank you for your purchase!\n\nOrder Details:\n${orderItemsText}\nTotal: €${totalAmount.toFixed(2)}\n\nVisit us at https://swapnilsrivastava.eu`,
+              TextBody: customerEmailText,
               MessageStream: "outbound",
             });
-            console.log('✅ Customer email sent to:', customerEmail);
+            console.log(`✅ Customer email sent to: ${customerEmail} (type: ${orderType})`);
           } catch (emailError) {
             console.error('❌ Error sending customer email:', emailError);
           }
@@ -328,12 +528,12 @@ const handler = async (
           await postMarkClient.sendEmail({
             From: process.env.EMAIL,
             To: "contact@swapnilsrivastava.eu",
-            Subject: `💰 New Order Received - €${totalAmount.toFixed(2)}`,
+            Subject: adminEmailSubject,
             HtmlBody: adminEmailHtml,
-            TextBody: `New Order Received!\n\nCustomer: ${customerEmail || 'Guest'}\nUser ID: ${userId || 'N/A'}\n\nOrder Details:\n${orderItemsText}\nTotal: €${totalAmount.toFixed(2)}`,
+            TextBody: adminEmailText,
             MessageStream: "outbound",
           });
-          console.log('✅ Admin email sent');
+          console.log(`✅ Admin email sent (type: ${orderType})`);
         } catch (emailError) {
           console.error('❌ Error sending admin email:', emailError);
         }
