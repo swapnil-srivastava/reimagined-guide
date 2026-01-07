@@ -1,6 +1,7 @@
 // pages/api/checkout.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 import Stripe from 'stripe';
+import { OrderType } from '../../types/stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -9,7 +10,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       // Accept either a pre-created Stripe priceId OR raw price data (price, name, currency).
       // This enables "Buy now" flows from product listings without requiring a stored Stripe Price object.
-      const { priceId, price, currency = 'EUR', name, email, userId, items, tax, deliveryCost } = req.body;
+      // NEW: Also accepts order_type for distinguishing cart vs service_package orders
+      const { 
+        priceId, 
+        price, 
+        currency = 'EUR', 
+        name, 
+        email, 
+        userId, 
+        items, 
+        tax, 
+        deliveryCost,
+        // New fields for order type support
+        order_type = 'cart' as OrderType,
+        package_name,
+        package_description,
+        package_id,
+      } = req.body;
 
       let line_items;
 
@@ -76,8 +93,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(400).json({ message: 'Invalid request: Provide items array, priceId, or price and name' });
       }
 
+      // Build metadata object with order type information
+      const metadata: Record<string, string> = {
+        user_id: userId || '',
+        order_type: order_type,
+      };
+
+      // Add service package specific metadata if applicable
+      if (order_type === 'service_package') {
+        if (package_name) metadata.package_name = package_name;
+        if (package_description) metadata.package_description = package_description;
+        if (package_id) metadata.package_id = package_id;
+      }
+
       const sessionOptions: Stripe.Checkout.SessionCreateParams = {
-        metadata: { user_id: userId },
+        metadata,
         payment_method_types: ['card'],
         line_items,
         mode: 'payment',

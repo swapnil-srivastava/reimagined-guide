@@ -4,6 +4,12 @@ import Stripe from 'stripe';
 import { NextApiRequest, NextApiResponse } from 'next';
 import * as postmark from "postmark";
 import { supaServerClient } from '../../supa-server-client';
+import { 
+  OrderType, 
+  OrderItemData, 
+  isServicePackageOrder, 
+  isCartOrder 
+} from '../../types/stripe';
 
 const handler = async (
   req: NextApiRequest,
@@ -35,19 +41,46 @@ const handler = async (
       console.log("checkout session completed ===> ", session);
 
       try {
-        // Retrieve line items from the session
+        // ============================================
+        // COMMON LOGIC: Extract shared data from session
+        // ============================================
+        const paymentIntentId = session.payment_intent as string;
+        const userId = session.metadata?.user_id || null;
+        const customerEmail = session.customer_email || session.customer_details?.email;
+        const totalAmount = (session.amount_total || 0) / 100;
+        const sessionMetadata = session.metadata || {};
+        
+        // Determine order type from metadata (defaults to 'cart' for backwards compatibility)
+        const orderType: OrderType = isServicePackageOrder(sessionMetadata) 
+          ? 'service_package' 
+          : 'cart';
+
+        // ============================================
+        // IDEMPOTENCY CHECK: Prevent duplicate orders
+        // ============================================
+        if (supaServerClient && paymentIntentId) {
+          const { data: existingOrder } = await supaServerClient
+            .from('orders')
+            .select('id')
+            .eq('payment_intent_id', paymentIntentId)
+            .single();
+
+          if (existingOrder) {
+            console.log(`⚠️ Order already exists for payment_intent: ${paymentIntentId}, skipping...`);
+            res.json({ received: true, duplicate: true });
+            return;
+          }
+        }
+
+        // Retrieve line items from the session with expanded product data
         const lineItems = await stripe.checkout.sessions.listLineItems(session.id, {
           expand: ['data.price.product'],
         });
 
-        const userId = session.metadata?.user_id || null;
-        const customerEmail = session.customer_email || session.customer_details?.email;
-        const totalAmount = (session.amount_total || 0) / 100;
-
         // Build order items HTML for email
         let orderItemsHtml = '';
         let orderItemsText = '';
-        const orderItemsData: { name: string; quantity: number; price: number; product_id?: string }[] = [];
+        const orderItemsData: OrderItemData[] = [];
 
         lineItems.data.forEach((item) => {
           const product = item.price?.product as Stripe.Product;
@@ -74,8 +107,24 @@ const handler = async (
           orderItemsText += `${productName} x${quantity} - €${itemTotal.toFixed(2)}\n`;
         });
 
-        // Save order to database
+        // ============================================
+        // DATABASE OPERATIONS: Create order and items
+        // ============================================
         if (supaServerClient && userId) {
+          // Prepare order metadata based on order type
+          const orderMetadata: Record<string, unknown> = {
+            stripe_session_id: session.id,
+            customer_email: customerEmail,
+          };
+
+          // Add service package specific metadata
+          if (orderType === 'service_package') {
+            orderMetadata.package_name = sessionMetadata.package_name;
+            orderMetadata.package_description = sessionMetadata.package_description;
+            orderMetadata.package_id = sessionMetadata.package_id;
+          }
+
+          // Insert order with unified structure
           const { data: orderData, error: orderError } = await supaServerClient
             .from('orders')
             .insert({
@@ -83,7 +132,9 @@ const handler = async (
               total: totalAmount,
               status: 'completed',
               payment_method: 'stripe',
-              payment_intent_id: session.payment_intent as string,
+              payment_intent_id: paymentIntentId,
+              order_type: orderType,
+              metadata: orderMetadata,
             })
             .select()
             .single();
@@ -91,23 +142,51 @@ const handler = async (
           if (orderError) {
             console.error('Error creating order:', orderError);
           } else if (orderData) {
-            console.log('Order created:', orderData.id);
+            console.log(`Order created: ${orderData.id} (type: ${orderType})`);
 
-            const orderItemsInsert = orderItemsData.map((item) => ({
-              order_id: orderData.id,
-              product_id: item.product_id || null,
-              quantity: item.quantity,
-              price: item.price,
-            }));
+            // ============================================
+            // CONDITIONAL LOGIC: Handle order items based on type
+            // ============================================
+            if (orderType === 'service_package') {
+              // SERVICE PACKAGE: Insert single order item from line_items[0] or metadata
+              const packageItem = orderItemsData[0] || {
+                name: sessionMetadata.package_name || 'Service Package',
+                quantity: 1,
+                price: totalAmount,
+              };
 
-            const { error: itemsError } = await supaServerClient
-              .from('order_items')
-              .insert(orderItemsInsert);
+              const { error: itemsError } = await supaServerClient
+                .from('order_items')
+                .insert({
+                  order_id: orderData.id,
+                  product_id: null, // Service packages don't have product_id
+                  quantity: packageItem.quantity,
+                  price: packageItem.price,
+                });
 
-            if (itemsError) {
-              console.error('Error creating order items:', itemsError);
+              if (itemsError) {
+                console.error('Error creating service package order item:', itemsError);
+              } else {
+                console.log('Service package order item created successfully');
+              }
             } else {
-              console.log('Order items created successfully');
+              // CART: Insert multiple order items (existing logic preserved)
+              const orderItemsInsert = orderItemsData.map((item) => ({
+                order_id: orderData.id,
+                product_id: item.product_id || null,
+                quantity: item.quantity,
+                price: item.price,
+              }));
+
+              const { error: itemsError } = await supaServerClient
+                .from('order_items')
+                .insert(orderItemsInsert);
+
+              if (itemsError) {
+                console.error('Error creating order items:', itemsError);
+              } else {
+                console.log('Order items created successfully');
+              }
             }
           }
         }

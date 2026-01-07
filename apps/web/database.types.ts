@@ -273,6 +273,8 @@ export type Database = {
         Row: {
           created_at: string | null
           id: string
+          metadata: Record<string, unknown> | null
+          order_type: string | null
           payment_intent_id: string | null
           payment_method: string | null
           status: string
@@ -282,6 +284,8 @@ export type Database = {
         Insert: {
           created_at?: string | null
           id?: string
+          metadata?: Record<string, unknown> | null
+          order_type?: string | null
           payment_intent_id?: string | null
           payment_method?: string | null
           status: string
@@ -291,6 +295,8 @@ export type Database = {
         Update: {
           created_at?: string | null
           id?: string
+          metadata?: Record<string, unknown> | null
+          order_type?: string | null
           payment_intent_id?: string | null
           payment_method?: string | null
           status?: string

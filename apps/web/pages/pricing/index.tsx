@@ -147,7 +147,13 @@ const Pricing = () => {
 
                 {/* button section */}
                 <div className="text-center font-thin flex items-center justify-center mb-3 text-blog-black dark:text-blog-white">
-                    <CheckoutButton priceId={'price_1PepBzRomQdDoc7IMPkYqS78'}/>
+                    <CheckoutButton 
+                      priceId={'price_1PepBzRomQdDoc7IMPkYqS78'}
+                      name="Basic Consultation"
+                      description="30-minute consultation session for web development needs"
+                      package_id="consultation_basic"
+                      order_type="service_package"
+                    />
                 </div>
 
               </div>
@@ -217,7 +223,13 @@ const Pricing = () => {
                 <p className="text-4xl text-center leading-loose text-blog-white dark:text-blog-black">€1,000</p>
                 {/* button section */}
                 <div className="text-center font-thin flex items-center justify-center mb-3 text-blog-white dark:text-blog-black">
-                    <CheckoutButton priceId={'price_1Pe4OYRomQdDoc7IJpfJFW8O'}/>
+                    <CheckoutButton 
+                      priceId={'price_1Pe4OYRomQdDoc7IJpfJFW8O'}
+                      name="Basic Package"
+                      description="Complete web development package with responsive design and basic features"
+                      package_id="package_basic"
+                      order_type="service_package"
+                    />
                 </div>
               </div>
               <div className="flex flex-col leading-loose text-sm lg:text-md text-blog-white dark:text-blog-black">
@@ -274,7 +286,13 @@ const Pricing = () => {
                 <p className="text-4xl text-center leading-loose text-blog-black dark:text-blog-white">€2,500</p>
                 {/* button section */}
                 <div className="text-center font-thin flex items-center justify-center mb-3 text-blog-black dark:text-blog-white">
-                  <CheckoutButton priceId={'price_1Pe4S4RomQdDoc7IvoWyNYt8'}/>
+                  <CheckoutButton 
+                    priceId={'price_1Pe4S4RomQdDoc7IvoWyNYt8'}
+                    name="Standard Package"
+                    description="Advanced web development with custom features and SEO optimization"
+                    package_id="package_standard"
+                    order_type="service_package"
+                  />
                 </div>
               </div>
               <div className="flex flex-col leading-loose text-sm lg:text-md text-blog-black dark:text-blog-white">
@@ -376,7 +394,14 @@ const Pricing = () => {
                       <span className="text-5xl font-bold tracking-tight text-blog-black dark:text-blog-white">€3500</span>
                       <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600 dark:text-gray-400">EURO</span>
                     </p>
-                    <CheckoutButton priceId={'price_1PepHnRomQdDoc7ILk13S3dE'} text={'Get it now'}/>
+                    <CheckoutButton 
+                      priceId={'price_1PepHnRomQdDoc7ILk13S3dE'} 
+                      text={'Get it now'}
+                      name="Premium Package"
+                      description="Enterprise-level web development with e-commerce, advanced SEO, and custom design"
+                      package_id="package_premium"
+                      order_type="service_package"
+                    />
                     <p className="mt-6 text-xs leading-5 text-gray-600 dark:text-gray-400">
                       <FormattedMessage
                         id="pricing-invoices-receipts-available"
