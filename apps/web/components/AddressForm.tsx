@@ -96,8 +96,20 @@ const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, editSa
 
 
     // Create a new address in supabase postgres
+    // For anonymous users (no profile), only store in Redux for checkout
     const createAddress = async () => {
         if (!data?.address_line1 && !data?.address_line2 && !data?.city && !data.postal_code && !data.state && !data.country) return;
+
+        // If no profile (anonymous user), just store in Redux and show success
+        if (!profile?.id) {
+            dispatch(addToCartAddressUpdate(data));
+            toast.success(intl.formatMessage({
+                id: "addressform-address-saved-locally",
+                description: "Address saved for checkout",
+                defaultMessage: "Address saved for checkout!"
+            }));
+            return;
+        }
 
         if (editSavedAddress) {
             // Update existing address
