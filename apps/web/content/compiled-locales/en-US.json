@@ -895,6 +895,12 @@
       "value": "Volume"
     }
   ],
+  "auth-captcha-required": [
+    {
+      "type": 0,
+      "value": "Please complete the captcha verification"
+    }
+  ],
   "auth-check-email-verification": [
     {
       "type": 0,
@@ -1277,6 +1283,12 @@
       "value": "Shopping Cart"
     }
   ],
+  "checkout-anonymous-signin-failed": [
+    {
+      "type": 0,
+      "value": "Failed to initialize checkout session. Please try again."
+    }
+  ],
   "checkout-delivery-address": [
     {
       "type": 0,
@@ -1311,6 +1323,12 @@
     {
       "type": 0,
       "value": "Error starting checkout"
+    }
+  ],
+  "checkout-error-generic": [
+    {
+      "type": 0,
+      "value": "An error occurred during checkout."
     }
   ],
   "checkout-free-delivery": [
@@ -1449,10 +1467,148 @@
       "value": "Total:"
     }
   ],
+  "checkout-verify-captcha": [
+    {
+      "type": 0,
+      "value": "Complete verification above"
+    }
+  ],
+  "checkoutbutton-anonymous-checkout-info": [
+    {
+      "type": 0,
+      "value": "Continuing as guest. You can create an account later to track your order."
+    }
+  ],
+  "checkoutbutton-anonymous-signin-failed": [
+    {
+      "type": 0,
+      "value": "Failed to start checkout. Please try again or sign in."
+    }
+  ],
+  "checkoutbutton-error": [
+    {
+      "type": 0,
+      "value": "An error occurred during checkout. Please try again."
+    }
+  ],
+  "checkoutbutton-invalid-config": [
+    {
+      "type": 0,
+      "value": "Invalid checkout configuration. Please contact support."
+    }
+  ],
   "checkoutbutton-login-required": [
     {
       "type": 0,
-      "value": "Please log in to create a new Stripe Checkout session"
+      "value": "Please log in to complete your purchase"
+    }
+  ],
+  "checkoutbutton-processing": [
+    {
+      "type": 0,
+      "value": "Processing..."
+    }
+  ],
+  "checkoutbutton-verify-captcha": [
+    {
+      "type": 0,
+      "value": "Verify to continue"
+    }
+  ],
+  "convert-anonymous-back": [
+    {
+      "type": 0,
+      "value": "Back"
+    }
+  ],
+  "convert-anonymous-description": [
+    {
+      "type": 0,
+      "value": "Create a permanent account to access your order history and save your preferences."
+    }
+  ],
+  "convert-anonymous-email-button": [
+    {
+      "type": 0,
+      "value": "Continue with Email"
+    }
+  ],
+  "convert-anonymous-email-error": [
+    {
+      "type": 0,
+      "value": "Failed to send verification email. Please try again."
+    }
+  ],
+  "convert-anonymous-email-label": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "convert-anonymous-email-placeholder": [
+    {
+      "type": 0,
+      "value": "Enter your email address"
+    }
+  ],
+  "convert-anonymous-email-sent": [
+    {
+      "type": 0,
+      "value": "Verification email sent! Please check your inbox to complete your account setup."
+    }
+  ],
+  "convert-anonymous-github-button": [
+    {
+      "type": 0,
+      "value": "Continue with GitHub"
+    }
+  ],
+  "convert-anonymous-google-button": [
+    {
+      "type": 0,
+      "value": "Continue with Google"
+    }
+  ],
+  "convert-anonymous-invalid-email": [
+    {
+      "type": 0,
+      "value": "Please enter a valid email address"
+    }
+  ],
+  "convert-anonymous-oauth-error": [
+    {
+      "type": 0,
+      "value": "Failed to connect account. Please try again."
+    }
+  ],
+  "convert-anonymous-oauth-redirect": [
+    {
+      "type": 0,
+      "value": "Redirecting to sign in..."
+    }
+  ],
+  "convert-anonymous-send-link": [
+    {
+      "type": 0,
+      "value": "Send Link"
+    }
+  ],
+  "convert-anonymous-sending": [
+    {
+      "type": 0,
+      "value": "Sending..."
+    }
+  ],
+  "convert-anonymous-skip": [
+    {
+      "type": 0,
+      "value": "Skip for now"
+    }
+  ],
+  "convert-anonymous-title": [
+    {
+      "type": 0,
+      "value": "Save Your Account"
     }
   ],
   "cookies-manage-preferences-aria": [
@@ -1693,6 +1849,18 @@
     {
       "type": 0,
       "value": "Tech"
+    }
+  ],
+  "hcaptcha-missing-key": [
+    {
+      "type": 0,
+      "value": "Captcha configuration missing"
+    }
+  ],
+  "hcaptcha-verification-label": [
+    {
+      "type": 0,
+      "value": "Please verify you're human"
     }
   ],
   "heart-button-add-to-favorites": [
@@ -2673,6 +2841,18 @@
       "value": "Official t-shirt"
     }
   ],
+  "pricing-invoices-receipts-available": [
+    {
+      "type": 0,
+      "value": "Invoices and receipts available for easy company reimbursement"
+    }
+  ],
+  "pricing-pay-once-own-forever": [
+    {
+      "type": 0,
+      "value": "Pay once, own it forever"
+    }
+  ],
   "pricing-premium-package": [
     {
       "type": 0,
@@ -2682,13 +2862,7 @@
   "pricing-premium-package-description": [
     {
       "type": 0,
-      "value": "Enterprise-level web development with e-commerce, advanced SEO, and custom design."
-    }
-  ],
-  "pricing-premium-package-price": [
-    {
-      "type": 0,
-      "value": "€3,500"
+      "value": "Unlock the expertise with a single investment - pay once, and your success is in good hands."
     }
   ],
   "pricing-simple-no-tricks-pricing": [

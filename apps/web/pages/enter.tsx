@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FormattedMessage, useIntl } from "react-intl";
 import { supaClient } from "../supa-client";
@@ -7,6 +7,8 @@ import { userLogout } from "../redux/actions/actions";
 import debounce from "lodash.debounce";
 import Image from "next/image";
 import { toast } from "react-hot-toast";
+import HCaptcha from '@hcaptcha/react-hcaptcha';
+import HCaptchaWidget from "../components/HCaptchaWidget";
 
 // e.g. localhost:3000/enter
 function Enter() {
@@ -43,6 +45,8 @@ function AuthCard() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const captchaRef = useRef<HCaptcha>(null);
   const intl = useIntl();
 
   const validateForm = () => {
@@ -55,6 +59,16 @@ function AuthCard() {
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
+    
+    // Require captcha verification
+    if (!captchaToken) {
+      toast.error(intl.formatMessage({
+        id: "auth-captcha-required",
+        description: "Captcha verification required",
+        defaultMessage: "Please complete the captcha verification"
+      }));
+      return;
+    }
 
     setLoading(true);
     try {
@@ -62,6 +76,7 @@ function AuthCard() {
         const { data, error } = await supaClient.auth.signUp({
           email,
           password,
+          options: { captchaToken }
         });
         
         if (error) throw error;
@@ -83,6 +98,7 @@ function AuthCard() {
         const { data, error } = await supaClient.auth.signInWithPassword({
           email,
           password,
+          options: { captchaToken }
         });
         
         if (error) throw error;
@@ -93,8 +109,15 @@ function AuthCard() {
           defaultMessage: "Welcome back!"
         }));
       }
+      
+      // Reset captcha after successful auth
+      captchaRef.current?.resetCaptcha();
+      setCaptchaToken(null);
     } catch (error: any) {
       console.error('Authentication error:', error);
+      // Reset captcha on error too so user can retry
+      captchaRef.current?.resetCaptcha();
+      setCaptchaToken(null);
       const errorMessage = error?.message || intl.formatMessage({
         id: "auth-error-generic",
         description: "Authentication error",
@@ -322,10 +345,20 @@ function AuthCard() {
           </div>
         )}
 
+        {/* hCaptcha Widget */}
+        <div className="flex justify-center py-2">
+          <HCaptchaWidget
+            ref={captchaRef}
+            onVerify={(token) => setCaptchaToken(token)}
+            onExpire={() => setCaptchaToken(null)}
+            size="compact"
+          />
+        </div>
+
         {/* Submit Button */}
         <button
           type="submit"
-          disabled={!validateForm() || loading}
+          disabled={!validateForm() || loading || !captchaToken}
           className="w-full bg-fun-blue-500 hover:bg-fun-blue-600 
                      disabled:bg-gray-400 disabled:cursor-not-allowed
                      text-white font-medium py-3 px-4 rounded-lg

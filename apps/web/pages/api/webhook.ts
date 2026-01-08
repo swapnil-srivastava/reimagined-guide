@@ -111,10 +111,14 @@ const handler = async (
         // DATABASE OPERATIONS: Create order and items
         // ============================================
         if (supaServerClient && userId) {
+          // Check if this is an anonymous user order
+          const isAnonymousOrder = sessionMetadata.is_anonymous === 'true';
+          
           // Prepare order metadata based on order type
           const orderMetadata: Record<string, unknown> = {
             stripe_session_id: session.id,
             customer_email: customerEmail,
+            is_anonymous: isAnonymousOrder,
           };
 
           // Add service package specific metadata
@@ -135,6 +139,7 @@ const handler = async (
               payment_intent_id: paymentIntentId,
               order_type: orderType,
               metadata: orderMetadata,
+              is_anonymous_order: isAnonymousOrder,
             })
             .select()
             .single();
@@ -142,7 +147,7 @@ const handler = async (
           if (orderError) {
             console.error('Error creating order:', orderError);
           } else if (orderData) {
-            console.log(`Order created: ${orderData.id} (type: ${orderType})`);
+            console.log(`Order created: ${orderData.id} (type: ${orderType}, anonymous: ${isAnonymousOrder})`);
 
             // ============================================
             // CONDITIONAL LOGIC: Handle order items based on type

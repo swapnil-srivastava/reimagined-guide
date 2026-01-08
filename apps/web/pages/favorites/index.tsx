@@ -159,7 +159,11 @@ export default function FavoritesPage() {
 
   // If user is not logged in, show auth check
   if (!session) {
-    return <AuthCheck />;
+    return (
+      <AuthCheck>
+        <></>
+      </AuthCheck>
+    );
   }
 
   return (

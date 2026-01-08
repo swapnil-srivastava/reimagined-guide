@@ -75,6 +75,9 @@ importers:
       '@fortawesome/react-fontawesome':
         specifier: ^0.2.0
         version: 0.2.6(@fortawesome/fontawesome-svg-core@6.7.2)(react@18.3.1)
+      '@hcaptcha/react-hcaptcha':
+        specifier: ^1.17.4
+        version: 1.17.4(react-dom@18.3.1)(react@18.3.1)
       '@jsonforms/core':
         specifier: ^3.0.0
         version: 3.7.0
@@ -1004,6 +1007,22 @@ packages:
       '@fortawesome/fontawesome-svg-core': 6.7.2
       prop-types: 15.8.1
       react: 18.3.1
+    dev: false
+
+  /@hcaptcha/loader@2.3.0:
+    resolution: {integrity: sha512-i4lnNxKBe+COf3R1nFZEWaZoHIoJjvDgWqvcNrdZq8ehoSNMN6KVZ56dcQ02qKie2h3+BkbkwlJA9DOIuLlK/g==}
+    dev: false
+
+  /@hcaptcha/react-hcaptcha@1.17.4(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-rIvgesG1N7SS9sAYYHFoWm+nXqRrxq7RcA9z2pKkDWV+S1GdfmrTNYA1aPyVWVe3eowphTCwyDJvl97Swwy0mw==}
+    peerDependencies:
+      react: '>= 16.3.0'
+      react-dom: '>= 16.3.0'
+    dependencies:
+      '@babel/runtime': 7.28.4
+      '@hcaptcha/loader': 2.3.0
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
     dev: false
 
   /@humanfs/core@0.19.1:

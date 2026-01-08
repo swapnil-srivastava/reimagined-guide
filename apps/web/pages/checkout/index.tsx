@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { FormattedMessage } from "react-intl";
+import React, { useEffect, useState, useRef } from "react";
+import { FormattedMessage, useIntl } from "react-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { loadStripe } from "@stripe/stripe-js";
 import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { 
   faArrowLeft,
   faShoppingBag,
@@ -14,7 +15,8 @@ import {
   faReceipt,
   faLock,
   faCreditCard,
-  faShieldAlt
+  faShieldAlt,
+  faUserPlus
 } from "@fortawesome/free-solid-svg-icons";
 
 // Redux
@@ -28,12 +30,16 @@ import { PRODUCT } from "../../database.types";
 import AuthCheck from "../../components/AuthCheck";
 import CurrencyPriceComponent from "../../components/CurrencyPriceComponent";
 import PayPalCheckoutButton from "../../components/PayPalCheckoutButton";
+import HCaptchaWidget from "../../components/HCaptchaWidget";
 
 // Supabase
 import { supaClient } from "../../supa-client";
 
 // Actions
 import { addToCartAddressCreate } from "../../redux/actions/actions";
+
+// Anonymous auth
+import { useAnonymousAuth, isUserAnonymous } from "../../lib/use-anonymous-auth";
 
 // Initialize Stripe outside component to avoid recreating it on every render
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
@@ -46,6 +52,11 @@ function Checkout() {
 
   const dispatch = useDispatch();
   const router = useRouter();
+  const intl = useIntl();
+
+  // Anonymous auth hook
+  const { user: anonymousUser, signInAnonymously } = useAnonymousAuth();
+  const isAnonymous = isUserAnonymous(anonymousUser);
 
   const selectStore = (state: RootState) => state.cart;
   const { cartItems } = useSelector(selectStore);
@@ -66,6 +77,13 @@ function Checkout() {
   const totalCost = useSelector((state : RootState) => state.subtotal?.totalCost) || 0;
 
   const [isProcessing, setIsProcessing] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [showCaptcha, setShowCaptcha] = useState(false);
+  const captchaRef = useRef<HCaptcha>(null);
+
+  // Determine effective user ID and email (profile takes priority, then anonymous user)
+  const effectiveUserId = profile?.id || anonymousUser?.id;
+  const effectiveEmail = profile?.email || anonymousUser?.email;
 
   useEffect(() => {
     const checkAddress = async () => {
@@ -84,9 +102,39 @@ function Checkout() {
   }, [profile, dispatch]);
 
   const handleStripeCheckout = async () => {
+    // If user is not logged in and no captcha token, show captcha first
+    if (!effectiveUserId && !captchaToken) {
+      setShowCaptcha(true);
+      return;
+    }
+    
     setIsProcessing(true);
     
     try {
+      // If user is not logged in at all, sign in anonymously first
+      let currentUserId = effectiveUserId;
+      let currentEmail = effectiveEmail;
+      let currentIsAnonymous = isAnonymous;
+
+      if (!currentUserId) {
+        const anonymousResult = await signInAnonymously(captchaToken || undefined);
+        if (anonymousResult.error || !anonymousResult.user) {
+          throw new Error(intl.formatMessage({
+            id: "checkout-anonymous-signin-failed",
+            description: "Error when anonymous sign-in fails",
+            defaultMessage: "Failed to initialize checkout session. Please try again."
+          }));
+        }
+        currentUserId = anonymousResult.user.id;
+        currentEmail = anonymousResult.user.email;
+        currentIsAnonymous = true;
+        
+        // Reset captcha after successful use
+        captchaRef.current?.resetCaptcha();
+        setCaptchaToken(null);
+        setShowCaptcha(false);
+      }
+
       const stripe = await stripePromise;
       if (!stripe) throw new Error("Stripe failed to initialize.");
 
@@ -97,12 +145,14 @@ function Checkout() {
         },
         body: JSON.stringify({
           items: cartItems,
-          email: profile?.email,
-          userId: profile?.id,
+          email: currentEmail,
+          userId: currentUserId,
           currency: 'EUR', // Or dynamic currency if supported
           tax: tax || 0,
           deliveryCost: deliveryCost || 0,
           totalCost: totalCost || 0,
+          order_type: 'cart',
+          is_anonymous: currentIsAnonymous,
         }),
       });
 
@@ -122,7 +172,11 @@ function Checkout() {
       }
     } catch (error: any) {
       console.error("Checkout error:", error);
-      toast.error(error.message || "An error occurred during checkout.");
+      toast.error(error.message || intl.formatMessage({
+        id: "checkout-error-generic",
+        description: "Generic checkout error message",
+        defaultMessage: "An error occurred during checkout."
+      }));
       setIsProcessing(false);
     }
   };
@@ -130,7 +184,7 @@ function Checkout() {
   const totalItemsCount = cartItems?.reduce((total, item) => total + (item.quantity || 0), 0) || 0;
 
   return (
-    <AuthCheck>
+    <AuthCheck allowAnonymous={true}>
       <div className="min-h-screen bg-blog-white dark:bg-fun-blue-500">
         {/* Header */}
         <div className="bg-white dark:bg-fun-blue-800 shadow-sm border-b border-gray-200 dark:border-fun-blue-600">
@@ -345,10 +399,23 @@ function Checkout() {
 
                 {/* Payment Buttons */}
                 <div className="space-y-4">
+                  {/* hCaptcha Widget - shown only when needed for anonymous checkout */}
+                  {showCaptcha && !effectiveUserId && (
+                    <div className="flex justify-center py-4">
+                      <HCaptchaWidget
+                        ref={captchaRef}
+                        onVerify={(token) => {
+                          setCaptchaToken(token);
+                        }}
+                        onExpire={() => setCaptchaToken(null)}
+                      />
+                    </div>
+                  )}
+                  
                   {/* Stripe Payment Button */}
                   <button
                     onClick={handleStripeCheckout}
-                    disabled={isProcessing || !cartItems || cartItems.length === 0}
+                    disabled={isProcessing || !cartItems || cartItems.length === 0 || (showCaptcha && !captchaToken)}
                     className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 hover:brightness-110 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 hover:scale-105 disabled:transform-none"
                   >
                     <div className="flex items-center justify-center gap-3">
@@ -358,6 +425,12 @@ function Checkout() {
                           id="checkout-processing"
                           description="Processing..."
                           defaultMessage="Processing..."
+                        />
+                      ) : showCaptcha && !captchaToken ? (
+                        <FormattedMessage
+                          id="checkout-verify-captcha"
+                          description="Verify to continue"
+                          defaultMessage="Complete verification above"
                         />
                       ) : (
                         <FormattedMessage
@@ -391,8 +464,8 @@ function Checkout() {
                     tax={tax || 0}
                     deliveryCost={deliveryCost}
                     cartItems={cartItems}
-                    email={profile?.email || ''}
-                    userId={profile?.id || ''}
+                    email={effectiveEmail || ''}
+                    userId={effectiveUserId || ''}
                     disabled={isProcessing || !cartItems || cartItems.length === 0}
                     onSuccess={() => router.push('/success')}
                     currency="EUR"

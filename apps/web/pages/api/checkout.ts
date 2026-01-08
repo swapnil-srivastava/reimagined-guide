@@ -11,6 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // Accept either a pre-created Stripe priceId OR raw price data (price, name, currency).
       // This enables "Buy now" flows from product listings without requiring a stored Stripe Price object.
       // NEW: Also accepts order_type for distinguishing cart vs service_package orders
+      // NEW: Supports anonymous user checkout
       const { 
         priceId, 
         price, 
@@ -26,6 +27,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         package_name,
         package_description,
         package_id,
+        // Anonymous user flag
+        is_anonymous = false,
       } = req.body;
 
       let line_items;
@@ -97,6 +100,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const metadata: Record<string, string> = {
         user_id: userId || '',
         order_type: order_type,
+        is_anonymous: String(is_anonymous),
       };
 
       // Add service package specific metadata if applicable

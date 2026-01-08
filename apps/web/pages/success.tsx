@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from 'next/link';
 import { FormattedMessage } from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,7 +9,16 @@ import {
   faEnvelope
 } from "@fortawesome/free-solid-svg-icons";
 
+// Components
+import ConvertAnonymousUser from "../components/ConvertAnonymousUser";
+
+// Hooks
+import { useAnonymousAuth } from "../lib/use-anonymous-auth";
+
 function Success() {
+  const { isAnonymous } = useAnonymousAuth();
+  const [showConvertPrompt, setShowConvertPrompt] = useState(true);
+  
   return (
     <div className="min-h-screen bg-blog-white dark:bg-fun-blue-500 flex items-center justify-center p-4">
       <div className="max-w-lg w-full">
@@ -53,6 +62,17 @@ function Success() {
                 />
               </p>
             </div>
+
+            {/* Anonymous User Conversion Prompt */}
+            {isAnonymous && showConvertPrompt && (
+              <div className="mb-8">
+                <ConvertAnonymousUser 
+                  onSuccess={() => setShowConvertPrompt(false)}
+                  onCancel={() => setShowConvertPrompt(false)}
+                  className="border border-hit-pink-200 dark:border-fun-blue-500"
+                />
+              </div>
+            )}
 
             {/* Email Notice */}
             <div className="bg-blue-50 dark:bg-fun-blue-700 rounded-xl p-4 mb-8 flex items-center gap-4">
