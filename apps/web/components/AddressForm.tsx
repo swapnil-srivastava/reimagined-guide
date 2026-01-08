@@ -67,6 +67,13 @@ const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, editSa
 
     const [data, setData] = useState<addressJSON>(addressState || initialAddressState);
 
+    // Sync form data when addressState prop changes (e.g., when fetched from DB)
+    useEffect(() => {
+        if (addressState && addressState.address_line1) {
+            setData(addressState);
+        }
+    }, [addressState]);
+
     const dispatch = useDispatch();
 
     const clearData = () => {
@@ -95,7 +102,7 @@ const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, editSa
       }
 
 
-    // Create a new address in supabase postgres
+    // Create or update address in supabase postgres
     // For anonymous users (no profile), only store in Redux for checkout
     const createAddress = async () => {
         if (!data?.address_line1 && !data?.address_line2 && !data?.city && !data.postal_code && !data.state && !data.country) return;
@@ -112,21 +119,35 @@ const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, editSa
             return;
         }
 
-        if (editSavedAddress) {
-            // Update existing address
-            const { data: supaData, error } = await supaClient
+        try {
+            // First check if address already exists for this user
+            const { data: existingAddresses, error: fetchError } = await supaClient
                 .from("addresses")
-                .update({
-                    address_line1: data?.address_line1,
-                    address_line2: data?.address_line2,
-                    city: data?.city,
-                    state: data?.state,
-                    postal_code: data?.postal_code,
-                    country: data?.country,
-                })
-                .eq('user_id', profile?.id);
+                .select("id")
+                .eq('user_id', profile.id);
 
-            if (!error) {
+            if (fetchError) {
+                throw fetchError;
+            }
+
+            const hasExistingAddress = existingAddresses && existingAddresses.length > 0;
+
+            if (hasExistingAddress) {
+                // Update existing address
+                const { error } = await supaClient
+                    .from("addresses")
+                    .update({
+                        address_line1: data?.address_line1,
+                        address_line2: data?.address_line2,
+                        city: data?.city,
+                        state: data?.state,
+                        postal_code: data?.postal_code,
+                        country: data?.country,
+                    })
+                    .eq('user_id', profile.id);
+
+                if (error) throw error;
+
                 dispatch(addToCartAddressUpdate(data));
                 setEditSavedAddress(false);
                 toast.success(intl.formatMessage({
@@ -135,43 +156,36 @@ const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, editSa
                     defaultMessage: "Address updated!!"
                 }));
             } else {
-                toast.error(intl.formatMessage({
-                    id: "addressform-failed-to-update",
-                    description: "Failed to update address",
-                    defaultMessage: "Failed to update address"
-                }));
-            }
-        } else {
-            // Insert new address
-            const { data: supaData, error } = await supaClient
-                .from("addresses")
-                .insert([
-                    {
-                        user_id: profile?.id,
+                // Insert new address
+                const { error } = await supaClient
+                    .from("addresses")
+                    .insert([{
+                        user_id: profile.id,
                         address_line1: data?.address_line1,
                         address_line2: data?.address_line2,
                         city: data?.city,
                         state: data?.state,
                         postal_code: data?.postal_code,
                         country: data?.country,
-                    },
-                ]);
+                    }]);
 
-            if (!error) {
+                if (error) throw error;
+
                 dispatch(addToCartAddressUpdate(data));
-                setEditSavedAddress(false); // Close the form after saving
+                setEditSavedAddress(false);
                 toast.success(intl.formatMessage({
-                  id: "address-added-success",
-                  description: "Address added!!",
-                  defaultMessage: "Address added!!"
-                }));
-            } else {
-                toast.error(intl.formatMessage({
-                  id: "address-add-failed",
-                  description: "Failed to add address",
-                  defaultMessage: "Failed to add address"
+                    id: "address-added-success",
+                    description: "Address added!!",
+                    defaultMessage: "Address added!!"
                 }));
             }
+        } catch (error) {
+            console.error('Error saving address:', error);
+            toast.error(intl.formatMessage({
+                id: "addressform-failed-to-save",
+                description: "Failed to save address",
+                defaultMessage: "Failed to save address"
+            }));
         }
     };
 

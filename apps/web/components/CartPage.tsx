@@ -74,7 +74,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => 
 
     useEffect(() => {
       const checkAddress = async () => {
-        if (profile) {
+        if (profile?.id) {
           setIsLoading(true);
           try {
             const { data, error } = await supaClient
@@ -82,8 +82,16 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => 
               .select('*')
               .eq('user_id', profile.id);
     
+            if (error) {
+              console.error('Error fetching address:', error);
+              return;
+            }
+
             const [ supaBaseAddress ] = data || [];
-            dispatch(addToCartAddressCreate(supaBaseAddress));
+            if (supaBaseAddress) {
+              dispatch(addToCartAddressCreate(supaBaseAddress));
+              setEditSavedAddress(false); // Show the address display, not the form
+            }
           } catch (error) {
             console.error('Error fetching address:', error);
           } finally {
