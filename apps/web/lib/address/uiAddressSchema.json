@@ -10,17 +10,12 @@
         "scope": "#/properties/address_line2"
       },
       {
-        "type": "HorizontalLayout",
-        "elements": [
-          {
-            "type": "Control",
-            "scope": "#/properties/postal_code"
-          },
-          {
-            "type": "Control",
-            "scope": "#/properties/city"
-          }
-        ]
+        "type": "Control",
+        "scope": "#/properties/postal_code"
+      },
+      {
+        "type": "Control",
+        "scope": "#/properties/city"
       },
       {
         "type": "Control",
