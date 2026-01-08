@@ -11,12 +11,6 @@
       "value": "404 - That page does not seem to exist..."
     }
   ],
-  "address-add-failed": [
-    {
-      "type": 0,
-      "value": "Failed to add address"
-    }
-  ],
   "address-added-success": [
     {
       "type": 0,
@@ -53,10 +47,10 @@
       "value": "Address updated!!"
     }
   ],
-  "addressform-failed-to-update": [
+  "addressform-failed-to-save": [
     {
       "type": 0,
-      "value": "Failed to update address"
+      "value": "Failed to save address"
     }
   ],
   "admin-article-cancel-btn": [
@@ -1003,6 +997,20 @@
       "value": "Google sign in failed. Please try again."
     }
   ],
+  "auth-no-password-needed": [
+    {
+      "type": 0,
+      "value": "ℹ️ No password required! You'll sign in using magic links sent to your email ("
+    },
+    {
+      "type": 1,
+      "value": "email"
+    },
+    {
+      "type": 0,
+      "value": ")."
+    }
+  ],
   "auth-or-divider": [
     {
       "type": 0,
@@ -1051,16 +1059,22 @@
       "value": "You are successfully signed in"
     }
   ],
+  "auth-signout-button": [
+    {
+      "type": 0,
+      "value": "Sign out"
+    }
+  ],
   "auth-signout-error": [
     {
       "type": 0,
-      "value": "Failed to sign out. Please try again."
+      "value": "Failed to sign out"
     }
   ],
   "auth-signout-success": [
     {
       "type": 0,
-      "value": "You've been signed out successfully!"
+      "value": "Signed out successfully!"
     }
   ],
   "auth-signup-success": [
@@ -1545,6 +1559,12 @@
       "value": "Back"
     }
   ],
+  "convert-anonymous-back-to-options": [
+    {
+      "type": 0,
+      "value": "Back to Options"
+    }
+  ],
   "convert-anonymous-description": [
     {
       "type": 0,
@@ -1569,6 +1589,18 @@
       "value": "Email"
     }
   ],
+  "convert-anonymous-email-note-content": [
+    {
+      "type": 0,
+      "value": "The email subject will say \"Confirm your email\" or \"Change Email\". This is normal - just click the link to verify your account."
+    }
+  ],
+  "convert-anonymous-email-note-title": [
+    {
+      "type": 0,
+      "value": "Note:"
+    }
+  ],
   "convert-anonymous-email-placeholder": [
     {
       "type": 0,
@@ -1579,6 +1611,26 @@
     {
       "type": 0,
       "value": "Verification email sent! Please check your inbox to complete your account setup."
+    }
+  ],
+  "convert-anonymous-email-sent-instructions": [
+    {
+      "type": 0,
+      "value": "We've sent a verification email to "
+    },
+    {
+      "type": 1,
+      "value": "email"
+    },
+    {
+      "type": 0,
+      "value": ". Please check your inbox and click the link to complete your account setup."
+    }
+  ],
+  "convert-anonymous-email-sent-title": [
+    {
+      "type": 0,
+      "value": "Verification Email Sent!"
     }
   ],
   "convert-anonymous-github-button": [

@@ -679,8 +679,42 @@ function UsernameForm() {
   const userEmail = session?.user?.email || "";
   const welcomeName = userEmail ? userEmail.split('@')[0] : "there";
 
+  // Sign out handler
+  const handleSignOut = async () => {
+    try {
+      await supaClient.auth.signOut();
+      toast.success(intl.formatMessage({
+        id: "auth-signout-success",
+        description: "Sign out successful",
+        defaultMessage: "Signed out successfully!"
+      }));
+      window.location.href = '/';
+    } catch (error: any) {
+      console.error('Sign out error:', error);
+      toast.error(intl.formatMessage({
+        id: "auth-signout-error",
+        description: "Sign out error",
+        defaultMessage: "Failed to sign out"
+      }));
+    }
+  };
+
   return (
     <div className="bg-white dark:bg-fun-blue-800 shadow-2xl rounded-2xl p-8 border border-gray-200 dark:border-fun-blue-600">
+      {/* Sign out button in top right */}
+      <div className="flex justify-end mb-4">
+        <button
+          onClick={handleSignOut}
+          className="text-sm text-gray-600 dark:text-gray-300 hover:text-fun-blue-500 dark:hover:text-fun-blue-300 transition-colors underline"
+        >
+          <FormattedMessage
+            id="auth-signout-button"
+            description="Sign out button"
+            defaultMessage="Sign out"
+          />
+        </button>
+      </div>
+
       {/* Header */}
       <div className="text-center mb-8">
         {/* Welcome checkmark icon */}
@@ -718,13 +752,23 @@ function UsernameForm() {
               defaultMessage="Choose your username"
             />
           </h2>
-          <p className="text-sm text-gray-600 dark:text-gray-300">
+          <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
             <FormattedMessage
               id="auth-choose-username-subtitle"
               description="Choose username subtitle"
               defaultMessage="This will be your unique identifier and profile URL"
             />
           </p>
+          <div className="mt-3 pt-3 border-t border-blue-200 dark:border-blue-700">
+            <p className="text-xs text-gray-600 dark:text-gray-400">
+              <FormattedMessage
+                id="auth-no-password-needed"
+                description="No password needed explanation"
+                defaultMessage="ℹ️ No password required! You'll sign in using magic links sent to your email ({email})."
+                values={{ email: userEmail }}
+              />
+            </p>
+          </div>
         </div>
       </div>
 
