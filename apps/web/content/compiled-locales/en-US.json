@@ -35,6 +35,18 @@
       "value": "Save"
     }
   ],
+  "address-form-title": [
+    {
+      "type": 0,
+      "value": "Add the Address"
+    }
+  ],
+  "addressform-address-saved-locally": [
+    {
+      "type": 0,
+      "value": "Address saved for checkout!"
+    }
+  ],
   "addressform-address-updated": [
     {
       "type": 0,
@@ -1507,6 +1519,18 @@
     {
       "type": 0,
       "value": "Processing..."
+    }
+  ],
+  "checkoutbutton-stripe-load-failed": [
+    {
+      "type": 0,
+      "value": "Failed to load payment system. Please try again."
+    }
+  ],
+  "checkoutbutton-stripe-not-configured": [
+    {
+      "type": 0,
+      "value": "Payment system is not configured. Please contact support."
     }
   ],
   "checkoutbutton-verify-captcha": [

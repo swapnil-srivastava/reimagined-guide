@@ -103,6 +103,7 @@ const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, editSa
         // If no profile (anonymous user), just store in Redux and show success
         if (!profile?.id) {
             dispatch(addToCartAddressUpdate(data));
+            setEditSavedAddress(false); // Close the form after saving
             toast.success(intl.formatMessage({
                 id: "addressform-address-saved-locally",
                 description: "Address saved for checkout",
@@ -158,6 +159,7 @@ const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, editSa
 
             if (!error) {
                 dispatch(addToCartAddressUpdate(data));
+                setEditSavedAddress(false); // Close the form after saving
                 toast.success(intl.formatMessage({
                   id: "address-added-success",
                   description: "Address added!!",
@@ -180,37 +182,56 @@ const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, editSa
 
     return (
       <>
-        <div className="flex h-full w-full lg:px-10 px-5 font-poppins">
-            <div className="flex flex-col gap-2 my-4 px-4 py-2 text-blog-black 
-                    h-full w-full p-4 hover:px-5 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 
-                    dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125">
-                <FontAwesomeIcon icon={faCircleXmark} className="cursor-pointer self-end" size="lg" onClick={() => setEditSavedAddress(false)}/>
-                <JsonForms
-                    schema={schema}
-                    uischema={uischema}
-                    data={data}
-                    renderers={materialRenderers}
-                    cells={materialCells}
-                    onChange={({ errors, data }) => setData(data)}
-                />
+        <div className="flex h-full w-full font-poppins">
+            <div className="flex flex-col gap-2 py-2 text-blog-black 
+                    h-full w-full dark:text-blog-white">
+                <div className="flex justify-between items-center mb-2">
+                    <h3 className="text-lg font-semibold text-blog-black dark:text-blog-white">
+                        <FormattedMessage
+                            id="address-form-title"
+                            description="Add the Address"
+                            defaultMessage="Add the Address"
+                        />
+                    </h3>
+                    <FontAwesomeIcon 
+                        icon={faCircleXmark} 
+                        className="cursor-pointer text-gray-500 hover:text-hit-pink-500 transition-colors" 
+                        size="lg" 
+                        onClick={() => setEditSavedAddress(false)}
+                    />
+                </div>
+                
+                <div className="address-form-container [&_.MuiFormControl-root]:mb-3 [&_.MuiInputBase-root]:bg-white [&_.MuiInputBase-root]:dark:bg-fun-blue-700 [&_.MuiInputLabel-root]:text-gray-600 [&_.MuiInputLabel-root]:dark:text-gray-300 [&_.MuiOutlinedInput-notchedOutline]:border-gray-300 [&_.MuiOutlinedInput-notchedOutline]:dark:border-fun-blue-500 [&_.MuiInputBase-input]:text-blog-black [&_.MuiInputBase-input]:dark:text-blog-white">
+                    <JsonForms
+                        schema={schema}
+                        uischema={uischema}
+                        data={data}
+                        renderers={materialRenderers}
+                        cells={materialCells}
+                        onChange={({ errors, data }) => setData(data)}
+                    />
+                </div>
 
                 {/* Button Section */}
-                <div className="flex self-center gap-2">
+                <div className="flex justify-center gap-3 mt-4">
                     <button type="submit"
                         disabled={!isValidAddressLine1 && !isValidAddressLine2 && !isValidCity && !isValidState && !isValidCountry}
-                        className={styles.btnAdmin}
+                        className="bg-hit-pink-500 text-blog-black rounded-lg px-6 py-2 transition-all duration-300 hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:ring-offset-2 text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                         onClick={() => createAddress()}>
                         <FormattedMessage
                             id="address-customer-save-btn"
-                            description="Save" // Description should be a string literal
-                            defaultMessage="Save" // Message should be a string literal
+                            description="Save"
+                            defaultMessage="Save"
                         />
                     </button>
-                    <button className={styles.btnAdmin} type="button" onClick={clearAddress}>
+                    <button 
+                        className="bg-gray-200 dark:bg-fun-blue-600 text-blog-black dark:text-blog-white rounded-lg px-6 py-2 transition-all duration-300 hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:ring-offset-2 text-sm font-semibold" 
+                        type="button" 
+                        onClick={clearAddress}>
                         <FormattedMessage
                             id="address-customer-cancel-btn"
-                            description="Cancel" // Description should be a string literal
-                            defaultMessage="Cancel" // Message should be a string literal
+                            description="Cancel"
+                            defaultMessage="Cancel"
                         />
                     </button>
                 </div>
