@@ -423,6 +423,11 @@ function AddressSection({
   profile: UserProfile | null;
   isLoading: boolean;
 }) {
+  // Check if we have a valid address with actual data (not just an empty object)
+  const hasValidAddress = address && 
+    address.address_line1 && 
+    address.address_line1.trim() !== '';
+
   if (editSavedAddress) {
     return (
       <div className="bg-white dark:bg-fun-blue-800 rounded-2xl shadow-lg border border-gray-200 dark:border-fun-blue-600 p-6">
@@ -457,7 +462,7 @@ function AddressSection({
           <div className="h-4 bg-gray-200 dark:bg-gray-600 rounded mb-2 w-3/4"></div>
           <div className="h-4 bg-gray-200 dark:bg-gray-600 rounded w-1/2"></div>
         </div>
-      ) : address ? (
+      ) : hasValidAddress ? (
         <div className="flex justify-between items-start">
           <div className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
             <div>{address.address_line1}</div>
