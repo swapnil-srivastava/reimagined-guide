@@ -67,7 +67,8 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => 
     const totalCost = useSelector((state : RootState) => state.subtotal?.totalCost) || 0;
 
     const [editSavedAddress , setEditSavedAddress] = useState<boolean>(false);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [fetchedAddress, setFetchedAddress] = useState<ADDRESS | null>(null);
 
     // Calculate total quantity of all items in cart
     const totalItemsCount = cartItems?.reduce((total, item) => total + (item.quantity || 0), 0) || 0;
@@ -84,19 +85,23 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => 
     
             if (error) {
               console.error('Error fetching address:', error);
+              setIsLoading(false);
               return;
             }
 
             const [ supaBaseAddress ] = data || [];
             if (supaBaseAddress) {
               dispatch(addToCartAddressCreate(supaBaseAddress));
-              setEditSavedAddress(false); // Show the address display, not the form
+              setFetchedAddress(supaBaseAddress);
             }
           } catch (error) {
             console.error('Error fetching address:', error);
           } finally {
             setIsLoading(false);
           }
+        } else {
+          // For anonymous users, no need to fetch from DB
+          setIsLoading(false);
         }
       };
 
@@ -191,9 +196,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => 
 
                   {/* Address Section */}
                   <AddressSection 
-                    address={address}
-                    editSavedAddress={editSavedAddress}
-                    setEditSavedAddress={setEditSavedAddress}
+                address={fetchedAddress || address}
                     profile={profile}
                     isLoading={isLoading}
                   />

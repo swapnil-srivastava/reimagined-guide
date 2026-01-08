@@ -215,7 +215,7 @@ const AddressForm : React.FC<AddressFormProps>= ({ profile, addressState, editSa
                     />
                 </div>
                 
-                <div className="address-form-container [&_.MuiFormControl-root]:mb-3 [&_.MuiInputBase-root]:bg-white [&_.MuiInputBase-root]:dark:bg-fun-blue-700 [&_.MuiInputLabel-root]:text-gray-600 [&_.MuiInputLabel-root]:dark:text-gray-300 [&_.MuiOutlinedInput-notchedOutline]:border-gray-300 [&_.MuiOutlinedInput-notchedOutline]:dark:border-fun-blue-500 [&_.MuiInputBase-input]:text-blog-black [&_.MuiInputBase-input]:dark:text-blog-white">
+                <div className="address-form-container [&_.MuiFormControl-root]:mb-3 [&_.MuiInputBase-root]:bg-white [&_.MuiInputBase-root]:dark:bg-fun-blue-700 [&_.MuiInputLabel-root]:text-gray-600 [&_.MuiInputLabel-root]:dark:text-gray-300 [&_.MuiOutlinedInput-notchedOutline]:border-gray-300 [&_.MuiOutlinedInput-notchedOutline]:dark:border-fun-blue-500 [&_.MuiInputBase-input]:text-blog-black [&_.MuiInputBase-input]:dark:text-blog-white [&_.MuiStack-root]:!flex-row [&_.MuiStack-root]:gap-3 [&_.MuiStack-root_.MuiFormControl-root]:flex-1 [&_.MuiStack-root_.MuiFormControl-root]:mb-0">
                     <JsonForms
                         schema={schema}
                         uischema={uischema}
