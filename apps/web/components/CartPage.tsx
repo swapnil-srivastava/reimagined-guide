@@ -194,12 +194,14 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => 
                     cartItems={cartItems}
                   />
 
-                  {/* Address Section */}
-                  <AddressSection 
-                address={fetchedAddress || address}
-                    profile={profile}
-                    isLoading={isLoading}
-                  />
+                {/* Address Section */}
+                <AddressSection 
+                  address={fetchedAddress || address}
+                  profile={profile}
+                  isLoading={isLoading}
+                  editSavedAddress={editSavedAddress}
+                  setEditSavedAddress={setEditSavedAddress}
+                />
 
                   {/* Delivery Options */}
                   <DeliverySection />
