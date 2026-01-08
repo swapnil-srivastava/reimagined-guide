@@ -40,6 +40,7 @@ function Enter() {
 // Modern Authentication Card with email/password and OAuth
 function AuthCard() {
   const [isSignUp, setIsSignUp] = useState(false);
+  const [useMagicLink, setUseMagicLink] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -50,14 +51,68 @@ function AuthCard() {
   const intl = useIntl();
 
   const validateForm = () => {
-    if (!email || !password) return false;
+    if (!email) return false;
+    if (useMagicLink) return true; // Magic link only needs email
+    if (!password) return false;
     if (isSignUp && password !== confirmPassword) return false;
     if (password.length < 6) return false;
     return true;
   };
 
+  const handleMagicLinkAuth = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+
+    // Require captcha verification
+    if (!captchaToken) {
+      toast.error(intl.formatMessage({
+        id: "auth-captcha-required",
+        description: "Captcha verification required",
+        defaultMessage: "Please complete the captcha verification"
+      }));
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const { error } = await supaClient.auth.signInWithOtp({
+        email,
+        options: {
+          emailRedirectTo: `${window.location.origin}/enter`,
+          captchaToken
+        }
+      });
+
+      if (error) throw error;
+
+      toast.success(intl.formatMessage({
+        id: "auth-magic-link-sent",
+        description: "Magic link sent",
+        defaultMessage: "Check your email! We've sent you a magic link to sign in."
+      }), { duration: 5000 });
+
+      // Reset captcha after sending
+      captchaRef.current?.resetCaptcha();
+      setCaptchaToken(null);
+    } catch (error: any) {
+      console.error('Magic link error:', error);
+      captchaRef.current?.resetCaptcha();
+      setCaptchaToken(null);
+      toast.error(error?.message || intl.formatMessage({
+        id: "auth-magic-link-error",
+        description: "Magic link error",
+        defaultMessage: "Failed to send magic link. Please try again."
+      }));
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (useMagicLink) {
+      return handleMagicLinkAuth(e);
+    }
     if (!validateForm()) return;
     
     // Require captcha verification
@@ -231,6 +286,44 @@ function AuthCard() {
 
       {/* Email/Password Form */}
       <form onSubmit={handleEmailAuth} className="space-y-4">
+        {/* Toggle between password and magic link */}
+        {!isSignUp && (
+          <div className="flex justify-center mb-4">
+            <div className="inline-flex rounded-lg border border-gray-300 dark:border-gray-600 p-1 bg-gray-100 dark:bg-gray-700">
+              <button
+                type="button"
+                onClick={() => setUseMagicLink(false)}
+                className={`px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                  !useMagicLink
+                    ? 'bg-white dark:bg-fun-blue-600 text-gray-900 dark:text-white shadow-sm'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                }`}
+              >
+                <FormattedMessage
+                  id="auth-use-password"
+                  description="Use password"
+                  defaultMessage="Password"
+                />
+              </button>
+              <button
+                type="button"
+                onClick={() => setUseMagicLink(true)}
+                className={`px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                  useMagicLink
+                    ? 'bg-white dark:bg-fun-blue-600 text-gray-900 dark:text-white shadow-sm'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                }`}
+              >
+                <FormattedMessage
+                  id="auth-use-magic-link"
+                  description="Use magic link"
+                  defaultMessage="Magic Link"
+                />
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Email Field */}
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -260,39 +353,42 @@ function AuthCard() {
           />
         </div>
 
-        {/* Password Field */}
-        <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            <FormattedMessage
-              id="auth-password-label"
-              description="Password"
-              defaultMessage="Password"
-            />
-          </label>
-          <div className="relative">
-            <input
-              id="password"
-              type={showPassword ? "text" : "password"}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-3 pr-10 border border-gray-300 dark:border-gray-600 
-                         rounded-lg bg-white dark:bg-gray-700
-                         text-gray-900 dark:text-white
-                         placeholder-gray-500 dark:placeholder-gray-400
-                         focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:border-transparent
-                         transition-all duration-200"
-              placeholder={intl.formatMessage({
-                id: "auth-password-placeholder",
-                description: "Password placeholder",
-                defaultMessage: "Enter your password"
-              })}
-              minLength={6}
-              required
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute inset-y-0 right-0 pr-3 flex items-center"
+        {/* Password Fields - only show if not using magic link */}
+        {!useMagicLink && (
+          <>
+            {/* Password Field */}
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <FormattedMessage
+                  id="auth-password-label"
+                  description="Password"
+                  defaultMessage="Password"
+                />
+              </label>
+              <div className="relative">
+                <input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-3 py-3 pr-10 border border-gray-300 dark:border-gray-600 
+                             rounded-lg bg-white dark:bg-gray-700
+                             text-gray-900 dark:text-white
+                             placeholder-gray-500 dark:placeholder-gray-400
+                             focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:border-transparent
+                             transition-all duration-200"
+                  placeholder={intl.formatMessage({
+                    id: "auth-password-placeholder",
+                    description: "Password placeholder",
+                    defaultMessage: "Enter your password"
+                  })}
+                  minLength={6}
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
             >
               <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {showPassword ? (
@@ -344,6 +440,8 @@ function AuthCard() {
             )}
           </div>
         )}
+          </>
+        )}
 
         {/* hCaptcha Widget */}
         <div className="flex justify-center py-2">
@@ -373,9 +471,9 @@ function AuthCard() {
             </svg>
           )}
           <FormattedMessage
-            id={isSignUp ? "auth-signup-button" : "auth-signin-button"}
-            description={isSignUp ? "Sign up button" : "Sign in button"}
-            defaultMessage={isSignUp ? "Create account" : "Sign in"}
+            id={useMagicLink ? "auth-send-magic-link" : (isSignUp ? "auth-signup-button" : "auth-signin-button")}
+            description={useMagicLink ? "Send magic link" : (isSignUp ? "Sign up button" : "Sign in button")}
+            defaultMessage={useMagicLink ? "Send Magic Link" : (isSignUp ? "Create account" : "Sign in")}
           />
         </button>
       </form>
@@ -787,9 +885,9 @@ function UsernameForm() {
           
           {/* Username input with preview */}
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <span className="text-gray-500 dark:text-gray-400 text-sm">
-                {typeof window !== 'undefined' ? window.location.origin : ''}/
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
+              <span className="text-gray-400 dark:text-gray-500 text-xs font-mono">
+                {typeof window !== 'undefined' ? new URL(window.location.origin).hostname : ''}/
               </span>
             </div>
             <input
@@ -797,12 +895,13 @@ function UsernameForm() {
               name="username"
               value={formValue}
               onChange={onChange}
-              className="w-full pl-24 pr-3 py-3 border border-gray-300 dark:border-gray-600 
+              style={{ paddingLeft: typeof window !== 'undefined' ? `${new URL(window.location.origin).hostname.length * 7 + 30}px` : '120px' }}
+              className="w-full pr-3 py-3 border border-gray-300 dark:border-gray-600 
                          rounded-lg bg-white dark:bg-gray-700
-                         text-gray-900 dark:text-white
-                         placeholder-gray-500 dark:placeholder-gray-400
-                         focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:border-transparent
-                         transition-all duration-200"
+                         text-gray-900 dark:text-white font-mono
+                         placeholder-gray-400 dark:placeholder-gray-500
+                         focus:outline-none focus:ring-2 focus:ring-fun-blue-500 focus:border-transparent
+                         transition-all duration-200 text-sm"
               placeholder={intl.formatMessage({
                 id: "auth-username-placeholder",
                 description: "Username placeholder",
@@ -881,8 +980,59 @@ function UsernameForm() {
       </form>
       
       {/* Help text */}
-      <div className="mt-6 text-center">
-        <p className="text-xs text-gray-500 dark:text-gray-400">
+      <div className="mt-6 space-y-4">
+        {/* How to sign in after username is set */}
+        <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
+          <div className="flex items-start gap-3">
+            <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div className="flex-1">
+              <h4 className="font-semibold text-gray-900 dark:text-white mb-2 text-sm">
+                <FormattedMessage
+                  id="auth-how-to-signin-title"
+                  description="How to sign in title"
+                  defaultMessage="How to Sign In Next Time"
+                />
+              </h4>
+              <ol className="text-xs text-gray-700 dark:text-gray-300 space-y-2 list-decimal list-inside">
+                <li>
+                  <FormattedMessage
+                    id="auth-signin-step-1"
+                    description="Sign in step 1"
+                    defaultMessage="Come back to this page and enter your email: {email}"
+                    values={{ email: <strong className="text-fun-blue-600 dark:text-fun-blue-400">{userEmail}</strong> }}
+                  />
+                </li>
+                <li>
+                  <FormattedMessage
+                    id="auth-signin-step-2"
+                    description="Sign in step 2"
+                    defaultMessage="Click 'Sign in with magic link' button"
+                  />
+                </li>
+                <li>
+                  <FormattedMessage
+                    id="auth-signin-step-3"
+                    description="Sign in step 3"
+                    defaultMessage="Check your email and click the sign-in link - you're in!"
+                  />
+                </li>
+              </ol>
+              <p className="mt-3 text-xs text-gray-600 dark:text-gray-400 italic">
+                <FormattedMessage
+                  id="auth-signin-note"
+                  description="Sign in note"
+                  defaultMessage="💡 Tip: You can also sign in with Google if you prefer!"
+                />
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
           <FormattedMessage
             id="auth-username-help"
             description="Username help text"

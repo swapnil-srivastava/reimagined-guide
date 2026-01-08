@@ -997,6 +997,24 @@
       "value": "Google sign in failed. Please try again."
     }
   ],
+  "auth-how-to-signin-title": [
+    {
+      "type": 0,
+      "value": "How to Sign In Next Time"
+    }
+  ],
+  "auth-magic-link-error": [
+    {
+      "type": 0,
+      "value": "Failed to send magic link. Please try again."
+    }
+  ],
+  "auth-magic-link-sent": [
+    {
+      "type": 0,
+      "value": "Check your email! We've sent you a magic link to sign in."
+    }
+  ],
   "auth-no-password-needed": [
     {
       "type": 0,
@@ -1059,6 +1077,34 @@
       "value": "You are successfully signed in"
     }
   ],
+  "auth-signin-note": [
+    {
+      "type": 0,
+      "value": "💡 Tip: You can also sign in with Google if you prefer!"
+    }
+  ],
+  "auth-signin-step-1": [
+    {
+      "type": 0,
+      "value": "Come back to this page and enter your email: "
+    },
+    {
+      "type": 1,
+      "value": "email"
+    }
+  ],
+  "auth-signin-step-2": [
+    {
+      "type": 0,
+      "value": "Click 'Sign in with magic link' button"
+    }
+  ],
+  "auth-signin-step-3": [
+    {
+      "type": 0,
+      "value": "Check your email and click the sign-in link - you're in!"
+    }
+  ],
   "auth-signout-button": [
     {
       "type": 0,
@@ -1081,6 +1127,18 @@
     {
       "type": 0,
       "value": "Account created successfully!"
+    }
+  ],
+  "auth-use-magic-link": [
+    {
+      "type": 0,
+      "value": "Magic Link"
+    }
+  ],
+  "auth-use-password": [
+    {
+      "type": 0,
+      "value": "Password"
     }
   ],
   "auth-username-available": [
