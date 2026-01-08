@@ -36,6 +36,7 @@ export const ConvertAnonymousUser: React.FC<ConvertAnonymousUserProps> = ({
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showEmailForm, setShowEmailForm] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
 
   // Don't render if user is not anonymous
   if (!isAnonymous) {
@@ -63,13 +64,13 @@ export const ConvertAnonymousUser: React.FC<ConvertAnonymousUserProps> = ({
         throw error;
       }
       
+      setEmailSent(true);
+      
       toast.success(intl.formatMessage({
         id: 'convert-anonymous-email-sent',
         description: 'Verification email sent! Please check your inbox.',
         defaultMessage: 'Verification email sent! Please check your inbox to complete your account setup.',
       }), { duration: 5000 });
-      
-      onSuccess?.();
     } catch (err: any) {
       console.error('Email conversion error:', err);
       toast.error(err.message || intl.formatMessage({
@@ -135,7 +136,63 @@ export const ConvertAnonymousUser: React.FC<ConvertAnonymousUserProps> = ({
         </p>
       </div>
 
-      {showEmailForm ? (
+      {emailSent ? (
+        <div className="space-y-4">
+          <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
+            <div className="flex items-start gap-3">
+              <FontAwesomeIcon icon={faCheck} className="w-5 h-5 text-green-600 dark:text-green-400 mt-0.5" />
+              <div className="flex-1">
+                <h4 className="font-semibold text-green-900 dark:text-green-100 mb-2">
+                  <FormattedMessage
+                    id="convert-anonymous-email-sent-title"
+                    description="Email sent title"
+                    defaultMessage="Verification Email Sent!"
+                  />
+                </h4>
+                <p className="text-sm text-green-800 dark:text-green-200 mb-3">
+                  <FormattedMessage
+                    id="convert-anonymous-email-sent-instructions"
+                    description="Instructions after email sent"
+                    defaultMessage="We've sent a verification email to {email}. Please check your inbox and click the link to complete your account setup."
+                    values={{ email: <strong>{email}</strong> }}
+                  />
+                </p>
+                <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded p-3 mt-3">
+                  <p className="text-xs text-yellow-800 dark:text-yellow-200">
+                    <strong>
+                      <FormattedMessage
+                        id="convert-anonymous-email-note-title"
+                        description="Note about email content"
+                        defaultMessage="Note:"
+                      />
+                    </strong>{' '}
+                    <FormattedMessage
+                      id="convert-anonymous-email-note-content"
+                      description="Explanation of email content"
+                      defaultMessage='The email subject will say "Confirm your email" or "Change Email". This is normal - just click the link to verify your account.'
+                    />
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <button
+            onClick={() => {
+              setEmailSent(false);
+              setShowEmailForm(false);
+              setEmail('');
+            }}
+            className="w-full py-3 px-4 border border-gray-300 dark:border-fun-blue-500 rounded-lg text-blog-black dark:text-blog-white hover:bg-gray-50 dark:hover:bg-fun-blue-600 transition-colors"
+          >
+            <FormattedMessage
+              id="convert-anonymous-back-to-options"
+              description="Back to options"
+              defaultMessage="Back to Options"
+            />
+          </button>
+        </div>
+      ) : showEmailForm ? (
         <form onSubmit={handleEmailConversion} className="space-y-4">
           <div>
             <label htmlFor="email" className="sr-only">
