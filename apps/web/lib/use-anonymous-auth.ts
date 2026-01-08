@@ -139,7 +139,17 @@ export function useAnonymousAuth(): UseAnonymousAuthReturn {
         throw new Error('User is not anonymous');
       }
 
-      const { error } = await supaClient.auth.updateUser({ email });
+      // Get the current origin for redirect URL
+      const redirectUrl = typeof window !== 'undefined' 
+        ? `${window.location.origin}/enter`
+        : undefined;
+
+      const { error } = await supaClient.auth.updateUser(
+        { email },
+        {
+          emailRedirectTo: redirectUrl,
+        }
+      );
       
       if (error) throw error;
 
@@ -160,7 +170,17 @@ export function useAnonymousAuth(): UseAnonymousAuthReturn {
         throw new Error('User is not anonymous');
       }
 
-      const { error } = await supaClient.auth.linkIdentity({ provider });
+      // Get the current origin for redirect URL
+      const redirectUrl = typeof window !== 'undefined' 
+        ? `${window.location.origin}/enter`
+        : undefined;
+
+      const { error } = await supaClient.auth.linkIdentity({ 
+        provider,
+        options: {
+          redirectTo: redirectUrl,
+        }
+      });
       
       if (error) throw error;
 
