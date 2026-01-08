@@ -722,6 +722,11 @@ function UsernameForm() {
         description: "Username updated successfully",
         defaultMessage: "Username updated successfully!"
       }));
+
+      // Reload the page to refresh the user state and show the SignOutCard
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch (error: any) {
       console.error('Username update error:', error);
       toast.error(error.message || intl.formatMessage({
