@@ -16,7 +16,8 @@ interface AuthCheckProps {
 }
 
 // Component's children only shown to logged-in users
-// With allowAnonymous=true, also allows anonymous authenticated users
+// With allowAnonymous=true, also allows anonymous authenticated users OR unauthenticated users
+// (for flows like cart/checkout where anonymous sign-in happens at payment time)
 export default function AuthCheck({ children, fallback, allowAnonymous = false }: AuthCheckProps): ReactElement {
   // Check Redux store for user profile
   const selectUser = (state: RootState) => state.users;
@@ -28,8 +29,9 @@ export default function AuthCheck({ children, fallback, allowAnonymous = false }
   
   // User has access if:
   // 1. They have a profile (permanent user)
-  // 2. OR allowAnonymous is true AND they have an anonymous session
-  const hasAccess = profile?.id || (allowAnonymous && anonymousUser);
+  // 2. OR they have an anonymous session
+  // 3. OR allowAnonymous is true (allows unauthenticated users to view, they'll sign in at checkout)
+  const hasAccess = profile?.id || anonymousUser || allowAnonymous;
 
   if (hasAccess) {
     return <>{children}</>;
