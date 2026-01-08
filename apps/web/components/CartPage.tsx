@@ -100,7 +100,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => 
     };
 
     return (
-      <AuthCheck>
+      <AuthCheck allowAnonymous={true}>
         <div className="min-h-screen bg-blog-white dark:bg-fun-blue-500 py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
