@@ -2681,6 +2681,12 @@
       "value": "Personalization Settings"
     }
   ],
+  "play-page-title": [
+    {
+      "type": 0,
+      "value": "Music & Podcasts"
+    }
+  ],
   "post-content-auth-check-signup": [
     {
       "type": 0,
@@ -3845,6 +3851,12 @@
     {
       "type": 0,
       "value": "Writing the article ... coding the code ... posting the article ... finally sleeping ... and the cycle repeats"
+    }
+  ],
+  "spotify-loading": [
+    {
+      "type": 0,
+      "value": "Loading Spotify..."
     }
   ],
   "success-continue-shopping": [
