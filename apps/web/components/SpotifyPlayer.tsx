@@ -13,27 +13,33 @@ const SpotifyPlayer: React.FC<SpotifyPlayerProps> = ({ uri = 'spotify:playlist:3
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    if (!window.onSpotifyIframeApiReady) {
-      window.onSpotifyIframeApiReady = (IFrameAPI: any) => {
+    const initPlayer = (IFrameAPI: any) => {
         const element = elementRef.current;
+        if (!element) return;
+        
         const options = {
           uri: uri,
           width: '100%',
           height: '100%',
-          theme: resolvedTheme === 'dark' ? 'dark' : 'light', // Attempt to pass theme, though support varies
+          theme: resolvedTheme === 'dark' ? 'dark' : 'light',
         };
         const callback = (EmbedController: any) => {
             // Optional: Handle events
         };
         IFrameAPI.createController(element, options, callback);
         setIsLoaded(true);
-      };
+    };
+
+    if ((window as any).IFrameAPI) {
+        initPlayer((window as any).IFrameAPI);
+    } else {
+        window.onSpotifyIframeApiReady = initPlayer;
     }
   }, [uri, resolvedTheme]);
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-4">
-      <div className={`relative w-full aspect-video rounded-xl overflow-hidden shadow-xl ${resolvedTheme === 'dark' ? 'shadow-fun-blue-900/20' : 'shadow-gray-200'} transition-shadow duration-300`}>
+    <div className="w-full max-w-lg mx-auto p-4">
+      <div className={`relative w-full h-[152px] rounded-xl overflow-hidden shadow-xl ${resolvedTheme === 'dark' ? 'shadow-fun-blue-900/20' : 'shadow-gray-200'} transition-shadow duration-300`}>
          {!isLoaded && (
             <div className="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-800 animate-pulse">
               <span className="text-gray-400">
