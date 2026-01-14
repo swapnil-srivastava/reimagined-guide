@@ -145,7 +145,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => 
                       defaultMessage="Shopping Cart"
                     />
                   </h1>
-                  <p className="text-gray-600 dark:text-gray-300">
+                  <p className="text-gray-600 dark:text-blog-white">
                     <FormattedMessage
                       id="cart-items-count"
                       description="Items in cart count"
@@ -270,7 +270,7 @@ function CartItemCard({ cartItem, onDelete }: {
                 <CurrencyPriceComponent price={cartItem.price * cartItem.quantity} />
               </div>
               {cartItem.quantity > 1 && (
-                <div className="text-sm text-gray-500 dark:text-gray-400">
+                <div className="text-sm text-gray-500 dark:text-blog-white">
                   <CurrencyPriceComponent price={cartItem.price} /> each
                 </div>
               )}

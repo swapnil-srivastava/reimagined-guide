@@ -173,7 +173,7 @@ function Products() {
                             values={{ count: cartItems.length }}
                           />
                         </p>
-                        <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm hidden sm:block">
+                        <p className="text-gray-500 dark:text-blog-white text-xs sm:text-sm hidden sm:block">
                           <FormattedMessage
                             id="product-index-cart-ready"
                             description="Ready to checkout"
@@ -186,7 +186,7 @@ function Products() {
                     {/* Right side - Total and CTA */}
                     <div className="flex items-center gap-3 sm:gap-4 flex-shrink-0">
                       <div className="text-right">
-                        <p className="text-gray-500 dark:text-gray-400 text-xs hidden sm:block">
+                        <p className="text-gray-500 dark:text-blog-white text-xs hidden sm:block">
                           <FormattedMessage
                             id="product-index-cart-total-label"
                             description="Total label"
@@ -221,7 +221,7 @@ function Products() {
             <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
               {/* Search */}
               <div className="relative flex-1 max-w-md">
-                <FontAwesomeIcon icon={faSearch} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-300 z-10" />
+                <FontAwesomeIcon icon={faSearch} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-blog-white/70 z-10" />
                 <input
                   type="text"
                   placeholder={intl.formatMessage({
@@ -231,7 +231,7 @@ function Products() {
                   })}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-blog-black dark:text-blog-white placeholder-gray-500 dark:placeholder-gray-300 shadow-md dark:shadow-lg dark:shadow-black/20 hover:shadow-lg dark:hover:shadow-xl dark:hover:shadow-black/30 focus:shadow-xl dark:focus:shadow-2xl dark:focus:shadow-black/40 transition-shadow duration-200"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-blog-black dark:text-blog-white placeholder-gray-500 dark:placeholder-gray-200 shadow-md dark:shadow-lg dark:shadow-black/20 hover:shadow-lg dark:hover:shadow-xl dark:hover:shadow-black/30 focus:shadow-xl dark:focus:shadow-2xl dark:focus:shadow-black/40 transition-shadow duration-200"
                 />
               </div>
 
@@ -363,7 +363,7 @@ function Products() {
             <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-blog-white">
+                  <p className="text-sm text-blog-black dark:text-blog-white">
                     <FormattedMessage
                       id="products-results-count"
                       description="Showing X products"
@@ -412,7 +412,7 @@ function Products() {
                 </div>
                 
                 {/* Stock Statistics */}
-                <div className="text-xs text-gray-500 dark:text-gray-400">
+                <div className="text-xs text-blog-black dark:text-blog-white">
                   <FormattedMessage
                     id="products-in-stock"
                     description="Products in stock"

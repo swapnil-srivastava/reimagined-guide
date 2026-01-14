@@ -212,7 +212,7 @@ function Checkout() {
                 </div>
               </div>
               
-              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-blog-white">
                 <FontAwesomeIcon icon={faShieldAlt} className="w-4 h-4" />
                 <FormattedMessage
                   id="checkout-ssl-secured"
@@ -274,7 +274,7 @@ function Checkout() {
                     </h2>
                   </div>
                   
-                  <div className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                  <div className="text-sm text-gray-600 dark:text-blog-white space-y-1">
                     <div>{customerAddress.address_line1}</div>
                     {customerAddress.address_line2 && <div>{customerAddress.address_line2}</div>}
                     <div>{customerAddress.postal_code}, {customerAddress.city}</div>
@@ -338,7 +338,7 @@ function Checkout() {
                 <div className="space-y-4 mb-6">
                   {/* Subtotal */}
                   <div className="flex justify-between items-center py-2 border-b border-gray-100 dark:border-fun-blue-600">
-                    <span className="text-gray-600 dark:text-gray-300 font-medium">
+                    <span className="text-gray-600 dark:text-blog-white font-medium">
                       <FormattedMessage
                         id="checkout-subtotal"
                         description="Subtotal"
@@ -352,7 +352,7 @@ function Checkout() {
 
                   {/* Tax */}
                   <div className="flex justify-between items-center py-2 border-b border-gray-100 dark:border-fun-blue-600">
-                    <span className="text-gray-600 dark:text-gray-300 font-medium">
+                    <span className="text-gray-600 dark:text-blog-white font-medium">
                       <FormattedMessage
                         id="checkout-tax"
                         description="Tax (19%)"
@@ -366,7 +366,7 @@ function Checkout() {
 
                   {/* Delivery Cost */}
                   <div className="flex justify-between items-center py-2 border-b border-gray-100 dark:border-fun-blue-600">
-                    <span className="text-gray-600 dark:text-gray-300 font-medium">
+                    <span className="text-gray-600 dark:text-blog-white font-medium">
                       <FormattedMessage
                         id="checkout-delivery-cost"
                         description="Delivery Cost"
@@ -520,7 +520,7 @@ function CheckoutItemCard({ cartItem }: { cartItem: ProductWithQuantity }) {
                 {cartItem.name}
               </h3>
               {cartItem.description && (
-                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 line-clamp-2 leading-relaxed">
+                <p className="text-sm text-gray-600 dark:text-blog-white mt-1 line-clamp-2 leading-relaxed">
                   {cartItem.description}
                 </p>
               )}
@@ -604,7 +604,7 @@ function EmptyCheckoutMessage() {
         />
       </h3>
       
-      <p className="text-gray-600 dark:text-gray-300 mb-8 max-w-md leading-relaxed">
+      <p className="text-gray-600 dark:text-blog-white mb-8 max-w-md leading-relaxed">
         <FormattedMessage
           id="checkout-empty-cart-description"
           description="Add some products to continue with your order"
