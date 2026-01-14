@@ -170,7 +170,7 @@ export default function ProductDetail() {
             defaultMessage="Product not found"
           />
         </div>
-        <p className="text-gray-600 dark:text-gray-300 mb-8">
+        <p className="text-gray-600 dark:text-blog-white mb-8">
           <FormattedMessage
             id="product-detail-not-found-description"
             description="Product not found description"
@@ -205,7 +205,7 @@ export default function ProductDetail() {
         <div className="container mx-auto px-4 py-8">
           <button
             onClick={() => router.back()}
-            className="flex items-center gap-2 mb-4 text-gray-600 hover:text-blog-black dark:text-gray-300 dark:hover:text-blog-white transition-colors"
+            className="flex items-center gap-2 mb-4 text-gray-600 hover:text-blog-black dark:text-blog-white dark:hover:text-blog-white transition-colors"
           >
             <FontAwesomeIcon icon={faArrowLeft} className="text-sm" />
             <FormattedMessage
@@ -261,7 +261,7 @@ export default function ProductDetail() {
                   <CurrencyPriceComponent price={product.price} />
                 </div>
                 
-                <div className="my-6 text-gray-700 dark:text-gray-300 leading-relaxed">
+                <div className="my-6 text-gray-700 dark:text-blog-white leading-relaxed">
                   {product.description}
                 </div>
                 
@@ -273,7 +273,7 @@ export default function ProductDetail() {
                   <>
                     <div className="mb-6">
                       <div className="flex justify-between items-center mb-2">
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-blog-white">
                           <FormattedMessage
                             id="product-detail-quantity"
                             description="Quantity label"
@@ -299,7 +299,7 @@ export default function ProductDetail() {
                       
                       {/* Stock level indicator */}
                       <div className="mt-4 w-full">
-                        <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mb-1">
+                        <div className="flex justify-between text-xs text-gray-500 dark:text-blog-white mb-1">
                           <span>
                             <FormattedMessage
                               id="product-detail-stock-level"

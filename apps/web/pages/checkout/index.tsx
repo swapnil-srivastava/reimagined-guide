@@ -213,7 +213,7 @@ function Checkout() {
               </div>
               
               <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-blog-white">
-                <FontAwesomeIcon icon={faShieldAlt} className="w-4 h-4" />
+                <FontAwesomeIcon icon={faShieldAlt} className="w-4 h-4 text-blog-white" />
                 <FormattedMessage
                   id="checkout-ssl-secured"
                   description="SSL Secured"
@@ -448,7 +448,7 @@ function Checkout() {
                       <div className="w-full border-t border-gray-300 dark:border-fun-blue-600"></div>
                     </div>
                     <div className="relative flex justify-center text-sm">
-                      <span className="px-4 bg-white dark:bg-fun-blue-800 text-gray-500 dark:text-gray-400 font-medium">
+                      <span className="px-4 bg-white dark:bg-fun-blue-800 text-gray-500 dark:text-blog-white font-medium">
                         <FormattedMessage
                           id="checkout-payment-or"
                           description="OR"
@@ -473,7 +473,7 @@ function Checkout() {
                 </div>
 
                 {/* Security Notice */}
-                <div className="flex items-center justify-center gap-2 mt-4 text-xs text-gray-500 dark:text-gray-400">
+                <div className="flex items-center justify-center gap-2 mt-4 text-xs text-gray-500 dark:text-blog-white">
                   <FontAwesomeIcon icon={faShieldAlt} className="w-3 h-3" />
                   <FormattedMessage
                     id="checkout-security-notice"
@@ -532,7 +532,7 @@ function CheckoutItemCard({ cartItem }: { cartItem: ProductWithQuantity }) {
                 <CurrencyPriceComponent price={cartItem.price * cartItem.quantity} />
               </div>
               {cartItem.quantity > 1 && (
-                <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                <div className="text-xs text-gray-500 dark:text-blog-white mt-1">
                   <CurrencyPriceComponent price={cartItem.price} />
                   <FormattedMessage
                     id="checkout-item-each"
@@ -562,7 +562,7 @@ function CheckoutItemCard({ cartItem }: { cartItem: ProductWithQuantity }) {
             
             {/* Item Subtotal Breakdown */}
             <div className="text-right">
-              <div className="text-xs text-gray-500 dark:text-gray-400">
+              <div className="text-xs text-gray-500 dark:text-blog-white">
                 <FormattedMessage
                   id="checkout-item-subtotal"
                   description="Item Total"
@@ -589,7 +589,7 @@ function EmptyCheckoutMessage() {
     <div className="flex flex-col items-center justify-center py-16 text-center">
       <div className="relative mb-6">
         <div className="w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-fun-blue-700 dark:to-fun-blue-600 rounded-full flex items-center justify-center shadow-lg">
-          <FontAwesomeIcon icon={faShoppingBag} className="w-10 h-10 text-gray-400 dark:text-gray-500" />
+          <FontAwesomeIcon icon={faShoppingBag} className="w-10 h-10 text-gray-400 dark:text-blog-white" />
         </div>
         <div className="absolute -top-1 -right-1 w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
           <span className="text-white text-xs font-bold">0</span>

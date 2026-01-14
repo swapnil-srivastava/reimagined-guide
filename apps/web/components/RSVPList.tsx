@@ -198,7 +198,7 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
         {/* Age Breakdown for Mobile */}
         {totalAttending > 0 && (
           <div className="mt-3 pt-3 border-t border-gray-200 dark:border-fun-blue-500">
-            <div className="text-xs text-gray-600 dark:text-gray-300 mb-2 font-medium">
+            <div className="text-xs text-gray-600 dark:text-blog-white mb-2 font-medium">
               <FormattedMessage
                 id="rsvp-age-breakdown"
                 description="Age Breakdown"
@@ -245,13 +245,13 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                   defaultMessage="RSVP Responses"
                 />
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
+              <p className="text-sm text-gray-600 dark:text-blog-white">
                 {rsvps.length} {rsvps.length === 1 ? 'response' : 'responses'} • {totalAttending} attending
               </p>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs bg-gray-100 dark:bg-fun-blue-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-full">
+            <span className="text-xs bg-gray-100 dark:bg-fun-blue-700 text-gray-600 dark:text-blog-white px-2 py-1 rounded-full">
               <FormattedMessage
                 id="rsvp-click-to-collapse"
                 description="Click to collapse"
@@ -272,7 +272,7 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
           {rsvps.length === 0 ? (
             <div className="text-center py-8">
               <FontAwesomeIcon icon={faUsers} className="text-gray-400 dark:text-blog-white text-3xl mb-3" />
-              <p className="text-gray-500 dark:text-gray-400">
+              <p className="text-gray-500 dark:text-blog-white">
                 <FormattedMessage
                   id="rsvp-no-responses"
                   description="No RSVP responses yet"
@@ -368,7 +368,7 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                       </div>
                     ))}
                     {totalNotAttending === 0 && (
-                      <p className="text-sm text-gray-500 dark:text-gray-400 italic">
+                      <p className="text-sm text-gray-500 dark:text-blog-white italic">
                         <FormattedMessage id="rsvp-no-one-not-attending" description="Everyone is attending!" defaultMessage="Everyone is attending!" />
                       </p>
                     )}
@@ -398,7 +398,7 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                             {rsvp.is_attending ? 'Attending' : 'Not Attending'}
                           </div>
                         </div>
-                        <p className="text-sm text-gray-700 dark:text-gray-300">{rsvp.message}</p>
+                        <p className="text-sm text-gray-700 dark:text-blog-white">{rsvp.message}</p>
                       </div>
                     ))}
                   </div>
@@ -494,7 +494,7 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                     {rsvps.filter(rsvp => rsvp.message && rsvp.message.trim() !== '').map((rsvp) => (
                       <div key={rsvp.id} className="bg-white dark:bg-orange-900/10 rounded p-3 border-l-4 border-orange-400">
                         <div className="font-medium text-sm text-blog-black dark:text-blog-white mb-1">{rsvp.family_name}</div>
-                        <div className="text-sm text-gray-700 dark:text-gray-300">{rsvp.message}</div>
+                        <div className="text-sm text-gray-700 dark:text-blog-white">{rsvp.message}</div>
                       </div>
                     ))}
                   </div>
@@ -605,7 +605,7 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                       {/* Admin-only detailed information */}
                       {isAdmin && (
                         <div className="mt-3 pt-3 border-t border-gray-200 dark:border-fun-blue-500">
-                          <div className="text-xs text-gray-500 dark:text-gray-400">
+                          <div className="text-xs text-gray-500 dark:text-blog-white">
                             <FormattedMessage
                               id="rsvp-admin-details"
                               description="Admin details only"
@@ -615,7 +615,7 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                         </div>
                       )}
 
-                      <div className="text-xs text-gray-500 dark:text-gray-400 mt-3 pt-2 border-t border-gray-200 dark:border-fun-blue-500">
+                      <div className="text-xs text-gray-500 dark:text-blog-white mt-3 pt-2 border-t border-gray-200 dark:border-fun-blue-500">
                         <FormattedMessage
                           id="rsvp-responded-on"
                           description="Responded on {date}"

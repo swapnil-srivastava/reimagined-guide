@@ -223,7 +223,7 @@ function AuthCard() {
             defaultMessage={isSignUp ? "Create your account" : "Welcome back"}
           />
         </h1>
-        <p className="text-gray-600 dark:text-gray-300">
+        <p className="text-gray-600 dark:text-blog-white">
           <FormattedMessage
             id={isSignUp ? "auth-subtitle-signup" : "auth-subtitle-signin"}
             description={isSignUp ? "Signup subtitle" : "Signin subtitle"}
@@ -240,7 +240,7 @@ function AuthCard() {
                    hover:bg-gray-50 dark:hover:bg-gray-600 
                    transition-all duration-200 ease-in-out
                    focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:ring-offset-2
-                   text-gray-700 dark:text-gray-200 font-medium"
+                   text-gray-700 dark:text-blog-white font-medium"
       >
         {/* Google SVG Icon */}
         <svg width="20" height="20" viewBox="0 0 24 24" className="flex-shrink-0">
@@ -274,7 +274,7 @@ function AuthCard() {
           <div className="w-full border-t border-gray-300 dark:border-gray-600" />
         </div>
         <div className="relative flex justify-center text-sm">
-          <span className="px-4 bg-white dark:bg-fun-blue-800 text-gray-500 dark:text-gray-400">
+          <span className="px-4 bg-white dark:bg-fun-blue-800 text-gray-500 dark:text-blog-white">
             <FormattedMessage
               id="auth-or-divider"
               description="Or divider"
@@ -296,7 +296,7 @@ function AuthCard() {
                 className={`px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
                   !useMagicLink
                     ? 'bg-white dark:bg-fun-blue-600 text-gray-900 dark:text-white shadow-sm'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                    : 'text-gray-600 dark:text-blog-white hover:text-gray-900 dark:hover:text-blog-white'
                 }`}
               >
                 <FormattedMessage
@@ -311,7 +311,7 @@ function AuthCard() {
                 className={`px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
                   useMagicLink
                     ? 'bg-white dark:bg-fun-blue-600 text-gray-900 dark:text-white shadow-sm'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                    : 'text-gray-600 dark:text-blog-white hover:text-gray-900 dark:hover:text-blog-white'
                 }`}
               >
                 <FormattedMessage
@@ -326,7 +326,7 @@ function AuthCard() {
 
         {/* Email Field */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-blog-white mb-2">
             <FormattedMessage
               id="auth-email-label"
               description="Email address"
@@ -358,7 +358,7 @@ function AuthCard() {
           <>
             {/* Password Field */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-blog-white mb-2">
                 <FormattedMessage
                   id="auth-password-label"
                   description="Password"
@@ -404,7 +404,7 @@ function AuthCard() {
         {/* Confirm Password Field (Sign Up Only) */}
         {isSignUp && (
           <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 dark:text-blog-white mb-2">
               <FormattedMessage
                 id="auth-confirm-password-label"
                 description="Confirm password"
@@ -480,7 +480,7 @@ function AuthCard() {
 
       {/* Toggle Sign In/Sign Up */}
       <div className="mt-6 text-center">
-        <p className="text-gray-600 dark:text-gray-400">
+        <p className="text-gray-600 dark:text-blog-white">
           <FormattedMessage
             id={isSignUp ? "auth-have-account" : "auth-no-account"}
             description={isSignUp ? "Already have account" : "Don't have account"}
@@ -648,7 +648,7 @@ function SignOutCard() {
         />
       </h1>
       
-      <p className="text-gray-600 dark:text-gray-300 mb-8">
+      <p className="text-gray-600 dark:text-blog-white mb-8">
         <FormattedMessage
           id="auth-signed-in-message"
           description="Signed in message"
@@ -675,7 +675,7 @@ function SignOutCard() {
         <button
           onClick={signoutSupa}
           className="w-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600
-                     text-gray-700 dark:text-gray-300 font-medium py-3 px-4 rounded-lg
+                     text-gray-700 dark:text-blog-white font-medium py-3 px-4 rounded-lg
                      transition-all duration-200 ease-in-out
                      focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
         >
@@ -808,7 +808,7 @@ function UsernameForm() {
       <div className="flex justify-end mb-4">
         <button
           onClick={handleSignOut}
-          className="text-sm text-gray-600 dark:text-gray-300 hover:text-fun-blue-500 dark:hover:text-fun-blue-300 transition-colors underline"
+          className="text-sm text-gray-600 dark:text-blog-white hover:text-fun-blue-500 dark:hover:text-fun-blue-300 transition-colors underline"
         >
           <FormattedMessage
             id="auth-signout-button"
@@ -839,7 +839,7 @@ function UsernameForm() {
           />
         </h1>
         
-        <p className="text-gray-600 dark:text-gray-300 mb-4">
+        <p className="text-gray-600 dark:text-blog-white mb-4">
           <FormattedMessage
             id="auth-email-verified-success"
             description="Email verified successfully"
@@ -855,7 +855,7 @@ function UsernameForm() {
               defaultMessage="Choose your username"
             />
           </h2>
-          <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
+          <p className="text-sm text-gray-600 dark:text-blog-white mb-2">
             <FormattedMessage
               id="auth-choose-username-subtitle"
               description="Choose username subtitle"
@@ -863,7 +863,7 @@ function UsernameForm() {
             />
           </p>
           <div className="mt-3 pt-3 border-t border-blue-200 dark:border-blue-700">
-            <p className="text-xs text-gray-600 dark:text-gray-400">
+            <p className="text-xs text-gray-600 dark:text-blog-white">
               <FormattedMessage
                 id="auth-no-password-needed"
                 description="No password needed explanation"
@@ -878,7 +878,7 @@ function UsernameForm() {
       {/* Form */}
       <form onSubmit={onSubmit} className="space-y-6">
         <div>
-          <label htmlFor="username" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label htmlFor="username" className="block text-sm font-medium text-gray-700 dark:text-blog-white mb-2">
             <span className="after:content-['*'] after:ml-0.5 after:text-red-500">
               <FormattedMessage
                 id="auth-username-label"
@@ -891,7 +891,7 @@ function UsernameForm() {
           {/* Username input with preview */}
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
-              <span className="text-gray-400 dark:text-gray-500 text-xs font-mono">
+              <span className="text-gray-400 dark:text-blog-white text-xs font-mono">
                 {typeof window !== 'undefined' ? new URL(window.location.origin).hostname : ''}/
               </span>
             </div>
@@ -928,7 +928,7 @@ function UsernameForm() {
           
           {/* Requirements */}
           <div className="mt-2">
-            <p className="text-xs text-gray-500 dark:text-gray-400">
+            <p className="text-xs text-gray-500 dark:text-blog-white">
               <FormattedMessage
                 id="auth-username-requirements"
                 description="Username requirements"
@@ -941,7 +941,7 @@ function UsernameForm() {
         {/* Preview box */}
         {formValue && (
           <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-            <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
+            <p className="text-sm text-gray-600 dark:text-blog-white mb-1">
               <FormattedMessage
                 id="auth-profile-preview"
                 description="Profile preview"
@@ -1002,7 +1002,7 @@ function UsernameForm() {
                   defaultMessage="How to Sign In Next Time"
                 />
               </h4>
-              <ol className="text-xs text-gray-700 dark:text-gray-300 space-y-2 list-decimal list-inside">
+              <ol className="text-xs text-gray-700 dark:text-blog-white space-y-2 list-decimal list-inside">
                 <li>
                   <FormattedMessage
                     id="auth-signin-step-1"
@@ -1026,7 +1026,7 @@ function UsernameForm() {
                   />
                 </li>
               </ol>
-              <p className="mt-3 text-xs text-gray-600 dark:text-gray-400 italic">
+              <p className="mt-3 text-xs text-gray-600 dark:text-blog-white italic">
                 <FormattedMessage
                   id="auth-signin-note"
                   description="Sign in note"
@@ -1037,7 +1037,7 @@ function UsernameForm() {
           </div>
         </div>
 
-        <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+        <p className="text-xs text-gray-500 dark:text-blog-white text-center">
           <FormattedMessage
             id="auth-username-help"
             description="Username help text"

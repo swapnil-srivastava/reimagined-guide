@@ -28,7 +28,7 @@ function AdminEventsPage() {
                   defaultMessage="Admin Events"
                 />
               </h1>
-              <p className="text-gray-600 dark:text-gray-400 mt-1">
+              <p className="text-gray-600 dark:text-blog-white mt-1">
                 <FormattedMessage
                   id="admin-events-page-subtitle"
                   description="Manage events and RSVPs"

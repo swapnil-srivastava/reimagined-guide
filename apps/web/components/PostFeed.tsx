@@ -133,7 +133,7 @@ function PostItem({ post, admin = false, approve = false }) {
                   <span className="text-sm font-medium text-gray-900 dark:text-white hover:text-fun-blue-500 dark:hover:text-caribbean-green-300 transition-colors">
                     {post.username}
                   </span>
-                  <span className="text-xs text-gray-500 dark:text-gray-400">
+                  <span className="text-xs text-gray-500 dark:text-blog-white">
                     {moment(post.created_at).format("MMM DD")} · {minutesToRead} <FormattedMessage
                       id="postfeed-min-read"
                       description="min read"
@@ -208,7 +208,7 @@ function PostItem({ post, admin = false, approve = false }) {
               
               {/* Content Preview - Compact */}
               <div 
-                className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 leading-relaxed mb-3"
+                className="text-sm text-gray-600 dark:text-blog-white line-clamp-2 leading-relaxed mb-3"
                 dangerouslySetInnerHTML={{ __html: post?.content.substring(0, 120) + "..." }}
               />
             </div>
@@ -216,7 +216,7 @@ function PostItem({ post, admin = false, approve = false }) {
 
           {/* Footer - Compact */}
           <div className="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-fun-blue-500">
-            <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
+            <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-blog-white">
               <span>{wordCount} <FormattedMessage
                 id="postfeed-words"
                 description="Words"

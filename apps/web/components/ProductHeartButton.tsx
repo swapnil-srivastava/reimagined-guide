@@ -184,7 +184,7 @@ export default function HeartButton({ product }: HeartButtonProps) {
       className={`w-10 h-10 flex items-center justify-center rounded-full ${
         liked 
           ? "bg-hit-pink-50 dark:bg-hit-pink-900/20 text-hit-pink-500" 
-          : "bg-white dark:bg-fun-blue-700 text-gray-400 dark:text-gray-300"
+          : "bg-white dark:bg-fun-blue-700 text-gray-400 dark:text-blog-white"
       } shadow-md transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-hit-pink-300 focus:ring-offset-2 ${
         loading ? "animate-pulse" : ""
       } ${!initialized ? "opacity-50" : "opacity-100"}`}
@@ -205,7 +205,7 @@ export default function HeartButton({ product }: HeartButtonProps) {
       <FontAwesomeIcon
         icon={liked ? faHeart : faHeartRegular}
         className={`w-5 h-5 ${
-          liked ? "text-hit-pink-500 dark:text-hit-pink-400" : "text-gray-500 dark:text-gray-400"
+          liked ? "text-hit-pink-500 dark:text-hit-pink-400" : "text-gray-500 dark:text-blog-white"
         } transition-colors ${loading ? "opacity-70" : ""}`}
       />
     </button>

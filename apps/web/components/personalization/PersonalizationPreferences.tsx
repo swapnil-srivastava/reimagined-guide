@@ -78,7 +78,7 @@ export default function PersonalizationPreferences() {
             onChange={(e) => updateSettings('enableRecommendations', e.target.checked)}
             className="mr-2 h-5 w-5"
           />
-          <label htmlFor="enableRecommendations" className="text-gray-700 dark:text-gray-200">
+          <label htmlFor="enableRecommendations" className="text-gray-700 dark:text-blog-white">
             <FormattedMessage
               id="personalization_recommendations"
               defaultMessage="Enable personalized recommendations"
@@ -94,7 +94,7 @@ export default function PersonalizationPreferences() {
             onChange={(e) => updateSettings('enableHistory', e.target.checked)}
             className="mr-2 h-5 w-5"
           />
-          <label htmlFor="enableHistory" className="text-gray-700 dark:text-gray-200">
+          <label htmlFor="enableHistory" className="text-gray-700 dark:text-blog-white">
             <FormattedMessage
               id="personalization_history"
               defaultMessage="Remember browsing history"
@@ -112,7 +112,7 @@ export default function PersonalizationPreferences() {
         </div>
       )}
       
-      <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+      <p className="mt-4 text-sm text-gray-600 dark:text-blog-white">
         <FormattedMessage
           id="personalization_privacy_note"
           defaultMessage="Your preferences are stored in a cookie on your device. See our {privacyLink} for more information."

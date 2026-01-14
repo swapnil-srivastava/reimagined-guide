@@ -135,7 +135,7 @@ const Pricing = () => {
                     defaultMessage="Basic Consultation"
                   />
                 </h2>
-                <p className="font-thin text-xs leading-loose text-gray-600 dark:text-gray-300">
+                <p className="font-thin text-xs leading-loose text-gray-600 dark:text-blog-white">
                   <FormattedMessage
                     id="pricing-basic-consultation-subtitle"
                     description="Ideal For: Small businesses and startups needing foundational advice"
@@ -213,7 +213,7 @@ const Pricing = () => {
                     defaultMessage="Basic Package"
                   />
                 </h2>
-                <p className="font-thin text-xs leading-loose text-gray-100 dark:text-gray-600">
+                <p className="font-thin text-xs leading-loose text-gray-100 dark:text-blog-white">
                   <FormattedMessage
                     id="pricing-basic-package-subtitle"
                     description="Ideal For: Growing businesses looking to optimize their online presence."
@@ -276,7 +276,7 @@ const Pricing = () => {
                     defaultMessage="Standard Package"
                   />
                 </h2>
-                <p className="font-thin text-xs leading-loose text-gray-600 dark:text-gray-300">
+                <p className="font-thin text-xs leading-loose text-gray-600 dark:text-blog-white">
                   <FormattedMessage
                     id="pricing-standard-package-description"
                     description="Ideal For: Businesses with specific, large-scale projects"
@@ -351,7 +351,7 @@ const Pricing = () => {
                     defaultMessage="Premium Package"
                   />
                 </h3>
-                <p className="mt-6 text-base leading-7 text-gray-600 dark:text-gray-300">
+                <p className="mt-6 text-base leading-7 text-gray-600 dark:text-blog-white">
                   <FormattedMessage
                     id="pricing-premium-package-description"
                     description="Unlock the expertise with a single investment - pay once, and your success is in good hands."
@@ -370,7 +370,7 @@ const Pricing = () => {
                 </div>
                 <ul
                   role="list"
-                  className="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-gray-600 dark:text-gray-300 sm:grid-cols-2 sm:gap-6"
+                  className="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-gray-600 dark:text-blog-white sm:grid-cols-2 sm:gap-6"
                 >
                   {includedFeatures.map((feature) => (
                     <li key={feature} className="flex gap-x-3 items-center">
@@ -383,7 +383,7 @@ const Pricing = () => {
               <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
                 <div className="rounded-2xl bg-gray-50 dark:bg-fun-blue-700 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
                   <div className="mx-auto max-w-xs px-8">
-                    <p className="text-base font-semibold text-gray-600 dark:text-gray-300">
+                    <p className="text-base font-semibold text-gray-600 dark:text-blog-white">
                       <FormattedMessage
                         id="pricing-pay-once-own-forever"
                         description="Pay once, own it forever"
@@ -392,7 +392,7 @@ const Pricing = () => {
                     </p>
                     <p className="mt-6 flex items-baseline justify-center gap-x-2">
                       <span className="text-5xl font-bold tracking-tight text-blog-black dark:text-blog-white">€3500</span>
-                      <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600 dark:text-gray-400">EURO</span>
+                      <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600 dark:text-blog-white">EURO</span>
                     </p>
                     <CheckoutButton 
                       priceId={'price_1PepHnRomQdDoc7ILk13S3dE'} 
@@ -402,7 +402,7 @@ const Pricing = () => {
                       package_id="package_premium"
                       order_type="service_package"
                     />
-                    <p className="mt-6 text-xs leading-5 text-gray-600 dark:text-gray-400">
+                    <p className="mt-6 text-xs leading-5 text-gray-600 dark:text-blog-white">
                       <FormattedMessage
                         id="pricing-invoices-receipts-available"
                         description="Invoices and receipts available for easy company reimbursement"

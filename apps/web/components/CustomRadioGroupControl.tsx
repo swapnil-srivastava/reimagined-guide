@@ -30,7 +30,7 @@ const CustomRadioGroupControl = ({ data, handleChange, path }: ControlProps) => 
                 {option.name}
               </span>
               {option.deliveryPrice > 0 ? (
-                <span className="text-sm font-semibold text-gray-600 dark:text-gray-300">
+                <span className="text-sm font-semibold text-gray-600 dark:text-blog-white">
                   € {option.deliveryPrice.toFixed(2)}
                 </span>
               ) : (
@@ -40,7 +40,7 @@ const CustomRadioGroupControl = ({ data, handleChange, path }: ControlProps) => 
               )}
             </div>
             {option.description && (
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+              <p className="text-sm text-gray-500 dark:text-blog-white mt-1">
                 {option.description}
               </p>
             )}

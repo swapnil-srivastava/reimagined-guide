@@ -77,7 +77,7 @@ const CookiesBanner = () => {
                             </span>
                         </div>
                         <div className="pb-4">
-                            <p className="text-gray-700 dark:text-gray-300">
+                            <p className="text-gray-700 dark:text-blog-white">
                                 <FormattedMessage
                                     id="cookies_description"
                                     description="Cookies Description" // Description should be a string literal

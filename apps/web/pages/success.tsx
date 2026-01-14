@@ -54,7 +54,7 @@ function Success() {
           <div className="p-8">
             {/* Success Message */}
             <div className="text-center mb-8">
-              <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
+              <p className="text-gray-600 dark:text-blog-white text-lg leading-relaxed">
                 <FormattedMessage
                   id="success-order-confirmed"
                   description="Order confirmed message"
@@ -120,7 +120,7 @@ function Success() {
 
           {/* Footer */}
           <div className="bg-gray-50 dark:bg-fun-blue-700 px-8 py-4 text-center border-t border-gray-100 dark:border-fun-blue-600">
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-gray-500 dark:text-blog-white">
               <FormattedMessage
                 id="success-questions"
                 description="Questions contact message"

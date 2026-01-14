@@ -74,7 +74,7 @@ function UserProfilePage({ userProfile, posts }) {
               className={`py-3 px-1 border-b-2 font-medium text-sm transition-all ${
                 activeTab === 'posts'
                   ? 'border-fun-blue-500 text-fun-blue-600 dark:border-fun-blue-300 dark:text-fun-blue-300'
-                  : 'border-transparent text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white hover:border-gray-300 dark:hover:border-fun-blue-400'
+                  : 'border-transparent text-gray-500 dark:text-blog-white hover:text-gray-700 dark:hover:text-white hover:border-gray-300 dark:hover:border-fun-blue-400'
               }`}
             >
               <FormattedMessage
@@ -88,7 +88,7 @@ function UserProfilePage({ userProfile, posts }) {
               className={`py-3 px-1 border-b-2 font-medium text-sm transition-all ${
                 activeTab === 'about'
                   ? 'border-fun-blue-500 text-fun-blue-600 dark:border-fun-blue-300 dark:text-fun-blue-300'
-                  : 'border-transparent text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white hover:border-gray-300 dark:hover:border-fun-blue-400'
+                  : 'border-transparent text-gray-500 dark:text-blog-white hover:text-gray-700 dark:hover:text-white hover:border-gray-300 dark:hover:border-fun-blue-400'
               }`}
             >
               <FormattedMessage
@@ -120,7 +120,7 @@ function UserProfilePage({ userProfile, posts }) {
                   defaultMessage="No posts yet"
                 />
               </h3>
-              <p className="text-gray-500 dark:text-gray-200">
+              <p className="text-gray-500 dark:text-blog-white">
                 <FormattedMessage
                   id="user-profile-no-posts-description"
                   description="This user hasn't published any posts yet"
@@ -147,7 +147,7 @@ function UserProfilePage({ userProfile, posts }) {
               <div className="text-2xl font-bold text-blog-black dark:text-blog-white">
                 {posts ? posts.length : 0}
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">
+              <div className="text-sm text-gray-600 dark:text-blog-white">
                 <FormattedMessage
                   id="user-profile-stats-posts"
                   description="Published Posts"
@@ -159,7 +159,7 @@ function UserProfilePage({ userProfile, posts }) {
               <div className="text-2xl font-bold text-blog-black dark:text-blog-white">
                 {userProfile?.created_at ? new Date(userProfile.created_at).getFullYear() : 'N/A'}
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">
+              <div className="text-sm text-gray-600 dark:text-blog-white">
                 <FormattedMessage
                   id="user-profile-stats-joined"
                   description="Joined"
@@ -175,7 +175,7 @@ function UserProfilePage({ userProfile, posts }) {
                   defaultMessage="Active"
                 />
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">
+              <div className="text-sm text-gray-600 dark:text-blog-white">
                 <FormattedMessage
                   id="user-profile-stats-status"
                   description="Status"
@@ -194,7 +194,7 @@ function UserProfilePage({ userProfile, posts }) {
                 defaultMessage="Bio"
               />
             </h4>
-            <p className="text-gray-600 dark:text-gray-200">
+            <p className="text-gray-600 dark:text-blog-white">
               {userProfile?.bio || (
                 <FormattedMessage
                   id="user-profile-no-bio"

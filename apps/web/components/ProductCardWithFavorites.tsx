@@ -24,7 +24,7 @@ const ProductCardWithFavorites = ({ product, showFavoriteButton = false, onFavor
     console.warn('ProductCardWithFavorites received null or undefined product');
     return (
       <div className="w-full pb-5 rounded-3xl shadow-lg overflow-visible bg-gray-100 dark:bg-fun-blue-700 p-4">
-        <p className="text-center text-gray-500 dark:text-gray-400">Product data unavailable</p>
+        <p className="text-center text-gray-500 dark:text-blog-white">Product data unavailable</p>
       </div>
     );
   }
@@ -45,7 +45,7 @@ const ProductCardWithFavorites = ({ product, showFavoriteButton = false, onFavor
               />
             ) : (
               <div className="flex items-center justify-center h-full bg-gray-200 dark:bg-fun-blue-800">
-                <span className="text-gray-500 dark:text-gray-400">
+                <span className="text-gray-500 dark:text-blog-white">
                   <FormattedMessage
                     id="product-card-no-image"
                     description="Text shown when product has no image"
@@ -73,7 +73,7 @@ const ProductCardWithFavorites = ({ product, showFavoriteButton = false, onFavor
           <CurrencyPriceComponent price={product.price} />
         </div>
         
-        <p className="text-gray-600 dark:text-gray-600 text-sm mb-4 line-clamp-2 h-10">
+        <p className="text-gray-600 dark:text-blog-white text-sm mb-4 line-clamp-2 h-10">
           {product.description}
         </p>
         

@@ -339,7 +339,7 @@ function EventManagement() {
               defaultMessage="Access Denied"
             />
           </h2>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-gray-600 dark:text-blog-white">
             <FormattedMessage
               id="admin-events-access-denied-message"
               description="Access denied message"
@@ -372,7 +372,7 @@ function EventManagement() {
                 defaultMessage="Event Management"
               />
             </h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-2">
+            <p className="text-gray-600 dark:text-blog-white mt-2">
               <FormattedMessage
                 id="admin-events-subtitle"
                 description="Create and manage your events"
@@ -402,7 +402,7 @@ function EventManagement() {
                 <FontAwesomeIcon icon={faCalendar} className="w-5 h-5 text-green-600 dark:text-green-400" />
               </div>
               <div className="ml-4">
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-600 dark:text-blog-white">
                   <FormattedMessage
                     id="admin-events-total"
                     description="Total Events"
@@ -420,7 +420,7 @@ function EventManagement() {
                 <FontAwesomeIcon icon={faClock} className="w-5 h-5 text-blue-600 dark:text-blue-400" />
               </div>
               <div className="ml-4">
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-600 dark:text-blog-white">
                   <FormattedMessage
                     id="admin-events-upcoming"
                     description="Upcoming"
@@ -440,7 +440,7 @@ function EventManagement() {
                 <FontAwesomeIcon icon={faUsers} className="w-5 h-5 text-purple-600 dark:text-purple-400" />
               </div>
               <div className="ml-4">
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-600 dark:text-blog-white">
                   <FormattedMessage
                     id="admin-events-public"
                     description="Public Events"
@@ -502,7 +502,7 @@ function EventManagement() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {/* Status Filter */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-blog-white mb-2">
                   <FormattedMessage
                     id="admin-events-filter-status"
                     description="Status"
@@ -540,7 +540,7 @@ function EventManagement() {
 
               {/* Sort By */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-blog-white mb-2">
                   <FormattedMessage
                     id="admin-events-sort-by"
                     description="Sort By"
@@ -571,7 +571,7 @@ function EventManagement() {
 
               {/* Sort Order */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-blog-white mb-2">
                   <FormattedMessage
                     id="admin-events-sort-order"
                     description="Order"
@@ -629,14 +629,14 @@ function EventManagement() {
                   onClick={resetForm}
                   className="p-2 hover:bg-gray-100 dark:hover:bg-fun-blue-700 rounded-lg transition-colors"
                 >
-                  <FontAwesomeIcon icon={faTimes} className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                  <FontAwesomeIcon icon={faTimes} className="w-5 h-5 text-gray-500 dark:text-blog-white" />
                 </button>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Title */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-blog-white mb-2">
                     <FormattedMessage
                       id="admin-events-form-title"
                       description="Event Title *"
@@ -660,7 +660,7 @@ function EventManagement() {
 
                 {/* Description */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-blog-white mb-2">
                     <FormattedMessage
                       id="admin-events-form-description"
                       description="Description"
@@ -684,7 +684,7 @@ function EventManagement() {
                 {/* Date and Time */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-blog-white mb-2">
                       <FormattedMessage
                         id="admin-events-form-date"
                         description="Date *"
@@ -702,7 +702,7 @@ function EventManagement() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-blog-white mb-2">
                       <FormattedMessage
                         id="admin-events-form-time"
                         description="Time *"
@@ -746,7 +746,7 @@ function EventManagement() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-blog-white mb-2">
                       <FormattedMessage
                         id="admin-events-form-max-attendees"
                         description="Max Attendees"
@@ -771,7 +771,7 @@ function EventManagement() {
 
                 {/* Image URL */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-blog-white mb-2">
                     <FormattedMessage
                       id="admin-events-form-image"
                       description="Image URL"
@@ -802,7 +802,7 @@ function EventManagement() {
                     onChange={(e) => setFormData({...formData, is_public: e.target.checked})}
                     className="h-4 w-4 text-fun-blue-600 focus:ring-fun-blue-500 border-gray-300 dark:border-fun-blue-400 rounded"
                   />
-                  <label htmlFor="is_public" className="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                  <label htmlFor="is_public" className="ml-2 text-sm text-gray-700 dark:text-blog-white">
                     <FormattedMessage
                       id="admin-events-form-public"
                       description="Make this event public"
@@ -844,7 +844,7 @@ function EventManagement() {
                     type="button"
                     onClick={resetForm}
                     disabled={submitting}
-                    className="px-6 py-3 bg-gray-100 dark:bg-fun-blue-700 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-fun-blue-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-6 py-3 bg-gray-100 dark:bg-fun-blue-700 text-gray-700 dark:text-blog-white rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-fun-blue-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <FormattedMessage
                       id="admin-events-cancel-btn"
@@ -875,7 +875,7 @@ function EventManagement() {
                         {event.title}
                       </h3>
                       {event.description && (
-                        <p className="text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
+                        <p className="text-gray-600 dark:text-blog-white mb-3 line-clamp-2">
                           {event.description}
                         </p>
                       )}
@@ -885,7 +885,7 @@ function EventManagement() {
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                         event.is_public ?? true
                           ? 'bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-200'
-                          : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200'
+                          : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-blog-white'
                       }`}>
                         {event.is_public ?? true ? (
                           <FontAwesomeIcon icon={faEye} className="w-3 h-3 mr-1" />
@@ -897,15 +897,15 @@ function EventManagement() {
 
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                         isEventPast(event.date)
-                          ? 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200'
-                          : 'bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200'
+                          ? 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-blog-white'
+                          : 'bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200' 
                       }`}>
                         {isEventPast(event.date) ? 'Past' : 'Upcoming'}
                       </span>
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+                  <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-blog-white">
                     <div className="flex items-center gap-1">
                       <FontAwesomeIcon icon={faCalendar} className="w-4 h-4" />
                       <span>{formatDate(event.date)}</span>
@@ -962,7 +962,7 @@ function EventManagement() {
           /* Empty State */
           <div className="text-center py-12">
             <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4">
-              <FontAwesomeIcon icon={faCalendar} className="w-12 h-12 text-gray-400 dark:text-gray-500" />
+              <FontAwesomeIcon icon={faCalendar} className="w-12 h-12 text-gray-400 dark:text-blog-white" />
             </div>
             <h3 className="text-lg font-medium text-blog-black dark:text-blog-white mb-2">
               {searchTerm || filterStatus !== 'all' ? (
@@ -979,7 +979,7 @@ function EventManagement() {
                 />
               )}
             </h3>
-            <p className="text-gray-500 dark:text-gray-400 mb-6">
+            <p className="text-gray-500 dark:text-blog-white mb-6">
               {searchTerm || filterStatus !== 'all' ? (
                 <FormattedMessage
                   id="admin-events-no-results-description"

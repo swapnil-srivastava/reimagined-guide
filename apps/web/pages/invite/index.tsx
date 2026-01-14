@@ -164,7 +164,7 @@ function Invite({ seoData }: InvitePageProps) {
         );
       case 'past':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full">
+          <span className="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-blog-white rounded-full">
             <FontAwesomeIcon icon={faHistory} className="w-3 h-3" />
             <FormattedMessage id="event-status-past" defaultMessage="Past Event" />
           </span>
@@ -351,7 +351,7 @@ function Invite({ seoData }: InvitePageProps) {
                                   </span>
                                   <FontAwesomeIcon 
                                     icon={collapsedYears.has(parseInt(year)) ? faChevronDown : faChevronUp} 
-                                    className="text-gray-500 dark:text-gray-400 text-sm"
+                                    className="text-gray-500 dark:text-blog-white text-sm"
                                   />
                                 </button>
                               </div>
@@ -413,7 +413,7 @@ function Invite({ seoData }: InvitePageProps) {
                                             {/* Date Card */}
                                             <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-2 sm:p-3 lg:p-4 text-center">
                                               <FontAwesomeIcon icon={faCalendar} className="text-fun-blue-500 dark:text-blog-white text-sm sm:text-base lg:text-xl mb-1 sm:mb-2" />
-                                              <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 uppercase tracking-wide mb-1">
+                                              <div className="text-xs sm:text-sm text-gray-600 dark:text-blog-white uppercase tracking-wide mb-1">
                                                 <FormattedMessage
                                                   id="invite-date-label"
                                                   description="Date"
@@ -428,7 +428,7 @@ function Invite({ seoData }: InvitePageProps) {
                                             {/* Time Card */}
                                             <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-2 sm:p-3 lg:p-4 text-center">
                                               <FontAwesomeIcon icon={faClock} className="text-fun-blue-500 dark:text-blog-white text-sm sm:text-base lg:text-xl mb-1 sm:mb-2" />
-                                              <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 uppercase tracking-wide mb-1">
+                                              <div className="text-xs sm:text-sm text-gray-600 dark:text-blog-white uppercase tracking-wide mb-1">
                                                 <FormattedMessage
                                                   id="invite-time-label"
                                                   description="Time"
@@ -448,7 +448,7 @@ function Invite({ seoData }: InvitePageProps) {
                                               className="col-span-2 sm:col-span-1 bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-2 sm:p-3 lg:p-4 text-center hover:bg-gray-100 dark:hover:bg-fun-blue-800 transition-colors duration-200 active:scale-95 block group/location"
                                             >
                                               <FontAwesomeIcon icon={faMapMarkerAlt} className="text-fun-blue-500 dark:text-blog-white text-sm sm:text-base lg:text-xl mb-1 sm:mb-2 group-hover/location:text-fun-blue-600 dark:group-hover/location:text-blog-white" />
-                                              <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 uppercase tracking-wide mb-1">
+                                              <div className="text-xs sm:text-sm text-gray-600 dark:text-blog-white uppercase tracking-wide mb-1">
                                                 <FormattedMessage
                                                   id="invite-location-label"
                                                   description="Location"
@@ -458,7 +458,7 @@ function Invite({ seoData }: InvitePageProps) {
                                               <div className="text-xs sm:text-sm lg:text-base font-semibold text-blog-black dark:text-blog-white group-hover/location:text-fun-blue-500">
                                                 {inviteEvent.location}
                                               </div>
-                                              <div className="text-xs text-gray-500 dark:text-gray-400 mt-1 sm:hidden">
+                                              <div className="text-xs text-gray-500 dark:text-blog-white mt-1 sm:hidden">
                                                 <FormattedMessage
                                                   id="invite-tap-for-directions"
                                                   description="Tap for directions"
@@ -639,10 +639,10 @@ function Invite({ seoData }: InvitePageProps) {
                                       onClick={() => toggleYearCollapse(parseInt(year))}
                                       className="flex items-center gap-2 sm:gap-3 hover:text-fun-blue-500 transition-colors duration-200 active:scale-95"
                                     >
-                                      <h3 className="text-base sm:text-lg lg:text-xl xl:text-2xl font-semibold text-gray-600 dark:text-gray-300">
+                                      <h3 className="text-base sm:text-lg lg:text-xl xl:text-2xl font-semibold text-gray-600 dark:text-blog-white">
                                         {year}
                                       </h3>
-                                      <span className="text-xs sm:text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-full">
+                                      <span className="text-xs sm:text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-blog-white px-2 py-1 rounded-full">
                                         {yearEvents.length} {yearEvents.length === 1 ? 'event' : 'events'}
                                       </span>
                                       <FontAwesomeIcon 
@@ -703,7 +703,7 @@ function Invite({ seoData }: InvitePageProps) {
                                               {/* Past Event Quick Info */}
                                               <div className="flex items-center justify-between mb-3 sm:mb-4">
                                                 <div className="flex-1">
-                                                  <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm text-gray-600 dark:text-gray-300">
+                                                  <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm text-gray-600 dark:text-blog-white">
                                                     <div className="flex items-center gap-1">
                                                       <FontAwesomeIcon icon={faClock} className="text-gray-600 dark:text-blog-white text-xs" />
                                                       <span>{formatTime(inviteEvent.time)}</span>
@@ -715,7 +715,7 @@ function Invite({ seoData }: InvitePageProps) {
                                                     </div>
                                                   </div>
                                                   {inviteEvent.description && (
-                                                    <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 line-clamp-2 mt-1 sm:mt-2">
+                                                    <p className="text-xs sm:text-sm text-gray-500 dark:text-blog-white line-clamp-2 mt-1 sm:mt-2">
                                                       {inviteEvent.description}
                                                     </p>
                                                   )}
@@ -809,7 +809,7 @@ function Invite({ seoData }: InvitePageProps) {
                                                   href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(inviteEvent.location)}`} 
                                                   target="_blank" 
                                                   rel="noopener noreferrer"
-                                                  className="flex items-center justify-center gap-2 px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200 active:scale-95 text-xs sm:text-sm"
+                                                  className="flex items-center justify-center gap-2 px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-blog-white rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200 active:scale-95 text-xs sm:text-sm"
                                                 >
                                                   <FontAwesomeIcon icon={faMapMarkerAlt} className="text-gray-600 dark:text-blog-white text-xs" />
                                                   <span className="font-medium">
@@ -853,7 +853,7 @@ function Invite({ seoData }: InvitePageProps) {
                       defaultMessage="No Events Available"
                     />
                   </h3>
-                  <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">
+                  <p className="text-sm sm:text-base text-gray-600 dark:text-blog-white">
                     <FormattedMessage
                       id="invite-no-events-description"
                       description="There are no upcoming events at the moment. Check back soon!"
@@ -876,7 +876,7 @@ function Invite({ seoData }: InvitePageProps) {
                 defaultMessage="More Features Coming Soon"
               />
             </h2>
-            <p className="text-sm sm:text-base lg:text-lg text-gray-600 dark:text-gray-300 mb-4 sm:mb-6 lg:mb-8 px-2">
+            <p className="text-sm sm:text-base lg:text-lg text-gray-600 dark:text-blog-white mb-4 sm:mb-6 lg:mb-8 px-2">
               <FormattedMessage
                 id="invite-coming-soon-description"
                 description="We're working on exciting new features for event management"

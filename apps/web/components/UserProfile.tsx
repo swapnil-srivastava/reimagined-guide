@@ -10,7 +10,7 @@ export default function UserProfile({ user }) {
   return (
     <div className="flex flex-col items-center justify-center gap-2 text-blog-black dark:text-blog-white">
       <img src={user.avatar_url || "/hacker.png"} className="card-img-center" />
-      <p className="text-gray-600 dark:text-gray-300">
+      <p className="text-gray-600 dark:text-blog-white">
         <i>@{user.username}</i>
       </p>
       <h1 className="text-2xl font-bold text-blog-black dark:text-blog-white">{user.full_name || (
@@ -52,7 +52,7 @@ export default function UserProfile({ user }) {
             <FontAwesomeIcon 
               icon={faGithub} 
               size="2x" 
-              className="text-gray-800 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+              className="text-gray-800 dark:text-white hover:text-gray-600 dark:hover:text-blog-white transition-colors"
             />
           </a>
         </div>

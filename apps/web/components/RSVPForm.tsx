@@ -290,7 +290,7 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
               defaultMessage="RSVP for Event"
             />
           </Typography>
-          <Typography variant="body2" className="text-gray-600 dark:text-gray-300 mt-2">
+          <Typography variant="body2" className="text-gray-600 dark:text-blog-white mt-2">
             <FormattedMessage
               id="rsvpform-subtitle"
               description="Let us know if you can join us"

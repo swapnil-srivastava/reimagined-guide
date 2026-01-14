@@ -208,7 +208,7 @@ export default function FavoritesPage() {
                   <button
                     onClick={() => handlePageChange(pagination.page - 1)}
                     disabled={pagination.page === 1}
-                    className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-fun-blue-600 text-gray-700 dark:text-gray-300 transition-colors hover:bg-hit-pink-100 dark:hover:bg-fun-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-fun-blue-600 text-gray-700 dark:text-blog-white transition-colors hover:bg-hit-pink-100 dark:hover:bg-fun-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
                     aria-label="Previous page"
                   >
                     <FontAwesomeIcon icon={faChevronLeft} />
@@ -235,7 +235,7 @@ export default function FavoritesPage() {
                           className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
                             pageNum === pagination.page
                               ? 'bg-hit-pink-500 text-white'
-                              : 'bg-gray-100 dark:bg-fun-blue-600 text-gray-700 dark:text-gray-300 hover:bg-hit-pink-100 dark:hover:bg-fun-blue-700'
+                              : 'bg-gray-100 dark:bg-fun-blue-600 text-gray-700 dark:text-blog-white hover:bg-hit-pink-100 dark:hover:bg-fun-blue-700'
                           }`}
                         >
                           {pageNum}
@@ -247,7 +247,7 @@ export default function FavoritesPage() {
                   <button
                     onClick={() => handlePageChange(pagination.page + 1)}
                     disabled={pagination.page === pagination.totalPages}
-                    className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-fun-blue-600 text-gray-700 dark:text-gray-300 transition-colors hover:bg-hit-pink-100 dark:hover:bg-fun-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-fun-blue-600 text-gray-700 dark:text-blog-white transition-colors hover:bg-hit-pink-100 dark:hover:bg-fun-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
                     aria-label="Next page"
                   >
                     <FontAwesomeIcon icon={faChevronRight} />

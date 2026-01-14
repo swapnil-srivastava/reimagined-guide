@@ -14,7 +14,7 @@ export default function Footer() {
           
           {/* Copyright and Built with Love - Mobile: stacked, Desktop: left side */}
           <div className="flex flex-col gap-1 text-center sm:text-left">
-            <div className="flex items-center justify-center sm:justify-start gap-1 text-xs text-gray-600 dark:text-gray-300">
+            <div className="flex items-center justify-center sm:justify-start gap-1 text-xs text-gray-600 dark:text-blog-white">
               <span>&copy; {new Date().getFullYear()}</span>
               <span className="hidden sm:inline">swapnilsrivastava.eu</span>
               <span className="sm:hidden">swapnilsrivastava.eu</span>
@@ -49,7 +49,7 @@ export default function Footer() {
           <div className="flex items-center justify-center gap-4 sm:gap-6">
             <Link 
               href="/privacy-policy" 
-              className="flex items-center gap-1 text-xs text-gray-600 dark:text-gray-300 hover:text-fun-blue-500 dark:hover:text-caribbean-green-500 transition-colors duration-200"
+              className="flex items-center gap-1 text-xs text-gray-600 dark:text-blog-white hover:text-fun-blue-500 dark:hover:text-caribbean-green-500 transition-colors duration-200"
             >
               <FontAwesomeIcon icon={faShield} className="w-3 h-3" />
               <FormattedMessage
@@ -61,7 +61,7 @@ export default function Footer() {
             
             <Link 
               href="/user-preferences" 
-              className="flex items-center gap-1 text-xs text-gray-600 dark:text-gray-300 hover:text-fun-blue-500 dark:hover:text-caribbean-green-500 transition-colors duration-200"
+              className="flex items-center gap-1 text-xs text-gray-600 dark:text-blog-white hover:text-fun-blue-500 dark:hover:text-caribbean-green-500 transition-colors duration-200"
             >
               <FontAwesomeIcon icon={faCog} className="w-3 h-3" />
               <FormattedMessage
@@ -73,7 +73,7 @@ export default function Footer() {
             
             <Link 
               href="/technology" 
-              className="flex items-center gap-1 text-xs text-gray-600 dark:text-gray-300 hover:text-fun-blue-500 dark:hover:text-caribbean-green-500 transition-colors duration-200"
+              className="flex items-center gap-1 text-xs text-gray-600 dark:text-blog-white hover:text-fun-blue-500 dark:hover:text-caribbean-green-500 transition-colors duration-200"
             >
               <FontAwesomeIcon icon={faGlobe} className="w-3 h-3" />
               <FormattedMessage

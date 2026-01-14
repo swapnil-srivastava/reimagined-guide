@@ -122,7 +122,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => 
               <div className="flex items-center gap-4 mb-4">
                 <Link 
                   href="/products"
-                  className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-fun-blue-500 dark:hover:text-blog-white transition-colors duration-200"
+                  className="flex items-center gap-2 text-gray-600 dark:text-blog-white hover:text-fun-blue-500 dark:hover:text-blog-white transition-colors duration-200"
                 >
                   <FontAwesomeIcon icon={faArrowLeft} className="w-4 h-4" />
                   <FormattedMessage
@@ -242,7 +242,7 @@ function CartItemCard({ cartItem, onDelete }: {
               <h3 className="text-lg font-semibold text-blog-black dark:text-blog-white truncate">
                 {cartItem.name}
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 line-clamp-2">
+              <p className="text-sm text-gray-600 dark:text-blog-white mt-1 line-clamp-2">
                 {cartItem.description}
               </p>
             </div>
@@ -298,7 +298,7 @@ function EmptyCartMessage() {
         />
       </h3>
       
-      <p className="text-gray-600 dark:text-gray-300 mb-6">
+      <p className="text-gray-600 dark:text-blog-white mb-6">
         <FormattedMessage
           id="cart-page-empty-cart"
           description="Please add items into the shopping cart"
@@ -354,7 +354,7 @@ function OrderSummary({
       <div className="space-y-4 mb-6">
         {/* Subtotal */}
         <div className="flex justify-between items-center py-2 border-b border-gray-100 dark:border-fun-blue-600">
-          <span className="text-gray-600 dark:text-gray-300 font-medium">
+          <span className="text-gray-600 dark:text-blog-white font-medium">
             <FormattedMessage
               id="calculate-total-subtotal-text"
               description="Subtotal"
@@ -368,7 +368,7 @@ function OrderSummary({
 
         {/* Tax */}
         <div className="flex justify-between items-center py-2 border-b border-gray-100 dark:border-fun-blue-600">
-          <span className="text-gray-600 dark:text-gray-300 font-medium">
+          <span className="text-gray-600 dark:text-blog-white font-medium">
             <FormattedMessage
               id="calculate-total-tax-text"
               description="Tax (19%)"
@@ -382,7 +382,7 @@ function OrderSummary({
 
         {/* Delivery Cost */}
         <div className="flex justify-between items-center py-2 border-b border-gray-100 dark:border-fun-blue-600">
-          <span className="text-gray-600 dark:text-gray-300 font-medium">
+          <span className="text-gray-600 dark:text-blog-white font-medium">
             <FormattedMessage
               id="calculate-total-delivery-cost-text"
               description="Delivery Cost"
@@ -477,7 +477,7 @@ function AddressSection({
         </div>
       ) : hasValidAddress ? (
         <div className="flex justify-between items-start">
-          <div className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+          <div className="text-sm text-gray-600 dark:text-blog-white space-y-1">
             <div>{address.address_line1}</div>
             {address.address_line2 && <div>{address.address_line2}</div>}
             <div>
@@ -497,7 +497,7 @@ function AddressSection({
         </div>
       ) : (
         <div className="text-center py-4">
-          <p className="text-gray-600 dark:text-gray-300 mb-4">
+          <p className="text-gray-600 dark:text-blog-white mb-4">
             <FormattedMessage
               id="cart-no-address"
               description="No delivery address"

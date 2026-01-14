@@ -127,7 +127,7 @@ export const ConvertAnonymousUser: React.FC<ConvertAnonymousUserProps> = ({
           />
         </h3>
         
-        <p className="text-gray-600 dark:text-gray-300 text-sm">
+        <p className="text-gray-600 dark:text-blog-white text-sm">
           <FormattedMessage
             id="convert-anonymous-description"
             description="Create a permanent account to access your order history and save your preferences."
@@ -308,7 +308,7 @@ export const ConvertAnonymousUser: React.FC<ConvertAnonymousUserProps> = ({
             <button
               onClick={onCancel}
               disabled={isLoading}
-              className="w-full py-2 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+              className="w-full py-2 text-sm text-gray-500 dark:text-blog-white hover:text-gray-700 dark:hover:text-blog-white transition-colors"
             >
               <FormattedMessage
                 id="convert-anonymous-skip"

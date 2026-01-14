@@ -107,7 +107,7 @@ function ApprovePostList() {
                 defaultMessage="Content Moderation"
               />
             </h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-2">
+            <p className="text-gray-600 dark:text-blog-white mt-2">
               <FormattedMessage
                 id="approve-subtitle"
                 description="Review and approve user-submitted content"
@@ -119,7 +119,7 @@ function ApprovePostList() {
           {/* Quick Stats */}
           <div className="flex items-center gap-4">
             <div className="bg-white dark:bg-fun-blue-600 rounded-lg px-4 py-2 border border-gray-200 dark:border-fun-blue-500">
-              <div className="text-sm text-gray-600 dark:text-gray-400">
+              <div className="text-sm text-gray-600 dark:text-blog-white">
                 <FormattedMessage
                   id="approve-stats-total"
                   description="Total Posts"
@@ -129,7 +129,7 @@ function ApprovePostList() {
               <div className="text-xl font-bold text-gray-900 dark:text-white">{posts.length}</div>
             </div>
             <div className="bg-white dark:bg-fun-blue-600 rounded-lg px-4 py-2 border border-gray-200 dark:border-fun-blue-500">
-              <div className="text-sm text-gray-600 dark:text-gray-400">
+              <div className="text-sm text-gray-600 dark:text-blog-white">
                 <FormattedMessage
                   id="approve-stats-pending"
                   description="Pending"
@@ -141,7 +141,7 @@ function ApprovePostList() {
               </div>
             </div>
             <div className="bg-white dark:bg-fun-blue-600 rounded-lg px-4 py-2 border border-gray-200 dark:border-fun-blue-500">
-              <div className="text-sm text-gray-600 dark:text-gray-400">
+              <div className="text-sm text-gray-600 dark:text-blog-white">
                 <FormattedMessage
                   id="approve-stats-approved"
                   description="Approved"
@@ -164,7 +164,7 @@ function ApprovePostList() {
                 className={`py-2 px-1 border-b-2 font-medium text-sm ${
                   activeTab === 'all'
                     ? 'border-fun-blue-500 text-fun-blue-600 dark:text-caribbean-green-400'
-                    : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
+                    : 'border-transparent text-gray-500 dark:text-blog-white hover:text-gray-700 dark:hover:text-blog-white hover:border-gray-300 dark:hover:border-gray-600'
                 }`}
               >
                 <FormattedMessage
@@ -178,7 +178,7 @@ function ApprovePostList() {
                 className={`py-2 px-1 border-b-2 font-medium text-sm ${
                   activeTab === 'pending'
                     ? 'border-fun-blue-500 text-fun-blue-600 dark:text-caribbean-green-400'
-                    : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
+                    : 'border-transparent text-gray-500 dark:text-blog-white hover:text-gray-700 dark:hover:text-blog-white hover:border-gray-300 dark:hover:border-gray-600'
                 }`}
               >
                 <FormattedMessage
@@ -192,7 +192,7 @@ function ApprovePostList() {
                 className={`py-2 px-1 border-b-2 font-medium text-sm ${
                   activeTab === 'approved'
                     ? 'border-fun-blue-500 text-fun-blue-600 dark:text-caribbean-green-400'
-                    : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
+                    : 'border-transparent text-gray-500 dark:text-blog-white hover:text-gray-700 dark:hover:text-blog-white hover:border-gray-300 dark:hover:border-gray-600'
                 }`}
               >
                 <FormattedMessage
@@ -230,7 +230,7 @@ function ApprovePostList() {
       {loading ? (
         <div className="flex items-center justify-center py-12">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-fun-blue-500"></div>
-          <span className="ml-3 text-gray-600 dark:text-gray-400">
+          <span className="ml-3 text-gray-600 dark:text-blog-white">
             <FormattedMessage
               id="approve-loading"
               description="Loading posts..."
@@ -266,7 +266,7 @@ function ApprovePostList() {
             /* Empty State */
             <div className="text-center py-12">
               <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4">
-                <svg className="w-12 h-12 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-12 h-12 text-gray-400 dark:text-blog-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
@@ -297,7 +297,7 @@ function ApprovePostList() {
                   />
                 )}
               </h3>
-              <p className="text-gray-500 dark:text-gray-400 mb-6">
+              <p className="text-gray-500 dark:text-blog-white mb-6">
                 {searchTerm ? (
                   <FormattedMessage
                     id="approve-no-search-results-description"

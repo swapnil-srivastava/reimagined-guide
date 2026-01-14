@@ -340,7 +340,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
           </h1>
 
           {/* Bio */}
-          <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base max-w-xs leading-relaxed mb-2">
+          <p className="text-gray-600 dark:text-blog-white text-sm sm:text-base max-w-xs leading-relaxed mb-2">
             <FormattedMessage
               id="links-bio-line1"
               description="Bio first line"
@@ -353,7 +353,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
               defaultMessage="Building modern web experiences with passion"
             />
           </p>
-          <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm max-w-sm leading-relaxed">
+          <p className="text-gray-500 dark:text-blog-white text-xs sm:text-sm max-w-sm leading-relaxed">
             <FormattedMessage
               id="links-bio-line3"
               description="Bio third line"
@@ -477,7 +477,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
                     className={`text-sm ${
                       link.isPrimary
                         ? 'text-blog-black/70'
-                        : 'text-gray-500 dark:text-gray-400'
+                        : 'text-gray-500 dark:text-blog-white'
                     }`}
                   >
                     <FormattedMessage
@@ -494,7 +494,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
                   className={`w-4 h-4 flex-shrink-0 ${
                     link.isPrimary
                       ? 'text-blog-black/60'
-                      : 'text-gray-400 dark:text-gray-500'
+                      : 'text-gray-400 dark:text-blog-white'
                   }`}
                 />
               </>
@@ -545,7 +545,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
                     defaultMessage="Get Weekly Tech Insights"
                   />
                 </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-gray-500 dark:text-blog-white">
                   <FormattedMessage
                     id="links-lead-magnet-subtitle"
                     description="Lead magnet section subtitle"
@@ -638,7 +638,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
               })}
               className="w-14 h-14 flex items-center justify-center rounded-full
                        bg-white dark:bg-fun-blue-600 
-                       text-gray-600 dark:text-gray-300
+                       text-gray-600 dark:text-blog-white
                        hover:text-fun-blue-500 dark:hover:text-caribbean-green-400
                        drop-shadow-lg hover:drop-shadow-xl
                        transition-all duration-300 hover:scale-110"
@@ -649,7 +649,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
         </footer>
 
         {/* Attribution */}
-        <p className="text-xs text-gray-400 dark:text-gray-500 mb-8">
+        <p className="text-xs text-gray-400 dark:text-blog-white mb-8">
           <FormattedMessage
             id="links-attribution"
             description="Page attribution"
