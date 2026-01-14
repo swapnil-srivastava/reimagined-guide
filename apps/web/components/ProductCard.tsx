@@ -427,14 +427,14 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                                             {nameTrimmed}
                                         </Link>
                                     </h3>
-                                    {descriptionTrimmed && <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">{descriptionTrimmed}</p>}
+                                    {descriptionTrimmed && <p className="mt-2 text-sm text-blog-black dark:text-blog-white">{descriptionTrimmed}</p>}
                                 </div>
 
                                 <div className="mt-4 flex items-center justify-between">
                                     <div className="text-sm text-blog-black dark:text-blog-white">
                                         <CurrencyPriceComponent price={product.price} />
                                     </div>
-                                    <div className="text-xs text-gray-500 dark:text-gray-400">{createdAtDateFormat}</div>
+                                    <div className="text-xs text-blog-black dark:text-blog-white">{createdAtDateFormat}</div>
                                 </div>
                                 <div className="mt-3 flex justify-end">
                                     <button 
