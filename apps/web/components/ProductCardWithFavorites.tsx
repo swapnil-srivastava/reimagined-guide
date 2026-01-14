@@ -65,7 +65,7 @@ const ProductCardWithFavorites = ({ product, showFavoriteButton = false, onFavor
         )}
       </div>
       
-      <div className="p-4 bg-white dark:bg-fun-blue-600">
+      <div className="p-4 bg-white">
         <div className="flex items-center justify-between mb-2">
           <h3 className="text-lg font-semibold text-blog-black dark:text-blog-black truncate">
             {product.name}
@@ -89,7 +89,7 @@ const ProductCardWithFavorites = ({ product, showFavoriteButton = false, onFavor
             />
           </button>
           
-          <button className="w-10 h-10 bg-fun-blue-300 dark:bg-fun-blue-300 dark:text-blog-black rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
+          <button className="w-10 h-10 bg-fun-blue-300 dark:text-blog-black rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125">
             <FontAwesomeIcon icon={faShoppingCart} className="text-lg" />
           </button>
         </div>
