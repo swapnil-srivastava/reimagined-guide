@@ -179,11 +179,11 @@ body {
     background-color: var(--bg-primary, #fbfbfb);
   }
   
-  /* Ensure all text elements inherit the proper colors */
-  h1, h2, h3, h4, h5, h6, p, span, div, a, button, input, textarea, select, label {
+  /* Apply text color to typographic and form elements only (avoid broad selectors that override utility classes) */
+  h1, h2, h3, h4, h5, h6, p, span, a, label, input, textarea, select {
     color: var(--text-primary, #0a0a0a);
   }
-}
+} 
 
 h1 {
   font-size: 2rem;

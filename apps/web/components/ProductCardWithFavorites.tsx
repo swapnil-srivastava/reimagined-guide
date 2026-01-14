@@ -67,13 +67,13 @@ const ProductCardWithFavorites = ({ product, showFavoriteButton = false, onFavor
       
       <div className="p-4 bg-white">
         <div className="flex items-center justify-between mb-2">
-          <h3 className="text-lg font-semibold text-blog-black dark:text-black truncate">
+          <h3 className="text-lg font-semibold text-black truncate">
             {product.name}
           </h3>
           <CurrencyPriceComponent price={product.price} />
         </div>
         
-        <p className="text-gray-600 dark:text-black text-sm mb-4 line-clamp-2 h-10">
+        <p className="text-gray-600 dark:text-gray-600 text-sm mb-4 line-clamp-2 h-10">
           {product.description}
         </p>
         
