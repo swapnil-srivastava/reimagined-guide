@@ -382,7 +382,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                             className="w-full pb-5 cursor-pointer group"
                             onClick={() => router.push(`/product-detail/${product.id}`)}
                         >
-                            <article className="relative flex flex-col bg-white text-blog-black dark:text-blog-black rounded-3xl overflow-hidden h-full shadow-lg transition-all duration-200 hover:-translate-y-1 hover:brightness-125 hover:shadow-xl active:scale-95">
+                            <article className="relative flex flex-col bg-white text-blog-black dark:text-black rounded-3xl overflow-hidden h-full shadow-lg transition-all duration-200 hover:-translate-y-1 hover:brightness-125 hover:shadow-xl active:scale-95">
                                 <div className="w-full h-48 relative overflow-hidden">
                                 <Image
                                     src={product.image_url ?? `/mountains.jpg`}
@@ -422,19 +422,19 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                             </div>
                             <div className="p-4 flex-1 flex flex-col justify-between">
                                 <div>
-                                    <h3 className="text-lg font-semibold text-blog-black dark:text-blog-white">
-                                        <Link href={`/product-detail/${product.id}`} className="hover:underline underline-offset-2 text-blog-black dark:text-blog-white">
+                                    <h3 className="text-lg font-semibold text-blog-black dark:text-black">
+                                        <Link href={`/product-detail/${product.id}`} className="hover:underline underline-offset-2 text-blog-black dark:text-black">
                                             {nameTrimmed}
                                         </Link>
                                     </h3>
-                                    {descriptionTrimmed && <p className="mt-2 text-sm text-blog-black dark:text-blog-white">{descriptionTrimmed}</p>}
+                                    {descriptionTrimmed && <p className="mt-2 text-sm text-blog-black dark:text-black">{descriptionTrimmed}</p>}
                                 </div>
 
                                 <div className="mt-4 flex items-center justify-between">
-                                    <div className="text-sm text-blog-black dark:text-blog-white">
+                                    <div className="text-sm text-blog-black dark:text-black">
                                         <CurrencyPriceComponent price={product.price} />
                                     </div>
-                                    <div className="text-xs text-blog-black dark:text-blog-white">{createdAtDateFormat}</div>
+                                    <div className="text-xs text-blog-black dark:text-black">{createdAtDateFormat}</div>
                                 </div>
                                 <div className="mt-3 flex justify-end">
                                     <button 
@@ -443,7 +443,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                                         className={`
                                             py-2 px-4 
                                             font-medium text-sm 
-                                            text-blog-black dark:text-blog-white
+                                            text-blog-black dark:text-black
                                             border
                                             rounded-lg 
                                             flex items-center gap-2 
@@ -503,7 +503,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                         onClick={() => setCreateProduct(!createProduct)}
                     >
                         <div 
-                            className="w-full h-full min-h-[400px] flex items-center justify-center bg-white text-blog-black dark:text-blog-black rounded-3xl shadow-lg transition-all duration-200 hover:-translate-y-1 hover:brightness-125 hover:shadow-xl active:scale-95"
+                            className="w-full h-full min-h-[400px] flex items-center justify-center bg-white text-blog-black dark:text-black rounded-3xl shadow-lg transition-all duration-200 hover:-translate-y-1 hover:brightness-125 hover:shadow-xl active:scale-95"
                             style={{
                                 touchAction: 'manipulation',
                                 WebkitTapHighlightColor: 'rgba(0,0,0,0)'
@@ -515,7 +515,7 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                                     size="3x" 
                                     className="pointer-events-none text-hit-pink-500 dark:text-hit-pink-400"
                                 />
-                                <div className="text-lg font-semibold pointer-events-none text-blog-black dark:text-blog-white">
+                                <div className="text-lg font-semibold pointer-events-none text-blog-black dark:text-black">
                                     <FormattedMessage id="product-card-create-product" description="Create Product" defaultMessage="Create Product" />
                                 </div>
                             </div>
@@ -526,11 +526,11 @@ const ProductCard = ({  products,  loading = false, postsEnd = false, enableLoad
                 {/* Create Product Form (expanded) */}
                 {createProduct && (
                     <div key="create-form" className="col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-2 w-full pb-5 rounded-3xl shadow-lg overflow-visible group transition-transform duration-200 active:scale-95">
-                        <div className="w-full p-4 bg-white dark:text-blog-black rounded-3xl">
+                        <div className="w-full p-4 bg-white dark:text-black rounded-3xl">
                             <div className="flex justify-end">
                                 <FontAwesomeIcon 
                                     icon={faCircleXmark} 
-                                    className="cursor-pointer touch-manipulation text-fun-blue-500 dark:text-blog-black p-1 hover:scale-110 transition-transform duration-200" 
+                                    className="cursor-pointer touch-manipulation text-fun-blue-500 dark:text-black p-1 hover:scale-110 transition-transform duration-200" 
                                     size="2x" 
                                     onClick={(e) => {
                                         e.preventDefault();
