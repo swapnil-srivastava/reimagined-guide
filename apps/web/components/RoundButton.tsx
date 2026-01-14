@@ -1,7 +1,16 @@
-function RoundButton({children, audioPlayer = false, pink = false}) {
-  return <div className={`${audioPlayer ? 'w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)]' : 'w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)]' } ${pink ? 'bg-hit-pink-500' : 'bg-fun-blue-300' } dark:text-blog-black p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125`}>
-  { children }
-  </div>;
-}
+import React from 'react';
 
-export default RoundButton
+const RoundButton = React.forwardRef<HTMLDivElement, { children: React.ReactNode; audioPlayer?: boolean; pink?: boolean }>(
+  ({ children, audioPlayer = false, pink = false }, ref) => (
+    <div
+      ref={ref}
+      className={`${audioPlayer ? 'w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)]' : 'w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)]'} ${pink ? 'bg-hit-pink-500' : 'bg-fun-blue-300'} text-black p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125`}
+    >
+      {children}
+    </div>
+  )
+);
+
+RoundButton.displayName = 'RoundButton';
+
+export default RoundButton;

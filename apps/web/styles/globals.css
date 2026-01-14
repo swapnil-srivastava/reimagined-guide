@@ -5,8 +5,21 @@
 @tailwind utilities;
 
 :root {
-  --color-bg: #fbfbfb;
-  --color-text: #0a0a0a;
+  --bg-primary: #fbfbfb;
+  --text-primary: #0a0a0a;
+  
+  /* Default Theme (Blue) variables - defining strict values as fallback/default */
+  --fun-blue-50: #f2f6fa;
+  --fun-blue-100: #e6eef5;
+  --fun-blue-200: #bfd4e6;
+  --fun-blue-300: #99bad7;
+  --fun-blue-400: #4d87ba;
+  --fun-blue-500: #00539c;
+  --fun-blue-600: #004b8c;
+  --fun-blue-700: #003e75;
+  --fun-blue-800: #00325e;
+  --fun-blue-900: #040608ff;
+
   --color-blue: #3b49df;
   --color-red: #df3b3b;
   --color-green: #3bdf72;
@@ -17,6 +30,130 @@
   --toast-text: #0a0a0a;
   --toast-border: #e5e7eb;
 }
+
+/* Theme overrides */
+.theme-green {
+  --fun-blue-50: #f0fdf4;
+  --fun-blue-100: #dcfce7;
+  --fun-blue-200: #bbf7d0;
+  --fun-blue-300: #86efac;
+  --fun-blue-400: #4ade80;
+  --fun-blue-500: #22c55e;
+  --fun-blue-600: #16a34a;
+  --fun-blue-700: #15803d;
+  --fun-blue-800: #166534;
+  --fun-blue-900: #14532d;
+}
+
+.theme-purple {
+  --fun-blue-50: #faf5ff;
+  --fun-blue-100: #f3e8ff;
+  --fun-blue-200: #e9d5ff;
+  --fun-blue-300: #d8b4fe;
+  --fun-blue-400: #c084fc;
+  --fun-blue-500: #a855f7;
+  --fun-blue-600: #9333ea;
+  --fun-blue-700: #7e22ce;
+  --fun-blue-800: #6b21a8;
+  --fun-blue-900: #581c87;
+}
+
+.theme-orange {
+  --fun-blue-50: #fff7ed;
+  --fun-blue-100: #ffedd5;
+  --fun-blue-200: #fed7aa;
+  --fun-blue-300: #fdba74;
+  --fun-blue-400: #fb923c;
+  --fun-blue-500: #f97316;
+  --fun-blue-600: #ea580c;
+  --fun-blue-700: #c2410c;
+  --fun-blue-800: #9a3412;
+  --fun-blue-900: #7c2d12;
+}
+
+.theme-teal {
+  --fun-blue-50: #f0fdfa;
+  --fun-blue-100: #ccfbf1;
+  --fun-blue-200: #99f6e4;
+  --fun-blue-300: #5eead4;
+  --fun-blue-400: #2dd4bf;
+  --fun-blue-500: #14b8a6;
+  --fun-blue-600: #0d9488;
+  --fun-blue-700: #0f766e;
+  --fun-blue-800: #115e59;
+  --fun-blue-900: #134e4a;
+}
+
+.theme-blue-light {
+  --color-primary: var(--fun-blue-500);
+  --bg-primary: #fbfbfb;
+  --text-primary: #0a0a0a;
+  --border-primary: var(--fun-blue-500);
+}
+
+.theme-blue-dark {
+  --color-primary: var(--fun-blue-400);
+  --bg-primary: #00539c;
+  --text-primary: #fbfbfb;
+  --border-primary: #fbfbfb;
+}
+
+.theme-green-light {
+  --color-primary: #10b981;
+  --bg-primary: #fbfbfb;
+  --text-primary: #0a0a0a;
+  --border-primary: var(--fun-blue-500);
+}
+
+.theme-green-dark {
+  --color-primary: #059669;
+  --bg-primary: #064e3b;
+  --text-primary: #fbfbfb;
+  --border-primary: #fbfbfb;
+}
+
+.theme-purple-light {
+  --color-primary: #8b5cf6;
+  --bg-primary: #fbfbfb;
+  --text-primary: #0a0a0a;
+  --border-primary: var(--fun-blue-500);
+}
+
+.theme-purple-dark {
+  --color-primary: #7c3aed;
+  --bg-primary: #581c87;
+  --text-primary: #fbfbfb;
+  --border-primary: #fbfbfb;
+}
+
+.theme-orange-light {
+  --color-primary: #f97316;
+  --bg-primary: #fbfbfb;
+  --text-primary: #0a0a0a;
+  --border-primary: var(--fun-blue-500);
+}
+
+.theme-orange-dark {
+  --color-primary: #ea580c;
+  --bg-primary: #9a3412;
+  --text-primary: #fbfbfb;
+  --border-primary: #fbfbfb;
+}
+
+.theme-teal-light {
+  --color-primary: #14b8a6;
+  --bg-primary: #fbfbfb;
+  --text-primary: #0a0a0a;
+  --border-primary: var(--fun-blue-500);
+}
+
+.theme-teal-dark {
+  --color-primary: #0f766e;
+  --bg-primary: #134e4a;
+  --text-primary: #fbfbfb;
+  --border-primary: #fbfbfb;
+}
+
 
 .dark {
   /* Toast colors for dark mode */
@@ -30,23 +167,21 @@ html,
 body {
   padding: 0;
   margin: 0;
-  color: var(--color-text);
+  color: var(--text-primary, #0a0a0a);
+  background-color: var(--bg-primary, #fbfbfb);
   font-family: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Apply default text colors for light and dark modes */
 @layer base {
   body {
-    @apply text-blog-black;
-  }
-  
-  .dark body {
-    @apply text-blog-white;
+    color: var(--text-primary, #0a0a0a);
+    background-color: var(--bg-primary, #fbfbfb);
   }
   
   /* Ensure all text elements inherit the proper colors */
   h1, h2, h3, h4, h5, h6, p, span, div, a, button, input, textarea, select, label {
-    @apply text-blog-black dark:text-blog-white;
+    color: var(--text-primary, #0a0a0a);
   }
 }
 

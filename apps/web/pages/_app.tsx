@@ -66,7 +66,23 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
        <main className={`${roboto.variable} ${poppins.variable}`}>
-        <ThemeProvider attribute="class">
+        <ThemeProvider 
+          attribute="class"
+          defaultTheme="blue-light"
+          enableSystem={false}
+          value={{
+            'blue-light': 'theme-blue-light',
+            'blue-dark': 'theme-blue-dark',
+            'green-light': 'theme-green-light',
+            'green-dark': 'theme-green-dark',
+            'purple-light': 'theme-purple-light',
+            'purple-dark': 'theme-purple-dark',
+            'orange-light': 'theme-orange-light',
+            'orange-dark': 'theme-orange-dark',
+            'teal-light': 'theme-teal-light',
+            'teal-dark': 'theme-teal-dark',
+          }}
+        >
           <Provider store={store}>
             <IntlProvider
               messages={messages}

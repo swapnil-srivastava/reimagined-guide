@@ -81,8 +81,8 @@ module.exports = {
         },
       },
       colors : {
-        'blog-black': '#0A0A0A',
-        'blog-white': '#FBFBFB',
+        'blog-black': 'var(--text-primary)',
+        'blog-white': 'var(--bg-primary)',
         'caribbean-green': {
           '50': '#f3fdfb', 
           '100': '#e7fcf6', 
@@ -95,16 +95,16 @@ module.exports = {
           '800': '#0b8565', 
           '900': '#096d52'
       }, 'fun-blue': {
-        '50': '#f2f6fa', 
-        '100': '#e6eef5', 
-        '200': '#bfd4e6', 
-        '300': '#99bad7', 
-        '400': '#4d87ba', 
-        '500': '#00539c', 
-        '600': '#004b8c', 
-        '700': '#003e75', 
-        '800': '#00325e', 
-        '900': '#00294c'
+        '50': 'var(--fun-blue-50)', 
+        '100': 'var(--fun-blue-100)', 
+        '200': 'var(--fun-blue-200)', 
+        '300': 'var(--fun-blue-300)', 
+        '400': 'var(--fun-blue-400)', 
+        '500': 'var(--fun-blue-500)', 
+        '600': 'var(--fun-blue-600)', 
+        '700': 'var(--fun-blue-700)', 
+        '800': 'var(--fun-blue-800)', 
+        '900': 'var(--fun-blue-900)'
       }, 'hit-pink': {
         '50': '#fefaf9', 
         '100': '#fdf6f2', 

@@ -1,13 +1,14 @@
+import React from 'react';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
 
-function BasicTooltip(props) {
+const BasicTooltip: React.FC<TooltipProps> = (props) => {
   return (
-    <Tooltip {...props} >
+    <Tooltip {...props}>
       {props.children}
     </Tooltip>
   );
-}
+};
 
 const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
         <Tooltip {...props} classes={{ popper: className }} />
@@ -20,4 +21,5 @@ const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
         },
       }));
 
-export default LightTooltip;
+export default BasicTooltip;
+export { LightTooltip };
