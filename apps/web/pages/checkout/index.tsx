@@ -202,7 +202,7 @@ function Checkout() {
                   <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
                     <FontAwesomeIcon icon={faLock} className="w-4 h-4 text-white" />
                   </div>
-                  <h1 className="text-2xl font-bold text-black dark:text-white">
+                  <h1 className="text-2xl font-bold text-blog-black dark:text-blog-white">
                     <FormattedMessage
                       id="checkout-page-heading"
                       description="Secure Checkout"
@@ -236,7 +236,7 @@ function Checkout() {
                   <div className="w-10 h-10 bg-fun-blue-300/20 dark:bg-fun-blue-500/30 rounded-full flex items-center justify-center">
                     <FontAwesomeIcon icon={faShoppingBag} className="w-5 h-5 text-fun-blue-500 dark:text-fun-blue-300" />
                   </div>
-                  <h2 className="text-xl font-semibold text-black dark:text-white">
+                  <h2 className="text-xl font-semibold text-blog-black dark:text-blog-white">
                     <FormattedMessage
                       id="checkout-order-summary"
                       description="Order Summary"
@@ -265,7 +265,7 @@ function Checkout() {
                     <div className="w-10 h-10 bg-fun-blue-300/20 dark:bg-fun-blue-500/30 rounded-full flex items-center justify-center">
                       <FontAwesomeIcon icon={faMapMarkerAlt} className="w-5 h-5 text-fun-blue-500 dark:text-fun-blue-300" />
                     </div>
-                    <h2 className="text-xl font-semibold text-black dark:text-white">
+                    <h2 className="text-xl font-semibold text-blog-black dark:text-blog-white">
                       <FormattedMessage
                         id="checkout-delivery-address"
                         description="Delivery Address"
@@ -290,7 +290,7 @@ function Checkout() {
                   <div className="w-10 h-10 bg-orange-100 dark:bg-orange-900 rounded-full flex items-center justify-center">
                     <FontAwesomeIcon icon={faTruck} className="w-5 h-5 text-orange-600 dark:text-orange-400" />
                   </div>
-                  <h2 className="text-xl font-semibold text-black dark:text-white">
+                  <h2 className="text-xl font-semibold text-blog-black dark:text-blog-white">
                     <FormattedMessage
                       id="checkout-delivery-method"
                       description="Delivery Method"
@@ -300,10 +300,10 @@ function Checkout() {
                 </div>
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-black dark:text-white font-medium">
+                  <span className="text-blog-black dark:text-blog-white font-medium">
                     {selectedDeliveryName}
                   </span>
-                  <span className="text-black dark:text-white font-semibold">
+                  <span className="text-blog-black dark:text-blog-white font-semibold">
                     {deliveryCost > 0 ? (
                       <CurrencyPriceComponent price={deliveryCost} />
                     ) : (
@@ -325,7 +325,7 @@ function Checkout() {
                   <div className="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
                     <FontAwesomeIcon icon={faReceipt} className="w-5 h-5 text-green-600 dark:text-green-400" />
                   </div>
-                  <h2 className="text-xl font-semibold text-black dark:text-white">
+                  <h2 className="text-xl font-semibold text-blog-black dark:text-blog-white">
                     <FormattedMessage
                       id="checkout-payment-summary"
                       description="Payment Summary"
@@ -345,7 +345,7 @@ function Checkout() {
                         defaultMessage="Subtotal:"
                       />
                     </span>
-                    <span className="text-black dark:text-white font-semibold">
+                    <span className="text-blog-black dark:text-blog-white font-semibold">
                       <CurrencyPriceComponent price={subTotal} />
                     </span>
                   </div>
@@ -359,7 +359,7 @@ function Checkout() {
                         defaultMessage="Tax (19%):"
                       />
                     </span>
-                    <span className="text-black dark:text-white font-semibold">
+                    <span className="text-blog-black dark:text-blog-white font-semibold">
                       <CurrencyPriceComponent price={tax} />
                     </span>
                   </div>
@@ -373,7 +373,7 @@ function Checkout() {
                         defaultMessage="Delivery:"
                       />
                     </span>
-                    <span className="text-black dark:text-white font-semibold">
+                    <span className="text-blog-black dark:text-blog-white font-semibold">
                       {deliveryCost > 0 ? (
                         <CurrencyPriceComponent price={deliveryCost} />
                       ) : (
@@ -384,7 +384,7 @@ function Checkout() {
 
                   {/* Total */}
                   <div className="flex justify-between items-center py-4 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 rounded-lg px-4 mt-4">
-                    <span className="text-lg font-bold text-black dark:text-white">
+                    <span className="text-lg font-bold text-blog-black dark:text-blog-white">
                       <FormattedMessage
                         id="checkout-total"
                         description="Total"
@@ -516,7 +516,7 @@ function CheckoutItemCard({ cartItem }: { cartItem: ProductWithQuantity }) {
         <div className="flex-1 ml-5 min-w-0">
           <div className="flex items-start justify-between">
             <div className="flex-1 min-w-0 pr-4">
-              <h3 className="text-lg font-bold text-black dark:text-white truncate group-hover:text-fun-blue-500 dark:group-hover:text-fun-blue-300 transition-colors duration-200">
+              <h3 className="text-lg font-bold text-blog-black dark:text-blog-white truncate group-hover:text-fun-blue-500 dark:group-hover:text-fun-blue-300 transition-colors duration-200">
                 {cartItem.name}
               </h3>
               {cartItem.description && (
@@ -569,7 +569,7 @@ function CheckoutItemCard({ cartItem }: { cartItem: ProductWithQuantity }) {
                   defaultMessage="Item Total"
                 />
               </div>
-              <div className="text-sm font-semibold text-black dark:text-white">
+              <div className="text-sm font-semibold text-blog-black dark:text-blog-white">
                 <CurrencyPriceComponent price={cartItem.price * cartItem.quantity} />
               </div>
             </div>
@@ -596,7 +596,7 @@ function EmptyCheckoutMessage() {
         </div>
       </div>
       
-      <h3 className="text-xl font-bold text-black dark:text-white mb-3">
+      <h3 className="text-xl font-bold text-blog-black dark:text-blog-white mb-3">
         <FormattedMessage
           id="checkout-empty-cart"
           description="Your cart is empty"

@@ -19,12 +19,12 @@ const UserPreferences: NextPage = () => {
         <title>User Preferences - Reimagined Guide</title>
         <meta name="description" content="Manage your personalization preferences" />
       </Head>
-      <div className="container mx-auto px-4 py-8 text-black dark:text-white">
-        <h1 className="text-3xl font-bold mb-6 text-black dark:text-white">
+      <div className="container mx-auto px-4 py-8 text-blog-black dark:text-blog-white">
+        <h1 className="text-3xl font-bold mb-6 text-blog-black dark:text-blog-white">
           <FormattedMessage id="preferences.title" defaultMessage="User Preferences" />
         </h1>
         <div className="mb-6">
-          <p className="dark:text-white">
+          <p className="dark:text-blog-white">
             <FormattedMessage
               id="preferences.intro"
               defaultMessage="Customize your experience on our platform by adjusting your personalization settings. These settings will be saved according to your cookie preferences."

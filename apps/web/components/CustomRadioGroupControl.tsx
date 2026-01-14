@@ -26,7 +26,7 @@ const CustomRadioGroupControl = ({ data, handleChange, path }: ControlProps) => 
           />
           <div className="flex-1">
             <div className="flex justify-between items-center">
-              <span className="font-medium text-black dark:text-white">
+              <span className="font-medium text-blog-black dark:text-blog-white">
                 {option.name}
               </span>
               {option.deliveryPrice > 0 ? (

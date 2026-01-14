@@ -12,8 +12,8 @@ const PrivacyPolicy: NextPage = () => {
         <title>Privacy & Cookie Policy - swapnilsrivastava.eu</title>
         <meta name="description" content="Our privacy and cookie policy explains how we use cookies and process your data." />
       </Head>
-      <div className="container mx-auto px-4 py-8 text-gray-900 dark:text-white">
-        <h1 className="text-3xl font-bold mb-6 text-black dark:text-white">
+      <div className="container mx-auto px-4 py-8 text-blog-black dark:text-blog-white">
+        <h1 className="text-3xl font-bold mb-6 text-blog-black dark:text-blog-white">
           <FormattedMessage
             id="privacy-policy-title"
             description="Privacy & Cookie Policy"

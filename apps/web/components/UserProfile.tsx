@@ -8,12 +8,12 @@ import { FormattedMessage } from 'react-intl';
 
 export default function UserProfile({ user }) {
   return (
-    <div className="flex flex-col items-center justify-center gap-2 text-black dark:text-white">
+    <div className="flex flex-col items-center justify-center gap-2 text-blog-black dark:text-blog-white">
       <img src={user.avatar_url || "/hacker.png"} className="card-img-center" />
       <p className="text-gray-600 dark:text-gray-300">
         <i>@{user.username}</i>
       </p>
-      <h1 className="text-2xl font-bold text-black dark:text-white">{user.full_name || (
+      <h1 className="text-2xl font-bold text-blog-black dark:text-blog-white">{user.full_name || (
         <FormattedMessage
           id="userprofile-anonymous-user"
           description="Anonymous User"

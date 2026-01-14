@@ -44,7 +44,7 @@ const QuantityComponent: React.FC<QuantityComponentProps> = ({ product, children
             </button>
             
             {/* Quantity */}
-            <div className="min-w-[2rem] text-center bg-blog-white dark:bg-fun-blue-700 text-black dark:text-white px-3 py-1 rounded-lg font-medium text-sm border border-gray-200 dark:border-fun-blue-500">
+            <div className="min-w-[2rem] text-center bg-blog-white dark:bg-fun-blue-700 text-blog-black dark:text-blog-white px-3 py-1 rounded-lg font-medium text-sm border border-gray-200 dark:border-fun-blue-500">
               {children}
             </div>
             

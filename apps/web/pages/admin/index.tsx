@@ -78,7 +78,7 @@ function PostList() {
       <div className="mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-2xl sm:text-3xl font-bold text-blog-black dark:text-blog-white">
               <FormattedMessage
                 id="admin-title"
                 description="Manage your Posts"
@@ -104,7 +104,7 @@ function PostList() {
                   defaultMessage="Total Posts"
                 />
               </div>
-              <div className="text-xl font-bold text-gray-900 dark:text-white">{posts.length}</div>
+              <div className="text-xl font-bold text-blog-black dark:text-blog-white">{posts.length}</div>
             </div>
             <div className="bg-white dark:bg-fun-blue-600 rounded-lg px-4 py-2 border border-gray-200 dark:border-fun-blue-500">
               <div className="text-sm text-gray-600 dark:text-gray-400">

@@ -113,7 +113,7 @@ function UserProfilePage({ userProfile, posts }) {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
               </div>
-              <h3 className="text-lg font-medium text-black dark:text-white mb-2">
+              <h3 className="text-lg font-medium text-blog-black dark:text-blog-white mb-2">
                 <FormattedMessage
                   id="user-profile-no-posts-title"
                   description="No posts yet"
@@ -133,7 +133,7 @@ function UserProfilePage({ userProfile, posts }) {
       ) : (
         /* About Tab Content */
         <div className="bg-blog-white dark:bg-fun-blue-500 rounded-xl shadow-sm border border-gray-200 dark:border-fun-blue-400 p-6 sm:p-8">
-          <h3 className="text-xl font-semibold text-black dark:text-white mb-4">
+          <h3 className="text-xl font-semibold text-blog-black dark:text-blog-white mb-4">
             <FormattedMessage
               id="user-profile-about-title"
               description="About"
@@ -144,7 +144,7 @@ function UserProfilePage({ userProfile, posts }) {
           {/* User Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
             <div className="text-center sm:text-left">
-              <div className="text-2xl font-bold text-black dark:text-white">
+              <div className="text-2xl font-bold text-blog-black dark:text-blog-white">
                 {posts ? posts.length : 0}
               </div>
               <div className="text-sm text-gray-600 dark:text-gray-300">
@@ -156,7 +156,7 @@ function UserProfilePage({ userProfile, posts }) {
               </div>
             </div>
             <div className="text-center sm:text-left">
-              <div className="text-2xl font-bold text-black dark:text-white">
+              <div className="text-2xl font-bold text-blog-black dark:text-blog-white">
                 {userProfile?.created_at ? new Date(userProfile.created_at).getFullYear() : 'N/A'}
               </div>
               <div className="text-sm text-gray-600 dark:text-gray-300">
@@ -168,7 +168,7 @@ function UserProfilePage({ userProfile, posts }) {
               </div>
             </div>
             <div className="text-center sm:text-left">
-              <div className="text-2xl font-bold text-black dark:text-white">
+              <div className="text-2xl font-bold text-blog-black dark:text-blog-white">
                 <FormattedMessage
                   id="user-profile-stats-active"
                   description="Active"
@@ -187,7 +187,7 @@ function UserProfilePage({ userProfile, posts }) {
 
           {/* Bio Section */}
           <div className="border-t border-gray-200 dark:border-fun-blue-400 pt-6">
-            <h4 className="text-lg font-medium text-black dark:text-white mb-3">
+            <h4 className="text-lg font-medium text-blog-black dark:text-blog-white mb-3">
               <FormattedMessage
                 id="user-profile-bio-title"
                 description="Bio"
@@ -208,7 +208,7 @@ function UserProfilePage({ userProfile, posts }) {
           {/* Contact Information */}
           {(userProfile?.website || userProfile?.email) && (
             <div className="border-t border-gray-200 dark:border-fun-blue-400 pt-6 mt-6">
-              <h4 className="text-lg font-medium text-black dark:text-white mb-3">
+              <h4 className="text-lg font-medium text-blog-black dark:text-blog-white mb-3">
                 <FormattedMessage
                   id="user-profile-contact-title"
                   description="Contact"

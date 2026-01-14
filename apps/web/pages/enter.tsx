@@ -216,7 +216,7 @@ function AuthCard() {
             </svg>
           </div>
         </div>
-        <h1 className="text-3xl font-bold text-blog-black dark:text-white mb-2">
+        <h1 className="text-3xl font-bold text-blog-black dark:text-blog-white mb-2">
           <FormattedMessage
             id={isSignUp ? "auth-welcome-signup" : "auth-welcome-signin"}
             description={isSignUp ? "Welcome signup" : "Welcome signin"}

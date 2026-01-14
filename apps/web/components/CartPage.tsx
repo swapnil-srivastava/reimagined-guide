@@ -138,7 +138,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => 
                   <FontAwesomeIcon icon={faShoppingBag} className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-3xl font-bold text-black dark:text-white">
+                  <h1 className="text-3xl font-bold text-blog-black dark:text-blog-white">
                     <FormattedMessage
                       id="cart-page-shopping-cart-card-heading"
                       description="Shopping Cart"
@@ -239,7 +239,7 @@ function CartItemCard({ cartItem, onDelete }: {
         <div className="flex-1 min-w-0">
           <div className="flex justify-between items-start mb-2">
             <div className="flex-1 min-w-0">
-              <h3 className="text-lg font-semibold text-black dark:text-white truncate">
+              <h3 className="text-lg font-semibold text-blog-black dark:text-blog-white truncate">
                 {cartItem.name}
               </h3>
               <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 line-clamp-2">
@@ -266,7 +266,7 @@ function CartItemCard({ cartItem, onDelete }: {
             </div>
             
             <div className="text-right">
-              <div className="text-lg font-bold text-black dark:text-white">
+              <div className="text-lg font-bold text-blog-black dark:text-blog-white">
                 <CurrencyPriceComponent price={cartItem.price * cartItem.quantity} />
               </div>
               {cartItem.quantity > 1 && (
@@ -290,7 +290,7 @@ function EmptyCartMessage() {
         <FontAwesomeIcon icon={faShoppingBag} className="w-10 h-10 text-gray-400" />
       </div>
       
-      <h3 className="text-xl font-semibold text-black dark:text-white mb-2">
+      <h3 className="text-xl font-semibold text-blog-black dark:text-blog-white mb-2">
         <FormattedMessage
           id="cart-page-empty-cart-title"
           description="Your cart is empty"
@@ -341,7 +341,7 @@ function OrderSummary({
         <div className="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
           <FontAwesomeIcon icon={faReceipt} className="w-5 h-5 text-green-600 dark:text-green-400" />
         </div>
-        <h2 className="text-xl font-semibold text-black dark:text-white">
+        <h2 className="text-xl font-semibold text-blog-black dark:text-blog-white">
           <FormattedMessage
             id="cart-order-summary"
             description="Order Summary"
@@ -361,7 +361,7 @@ function OrderSummary({
               defaultMessage="Subtotal:"
             />
           </span>
-          <span className="text-black dark:text-white font-semibold">
+          <span className="text-blog-black dark:text-blog-white font-semibold">
             € {subTotal?.toFixed(2)}
           </span>
         </div>
@@ -375,7 +375,7 @@ function OrderSummary({
               defaultMessage="Tax (19%):"
             />
           </span>
-          <span className="text-black dark:text-white font-semibold">
+          <span className="text-blog-black dark:text-blog-white font-semibold">
             € {tax?.toFixed(2)}
           </span>
         </div>
@@ -389,14 +389,14 @@ function OrderSummary({
               defaultMessage="Delivery Cost:"
             />
           </span>
-          <span className="text-black dark:text-white font-semibold">
+          <span className="text-blog-black dark:text-blog-white font-semibold">
             € {deliveryCost?.toFixed(2)}
           </span>
         </div>
 
         {/* Total */}
         <div className="flex justify-between items-center py-3 bg-gradient-to-r from-fun-blue-500/10 to-fun-blue-600/10 dark:from-fun-blue-500/20 dark:to-fun-blue-600/20 rounded-lg px-4 mt-4">
-          <span className="text-lg font-bold text-black dark:text-white">
+          <span className="text-lg font-bold text-blog-black dark:text-blog-white">
             <FormattedMessage
               id="calculate-total-text"
               description="Total"
@@ -460,7 +460,7 @@ function AddressSection({
         <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
           <FontAwesomeIcon icon={faMapMarkerAlt} className="w-5 h-5 text-blue-600 dark:text-blue-400" />
         </div>
-        <h2 className="text-xl font-semibold text-black dark:text-white">
+        <h2 className="text-xl font-semibold text-blog-black dark:text-blog-white">
           <FormattedMessage
             id="cart-page-address-card-heading"
             description="Address"
@@ -528,7 +528,7 @@ function DeliverySection() {
         <div className="w-10 h-10 bg-orange-100 dark:bg-orange-900 rounded-full flex items-center justify-center">
           <FontAwesomeIcon icon={faTruck} className="w-5 h-5 text-orange-600 dark:text-orange-400" />
         </div>
-        <h2 className="text-xl font-semibold text-black dark:text-white">
+        <h2 className="text-xl font-semibold text-blog-black dark:text-blog-white">
           <FormattedMessage
             id="cart-page-delivery-cards-heading"
             description="Delivery"
