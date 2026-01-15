@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { TypeAnimation } from 'react-type-animation';
+import type { GetServerSideProps, NextPage } from 'next';
 
 // Components 
 import PostFeed from "../components/PostFeed";
@@ -16,7 +17,7 @@ import { POST } from "../database.types";
 // Max post to query per page
 const LIMIT = 3;
 
-export async function getServerSideProps(context) {
+export const getServerSideProps: GetServerSideProps<{ posts: POST[] }> = async (context) => {
   let { data: posts } = await supaClient
     .from("posts")
     .select("*")
@@ -30,9 +31,9 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default function Home(props) {
+const Home: NextPage<{ posts: POST[] }> = ({ posts: initialPosts }) => {
   // Note: add the data in props.posts for reflecting in local development use an array and then object of post inside it.
-  const [posts, setPosts] = useState<POST[]>(props.posts);
+  const [posts, setPosts] = useState<POST[]>(initialPosts);
   const [loading, setLoading] = useState<boolean>(false);
   const intl = useIntl();
 
@@ -462,4 +463,6 @@ export default function Home(props) {
 
     </main>
   );
-}
+};
+
+export default Home;
