@@ -11,6 +11,9 @@ Completed (migrated and verified):
 - apps/web/components/Metatags.tsx
 - apps/web/components/JsonFormsClient.tsx (client-only wrapper for JsonForms)
 
+Inspected / Notes:
+- apps/web/components/AuthCheck.tsx — inspected for `pages/approve` migration; no changes applied yet (pending conservative sweep for `bg-white` containers).
+
 Policy:
 - Migrate a component on the first page that requires it.
 - Add its path below so subsequent page migrations skip re-migrating it.
