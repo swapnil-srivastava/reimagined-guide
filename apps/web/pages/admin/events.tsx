@@ -22,14 +22,14 @@ const AdminEventsPage: NextPage = () => {
               <FontAwesomeIcon icon={faCalendar} className="w-6 h-6 text-fun-blue-600 dark:text-fun-blue-400" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-blog-black">
+              <h1 className="text-2xl font-bold text-black">
                 <FormattedMessage
                   id="admin-events-page-title"
                   description="Admin Events"
                   defaultMessage="Admin Events"
                 />
               </h1>
-              <p className="text-blog-black mt-1">
+              <p className="text-black mt-1">
                 <FormattedMessage
                   id="admin-events-page-subtitle"
                   description="Manage events and RSVPs"
