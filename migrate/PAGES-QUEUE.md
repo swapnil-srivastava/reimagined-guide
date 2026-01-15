@@ -4,6 +4,10 @@ Order: root index (`/`) first, then remaining pages alphabetically.
 
 1. pages/index.tsx  # root — migrate first
 
+Completed:
+
+- pages/404.tsx (branch: migrate/pages-404)
+
 Other pages (alphabetical):
 
 - pages/404.tsx
