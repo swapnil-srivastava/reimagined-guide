@@ -2,18 +2,24 @@
 
 This file tracks components that have already been migrated as part of a page migration.
 
-- components/PostFeed.tsx
-- components/Loader.tsx
-- components/PostList.tsx
-- components/HorizontalScrollTech.tsx
-- components/Metatags.tsx
- - components/PostList.tsx (updated for `card--white` enforcement)
- - components/HorizontalScrollTech.tsx (added `text-blog-black` token)
- - components/Loader.tsx (verified)
+Completed (migrated and verified):
+
+- apps/web/components/PostFeed.tsx
+- apps/web/components/Loader.tsx
+- apps/web/components/PostList.tsx (updated to enforce `card--white`)
+- apps/web/components/HorizontalScrollTech.tsx (applies `text-blog-black` token)
+- apps/web/components/Metatags.tsx
+- apps/web/components/JsonFormsClient.tsx (client-only wrapper for JsonForms)
+
+Inspected / Notes:
+- apps/web/components/AuthCheck.tsx — inspected for `pages/approve` migration; no changes applied yet (pending conservative sweep for `bg-white` containers).
 
 Policy:
 - Migrate a component on the first page that requires it.
 - Add its path below so subsequent page migrations skip re-migrating it.
 
+Notes:
+- If a migrated component receives follow-up fixes (contrast, tokens, or SSR guards), append a short note next to the component as shown above.
+
 Example:
-- components/AwesomeNavBar.tsx
+- apps/web/components/AwesomeNavBar.tsx

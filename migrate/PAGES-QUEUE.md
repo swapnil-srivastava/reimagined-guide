@@ -7,8 +7,13 @@ Order: root index (`/`) first, then remaining pages alphabetically.
 Completed:
 
 - pages/404.tsx (branch: migrate/pages-404)
- - pages/profile.tsx (branch: migrate/pages-profile)
- - pages/index.tsx (branch: migrate/pages-home)
+- pages/index.tsx (branch: migrate/pages-home)
+- pages/profile.tsx (branch: migrate/pages-profile)
+- pages/appointment-confirmed/index.tsx (branch: migrate/pages-appointment-confirmed)
+- pages/appointment-page/index.tsx (branch: migrate/pages-appointment-page)
+- pages/admin/index.tsx (branch: migrate/pages-admin-events)
+- pages/admin/events.tsx (branch: migrate/pages-admin-events)
+ - pages/approve/index.tsx (branch: migrate/pages-approve-index)
 
 Other pages (alphabetical):
 
@@ -56,3 +61,7 @@ Instructions:
 Recent updates:
 - `pages/profile.tsx` migrated and small-form containers converted to `bg-blog-white card--white`.
 - `pages/index.tsx` migrated; `PostList` and `HorizontalScrollTech` updated for theme tokens.
+- `pages/appointment-confirmed` and `pages/appointment-page` migrated and buttons updated to use body text tokens.
+- `pages/admin/index.tsx` and `pages/admin/events.tsx` were included in the admin migration branch.
+ - `pages/approve/index.tsx` migrated (branch: `migrate/pages-approve-index`) — page-level body tokens applied; quick-stat cards and search input changed to use `card--white`.
+ - `apps/web/components/PostFeed.tsx` inspected as part of the `approve` migration. `apps/web/components/AuthCheck.tsx` inspected; conservative fixes to `bg-white` containers are pending and will be applied in a small follow-up commit if required.
