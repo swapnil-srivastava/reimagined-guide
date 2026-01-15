@@ -205,7 +205,7 @@ img {
 }
 
 .ProseMirror {
-  @apply px-5 pt-2 pb-2 bg-white text-blog-black;
+  @apply px-5 pt-2 pb-2 bg-white card--white;
 }
 
 /* Revolutionary Technology Page Animations */
