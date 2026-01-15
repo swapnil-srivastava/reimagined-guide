@@ -6,7 +6,19 @@ import { faAnglesRight, faHeart, faPenToSquare, faThumbsUp, faEye } from "@forta
 import moment from "moment";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import RoundButton from "./RoundButton";
+import type { POST } from "../database.types";
+
+interface PostFeedProps {
+  posts: POST[];
+  user?: any;
+  admin?: boolean;
+  parentFunction?: () => void;
+  loading?: boolean;
+  postsEnd?: boolean;
+  enableLoadMore?: boolean;
+  approve?: boolean;
+  isSwapnil?: any;
+}
 
 export function PostFeed({
   posts,
@@ -18,7 +30,7 @@ export function PostFeed({
   enableLoadMore = false,
   approve = false,
   isSwapnil = undefined,
-}) {
+}: PostFeedProps) {
   const intl = useIntl();
   
   const defaultParentFunction = () => {
@@ -87,7 +99,7 @@ export function PostFeed({
       />;
 }
 
-function PostItem({ post, admin = false, approve = false }) {
+function PostItem({ post, admin = false, approve = false }: { post: any; admin?: boolean; approve?: boolean }) {
   const wordCount = post?.content.trim().split(/\s+/g).length;
   const contentTrimmed = generateContent(post?.content);
   const titleTrimmed = generateContent(post?.title);
@@ -96,7 +108,7 @@ function PostItem({ post, admin = false, approve = false }) {
     ? moment(post.created_at).format("DD MMM YYYY hh:mm a")
     : moment(post.created_at?.toMillis()).format("DD MMM YYYY hh:mm a");
 
-  function generateContent(input) {
+  function generateContent(input: string | undefined) {
     if (!input) return;
     if (input.length > 25) {
       return input.substring(0, 25) + "...";

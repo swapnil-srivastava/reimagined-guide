@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import type { NextPage } from "next";
 import { FormattedMessage, useIntl } from "react-intl";
 
 // Supabase
@@ -14,7 +15,7 @@ import { User } from "@supabase/supabase-js";
 
 // e.g. localhost:3000/approve
 
-function ApprovalPage() {
+const ApprovalPage: NextPage = () => {
   return (
     <>
       <AuthCheck>
@@ -22,7 +23,7 @@ function ApprovalPage() {
       </AuthCheck>
     </>
   );
-}
+};
 
 function ApprovePostList() {
   const [posts, setPosts] = useState<POST[]>([]);

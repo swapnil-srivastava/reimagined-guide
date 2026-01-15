@@ -437,9 +437,7 @@ function CreateNewPost() {
                   <button
                     type="button"
                     onClick={clearTitle}
-                    className="py-4 px-8 rounded-xl font-medium text-gray-700 dark:text-blog-white bg-gray-100 dark:bg-fun-blue-700 "
-                      border border-gray-300 dark:border-fun-blue-400 hover:bg-gray-200 dark:hover:bg-fun-blue-800 
-                      transition-all duration-200 hover:scale-[1.02]"
+                    className={`py-4 px-8 rounded-xl font-medium text-gray-700 dark:text-blog-white bg-gray-100 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 hover:bg-gray-200 dark:hover:bg-fun-blue-800 transition-all duration-200 hover:scale-[1.02]`}
                   >
                     <FormattedMessage
                       id="admin-article-cancel-btn"

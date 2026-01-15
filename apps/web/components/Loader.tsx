@@ -1,7 +1,11 @@
 import React from 'react'
 
-function Loader({show}) {
-  return show ? <div className='loader'></div> : null;
+interface LoaderProps {
+  show?: boolean;
 }
 
-export default Loader
+const Loader: React.FC<LoaderProps> = ({ show = false }) => {
+  return show ? <div className='loader' /> : null;
+}
+
+export default Loader;

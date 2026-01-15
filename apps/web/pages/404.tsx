@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { FormattedMessage } from 'react-intl';
+import type { NextPage } from 'next';
 
-export default function Custom404() {
+const Custom404: NextPage = () => {
   return (
     <main className='flex flex-col gap-y-10 items-center justify-center'>
       <h1>
@@ -13,6 +14,7 @@ export default function Custom404() {
       </h1>
       <iframe
         src="https://giphy.com/embed/l2JehQ2GitHGdVG9y"
+        title="404 animation"
         width="480"
         height="362"
         frameBorder="0"
@@ -36,4 +38,6 @@ export default function Custom404() {
       </Link>
     </main>
   );
-}
+};
+
+export default Custom404;
