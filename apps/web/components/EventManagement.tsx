@@ -330,7 +330,7 @@ function EventManagement() {
   if (!isAuthorized) {
     return (
       <div className="max-w-4xl mx-auto px-6 py-12">
-        <div className="bg-white dark:bg-fun-blue-600 rounded-2xl p-8 drop-shadow-lg text-center">
+        <div className="bg-white card--white rounded-2xl p-8 drop-shadow-lg text-center">
           <FontAwesomeIcon icon={faExclamationTriangle} className="text-red-500 text-4xl mb-4" />
           <h2 className="text-2xl font-bold text-blog-black dark:text-blog-white mb-4">
             <FormattedMessage
