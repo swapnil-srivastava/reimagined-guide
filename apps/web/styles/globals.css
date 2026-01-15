@@ -205,7 +205,7 @@ img {
 }
 
 .ProseMirror {
-  @apply px-5 pt-2 pb-2 bg-white text-blog-black;
+  @apply px-5 pt-2 pb-2 bg-white card--white;
 }
 
 /* Revolutionary Technology Page Animations */
@@ -671,6 +671,22 @@ button.btn-logo {
 
 .hidden {
   display: none;
+}
+
+/* Migration helpers -------------------------------------------------- */
+/*
+  Use `card--white` on card/container elements whose background is white
+  to ensure black text regardless of theme (enforces requirement #3).
+  DO NOT use `!important` anywhere — prefer more specific selectors instead.
+  Example: <div class="card card--white">...</div>
+*/
+/* More specific selector rules (no !important) to apply black text
+   to the card root and its descendants when the card background is white. */
+.card.card--white,
+.card--white,
+.card.card--white *,
+.card--white * {
+  color: #0a0a0a;
 }
 
 /* CSSTransition classes  */

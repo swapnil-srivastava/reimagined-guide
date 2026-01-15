@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import type { NextPage } from "next";
 import { useRouter } from "next/router";
 
 // Supabase
@@ -20,7 +20,7 @@ import { generateMetaDescription } from "../../lib/library";
 
 // e.g. localhost:3000/approve/articleid
 
-function ApproveSlug() {
+const ApproveSlug: NextPage = () => {
   return (
     <>
       <AuthCheck>
@@ -28,7 +28,7 @@ function ApproveSlug() {
       </AuthCheck>
     </>
   );
-}
+};
 
 function PostApprover() {
   const [approvalPost, setApprovalPost] = useState<POST>();

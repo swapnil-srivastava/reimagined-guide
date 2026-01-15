@@ -6,7 +6,19 @@ import { faAnglesRight, faHeart, faPenToSquare, faThumbsUp, faEye } from "@forta
 import moment from "moment";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import RoundButton from "./RoundButton";
+import type { POST } from "../database.types";
+
+interface PostFeedProps {
+  posts: POST[];
+  user?: any;
+  admin?: boolean;
+  parentFunction?: () => void;
+  loading?: boolean;
+  postsEnd?: boolean;
+  enableLoadMore?: boolean;
+  approve?: boolean;
+  isSwapnil?: any;
+}
 
 export function PostFeed({
   posts,
@@ -18,7 +30,7 @@ export function PostFeed({
   enableLoadMore = false,
   approve = false,
   isSwapnil = undefined,
-}) {
+}: PostFeedProps) {
   const intl = useIntl();
   
   const defaultParentFunction = () => {
@@ -87,7 +99,7 @@ export function PostFeed({
       />;
 }
 
-function PostItem({ post, admin = false, approve = false }) {
+function PostItem({ post, admin = false, approve = false }: { post: any; admin?: boolean; approve?: boolean }) {
   const wordCount = post?.content.trim().split(/\s+/g).length;
   const contentTrimmed = generateContent(post?.content);
   const titleTrimmed = generateContent(post?.title);
@@ -96,7 +108,7 @@ function PostItem({ post, admin = false, approve = false }) {
     ? moment(post.created_at).format("DD MMM YYYY hh:mm a")
     : moment(post.created_at?.toMillis()).format("DD MMM YYYY hh:mm a");
 
-  function generateContent(input) {
+  function generateContent(input: string | undefined) {
     if (!input) return;
     if (input.length > 25) {
       return input.substring(0, 25) + "...";
@@ -130,7 +142,7 @@ function PostItem({ post, admin = false, approve = false }) {
                 )}
                 
                 <div className="flex flex-col">
-                  <span className="text-sm font-medium text-gray-900 dark:text-white hover:text-fun-blue-500 dark:hover:text-caribbean-green-300 transition-colors">
+                  <span className="text-sm font-medium text-blog-black dark:text-blog-white hover:text-fun-blue-500 dark:hover:text-caribbean-green-300 transition-colors">
                     {post.username}
                   </span>
                   <span className="text-xs text-gray-500 dark:text-blog-white">
@@ -174,22 +186,22 @@ function PostItem({ post, admin = false, approve = false }) {
                 <div className="flex items-center gap-2">
                   {admin && (
                     <Link href={`/admin/${post.slug}`}>
-                      <div className="w-8 h-8 bg-fun-blue-300 dark:bg-fun-blue-400 dark:text-black p-0.5 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:filter hover:brightness-125 group">
-                        {post.published ? (
-                          <FontAwesomeIcon icon={faPenToSquare} className="h-3.5 w-3.5 text-gray-700 dark:text-black group-hover:scale-110 transition-transform" />
-                        ) : (
-                          <FontAwesomeIcon icon={faPenToSquare} className="h-3.5 w-3.5 text-gray-700 dark:text-black group-hover:scale-110 transition-transform" />
-                        )}
+                      <div className="w-8 h-8 bg-fun-blue-300 dark:bg-fun-blue-400 dark:text-blog-white p-0.5 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:filter hover:brightness-125 group">
+                          {post.published ? (
+                            <FontAwesomeIcon icon={faPenToSquare} className="h-3.5 w-3.5 text-blog-black dark:text-blog-white group-hover:scale-110 transition-transform" />
+                          ) : (
+                            <FontAwesomeIcon icon={faPenToSquare} className="h-3.5 w-3.5 text-blog-black dark:text-blog-white group-hover:scale-110 transition-transform" />
+                          )}
                       </div>
                     </Link>
                   )}
                   {approve && (
                     <Link href={`/approve/${post.slug}`} legacyBehavior>
-                      <div className="w-8 h-8 bg-caribbean-green-300 dark:bg-caribbean-green-400 dark:text-black p-0.5 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:filter hover:brightness-125 group">
+                      <div className="w-8 h-8 bg-caribbean-green-300 dark:bg-caribbean-green-400 dark:text-blog-white p-0.5 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:filter hover:brightness-125 group">
                         {post.published ? (
-                          <FontAwesomeIcon icon={faThumbsUp} className="h-3.5 w-3.5 text-green-700 dark:text-black group-hover:scale-110 transition-transform" />
+                          <FontAwesomeIcon icon={faThumbsUp} className="h-3.5 w-3.5 text-green-700 dark:text-green-200 group-hover:scale-110 transition-transform" />
                         ) : (
-                          <FontAwesomeIcon icon={faEye} className="h-3.5 w-3.5 text-green-700 dark:text-black group-hover:scale-110 transition-transform" />
+                          <FontAwesomeIcon icon={faEye} className="h-3.5 w-3.5 text-green-700 dark:text-green-200 group-hover:scale-110 transition-transform" />
                         )}
                       </div>
                     </Link>
@@ -202,7 +214,7 @@ function PostItem({ post, admin = false, approve = false }) {
           {/* Content Section */}
           <Link href={`/${post.username}/${post.slug}`} legacyBehavior>
             <div className="cursor-pointer">
-              <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-fun-blue-500 dark:group-hover:text-caribbean-green-300 transition-colors duration-200 line-clamp-2 leading-tight">
+              <h2 className="text-lg font-bold text-blog-black dark:text-blog-white mb-2 group-hover:text-fun-blue-500 dark:group-hover:text-caribbean-green-300 transition-colors duration-200 line-clamp-2 leading-tight">
                 {post.title}
               </h2>
               

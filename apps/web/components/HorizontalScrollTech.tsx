@@ -48,9 +48,13 @@ import vuex from "../public/technology/vuex_logo.svg";
 import webcomponent from "../public/technology/web_components_logo.svg";
 import webstrom from "../public/technology/webstorm_logo.svg";
 
-const HorizontalScrollTech = ({ reverse = false }) => {
+interface HorizontalScrollTechProps {
+  reverse?: boolean;
+}
+
+const HorizontalScrollTech: React.FC<HorizontalScrollTechProps> = ({ reverse = false }) => {
   return (
-    <div className={`px-5 dark:text-blog-white gap-8 flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none  ${reverse ? 'animate-infinite-scroll' : 'animate-infinite-reverse'}`}>
+    <div className={`px-5 text-blog-black dark:text-blog-white gap-8 flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none  ${reverse ? 'animate-infinite-scroll' : 'animate-infinite-reverse'}`}>
       <FontAwesomeIcon icon={faJava} size="8x" className={'text-[#5986a4]'} />
       <Image
         src={spring}

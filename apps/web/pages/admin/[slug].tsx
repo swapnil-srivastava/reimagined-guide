@@ -83,13 +83,15 @@ import {
 // e.g. localhost:3000/admin/page1
 // e.g. localhost:3000/admin/page2
 
-function AdminSlug() {
+import type { NextPage } from "next";
+
+const AdminSlug: NextPage = () => {
   return (
     <AuthCheck>
       <PostManager />
     </AuthCheck>
   );
-}
+};
 
 function PostManager() {
   const [preview, setPreview] = useState(false);

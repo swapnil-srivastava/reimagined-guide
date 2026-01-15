@@ -6,11 +6,19 @@ import moment from "moment";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import type { POST } from "../database.types";
+
+interface PostListProps {
+    posts: POST[];
+    loading?: boolean;
+    postsEnd?: boolean;
+    enableLoadMore?: boolean;
+}
 
 // Post list to be used only with homepage
-const PostList = ({  posts,  loading = false, postsEnd = false, enableLoadMore = false }) => {
+const PostList: React.FC<PostListProps> = ({ posts, loading = false, postsEnd = false, enableLoadMore = false }) => {
     
-    function generateContent(input) {
+    function generateContent(input?: string) {
         if (!input) return;
         if (input.length > 25) {
             return input.substring(0, 25) + "...";
@@ -29,7 +37,7 @@ const PostList = ({  posts,  loading = false, postsEnd = false, enableLoadMore =
 
         return (
             <Link key={post.slug} className="flex py-6 hover:py-4 min-w-fit" href={`/${post.username}/${post.slug}`}>
-                <div className="p-6 hover:px-8 flex lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125 max-w-md w-full">
+                <div className="p-6 hover:px-8 flex lg:mx-0 mx-3 bg-blog-white text-blog-black dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125 max-w-md w-full">
                     <div className="flex flex-col gap-4 justify-between w-full">
                         {/* DATE and Author */}
                         <div>
