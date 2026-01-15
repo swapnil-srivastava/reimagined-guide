@@ -1,6 +1,7 @@
 import styles from "../../styles/Admin.module.css";
 
 import React, { useState, useEffect } from "react";
+import type { NextPage } from 'next';
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import kebabCase from "lodash.kebabcase";
@@ -20,7 +21,7 @@ import { User } from "@supabase/supabase-js";
 
 // e.g. localhost:3000/admin
 
-function Admin() {
+const Admin: NextPage = () => {
   return (
     <>
       <AuthCheck>
@@ -85,7 +86,7 @@ function PostList() {
                 defaultMessage="Manage your Posts"
               />
             </h1>
-            <p className="text-gray-600 dark:text-blog-white mt-2">
+            <p className="text-blog-black dark:text-blog-white mt-2">
               <FormattedMessage
                 id="admin-subtitle"
                 description="Create, edit, and publish your articles"
@@ -96,8 +97,8 @@ function PostList() {
           
           {/* Quick Stats */}
           <div className="flex items-center gap-4">
-            <div className="bg-white dark:bg-fun-blue-600 rounded-lg px-4 py-2 border border-gray-200 dark:border-fun-blue-500">
-              <div className="text-sm text-gray-600 dark:text-blog-white">
+            <div className="bg-white card--white dark:bg-fun-blue-600 rounded-lg px-4 py-2 border border-gray-200 dark:border-fun-blue-500">
+              <div className="text-sm text-blog-black dark:text-blog-white">
                 <FormattedMessage
                   id="admin-stats-total"
                   description="Total Posts"
@@ -106,8 +107,8 @@ function PostList() {
               </div>
               <div className="text-xl font-bold text-blog-black dark:text-blog-white">{posts.length}</div>
             </div>
-            <div className="bg-white dark:bg-fun-blue-600 rounded-lg px-4 py-2 border border-gray-200 dark:border-fun-blue-500">
-              <div className="text-sm text-gray-600 dark:text-blog-white">
+            <div className="bg-white card--white dark:bg-fun-blue-600 rounded-lg px-4 py-2 border border-gray-200 dark:border-fun-blue-500">
+              <div className="text-sm text-blog-black dark:text-blog-white">
                 <FormattedMessage
                   id="admin-stats-published"
                   description="Published"
@@ -118,8 +119,8 @@ function PostList() {
                 {posts.filter(post => post.published).length}
               </div>
             </div>
-            <div className="bg-white dark:bg-fun-blue-600 rounded-lg px-4 py-2 border border-gray-200 dark:border-fun-blue-500">
-              <div className="text-sm text-gray-600 dark:text-blog-white">
+            <div className="bg-white card--white dark:bg-fun-blue-600 rounded-lg px-4 py-2 border border-gray-200 dark:border-fun-blue-500">
+              <div className="text-sm text-blog-black dark:text-blog-white">
                 <FormattedMessage
                   id="admin-stats-drafts"
                   description="Drafts"
@@ -140,8 +141,8 @@ function PostList() {
               onClick={() => setActiveTab('all')}
               className={`py-2 px-1 border-b-2 font-medium text-sm ${
                 activeTab === 'all'
-                  ? 'border-fun-blue-500 text-fun-blue-600 dark:text-caribbean-green-400'
-                  : 'border-transparent text-gray-500 dark:text-blog-white hover:text-gray-700 dark:hover:text-blog-white hover:border-gray-300 dark:hover:border-gray-600'
+                    ? 'border-fun-blue-500 text-fun-blue-600 dark:text-blog-white'
+                  : 'border-transparent text-blog-black dark:text-blog-white hover:text-gray-700 dark:hover:text-blog-white hover:border-gray-300 dark:hover:border-gray-600'
               }`}
             >
               <FormattedMessage
@@ -154,8 +155,8 @@ function PostList() {
               onClick={() => setActiveTab('published')}
               className={`py-2 px-1 border-b-2 font-medium text-sm ${
                 activeTab === 'published'
-                  ? 'border-fun-blue-500 text-fun-blue-600 dark:text-caribbean-green-400'
-                  : 'border-transparent text-gray-500 dark:text-blog-white hover:text-gray-700 dark:hover:text-blog-white hover:border-gray-300 dark:hover:border-gray-600'
+                  ? 'border-fun-blue-500 text-fun-blue-600 dark:text-blog-white'
+                  : 'border-transparent text-blog-black dark:text-blog-white hover:text-gray-700 dark:hover:text-blog-white hover:border-gray-300 dark:hover:border-gray-600'
               }`}
             >
               <FormattedMessage
@@ -168,8 +169,8 @@ function PostList() {
               onClick={() => setActiveTab('drafts')}
               className={`py-2 px-1 border-b-2 font-medium text-sm ${
                 activeTab === 'drafts'
-                  ? 'border-fun-blue-500 text-fun-blue-600 dark:text-caribbean-green-400'
-                  : 'border-transparent text-gray-500 dark:text-blog-white hover:text-gray-700 dark:hover:text-blog-white hover:border-gray-300 dark:hover:border-gray-600'
+                  ? 'border-fun-blue-500 text-fun-blue-600 dark:text-blog-white'
+                  : 'border-transparent text-blog-black dark:text-blog-white hover:text-gray-700 dark:hover:text-blog-white hover:border-gray-300 dark:hover:border-gray-600'
               }`}
             >
               <FormattedMessage
@@ -194,7 +195,7 @@ function PostList() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+            <h3 className="text-lg font-medium text-blog-black dark:text-blog-white mb-2">
               {activeTab === 'published' ? (
                 <FormattedMessage
                   id="admin-empty-published-title"
@@ -215,7 +216,7 @@ function PostList() {
                 />
               )}
             </h3>
-            <p className="text-gray-500 dark:text-blog-white mb-6">
+            <p className="text-blog-black dark:text-blog-white mb-6">
               {activeTab === 'published' ? (
                 <FormattedMessage
                   id="admin-empty-published-description"
@@ -266,7 +267,7 @@ function CreateNewPost() {
   const isValid = title.length > 3 && title.length < 100;
 
   // Create a new post in supabase postgres
-  const createPost = async (e) => {
+  const createPost = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Tip: give all fields a default value here
@@ -293,7 +294,7 @@ function CreateNewPost() {
     router.push(`/admin/${slug}`);
   };
 
-  const clearTitle = async (e) => {
+  const clearTitle = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setTitle("");
   };
@@ -303,14 +304,14 @@ function CreateNewPost() {
       <form onSubmit={createPost} className="space-y-8">
         {/* Header Section */}
         <div className="text-center space-y-3">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-blog-black dark:text-blog-white">
             <FormattedMessage
               id="admin-create-title"
               description="Create New Article"
               defaultMessage="Create New Article"
             />
           </h2>
-          <p className="text-gray-600 dark:text-blog-white text-base sm:text-lg max-w-2xl mx-auto">
+          <p className="text-blog-black dark:text-blog-white text-base sm:text-lg max-w-2xl mx-auto">
             <FormattedMessage
               id="admin-create-subtitle"
               description="Share your thoughts with the world and inspire others with your story"
@@ -323,7 +324,7 @@ function CreateNewPost() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Input Section - Takes 2 columns on desktop */}
           <div className="lg:col-span-2">
-            <div className="bg-white dark:bg-fun-blue-600 rounded-2xl shadow-sm border border-gray-200 dark:border-fun-blue-500 p-6 sm:p-8 transition-all duration-200 hover:shadow-md">
+            <div className="bg-white card--white dark:bg-fun-blue-600 rounded-2xl shadow-sm border border-gray-200 dark:border-fun-blue-500 p-6 sm:p-8 transition-all duration-200 hover:shadow-md">
               <span className="sr-only">
                 <FormattedMessage
                   id="admin-article-sr-only-text"
@@ -337,7 +338,7 @@ function CreateNewPost() {
                 <div className="relative">
                   <label
                     htmlFor="title"
-                    className="block text-sm font-medium text-gray-700 dark:text-blog-white mb-3"
+                    className="block text-sm font-medium text-blog-black dark:text-blog-white mb-3"
                   >
                     <FormattedMessage
                       id="admin-article-input-text"
@@ -357,13 +358,13 @@ function CreateNewPost() {
                         defaultMessage: "What's your story about?"
                       })}
                       className="w-full px-5 py-5 pr-20 text-lg lg:text-xl bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-xl 
-                        text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400
+                        text-blog-black dark:text-blog-white placeholder-gray-500 dark:placeholder-gray-400
                         focus:outline-none focus:ring-2 focus:ring-fun-blue-500 focus:border-transparent
                         transition-all duration-200 hover:border-gray-400 dark:hover:border-fun-blue-300
                         resize-none"
                     />
                     {/* Character Counter - Fixed positioning */}
-                    <div className="absolute right-4 top-4 bg-white dark:bg-fun-blue-600 px-2 py-1 rounded-md text-xs text-gray-500 dark:text-blog-white border border-gray-200 dark:border-fun-blue-500">
+                    <div className="absolute right-4 top-4 bg-white dark:bg-fun-blue-600 px-2 py-1 rounded-md text-xs text-blog-black dark:text-blog-white border border-gray-200 dark:border-fun-blue-500">
                       {title.length}/100
                     </div>
                   </div>
@@ -398,7 +399,7 @@ function CreateNewPost() {
                 {/* URL Preview */}
                 {title && (
                   <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-xl p-5 border border-gray-200 dark:border-fun-blue-400">
-                    <p className="text-sm font-medium text-gray-600 dark:text-blog-white mb-2">
+                    <p className="text-sm font-medium text-blog-black dark:text-blog-white mb-2">
                       <FormattedMessage
                         id="admin-article-url"
                         description="Article URL:"
@@ -406,10 +407,10 @@ function CreateNewPost() {
                       />
                     </p>
                     <div className="flex items-center text-sm font-mono bg-white dark:bg-fun-blue-600 rounded-lg p-3 border border-gray-200 dark:border-fun-blue-500">
-                      <span className="text-gray-500 dark:text-blog-white">
+                      <span className="text-blog-black dark:text-blog-white">
                         swapnilsrivastava.eu/
                       </span>
-                      <span className="text-fun-blue-600 dark:text-caribbean-green-400 break-all font-medium">
+                      <span className="text-fun-blue-600 dark:text-blog-white break-all font-medium">
                         {profile?.username}/{slug || 'your-article-slug'}
                       </span>
                     </div>
@@ -437,7 +438,7 @@ function CreateNewPost() {
                   <button
                     type="button"
                     onClick={clearTitle}
-                    className={`py-4 px-8 rounded-xl font-medium text-gray-700 dark:text-blog-white bg-gray-100 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 hover:bg-gray-200 dark:hover:bg-fun-blue-800 transition-all duration-200 hover:scale-[1.02]`}
+                    className={`py-4 px-8 rounded-xl font-medium text-blog-black dark:text-blog-white bg-gray-100 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 hover:bg-gray-200 dark:hover:bg-fun-blue-800 transition-all duration-200 hover:scale-[1.02]`}
                   >
                     <FormattedMessage
                       id="admin-article-cancel-btn"
@@ -453,8 +454,8 @@ function CreateNewPost() {
           {/* Desktop Sidebar - Only visible on large screens */}
           <div className="hidden lg:block space-y-6">
             {/* Tips Section */}
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-fun-blue-700 dark:to-fun-blue-800 rounded-xl p-6 border border-blue-200 dark:border-fun-blue-400 sticky top-8">
-              <h4 className="text-base font-semibold text-blue-900 dark:text-blue-300 mb-4 flex items-center">
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-fun-blue-700 dark:to-fun-blue-800 rounded-xl p-6 border border-blue-200 dark:border-fun-blue-400 sticky top-8 card--white">
+              <h4 className="text-base font-semibold text-blog-black dark:text-blog-white mb-4 flex items-center">
                 <span className="text-2xl mr-2">💡</span>
                 <FormattedMessage
                   id="admin-tips-title"
@@ -462,9 +463,9 @@ function CreateNewPost() {
                   defaultMessage="Writing Tips"
                 />
               </h4>
-              <ul className="text-sm text-blue-700 dark:text-blue-400 space-y-3">
+              <ul className="text-sm text-blog-black dark:text-blog-white space-y-3">
                 <li className="flex items-start">
-                  <span className="text-blue-500 mr-2">•</span>
+                  <span className="text-fun-blue-500 dark:text-fun-blue-300 mr-2">•</span>
                   <FormattedMessage
                     id="admin-tip-1"
                     description="Keep your title clear and descriptive"
@@ -472,7 +473,7 @@ function CreateNewPost() {
                   />
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-500 mr-2">•</span>
+                  <span className="text-fun-blue-500 dark:text-fun-blue-300 mr-2">•</span>
                   <FormattedMessage
                     id="admin-tip-2"
                     description="Use keywords that readers might search for"
@@ -480,7 +481,7 @@ function CreateNewPost() {
                   />
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-500 mr-2">•</span>
+                  <span className="text-fun-blue-500 dark:text-fun-blue-300 mr-2">•</span>
                   <FormattedMessage
                     id="admin-tip-3"
                     description="Aim for 6-12 words for optimal engagement"
@@ -488,7 +489,7 @@ function CreateNewPost() {
                   />
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-500 mr-2">•</span>
+                  <span className="text-fun-blue-500 dark:text-fun-blue-300 mr-2">•</span>
                   <FormattedMessage
                     id="admin-tip-4"
                     description="Make it compelling enough to click"
@@ -499,8 +500,8 @@ function CreateNewPost() {
             </div>
 
             {/* Quick Stats */}
-            <div className="bg-white dark:bg-fun-blue-600 rounded-xl p-6 border border-gray-200 dark:border-fun-blue-500 shadow-sm">
-              <h4 className="text-base font-semibold text-gray-900 dark:text-white mb-4">
+            <div className="bg-white card--white dark:bg-fun-blue-600 rounded-xl p-6 border border-gray-200 dark:border-fun-blue-500 shadow-sm">
+              <h4 className="text-base font-semibold text-blog-black dark:text-blog-white mb-4">
                 <FormattedMessage
                   id="admin-stats-sidebar-title"
                   description="Article Stats"
@@ -509,31 +510,31 @@ function CreateNewPost() {
               </h4>
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600 dark:text-blog-white">
+                  <span className="text-sm text-blog-black dark:text-blog-white">
                     <FormattedMessage
                       id="admin-stats-words"
                       description="Words"
                       defaultMessage="Words"
                     />
                   </span>
-                  <span className="text-sm font-medium text-gray-900 dark:text-white">
+                  <span className="text-sm font-medium text-blog-black dark:text-blog-white">
                     {title.split(' ').length}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600 dark:text-blog-white">
+                  <span className="text-sm text-blog-black dark:text-blog-white">
                     <FormattedMessage
                       id="admin-stats-characters"
                       description="Characters"
                       defaultMessage="Characters"
                     />
                   </span>
-                  <span className="text-sm font-medium text-gray-900 dark:text-white">
+                  <span className="text-sm font-medium text-blog-black dark:text-blog-white">
                     {title.length}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600 dark:text-blog-white">
+                  <span className="text-sm text-blog-black dark:text-blog-white">
                     <FormattedMessage
                       id="admin-stats-readability"
                       description="Readability"
@@ -564,15 +565,15 @@ function CreateNewPost() {
         </div>
 
         {/* Mobile Tips Section - Only visible on mobile */}
-        <div className="lg:hidden bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-fun-blue-700 dark:to-fun-blue-800 rounded-xl p-4 border border-blue-200 dark:border-fun-blue-400">
-          <h4 className="text-sm font-medium text-blue-900 dark:text-blue-300 mb-2">
+        <div className="lg:hidden bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-fun-blue-700 dark:to-fun-blue-800 rounded-xl p-4 border border-blue-200 dark:border-fun-blue-400 card--white">
+          <h4 className="text-sm font-medium text-blog-black dark:text-blog-white mb-2">
             💡 <FormattedMessage
               id="admin-mobile-tips-title"
               description="Writing Tips"
               defaultMessage="Writing Tips"
             />
           </h4>
-          <ul className="text-xs text-blue-700 dark:text-blue-400 space-y-1">
+          <ul className="text-xs text-blog-black dark:text-blog-white space-y-1">
             <li>• <FormattedMessage
               id="admin-mobile-tip-1"
               description="Keep your title clear and descriptive"
@@ -596,7 +597,7 @@ function CreateNewPost() {
 }
 
 function SendSMS() {
-  async function sendSMS(object) {
+  async function sendSMS(): Promise<void> {
     const phoneMessage = {
       phone: "+4915163579215",
       message: "Hello World from NextJS App by Swapnil Srivastava",
@@ -627,7 +628,7 @@ function SendSMS() {
     }
   }
 
-  async function sendEmail(object) {
+  async function sendEmail(): Promise<void> {
     const emailMessage = {
       from: "contact@swapnilsrivastava.eu",
       to: "contact@swapnilsrivastava.eu",
