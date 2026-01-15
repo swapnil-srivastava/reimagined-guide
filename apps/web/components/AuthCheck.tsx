@@ -43,7 +43,7 @@ export default function AuthCheck({ children, fallback, allowAnonymous = false }
 
   return (
     <Link href="/enter" className="flex justify-center pt-5">
-      <button className={styles.btnAdmin}>
+      <button className={`${styles.btnAdmin} card--white text-blog-black dark:text-blog-white`}>
         <FormattedMessage id="auth-check-fallback"
           description="Auth Check fallback message"
           defaultMessage="You must be signed in"

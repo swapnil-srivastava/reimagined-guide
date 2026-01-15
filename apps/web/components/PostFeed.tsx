@@ -220,7 +220,7 @@ function PostItem({ post, admin = false, approve = false }: { post: any; admin?:
               
               {/* Content Preview - Compact */}
               <div 
-                className="text-sm text-gray-600 dark:text-blog-white line-clamp-2 leading-relaxed mb-3"
+                className="text-sm text-blog-black dark:text-blog-white line-clamp-2 leading-relaxed mb-3"
                 dangerouslySetInnerHTML={{ __html: post?.content.substring(0, 120) + "..." }}
               />
             </div>
