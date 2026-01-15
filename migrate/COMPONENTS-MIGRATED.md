@@ -7,6 +7,9 @@ This file tracks components that have already been migrated as part of a page mi
 - components/PostList.tsx
 - components/HorizontalScrollTech.tsx
 - components/Metatags.tsx
+ - components/PostList.tsx (updated for `card--white` enforcement)
+ - components/HorizontalScrollTech.tsx (added `text-blog-black` token)
+ - components/Loader.tsx (verified)
 
 Policy:
 - Migrate a component on the first page that requires it.

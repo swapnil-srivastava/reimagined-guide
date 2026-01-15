@@ -7,6 +7,8 @@ Order: root index (`/`) first, then remaining pages alphabetically.
 Completed:
 
 - pages/404.tsx (branch: migrate/pages-404)
+ - pages/profile.tsx (branch: migrate/pages-profile)
+ - pages/index.tsx (branch: migrate/pages-home)
 
 Other pages (alphabetical):
 
@@ -50,3 +52,7 @@ Notes:
 Instructions:
 - Create a branch `migrate/pages/<slug>` for each page when migrating.
 - After successful smoke test + lint + build, mark page as migrated and move to next.
+
+Recent updates:
+- `pages/profile.tsx` migrated and small-form containers converted to `bg-blog-white card--white`.
+- `pages/index.tsx` migrated; `PostList` and `HorizontalScrollTech` updated for theme tokens.
