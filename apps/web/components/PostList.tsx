@@ -37,7 +37,7 @@ const PostList: React.FC<PostListProps> = ({ posts, loading = false, postsEnd = 
 
         return (
             <Link key={post.slug} className="flex py-6 hover:py-4 min-w-fit" href={`/${post.username}/${post.slug}`}>
-                <div className="p-6 hover:px-8 flex lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125 max-w-md w-full">
+                <div className="p-6 hover:px-8 flex lg:mx-0 mx-3 bg-blog-white text-blog-black dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125 max-w-md w-full">
                     <div className="flex flex-col gap-4 justify-between w-full">
                         {/* DATE and Author */}
                         <div>
