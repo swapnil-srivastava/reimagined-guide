@@ -6,11 +6,19 @@ import moment from "moment";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import type { POST } from "../database.types";
+
+interface PostListProps {
+    posts: POST[];
+    loading?: boolean;
+    postsEnd?: boolean;
+    enableLoadMore?: boolean;
+}
 
 // Post list to be used only with homepage
-const PostList = ({  posts,  loading = false, postsEnd = false, enableLoadMore = false }) => {
+const PostList: React.FC<PostListProps> = ({ posts, loading = false, postsEnd = false, enableLoadMore = false }) => {
     
-    function generateContent(input) {
+    function generateContent(input?: string) {
         if (!input) return;
         if (input.length > 25) {
             return input.substring(0, 25) + "...";

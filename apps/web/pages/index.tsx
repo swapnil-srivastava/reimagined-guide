@@ -4,7 +4,6 @@ import { TypeAnimation } from 'react-type-animation';
 import type { GetServerSideProps, NextPage } from 'next';
 
 // Components 
-import PostFeed from "../components/PostFeed";
 import Loader from "../components/Loader";
 import PostList from "../components/PostList";
 import HorizontalScrollTech from "../components/HorizontalScrollTech";
