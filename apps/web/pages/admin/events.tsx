@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import type { NextPage } from 'next';
 import { FormattedMessage } from 'react-intl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
@@ -8,7 +9,7 @@ import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 import EventManagement from '../../components/EventManagement';
 import { useSession } from '../../lib/use-session';
 
-function AdminEventsPage() {
+const AdminEventsPage: NextPage = () => {
   const userInfo = useSession();
 
   return (
