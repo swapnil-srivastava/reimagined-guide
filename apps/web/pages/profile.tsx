@@ -62,7 +62,7 @@ const Profile = () => {
   return (
     <>
       <Metatags/>
-      <div className="m-4">
+      <div className="m-4 text-blog-black dark:text-blog-white">
         {profile?.id ? <CreateExperience /> : ""}
         {/* Overall All Experience :{" "}
         {moment("2014-04-01 10:00:00+00").fromNow(true)} */}
@@ -190,7 +190,7 @@ function CreateExperience() {
 
   return (
     <>
-      <div className="flex flex-col gap-2 my-4 px-4 py-2 text-blog-black dark:bg-blog-white">
+      <div className="flex flex-col gap-2 my-4 px-4 py-2 bg-blog-white card--white">
         <JsonForms
           schema={schema}
           uischema={uischema}
@@ -295,7 +295,7 @@ function CreateSkill(props) {
 
   return (
     <>
-      <div className="flex flex-col gap-2 my-4 px-4 py-2 text-blog-black dark:bg-blog-white">
+      <div className="flex flex-col gap-2 my-4 px-4 py-2 bg-blog-white card--white">
         <JsonForms
           schema={skillSchema}
           uischema={uiSkillSchema}
