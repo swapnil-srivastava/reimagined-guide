@@ -332,14 +332,14 @@ function EventManagement() {
       <div className="max-w-4xl mx-auto px-6 py-12">
         <div className="bg-white card--white rounded-2xl p-8 drop-shadow-lg text-center">
           <FontAwesomeIcon icon={faExclamationTriangle} className="text-red-500 text-4xl mb-4" />
-          <h2 className="text-2xl font-bold text-blog-black dark:text-blog-white mb-4">
+          <h2 className="text-2xl font-bold text-black mb-4">
             <FormattedMessage
               id="admin-events-access-denied-title"
               description="Access denied title"
               defaultMessage="Access Denied"
             />
           </h2>
-          <p className="text-gray-600 dark:text-blog-white">
+          <p className="text-black">
             <FormattedMessage
               id="admin-events-access-denied-message"
               description="Access denied message"
