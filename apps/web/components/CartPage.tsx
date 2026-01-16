@@ -145,7 +145,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => 
                       defaultMessage="Shopping Cart"
                     />
                   </h1>
-                  <p className="text-blogblack dark:text-blog-white">
+                  <p className="text-blog-black dark:text-blog-white">
                     <FormattedMessage
                       id="cart-items-count"
                       description="Items in cart count"
