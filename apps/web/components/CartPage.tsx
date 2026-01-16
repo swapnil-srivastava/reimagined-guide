@@ -122,7 +122,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => 
               <div className="flex items-center gap-4 mb-4">
                 <Link 
                   href="/products"
-                  className="flex items-center gap-2 text-blog-black dark:text-blog-white hover:text-fun-blue-500 dark:hover:text-blog-white transition-colors duration-200"
+                  className="flex items-center gap-2 text-blog-black dark:text-blog-white hover:text-fun-blue-200 dark:hover:text-blog-white transition-colors duration-200"
                 >
                   <FontAwesomeIcon icon={faArrowLeft} className="w-4 h-4" />
                   <FormattedMessage
