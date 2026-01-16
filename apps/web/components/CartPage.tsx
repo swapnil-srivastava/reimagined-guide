@@ -122,7 +122,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => 
               <div className="flex items-center gap-4 mb-4">
                 <Link 
                   href="/products"
-                  className="flex items-center gap-2 text-gray-600 dark:text-blog-white hover:text-fun-blue-500 dark:hover:text-blog-white transition-colors duration-200"
+                  className="flex items-center gap-2 text-black dark:text-blog-white hover:text-fun-blue-500 dark:hover:text-blog-white transition-colors duration-200"
                 >
                   <FontAwesomeIcon icon={faArrowLeft} className="w-4 h-4" />
                   <FormattedMessage
@@ -138,14 +138,14 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => 
                   <FontAwesomeIcon icon={faShoppingBag} className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-3xl font-bold text-blog-black dark:text-blog-white">
+                  <h1 className="text-3xl font-bold text-black dark:text-blog-white">
                     <FormattedMessage
                       id="cart-page-shopping-cart-card-heading"
                       description="Shopping Cart"
                       defaultMessage="Shopping Cart"
                     />
                   </h1>
-                  <p className="text-gray-600 dark:text-blog-white">
+                  <p className="text-black dark:text-blog-white">
                     <FormattedMessage
                       id="cart-items-count"
                       description="Items in cart count"
@@ -162,7 +162,7 @@ const CartPage : React.FC<CartPageProps> = ({ cartItems, profile, address }) => 
               
               {/* Cart Items Section */}
               <div className="lg:col-span-2">
-                <div className="bg-white dark:bg-fun-blue-800 rounded-2xl shadow-lg border border-gray-200 dark:border-fun-blue-600 overflow-hidden">
+                <div className="bg-white card--white dark:bg-fun-blue-800 rounded-2xl shadow-lg border border-gray-200 dark:border-fun-blue-600 overflow-hidden">
                   
                   {/* Cart Items */}
                   {cartItems && cartItems.length > 0 ? (
@@ -336,7 +336,7 @@ function OrderSummary({
   if (!cartItems || cartItems.length === 0) return null;
 
   return (
-    <div className="bg-white dark:bg-fun-blue-800 rounded-2xl shadow-lg border border-gray-200 dark:border-fun-blue-600 p-6">
+    <div className="bg-white card--white dark:bg-fun-blue-800 rounded-2xl shadow-lg border border-gray-200 dark:border-fun-blue-600 p-6">
       <div className="flex items-center gap-3 mb-6">
         <div className="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
           <FontAwesomeIcon icon={faReceipt} className="w-5 h-5 text-green-600 dark:text-green-400" />
@@ -443,7 +443,7 @@ function AddressSection({
 
   if (editSavedAddress) {
     return (
-      <div className="bg-white dark:bg-fun-blue-800 rounded-2xl shadow-lg border border-gray-200 dark:border-fun-blue-600 p-6">
+    <div className="bg-white card--white dark:bg-fun-blue-800 rounded-2xl shadow-lg border border-gray-200 dark:border-fun-blue-600 p-6">
         <AddressForm
           profile={profile}
           addressState={address}
@@ -455,7 +455,7 @@ function AddressSection({
   }
 
   return (
-    <div className="bg-white dark:bg-fun-blue-800 rounded-2xl shadow-lg border border-gray-200 dark:border-fun-blue-600 p-6">
+  <div className="bg-white card--white dark:bg-fun-blue-800 rounded-2xl shadow-lg border border-gray-200 dark:border-fun-blue-600 p-6">
       <div className="flex items-center gap-3 mb-4">
         <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
           <FontAwesomeIcon icon={faMapMarkerAlt} className="w-5 h-5 text-blue-600 dark:text-blue-400" />
@@ -523,7 +523,7 @@ function AddressSection({
 // Delivery Section Component
 function DeliverySection() {
   return (
-    <div className="bg-white dark:bg-fun-blue-800 rounded-2xl shadow-lg border border-gray-200 dark:border-fun-blue-600 p-6">
+    <div className="bg-white card--white dark:bg-fun-blue-800 rounded-2xl shadow-lg border border-gray-200 dark:border-fun-blue-600 p-6">
       <div className="flex items-center gap-3 mb-4">
         <div className="w-10 h-10 bg-orange-100 dark:bg-orange-900 rounded-full flex items-center justify-center">
           <FontAwesomeIcon icon={faTruck} className="w-5 h-5 text-orange-600 dark:text-orange-400" />
