@@ -12,21 +12,23 @@ import { faChevronLeft, faUser } from "@fortawesome/free-solid-svg-icons";
 const DoctorPage: NextPage = () => {
 
   return (
-    <div className="flex flex-col h-screen justify-between theme-blue-light dark:theme-blue-dark" style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)'}}>
+    <div
+      className="flex flex-col h-screen justify-between bg-blog-white text-blog-black"
+    >
       <div className="flex flex-col justify-between items-center">
         {/* Doctor Information Card */}
         <div
-          className="p-3 bg-blog-white card--white mt-10
-            dark:bg-fun-blue-600 dark:text-blog-white
+          className="p-3 bg-blog-white mt-10
+            dark:bg-fun-blue-600 text-blog-black dark:text-blog-white
             rounded-lg drop-shadow-lg hover:drop-shadow-xl hover:brightness-125 
             flex flex-row gap-2 justify-between items-center w-11/12"
         >
           <Link href="/choose-your-doctor" legacyBehavior>
-            <div className="bg-fun-blue-300 dark:text-blog-black w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 p-0.5 m-0.5 flex items-center justify-center rounded-full transition-filter duration-500 hover:filter hover:brightness-125">
+            <div className="bg-fun-blue-300 text-black dark:text-blog-black w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 p-0.5 m-0.5 flex items-center justify-center rounded-full transition-filter duration-500 hover:filter hover:brightness-125">
               <FontAwesomeIcon icon={faChevronLeft} size="lg" />
             </div>
           </Link>
-          <div className="text-3xl md:text-5xl lg:text-6xl">
+          <div className="text-3xl md:text-5xl lg:text-6xl text-blog-black dark:text-blog-white font-bold leading-none tracking-tight">
             <FormattedMessage
               id="doctor-page-doctor-name"
               description="Doctor name"
@@ -34,7 +36,7 @@ const DoctorPage: NextPage = () => {
             />
           </div>
           <Link href="/choose-your-doctor" legacyBehavior>
-            <div className="bg-fun-blue-300 dark:text-blog-black w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 p-0.5 m-0.5 flex items-center justify-center rounded-full transition-filter duration-500 hover:filter hover:brightness-125">
+            <div className="bg-fun-blue-300 text-black dark:text-blog-black w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 p-0.5 m-0.5 flex items-center justify-center rounded-full transition-filter duration-500 hover:filter hover:brightness-125">
               <FontAwesomeIcon icon={faUser} />
             </div>
           </Link>
