@@ -4,8 +4,8 @@ import { FormattedMessage } from 'react-intl';
 
 function Cancel() {
     return (
-        <main className='flex flex-col gap-y-10 items-center justify-center'>
-          <h1 className="text-blog-black dark:text-blog-white">
+        <main className='flex flex-col gap-y-10 items-center justify-center bg-blog-white text-blog-black dark:text-blog-white'>
+          <h1 className="text-blog-black">
             <FormattedMessage
               id="cancel-cancelled"
               description="Cancelled message"
@@ -19,7 +19,7 @@ function Cancel() {
           </iframe>
           <Link href="/" legacyBehavior>
             <button className="
-            bg-hit-pink-500 text-blog-black
+            bg-hit-pink-500 text-black
             rounded-lg px-4 py-2 m-2
             transition-filter duration-500 hover:filter hover:brightness-125 
             focus:outline-none focus:ring-2 

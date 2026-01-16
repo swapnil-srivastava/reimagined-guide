@@ -12,7 +12,10 @@ Completed (migrated and verified):
 - apps/web/components/JsonFormsClient.tsx (client-only wrapper for JsonForms)
 
 Inspected / Notes:
-- apps/web/components/AuthCheck.tsx — inspected for `pages/approve` migration; no changes applied yet (pending conservative sweep for `bg-white` containers).
+- apps/web/components/AuthCheck.tsx — updated to add `card--white` on fallback button; conservative sweep completed for approve-related use.
+- apps/web/components/PostFeed.tsx — updated to enforce `card--white` on post cards and switched content text to `text-black` for stronger contrast.
+
+Recent edits were pushed on branches: `migrate/pages-approve-components`, `migrate/pages-approve-slug`.
 
 Policy:
 - Migrate a component on the first page that requires it.
