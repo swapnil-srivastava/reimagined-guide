@@ -21,7 +21,6 @@ import {
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { useThemeSettings } from "../../lib/use-theme-settings";
 
 // Interfaces
 import { RootState } from "../../lib/interfaces/interface";
@@ -54,7 +53,6 @@ function Checkout() {
   const dispatch = useDispatch();
   const router = useRouter();
   const intl = useIntl();
-  const { mode } = useThemeSettings();
 
   // Anonymous auth hook
   const { user: anonymousUser, signInAnonymously } = useAnonymousAuth();
@@ -187,10 +185,7 @@ function Checkout() {
 
   return (
     <AuthCheck allowAnonymous={true}>
-      <div
-        className="min-h-screen theme-blue-light dark:theme-blue-dark"
-        style={{ backgroundColor: mode === "dark" ? "var(--fun-blue-500)" : "var(--bg-primary)", color: "var(--text-primary)" }}
-      >
+      <div className="min-h-screen bg-blog-white dark:bg-fun-blue-500">
         {/* Header */}
         <div className="bg-white card--white dark:bg-fun-blue-800 shadow-sm border-b border-gray-200 dark:border-fun-blue-600">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -238,9 +233,9 @@ function Checkout() {
               {/* Order Summary */}
               <div className="bg-white card--white dark:bg-fun-blue-800 rounded-2xl shadow-lg border border-gray-200 dark:border-fun-blue-600 p-6">
                 <div className="flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 bg-fun-blue-300/20 dark:bg-fun-blue-500/30 rounded-full flex items-center justify-center">
-                      <FontAwesomeIcon icon={faShoppingBag} className="w-5 h-5 text-fun-blue-500 dark:text-fun-blue-300" />
-                    </div>
+                  <div className="w-10 h-10 bg-fun-blue-300/20 dark:bg-fun-blue-500/30 rounded-full flex items-center justify-center">
+                    <FontAwesomeIcon icon={faShoppingBag} className="w-5 h-5 text-fun-blue-500 dark:text-fun-blue-300" />
+                  </div>
                   <h2 className="text-xl font-semibold text-blog-black dark:text-blog-white">
                     <FormattedMessage
                       id="checkout-order-summary"
@@ -453,7 +448,7 @@ function Checkout() {
                       <div className="w-full border-t border-gray-300 dark:border-fun-blue-600"></div>
                     </div>
                     <div className="relative flex justify-center text-sm">
-                      <span className="px-4 card--white dark:bg-fun-blue-800 text-gray-500 dark:text-blog-white font-medium">
+                      <span className="px-4 card--white bg-white dark:bg-fun-blue-800 text-gray-500 dark:text-blog-white font-medium">
                         <FormattedMessage
                           id="checkout-payment-or"
                           description="OR"
