@@ -18,6 +18,8 @@ Completed:
  - pages/cancel.tsx (branch: migrate/pages-cancel)
  - pages/cart/index.tsx (branch: migrate/pages-cart)
  - pages/checkout/index.tsx (branch: migrate/pages-checkout)
+ - pages/checkout/index.tsx (branch: migrate/pages-checkout)
+ - pages/coverimage/index.tsx (branch: migrate/pages-coverimage)
 
 Other pages (alphabetical):
 
