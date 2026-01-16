@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { NextPage } from "next";
 
 // Nextjs
 import Link from "next/link";
@@ -22,7 +23,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // Font Icons
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
-const ChooseYourDoctor = () => {
+const ChooseYourDoctor: NextPage = () => {
   const [data, setData] = useState();
 
   return (
