@@ -142,10 +142,10 @@ function PostItem({ post, admin = false, approve = false }: { post: any; admin?:
                 )}
                 
                 <div className="flex flex-col">
-                  <span className="text-sm font-medium text-blog-black dark:text-blog-white hover:text-fun-blue-500 dark:hover:text-caribbean-green-300 transition-colors">
+                        <span className="text-sm font-medium text-black hover:text-fun-blue-500 dark:hover:text-caribbean-green-300 transition-colors">
                     {post.username}
                   </span>
-                  <span className="text-xs text-gray-500 dark:text-blog-white">
+                        <span className="text-xs text-black">
                     {moment(post.created_at).format("MMM DD")} · {minutesToRead} <FormattedMessage
                       id="postfeed-min-read"
                       description="min read"
@@ -187,22 +187,14 @@ function PostItem({ post, admin = false, approve = false }: { post: any; admin?:
                   {admin && (
                     <Link href={`/admin/${post.slug}`}>
                       <div className="w-8 h-8 bg-fun-blue-300 dark:bg-fun-blue-400 dark:text-blog-white p-0.5 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:filter hover:brightness-125 group">
-                          {post.published ? (
-                            <FontAwesomeIcon icon={faPenToSquare} className="h-3.5 w-3.5 text-blog-black dark:text-blog-white group-hover:scale-110 transition-transform" />
-                          ) : (
-                            <FontAwesomeIcon icon={faPenToSquare} className="h-3.5 w-3.5 text-blog-black dark:text-blog-white group-hover:scale-110 transition-transform" />
-                          )}
+                              <FontAwesomeIcon icon={faPenToSquare} className="h-3.5 w-3.5 text-black group-hover:scale-110 transition-transform" />
                       </div>
                     </Link>
                   )}
                   {approve && (
                     <Link href={`/approve/${post.slug}`} legacyBehavior>
                       <div className="w-8 h-8 bg-caribbean-green-300 dark:bg-caribbean-green-400 dark:text-blog-white p-0.5 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:filter hover:brightness-125 group">
-                        {post.published ? (
-                          <FontAwesomeIcon icon={faThumbsUp} className="h-3.5 w-3.5 text-green-700 dark:text-green-200 group-hover:scale-110 transition-transform" />
-                        ) : (
-                          <FontAwesomeIcon icon={faEye} className="h-3.5 w-3.5 text-green-700 dark:text-green-200 group-hover:scale-110 transition-transform" />
-                        )}
+                              <FontAwesomeIcon icon={post.published ? faThumbsUp : faEye} className="h-3.5 w-3.5 text-green-700 group-hover:scale-110 transition-transform" />
                       </div>
                     </Link>
                   )}
@@ -214,21 +206,21 @@ function PostItem({ post, admin = false, approve = false }: { post: any; admin?:
           {/* Content Section */}
           <Link href={`/${post.username}/${post.slug}`} legacyBehavior>
             <div className="cursor-pointer">
-              <h2 className="text-lg font-bold text-blog-black dark:text-blog-white mb-2 group-hover:text-fun-blue-500 dark:group-hover:text-caribbean-green-300 transition-colors duration-200 line-clamp-2 leading-tight">
+                    <h2 className="text-lg font-bold text-black mb-2 group-hover:text-fun-blue-500 dark:group-hover:text-caribbean-green-300 transition-colors duration-200 line-clamp-2 leading-tight">
                 {post.title}
               </h2>
               
               {/* Content Preview - Compact */}
-              <div 
-                className="text-sm text-blog-black dark:text-blog-white line-clamp-2 leading-relaxed mb-3"
+                    <div 
+                      className="text-sm text-black line-clamp-2 leading-relaxed mb-3"
                 dangerouslySetInnerHTML={{ __html: post?.content.substring(0, 120) + "..." }}
               />
             </div>
           </Link>
 
           {/* Footer - Compact */}
-          <div className="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-fun-blue-500">
-            <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-blog-white">
+                <div className="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-fun-blue-500">
+                  <div className="flex items-center gap-3 text-xs text-black">
               <span>{wordCount} <FormattedMessage
                 id="postfeed-words"
                 description="Words"
