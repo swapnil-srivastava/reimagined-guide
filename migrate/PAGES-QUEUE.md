@@ -17,6 +17,7 @@ Completed:
  - pages/book-appointment/index.tsx (branch: migrate/pages-book-appointment)
  - pages/cancel.tsx (branch: migrate/pages-cancel)
  - pages/cart/index.tsx (branch: migrate/pages-cart)
+ - pages/checkout/index.tsx (branch: migrate/pages-checkout)
 
 Other pages (alphabetical):
 
