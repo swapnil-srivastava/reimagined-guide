@@ -14,6 +14,7 @@ Completed:
 - pages/admin/index.tsx (branch: migrate/pages-admin-events)
 - pages/admin/events.tsx (branch: migrate/pages-admin-events)
  - pages/approve/index.tsx (branch: migrate/pages-approve-index)
+ - pages/book-appointment/index.tsx (branch: migrate/pages-book-appointment)
 
 Other pages (alphabetical):
 
