@@ -14,6 +14,7 @@ Completed (migrated and verified):
 - Inspected for this migration: `apps/web/components/ProductCardWithFavorites.tsx`, `apps/web/components/ProductSkeletonGrid.tsx` — no component-level changes required.
 
 - Inspected for this migration: `apps/web/components/RSVPForm.tsx`, `apps/web/components/RSVPList.tsx`, `apps/web/components/CalendarButton.tsx` — no component-level changes required.
+ - Inspected for this migration: `apps/web/components/CheckoutButton.tsx` — no component-level changes required.
 
 Inspected / Notes:
 - apps/web/components/AuthCheck.tsx — updated to add `card--white` on fallback button; conservative sweep completed for approve-related use.

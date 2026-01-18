@@ -595,8 +595,8 @@ function Invite({ seoData }: InvitePageProps) {
                         {/* Mobile-First Past Events Header */}
                         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0 mb-4 sm:mb-6 lg:mb-8">
                           <div className="flex items-center gap-2 sm:gap-3">
-                            <FontAwesomeIcon icon={faHistory} className="text-gray-500 dark:text-blog-white text-lg sm:text-xl lg:text-2xl" />
-                            <h2 className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-blog-black dark:text-blog-white">
+                            <FontAwesomeIcon icon={faHistory} className="text-blog-black text-lg sm:text-xl lg:text-2xl" />
+                            <h2 className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-blog-black">
                               <FormattedMessage
                                 id="invite-past-events-title"
                                 description="Past Events"
@@ -885,7 +885,7 @@ function Invite({ seoData }: InvitePageProps) {
             </p>
             <div className="inline-flex items-center gap-2 px-4 py-2 sm:px-6 sm:py-3 bg-fun-blue-500 text-white rounded-lg hover:bg-fun-blue-600 transition-colors duration-200 active:scale-95">
               <FontAwesomeIcon icon={faHeart} className="text-hit-pink-400 text-sm sm:text-base" />
-              <span className="text-blog-white font-medium text-sm sm:text-base">
+              <span className="text-white font-medium text-sm sm:text-base">
                 <FormattedMessage
                   id="invite-stay-tuned"
                   description="Stay Tuned"
