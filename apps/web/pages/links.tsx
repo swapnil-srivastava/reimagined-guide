@@ -319,7 +319,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
       </Head>
 
       {/* Main Container */}
-      <main className="min-h-screen bg-blog-white card--white dark:bg-fun-blue-500 flex flex-col items-center px-4 py-8 sm:py-12 pb-24 text-blog-black dark:text-blog-white">
+      <main className="min-h-screen bg-blog-white dark:bg-fun-blue-500 flex flex-col items-center px-4 py-8 sm:py-12 pb-24 text-blog-black dark:text-blog-white">
         {/* Hero Section */}
         <section className="flex flex-col items-center text-center mb-6 animate-fadeIn">
           {/* Profile Image */}
@@ -335,12 +335,12 @@ export default function LinksPage({ locale }: LinksPageProps) {
           </div>
 
           {/* Name */}
-          <h1 className="text-2xl sm:text-3xl font-bold text-blog-black mb-2">
+          <h1 className="text-2xl sm:text-3xl font-bold text-blog-black dark:text-blog-white mb-2">
             Swapnil Srivastava
           </h1>
 
           {/* Bio */}
-          <p className="text-gray-600 dark:text-blog-white text-sm sm:text-base max-w-xs leading-relaxed mb-2">
+          <p className="text-blog-black dark:text-blog-white text-sm sm:text-base max-w-xs leading-relaxed mb-2">
             <FormattedMessage
               id="links-bio-line1"
               description="Bio first line"
@@ -353,7 +353,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
               defaultMessage="Building modern web experiences with passion"
             />
           </p>
-          <p className="text-gray-500 dark:text-blog-white text-xs sm:text-sm max-w-sm leading-relaxed">
+          <p className="text-blog-black dark:text-blog-white text-xs sm:text-sm max-w-sm leading-relaxed">
             <FormattedMessage
               id="links-bio-line3"
               description="Bio third line"
@@ -381,7 +381,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
                     flex flex-col sm:flex-row sm:items-center gap-4 w-full p-4 rounded-xl
                     transition-all duration-300 transform hover:scale-[1.02]
                     drop-shadow-lg hover:drop-shadow-xl
-                    bg-gradient-to-r from-hit-pink-500 to-hit-pink-600 hover:from-hit-pink-600 hover:to-hit-pink-700 text-blog-black dark:text-blog-black
+                    bg-gradient-to-r from-hit-pink-500 to-hit-pink-600 hover:from-hit-pink-600 hover:to-hit-pink-700 text-blog-black
                   `}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
@@ -391,22 +391,21 @@ export default function LinksPage({ locale }: LinksPageProps) {
                     <div
                       className={`
                         flex items-center justify-center w-12 h-12 rounded-full flex-shrink-0
-                        bg-white/20 text-blog-black dark:text-blog-black
-                      `}
+                        bg-white/20 text-blog-blac                    `}
                     >
                       <FontAwesomeIcon icon={link.icon} className="w-5 h-5" />
                     </div>
 
                     {/* Text Content */}
                     <div className="flex-1 text-left">
-                      <h2 className="font-semibold text-base text-blog-black dark:text-blog-black">
+                      <h2 className="font-semibold text-base text-blog-black">
                         <FormattedMessage
                           id={`links-${link.id}-title`}
                           description={`Link title for ${link.id}`}
                           defaultMessage={link.title}
                         />
                       </h2>
-                      <p className="text-sm text-blog-black/70 dark:text-blog-black/70">
+                      <p className="text-sm text-blog-black/70">
                         <FormattedMessage
                           id={`links-${link.id}-description`}
                           description={`Link description for ${link.id}`}
