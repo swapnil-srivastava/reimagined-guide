@@ -831,7 +831,7 @@ function UsernameForm() {
         </div>
         
         {/* Welcome message */}
-        <h1 className="text-3xl font-bold text-blog-black dark:text-white mb-2">
+        <h1 className="text-3xl font-bold text-black mb-2">
           <FormattedMessage
             id="auth-welcome-verified"
             description="Welcome after email verification"
@@ -840,7 +840,7 @@ function UsernameForm() {
           />
         </h1>
         
-        <p className="text-gray-600 dark:text-blog-white mb-4">
+        <p className="text-black mb-4">
           <FormattedMessage
             id="auth-email-verified-success"
             description="Email verified successfully"
@@ -849,7 +849,7 @@ function UsernameForm() {
         </p>
         
         <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6">
-          <h2 className="text-xl font-semibold text-blog-black dark:text-white mb-2">
+          <h2 className="text-xl font-semibold text-black mb-2">
             <FormattedMessage
               id="auth-choose-username-title"
               description="Choose username title"
