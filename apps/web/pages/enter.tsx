@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
+import { NextPage } from "next";
 import { useSelector, useDispatch } from "react-redux";
 import { FormattedMessage, useIntl } from "react-intl";
 import { supaClient } from "../supa-client";
@@ -11,7 +12,7 @@ import HCaptcha from '@hcaptcha/react-hcaptcha';
 import HCaptchaWidget from "../components/HCaptchaWidget";
 
 // e.g. localhost:3000/enter
-function Enter() {
+const Enter: NextPage = () => {
   const selectUser = (state: RootState) => state.users;
   const userData = useSelector(selectUser);
   const userInfo = userData?.userInfo;
@@ -206,7 +207,7 @@ function AuthCard() {
   };
 
   return (
-    <div className="bg-white dark:bg-fun-blue-800 shadow-2xl rounded-2xl p-8 border border-gray-200 dark:border-fun-blue-600">
+    <div className="bg-white card--white dark:bg-fun-blue-800 shadow-2xl rounded-2xl p-8 border border-gray-200 dark:border-fun-blue-600">
       {/* Header */}
       <div className="text-center mb-8">
         <div className="flex justify-center mb-4">
@@ -274,7 +275,7 @@ function AuthCard() {
           <div className="w-full border-t border-gray-300 dark:border-gray-600" />
         </div>
         <div className="relative flex justify-center text-sm">
-          <span className="px-4 bg-white dark:bg-fun-blue-800 text-gray-500 dark:text-blog-white">
+          <span className="px-4 card--white dark:bg-fun-blue-800 text-gray-500 dark:text-blog-white">
             <FormattedMessage
               id="auth-or-divider"
               description="Or divider"
