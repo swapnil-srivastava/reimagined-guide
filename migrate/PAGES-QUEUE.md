@@ -18,6 +18,7 @@ Other pages (alphabetical):
 
  - pages/enter.tsx (branch: migrate/pages-enter)
  - pages/favorites/index.tsx (branch: migrate/pages-favorites)
+ - pages/invite/index.tsx (branch: migrate/pages-invite)
 
 Completed (recently finished):
 

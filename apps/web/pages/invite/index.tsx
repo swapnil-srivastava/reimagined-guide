@@ -229,7 +229,7 @@ function Invite({ seoData }: InvitePageProps) {
     fetchEvents();
   }, [dispatch, intl]);  if (loading) {
     return (
-      <div className="min-h-screen bg-blog-white dark:bg-fun-blue-500 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-blog-white card--white dark:bg-fun-blue-500 flex items-center justify-center p-4">
         <div className="text-center">
           <div className="animate-spin w-8 h-8 border-3 border-fun-blue-500 border-t-transparent rounded-full mx-auto mb-4"></div>
           <p className="text-blog-black dark:text-blog-white font-poppins text-sm">
@@ -245,7 +245,7 @@ function Invite({ seoData }: InvitePageProps) {
   }
 
   return (
-    <main>
+    <main className="text-blog-black dark:text-blog-white">
       <Head>
         <title>{seoData.title}</title>
         <meta name="description" content={seoData.description} />
@@ -265,7 +265,7 @@ function Invite({ seoData }: InvitePageProps) {
         <meta property="article:published_time" content={new Date().toISOString()} />
       </Head>
       
-      <div className="min-h-screen bg-blog-white dark:bg-fun-blue-500 font-poppins">
+      <div className="min-h-screen bg-blog-white card--white dark:bg-fun-blue-500 font-poppins">
         {/* Mobile-First Hero Section */}
         <div className="relative bg-gradient-to-br from-fun-blue-500 to-fun-blue-700 dark:from-fun-blue-600 dark:to-fun-blue-800 p-4 sm:p-6 lg:py-16 lg:px-6">
           <div className="max-w-6xl mx-auto text-center">
@@ -362,7 +362,7 @@ function Invite({ seoData }: InvitePageProps) {
                                   {yearEvents.map((inviteEvent) => (
                                     <div 
                                       key={inviteEvent.id} 
-                                      className="bg-white dark:bg-fun-blue-600 rounded-lg sm:rounded-xl drop-shadow-lg hover:drop-shadow-xl transition-all duration-300 border-l-4 border-green-500 group relative"
+                                      className="bg-white card--white dark:bg-fun-blue-600 rounded-lg sm:rounded-xl drop-shadow-lg hover:drop-shadow-xl transition-all duration-300 border-l-4 border-green-500 group relative"
                                       style={{ isolation: 'isolate' }}
                                     >
                                       {/* Mobile-First Event Layout */}
@@ -658,7 +658,7 @@ function Invite({ seoData }: InvitePageProps) {
                                       {yearEvents.map((inviteEvent) => (
                                         <div 
                                           key={inviteEvent.id} 
-                                          className="bg-white dark:bg-fun-blue-600 rounded-lg sm:rounded-xl drop-shadow-lg hover:drop-shadow-xl transition-all duration-300 overflow-hidden border-l-4 border-gray-400 opacity-80 group"
+                                          className="bg-white card--white dark:bg-fun-blue-600 rounded-lg sm:rounded-xl drop-shadow-lg hover:drop-shadow-xl transition-all duration-300 overflow-hidden border-l-4 border-gray-400 opacity-80 group"
                                         >
                                           {/* Mobile-First Past Event Layout */}
                                           <div className="relative">
@@ -844,7 +844,7 @@ function Invite({ seoData }: InvitePageProps) {
               })()
             ) : (
               <div className="text-center py-8 sm:py-12 lg:py-16">
-                <div className="bg-white dark:bg-fun-blue-600 rounded-lg sm:rounded-xl lg:rounded-2xl p-6 sm:p-8 lg:p-12 drop-shadow-lg max-w-md mx-auto">
+                <div className="bg-white card--white dark:bg-fun-blue-600 rounded-lg sm:rounded-xl lg:rounded-2xl p-6 sm:p-8 lg:p-12 drop-shadow-lg max-w-md mx-auto">
                   <FontAwesomeIcon icon={faCalendar} className="text-gray-400 dark:text-blog-white text-4xl sm:text-5xl lg:text-6xl mb-4 sm:mb-6" />
                   <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold text-blog-black dark:text-blog-white mb-3 sm:mb-4">
                     <FormattedMessage
