@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
+import { NextPage } from "next";
 import { useSelector, useDispatch } from "react-redux";
 import { FormattedMessage, useIntl } from "react-intl";
 import { supaClient } from "../supa-client";
@@ -11,7 +12,7 @@ import HCaptcha from '@hcaptcha/react-hcaptcha';
 import HCaptchaWidget from "../components/HCaptchaWidget";
 
 // e.g. localhost:3000/enter
-function Enter() {
+const Enter: NextPage = () => {
   const selectUser = (state: RootState) => state.users;
   const userData = useSelector(selectUser);
   const userInfo = userData?.userInfo;
@@ -210,13 +211,13 @@ function AuthCard() {
       {/* Header */}
       <div className="text-center mb-8">
         <div className="flex justify-center mb-4">
-          <div className="w-16 h-16 bg-fun-blue-500 rounded-full flex items-center justify-center">
+          <div className="w-16 h-16 bg-fun-blue-500 rounded-full flex items-center justify-center text-blog-black dark:text-blog-white">
             <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
           </div>
         </div>
-        <h1 className="text-3xl font-bold text-blog-black dark:text-blog-white mb-2">
+        <h1 className="text-3xl font-bold text-black mb-2">
           <FormattedMessage
             id={isSignUp ? "auth-welcome-signup" : "auth-welcome-signin"}
             description={isSignUp ? "Welcome signup" : "Welcome signin"}
@@ -274,7 +275,7 @@ function AuthCard() {
           <div className="w-full border-t border-gray-300 dark:border-gray-600" />
         </div>
         <div className="relative flex justify-center text-sm">
-          <span className="px-4 bg-white dark:bg-fun-blue-800 text-gray-500 dark:text-blog-white">
+          <span className="px-4 card--white dark:bg-fun-blue-800 text-gray-500 dark:text-blog-white">
             <FormattedMessage
               id="auth-or-divider"
               description="Or divider"
@@ -830,7 +831,7 @@ function UsernameForm() {
         </div>
         
         {/* Welcome message */}
-        <h1 className="text-3xl font-bold text-blog-black dark:text-white mb-2">
+        <h1 className="text-3xl font-bold text-black mb-2">
           <FormattedMessage
             id="auth-welcome-verified"
             description="Welcome after email verification"
@@ -839,7 +840,7 @@ function UsernameForm() {
           />
         </h1>
         
-        <p className="text-gray-600 dark:text-blog-white mb-4">
+        <p className="text-black mb-4">
           <FormattedMessage
             id="auth-email-verified-success"
             description="Email verified successfully"
@@ -848,7 +849,7 @@ function UsernameForm() {
         </p>
         
         <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6">
-          <h2 className="text-xl font-semibold text-blog-black dark:text-white mb-2">
+          <h2 className="text-xl font-semibold text-black mb-2">
             <FormattedMessage
               id="auth-choose-username-title"
               description="Choose username title"
