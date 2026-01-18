@@ -335,7 +335,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
           </div>
 
           {/* Name */}
-          <h1 className="text-2xl sm:text-3xl font-bold text-blog-black dark:text-blog-white mb-2">
+          <h1 className="text-2xl sm:text-3xl font-bold text-blog-black mb-2">
             Swapnil Srivastava
           </h1>
 
