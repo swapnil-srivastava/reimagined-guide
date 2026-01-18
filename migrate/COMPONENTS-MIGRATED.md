@@ -16,6 +16,7 @@ Inspected / Notes:
 - apps/web/components/PostFeed.tsx — updated to enforce `card--white` on post cards and switched content text to `text-black` for stronger contrast.
 
 Recent edits were pushed on branches: `migrate/pages-approve-components`, `migrate/pages-approve-slug`.
+ - `pages/index.tsx` migrated (branch: `migrate/pages-index`) — inspected `PostList` and `HorizontalScrollTech` (no component-level changes required).
 
 Policy:
 - Migrate a component on the first page that requires it.
