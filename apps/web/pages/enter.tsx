@@ -207,17 +207,17 @@ function AuthCard() {
   };
 
   return (
-    <div className="bg-white card--white dark:bg-fun-blue-800 shadow-2xl rounded-2xl p-8 border border-gray-200 dark:border-fun-blue-600">
+    <div className="bg-white dark:bg-fun-blue-800 shadow-2xl rounded-2xl p-8 border border-gray-200 dark:border-fun-blue-600">
       {/* Header */}
       <div className="text-center mb-8">
         <div className="flex justify-center mb-4">
-          <div className="w-16 h-16 bg-fun-blue-500 rounded-full flex items-center justify-center">
+          <div className="w-16 h-16 bg-fun-blue-500 rounded-full flex items-center justify-center text-blog-black dark:text-blog-white">
             <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
           </div>
         </div>
-        <h1 className="text-3xl font-bold text-blog-black dark:text-blog-white mb-2">
+        <h1 className="text-3xl font-bold text-black mb-2">
           <FormattedMessage
             id={isSignUp ? "auth-welcome-signup" : "auth-welcome-signin"}
             description={isSignUp ? "Welcome signup" : "Welcome signin"}
