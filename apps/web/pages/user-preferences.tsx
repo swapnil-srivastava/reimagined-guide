@@ -19,7 +19,7 @@ const UserPreferences: NextPage = () => {
         <title>User Preferences - Reimagined Guide</title>
         <meta name="description" content="Manage your personalization preferences" />
       </Head>
-      <div className="container mx-auto px-4 py-8 text-blog-black dark:text-blog-white">
+      <div className="container mx-auto px-4 py-8 text-blog-black dark:text-blog-white bg-blog-white dark:bg-fun-blue-500 min-h-screen">
         <h1 className="text-3xl font-bold mb-6 text-blog-black dark:text-blog-white">
           <FormattedMessage id="preferences.title" defaultMessage="User Preferences" />
         </h1>
@@ -34,7 +34,7 @@ const UserPreferences: NextPage = () => {
         <PersonalizationPreferences />
         <div className="mt-8">
           <Link href="/" legacyBehavior>
-            <a className="text-[#1249de] hover:text-[#385dc5] dark:text-[#12dea8] dark:hover:text-[#385dc5] flex items-center gap-2">
+            <a className="text-fun-blue-100 hover:text-[#385dc5] dark:text-[#12dea8] dark:hover:text-[#385dc5] flex items-center gap-2">
               <FontAwesomeIcon icon={faArrowLeft} className="h-4 w-4" />
               <span>
                 <FormattedMessage id="preferences.back_to_home" defaultMessage="Back to Home" />
