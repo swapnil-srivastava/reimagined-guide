@@ -20,6 +20,8 @@ Other pages (alphabetical):
  - pages/favorites/index.tsx (branch: migrate/pages-favorites)
  - pages/invite/index.tsx (branch: migrate/pages-invite)
  - pages/links.tsx (branch: migrate/pages-links)
+ - pages/pics/index.tsx (branch: migrate/pages-pics)
+ - pages/links.tsx (branch: migrate/pages-links)
 
 Completed (recently finished):
 
