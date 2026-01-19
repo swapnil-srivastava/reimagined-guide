@@ -21,6 +21,7 @@ Other pages (alphabetical):
  - pages/invite/index.tsx (branch: migrate/pages-invite)
  - pages/links.tsx (branch: migrate/pages-links)
  - pages/pics/index.tsx (branch: migrate/pages-pics)
+ - pages/play.tsx (branch: migrate/pages-play)
  - pages/pics/index.tsx (branch: migrate/pages-pics)
  - pages/links.tsx (branch: migrate/pages-links)
 

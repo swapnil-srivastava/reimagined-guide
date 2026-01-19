@@ -17,6 +17,8 @@ Completed (migrated and verified):
  
 - Inspected for this migration: image usage in `apps/web/pages/pics/index.tsx` (Next.js `Image` component with local asset) — no component changes required.
 
+- Inspected for this migration: `apps/web/components/SpotifyPlayer.tsx` — no component-level changes required.
+
 - Inspected for this migration: `apps/web/pages/pics/index.tsx` — simple image page, no component changes required.
  - Inspected for this migration: `apps/web/components/CheckoutButton.tsx` — no component-level changes required.
 
