@@ -26,6 +26,8 @@ Completed (migrated and verified):
 - Inspected for this migration: `apps/web/pages/pics/index.tsx` — simple image page, no component changes required.
  - Inspected for this migration: `apps/web/components/CheckoutButton.tsx` — no component-level changes required.
 
+- Inspected for this migration: `apps/web/pages/privacy-policy/index.tsx` — no component changes required.
+
 Inspected / Notes:
 - apps/web/components/AuthCheck.tsx — updated to add `card--white` on fallback button; conservative sweep completed for approve-related use.
 - apps/web/components/PostFeed.tsx — updated to enforce `card--white` on post cards and switched content text to `text-black` for stronger contrast.
