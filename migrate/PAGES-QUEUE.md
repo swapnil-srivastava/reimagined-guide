@@ -21,6 +21,7 @@ Other pages (alphabetical):
  - pages/invite/index.tsx (branch: migrate/pages-invite)
  - pages/links.tsx (branch: migrate/pages-links)
  - pages/pics/index.tsx (branch: migrate/pages-pics)
+ - pages/pics/index.tsx (branch: migrate/pages-pics)
  - pages/links.tsx (branch: migrate/pages-links)
 
 Completed (recently finished):
@@ -36,3 +37,4 @@ Recent updates:
  - `apps/web/components/PostFeed.tsx` inspected as part of the `approve` migration. `apps/web/components/AuthCheck.tsx` inspected; conservative fixes to `bg-white` containers are pending and will be applied in a small follow-up commit if required.
  - `pages/enter.tsx` recorded as completed (branch: `migrate/pages-enter`) — page state accepted as baseline for next migrations.
  - `pages/index.tsx` migrated (branch: `migrate/pages-index`) — page-level body tokens applied; white-background sections annotated with `card--white`.
+ - `pages/pics/index.tsx` recorded as migrated (branch: `migrate/pages-pics`) — simple image page; `card--white` verified on wrapper.
