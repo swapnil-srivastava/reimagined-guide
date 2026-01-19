@@ -22,6 +22,8 @@ Other pages (alphabetical):
  - pages/links.tsx (branch: migrate/pages-links)
  - pages/pics/index.tsx (branch: migrate/pages-pics)
  - pages/play.tsx (branch: migrate/pages-play)
+ - pages/pricing/index.tsx (branch: migrate/pages-pricing)
+ - pages/pricing/index.tsx (branch: migrate/pages-pricing)
  - pages/pics/index.tsx (branch: migrate/pages-pics)
  - pages/links.tsx (branch: migrate/pages-links)
 
