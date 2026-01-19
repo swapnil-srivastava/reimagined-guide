@@ -30,6 +30,9 @@ Other pages (alphabetical):
 Completed (recently finished):
 
  - pages/enter.tsx (branch: migrate/pages-enter)
+ - pages/rsvp/index.tsx (branch: migrate/pages-rsvp) — page-level body tokens applied; basic structure added with `text-blog-black dark:text-blog-white`.
+ - pages/success.tsx (branch: migrate/pages-success) — page-level body tokens applied; success card annotated with `card--white`.
+ - pages/user-preferences.tsx (branch: migrate/pages-user-preferences) — page-level background and tokens applied.
 
 Notes:
 
