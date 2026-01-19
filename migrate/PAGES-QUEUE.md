@@ -30,6 +30,7 @@ Other pages (alphabetical):
 Completed (recently finished):
 
  - pages/enter.tsx (branch: migrate/pages-enter)
+ - pages/rsvp/index.tsx (branch: migrate/pages-rsvp) — page-level body tokens applied; basic structure added with `text-blog-black dark:text-blog-white`.
 
 Notes:
 
