@@ -209,6 +209,7 @@
 - **Secondary Containers:** `bg-gray-50 dark:bg-fun-blue-700` for nested content
 - **Input Backgrounds:** `bg-white dark:bg-fun-blue-600` for form elements
 - **Hover Backgrounds:** `hover:bg-gray-50 dark:hover:bg-fun-blue-600`
+- **Theme-Aware Card Backgrounds:** Use current theme color (e.g., `bg-fun-blue-100`) in light mode and white (`bg-blog-white`) in dark mode for cards that should adapt to the theme (e.g., pricing cards).
 
 ### Component Styling Standards (CRITICAL)
 - **Always use Poppins font:** Either explicit `font-poppins` or rely on default
