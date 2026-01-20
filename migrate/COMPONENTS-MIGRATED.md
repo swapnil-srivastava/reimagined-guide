@@ -32,6 +32,8 @@ Completed (migrated and verified):
 
 - Inspected for this migration: `apps/web/pages/privacy-policy/index.tsx` — no component changes required.
 
+- Inspected for this migration: `apps/web/pages/profile.tsx` — no component changes required.
+
 Inspected / Notes:
 - apps/web/components/AuthCheck.tsx — updated to add `card--white` on fallback button; conservative sweep completed for approve-related use.
 - apps/web/components/PostFeed.tsx — updated to enforce `card--white` on post cards and switched content text to `text-black` for stronger contrast.
@@ -40,6 +42,7 @@ Recent edits were pushed on branches: `migrate/pages-approve-components`, `migra
  - `pages/index.tsx` migrated (branch: `migrate/pages-index`) — inspected `PostList` and `HorizontalScrollTech` (no component-level changes required).
 
 - Inspected for this migration: `apps/web/pages/products/index.tsx` — no component changes required.
+- Inspected for this migration: `apps/web/pages/profile.tsx` — no component changes required.
 
 Policy:
 - Migrate a component on the first page that requires it.
