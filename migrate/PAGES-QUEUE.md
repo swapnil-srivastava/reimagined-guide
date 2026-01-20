@@ -6,7 +6,7 @@ Order: root index (`/`) first, then remaining pages alphabetically.
 
 Completed:
 
-- pages/404.tsx (branch: migrate/pages-404)
+- pages/404.tsx (branch: migrate/pages-404) — page-level background and text tokens applied; NextPage typing and accessibility already present.
 
 Other pages (alphabetical):
 
