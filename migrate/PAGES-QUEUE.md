@@ -35,6 +35,7 @@ Completed (recently finished):
  - pages/user-preferences.tsx (branch: migrate/pages-user-preferences) — page-level background and tokens applied.
  - pages/privacy-policy/index.tsx (branch: migrate/pages-privacy-policy) — page-level background and tokens applied; corrected dark mode text classes.
  - pages/product-detail/index.tsx (branch: migrate/pages-product-detail) — page-level background and tokens applied; added NextPage typing.
+ - pages/products/index.tsx (branch: migrate/pages-products) — added NextPage typing; page-level background and tokens already present.
 
 Notes:
 

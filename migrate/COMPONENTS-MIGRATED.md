@@ -39,7 +39,7 @@ Inspected / Notes:
 Recent edits were pushed on branches: `migrate/pages-approve-components`, `migrate/pages-approve-slug`.
  - `pages/index.tsx` migrated (branch: `migrate/pages-index`) — inspected `PostList` and `HorizontalScrollTech` (no component-level changes required).
 
-- Inspected for this migration: `apps/web/pages/product-detail/index.tsx` — no component changes required.
+- Inspected for this migration: `apps/web/pages/products/index.tsx` — no component changes required.
 
 Policy:
 - Migrate a component on the first page that requires it.
