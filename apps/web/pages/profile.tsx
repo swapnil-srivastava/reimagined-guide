@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import moment from "moment";
 import { FormattedMessage, useIntl } from "react-intl";
+import type { NextPage } from 'next';
 
 // Accordion
 import Accordion from "@mui/material/Accordion";
@@ -33,7 +34,7 @@ import { RootState } from "../lib/interfaces/interface";
 
 import Metatags from "../components/Metatags";
 
-const Profile = () => {
+const Profile: NextPage = () => {
   const intl = useIntl();
   const [expanded, setExpanded] = useState<string | false>(false);
   const [experiences, setExperiences] = useState<EXPERIENCES[]>();
@@ -62,7 +63,7 @@ const Profile = () => {
   return (
     <>
       <Metatags/>
-      <div className="m-4 text-blog-black dark:text-blog-white">
+      <div className="min-h-screen bg-blog-white dark:bg-fun-blue-500 p-4 text-blog-black dark:text-blog-white">
         {profile?.id ? <CreateExperience /> : ""}
         {/* Overall All Experience :{" "}
         {moment("2014-04-01 10:00:00+00").fromNow(true)} */}

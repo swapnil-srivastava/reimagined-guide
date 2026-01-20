@@ -45,6 +45,17 @@ Other pages (alphabetical):
 - pages/[username]/[slug].tsx
 - pages/[username]/index.tsx
 
+Completed (recently finished):
+
+ - pages/enter.tsx (branch: migrate/pages-enter)
+ - pages/rsvp/index.tsx (branch: migrate/pages-rsvp) — page-level body tokens applied; basic structure added with `text-blog-black dark:text-blog-white`.
+ - pages/success.tsx (branch: migrate/pages-success) — page-level body tokens applied; success card annotated with `card--white`.
+ - pages/user-preferences.tsx (branch: migrate/pages-user-preferences) — page-level background and tokens applied.
+ - pages/privacy-policy/index.tsx (branch: migrate/pages-privacy-policy) — page-level background and tokens applied; corrected dark mode text classes.
+ - pages/product-detail/index.tsx (branch: migrate/pages-product-detail) — page-level background and tokens applied; added NextPage typing.
+ - pages/products/index.tsx (branch: migrate/pages-products) — added NextPage typing; page-level background and tokens already present.
+ - pages/profile.tsx (branch: migrate/pages-profile) — added NextPage typing; page-level background and tokens applied; fixed negative margin to padding.
+
 Notes:
 - `_app.tsx` and `_document.tsx` are app-level files and are not part of per-page migrations.
 - API routes under `pages/api` are not migrated as pages.
