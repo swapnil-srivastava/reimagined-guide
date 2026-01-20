@@ -34,6 +34,7 @@ Completed (recently finished):
  - pages/success.tsx (branch: migrate/pages-success) — page-level body tokens applied; success card annotated with `card--white`.
  - pages/user-preferences.tsx (branch: migrate/pages-user-preferences) — page-level background and tokens applied.
  - pages/privacy-policy/index.tsx (branch: migrate/pages-privacy-policy) — page-level background and tokens applied; corrected dark mode text classes.
+ - pages/product-detail/index.tsx (branch: migrate/pages-product-detail) — page-level background and tokens applied; added NextPage typing.
 
 Notes:
 
