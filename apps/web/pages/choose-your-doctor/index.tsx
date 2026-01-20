@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { NextPage } from "next";
 
 // Nextjs
 import Link from "next/link";
@@ -10,7 +11,7 @@ import {
   materialRenderers,
 } from "@jsonforms/material-renderers";
 
-// Technology Schema
+// Schema
 import schema from "../../lib/chooseYourDoctor/chooseYourDoctorSchema.json";
 import uischema from "../../lib/chooseYourDoctor/uiChooseYourDoctorSchema.json";
 
@@ -22,15 +23,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // Font Icons
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
-const ChooseYourDoctor = () => {
+const ChooseYourDoctor: NextPage = () => {
   const [data, setData] = useState();
 
   return (
-    <div className="flex flex-col h-screen justify-between">
+    <div className="flex flex-col h-screen justify-between bg-blog-white text-blog-black dark:text-blog-white">
       <div className="flex flex-col justify-between">
         <div className="self-start flex gap-2 items-center ml-5 mt-10">
           <Link href="/book-appointment" legacyBehavior>
-            <div className="bg-fun-blue-300 dark:text-blog-black w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 p-0.5 m-0.5 flex items-center justify-center rounded-full transition-filter duration-500 hover:filter hover:brightness-125">
+            <div className="bg-fun-blue-300 text-black dark:text-blog-black w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 p-0.5 m-0.5 flex items-center justify-center rounded-full transition-filter duration-500 hover:filter hover:brightness-125">
               <FontAwesomeIcon icon={faChevronLeft} size="lg" />
             </div>
           </Link>
@@ -38,8 +39,8 @@ const ChooseYourDoctor = () => {
             Doctors
           </div>
         </div>
-        <div className="dark:bg-blog-white my-2">
-          <div className="mx-5 mb-2">
+        <div className="my-2">
+          <div className="mx-5 mb-2 text-blog-black dark:text-blog-white">
             <JsonForms
               schema={schema}
               uischema={uischema}
@@ -51,7 +52,7 @@ const ChooseYourDoctor = () => {
           </div>
         </div>
 
-        <div className="ml-5 mt-2 flex gap-1 md:text-xl lg:text-2xl text-base dark:text-blog-white text-blog-black font-thin leading-none tracking-tight">
+        <div className="ml-5 mt-2 flex gap-1 md:text-xl lg:text-2xl text-blog-black dark:text-blog-white text-blog-black font-thin leading-none tracking-tight">
           <Chip label="All" color="primary" />
           <Chip label="General Physician" color="primary" />
           <Chip label="Cardiologist" color="primary" />
@@ -61,28 +62,16 @@ const ChooseYourDoctor = () => {
         <div className="ml-5 mt-4 lg:flex lg:flex-row flex flex-col flex-wrap gap-3 lg:gap-y-2 mr-2 dark:text-blog-white text-blog-black">
           <Link href="/doctor-page" legacyBehavior>
             <div
-              className="p-3
-                  bg-blog-white 
-                  dark:bg-fun-blue-600 dark:text-blog-white
-                  rounded-lg
-                  drop-shadow-lg
-                  hover:drop-shadow-xl
-                  hover:brightness-125"
+              className="p-3 bg-blog-white dark:bg-fun-blue-600 rounded-lg drop-shadow-lg hover:drop-shadow-xl hover:brightness-125"
             >
-              <div>Row of Doctor</div>
+              <div className="text-blog-black dark:text-blog-white">Row of Doctor</div>
             </div>
           </Link>
           <Link href="/doctor-page" legacyBehavior>
             <div
-              className="p-3
-                  bg-blog-white 
-                  dark:bg-fun-blue-600 dark:text-blog-white
-                  rounded-lg
-                  drop-shadow-lg
-                  hover:drop-shadow-xl
-                  hover:brightness-125"
+              className="p-3 bg-blog-white dark:bg-fun-blue-600 rounded-lg drop-shadow-lg hover:drop-shadow-xl hover:brightness-125"
             >
-              <div>Row of Doctor, book an appointment </div>
+              <div className="text-blog-black dark:text-blog-white">Row of Doctor, book an appointment</div>
             </div>
           </Link>
         </div>

@@ -14,18 +14,15 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Chip from "@mui/material/Chip";
 
 // JSON FORMS
-import { JsonForms } from "@jsonforms/react";
+import dynamic from "next/dynamic";
+
+const JsonFormsClient = dynamic(() => import("../components/JsonFormsClient"), { ssr: false });
 
 import schema from "../lib/experiences/experiencesSchema.json";
 import uischema from "../lib/experiences/uiExperiencesSchema.json";
 
 import skillSchema from "../lib/skills/skillsSchema.json";
 import uiSkillSchema from "../lib/skills/uiSkillsSchema.json";
-
-import {
-  materialCells,
-  materialRenderers,
-} from "@jsonforms/material-renderers";
 
 // Supabase Interfaces
 import { EXPERIENCES, EXPERIENCES_INSERT_DATA } from "../database.types";
