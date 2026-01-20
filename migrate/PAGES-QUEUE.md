@@ -5,6 +5,8 @@ Order: root index (`/`) first, then remaining pages alphabetically.
 1. pages/index.tsx  # root — migrate first
 
 Completed:
+
+- pages/404.tsx (branch: migrate/pages-404) — page-level background and text tokens applied; NextPage typing and accessibility already present.
  - pages/index.tsx (branch: migrate/pages-index)
  - pages/approve/index.tsx (branch: migrate/pages-approve-index)
  - pages/book-appointment/index.tsx (branch: migrate/pages-book-appointment)
