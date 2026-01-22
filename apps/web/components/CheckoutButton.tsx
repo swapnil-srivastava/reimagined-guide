@@ -213,7 +213,7 @@ const CheckoutButton = ({
       <button
         type="button"
         disabled={isLoading}
-        className="w-full sm:w-auto bg-hit-pink-500 text-blog-black
+        className="w-full sm:w-auto bg-hit-pink-500 text-black
         rounded-lg px-4 py-2 m-2
         transition-filter duration-500 hover:filter hover:brightness-125 
         focus:outline-none focus:ring-2 
