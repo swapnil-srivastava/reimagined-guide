@@ -7,6 +7,8 @@ Order: root index (`/`) first, then remaining pages alphabetically.
 Completed:
 
 - pages/404.tsx (branch: migrate/pages-404)
+- pages/admin/index.tsx (branch: migrate/admin-index-v2) — page-level background and text tokens applied; NextPage typing already present.
+- pages/admin/events.tsx (branch: migrate/pages-admin-events) — page-level background and text tokens applied; NextPage typing already present; corrected hardcoded text colors.
 
 Other pages (alphabetical):
 
