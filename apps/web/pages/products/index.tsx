@@ -5,6 +5,7 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faFilter, faSearch } from "@fortawesome/free-solid-svg-icons";
+import type { NextPage } from 'next';
 
 // CSS
 import styles from "../../styles/Admin.module.css";
@@ -18,7 +19,7 @@ import { RootState } from "../../lib/interfaces/interface";
 // Supabase
 import { supaClient } from "../../supa-client";
 
-function Products() {
+const Products: NextPage = () => {
   const intl = useIntl();
 
   const selectUser = (state: RootState) => state.cart;

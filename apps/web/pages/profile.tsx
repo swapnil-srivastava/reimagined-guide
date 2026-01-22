@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import moment from "moment";
 import { FormattedMessage, useIntl } from "react-intl";
+import type { NextPage } from 'next';
 
 // Accordion
 import Accordion from "@mui/material/Accordion";
@@ -13,18 +14,15 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Chip from "@mui/material/Chip";
 
 // JSON FORMS
-import { JsonForms } from "@jsonforms/react";
+import dynamic from "next/dynamic";
+
+const JsonFormsClient = dynamic(() => import("../components/JsonFormsClient"), { ssr: false });
 
 import schema from "../lib/experiences/experiencesSchema.json";
 import uischema from "../lib/experiences/uiExperiencesSchema.json";
 
 import skillSchema from "../lib/skills/skillsSchema.json";
 import uiSkillSchema from "../lib/skills/uiSkillsSchema.json";
-
-import {
-  materialCells,
-  materialRenderers,
-} from "@jsonforms/material-renderers";
 
 // Supabase Interfaces
 import { EXPERIENCES, EXPERIENCES_INSERT_DATA } from "../database.types";
@@ -33,7 +31,7 @@ import { RootState } from "../lib/interfaces/interface";
 
 import Metatags from "../components/Metatags";
 
-const Profile = () => {
+const Profile: NextPage = () => {
   const intl = useIntl();
   const [expanded, setExpanded] = useState<string | false>(false);
   const [experiences, setExperiences] = useState<EXPERIENCES[]>();
@@ -62,7 +60,7 @@ const Profile = () => {
   return (
     <>
       <Metatags/>
-      <div className="m-4">
+      <div className="min-h-screen bg-blog-white dark:bg-fun-blue-500 p-4 text-blog-black dark:text-blog-white">
         {profile?.id ? <CreateExperience /> : ""}
         {/* Overall All Experience :{" "}
         {moment("2014-04-01 10:00:00+00").fromNow(true)} */}
@@ -190,7 +188,7 @@ function CreateExperience() {
 
   return (
     <>
-      <div className="flex flex-col gap-2 my-4 px-4 py-2 text-blog-black dark:bg-blog-white">
+      <div className="flex flex-col gap-2 my-4 px-4 py-2 bg-blog-white card--white">
         <JsonForms
           schema={schema}
           uischema={uischema}
@@ -295,7 +293,7 @@ function CreateSkill(props) {
 
   return (
     <>
-      <div className="flex flex-col gap-2 my-4 px-4 py-2 text-blog-black dark:bg-blog-white">
+      <div className="flex flex-col gap-2 my-4 px-4 py-2 bg-blog-white card--white">
         <JsonForms
           schema={skillSchema}
           uischema={uiSkillSchema}

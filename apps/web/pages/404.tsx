@@ -4,7 +4,7 @@ import type { NextPage } from 'next';
 
 const Custom404: NextPage = () => {
   return (
-    <main className='flex flex-col gap-y-10 items-center justify-center'>
+    <main className='bg-blog-white dark:bg-fun-blue-500 min-h-screen text-blog-black dark:text-blog-white flex flex-col gap-y-10 items-center justify-center'>
       <h1>
         <FormattedMessage
           id="404-page-not-found"
