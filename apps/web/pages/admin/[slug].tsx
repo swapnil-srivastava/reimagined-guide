@@ -87,9 +87,11 @@ import type { NextPage } from "next";
 
 const AdminSlug: NextPage = () => {
   return (
-    <AuthCheck>
-      <PostManager />
-    </AuthCheck>
+    <div className="bg-blog-white dark:bg-fun-blue-500 min-h-screen text-blog-black dark:text-blog-white">
+      <AuthCheck>
+        <PostManager />
+      </AuthCheck>
+    </div>
   );
 };
 
