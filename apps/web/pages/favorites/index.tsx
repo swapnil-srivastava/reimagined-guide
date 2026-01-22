@@ -167,10 +167,10 @@ export default function FavoritesPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-blog-white dark:bg-fun-blue-500">
+    <div className="min-h-screen flex flex-col bg-blog-white card--white dark:bg-fun-blue-500">
       <main className="flex-grow container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold text-blog-black dark:text-blog-white">
+          <h1 className="text-3xl font-bold text-blog-black">
             <FormattedMessage
               id="favorites-page-title"
               description="Title for the favorites page"

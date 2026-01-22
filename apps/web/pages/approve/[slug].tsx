@@ -69,7 +69,7 @@ function PostApprover() {
           description={generateMetaDescription(approvalPost?.content)}
         />
         {approvalPost && (
-          <section className="basis-2/3 p-3">
+          <section className="basis-2/3 p-3 bg-blog-white card--white text-blog-black dark:text-blog-white">
             <PostContent
               post={approvalPost}
               approve={

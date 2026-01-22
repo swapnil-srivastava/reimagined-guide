@@ -182,22 +182,6 @@ function AwesomeNavBar() {
         }
       />
 
-      <NavBarItem nextrouteurl>
-        <Link href="/technology">
-          <div className="w-[calc(2.5rem)] h-[calc(2.5rem)] flex items-center justify-center cursor-pointer rounded-full hover:bg-white hover:bg-opacity-20 dark:hover:bg-white dark:hover:bg-opacity-20 transition-colors">
-            <BasicTooltip title={intl.formatMessage({
-              id: 'nav-tech-stack-tooltip',
-              description: 'Tech Stack',
-              defaultMessage: 'Tech Stack'
-            })} placement="bottom">
-              <RoundButton>
-                <FontAwesomeIcon icon={faBolt} size="lg" />
-              </RoundButton>
-            </BasicTooltip>
-          </div>
-        </Link>
-      </NavBarItem>
-
       {/* user is not signed-in or has not created username */}
       {!profile?.username && (
         <NavBarItem nextrouteurl>

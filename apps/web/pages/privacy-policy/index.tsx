@@ -12,7 +12,7 @@ const PrivacyPolicy: NextPage = () => {
         <title>Privacy & Cookie Policy - swapnilsrivastava.eu</title>
         <meta name="description" content="Our privacy and cookie policy explains how we use cookies and process your data." />
       </Head>
-      <div className="container mx-auto px-4 py-8 text-blog-black dark:text-blog-white">
+      <div className="container mx-auto px-4 py-8 text-blog-black dark:text-blog-white bg-blog-white dark:bg-fun-blue-500 min-h-screen">
         <h1 className="text-3xl font-bold mb-6 text-blog-black dark:text-blog-white">
           <FormattedMessage
             id="privacy-policy-title"
@@ -22,14 +22,14 @@ const PrivacyPolicy: NextPage = () => {
         </h1>
         
         <section className="mb-8">
-          <h2 className="text-2xl font-bold mb-4 dark:text-white">
+          <h2 className="text-2xl font-bold mb-4 dark:text-blog-white">
             <FormattedMessage
               id="privacy-policy-overview-title"
               description="Overview"
               defaultMessage="Overview"
             />
           </h2>
-          <p className="mb-4 dark:text-white">
+          <p className="mb-4 dark:text-blog-white">
             <FormattedMessage
               id="privacy-policy-overview-text"
               description="This Privacy & Cookie Policy explains how we collect, use, and protect your information when you visit our website. We are committed to ensuring the privacy and security of your data."
@@ -39,13 +39,13 @@ const PrivacyPolicy: NextPage = () => {
         </section>
         
         <section className="mb-8">
-          <h2 className="text-2xl font-bold mb-4 dark:text-white">Cookie Policy</h2>
-          <p className="mb-4 dark:text-white">
+          <h2 className="text-2xl font-bold mb-4 dark:text-blog-white">Cookie Policy</h2>
+          <p className="mb-4 dark:text-blog-white">
             Our website uses cookies to enhance your browsing experience. Here&apos;s how we use them:
           </p>
           
-          <h3 className="text-xl font-semibold mb-2 dark:text-white">Necessary Cookies</h3>
-          <p className="mb-4 dark:text-white">
+          <h3 className="text-xl font-semibold mb-2 dark:text-blog-white">Necessary Cookies</h3>
+          <p className="mb-4 dark:text-blog-white">
             These cookies are essential for the website to function properly. They enable core 
             functionality such as security, account management, and session management. You cannot 
             disable these cookies through our system.
@@ -78,8 +78,8 @@ const PrivacyPolicy: NextPage = () => {
             </tbody>
           </table>
           
-          <h3 className="text-xl font-semibold mb-2 dark:text-white">Preference Cookies</h3>
-          <p className="mb-4 dark:text-white">
+          <h3 className="text-xl font-semibold mb-2 dark:text-blog-white">Preference Cookies</h3>
+          <p className="mb-4 dark:text-blog-white">
             These cookies allow the website to remember choices you make and provide enhanced, personalized features.
           </p>
           
@@ -100,8 +100,8 @@ const PrivacyPolicy: NextPage = () => {
             </tbody>
           </table>
           
-          <h3 className="text-xl font-semibold mb-2 dark:text-white">Analytics Cookies</h3>
-          <p className="mb-4 dark:text-white">
+          <h3 className="text-xl font-semibold mb-2 dark:text-blog-white">Analytics Cookies</h3>
+          <p className="mb-4 dark:text-blog-white">
             These cookies allow us to count visits and traffic sources so we can measure and improve 
             the performance of our site.
           </p>
@@ -128,8 +128,8 @@ const PrivacyPolicy: NextPage = () => {
             </tbody>
           </table>
           
-          <h3 className="text-xl font-semibold mb-2 dark:text-white">AI/Personalization Cookies</h3>
-          <p className="mb-4 dark:text-white">
+          <h3 className="text-xl font-semibold mb-2 dark:text-blog-white">AI/Personalization Cookies</h3>
+          <p className="mb-4 dark:text-blog-white">
             These cookies are used to provide personalized experiences and content based on your interactions.
           </p>
           
@@ -155,8 +155,8 @@ const PrivacyPolicy: NextPage = () => {
             </tbody>
           </table>
           
-          <h3 className="text-xl font-semibold mb-2 dark:text-white">Managing Your Cookie Preferences</h3>
-          <p className="dark:text-white">
+          <h3 className="text-xl font-semibold mb-2 dark:text-blog-white">Managing Your Cookie Preferences</h3>
+          <p className="dark:text-blog-white">
             You can change your cookie preferences at any time by clicking the &quot;Cookie Preferences&quot; 
             button at the bottom left corner of any page.
           </p>
@@ -164,7 +164,7 @@ const PrivacyPolicy: NextPage = () => {
         
         <div className="mt-8">
           <Link href="/" legacyBehavior>
-            <a className="text-[#1249de] hover:text-[#385dc5] dark:text-[#12dea8] dark:hover:text-[#385dc5] flex items-center gap-2">
+            <a className="text-fun-blue-100 hover:text-[#385dc5] dark:text-[#12dea8] dark:hover:text-[#385dc5] flex items-center gap-2">
               <FontAwesomeIcon icon={faArrowLeft} className="h-4 w-4" />
               <span>
                 <FormattedMessage id="privacy.back_to_home" defaultMessage="Back to Home" />
