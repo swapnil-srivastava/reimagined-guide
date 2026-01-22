@@ -9,6 +9,7 @@ Completed:
 - pages/404.tsx (branch: migrate/pages-404)
 - pages/admin/index.tsx (branch: migrate/admin-index-v2) — page-level background and text tokens applied; NextPage typing already present.
 - pages/admin/events.tsx (branch: migrate/pages-admin-events) — page-level background and text tokens applied; NextPage typing already present; corrected hardcoded text colors.
+- pages/admin/[slug].tsx (branch: migrate/pages-admin-slug) — page-level background and text tokens applied; NextPage typing already present.
 - pages/index.tsx (branch: migrate/pages-home)
 - pages/admin/index.tsx (branch: migrate/admin-index-v2) — page-level background and text tokens applied; NextPage typing already present.
 - pages/profile.tsx (branch: migrate/pages-profile)
