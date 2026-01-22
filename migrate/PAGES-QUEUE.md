@@ -8,6 +8,7 @@ Completed:
 
 - pages/404.tsx (branch: migrate/pages-404)
 - pages/index.tsx (branch: migrate/pages-home)
+- pages/admin/index.tsx (branch: migrate/admin-index-v2) — page-level background and text tokens applied; NextPage typing already present.
 - pages/profile.tsx (branch: migrate/pages-profile)
 - pages/appointment-confirmed/index.tsx (branch: migrate/pages-appointment-confirmed)
 - pages/appointment-page/index.tsx (branch: migrate/pages-appointment-page)

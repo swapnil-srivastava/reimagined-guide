@@ -23,13 +23,13 @@ import { User } from "@supabase/supabase-js";
 
 const Admin: NextPage = () => {
   return (
-    <>
+    <div className="bg-blog-white dark:bg-fun-blue-500 min-h-screen text-blog-black dark:text-blog-white">
       <AuthCheck>
         <CreateNewPost></CreateNewPost>
         <SendSMS></SendSMS>
         <PostList></PostList>
       </AuthCheck>
-    </>
+    </div>
   );
 }
 
