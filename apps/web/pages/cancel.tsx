@@ -1,11 +1,12 @@
 import React from "react";
 import Link from 'next/link';
 import { FormattedMessage } from 'react-intl';
+import type { NextPage } from 'next';
 
-function Cancel() {
+const Cancel: NextPage = () => {
     return (
-        <main className='flex flex-col gap-y-10 items-center justify-center bg-blog-white text-blog-black dark:text-blog-white'>
-          <h1 className="text-blog-black">
+        <main className='bg-blog-white dark:bg-fun-blue-500 min-h-screen text-blog-black dark:text-blog-white flex flex-col gap-y-10 items-center justify-center'>
+          <h1>
             <FormattedMessage
               id="cancel-cancelled"
               description="Cancelled message"
@@ -19,7 +20,7 @@ function Cancel() {
           </iframe>
           <Link href="/" legacyBehavior>
             <button className="
-            bg-hit-pink-500 text-black
+            bg-hit-pink-500 text-blog-black
             rounded-lg px-4 py-2 m-2
             transition-filter duration-500 hover:filter hover:brightness-125 
             focus:outline-none focus:ring-2 
