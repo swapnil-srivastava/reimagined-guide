@@ -231,7 +231,7 @@ function AwesomeNavBar() {
                       defaultMessage: 'Manage Events'
                     })} placement="bottom">
                       <RoundButton>
-                        <FontAwesomeIcon icon={faCalendarPlus} size="lg" className="text-blog-black" />
+                        <FontAwesomeIcon icon={faCalendarPlus} size="lg" />
                       </RoundButton>
                     </BasicTooltip>
                   </div>
