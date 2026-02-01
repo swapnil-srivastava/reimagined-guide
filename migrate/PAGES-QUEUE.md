@@ -17,6 +17,7 @@ Completed:
 - pages/appointment-page/index.tsx (branch: migrate/pages-appointment-page)
 - pages/admin/index.tsx (branch: migrate/pages-admin-events)
 - pages/admin/events.tsx (branch: migrate/pages-admin-events)
+- pages/approve/[slug].tsx (branch: migrate/pages-approve-slug) — page-level background and text tokens applied; NextPage typing already present.
  - pages/approve/index.tsx (branch: migrate/pages-approve-index)
  - pages/book-appointment/index.tsx (branch: migrate/pages-book-appointment)
  - pages/cancel.tsx (branch: migrate/pages-cancel)
@@ -27,6 +28,37 @@ Completed:
 
 Other pages (alphabetical):
 
+- pages/404.tsx
+- pages/appointment-confirmed/index.tsx
+- pages/appointment-page/index.tsx
+- pages/approve/index.tsx
+- pages/admin/[slug].tsx
+- pages/admin/events.tsx
+- pages/admin/index.tsx
+- pages/book-appointment/index.tsx
+- pages/cancel.tsx
+- pages/cart/index.tsx
+- pages/choose-your-doctor/index.tsx
+- pages/checkout/index.tsx
+- pages/coverimage/index.tsx
+- pages/doctor-page/index.tsx
+- pages/enter.tsx
+- pages/favorites/index.tsx
+- pages/invite/index.tsx
+- pages/links.tsx
+- pages/play.tsx
+- pages/pics/index.tsx
+- pages/privacy-policy/index.tsx
+- pages/pricing/index.tsx
+- pages/product-detail/[id].tsx
+- pages/product-detail/index.tsx
+- pages/products/index.tsx
+- pages/profile.tsx
+- pages/rsvp/index.tsx
+- pages/success.tsx
+- pages/user-preferences.tsx
+- pages/[username]/[slug].tsx
+- pages/[username]/index.tsx
  - pages/enter.tsx (branch: migrate/pages-enter)
  - pages/favorites/index.tsx (branch: migrate/pages-favorites)
  - pages/invite/index.tsx (branch: migrate/pages-invite)
