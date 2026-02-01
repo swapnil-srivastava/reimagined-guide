@@ -22,11 +22,11 @@ import { generateMetaDescription } from "../../lib/library";
 
 const ApproveSlug: NextPage = () => {
   return (
-    <>
+    <div className="bg-blog-white dark:bg-fun-blue-500 min-h-screen text-blog-black dark:text-blog-white">
       <AuthCheck>
         <PostApprover />
       </AuthCheck>
-    </>
+    </div>
   );
 };
 

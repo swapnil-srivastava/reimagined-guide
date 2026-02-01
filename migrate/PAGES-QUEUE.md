@@ -13,6 +13,7 @@ Completed:
 - pages/appointment-page/index.tsx (branch: migrate/pages-appointment-page)
 - pages/admin/index.tsx (branch: migrate/pages-admin-events)
 - pages/admin/events.tsx (branch: migrate/pages-admin-events)
+- pages/approve/[slug].tsx (branch: migrate/pages-approve-slug) — page-level background and text tokens applied; NextPage typing already present.
  - pages/approve/index.tsx (branch: migrate/pages-approve-index)
 
 Other pages (alphabetical):
@@ -20,7 +21,6 @@ Other pages (alphabetical):
 - pages/404.tsx
 - pages/appointment-confirmed/index.tsx
 - pages/appointment-page/index.tsx
-- pages/approve/[slug].tsx
 - pages/approve/index.tsx
 - pages/admin/[slug].tsx
 - pages/admin/events.tsx
