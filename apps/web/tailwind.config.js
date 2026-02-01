@@ -36,6 +36,8 @@ module.exports = {
         'matrix': 'matrix 20s linear infinite',
         'quantum': 'quantum 4s ease-in-out infinite',
         'fadeIn': 'fadeIn 0.3s ease-in-out',
+        'slideUp': 'slideUp 0.3s ease-out',
+        'slideDown': 'slideDown 0.3s ease-out',
       },
       keyframes: {
         'infinite-scroll': {
@@ -77,6 +79,14 @@ module.exports = {
         },
         'fadeIn': {
           '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'slideUp': {
+          '0%': { opacity: '0', transform: 'translateY(100%)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'slideDown': {
+          '0%': { opacity: '0', transform: 'translateY(-20px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
       },
