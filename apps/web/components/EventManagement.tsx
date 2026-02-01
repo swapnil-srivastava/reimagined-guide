@@ -372,7 +372,7 @@ function EventManagement() {
                 defaultMessage="Event Management"
               />
             </h1>
-            <p className="text-blackdark:text-blog-white mt-2">
+            <p className="text-black dark:text-blog-white mt-2">
               <FormattedMessage
                 id="admin-events-subtitle"
                 description="Create and manage your events"
