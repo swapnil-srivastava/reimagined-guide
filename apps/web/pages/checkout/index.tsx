@@ -187,7 +187,7 @@ function Checkout() {
     <AuthCheck allowAnonymous={true}>
       <div className="min-h-screen bg-blog-white dark:bg-fun-blue-500">
         {/* Header */}
-        <div className="bg-white dark:bg-fun-blue-800 shadow-sm border-b border-gray-200 dark:border-fun-blue-600">
+        <div className="bg-white card--white dark:bg-fun-blue-800 shadow-sm border-b border-gray-200 dark:border-fun-blue-600">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16">
               <div className="flex items-center gap-4">
@@ -231,7 +231,7 @@ function Checkout() {
             <div className="space-y-6">
               
               {/* Order Summary */}
-              <div className="bg-white dark:bg-fun-blue-800 rounded-2xl shadow-lg border border-gray-200 dark:border-fun-blue-600 p-6">
+              <div className="bg-white card--white dark:bg-fun-blue-800 rounded-2xl shadow-lg border border-gray-200 dark:border-fun-blue-600 p-6">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-10 h-10 bg-fun-blue-300/20 dark:bg-fun-blue-500/30 rounded-full flex items-center justify-center">
                     <FontAwesomeIcon icon={faShoppingBag} className="w-5 h-5 text-fun-blue-500 dark:text-fun-blue-300" />
@@ -260,7 +260,7 @@ function Checkout() {
 
               {/* Delivery Address */}
               {customerAddress && (
-                <div className="bg-white dark:bg-fun-blue-800 rounded-2xl shadow-lg border border-gray-200 dark:border-fun-blue-600 p-6">
+                <div className="bg-white card--white dark:bg-fun-blue-800 rounded-2xl shadow-lg border border-gray-200 dark:border-fun-blue-600 p-6">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-10 h-10 bg-fun-blue-300/20 dark:bg-fun-blue-500/30 rounded-full flex items-center justify-center">
                       <FontAwesomeIcon icon={faMapMarkerAlt} className="w-5 h-5 text-fun-blue-500 dark:text-fun-blue-300" />
@@ -285,7 +285,7 @@ function Checkout() {
               )}
 
               {/* Delivery Method */}
-              <div className="bg-white dark:bg-fun-blue-800 rounded-2xl shadow-lg border border-gray-200 dark:border-fun-blue-600 p-6">
+              <div className="bg-white card--white dark:bg-fun-blue-800 rounded-2xl shadow-lg border border-gray-200 dark:border-fun-blue-600 p-6">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 bg-orange-100 dark:bg-orange-900 rounded-full flex items-center justify-center">
                     <FontAwesomeIcon icon={faTruck} className="w-5 h-5 text-orange-600 dark:text-orange-400" />
@@ -320,7 +320,7 @@ function Checkout() {
 
             {/* Right Column - Payment Summary */}
             <div className="lg:sticky lg:top-8 lg:self-start">
-              <div className="bg-white dark:bg-fun-blue-800 rounded-2xl shadow-lg border border-gray-200 dark:border-fun-blue-600 p-6">
+              <div className="bg-white card--white dark:bg-fun-blue-800 rounded-2xl shadow-lg border border-gray-200 dark:border-fun-blue-600 p-6">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
                     <FontAwesomeIcon icon={faReceipt} className="w-5 h-5 text-green-600 dark:text-green-400" />
@@ -448,7 +448,7 @@ function Checkout() {
                       <div className="w-full border-t border-gray-300 dark:border-fun-blue-600"></div>
                     </div>
                     <div className="relative flex justify-center text-sm">
-                      <span className="px-4 bg-white dark:bg-fun-blue-800 text-gray-500 dark:text-blog-white font-medium">
+                      <span className="px-4 card--white bg-white dark:bg-fun-blue-800 text-gray-500 dark:text-blog-white font-medium">
                         <FormattedMessage
                           id="checkout-payment-or"
                           description="OR"
@@ -493,7 +493,7 @@ function Checkout() {
 // CheckoutItemCard Component
 function CheckoutItemCard({ cartItem }: { cartItem: ProductWithQuantity }) {
   return (
-    <div className="group relative bg-white dark:bg-fun-blue-700 rounded-2xl shadow-md hover:shadow-lg border border-gray-100 dark:border-fun-blue-600 transition-all duration-300 ease-in-out hover:border-fun-blue-500 dark:hover:border-fun-blue-300 overflow-hidden">
+    <div className="group relative bg-white card--white dark:bg-fun-blue-700 rounded-2xl shadow-md hover:shadow-lg border border-gray-100 dark:border-fun-blue-600 transition-all duration-300 ease-in-out hover:border-fun-blue-500 dark:hover:border-fun-blue-300 overflow-hidden">
       <div className="flex items-center p-6">
         {/* Product Image */}
         <div className="relative flex-shrink-0">

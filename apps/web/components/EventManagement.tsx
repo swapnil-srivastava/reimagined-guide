@@ -372,7 +372,7 @@ function EventManagement() {
                 defaultMessage="Event Management"
               />
             </h1>
-            <p className="text-gray-600 dark:text-blog-white mt-2">
+            <p className="text-blackdark:text-blog-white mt-2">
               <FormattedMessage
                 id="admin-events-subtitle"
                 description="Create and manage your events"
@@ -402,14 +402,14 @@ function EventManagement() {
                 <FontAwesomeIcon icon={faCalendar} className="w-5 h-5 text-green-600 dark:text-green-400" />
               </div>
               <div className="ml-4">
-                <p className="text-sm text-gray-600 dark:text-blog-white">
+                <p className="text-sm text-black dark:text-blog-white">
                   <FormattedMessage
                     id="admin-events-total"
                     description="Total Events"
                     defaultMessage="Total Events"
                   />
                 </p>
-                <p className="text-2xl font-bold text-blog-black dark:text-blog-white">{events.length}</p>
+                <p className="text-2xl font-bold text-black">{events.length}</p>
               </div>
             </div>
           </div>
@@ -420,14 +420,14 @@ function EventManagement() {
                 <FontAwesomeIcon icon={faClock} className="w-5 h-5 text-blue-600 dark:text-blue-400" />
               </div>
               <div className="ml-4">
-                <p className="text-sm text-gray-600 dark:text-blog-white">
+                <p className="text-sm text-black dark:text-blog-white">
                   <FormattedMessage
                     id="admin-events-upcoming"
                     description="Upcoming"
                     defaultMessage="Upcoming"
                   />
                 </p>
-                <p className="text-2xl font-bold text-blog-black dark:text-blog-white">
+                <p className="text-2xl font-bold text-black">
                   {events.filter(event => !isEventPast(event.date)).length}
                 </p>
               </div>
@@ -440,14 +440,14 @@ function EventManagement() {
                 <FontAwesomeIcon icon={faUsers} className="w-5 h-5 text-purple-600 dark:text-purple-400" />
               </div>
               <div className="ml-4">
-                <p className="text-sm text-gray-600 dark:text-blog-white">
+                <p className="text-sm text-black">
                   <FormattedMessage
                     id="admin-events-public"
                     description="Public Events"
                     defaultMessage="Public Events"
                   />
                 </p>
-                <p className="text-2xl font-bold text-blog-black dark:text-blog-white">
+                <p className="text-2xl font-bold text-black">
                   {events.filter(event => event.is_public).length}
                 </p>
               </div>
@@ -463,7 +463,7 @@ function EventManagement() {
           <div className="flex-1 relative">
             <FontAwesomeIcon
               icon={faSearch}
-              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-black w-4 h-4"
             />
             <input
               type="text"
@@ -474,14 +474,14 @@ function EventManagement() {
               })}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 bg-white dark:bg-fun-blue-600 border border-gray-300 dark:border-fun-blue-400 rounded-lg text-blog-black dark:text-blog-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-fun-blue-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-3 bg-white dark:bg-fun-blue-600 border border-gray-300 dark:border-fun-blue-400 rounded-lg text-black placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-fun-blue-500 focus:border-transparent"
             />
           </div>
 
           {/* Filter Toggle */}
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className="px-4 py-3 bg-white dark:bg-fun-blue-600 border border-gray-300 dark:border-fun-blue-400 rounded-lg text-blog-black dark:text-blog-white hover:bg-gray-50 dark:hover:bg-fun-blue-700 transition-colors flex items-center gap-2"
+            className="px-4 py-3 bg-white dark:bg-fun-blue-600 border border-gray-300 dark:border-fun-blue-400 rounded-lg text-black hover:bg-gray-50 dark:hover:bg-fun-blue-700 transition-colors flex items-center gap-2"
           >
             <FontAwesomeIcon icon={faFilter} className="w-4 h-4" />
             <FormattedMessage
@@ -502,7 +502,7 @@ function EventManagement() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {/* Status Filter */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-blog-white mb-2">
+                <label className="block text-sm font-medium text-black mb-2">
                   <FormattedMessage
                     id="admin-events-filter-status"
                     description="Status"
@@ -512,7 +512,7 @@ function EventManagement() {
                 <select
                   value={filterStatus}
                   onChange={(e) => setFilterStatus(e.target.value as any)}
-                  className="w-full px-3 py-2 bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-lg text-blog-black dark:text-blog-white focus:outline-none focus:ring-2 focus:ring-fun-blue-500"
+                  className="w-full px-3 py-2 bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-fun-blue-500"
                 >
                   <option value="all">
                     <FormattedMessage
@@ -550,7 +550,7 @@ function EventManagement() {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as any)}
-                  className="w-full px-3 py-2 bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-lg text-blog-black dark:text-blog-white focus:outline-none focus:ring-2 focus:ring-fun-blue-500"
+                  className="w-full px-3 py-2 bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-fun-blue-500"
                 >
                   <option value="date">
                     <FormattedMessage
@@ -581,7 +581,7 @@ function EventManagement() {
                 <select
                   value={sortOrder}
                   onChange={(e) => setSortOrder(e.target.value as any)}
-                  className="w-full px-3 py-2 bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-lg text-blog-black dark:text-blog-white focus:outline-none focus:ring-2 focus:ring-fun-blue-500"
+                  className="w-full px-3 py-2 bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-fun-blue-500"
                 >
                   <option value="desc">
                     <FormattedMessage
@@ -648,7 +648,7 @@ function EventManagement() {
                     name="title"
                     value={formData.title}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-lg text-blog-black dark:text-blog-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-fun-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-lg text-black placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-fun-blue-500 focus:border-transparent"
                     placeholder={intl.formatMessage({
                       id: 'admin-events-title-placeholder',
                       description: 'Enter event title',
@@ -672,7 +672,7 @@ function EventManagement() {
                     value={formData.description}
                     onChange={handleInputChange}
                     rows={4}
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-lg text-blog-black dark:text-blog-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-fun-blue-500 focus:border-transparent resize-none"
+                    className="w-full px-4 py-3 bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-lg text-black placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-fun-blue-500 focus:border-transparent resize-none"
                     placeholder={intl.formatMessage({
                       id: 'admin-events-description-placeholder',
                       description: 'Enter event description',
@@ -696,7 +696,7 @@ function EventManagement() {
                       name="date"
                       value={formData.date}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-lg text-blog-black dark:text-blog-white focus:outline-none focus:ring-2 focus:ring-fun-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-fun-blue-500 focus:border-transparent"
                       required
                     />
                   </div>
@@ -714,7 +714,7 @@ function EventManagement() {
                       name="time"
                       value={formData.time}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-lg text-blog-black dark:text-blog-white focus:outline-none focus:ring-2 focus:ring-fun-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-fun-blue-500 focus:border-transparent"
                       required
                     />
                   </div>
@@ -735,7 +735,7 @@ function EventManagement() {
                       name="location"
                       value={formData.location}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-lg text-blog-black dark:text-blog-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-fun-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-lg text-black placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-fun-blue-500 focus:border-transparent"
                       placeholder={intl.formatMessage({
                         id: 'admin-events-location-placeholder',
                         description: 'Enter event location',
@@ -758,7 +758,7 @@ function EventManagement() {
                       name="max_attendees"
                       value={formData.max_attendees}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-lg text-blog-black dark:text-blog-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-fun-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-lg text-black placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-fun-blue-500 focus:border-transparent"
                       placeholder={intl.formatMessage({
                         id: 'admin-events-max-attendees-placeholder',
                         description: 'Optional',
@@ -771,7 +771,7 @@ function EventManagement() {
 
                 {/* Image URL */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-blog-white mb-2">
+                  <label className="block text-sm font-medium text-black mb-2">
                     <FormattedMessage
                       id="admin-events-form-image"
                       description="Image URL"
@@ -783,7 +783,7 @@ function EventManagement() {
                     name="image_url"
                     value={formData.image_url}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-lg text-blog-black dark:text-blog-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-fun-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-lg text-black placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-fun-blue-500 focus:border-transparent"
                     placeholder={intl.formatMessage({
                       id: 'admin-events-image-placeholder',
                       description: 'https://example.com/image.jpg',
@@ -802,7 +802,7 @@ function EventManagement() {
                     onChange={(e) => setFormData({...formData, is_public: e.target.checked})}
                     className="h-4 w-4 text-fun-blue-600 focus:ring-fun-blue-500 border-gray-300 dark:border-fun-blue-400 rounded"
                   />
-                  <label htmlFor="is_public" className="ml-2 text-sm text-gray-700 dark:text-blog-white">
+                  <label htmlFor="is_public" className="ml-2 text-sm text-black">
                     <FormattedMessage
                       id="admin-events-form-public"
                       description="Make this event public"
@@ -844,7 +844,7 @@ function EventManagement() {
                     type="button"
                     onClick={resetForm}
                     disabled={submitting}
-                    className="px-6 py-3 bg-gray-100 dark:bg-fun-blue-700 text-gray-700 dark:text-blog-white rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-fun-blue-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-6 py-3 bg-gray-100 dark:bg-fun-blue-700 text-black rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-fun-blue-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <FormattedMessage
                       id="admin-events-cancel-btn"
@@ -871,11 +871,11 @@ function EventManagement() {
                 <div className="flex-1">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
-                      <h3 className="text-xl font-semibold text-blog-black dark:text-blog-white mb-2">
+                      <h3 className="text-xl font-semibold text-black mb-2">
                         {event.title}
                       </h3>
                       {event.description && (
-                        <p className="text-gray-600 dark:text-blog-white mb-3 line-clamp-2">
+                        <p className="text-black mb-3 line-clamp-2">
                           {event.description}
                         </p>
                       )}
@@ -962,9 +962,9 @@ function EventManagement() {
           /* Empty State */
           <div className="text-center py-12">
             <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4">
-              <FontAwesomeIcon icon={faCalendar} className="w-12 h-12 text-gray-400 dark:text-blog-white" />
+              <FontAwesomeIcon icon={faCalendar} className="w-12 h-12 text-black" />
             </div>
-            <h3 className="text-lg font-medium text-blog-black dark:text-blog-white mb-2">
+            <h3 className="text-lg font-medium text-black dark:text-blog-white mb-2">
               {searchTerm || filterStatus !== 'all' ? (
                 <FormattedMessage
                   id="admin-events-no-results-title"
@@ -979,7 +979,7 @@ function EventManagement() {
                 />
               )}
             </h3>
-            <p className="text-gray-500 dark:text-blog-white mb-6">
+            <p className="text-black dark:text-blog-white mb-6">
               {searchTerm || filterStatus !== 'all' ? (
                 <FormattedMessage
                   id="admin-events-no-results-description"
