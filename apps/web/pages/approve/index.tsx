@@ -108,7 +108,7 @@ function ApprovePostList() {
                 defaultMessage="Content Moderation"
               />
             </h1>
-            <p className="text-gray-600 dark:text-gray-300 mt-2">
+            <p className="text-blog-black mt-2">
               <FormattedMessage
                 id="approve-subtitle"
                 description="Review and approve user-submitted content"
@@ -120,7 +120,7 @@ function ApprovePostList() {
           {/* Quick Stats */}
           <div className="flex items-center gap-4">
             <div className="bg-white card--white dark:bg-fun-blue-600 rounded-lg px-4 py-2 border border-gray-200 dark:border-fun-blue-500">
-              <div className="text-sm text-gray-600 dark:text-gray-300">
+              <div className="text-sm text-blog-black dark:text-gray-300">
                 <FormattedMessage
                   id="approve-stats-total"
                   description="Total Posts"
@@ -130,7 +130,7 @@ function ApprovePostList() {
               <div className="text-xl font-bold text-blog-black dark:text-blog-white">{posts.length}</div>
             </div>
             <div className="bg-white card--white dark:bg-fun-blue-600 rounded-lg px-4 py-2 border border-gray-200 dark:border-fun-blue-500">
-              <div className="text-sm text-gray-600 dark:text-gray-300">
+              <div className="text-sm text-blog-black">
                 <FormattedMessage
                   id="approve-stats-pending"
                   description="Pending"
@@ -142,7 +142,7 @@ function ApprovePostList() {
               </div>
             </div>
             <div className="bg-white card--white dark:bg-fun-blue-600 rounded-lg px-4 py-2 border border-gray-200 dark:border-fun-blue-500">
-              <div className="text-sm text-gray-600 dark:text-gray-300">
+              <div className="text-sm text-blog-black">
                 <FormattedMessage
                   id="approve-stats-approved"
                   description="Approved"
