@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from "react";
+import type { NextPage } from "next";
 import { FormattedMessage } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -9,7 +10,7 @@ import CartPage from "../../components/CartPage";
 import { RootState } from "../../lib/interfaces/interface";
 import { updateDeliveryCost, updateSubtotal, updateTax, updateTotalCost } from "../../redux/actions/actions";
 
-function Cart() {
+const Cart: NextPage = () => {
   const dispatch = useDispatch();
   
   const selectStore = (state: RootState) => state.cart;
@@ -33,9 +34,9 @@ function Cart() {
   }, [cartItems, deliveryCost, dispatch]);
 
   return (
-    <>
+    <div className="bg-blog-white dark:bg-fun-blue-500 min-h-screen text-blog-black dark:text-blog-white">
       <CartPage cartItems={cartItems} profile={profile} address={customerAddress} />
-    </>
+    </div>
   );
 }
 
