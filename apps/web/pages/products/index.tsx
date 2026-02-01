@@ -249,7 +249,7 @@ const Products: NextPage = () => {
                     e.preventDefault();
                     e.stopPropagation();
                   }}
-                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-blog-black active:bg-gray-50 dark:active:bg-gray-600 focus:ring-2 focus:ring-blue-500 shadow-md dark:shadow-lg dark:shadow-black/20 transition-all duration-200 cursor-pointer touch-manipulation md:hover:bg-gray-50 md:dark:hover:bg-fun-blue-600 md:hover:shadow-lg"
+                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-blog-black dark:text-blog-white active:bg-gray-50 dark:active:bg-gray-600 focus:ring-2 focus:ring-blue-500 shadow-md dark:shadow-lg dark:shadow-black/20 transition-all duration-200 cursor-pointer touch-manipulation md:hover:bg-gray-50 md:dark:hover:bg-fun-blue-600 md:hover:shadow-lg"
                 >
                   <FontAwesomeIcon icon={faFilter} className="mr-2" />
                   {intl.formatMessage({ id: "products-filters", defaultMessage: "Filters" })}
@@ -259,7 +259,7 @@ const Products: NextPage = () => {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-blog-black focus:ring-2 focus:ring-blue-500 shadow-md dark:shadow-lg dark:shadow-black/20 hover:shadow-lg dark:hover:shadow-xl dark:hover:shadow-black/30 focus:shadow-xl dark:focus:shadow-2xl dark:focus:shadow-black/40 transition-shadow duration-200 cursor-pointer"
+                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700  text-blog-black dark:text-blog-white focus:ring-2 focus:ring-blue-500 shadow-md dark:shadow-lg dark:shadow-black/20 hover:shadow-lg dark:hover:shadow-xl dark:hover:shadow-black/30 focus:shadow-xl dark:focus:shadow-2xl dark:focus:shadow-black/40 transition-shadow duration-200 cursor-pointer"
                 >
                   <option value="name">
                     {intl.formatMessage({ id: "products-sort-name", defaultMessage: "Sort by Name" })}
@@ -311,7 +311,7 @@ const Products: NextPage = () => {
 
                   {/* Price Range Filter */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-blog-white mb-2">
+                    <label className="block text-sm font-medium text-blog-black dark:text-blog-white mb-2">
                       <FormattedMessage id="products-price-range-label" defaultMessage="Price Range" />
                     </label>
                     <select
