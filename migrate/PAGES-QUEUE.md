@@ -21,7 +21,7 @@ Completed:
  - pages/approve/index.tsx (branch: migrate/pages-approve-index)
  - pages/book-appointment/index.tsx (branch: migrate/pages-book-appointment)
  - pages/cancel.tsx (branch: migrate/pages-cancel)
- - pages/cart/index.tsx (branch: migrate/pages-cart)
+ - pages/cart/index.tsx (branch: migrate/pages-cart) — page-level background and text tokens applied; added NextPage typing.
  - pages/checkout/index.tsx (branch: migrate/pages-checkout)
  - pages/checkout/index.tsx (branch: migrate/pages-checkout)
  - pages/coverimage/index.tsx (branch: migrate/pages-coverimage)
