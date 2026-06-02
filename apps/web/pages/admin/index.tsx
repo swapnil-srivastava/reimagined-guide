@@ -141,8 +141,8 @@ function PostList() {
               onClick={() => setActiveTab('all')}
               className={`py-2 px-1 border-b-2 font-medium text-sm ${
                 activeTab === 'all'
-                    ? 'border-fun-blue-500 text-fun-blue-600 dark:text-blog-white'
-                  : 'border-transparent text-blog-black dark:text-blog-white hover:text-gray-700 dark:hover:text-blog-white hover:border-gray-300 dark:hover:border-gray-600'
+                  ? 'border-[var(--color-primary)] text-[var(--text-primary)]'
+                  : 'border-transparent text-[var(--text-primary)] opacity-60 hover:opacity-100 hover:border-[var(--color-primary)]'
               }`}
             >
               <FormattedMessage
@@ -155,8 +155,8 @@ function PostList() {
               onClick={() => setActiveTab('published')}
               className={`py-2 px-1 border-b-2 font-medium text-sm ${
                 activeTab === 'published'
-                  ? 'border-fun-blue-500 text-fun-blue-600 dark:text-blog-white'
-                  : 'border-transparent text-blog-black dark:text-blog-white hover:text-gray-700 dark:hover:text-blog-white hover:border-gray-300 dark:hover:border-gray-600'
+                  ? 'border-[var(--color-primary)] text-[var(--text-primary)]'
+                  : 'border-transparent text-[var(--text-primary)] opacity-60 hover:opacity-100 hover:border-[var(--color-primary)]'
               }`}
             >
               <FormattedMessage
@@ -169,8 +169,8 @@ function PostList() {
               onClick={() => setActiveTab('drafts')}
               className={`py-2 px-1 border-b-2 font-medium text-sm ${
                 activeTab === 'drafts'
-                  ? 'border-fun-blue-500 text-fun-blue-600 dark:text-blog-white'
-                  : 'border-transparent text-blog-black dark:text-blog-white hover:text-gray-700 dark:hover:text-blog-white hover:border-gray-300 dark:hover:border-gray-600'
+                  ? 'border-[var(--color-primary)] text-[var(--text-primary)]'
+                  : 'border-transparent text-[var(--text-primary)] opacity-60 hover:opacity-100 hover:border-[var(--color-primary)]'
               }`}
             >
               <FormattedMessage
