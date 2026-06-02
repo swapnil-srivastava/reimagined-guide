@@ -1,19 +1,36 @@
 {
-  "inputs": [
-    {
-      "type": "promptString",
-      "id": "supabase-access-token",
-      "description": "Supabase personal access token",
-      "password": true
-    }
-  ],
-  "servers": {
-    "supabase": {
-      "command": "npx",
-      "args": ["-y", "@supabase/mcp-server-supabase@latest", "--read-only", "--project-ref=dbydvpdhbaqudqqjteoq"],
-      "env": {
-        "SUPABASE_ACCESS_TOKEN": "${input:supabase-access-token}"
-      }
-    }
-  }
+	"servers": {
+		"supabase": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"@supabase/mcp-server-supabase@latest",
+				"--read-only",
+				"--project-ref=dbydvpdhbaqudqqjteoq"
+			],
+			"env": {
+				"SUPABASE_ACCESS_TOKEN": "${input:supabase-access-token}"
+			},
+			"type": "stdio"
+		},
+		"io.github.ChromeDevTools/chrome-devtools-mcp": {
+			"type": "stdio",
+			"command": "npx",
+			"args": [
+				"--registry",
+				"https://registry.npmjs.org",
+				"chrome-devtools-mcp@1.1.1"
+			],
+			"gallery": "https://api.mcp.github.com",
+			"version": "1.1.1"
+		}
+	},
+	"inputs": [
+		{
+			"type": "promptString",
+			"id": "supabase-access-token",
+			"description": "Supabase personal access token",
+			"password": true
+		}
+	]
 }
