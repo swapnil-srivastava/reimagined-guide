@@ -142,7 +142,7 @@ function PostItem({ post, admin = false, approve = false }: { post: any; admin?:
                 )}
                 
                 <div className="flex flex-col">
-                        <span className="text-sm font-medium text-black hover:text-fun-blue-500 dark:hover:text-caribbean-green-300 transition-colors">
+                        <span className="text-sm font-medium text-black hover:text-[var(--color-primary)] transition-colors">
                     {post.username}
                   </span>
                         <span className="text-xs text-black">
@@ -206,7 +206,7 @@ function PostItem({ post, admin = false, approve = false }: { post: any; admin?:
           {/* Content Section */}
           <Link href={`/${post.username}/${post.slug}`} legacyBehavior>
             <div className="cursor-pointer">
-                    <h2 className="text-lg font-bold text-black mb-2 group-hover:text-fun-blue-500 dark:group-hover:text-caribbean-green-300 transition-colors duration-200 line-clamp-2 leading-tight">
+                    <h2 className="text-lg font-bold text-black mb-2 group-hover:text-[var(--color-primary)] transition-colors duration-200 line-clamp-2 leading-tight">
                 {post.title}
               </h2>
               
