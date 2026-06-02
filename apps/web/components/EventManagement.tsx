@@ -383,7 +383,7 @@ function EventManagement() {
 
           <button
             onClick={() => setShowForm(true)}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-fun-blue-500 to-fun-blue-600 hover:from-fun-blue-600 hover:to-fun-blue-700 text-white rounded-lg font-medium transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:ring-offset-2 shadow-sm"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[var(--color-primary)] hover:brightness-110 text-white rounded-lg font-medium transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-offset-2 shadow-sm"
           >
             <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
             <FormattedMessage
@@ -997,7 +997,7 @@ function EventManagement() {
             {(!searchTerm && filterStatus === 'all') && (
               <button
                 onClick={() => setShowForm(true)}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-fun-blue-500 to-fun-blue-600 hover:from-fun-blue-600 hover:to-fun-blue-700 text-white rounded-lg font-medium transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:ring-offset-2 shadow-sm"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-[var(--color-primary)] hover:brightness-110 text-white rounded-lg font-medium transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-offset-2 shadow-sm"
               >
                 <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
                 <FormattedMessage
