@@ -86,6 +86,7 @@
 
 .theme-blue-light {
   --color-primary: var(--fun-blue-500);
+  --color-primary-light: var(--fun-blue-300);
   --bg-primary: #fbfbfb;
   --text-primary: #0a0a0a;
   --border-primary: var(--fun-blue-500);
@@ -93,6 +94,7 @@
 
 .theme-blue-dark {
   --color-primary: var(--fun-blue-400);
+  --color-primary-light: var(--fun-blue-300);
   --bg-primary: #00539c;
   --text-primary: #fbfbfb;
   --border-primary: #fbfbfb;
@@ -100,13 +102,15 @@
 
 .theme-green-light {
   --color-primary: #10b981;
+  --color-primary-light: #86efac;
   --bg-primary: #fbfbfb;
   --text-primary: #0a0a0a;
-  --border-primary: var(--fun-blue-500);
+  --border-primary: #10b981;
 }
 
 .theme-green-dark {
   --color-primary: #059669;
+  --color-primary-light: #86efac;
   --bg-primary: #064e3b;
   --text-primary: #fbfbfb;
   --border-primary: #fbfbfb;
@@ -114,13 +118,15 @@
 
 .theme-purple-light {
   --color-primary: #8b5cf6;
+  --color-primary-light: #d8b4fe;
   --bg-primary: #fbfbfb;
   --text-primary: #0a0a0a;
-  --border-primary: var(--fun-blue-500);
+  --border-primary: #8b5cf6;
 }
 
 .theme-purple-dark {
   --color-primary: #7c3aed;
+  --color-primary-light: #d8b4fe;
   --bg-primary: #581c87;
   --text-primary: #fbfbfb;
   --border-primary: #fbfbfb;
@@ -128,13 +134,15 @@
 
 .theme-orange-light {
   --color-primary: #f97316;
+  --color-primary-light: #fdba74;
   --bg-primary: #fbfbfb;
   --text-primary: #0a0a0a;
-  --border-primary: var(--fun-blue-500);
+  --border-primary: #f97316;
 }
 
 .theme-orange-dark {
   --color-primary: #ea580c;
+  --color-primary-light: #fdba74;
   --bg-primary: #9a3412;
   --text-primary: #fbfbfb;
   --border-primary: #fbfbfb;
@@ -142,13 +150,15 @@
 
 .theme-teal-light {
   --color-primary: #14b8a6;
+  --color-primary-light: #5eead4;
   --bg-primary: #fbfbfb;
   --text-primary: #0a0a0a;
-  --border-primary: var(--fun-blue-500);
+  --border-primary: #14b8a6;
 }
 
 .theme-teal-dark {
   --color-primary: #0f766e;
+  --color-primary-light: #5eead4;
   --bg-primary: #134e4a;
   --text-primary: #fbfbfb;
   --border-primary: #fbfbfb;
