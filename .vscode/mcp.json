@@ -19,8 +19,17 @@
 			"args": [
 				"--registry",
 				"https://registry.npmjs.org",
-				"chrome-devtools-mcp@1.1.1"
+				"chrome-devtools-mcp@1.1.1",
+				"--executable-path=/opt/google/chrome/chrome",
+				"--headless=true",
+				"--isolated",
+				"--chrome-arg=--no-sandbox",
+				"--chrome-arg=--disable-setuid-sandbox",
+				"--chrome-arg=--disable-dev-shm-usage"
 			],
+			"env": {
+				"CI": "1"
+			},
 			"gallery": "https://api.mcp.github.com",
 			"version": "1.1.1"
 		}
