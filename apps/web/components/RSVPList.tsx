@@ -167,7 +167,17 @@ const ResponseCard: React.FC<{ rsvp: RSVP; isAdmin: boolean; intl: IntlShape }> 
   const guests = kids.length + 1;
   const accent = rsvp.is_attending ? 'var(--status-success)' : 'var(--status-danger)';
   const responded = new Date(rsvp.created_at);
+  // The year is dropped for this year's responses — with the body indented past
+  // the monogram there is no room for it at 390px, and it is the least useful
+  // part of the stamp. The full value stays in the row's title attribute.
   const absolute = responded.toLocaleDateString('en-US', {
+    year: responded.getFullYear() === new Date().getFullYear() ? undefined : 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+  const absoluteFull = responded.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -184,16 +194,16 @@ const ResponseCard: React.FC<{ rsvp: RSVP; isAdmin: boolean; intl: IntlShape }> 
       {/* Status rail */}
       <span aria-hidden className="absolute inset-y-0 left-0 w-1" style={{ background: 'var(--accent)' }} />
 
-      {/* Header: monogram, name, at-a-glance counts, status. The wash fades the
-          accent out across the card so the tint never fights the body text. */}
-      <header
-        className="flex items-start justify-between gap-3 pl-5 pr-3 sm:pr-4 pt-3 sm:pt-4 pb-3"
-        style={{ background: 'linear-gradient(100deg, color-mix(in srgb, var(--accent) 12%, transparent), transparent 65%)' }}
-      >
+      {/* Header: monogram, name, at-a-glance counts, status.
+          No accent wash behind this row. A tint that is barely visible on a light
+          panel lifts the luminance of a dark one sharply, so the same 12% mix read
+          as a green smear across the blue-dark theme. The rail, the monogram and
+          the pill already carry the status three times over. */}
+      <header className="flex items-center justify-between gap-3 pl-4 sm:pl-5 pr-3 sm:pr-4 pt-3 sm:pt-4">
         <div className="flex items-center gap-3 min-w-0">
           <div
             aria-hidden
-            className="flex h-10 w-10 sm:h-11 sm:w-11 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold"
+            className="flex h-9 w-9 sm:h-11 sm:w-11 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold"
             style={{
               background: 'color-mix(in srgb, var(--accent) 16%, var(--surface-raised))',
               color: 'var(--accent)',
@@ -233,7 +243,11 @@ const ResponseCard: React.FC<{ rsvp: RSVP; isAdmin: boolean; intl: IntlShape }> 
         <StatusPill attending={rsvp.is_attending} />
       </header>
 
-      <div className="pl-5 pr-3 sm:pr-4 pb-3 sm:pb-4 space-y-3">
+      {/* Body indented to the monogram's right edge so the name, the contact chips,
+          the guest list and the footer share one left edge. The indent is the
+          header's own padding plus avatar plus gap: 16+36+12=64px on mobile,
+          20+44+12=76px from sm up. */}
+      <div className="pl-16 sm:pl-[4.75rem] pr-3 sm:pr-4 pt-3 pb-3 sm:pb-4 space-y-3">
         {/* Contact details stay behind the admin check */}
         {isAdmin && (rsvp.email || rsvp.phone) && (
           <div className="flex flex-wrap gap-2">
@@ -291,7 +305,7 @@ const ResponseCard: React.FC<{ rsvp: RSVP; isAdmin: boolean; intl: IntlShape }> 
 
         <div
           className="flex items-center gap-2 border-t border-[var(--border-subtle)] pt-2 text-xs text-[var(--text-primary)] opacity-60"
-          title={absolute}
+          title={absoluteFull}
         >
           <FontAwesomeIcon icon={faClock} className="text-[0.65rem]" />
           <span className="truncate">
