@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage, useIntl, IntlShape } from 'react-intl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // @ts-ignore - Supabase type instantiation issue
 import { supaClient } from '../supa-client';
@@ -13,7 +13,8 @@ import {
   faChevronUp,
   faHeart,
   faExclamationTriangle,
-  faComment
+  faComment,
+  faClock
 } from '@fortawesome/free-solid-svg-icons';
 import { useSession } from '../lib/use-session';
 import { toast } from 'react-hot-toast';
@@ -114,6 +115,203 @@ const StatusPill: React.FC<{ attending: boolean }> = ({ attending }) => (
     )}
   </span>
 );
+
+/** Two-letter monogram so a long list can be scanned by shape, not just by text. */
+const initialsOf = (name: string) =>
+  name
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map(part => part.charAt(0))
+    .join('')
+    .toUpperCase() || '?';
+
+/** Locale-aware "3 days ago" without adding message ids — Intl already knows the words. */
+const relativeTime = (intl: IntlShape, iso: string) => {
+  const then = new Date(iso).getTime();
+  if (Number.isNaN(then)) return null;
+  const seconds = Math.round((then - Date.now()) / 1000);
+  const units: Array<[Intl.RelativeTimeFormatUnit, number]> = [
+    ['year', 31536000],
+    ['month', 2592000],
+    ['week', 604800],
+    ['day', 86400],
+    ['hour', 3600],
+    ['minute', 60],
+  ];
+  for (const [unit, secondsPerUnit] of units) {
+    if (Math.abs(seconds) >= secondsPerUnit) {
+      return intl.formatRelativeTime(Math.round(seconds / secondsPerUnit), unit);
+    }
+  }
+  return intl.formatRelativeTime(seconds, 'second');
+};
+
+/** A contact detail rendered as a tappable pill — a real 32px+ target on mobile,
+    where the old inline text was a hairline-thin link. */
+const ContactChip: React.FC<{ href: string; icon: typeof faEnvelope; label: string }> = ({ href, icon, label }) => (
+  <a
+    href={href}
+    className="inline-flex items-center gap-2 max-w-full rounded-full border border-[var(--border-subtle)] bg-[var(--surface-raised)] px-3 py-1.5 text-xs text-[var(--text-primary)] opacity-80 transition-all duration-200 hover:opacity-100 hover:border-[var(--accent)] hover:text-[var(--accent)]"
+  >
+    <FontAwesomeIcon icon={icon} className="text-[0.65rem] flex-shrink-0" />
+    <span className="truncate">{label}</span>
+  </a>
+);
+
+/** One family's response. The status colour drives the rail, the monogram and the
+    header wash from a single `--accent` custom property, so attending and declined
+    cards read apart at a glance without duplicating class strings. */
+const ResponseCard: React.FC<{ rsvp: RSVP; isAdmin: boolean; intl: IntlShape }> = ({ rsvp, isAdmin, intl }) => {
+  const kids = rsvp.kids || [];
+  const guests = kids.length + 1;
+  const accent = rsvp.is_attending ? 'var(--status-success)' : 'var(--status-danger)';
+  const responded = new Date(rsvp.created_at);
+  const absolute = responded.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+  const relative = relativeTime(intl, rsvp.created_at);
+
+  return (
+    <article
+      style={{ ['--accent' as any]: accent }}
+      className="relative overflow-hidden rounded-xl border border-[var(--border-subtle)] bg-[var(--data-panel)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:border-[var(--accent)]"
+    >
+      {/* Status rail */}
+      <span aria-hidden className="absolute inset-y-0 left-0 w-1" style={{ background: 'var(--accent)' }} />
+
+      {/* Header: monogram, name, at-a-glance counts, status. The wash fades the
+          accent out across the card so the tint never fights the body text. */}
+      <header
+        className="flex items-start justify-between gap-3 pl-5 pr-3 sm:pr-4 pt-3 sm:pt-4 pb-3"
+        style={{ background: 'linear-gradient(100deg, color-mix(in srgb, var(--accent) 12%, transparent), transparent 65%)' }}
+      >
+        <div className="flex items-center gap-3 min-w-0">
+          <div
+            aria-hidden
+            className="flex h-10 w-10 sm:h-11 sm:w-11 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold"
+            style={{
+              background: 'color-mix(in srgb, var(--accent) 16%, var(--surface-raised))',
+              color: 'var(--accent)',
+              boxShadow: 'inset 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent)',
+            }}
+          >
+            {initialsOf(rsvp.family_name)}
+          </div>
+          <div className="min-w-0">
+            <h5 className="font-semibold text-[var(--text-primary)] leading-tight truncate">{rsvp.family_name}</h5>
+            <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-[var(--text-primary)] opacity-70">
+              {rsvp.is_attending && (
+                <>
+                  <span className="flex items-center gap-1.5">
+                    <FontAwesomeIcon icon={faUsers} className="text-[0.65rem]" />
+                    {guests} {guests === 1 ? 'guest' : 'guests'}
+                  </span>
+                  {kids.length > 0 && (
+                    <>
+                      <span aria-hidden className="opacity-50">•</span>
+                      <span className="flex items-center gap-1.5">
+                        <FontAwesomeIcon icon={faChild} className="text-[0.65rem]" />
+                        {kids.length}{' '}
+                        {kids.length === 1 ? (
+                          <FormattedMessage id="rsvp-child" description="child" defaultMessage="child" />
+                        ) : (
+                          <FormattedMessage id="rsvp-children" description="children" defaultMessage="children" />
+                        )}
+                      </span>
+                    </>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+        <StatusPill attending={rsvp.is_attending} />
+      </header>
+
+      <div className="pl-5 pr-3 sm:pr-4 pb-3 sm:pb-4 space-y-3">
+        {/* Contact details stay behind the admin check */}
+        {isAdmin && (rsvp.email || rsvp.phone) && (
+          <div className="flex flex-wrap gap-2">
+            {rsvp.email && <ContactChip href={`mailto:${rsvp.email}`} icon={faEnvelope} label={rsvp.email} />}
+            {rsvp.phone && <ContactChip href={`tel:${rsvp.phone}`} icon={faPhone} label={rsvp.phone} />}
+          </div>
+        )}
+
+        {rsvp.is_attending && kids.length > 0 && (
+          <div>
+            <span className="text-[0.65rem] font-semibold uppercase tracking-wider text-[var(--text-primary)] opacity-50">
+              <FormattedMessage id="rsvp-guest-names" description="Guest names:" defaultMessage="Guest names:" />
+            </span>
+            <div className="flex flex-wrap gap-1.5 mt-1.5">
+              {kids.map((kid, index) => {
+                const allergy = kid.allergies?.trim();
+                return (
+                  <span
+                    key={index}
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-raised)] py-1 pl-2 pr-2 text-xs text-[var(--text-primary)]"
+                  >
+                    <FontAwesomeIcon icon={faChild} className="text-[0.65rem] opacity-50" />
+                    <span className="font-medium">{kid.name}</span>
+                    {kid.age && (
+                      <span className="rounded bg-[var(--surface-inset)] px-1.5 py-0.5 text-[0.65rem] font-semibold opacity-70">
+                        {kid.age}y
+                      </span>
+                    )}
+                    {/* The warning tone is used for the icon only: these chips sit on
+                        --surface-raised, where it measures 4.05-4.20:1 — fine for a
+                        glyph, short of AA for text. The authoritative, colour-coded
+                        allergy list is the roll-up panel above, on --data-panel. */}
+                    {allergy && (
+                      <span className="flex items-center gap-1 border-l border-[var(--border-subtle)] pl-1.5 opacity-80">
+                        <FontAwesomeIcon icon={faExclamationTriangle} className="text-[0.6rem] text-[var(--status-warning)]" />
+                        {allergy}
+                      </span>
+                    )}
+                  </span>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {rsvp.message && rsvp.message.trim() !== '' && (
+          <div className="rounded-lg border-l-2 border-[var(--status-info)] bg-[var(--surface-raised)] px-3 py-2">
+            <span className="flex items-center gap-1.5 text-[0.65rem] font-semibold uppercase tracking-wider text-[var(--text-primary)] opacity-50">
+              <FontAwesomeIcon icon={faComment} className="text-[0.6rem]" />
+              <FormattedMessage id="rsvp-special-requests" description="Special requests:" defaultMessage="Special requests:" />
+            </span>
+            <p className="mt-1 text-sm text-[var(--text-primary)] opacity-90">{rsvp.message}</p>
+          </div>
+        )}
+
+        <div
+          className="flex items-center gap-2 border-t border-[var(--border-subtle)] pt-2 text-xs text-[var(--text-primary)] opacity-60"
+          title={absolute}
+        >
+          <FontAwesomeIcon icon={faClock} className="text-[0.65rem]" />
+          <span className="truncate">
+            <FormattedMessage
+              id="rsvp-responded-on"
+              description="Responded on {date}"
+              defaultMessage="Responded on {date}"
+              values={{ date: absolute }}
+            />
+          </span>
+          {relative && (
+            <span className="ml-auto flex-shrink-0 rounded-full bg-[var(--surface-inset)] px-2 py-0.5 text-[0.65rem] capitalize">
+              {relative}
+            </span>
+          )}
+        </div>
+      </div>
+    </article>
+  );
+};
 
 const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnly = false, isClickable = false, onToggle }) => {
   const [rsvps, setRsvps] = useState<RSVP[]>([]);
@@ -464,108 +662,7 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                 </h4>
 
                 {orderedRsvps.map((rsvp) => (
-                  <div
-                    key={rsvp.id}
-                    className={`bg-[var(--data-panel)] border border-[var(--border-subtle)] border-l-4 ${
-                      rsvp.is_attending ? TONE.success.bar : TONE.danger.bar
-                    } rounded-lg p-3 sm:p-4`}
-                  >
-                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-3">
-                      <div className="min-w-0">
-                        <h5 className="font-semibold text-[var(--text-primary)]">{rsvp.family_name}</h5>
-                        {/* Contact details stay behind the admin check */}
-                        {isAdmin && (rsvp.email || rsvp.phone) && (
-                          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-sm text-[var(--text-primary)] opacity-70 mt-1">
-                            {rsvp.email && (
-                              <span className="flex items-center gap-2 min-w-0">
-                                <FontAwesomeIcon icon={faEnvelope} className="text-xs flex-shrink-0" />
-                                <a href={`mailto:${rsvp.email}`} className="hover:text-[var(--color-primary)] transition-colors truncate">
-                                  {rsvp.email}
-                                </a>
-                              </span>
-                            )}
-                            {rsvp.phone && (
-                              <span className="flex items-center gap-2 min-w-0">
-                                <FontAwesomeIcon icon={faPhone} className="text-xs flex-shrink-0" />
-                                <a href={`tel:${rsvp.phone}`} className="hover:text-[var(--color-primary)] transition-colors truncate">
-                                  {rsvp.phone}
-                                </a>
-                              </span>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                      <StatusPill attending={rsvp.is_attending} />
-                    </div>
-
-                    {rsvp.is_attending && (
-                      <div className="mt-3 space-y-2 text-sm">
-                        <div className="flex items-center gap-2 text-[var(--text-primary)]">
-                          <FontAwesomeIcon icon={faUsers} className="opacity-60 text-xs" />
-                          {guestCount(rsvp)} {guestCount(rsvp) === 1 ? 'guest' : 'guests'}
-                        </div>
-
-                        {rsvp.kids && rsvp.kids.length > 0 && (
-                          <div>
-                            <span className="text-[var(--text-primary)] opacity-70 text-xs">
-                              <FormattedMessage
-                                id="rsvp-guest-names"
-                                description="Guest names:"
-                                defaultMessage="Guest names:"
-                              />
-                            </span>
-                            <div className="flex flex-wrap gap-1 mt-1">
-                              {rsvp.kids.map((kid, index) => (
-                                <span
-                                  key={index}
-                                  className="bg-transparent border border-[var(--border-subtle)] px-2 py-1 rounded text-xs text-[var(--text-primary)]"
-                                >
-                                  {kid.name}{kid.age ? ` (${kid.age}y)` : ''}
-                                  {/* Kept at --text-primary rather than the warning accent: these
-                                      chips sit on --surface-raised, where the warning tone measures
-                                      only 4.05-4.20:1. The authoritative, colour-coded allergy list
-                                      is the roll-up panel above, which sits on --data-panel. */}
-                                  {kid.allergies && kid.allergies.trim() !== '' && (
-                                    <span className="ml-1 opacity-80">• {kid.allergies}</span>
-                                  )}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    )}
-
-                    {rsvp.message && rsvp.message.trim() !== '' && (
-                      <div className="mt-3 text-sm">
-                        <span className="text-[var(--text-primary)] opacity-70 text-xs">
-                          <FormattedMessage
-                            id="rsvp-special-requests"
-                            description="Special requests:"
-                            defaultMessage="Special requests:"
-                          />
-                        </span>
-                        <p className="text-[var(--text-primary)] opacity-90 mt-1">{rsvp.message}</p>
-                      </div>
-                    )}
-
-                    <div className="text-xs text-[var(--text-primary)] opacity-60 mt-3 pt-2 border-t border-[var(--border-subtle)]">
-                      <FormattedMessage
-                        id="rsvp-responded-on"
-                        description="Responded on {date}"
-                        defaultMessage="Responded on {date}"
-                        values={{
-                          date: new Date(rsvp.created_at).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'short',
-                            day: 'numeric',
-                            hour: '2-digit',
-                            minute: '2-digit'
-                          })
-                        }}
-                      />
-                    </div>
-                  </div>
+                  <ResponseCard key={rsvp.id} rsvp={rsvp} isAdmin={isAdmin} intl={intl} />
                 ))}
               </div>
             </div>

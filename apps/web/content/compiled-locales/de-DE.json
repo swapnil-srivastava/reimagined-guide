@@ -3223,6 +3223,12 @@
       "value": "Teilnahme-Details"
     }
   ],
+  "rsvp-child": [
+    {
+      "type": 0,
+      "value": "Kind"
+    }
+  ],
   "rsvp-children": [
     {
       "type": 0,

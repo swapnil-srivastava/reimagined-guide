@@ -3653,6 +3653,12 @@
       "value": "Attending Details"
     }
   ],
+  "rsvp-child": [
+    {
+      "type": 0,
+      "value": "child"
+    }
+  ],
   "rsvp-children": [
     {
       "type": 0,

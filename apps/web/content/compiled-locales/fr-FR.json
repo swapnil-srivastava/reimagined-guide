@@ -3223,6 +3223,12 @@
       "value": "Détails de présence"
     }
   ],
+  "rsvp-child": [
+    {
+      "type": 0,
+      "value": "enfant"
+    }
+  ],
   "rsvp-children": [
     {
       "type": 0,

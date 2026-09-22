@@ -3255,6 +3255,12 @@
       "value": "उपस्थिति विवरण"
     }
   ],
+  "rsvp-child": [
+    {
+      "type": 0,
+      "value": "बच्चा"
+    }
+  ],
   "rsvp-children": [
     {
       "type": 0,
