@@ -281,10 +281,10 @@
       "value": "विवरण"
     }
   ],
-  "admin-events-form-image": [
+  "admin-events-form-image-upload": [
     {
       "type": 0,
-      "value": "इमेज URL"
+      "value": "इवेंट इमेज"
     }
   ],
   "admin-events-form-location": [
@@ -317,10 +317,46 @@
       "value": "ईवेंट का शीर्षक *"
     }
   ],
-  "admin-events-image-placeholder": [
+  "admin-events-image-change-btn": [
     {
       "type": 0,
-      "value": "https://example.com/image.jpg"
+      "value": "इमेज बदलें"
+    }
+  ],
+  "admin-events-image-hint": [
+    {
+      "type": 0,
+      "value": "JPG, PNG, WebP या GIF, अधिकतम 10 MB"
+    }
+  ],
+  "admin-events-image-invalid-type": [
+    {
+      "type": 0,
+      "value": "कृपया एक इमेज फ़ाइल चुनें (JPG, PNG, WebP, GIF या HEIC)।"
+    }
+  ],
+  "admin-events-image-remove-btn": [
+    {
+      "type": 0,
+      "value": "इमेज हटाएं"
+    }
+  ],
+  "admin-events-image-too-large": [
+    {
+      "type": 0,
+      "value": "इमेज बहुत बड़ी है। कृपया 10 MB से छोटी फ़ाइल चुनें।"
+    }
+  ],
+  "admin-events-image-upload-btn": [
+    {
+      "type": 0,
+      "value": "इमेज अपलोड करें"
+    }
+  ],
+  "admin-events-image-upload-error": [
+    {
+      "type": 0,
+      "value": "इमेज अपलोड करने में विफल। कृपया पुनः प्रयास करें।"
     }
   ],
   "admin-events-location-placeholder": [
@@ -477,6 +513,12 @@
     {
       "type": 0,
       "value": "ईवेंट अपडेट करें"
+    }
+  ],
+  "admin-events-uploading": [
+    {
+      "type": 0,
+      "value": "इमेज अपलोड हो रही है..."
     }
   ],
   "admin-mobile-tip-1": [

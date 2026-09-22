@@ -287,10 +287,10 @@
       "value": "Description"
     }
   ],
-  "admin-events-form-image": [
+  "admin-events-form-image-upload": [
     {
       "type": 0,
-      "value": "Image URL"
+      "value": "Event Image"
     }
   ],
   "admin-events-form-location": [
@@ -323,10 +323,46 @@
       "value": "Event Title *"
     }
   ],
-  "admin-events-image-placeholder": [
+  "admin-events-image-change-btn": [
     {
       "type": 0,
-      "value": "https://example.com/image.jpg"
+      "value": "Change image"
+    }
+  ],
+  "admin-events-image-hint": [
+    {
+      "type": 0,
+      "value": "JPG, PNG, WebP or GIF, up to 10 MB"
+    }
+  ],
+  "admin-events-image-invalid-type": [
+    {
+      "type": 0,
+      "value": "Please choose an image file (JPG, PNG, WebP, GIF or HEIC)."
+    }
+  ],
+  "admin-events-image-remove-btn": [
+    {
+      "type": 0,
+      "value": "Remove image"
+    }
+  ],
+  "admin-events-image-too-large": [
+    {
+      "type": 0,
+      "value": "Image is too large. Please choose a file under 10 MB."
+    }
+  ],
+  "admin-events-image-upload-btn": [
+    {
+      "type": 0,
+      "value": "Upload image"
+    }
+  ],
+  "admin-events-image-upload-error": [
+    {
+      "type": 0,
+      "value": "Failed to upload image. Please try again."
     }
   ],
   "admin-events-location-placeholder": [
@@ -483,6 +519,12 @@
     {
       "type": 0,
       "value": "Update Event"
+    }
+  ],
+  "admin-events-uploading": [
+    {
+      "type": 0,
+      "value": "Uploading image..."
     }
   ],
   "admin-mobile-tip-1": [

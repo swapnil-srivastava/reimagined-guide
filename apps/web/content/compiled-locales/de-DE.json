@@ -281,10 +281,10 @@
       "value": "Beschreibung"
     }
   ],
-  "admin-events-form-image": [
+  "admin-events-form-image-upload": [
     {
       "type": 0,
-      "value": "Bild-URL"
+      "value": "Veranstaltungsbild"
     }
   ],
   "admin-events-form-location": [
@@ -317,10 +317,46 @@
       "value": "Ereignistitel *"
     }
   ],
-  "admin-events-image-placeholder": [
+  "admin-events-image-change-btn": [
     {
       "type": 0,
-      "value": "https://beispiel.com/bild.jpg"
+      "value": "Bild ändern"
+    }
+  ],
+  "admin-events-image-hint": [
+    {
+      "type": 0,
+      "value": "JPG, PNG, WebP oder GIF, bis zu 10 MB"
+    }
+  ],
+  "admin-events-image-invalid-type": [
+    {
+      "type": 0,
+      "value": "Bitte wähle eine Bilddatei (JPG, PNG, WebP, GIF oder HEIC)."
+    }
+  ],
+  "admin-events-image-remove-btn": [
+    {
+      "type": 0,
+      "value": "Bild entfernen"
+    }
+  ],
+  "admin-events-image-too-large": [
+    {
+      "type": 0,
+      "value": "Das Bild ist zu groß. Bitte wähle eine Datei unter 10 MB."
+    }
+  ],
+  "admin-events-image-upload-btn": [
+    {
+      "type": 0,
+      "value": "Bild hochladen"
+    }
+  ],
+  "admin-events-image-upload-error": [
+    {
+      "type": 0,
+      "value": "Bild konnte nicht hochgeladen werden. Bitte versuche es erneut."
     }
   ],
   "admin-events-location-placeholder": [
@@ -477,6 +513,12 @@
     {
       "type": 0,
       "value": "Ereignis Aktualisieren"
+    }
+  ],
+  "admin-events-uploading": [
+    {
+      "type": 0,
+      "value": "Bild wird hochgeladen..."
     }
   ],
   "admin-mobile-tip-1": [

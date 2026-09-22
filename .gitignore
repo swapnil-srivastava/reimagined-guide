@@ -42,3 +42,6 @@ yarn-error.log*
 # Package manager
 yarn.lock
 package-lock.json
+
+# TypeScript incremental build info
+*.tsbuildinfo

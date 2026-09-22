@@ -281,10 +281,10 @@
       "value": "Description"
     }
   ],
-  "admin-events-form-image": [
+  "admin-events-form-image-upload": [
     {
       "type": 0,
-      "value": "URL de l'Image"
+      "value": "Image de l'événement"
     }
   ],
   "admin-events-form-location": [
@@ -317,10 +317,46 @@
       "value": "Titre de l'Événement *"
     }
   ],
-  "admin-events-image-placeholder": [
+  "admin-events-image-change-btn": [
     {
       "type": 0,
-      "value": "https://exemple.com/image.jpg"
+      "value": "Changer l'image"
+    }
+  ],
+  "admin-events-image-hint": [
+    {
+      "type": 0,
+      "value": "JPG, PNG, WebP ou GIF, jusqu'à 10 Mo"
+    }
+  ],
+  "admin-events-image-invalid-type": [
+    {
+      "type": 0,
+      "value": "Veuillez choisir un fichier image (JPG, PNG, WebP, GIF ou HEIC)."
+    }
+  ],
+  "admin-events-image-remove-btn": [
+    {
+      "type": 0,
+      "value": "Supprimer l'image"
+    }
+  ],
+  "admin-events-image-too-large": [
+    {
+      "type": 0,
+      "value": "L'image est trop volumineuse. Veuillez choisir un fichier de moins de 10 Mo."
+    }
+  ],
+  "admin-events-image-upload-btn": [
+    {
+      "type": 0,
+      "value": "Téléverser une image"
+    }
+  ],
+  "admin-events-image-upload-error": [
+    {
+      "type": 0,
+      "value": "Échec du téléversement de l'image. Veuillez réessayer."
     }
   ],
   "admin-events-location-placeholder": [
@@ -477,6 +513,12 @@
     {
       "type": 0,
       "value": "Mettre à Jour l'Événement"
+    }
+  ],
+  "admin-events-uploading": [
+    {
+      "type": 0,
+      "value": "Téléversement de l'image..."
     }
   ],
   "admin-mobile-tip-1": [

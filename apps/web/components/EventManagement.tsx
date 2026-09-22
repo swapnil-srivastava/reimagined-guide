@@ -20,7 +20,9 @@ import {
   faSort,
   faChevronDown,
   faChevronUp,
-  faExclamationTriangle
+  faExclamationTriangle,
+  faImage,
+  faUpload
 } from '@fortawesome/free-solid-svg-icons';
 import toast from 'react-hot-toast';
 import { supaClient } from '../supa-client';
@@ -78,6 +80,13 @@ function EventManagement() {
   const [showFilters, setShowFilters] = useState(false);
   const [formData, setFormData] = useState<EventFormData>(initialFormData);
   const [submitting, setSubmitting] = useState(false);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [removeImage, setRemoveImage] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
+
+  const EVENTS_BUCKET = 'events-picture';
+  const MAX_IMAGE_SIZE = 10 * 1024 * 1024; // 10 MB
 
   // Check if user is authorized admin
   const isAuthorized = userInfo.session?.user?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID;
@@ -122,6 +131,12 @@ function EventManagement() {
     setFormData(initialFormData);
     setEditingEvent(null);
     setShowForm(false);
+    if (imagePreview) {
+      URL.revokeObjectURL(imagePreview);
+    }
+    setImageFile(null);
+    setImagePreview(null);
+    setRemoveImage(false);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -130,6 +145,89 @@ function EventManagement() {
       ...prev,
       [name]: value
     }));
+  };
+
+  const handleImageFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files ? e.target.files[0] : null;
+    e.target.value = '';
+
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      toast.error(intl.formatMessage({
+        id: 'admin-events-image-invalid-type',
+        description: 'Invalid image type',
+        defaultMessage: 'Please choose an image file (JPG, PNG, WebP, GIF or HEIC).'
+      }));
+      return;
+    }
+
+    if (file.size > MAX_IMAGE_SIZE) {
+      toast.error(intl.formatMessage({
+        id: 'admin-events-image-too-large',
+        description: 'Image too large',
+        defaultMessage: 'Image is too large. Please choose a file under 10 MB.'
+      }));
+      return;
+    }
+
+    if (imagePreview) {
+      URL.revokeObjectURL(imagePreview);
+    }
+
+    setImageFile(file);
+    setImagePreview(URL.createObjectURL(file));
+    setRemoveImage(false);
+  };
+
+  const handleRemoveImage = () => {
+    if (imagePreview) {
+      URL.revokeObjectURL(imagePreview);
+    }
+    setImageFile(null);
+    setImagePreview(null);
+    setRemoveImage(true);
+  };
+
+  const getEventImageObjectPath = (imageUrl?: string | null): string | null => {
+    if (!imageUrl) return null;
+    const marker = `/storage/v1/object/public/${EVENTS_BUCKET}/`;
+    const index = imageUrl.indexOf(marker);
+    if (index === -1) return null;
+    return imageUrl.slice(index + marker.length);
+  };
+
+  const uploadEventImage = async (file: File, userId: string): Promise<string> => {
+    const sanitizedFileName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_');
+    const path = `${userId}/${Date.now()}-${sanitizedFileName}`;
+
+    const { error } = await supaClient.storage
+      .from(EVENTS_BUCKET)
+      .upload(path, file, {
+        cacheControl: '3600',
+        upsert: false,
+        contentType: file.type
+      });
+
+    if (error) {
+      throw error;
+    }
+
+    const { data: publicUrlData } = supaClient.storage
+      .from(EVENTS_BUCKET)
+      .getPublicUrl(path);
+
+    return publicUrlData.publicUrl;
+  };
+
+  const deleteEventImage = async (imageUrl?: string | null) => {
+    const path = getEventImageObjectPath(imageUrl);
+    if (!path) return;
+
+    const { error } = await supaClient.storage.from(EVENTS_BUCKET).remove([path]);
+    if (error) {
+      console.error('Failed to delete old event image:', error.message);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -146,19 +244,15 @@ function EventManagement() {
 
     setSubmitting(true);
 
+    let uploadedImageUrl: string | null = null;
+
     try {
-      const endpoint = '/api/events';
-      const method = editingEvent ? 'PUT' : 'POST';
-
-      const payload = editingEvent
-        ? { ...formData, max_attendees: formData.max_attendees ? parseInt(formData.max_attendees) : null, id: editingEvent.id }
-        : { ...formData, max_attendees: formData.max_attendees ? parseInt(formData.max_attendees) : null };
-
       // Get the access token from the session
       const { data: { session } } = await supaClient.auth.getSession();
       const accessToken = session?.access_token;
+      const userId = session?.user?.id;
 
-      if (!accessToken) {
+      if (!accessToken || !userId) {
         toast.error(intl.formatMessage({
           id: 'admin-events-no-session',
           description: 'No session found',
@@ -167,6 +261,36 @@ function EventManagement() {
         setSubmitting(false);
         return;
       }
+
+      let finalImageUrl = formData.image_url;
+
+      if (imageFile) {
+        setUploadingImage(true);
+        try {
+          uploadedImageUrl = await uploadEventImage(imageFile, userId);
+        } catch (uploadError) {
+          console.error('Error uploading event image:', uploadError);
+          toast.error(intl.formatMessage({
+            id: 'admin-events-image-upload-error',
+            description: 'Error uploading image',
+            defaultMessage: 'Failed to upload image. Please try again.'
+          }));
+          setUploadingImage(false);
+          setSubmitting(false);
+          return;
+        }
+        setUploadingImage(false);
+        finalImageUrl = uploadedImageUrl;
+      } else if (removeImage) {
+        finalImageUrl = '';
+      }
+
+      const endpoint = '/api/events';
+      const method = editingEvent ? 'PUT' : 'POST';
+
+      const payload = editingEvent
+        ? { ...formData, image_url: finalImageUrl, max_attendees: formData.max_attendees ? parseInt(formData.max_attendees) : null, id: editingEvent.id }
+        : { ...formData, image_url: finalImageUrl, max_attendees: formData.max_attendees ? parseInt(formData.max_attendees) : null };
 
       const response = await fetch(endpoint, {
         method,
@@ -186,9 +310,18 @@ function EventManagement() {
           defaultMessage: editingEvent ? 'Event updated successfully!' : 'Event created successfully!'
         }));
 
+        // Best-effort cleanup of the previous image once the new one is saved
+        if (editingEvent && (uploadedImageUrl || removeImage) && editingEvent.image_url !== finalImageUrl) {
+          deleteEventImage(editingEvent.image_url);
+        }
+
         resetForm();
         fetchEvents();
       } else {
+        // Saving the event failed after a fresh upload - clean up the orphaned file
+        if (uploadedImageUrl) {
+          deleteEventImage(uploadedImageUrl);
+        }
         toast.error(result.error || intl.formatMessage({
           id: 'admin-events-submit-error',
           description: 'Error submitting event',
@@ -196,6 +329,9 @@ function EventManagement() {
         }));
       }
     } catch (error) {
+      if (uploadedImageUrl) {
+        deleteEventImage(uploadedImageUrl);
+      }
       console.error('Error submitting event:', error);
       toast.error(intl.formatMessage({
         id: 'admin-events-submit-unexpected-error',
@@ -204,11 +340,18 @@ function EventManagement() {
       }));
     } finally {
       setSubmitting(false);
+      setUploadingImage(false);
     }
   };
 
   const handleEdit = (event: Event) => {
     setEditingEvent(event);
+    if (imagePreview) {
+      URL.revokeObjectURL(imagePreview);
+    }
+    setImageFile(null);
+    setImagePreview(null);
+    setRemoveImage(false);
     setFormData({
       title: event.title,
       description: event.description || '',
@@ -769,27 +912,86 @@ function EventManagement() {
                   </div>
                 </div>
 
-                {/* Image URL */}
+                {/* Event Image */}
                 <div>
                   <label className="block text-sm font-medium text-black mb-2">
                     <FormattedMessage
-                      id="admin-events-form-image"
-                      description="Image URL"
-                      defaultMessage="Image URL"
+                      id="admin-events-form-image-upload"
+                      description="Event Image"
+                      defaultMessage="Event Image"
                     />
                   </label>
-                  <input
-                    type="url"
-                    name="image_url"
-                    value={formData.image_url}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-fun-blue-700 border border-gray-300 dark:border-fun-blue-400 rounded-lg text-black placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-fun-blue-500 focus:border-transparent"
-                    placeholder={intl.formatMessage({
-                      id: 'admin-events-image-placeholder',
-                      description: 'https://example.com/image.jpg',
-                      defaultMessage: 'https://example.com/image.jpg'
-                    })}
-                  />
+
+                  {(() => {
+                    const displayedImage = imagePreview || (!removeImage ? formData.image_url : '');
+                    return (
+                      <div className="flex flex-col sm:flex-row items-start gap-4">
+                        <div className="w-full sm:w-40 h-32 rounded-lg border border-gray-300 dark:border-fun-blue-400 bg-gray-50 dark:bg-fun-blue-700 flex items-center justify-center overflow-hidden flex-shrink-0">
+                          {displayedImage ? (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              src={displayedImage}
+                              alt=""
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <FontAwesomeIcon icon={faImage} className="w-8 h-8 text-gray-400" />
+                          )}
+                        </div>
+
+                        <div className="flex flex-col gap-2">
+                          <label
+                            htmlFor="event-image-upload"
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-fun-blue-700 text-black dark:text-blog-white rounded-lg font-medium cursor-pointer hover:bg-gray-200 dark:hover:bg-fun-blue-800 transition-colors w-fit"
+                          >
+                            <FontAwesomeIcon icon={faUpload} className="w-4 h-4" />
+                            {displayedImage ? (
+                              <FormattedMessage
+                                id="admin-events-image-change-btn"
+                                description="Change image"
+                                defaultMessage="Change image"
+                              />
+                            ) : (
+                              <FormattedMessage
+                                id="admin-events-image-upload-btn"
+                                description="Upload image"
+                                defaultMessage="Upload image"
+                              />
+                            )}
+                          </label>
+                          <input
+                            type="file"
+                            id="event-image-upload"
+                            accept="image/*"
+                            onChange={handleImageFileChange}
+                            className="hidden"
+                          />
+
+                          {displayedImage && (
+                            <button
+                              type="button"
+                              onClick={handleRemoveImage}
+                              className="inline-flex items-center gap-2 px-4 py-2 text-red-600 dark:text-red-400 text-sm font-medium hover:underline w-fit"
+                            >
+                              <FormattedMessage
+                                id="admin-events-image-remove-btn"
+                                description="Remove image"
+                                defaultMessage="Remove image"
+                              />
+                            </button>
+                          )}
+
+                          <p className="text-xs text-gray-500 dark:text-gray-400">
+                            <FormattedMessage
+                              id="admin-events-image-hint"
+                              description="Image upload hint"
+                              defaultMessage="JPG, PNG, WebP or GIF, up to 10 MB"
+                            />
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })()}
                 </div>
 
                 {/* Public/Private Toggle */}
@@ -819,7 +1021,13 @@ function EventManagement() {
                     className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-fun-blue-500 to-fun-blue-600 hover:from-fun-blue-600 hover:to-fun-blue-700 text-white rounded-lg font-medium transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-fun-blue-400 focus:ring-offset-2 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <FontAwesomeIcon icon={faSave} className="w-4 h-4" />
-                    {submitting ? (
+                    {uploadingImage ? (
+                      <FormattedMessage
+                        id="admin-events-uploading"
+                        description="Uploading image..."
+                        defaultMessage="Uploading image..."
+                      />
+                    ) : submitting ? (
                       <FormattedMessage
                         id="admin-events-saving"
                         description="Saving..."
