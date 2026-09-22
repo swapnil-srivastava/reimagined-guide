@@ -3225,6 +3225,12 @@
       "value": "संक्षिप्त करने के लिए क्लिक करें"
     }
   ],
+  "rsvp-click-to-expand": [
+    {
+      "type": 0,
+      "value": "विस्तार करने के लिए क्लिक करें"
+    }
+  ],
   "rsvp-contact-info-label": [
     {
       "type": 0,

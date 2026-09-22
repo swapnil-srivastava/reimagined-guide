@@ -549,17 +549,14 @@ function Invite({ seoData }: InvitePageProps) {
                                                 {/* RSVP Summary - Clickable Accordion */}
                                                 <div className="mb-3 sm:mb-4">
                                                   {expandedRSVP === inviteEvent.id ? (
-                                                    // Full RSVP Details when expanded - Clickable to collapse
-                                                    <div
-                                                      onClick={() => toggleRSVPExpansion(inviteEvent.id)}
-                                                      className="cursor-pointer"
-                                                    >
-                                                      <RSVPList
-                                                        eventId={inviteEvent.id}
-                                                        eventTitle={inviteEvent.title}
-                                                        showSummaryOnly={false}
-                                                      />
-                                                    </div>
+                                                    // Full RSVP details. The component's own header
+                                                    // button is the single collapse control.
+                                                    <RSVPList
+                                                      eventId={inviteEvent.id}
+                                                      eventTitle={inviteEvent.title}
+                                                      showSummaryOnly={false}
+                                                      onToggle={() => toggleRSVPExpansion(inviteEvent.id)}
+                                                    />
                                                   ) : (
                                                     // Summary view with click to expand
                                                     <button
@@ -767,17 +764,14 @@ function Invite({ seoData }: InvitePageProps) {
                                               {session?.user?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID && (
                                                 <div className="mb-3 sm:mb-4">
                                                   {expandedRSVP === inviteEvent.id ? (
-                                                    // Full RSVP Details when expanded - Clickable to collapse
-                                                    <div
-                                                      onClick={() => toggleRSVPExpansion(inviteEvent.id)}
-                                                      className="cursor-pointer"
-                                                    >
-                                                      <RSVPList
-                                                        eventId={inviteEvent.id}
-                                                        eventTitle={inviteEvent.title}
-                                                        showSummaryOnly={false}
-                                                      />
-                                                    </div>
+                                                    // Full RSVP details. The component's own header
+                                                    // button is the single collapse control.
+                                                    <RSVPList
+                                                      eventId={inviteEvent.id}
+                                                      eventTitle={inviteEvent.title}
+                                                      showSummaryOnly={false}
+                                                      onToggle={() => toggleRSVPExpansion(inviteEvent.id)}
+                                                    />
                                                   ) : (
                                                     // Summary view with click to expand
                                                     <button

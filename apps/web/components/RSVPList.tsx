@@ -11,11 +11,7 @@ import {
   faEnvelope,
   faChevronDown,
   faChevronUp,
-  faCrown,
   faHeart,
-  faCalendarAlt,
-  faMapMarkerAlt,
-  faClock,
   faExclamationTriangle,
   faComment
 } from '@fortawesome/free-solid-svg-icons';
@@ -40,16 +36,95 @@ interface RSVPListProps {
   eventTitle: string;
   showSummaryOnly?: boolean;
   isClickable?: boolean;
+  /** When supplied the parent owns the open/closed state and the header button
+      reports back to it, so there is exactly one click target and one source of
+      truth. Without it the component runs its own accordion. */
+  onToggle?: () => void;
 }
 
-const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnly = false, isClickable = false }) => {
+/* Status tones. The class strings are spelled out in full because Tailwind scans
+   source text — a constructed string like `border-l-[var(--status-${tone})]`
+   would never be generated. */
+const TONE = {
+  success: {
+    bar: 'border-l-[var(--status-success)]',
+    text: 'text-[var(--status-success)]',
+  },
+  danger: {
+    bar: 'border-l-[var(--status-danger)]',
+    text: 'text-[var(--status-danger)]',
+  },
+  info: {
+    bar: 'border-l-[var(--status-info)]',
+    text: 'text-[var(--status-info)]',
+  },
+  warning: {
+    bar: 'border-l-[var(--status-warning)]',
+    text: 'text-[var(--status-warning)]',
+  },
+} as const;
+
+type Tone = keyof typeof TONE;
+
+
+/** Neutral data panel carrying a status accent bar, icon and heading. */
+const AccentPanel: React.FC<{
+  tone: Tone;
+  icon: typeof faUsers;
+  title: React.ReactNode;
+  children: React.ReactNode;
+}> = ({ tone, icon, title, children }) => (
+  <div className={`bg-[var(--data-panel)] border border-[var(--border-subtle)] border-l-4 ${TONE[tone].bar} rounded-lg p-3 sm:p-4`}>
+    <div className="flex items-center gap-2 mb-3">
+      <FontAwesomeIcon icon={icon} className={TONE[tone].text} />
+      <h4 className="text-sm font-semibold text-[var(--text-primary)]">{title}</h4>
+    </div>
+    {children}
+  </div>
+);
+
+/** One of the three headline counts. */
+const StatTile: React.FC<{
+  tone: Tone;
+  icon: typeof faUsers;
+  value: number;
+  label: React.ReactNode;
+}> = ({ tone, icon, value, label }) => (
+  <div className={`bg-[var(--data-panel)] border border-[var(--border-subtle)] border-l-4 ${TONE[tone].bar} rounded-lg p-2 sm:p-3 text-center overflow-hidden`}>
+    <div className="flex items-center justify-center mb-1">
+      <FontAwesomeIcon icon={icon} className={`${TONE[tone].text} text-xs sm:text-sm`} />
+    </div>
+    <div className={`text-lg sm:text-2xl font-bold ${TONE[tone].text}`}>{value}</div>
+    <div className="text-xs text-[var(--text-primary)] opacity-70 font-medium leading-tight break-words hyphens-auto px-0.5">
+      {label}
+    </div>
+  </div>
+);
+
+const StatusPill: React.FC<{ attending: boolean }> = ({ attending }) => (
+  <span
+    className={`px-2 py-1 rounded-full text-xs font-medium flex-shrink-0 self-start text-white ${
+      attending ? 'bg-[var(--status-success-solid)]' : 'bg-[var(--status-danger-solid)]'
+    }`}
+  >
+    {attending ? (
+      <FormattedMessage id="rsvp-attending" description="Attending" defaultMessage="Attending" />
+    ) : (
+      <FormattedMessage id="rsvp-not-attending" description="Not Attending" defaultMessage="Not Attending" />
+    )}
+  </span>
+);
+
+const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnly = false, isClickable = false, onToggle }) => {
   const [rsvps, setRsvps] = useState<RSVP[]>([]);
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState(false);
   const { session } = useSession();
   const intl = useIntl();
 
-  // Check if user is admin
+  // Check if user is admin. The page already gates this component behind the same
+  // check; this guards the contact details specifically, so the component stays
+  // safe to reuse somewhere less protected.
   const isAdmin = session?.user?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID;
 
   // Auto-expand for admins - always expand when not in summary mode
@@ -75,7 +150,7 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
         .select('*')
         .eq('event_id', eventId)
         .order('created_at', { ascending: false });
-      
+
       const { data, error } = result;
 
       if (error) throw error;
@@ -101,6 +176,22 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
   const attendingRSVPs = rsvps.filter(rsvp => rsvp.is_attending);
   const adultCount = attendingRSVPs.length; // Each RSVP represents one adult/family
   const childCount = attendingRSVPs.reduce((sum, rsvp) => sum + (rsvp.kids?.length || 0), 0);
+
+  // When the parent controls expansion it only mounts the full view while open.
+  const isOpen = onToggle ? true : expanded;
+
+  const guestCount = (rsvp: RSVP) => (rsvp.kids?.length || 0) + 1;
+
+  // Roll-ups the host actually acts on. Everything else lives once, on the
+  // response card, instead of being repeated across several panels.
+  const withAllergies = rsvps.filter(rsvp => rsvp.kids?.some(kid => kid.allergies && kid.allergies.trim() !== ''));
+  const withRequests = rsvps.filter(rsvp => rsvp.message && rsvp.message.trim() !== '');
+
+  // Attending first, then newest first within each group.
+  const orderedRsvps = [...rsvps].sort((a, b) => {
+    if (a.is_attending !== b.is_attending) return a.is_attending ? -1 : 1;
+    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+  });
 
   if (loading) {
     return (
@@ -135,7 +226,7 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
             {isClickable && (
               <FontAwesomeIcon
                 icon={faChevronDown}
-                className="text-[var(--text-primary)] opacity-60 text-sm transition-transform duration-200"
+                className="text-[var(--text-primary)] opacity-70 text-sm transition-transform duration-200"
               />
             )}
           </div>
@@ -143,62 +234,30 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
 
         {/* Mobile-First Summary Stats Grid */}
         <div className="grid grid-cols-3 gap-1 sm:gap-3">
-          {/* Attending Card */}
-          <div className="bg-green-50 card--white rounded-lg p-1 sm:p-3 text-center border border-green-200 overflow-hidden">
-            <div className="flex items-center justify-center mb-1">
-              <FontAwesomeIcon icon={faHeart} className="text-green-700 text-xs sm:text-sm" />
-            </div>
-            <div className="text-lg sm:text-xl font-bold text-green-700">
-              {totalAttending}
-            </div>
-            <div className="text-xs text-green-700 font-medium leading-tight break-words hyphens-auto px-0.5">
-              <FormattedMessage
-                id="rsvp-attending"
-                description="Attending"
-                defaultMessage="Attending"
-              />
-            </div>
-          </div>
-
-          {/* Total Guests Card */}
-          <div className="bg-blue-50 card--white rounded-lg p-1 sm:p-3 text-center border border-blue-200 overflow-hidden">
-            <div className="flex items-center justify-center mb-1">
-              <FontAwesomeIcon icon={faUsers} className="text-blue-700 text-xs sm:text-sm" />
-            </div>
-            <div className="text-lg sm:text-xl font-bold text-blue-700">
-              {totalGuests}
-            </div>
-            <div className="text-xs text-blue-700 font-medium leading-tight break-words hyphens-auto px-0.5">
-              <FormattedMessage
-                id="rsvp-total-guests"
-                description="Total Guests"
-                defaultMessage="Total Guests"
-              />
-            </div>
-          </div>
-
-          {/* Not Attending Card */}
-          <div className="bg-red-50 card--white rounded-lg p-1 sm:p-3 text-center border border-red-200 overflow-hidden">
-            <div className="flex items-center justify-center mb-1">
-              <FontAwesomeIcon icon={faUser} className="text-red-700 text-xs sm:text-sm" />
-            </div>
-            <div className="text-lg sm:text-xl font-bold text-red-700">
-              {totalNotAttending}
-            </div>
-            <div className="text-xs text-red-700 font-medium leading-tight break-words hyphens-auto px-0.5">
-              <FormattedMessage
-                id="rsvp-not-attending"
-                description="Not Attending"
-                defaultMessage="Not Attending"
-              />
-            </div>
-          </div>
+          <StatTile
+            tone="success"
+            icon={faHeart}
+            value={totalAttending}
+            label={<FormattedMessage id="rsvp-attending" description="Attending" defaultMessage="Attending" />}
+          />
+          <StatTile
+            tone="info"
+            icon={faUsers}
+            value={totalGuests}
+            label={<FormattedMessage id="rsvp-total-guests" description="Total Guests" defaultMessage="Total Guests" />}
+          />
+          <StatTile
+            tone="danger"
+            icon={faUser}
+            value={totalNotAttending}
+            label={<FormattedMessage id="rsvp-not-attending" description="Not Attending" defaultMessage="Not Attending" />}
+          />
         </div>
 
         {/* Age Breakdown for Mobile */}
         {totalAttending > 0 && (
           <div className="mt-3 pt-3 border-t border-[var(--border-subtle)]">
-            <div className="text-xs text-[var(--text-primary)] opacity-70 mb-2 font-medium">
+            <div className="text-xs text-[var(--text-primary)] opacity-90 mb-2 font-medium">
               <FormattedMessage
                 id="rsvp-age-breakdown"
                 description="Age Breakdown"
@@ -207,13 +266,13 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
             </div>
             <div className="grid grid-cols-2 gap-2">
               <div className="flex items-center gap-2 text-xs">
-                <FontAwesomeIcon icon={faUser} className="text-[var(--text-primary)] opacity-60" />
+                <FontAwesomeIcon icon={faUser} className="text-[var(--text-primary)] opacity-70" />
                 <span className="text-[var(--text-primary)]">
                   {adultCount} <FormattedMessage id="rsvp-adults" description="adults" defaultMessage="adults" />
                 </span>
               </div>
               <div className="flex items-center gap-2 text-xs">
-                <FontAwesomeIcon icon={faChild} className="text-[var(--text-primary)] opacity-60" />
+                <FontAwesomeIcon icon={faChild} className="text-[var(--text-primary)] opacity-70" />
                 <span className="text-[var(--text-primary)]">
                   {childCount} <FormattedMessage id="rsvp-children" description="children" defaultMessage="children" />
                 </span>
@@ -229,15 +288,15 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
     <div className="bg-[var(--surface-raised)] text-[var(--text-primary)] border border-[var(--border-subtle)] rounded-lg drop-shadow-lg hover:drop-shadow-xl transition-all duration-300">
       {/* Accordion Header */}
       <button
-        onClick={() => setExpanded(!expanded)}
+        onClick={() => (onToggle ? onToggle() : setExpanded(!expanded))}
         className="w-full p-4 sm:p-6 text-left focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-offset-2 rounded-t-lg"
       >
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[var(--color-primary-deep)] rounded-full flex items-center justify-center">
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[var(--color-primary-deep)] rounded-full flex items-center justify-center flex-shrink-0">
               <FontAwesomeIcon icon={faUsers} className="text-white text-sm sm:text-base" />
             </div>
-            <div>
+            <div className="min-w-0">
               <h3 className="text-lg sm:text-xl font-bold text-[var(--text-primary)]">
                 <FormattedMessage
                   id="rsvp-responses-title"
@@ -245,34 +304,45 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
                   defaultMessage="RSVP Responses"
                 />
               </h3>
-              <p className="text-sm text-[var(--text-primary)] opacity-70">
-                {rsvps.length} {rsvps.length === 1 ? 'response' : 'responses'} • {totalAttending} attending
+              {eventTitle && (
+                <p className="text-xs text-[var(--text-primary)] opacity-90 truncate">{eventTitle}</p>
+              )}
+              <p className="text-sm text-[var(--text-primary)] opacity-90">
+                {rsvps.length} {rsvps.length === 1 ? 'response' : 'responses'} • {totalAttending} attending • {totalGuests} guests
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-xs bg-[var(--surface-inset)] text-[var(--text-primary)] opacity-70 px-2 py-1 rounded-full">
-              <FormattedMessage
-                id="rsvp-click-to-collapse"
-                description="Click to collapse"
-                defaultMessage="Click to collapse"
-              />
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <span className="hidden sm:inline text-xs bg-[var(--surface-inset)] text-[var(--text-primary)] opacity-90 px-2 py-1 rounded-full">
+              {isOpen ? (
+                <FormattedMessage
+                  id="rsvp-click-to-collapse"
+                  description="Click to collapse"
+                  defaultMessage="Click to collapse"
+                />
+              ) : (
+                <FormattedMessage
+                  id="rsvp-click-to-expand"
+                  description="Click to expand"
+                  defaultMessage="Click to expand"
+                />
+              )}
             </span>
             <FontAwesomeIcon
-              icon={faChevronUp}
-              className="text-[var(--text-primary)] opacity-60 text-lg transition-transform duration-200"
+              icon={isOpen ? faChevronUp : faChevronDown}
+              className="text-[var(--text-primary)] opacity-70 text-lg transition-transform duration-200"
             />
           </div>
         </div>
       </button>
 
       {/* Accordion Content */}
-      {expanded && (
+      {isOpen && (
         <div className="px-4 sm:px-6 pb-4 sm:pb-6 border-t border-[var(--border-subtle)]">
           {rsvps.length === 0 ? (
             <div className="text-center py-8">
-              <FontAwesomeIcon icon={faUsers} className="text-[var(--text-primary)] opacity-50 text-3xl mb-3" />
-              <p className="text-[var(--text-primary)] opacity-60">
+              <FontAwesomeIcon icon={faUsers} className="text-[var(--text-primary)] opacity-70 text-3xl mb-3" />
+              <p className="text-[var(--text-primary)] opacity-90">
                 <FormattedMessage
                   id="rsvp-no-responses"
                   description="No RSVP responses yet"
@@ -281,360 +351,223 @@ const RSVPList: React.FC<RSVPListProps> = ({ eventId, eventTitle, showSummaryOnl
               </p>
             </div>
           ) : (
-            <div className="space-y-4">
-              {/* Summary Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div className="bg-green-50 card--white rounded-lg p-3 border border-green-200">
-                  <div className="flex items-center gap-2 mb-2">
-                    <FontAwesomeIcon icon={faHeart} className="text-green-700" />
-                    <span className="text-sm font-semibold text-green-700">
-                      <FormattedMessage id="rsvp-attending" description="Attending" defaultMessage="Attending" />
-                    </span>
-                  </div>
-                  <div className="text-2xl font-bold text-green-700">{totalAttending}</div>
-                </div>
-
-                <div className="bg-blue-50 card--white rounded-lg p-3 border border-blue-200">
-                  <div className="flex items-center gap-2 mb-2">
-                    <FontAwesomeIcon icon={faUsers} className="text-blue-700" />
-                    <span className="text-sm font-semibold text-blue-700">
-                      <FormattedMessage id="rsvp-total-guests" description="Total Guests" defaultMessage="Total Guests" />
-                    </span>
-                  </div>
-                  <div className="text-2xl font-bold text-blue-700">{totalGuests}</div>
-                </div>
-
-                <div className="bg-red-50 card--white rounded-lg p-3 border border-red-200">
-                  <div className="flex items-center gap-2 mb-2">
-                    <FontAwesomeIcon icon={faUser} className="text-red-700" />
-                    <span className="text-sm font-semibold text-red-700">
-                      <FormattedMessage id="rsvp-not-attending" description="Not Attending" defaultMessage="Not Attending" />
-                    </span>
-                  </div>
-                  <div className="text-2xl font-bold text-red-700">{totalNotAttending}</div>
-                </div>
+            <div className="space-y-4 pt-4">
+              {/* Headline counts */}
+              <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                <StatTile
+                  tone="success"
+                  icon={faHeart}
+                  value={totalAttending}
+                  label={<FormattedMessage id="rsvp-attending" description="Attending" defaultMessage="Attending" />}
+                />
+                <StatTile
+                  tone="info"
+                  icon={faUsers}
+                  value={totalGuests}
+                  label={<FormattedMessage id="rsvp-total-guests" description="Total Guests" defaultMessage="Total Guests" />}
+                />
+                <StatTile
+                  tone="danger"
+                  icon={faUser}
+                  value={totalNotAttending}
+                  label={<FormattedMessage id="rsvp-not-attending" description="Not Attending" defaultMessage="Not Attending" />}
+                />
               </div>
 
-              {/* Enhanced Attendance Details */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                {/* Attending Guests Details */}
-                <div className="bg-green-50 card--white rounded-lg p-4 border border-green-200">
-                  <div className="flex items-center gap-2 mb-3">
-                    <FontAwesomeIcon icon={faHeart} className="text-green-700" />
-                    <h4 className="text-sm font-semibold text-green-700">
-                      <FormattedMessage id="rsvp-attending-details" description="Attending Details" defaultMessage="Attending Details" />
-                    </h4>
-                  </div>
-                  <div className="space-y-2">
-                    {attendingRSVPs.map((rsvp) => (
-                      <div key={rsvp.id} className="bg-white card--white rounded p-2">
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm font-medium text-[var(--text-primary)]">{rsvp.family_name}</span>
-                          <span className="text-xs bg-green-100 card--white text-green-800 px-2 py-1 rounded-full">
-                            {(rsvp.kids?.length || 0) + 1} {((rsvp.kids?.length || 0) + 1) === 1 ? 'guest' : 'guests'}
-                          </span>
-                        </div>
-                        {rsvp.kids && rsvp.kids.length > 0 && (
-                          <div className="mt-1">
-                            <span className="text-xs text-[var(--text-primary)] opacity-70">
-                              <FormattedMessage id="rsvp-with" description="With:" defaultMessage="With:" />
-                            </span>
-                            <div className="flex flex-wrap gap-1 mt-1">
-                              {rsvp.kids.map((kid, index) => (
-                                <span key={index} className="bg-green-100 card--white text-green-800 px-2 py-1 rounded text-xs">
-                                  {kid.name} ({kid.age}y){kid.allergies && kid.allergies.trim() !== '' ? ` - ${kid.allergies}` : ''}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Not Attending Guests */}
-                <div className="bg-red-50 card--white rounded-lg p-4 border border-red-200">
-                  <div className="flex items-center gap-2 mb-3">
-                    <FontAwesomeIcon icon={faUser} className="text-red-700" />
-                    <h4 className="text-sm font-semibold text-red-700">
-                      <FormattedMessage id="rsvp-not-attending-details" description="Not Attending" defaultMessage="Not Attending" />
-                    </h4>
-                  </div>
-                  <div className="space-y-2">
-                    {rsvps.filter(rsvp => !rsvp.is_attending).map((rsvp) => (
-                      <div key={rsvp.id} className="bg-white card--white rounded p-2">
-                        <span className="text-sm font-medium text-[var(--text-primary)]">{rsvp.family_name}</span>
-                      </div>
-                    ))}
-                    {totalNotAttending === 0 && (
-                      <p className="text-sm text-[var(--text-primary)] opacity-60 italic">
-                        <FormattedMessage id="rsvp-no-one-not-attending" description="Everyone is attending!" defaultMessage="Everyone is attending!" />
-                      </p>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {/* Special Requests Section - Shows for all RSVPs with messages */}
-              {rsvps.some(rsvp => rsvp.message && rsvp.message.trim() !== '') && (
-                <div className="bg-blue-50 card--white rounded-lg p-4 border border-blue-200">
-                  <div className="flex items-center gap-2 mb-3">
-                    <FontAwesomeIcon icon={faExclamationTriangle} className="text-blue-700" />
-                    <h4 className="text-sm font-semibold text-blue-700">
-                      <FormattedMessage id="rsvp-all-special-requests" description="All Special Requests" defaultMessage="All Special Requests" />
-                    </h4>
-                  </div>
-                  <div className="space-y-2">
-                    {rsvps.filter(rsvp => rsvp.message && rsvp.message.trim() !== '').map((rsvp) => (
-                      <div key={rsvp.id} className="bg-white card--white rounded p-3 border-l-4 border-blue-400">
-                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1 gap-1 sm:gap-0">
-                          <div className="font-medium text-sm text-[var(--text-primary)] min-w-0 truncate pr-2">{rsvp.family_name}</div>
-                          <div className={`px-2 py-1 rounded-full text-xs font-medium flex-shrink-0 self-start ${
-                            rsvp.is_attending
-                              ? 'bg-green-100 card--white text-green-700'
-                              : 'bg-red-100 card--white text-red-700'
-                          }`}>
-                            {rsvp.is_attending ? 'Attending' : 'Not Attending'}
-                          </div>
-                        </div>
-                        <p className="text-sm text-[var(--text-primary)]">{rsvp.message}</p>
-                      </div>
-                    ))}
-                  </div>
+              {/* Age breakdown — previously only visible in the collapsed summary */}
+              {totalAttending > 0 && (
+                <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs px-1">
+                  <span className="text-[var(--text-primary)] opacity-90 font-medium">
+                    <FormattedMessage
+                      id="rsvp-age-breakdown"
+                      description="Age Breakdown"
+                      defaultMessage="Age Breakdown"
+                    />
+                  </span>
+                  <span className="flex items-center gap-2 text-[var(--text-primary)]">
+                    <FontAwesomeIcon icon={faUser} className="opacity-70" />
+                    {adultCount} <FormattedMessage id="rsvp-adults" description="adults" defaultMessage="adults" />
+                  </span>
+                  <span className="flex items-center gap-2 text-[var(--text-primary)]">
+                    <FontAwesomeIcon icon={faChild} className="opacity-70" />
+                    {childCount} <FormattedMessage id="rsvp-children" description="children" defaultMessage="children" />
+                  </span>
                 </div>
               )}
 
-              {/* Allergies & Dietary Restrictions */}
-              {attendingRSVPs.some(rsvp => rsvp.kids?.some(kid => kid.allergies && kid.allergies.trim() !== '')) && (
-                <div className="bg-yellow-50 card--white rounded-lg p-4 border border-yellow-200">
-                  <div className="flex items-center gap-2 mb-3">
-                    <FontAwesomeIcon icon={faExclamationTriangle} className="text-yellow-700" />
-                    <h4 className="text-sm font-semibold text-yellow-700">
-                      <FormattedMessage id="rsvp-allergies-dietary" description="Allergies & Dietary Restrictions" defaultMessage="Allergies & Dietary Restrictions" />
-                    </h4>
-                  </div>
+              {/* Allergies & dietary — the list that goes to catering */}
+              {withAllergies.length > 0 && (
+                <AccentPanel
+                  tone="warning"
+                  icon={faExclamationTriangle}
+                  title={
+                    <FormattedMessage
+                      id="rsvp-allergies-dietary"
+                      description="Allergies & Dietary Restrictions"
+                      defaultMessage="Allergies & Dietary Restrictions"
+                    />
+                  }
+                >
                   <div className="space-y-2">
-                    {attendingRSVPs.filter(rsvp => rsvp.kids?.some(kid => kid.allergies && kid.allergies.trim() !== '')).map((rsvp) => (
-                      <div key={rsvp.id} className="bg-white card--white rounded p-3 border-l-4 border-yellow-400">
+                    {withAllergies.map((rsvp) => (
+                      <div key={rsvp.id} className="bg-[var(--surface-raised)] border border-[var(--border-subtle)] rounded p-3">
                         <div className="font-medium text-sm text-[var(--text-primary)] mb-1">{rsvp.family_name}</div>
-                        <div className="space-y-1">
-                          {rsvp.kids?.filter(kid => kid.allergies && kid.allergies.trim() !== '').map((kid, index) => (
-                            <div key={index} className="text-sm text-[var(--text-primary)]">
+                        {rsvp.kids
+                          .filter(kid => kid.allergies && kid.allergies.trim() !== '')
+                          .map((kid, index) => (
+                            <div key={index} className="text-sm text-[var(--text-primary)] opacity-90">
                               <span className="font-medium">{kid.name}:</span> {kid.allergies}
                             </div>
                           ))}
+                      </div>
+                    ))}
+                  </div>
+                </AccentPanel>
+              )}
+
+              {/* Special requests — one panel (was rendered twice) */}
+              {withRequests.length > 0 && (
+                <AccentPanel
+                  tone="info"
+                  icon={faComment}
+                  title={
+                    <FormattedMessage
+                      id="rsvp-all-special-requests"
+                      description="All Special Requests"
+                      defaultMessage="All Special Requests"
+                    />
+                  }
+                >
+                  <div className="space-y-2">
+                    {withRequests.map((rsvp) => (
+                      <div key={rsvp.id} className="bg-[var(--surface-raised)] border border-[var(--border-subtle)] rounded p-3">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1 gap-1 sm:gap-0">
+                          <div className="font-medium text-sm text-[var(--text-primary)] min-w-0 truncate pr-2">{rsvp.family_name}</div>
+                          <StatusPill attending={rsvp.is_attending} />
                         </div>
+                        <p className="text-sm text-[var(--text-primary)] opacity-90">{rsvp.message}</p>
                       </div>
                     ))}
                   </div>
-                </div>
+                </AccentPanel>
               )}
 
-              {/* Toddler Identification */}
-              {attendingRSVPs.some(rsvp => rsvp.kids?.some(kid =>
-                parseInt(kid.age) <= 5 ||
-                kid.name.toLowerCase().includes('toddler') ||
-                kid.name.toLowerCase().includes('baby') ||
-                kid.name.toLowerCase().includes('infant')
-              )) && (
-                <div className="bg-purple-50 card--white rounded-lg p-4 border border-purple-200">
-                  <div className="flex items-center gap-2 mb-3">
-                    <FontAwesomeIcon icon={faChild} className="text-purple-700" />
-                    <h4 className="text-sm font-semibold text-purple-700">
-                      <FormattedMessage id="rsvp-toddlers-babies" description="Toddlers & Babies" defaultMessage="Toddlers & Babies" />
-                    </h4>
-                  </div>
-                  <div className="space-y-2">
-                    {attendingRSVPs.filter(rsvp =>
-                      rsvp.kids?.some(kid =>
-                        parseInt(kid.age) <= 5 ||
-                        kid.name.toLowerCase().includes('toddler') ||
-                        kid.name.toLowerCase().includes('baby') ||
-                        kid.name.toLowerCase().includes('infant')
-                      )
-                    ).map((rsvp) => (
-                      <div key={rsvp.id} className="bg-white card--white rounded p-3 border-l-4 border-purple-400">
-                        <div className="font-medium text-sm text-[var(--text-primary)] mb-1">{rsvp.family_name}</div>
-                        {rsvp.kids && (
-                          <div className="mb-2">
-                            <span className="text-xs text-[var(--text-primary)] opacity-70">
-                              <FormattedMessage id="rsvp-little-ones" description="Little ones:" defaultMessage="Little ones:" />
-                            </span>
-                            <div className="flex flex-wrap gap-1 mt-1">
-                              {rsvp.kids.filter(kid =>
-                                parseInt(kid.age) <= 5 ||
-                                kid.name.toLowerCase().includes('toddler') ||
-                                kid.name.toLowerCase().includes('baby') ||
-                                kid.name.toLowerCase().includes('infant')
-                              ).map((kid, index) => (
-                                <span key={index} className="bg-purple-100 card--white text-purple-800 px-2 py-1 rounded text-xs">
-                                  {kid.name} ({kid.age}y)
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
+              {/* One card per family — replaces the old Attending/Not Attending
+                  columns and the separate Detailed Responses list. */}
+              <div className="space-y-3">
+                <h4 className="text-sm font-semibold text-[var(--text-primary)]">
+                  <FormattedMessage
+                    id="rsvp-detailed-responses"
+                    description="Detailed Responses"
+                    defaultMessage="Detailed Responses"
+                  />
+                </h4>
 
-              {/* All Special Requests - Visible to Everyone */}
-              {rsvps.some(rsvp => rsvp.message && rsvp.message.trim() !== '') && (
-                <div className="bg-orange-50 card--white rounded-lg p-4 border border-orange-200">
-                  <div className="flex items-center gap-2 mb-3">
-                    <FontAwesomeIcon icon={faComment} className="text-orange-700" />
-                    <h4 className="text-sm font-semibold text-orange-700">
-                      <FormattedMessage id="rsvp-all-special-requests" description="All Special Requests" defaultMessage="All Special Requests" />
-                    </h4>
-                  </div>
-                  <div className="space-y-2">
-                    {rsvps.filter(rsvp => rsvp.message && rsvp.message.trim() !== '').map((rsvp) => (
-                      <div key={rsvp.id} className="bg-white card--white rounded p-3 border-l-4 border-orange-400">
-                        <div className="font-medium text-sm text-[var(--text-primary)] mb-1">{rsvp.family_name}</div>
-                        <div className="text-sm text-[var(--text-primary)]">{rsvp.message}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Individual RSVPs - Admin Only */}
-              {isAdmin && (
-                <div className="space-y-3">
-                  <h4 className="text-sm font-semibold text-[var(--text-primary)] flex items-center gap-2">
-                    <FontAwesomeIcon icon={faCrown} className="text-yellow-500" />
-                    <FormattedMessage id="rsvp-detailed-responses" description="Detailed Responses" defaultMessage="Detailed Responses" />
-                  </h4>
-
-                  {rsvps.map((rsvp) => (
-                    <div key={rsvp.id} className="bg-[var(--surface-inset)] rounded-lg p-4 border border-[var(--border-subtle)]">
-                      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-3">
-                        <div className="min-w-0 flex-1">
-                          <h5 className="font-semibold text-[var(--text-primary)]">{rsvp.family_name}</h5>
-                          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-[var(--text-primary)] opacity-70 mt-1">
-                            <div className="flex items-center gap-1 min-w-0">
-                              <FontAwesomeIcon icon={faEnvelope} className="text-xs flex-shrink-0" />
-                              <a href={`mailto:${rsvp.email}`} className="hover:text-[var(--color-primary)] transition-colors truncate">
-                                {rsvp.email}
-                              </a>
-                            </div>
+                {orderedRsvps.map((rsvp) => (
+                  <div
+                    key={rsvp.id}
+                    className={`bg-[var(--data-panel)] border border-[var(--border-subtle)] border-l-4 ${
+                      rsvp.is_attending ? TONE.success.bar : TONE.danger.bar
+                    } rounded-lg p-3 sm:p-4`}
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-3">
+                      <div className="min-w-0">
+                        <h5 className="font-semibold text-[var(--text-primary)]">{rsvp.family_name}</h5>
+                        {/* Contact details stay behind the admin check */}
+                        {isAdmin && (rsvp.email || rsvp.phone) && (
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-sm text-[var(--text-primary)] opacity-70 mt-1">
+                            {rsvp.email && (
+                              <span className="flex items-center gap-2 min-w-0">
+                                <FontAwesomeIcon icon={faEnvelope} className="text-xs flex-shrink-0" />
+                                <a href={`mailto:${rsvp.email}`} className="hover:text-[var(--color-primary)] transition-colors truncate">
+                                  {rsvp.email}
+                                </a>
+                              </span>
+                            )}
                             {rsvp.phone && (
-                              <div className="flex items-center gap-1 min-w-0">
+                              <span className="flex items-center gap-2 min-w-0">
                                 <FontAwesomeIcon icon={faPhone} className="text-xs flex-shrink-0" />
                                 <a href={`tel:${rsvp.phone}`} className="hover:text-[var(--color-primary)] transition-colors truncate">
                                   {rsvp.phone}
                                 </a>
-                              </div>
+                              </span>
                             )}
                           </div>
-                        </div>
-                        <div className={`px-2 py-1 rounded-full text-xs font-medium flex-shrink-0 self-start ${
-                          rsvp.is_attending
-                            ? 'bg-green-100 card--white text-green-700'
-                            : 'bg-red-100 card--white text-red-700'
-                        }`}>
-                          {rsvp.is_attending ? 'Attending' : 'Not Attending'}
-                        </div>
+                        )}
                       </div>
+                      <StatusPill attending={rsvp.is_attending} />
+                    </div>
 
-                      {rsvp.is_attending && (
-                        <div className="space-y-2 text-sm">
-                          <div className="flex items-center gap-2">
-                            <FontAwesomeIcon icon={faUsers} className="text-[var(--text-primary)] opacity-60 text-xs" />
-                            <span className="text-[var(--text-primary)]">
-                              {(rsvp.kids?.length || 0) + 1} {(rsvp.kids?.length || 0) + 1 === 1 ? 'guest' : 'guests'}
-                            </span>
-                          </div>
-
-                          {rsvp.kids && rsvp.kids.length > 0 && (
-                            <div>
-                              <span className="text-[var(--text-primary)] opacity-70 text-xs">
-                                <FormattedMessage id="rsvp-guest-names" description="Guest names:" defaultMessage="Guest names:" />
-                              </span>
-                              <div className="flex flex-wrap gap-1 mt-1">
-                                {rsvp.kids.map((kid, index) => (
-                                  <span key={index} className="bg-[var(--surface-inset)] px-2 py-1 rounded text-xs text-[var(--text-primary)]">
-                                    {kid.name} ({kid.age}y)
-                                  </span>
-                                ))}
-                              </div>
-                            </div>
-                          )}
-
-                          {rsvp.kids?.some(kid => kid.allergies && kid.allergies.trim() !== '') && (
-                            <div>
-                              <span className="text-[var(--text-primary)] opacity-70 text-xs">
-                                <FormattedMessage id="rsvp-dietary" description="Dietary restrictions:" defaultMessage="Dietary restrictions:" />
-                              </span>
-                              <div className="mt-1 space-y-1">
-                                {rsvp.kids.filter(kid => kid.allergies && kid.allergies.trim() !== '').map((kid, index) => (
-                                  <p key={index} className="text-[var(--text-primary)]">
-                                    {kid.name}: {kid.allergies}
-                                  </p>
-                                ))}
-                              </div>
-                            </div>
-                          )}
-
-                          {rsvp.message && rsvp.message.trim() !== '' && (
-                            <div>
-                              <span className="text-[var(--text-primary)] opacity-70 text-xs">
-                                <FormattedMessage id="rsvp-special-requests" description="Special requests:" defaultMessage="Special requests:" />
-                              </span>
-                              <p className="text-[var(--text-primary)] mt-1">{rsvp.message}</p>
-                            </div>
-                          )}
+                    {rsvp.is_attending && (
+                      <div className="mt-3 space-y-2 text-sm">
+                        <div className="flex items-center gap-2 text-[var(--text-primary)]">
+                          <FontAwesomeIcon icon={faUsers} className="opacity-60 text-xs" />
+                          {guestCount(rsvp)} {guestCount(rsvp) === 1 ? 'guest' : 'guests'}
                         </div>
-                      )}
 
-                      {/* Show special requests for non-attending RSVPs too */}
-                      {!rsvp.is_attending && rsvp.message && rsvp.message.trim() !== '' && (
-                        <div className="space-y-2 text-sm">
+                        {rsvp.kids && rsvp.kids.length > 0 && (
                           <div>
                             <span className="text-[var(--text-primary)] opacity-70 text-xs">
-                              <FormattedMessage id="rsvp-special-requests" description="Special requests:" defaultMessage="Special requests:" />
+                              <FormattedMessage
+                                id="rsvp-guest-names"
+                                description="Guest names:"
+                                defaultMessage="Guest names:"
+                              />
                             </span>
-                            <p className="text-[var(--text-primary)] mt-1">{rsvp.message}</p>
+                            <div className="flex flex-wrap gap-1 mt-1">
+                              {rsvp.kids.map((kid, index) => (
+                                <span
+                                  key={index}
+                                  className="bg-transparent border border-[var(--border-subtle)] px-2 py-1 rounded text-xs text-[var(--text-primary)]"
+                                >
+                                  {kid.name}{kid.age ? ` (${kid.age}y)` : ''}
+                                  {/* Kept at --text-primary rather than the warning accent: these
+                                      chips sit on --surface-raised, where the warning tone measures
+                                      only 4.05-4.20:1. The authoritative, colour-coded allergy list
+                                      is the roll-up panel above, which sits on --data-panel. */}
+                                  {kid.allergies && kid.allergies.trim() !== '' && (
+                                    <span className="ml-1 opacity-80">• {kid.allergies}</span>
+                                  )}
+                                </span>
+                              ))}
+                            </div>
                           </div>
-                        </div>
-                      )}
-
-                      {/* Admin-only detailed information */}
-                      {isAdmin && (
-                        <div className="mt-3 pt-3 border-t border-[var(--border-subtle)]">
-                          <div className="text-xs text-[var(--text-primary)] opacity-60">
-                            <FormattedMessage
-                              id="rsvp-admin-details"
-                              description="Admin details only"
-                              defaultMessage="Admin details only"
-                            />
-                          </div>
-                        </div>
-                      )}
-
-                      <div className="text-xs text-[var(--text-primary)] opacity-60 mt-3 pt-2 border-t border-[var(--border-subtle)]">
-                        <FormattedMessage
-                          id="rsvp-responded-on"
-                          description="Responded on {date}"
-                          defaultMessage="Responded on {date}"
-                          values={{
-                            date: new Date(rsvp.created_at).toLocaleDateString('en-US', {
-                              year: 'numeric',
-                              month: 'short',
-                              day: 'numeric',
-                              hour: '2-digit',
-                              minute: '2-digit'
-                            })
-                          }}
-                        />
+                        )}
                       </div>
+                    )}
+
+                    {rsvp.message && rsvp.message.trim() !== '' && (
+                      <div className="mt-3 text-sm">
+                        <span className="text-[var(--text-primary)] opacity-70 text-xs">
+                          <FormattedMessage
+                            id="rsvp-special-requests"
+                            description="Special requests:"
+                            defaultMessage="Special requests:"
+                          />
+                        </span>
+                        <p className="text-[var(--text-primary)] opacity-90 mt-1">{rsvp.message}</p>
+                      </div>
+                    )}
+
+                    <div className="text-xs text-[var(--text-primary)] opacity-60 mt-3 pt-2 border-t border-[var(--border-subtle)]">
+                      <FormattedMessage
+                        id="rsvp-responded-on"
+                        description="Responded on {date}"
+                        defaultMessage="Responded on {date}"
+                        values={{
+                          date: new Date(rsvp.created_at).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                          })
+                        }}
+                      />
                     </div>
-                  ))}
-                </div>
-              )}
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </div>

@@ -205,6 +205,44 @@
   --color-primary-deep: color-mix(in srgb, var(--color-primary) 58%, #000000);
   --color-primary-deeper: color-mix(in srgb, var(--color-primary) 40%, #000000);
   --text-on-primary: #ffffff;
+
+  /* Status accents for the admin RSVP panel.
+     These deliberately do NOT follow the theme picker — "not attending" must stay
+     red in the green theme — but their lightness must follow light/dark. Mixing
+     toward --text-primary does exactly that: it deepens them on light backgrounds
+     and lightens them on dark ones, from a single declaration.
+     55% is the measured ceiling: the worst accent-on-panel pair across all
+     10 themes x 6 hues lands at 4.53:1 (AA even as text); at 60% it drops to 3.98. */
+  --status-success: color-mix(in srgb, #22c55e 55%, var(--text-primary));
+  --status-danger: color-mix(in srgb, #ef4444 55%, var(--text-primary));
+  --status-info: color-mix(in srgb, #3b82f6 55%, var(--text-primary));
+  --status-warning: color-mix(in srgb, #eab308 55%, var(--text-primary));
+  --status-accent: color-mix(in srgb, #a855f7 55%, var(--text-primary));
+
+  /* Solid fills that always carry a white label (worst case 5.68:1). */
+  --status-success-solid: color-mix(in srgb, #22c55e 55%, #000000);
+  --status-danger-solid: color-mix(in srgb, #ef4444 55%, #000000);
+}
+
+/* Surface for dense data panels (the admin RSVP block).
+   --surface-inset is fine in light mode, but in dark themes it is a saturated
+   mid-tone (orange-dark is #a04020) that leaves no headroom for status accents —
+   red-on-inset measures only 2.7:1 there. Pulling the dark variant toward
+   near-black restores contrast while keeping a clear theme cast. */
+.theme-blue-light,
+.theme-green-light,
+.theme-purple-light,
+.theme-orange-light,
+.theme-teal-light {
+  --data-panel: var(--surface-inset);
+}
+
+.theme-blue-dark,
+.theme-green-dark,
+.theme-purple-dark,
+.theme-orange-dark,
+.theme-teal-dark {
+  --data-panel: color-mix(in srgb, var(--bg-primary) 50%, #0b0b0b);
 }
 
 .dark {

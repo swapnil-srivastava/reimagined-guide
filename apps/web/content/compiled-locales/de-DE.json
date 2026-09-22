@@ -3193,6 +3193,12 @@
       "value": "Zum Reduzieren klicken"
     }
   ],
+  "rsvp-click-to-expand": [
+    {
+      "type": 0,
+      "value": "Zum Ausklappen klicken"
+    }
+  ],
   "rsvp-detailed-responses": [
     {
       "type": 0,

@@ -3623,6 +3623,12 @@
       "value": "Click to collapse"
     }
   ],
+  "rsvp-click-to-expand": [
+    {
+      "type": 0,
+      "value": "Click to expand"
+    }
+  ],
   "rsvp-detailed-responses": [
     {
       "type": 0,
