@@ -730,36 +730,6 @@ function Invite({ seoData }: InvitePageProps) {
                                                 </button>
                                               </div>
                                               
-                                              {/* RSVP Form - Visible to Everyone for Past Events */}
-                                              <div className="mb-3 sm:mb-4">
-                                                <button
-                                                  onClick={() => toggleEventExpansion(inviteEvent.id)}
-                                                  className="w-full flex items-center justify-center sm:justify-between p-3 sm:p-4 bg-gradient-to-r from-hit-pink-500 to-hit-pink-600 hover:brightness-105 text-[#0a0a0a] rounded-lg transition-all duration-200 active:scale-[0.98] shadow-sm opacity-75"
-                                                >
-                                                  <div className="flex items-center gap-2 sm:gap-3">
-                                                    <FontAwesomeIcon icon={faUsers} className="text-[#0a0a0a] text-sm sm:text-base" />
-                                                    <span className="text-sm sm:text-base font-semibold">
-                                                      <FormattedMessage
-                                                        id="invite-rsvp-form-toggle-past"
-                                                        description="RSVP for Past Event"
-                                                        defaultMessage="RSVP for Past Event"
-                                                      />
-                                                    </span>
-                                                  </div>
-                                                  <FontAwesomeIcon
-                                                    icon={expandedEvent === inviteEvent.id ? faChevronUp : faChevronDown}
-                                                    className="text-[#0a0a0a] text-sm"
-                                                  />
-                                                </button>
-
-                                                {/* RSVP Form - Expandable */}
-                                                {expandedEvent === inviteEvent.id && (
-                                                  <div className="mt-3 sm:mt-4 animate-fadeIn">
-                                                    <RSVPForm eventId={inviteEvent.id} />
-                                                  </div>
-                                                )}
-                                              </div>
-
                                               {/* RSVP Summary - Clickable Accordion - Admin Only */}
                                               {session?.user?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID && (
                                                 <div className="mb-3 sm:mb-4">
