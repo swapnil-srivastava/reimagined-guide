@@ -5,7 +5,7 @@ const RoundButton = React.forwardRef<HTMLDivElement, { children: React.ReactNode
     <div
       ref={ref}
       className={`${audioPlayer ? 'w-[calc(5rem_*_0.5)] h-[calc(5rem_*_0.5)]' : 'w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)]'} ${pink ? 'bg-hit-pink-500' : 'bg-[var(--color-primary-light)]'} p-0.5 m-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125`}
-      style={{ color: '#0a0a0a' }}
+      style={{ color: 'var(--text-primary)' }}
     >
       {children}
     </div>
