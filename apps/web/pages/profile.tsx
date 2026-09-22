@@ -188,7 +188,7 @@ function CreateExperience() {
 
   return (
     <>
-      <div className="flex flex-col gap-2 my-4 px-4 py-2 bg-blog-white card--white">
+      <div className="flex flex-col gap-2 my-4 px-4 py-2 bg-blog-white text-[var(--text-primary)]">
         <JsonForms
           schema={schema}
           uischema={uischema}
@@ -293,7 +293,7 @@ function CreateSkill(props) {
 
   return (
     <>
-      <div className="flex flex-col gap-2 my-4 px-4 py-2 bg-blog-white card--white">
+      <div className="flex flex-col gap-2 my-4 px-4 py-2 bg-blog-white text-[var(--text-primary)]">
         <JsonForms
           schema={skillSchema}
           uischema={uiSkillSchema}

@@ -48,7 +48,7 @@ const CalendarButton: React.FC<CalendarButtonProps> = ({
       <div className="flex">
         <button
           onClick={handlePrimaryClick}
-          className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-l-lg transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 shadow-sm font-medium"
+          className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-[var(--color-primary-deep)] hover:brightness-110 text-white rounded-l-lg transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-offset-2 shadow-sm font-medium"
         >
           <FontAwesomeIcon icon={faCalendarPlus} className="text-lg" />
           <span className="text-sm md:text-base">
@@ -63,7 +63,7 @@ const CalendarButton: React.FC<CalendarButtonProps> = ({
         {/* Dropdown Toggle */}
         <button
           onClick={() => setShowDropdown(!showDropdown)}
-          className="px-3 py-3 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white rounded-r-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 shadow-sm border-l border-green-400"
+          className="px-3 py-3 bg-[var(--color-primary-deep)] hover:brightness-110 text-white rounded-r-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-offset-2 shadow-sm border-l border-white/30"
         >
           <FontAwesomeIcon icon={faChevronDown} className={`text-sm transition-transform duration-200 ${showDropdown ? 'rotate-180' : ''}`} />
         </button>
@@ -71,22 +71,22 @@ const CalendarButton: React.FC<CalendarButtonProps> = ({
 
       {/* Dropdown Menu */}
       {showDropdown && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-fun-blue-600 rounded-lg shadow-xl border border-gray-200 dark:border-fun-blue-500 z-[99999] overflow-visible min-w-max">
+        <div className="absolute top-full left-0 right-0 mt-2 bg-[var(--surface-raised)] text-[var(--text-primary)] rounded-lg shadow-xl border border-[var(--border-subtle)] z-[99999] overflow-visible min-w-max">
           <div className="py-2">
             {allCalendarOptions.map((option, index) => (
               <button
                 key={index}
                 onClick={() => handleOptionClick(option)}
-                className="w-full px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-fun-blue-700 transition-colors duration-200 flex items-center gap-3 whitespace-nowrap"
+                className="w-full px-4 py-3 text-left hover:bg-[var(--surface-inset)] transition-colors duration-200 flex items-center gap-3 whitespace-nowrap"
               >
                 <span className="text-lg">{option.icon}</span>
-                <span className="font-medium text-blog-black dark:text-blog-white">
+                <span className="font-medium text-[var(--text-primary)]">
                   {option.name}
                 </span>
                 {option.action ? (
-                  <FontAwesomeIcon icon={faDownload} className="ml-auto text-gray-400 text-sm" />
+                  <FontAwesomeIcon icon={faDownload} className="ml-auto text-[var(--text-primary)] opacity-50 text-sm" />
                 ) : (
-                  <FontAwesomeIcon icon={faExternalLinkAlt} className="ml-auto text-gray-400 text-sm" />
+                  <FontAwesomeIcon icon={faExternalLinkAlt} className="ml-auto text-[var(--text-primary)] opacity-50 text-sm" />
                 )}
               </button>
             ))}

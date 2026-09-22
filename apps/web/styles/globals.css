@@ -20,6 +20,12 @@
   --fun-blue-800: #00325e;
   --fun-blue-900: #040608ff;
 
+  /* Accent fallbacks for no-JS / pre-hydration. The .theme-*-* blocks below
+     come later in the file and override these at equal specificity. */
+  --color-primary: var(--fun-blue-500);
+  --color-primary-light: var(--fun-blue-300);
+  --border-primary: var(--fun-blue-500);
+
   --color-blue: #3b49df;
   --color-red: #df3b3b;
   --color-green: #3bdf72;
@@ -31,8 +37,13 @@
   --toast-border: #e5e7eb;
 }
 
-/* Theme overrides */
-.theme-green {
+/* Theme overrides.
+   next-themes applies a single `theme-<color>-<mode>` class to <html>, so each
+   hue ramp must be selected by those names to take effect. The bare
+   `.theme-<color>` selectors are kept only as documentation of the ramp. */
+.theme-green,
+.theme-green-light,
+.theme-green-dark {
   --fun-blue-50: #f0fdf4;
   --fun-blue-100: #dcfce7;
   --fun-blue-200: #bbf7d0;
@@ -45,7 +56,9 @@
   --fun-blue-900: #14532d;
 }
 
-.theme-purple {
+.theme-purple,
+.theme-purple-light,
+.theme-purple-dark {
   --fun-blue-50: #faf5ff;
   --fun-blue-100: #f3e8ff;
   --fun-blue-200: #e9d5ff;
@@ -58,7 +71,9 @@
   --fun-blue-900: #581c87;
 }
 
-.theme-orange {
+.theme-orange,
+.theme-orange-light,
+.theme-orange-dark {
   --fun-blue-50: #fff7ed;
   --fun-blue-100: #ffedd5;
   --fun-blue-200: #fed7aa;
@@ -71,7 +86,9 @@
   --fun-blue-900: #7c2d12;
 }
 
-.theme-teal {
+.theme-teal,
+.theme-teal-light,
+.theme-teal-dark {
   --fun-blue-50: #f0fdfa;
   --fun-blue-100: #ccfbf1;
   --fun-blue-200: #99f6e4;
@@ -101,69 +118,94 @@
 }
 
 .theme-green-light {
-  --color-primary: #10b981;
-  --color-primary-light: #86efac;
+  --color-primary: var(--fun-blue-500);
+  --color-primary-light: var(--fun-blue-300);
   --bg-primary: #fbfbfb;
   --text-primary: #0a0a0a;
-  --border-primary: #10b981;
+  --border-primary: var(--fun-blue-500);
 }
 
 .theme-green-dark {
-  --color-primary: #059669;
-  --color-primary-light: #86efac;
+  --color-primary: var(--fun-blue-400);
+  --color-primary-light: var(--fun-blue-300);
   --bg-primary: #064e3b;
   --text-primary: #fbfbfb;
   --border-primary: #fbfbfb;
 }
 
 .theme-purple-light {
-  --color-primary: #8b5cf6;
-  --color-primary-light: #d8b4fe;
+  --color-primary: var(--fun-blue-500);
+  --color-primary-light: var(--fun-blue-300);
   --bg-primary: #fbfbfb;
   --text-primary: #0a0a0a;
-  --border-primary: #8b5cf6;
+  --border-primary: var(--fun-blue-500);
 }
 
 .theme-purple-dark {
-  --color-primary: #7c3aed;
-  --color-primary-light: #d8b4fe;
+  --color-primary: var(--fun-blue-400);
+  --color-primary-light: var(--fun-blue-300);
   --bg-primary: #581c87;
   --text-primary: #fbfbfb;
   --border-primary: #fbfbfb;
 }
 
 .theme-orange-light {
-  --color-primary: #f97316;
-  --color-primary-light: #fdba74;
+  --color-primary: var(--fun-blue-500);
+  --color-primary-light: var(--fun-blue-300);
   --bg-primary: #fbfbfb;
   --text-primary: #0a0a0a;
-  --border-primary: #f97316;
+  --border-primary: var(--fun-blue-500);
 }
 
 .theme-orange-dark {
-  --color-primary: #ea580c;
-  --color-primary-light: #fdba74;
+  --color-primary: var(--fun-blue-400);
+  --color-primary-light: var(--fun-blue-300);
   --bg-primary: #9a3412;
   --text-primary: #fbfbfb;
   --border-primary: #fbfbfb;
 }
 
 .theme-teal-light {
-  --color-primary: #14b8a6;
-  --color-primary-light: #5eead4;
+  --color-primary: var(--fun-blue-500);
+  --color-primary-light: var(--fun-blue-300);
   --bg-primary: #fbfbfb;
   --text-primary: #0a0a0a;
-  --border-primary: #14b8a6;
+  --border-primary: var(--fun-blue-500);
 }
 
 .theme-teal-dark {
-  --color-primary: #0f766e;
-  --color-primary-light: #5eead4;
+  --color-primary: var(--fun-blue-400);
+  --color-primary-light: var(--fun-blue-300);
   --bg-primary: #134e4a;
   --text-primary: #fbfbfb;
   --border-primary: #fbfbfb;
 }
 
+
+/* Derived surface + accent tokens.
+   `:root` IS <html>, the same element that carries `.theme-<color>-<mode>`, so
+   `var(--bg-primary)` / `var(--color-primary)` below resolve against the ACTIVE
+   theme at computed-value time. One block covers all ten themes, and a future
+   sixth hue needs no additions here.
+   These names are declared nowhere else, so this block's position after the
+   theme blocks does not override them. */
+:root {
+  /* Elevation. --surface-inset and --border-subtle mix in --text-primary, which
+     is near-black in light themes (panel goes darker than the page, matching the
+     old bg-gray-50) and near-white in dark themes (panel goes lighter). One
+     formula, correct in both modes. */
+  --surface-raised: color-mix(in srgb, #ffffff 10%, var(--bg-primary));
+  --surface-inset: color-mix(in srgb, var(--text-primary) 6%, var(--bg-primary));
+  --border-subtle: color-mix(in srgb, var(--text-primary) 20%, var(--bg-primary));
+  --text-muted: color-mix(in srgb, var(--text-primary) 65%, transparent);
+
+  /* Darkened accents for filled surfaces carrying white text. Plain
+     --color-primary fails WCAG AA against white in most light themes, so any
+     solid fill with a white label uses --color-primary-deep instead. */
+  --color-primary-deep: color-mix(in srgb, var(--color-primary) 58%, #000000);
+  --color-primary-deeper: color-mix(in srgb, var(--color-primary) 40%, #000000);
+  --text-on-primary: #ffffff;
+}
 
 .dark {
   /* Toast colors for dark mode */

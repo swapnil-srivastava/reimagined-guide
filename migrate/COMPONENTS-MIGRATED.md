@@ -13,7 +13,8 @@ Completed (migrated and verified):
 
 - Inspected for this migration: `apps/web/components/ProductCardWithFavorites.tsx`, `apps/web/components/ProductSkeletonGrid.tsx` — no component-level changes required.
 
-- Inspected for this migration: `apps/web/components/RSVPForm.tsx`, `apps/web/components/RSVPList.tsx`, `apps/web/components/CalendarButton.tsx` — no component-level changes required.
+- ~~Inspected for this migration: `apps/web/components/RSVPForm.tsx`, `apps/web/components/RSVPList.tsx`, `apps/web/components/CalendarButton.tsx` — no component-level changes required.~~
+- **Superseded:** all three *were* migrated with `pages/invite/index.tsx`. They are imported only by that page. They relied on the page wrapper's `card--white` to force black text, so removing it there would have made them white-on-white; they had to change in the same commit. `RSVPForm.tsx` also lost two dead `'html.dark &'` MUI branches (~120 lines) — that selector never exists.
  
 - Inspected for this migration: image usage in `apps/web/pages/pics/index.tsx` (Next.js `Image` component with local asset) — no component changes required.
 

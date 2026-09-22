@@ -5,7 +5,7 @@ import mountains from "../../public/mountains.jpg";
 function Pics() {
   return (
     <main className="text-blog-black dark:text-blog-white">
-      <div className="flex flex-wrap bg-blog-white card--white">
+      <div className="flex flex-wrap bg-blog-white text-[var(--text-primary)]">
         <Image
           alt="Mountains"
           src={mountains}

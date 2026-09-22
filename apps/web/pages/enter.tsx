@@ -275,7 +275,7 @@ function AuthCard() {
           <div className="w-full border-t border-gray-300 dark:border-gray-600" />
         </div>
         <div className="relative flex justify-center text-sm">
-          <span className="px-4 card--white dark:bg-fun-blue-800 text-gray-500 dark:text-blog-white">
+          <span className="px-4 bg-blog-white text-[var(--text-primary)] opacity-70">
             <FormattedMessage
               id="auth-or-divider"
               description="Or divider"

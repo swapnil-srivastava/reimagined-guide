@@ -27,177 +27,68 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
   const [phone, setPhone] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Use CSS custom properties for dark mode that work with Tailwind
+  // Theme tokens resolve against the active `theme-<color>-<mode>` class on
+  // <html>, so a single definition covers light and dark. The fields are
+  // transparent on purpose: they already sit on a --surface-inset panel, and
+  // MUI's outlined variant reads from its fieldset border.
   const getInputStyles = () => ({
     '& .MuiOutlinedInput-root': {
-      backgroundColor: 'white',
-      color: '#0a0a0a',
+      backgroundColor: 'transparent',
+      color: 'var(--text-primary)',
       '& input': {
-        color: '#0a0a0a',
+        color: 'var(--text-primary)',
         WebkitTextFillColor: 'currentColor',
         '&::placeholder': {
-          color: 'rgba(156, 163, 175, 0.7)',
+          color: 'var(--text-muted)',
           opacity: 1,
         },
         '::placeholder': {
-          color: 'rgba(156, 163, 175, 0.7)',
+          color: 'var(--text-muted)',
           opacity: 1,
         },
         '::-webkit-input-placeholder': {
-          color: 'rgba(156, 163, 175, 0.7)',
+          color: 'var(--text-muted)',
         },
         ':-ms-input-placeholder': {
-          color: 'rgba(156, 163, 175, 0.7)',
+          color: 'var(--text-muted)',
         },
       },
       '& textarea': {
-        color: '#0a0a0a',
+        color: 'var(--text-primary)',
         WebkitTextFillColor: 'currentColor',
         '&::placeholder': {
-          color: 'rgba(156, 163, 175, 0.7)',
+          color: 'var(--text-muted)',
           opacity: 1,
         },
         '::placeholder': {
-          color: 'rgba(156, 163, 175, 0.7)',
+          color: 'var(--text-muted)',
           opacity: 1,
         },
         '::-webkit-input-placeholder': {
-          color: 'rgba(156, 163, 175, 0.7)',
+          color: 'var(--text-muted)',
         },
       },
       '& fieldset': {
-        borderColor: 'rgba(156, 163, 175, 0.5)',
+        borderColor: 'var(--border-subtle)',
       },
       '&:hover fieldset': {
-        borderColor: '#00539c',
+        borderColor: 'var(--color-primary)',
       },
       '&.Mui-focused fieldset': {
-        borderColor: '#00539c',
-      },
-      // Dark mode overrides
-      'html.dark &': {
-        backgroundColor: '#00325e',
-        color: '#fbfbfb',
-        '& input': {
-          color: '#fbfbfb',
-          WebkitTextFillColor: '#fbfbfb',
-          '&::placeholder': {
-            color: 'rgba(235, 235, 235, 0.6)',
-            opacity: 1,
-          },
-          '::placeholder': {
-            color: 'rgba(235, 235, 235, 0.6)',
-            opacity: 1,
-          },
-          '::-webkit-input-placeholder': {
-            color: 'rgba(235, 235, 235, 0.6)',
-          },
-        },
-        '& textarea': {
-          color: '#fbfbfb',
-          WebkitTextFillColor: '#fbfbfb',
-          '&::placeholder': {
-            color: 'rgba(235, 235, 235, 0.6)',
-            opacity: 1,
-          },
-          '::placeholder': {
-            color: 'rgba(235, 235, 235, 0.6)',
-            opacity: 1,
-          },
-          '::-webkit-input-placeholder': {
-            color: 'rgba(235, 235, 235, 0.6)',
-          },
-        },
-        '& fieldset': {
-          borderColor: 'rgba(235, 235, 235, 0.5)',
-        },
-        '&:hover fieldset': {
-          borderColor: '#fbfbfb',
-        },
-        '&.Mui-focused fieldset': {
-          borderColor: '#fbfbfb',
-        },
+        borderColor: 'var(--color-primary)',
       },
     },
     '& .MuiInputLabel-root': {
-      color: 'rgba(156, 163, 175, 0.8)',
+      color: 'var(--text-muted)',
       '&.Mui-focused': {
-        color: '#00539c',
-      },
-      // Dark mode overrides
-      'html.dark &': {
-        color: 'rgba(235, 235, 235, 0.8)',
-        '&.Mui-focused': {
-          color: '#fbfbfb',
-        },
+        color: 'var(--color-primary)',
       },
     },
   });
 
-  const getChildInputStyles = () => ({
-    '& .MuiOutlinedInput-root': {
-      backgroundColor: 'white',
-      color: '#0a0a0a',
-      '& input': {
-        color: '#0a0a0a',
-        WebkitTextFillColor: 'currentColor',
-        '&::placeholder': {
-          color: 'rgba(107, 114, 128, 0.7)',
-          opacity: 1,
-        },
-        '::-webkit-input-placeholder': {
-          color: 'rgba(107, 114, 128, 0.7)',
-        },
-      },
-      '& fieldset': {
-        borderColor: 'rgba(156, 163, 175, 0.5)',
-      },
-      '&:hover fieldset': {
-        borderColor: '#00539c',
-      },
-      '&.Mui-focused fieldset': {
-        borderColor: '#00539c',
-      },
-      // Dark mode overrides
-      'html.dark &': {
-        backgroundColor: '#00325e',
-        color: '#fbfbfb',
-        '& input': {
-          color: '#fbfbfb',
-          WebkitTextFillColor: '#fbfbfb',
-          '&::placeholder': {
-            color: 'rgba(235, 235, 235, 0.6)',
-            opacity: 1,
-          },
-          '::-webkit-input-placeholder': {
-            color: 'rgba(235, 235, 235, 0.6)',
-          },
-        },
-        '& fieldset': {
-          borderColor: 'rgba(235, 235, 235, 0.5)',
-        },
-        '&:hover fieldset': {
-          borderColor: '#fbfbfb',
-        },
-        '&.Mui-focused fieldset': {
-          borderColor: '#fbfbfb',
-        },
-      },
-    },
-    '& .MuiInputLabel-root': {
-      color: 'rgba(107, 114, 128, 0.8)',
-      '&.Mui-focused': {
-        color: '#00539c',
-      },
-      // Dark mode overrides
-      'html.dark &': {
-        color: 'rgba(235, 235, 235, 0.8)',
-        '&.Mui-focused': {
-          color: '#fbfbfb',
-        },
-      },
-    },
-  });
+  // Nested kid fields use the same tokens; kept as a separate call site so the
+  // two groups can diverge again later without touching every <TextField>.
+  const getChildInputStyles = getInputStyles;
 
 
   const handleAddKid = () => {
@@ -278,11 +169,11 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
   };
 
   return (
-    <div className="bg-white dark:bg-fun-blue-600 rounded-xl p-6 drop-shadow-lg hover:drop-shadow-xl transition-all duration-300 font-poppins">
+    <div className="bg-[var(--surface-raised)] text-[var(--text-primary)] border border-[var(--border-subtle)] rounded-xl p-6 drop-shadow-lg hover:drop-shadow-xl transition-all duration-300 font-poppins">
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Header */}
-        <div className="text-center border-b border-gray-200 dark:border-fun-blue-500 pb-4">
-          <Typography variant="h5" className="text-blog-black dark:text-blog-white font-semibold flex items-center justify-center gap-2">
+        <div className="text-center border-b border-[var(--border-subtle)] pb-4">
+          <Typography variant="h5" className="text-[var(--text-primary)] font-semibold flex items-center justify-center gap-2">
             <FontAwesomeIcon icon={faHeart} className="text-hit-pink-500" />
             <FormattedMessage
               id="rsvpform-title"
@@ -290,7 +181,7 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
               defaultMessage="RSVP for Event"
             />
           </Typography>
-          <Typography variant="body2" className="text-gray-600 dark:text-blog-white mt-2">
+          <Typography variant="body2" className="text-[var(--text-primary)] opacity-70 mt-2">
             <FormattedMessage
               id="rsvpform-subtitle"
               description="Let us know if you can join us"
@@ -317,22 +208,22 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
         </div>
 
         {/* Attendance Checkbox */}
-        <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-4">
+        <div className="bg-transparent border border-[var(--border-subtle)] rounded-lg p-4">
           <FormControlLabel
             control={
               <Checkbox
                 checked={isAttending}
                 onChange={(e) => setIsAttending(e.target.checked)}
                 sx={{
-                  color: '#00539c',
+                  color: 'var(--color-primary)',
                   '&.Mui-checked': {
-                    color: '#00539c',
+                    color: 'var(--color-primary)',
                   },
                 }}
               />
             }
             label={
-              <span className="text-blog-black dark:text-blog-white font-medium">
+              <span className="text-[var(--text-primary)] font-medium">
                 {intl.formatMessage({
                   id: "rsvpform-will-attend-label",
                   description: "We will attend the event",
@@ -346,7 +237,7 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
         {/* Kids Section */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <Typography variant="h6" className="text-blog-black dark:text-blog-white font-medium">
+            <Typography variant="h6" className="text-[var(--text-primary)] font-medium">
               <FormattedMessage
                 id="rsvpform-kids-section-title"
                 description="Children attending"
@@ -356,16 +247,16 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
             <button
               type="button"
               onClick={handleAddKid}
-              className="w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] bg-fun-blue-300 dark:bg-fun-blue-400 text-blog-black p-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125"
+              className="w-[calc(4rem_*_0.5)] h-[calc(4rem_*_0.5)] bg-[var(--color-primary-light)] text-[#0a0a0a] p-0.5 rounded-full flex items-center justify-center transition-filter duration-500 hover:filter hover:brightness-125"
             >
               <FontAwesomeIcon icon={faPlus} className="text-sm" />
             </button>
           </div>
 
           {kids.map((kid, index) => (
-            <div key={index} className="bg-gray-50 dark:bg-fun-blue-700 rounded-lg p-4">
+            <div key={index} className="bg-transparent border border-[var(--border-subtle)] rounded-lg p-4">
               <div className="flex items-center justify-between mb-3">
-                <Typography variant="subtitle2" className="text-blog-black dark:text-blog-white">
+                <Typography variant="subtitle2" className="text-[var(--text-primary)]">
                   <FormattedMessage
                     id="rsvpform-kid-section-title"
                     description="Child {index}"
@@ -440,13 +331,13 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
 
         {/* Contact Information */}
         <div className="space-y-4">
-          <Typography variant="h6" className="text-blog-black dark:text-blog-white font-medium">
+          <Typography variant="h6" className="text-[var(--text-primary)] font-medium">
             <FormattedMessage
               id="rsvpform-contact-section-title"
               description="Contact Information"
               defaultMessage="Contact Information"
             />
-            <span className="text-gray-500 text-sm ml-2">
+            <span className="text-[var(--text-primary)] opacity-60 text-sm ml-2">
               <FormattedMessage
                 id="rsvpform-contact-optional"
                 description="(optional)"
@@ -518,7 +409,7 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ eventId }) => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-hit-pink-500 to-hit-pink-600 hover:from-hit-pink-600 hover:to-hit-pink-700 disabled:from-gray-400 disabled:to-gray-500 text-white rounded-lg transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-hit-pink-400 focus:ring-offset-2 shadow-sm font-medium"
+            className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-hit-pink-500 to-hit-pink-600 hover:brightness-105 disabled:from-gray-400 disabled:to-gray-500 disabled:text-white text-[#0a0a0a] rounded-lg transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-hit-pink-400 focus:ring-offset-2 shadow-sm font-medium"
           >
             <FontAwesomeIcon 
               icon={faPaperPlane} 
