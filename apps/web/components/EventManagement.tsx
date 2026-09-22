@@ -213,7 +213,7 @@ function EventManagement() {
       title: event.title,
       description: event.description || '',
       date: event.date,
-      time: event.time,
+      time: event.time?.slice(0, 5) ?? '',
       location: event.location,
       image_url: event.image_url || '',
       max_attendees: event.max_attendees?.toString() || '',
