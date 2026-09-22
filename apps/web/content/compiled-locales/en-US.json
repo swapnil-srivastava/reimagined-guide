@@ -329,6 +329,24 @@
       "value": "Change image"
     }
   ],
+  "admin-events-image-current": [
+    {
+      "type": 0,
+      "value": "Current image"
+    }
+  ],
+  "admin-events-image-drop-active": [
+    {
+      "type": 0,
+      "value": "Drop your image here"
+    }
+  ],
+  "admin-events-image-drop-hint": [
+    {
+      "type": 0,
+      "value": "Drag and drop, or click to browse"
+    }
+  ],
   "admin-events-image-hint": [
     {
       "type": 0,
@@ -339,6 +357,12 @@
     {
       "type": 0,
       "value": "Please choose an image file (JPG, PNG, WebP, GIF or HEIC)."
+    }
+  ],
+  "admin-events-image-new": [
+    {
+      "type": 0,
+      "value": "New image ready to upload"
     }
   ],
   "admin-events-image-remove-btn": [

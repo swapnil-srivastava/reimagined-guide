@@ -323,6 +323,24 @@
       "value": "Changer l'image"
     }
   ],
+  "admin-events-image-current": [
+    {
+      "type": 0,
+      "value": "Image actuelle"
+    }
+  ],
+  "admin-events-image-drop-active": [
+    {
+      "type": 0,
+      "value": "Déposez votre image ici"
+    }
+  ],
+  "admin-events-image-drop-hint": [
+    {
+      "type": 0,
+      "value": "Glissez-déposez ou cliquez pour parcourir"
+    }
+  ],
   "admin-events-image-hint": [
     {
       "type": 0,
@@ -333,6 +351,12 @@
     {
       "type": 0,
       "value": "Veuillez choisir un fichier image (JPG, PNG, WebP, GIF ou HEIC)."
+    }
+  ],
+  "admin-events-image-new": [
+    {
+      "type": 0,
+      "value": "Nouvelle image prête à être envoyée"
     }
   ],
   "admin-events-image-remove-btn": [

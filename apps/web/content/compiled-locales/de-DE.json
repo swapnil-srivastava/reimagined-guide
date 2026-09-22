@@ -323,6 +323,24 @@
       "value": "Bild ändern"
     }
   ],
+  "admin-events-image-current": [
+    {
+      "type": 0,
+      "value": "Aktuelles Bild"
+    }
+  ],
+  "admin-events-image-drop-active": [
+    {
+      "type": 0,
+      "value": "Bild hier ablegen"
+    }
+  ],
+  "admin-events-image-drop-hint": [
+    {
+      "type": 0,
+      "value": "Ziehen und ablegen oder zum Auswählen klicken"
+    }
+  ],
   "admin-events-image-hint": [
     {
       "type": 0,
@@ -333,6 +351,12 @@
     {
       "type": 0,
       "value": "Bitte wähle eine Bilddatei (JPG, PNG, WebP, GIF oder HEIC)."
+    }
+  ],
+  "admin-events-image-new": [
+    {
+      "type": 0,
+      "value": "Neues Bild bereit zum Hochladen"
     }
   ],
   "admin-events-image-remove-btn": [

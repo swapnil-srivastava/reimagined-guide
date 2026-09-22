@@ -21,8 +21,8 @@ import {
   faChevronDown,
   faChevronUp,
   faExclamationTriangle,
-  faImage,
-  faUpload
+  faUpload,
+  faCloudArrowUp
 } from '@fortawesome/free-solid-svg-icons';
 import toast from 'react-hot-toast';
 import { supaClient } from '../supa-client';
@@ -82,11 +82,20 @@ function EventManagement() {
   const [submitting, setSubmitting] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [isDraggingImage, setIsDraggingImage] = useState(false);
   const [removeImage, setRemoveImage] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
 
   const EVENTS_BUCKET = 'events-picture';
   const MAX_IMAGE_SIZE = 10 * 1024 * 1024; // 10 MB
+
+  /** Human-readable size for the staged file, e.g. "1.4 MB". */
+  const formatFileSize = (bytes: number) => {
+    if (bytes < 1024) return `${bytes} B`;
+    const kb = bytes / 1024;
+    if (kb < 1024) return `${Math.round(kb)} KB`;
+    return `${(kb / 1024).toFixed(1)} MB`;
+  };
 
   // Check if user is authorized admin
   const isAuthorized = userInfo.session?.user?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID;
@@ -147,10 +156,9 @@ function EventManagement() {
     }));
   };
 
-  const handleImageFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files ? e.target.files[0] : null;
-    e.target.value = '';
-
+  /** Validates and stages one file. Shared by the file picker and the drop zone
+      so both paths enforce the same type and size rules. */
+  const acceptImageFile = (file: File | null) => {
     if (!file) return;
 
     if (!file.type.startsWith('image/')) {
@@ -178,6 +186,19 @@ function EventManagement() {
     setImageFile(file);
     setImagePreview(URL.createObjectURL(file));
     setRemoveImage(false);
+  };
+
+  const handleImageFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files ? e.target.files[0] : null;
+    // Cleared so picking the same file twice in a row still fires onChange.
+    e.target.value = '';
+    acceptImageFile(file);
+  };
+
+  const handleImageDrop = (e: React.DragEvent<HTMLElement>) => {
+    e.preventDefault();
+    setIsDraggingImage(false);
+    acceptImageFile(e.dataTransfer.files?.[0] ?? null);
   };
 
   const handleRemoveImage = () => {
@@ -914,7 +935,7 @@ function EventManagement() {
 
                 {/* Event Image */}
                 <div>
-                  <label className="block text-sm font-medium text-black mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     <FormattedMessage
                       id="admin-events-form-image-upload"
                       description="Event Image"
@@ -924,32 +945,39 @@ function EventManagement() {
 
                   {(() => {
                     const displayedImage = imagePreview || (!removeImage ? formData.image_url : '');
-                    return (
-                      <div className="flex flex-col sm:flex-row items-start gap-4">
-                        <div className="w-full sm:w-40 h-32 rounded-lg border border-gray-300 dark:border-fun-blue-400 bg-gray-50 dark:bg-fun-blue-700 flex items-center justify-center overflow-hidden flex-shrink-0">
-                          {displayedImage ? (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img
-                              src={displayedImage}
-                              alt=""
-                              className="w-full h-full object-cover"
-                            />
-                          ) : (
-                            <FontAwesomeIcon icon={faImage} className="w-8 h-8 text-gray-400" />
-                          )}
-                        </div>
+                    // Drag state is shared by both layouts, so the whole block is one drop target.
+                    const dropHandlers = {
+                      onDragOver: (e: React.DragEvent<HTMLElement>) => {
+                        e.preventDefault();
+                        setIsDraggingImage(true);
+                      },
+                      onDragLeave: () => setIsDraggingImage(false),
+                      onDrop: handleImageDrop,
+                    };
 
-                        <div className="flex flex-col gap-2">
-                          <label
-                            htmlFor="event-image-upload"
-                            className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-fun-blue-700 text-black dark:text-blog-white rounded-lg font-medium cursor-pointer hover:bg-gray-200 dark:hover:bg-fun-blue-800 transition-colors w-fit"
-                          >
-                            <FontAwesomeIcon icon={faUpload} className="w-4 h-4" />
-                            {displayedImage ? (
+                    if (!displayedImage) {
+                      /* Empty state: one large target. On mobile the old 40px-tall
+                         button was the only tappable thing; the whole card is now
+                         tappable and it doubles as the drop zone on desktop. */
+                      return (
+                        <label
+                          htmlFor="event-image-upload"
+                          {...dropHandlers}
+                          className={`flex flex-col items-center justify-center gap-2 w-full px-4 py-8 sm:py-10 rounded-lg border-2 border-dashed cursor-pointer text-center transition-colors ${
+                            isDraggingImage
+                              ? 'border-fun-blue-500 bg-fun-blue-50 dark:bg-fun-blue-800'
+                              : 'border-gray-300 dark:border-fun-blue-400 bg-gray-50 dark:bg-fun-blue-700 hover:border-fun-blue-500 hover:bg-gray-100 dark:hover:bg-fun-blue-800'
+                          }`}
+                        >
+                          <span className="flex items-center justify-center w-12 h-12 rounded-full bg-white dark:bg-fun-blue-600 text-fun-blue-500 dark:text-blog-white">
+                            <FontAwesomeIcon icon={faCloudArrowUp} className="w-5 h-5" />
+                          </span>
+                          <span className="text-sm font-semibold text-black dark:text-blog-white">
+                            {isDraggingImage ? (
                               <FormattedMessage
-                                id="admin-events-image-change-btn"
-                                description="Change image"
-                                defaultMessage="Change image"
+                                id="admin-events-image-drop-active"
+                                description="Drop your image here"
+                                defaultMessage="Drop your image here"
                               />
                             ) : (
                               <FormattedMessage
@@ -958,30 +986,96 @@ function EventManagement() {
                                 defaultMessage="Upload image"
                               />
                             )}
-                          </label>
-                          <input
-                            type="file"
-                            id="event-image-upload"
-                            accept="image/*"
-                            onChange={handleImageFileChange}
-                            className="hidden"
-                          />
+                          </span>
+                          <span className="text-xs text-gray-500 dark:text-gray-400">
+                            <FormattedMessage
+                              id="admin-events-image-drop-hint"
+                              description="Drag and drop, or click to browse"
+                              defaultMessage="Drag and drop, or click to browse"
+                            />
+                          </span>
+                          <span className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                            <FormattedMessage
+                              id="admin-events-image-hint"
+                              description="Image upload hint"
+                              defaultMessage="JPG, PNG, WebP or GIF, up to 10 MB"
+                            />
+                          </span>
+                        </label>
+                      );
+                    }
 
-                          {displayedImage && (
+                    /* Filled state: preview plus its actions. The thumbnail goes
+                       full-width on mobile (where a 160px box wasted the row) and
+                       fixed-width beside the actions from sm up. */
+                    return (
+                      <div
+                        {...dropHandlers}
+                        className={`flex flex-col sm:flex-row gap-4 p-3 sm:p-4 rounded-lg border bg-gray-50 dark:bg-fun-blue-700 transition-colors ${
+                          isDraggingImage
+                            ? 'border-fun-blue-500 ring-2 ring-fun-blue-500'
+                            : 'border-gray-300 dark:border-fun-blue-400'
+                        }`}
+                      >
+                        <div className="w-full h-40 sm:w-40 sm:h-28 rounded-lg overflow-hidden bg-white dark:bg-fun-blue-600 flex-shrink-0">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={displayedImage} alt="" className="w-full h-full object-cover" />
+                        </div>
+
+                        <div className="flex flex-col gap-3 min-w-0 flex-1">
+                          <div className="min-w-0">
+                            <p className="text-sm font-semibold text-black dark:text-blog-white">
+                              {imageFile ? (
+                                <FormattedMessage
+                                  id="admin-events-image-new"
+                                  description="New image ready to upload"
+                                  defaultMessage="New image ready to upload"
+                                />
+                              ) : (
+                                <FormattedMessage
+                                  id="admin-events-image-current"
+                                  description="Current image"
+                                  defaultMessage="Current image"
+                                />
+                              )}
+                            </p>
+                            {imageFile && (
+                              <p className="text-xs text-gray-500 dark:text-gray-400 truncate mt-0.5" title={imageFile.name}>
+                                {imageFile.name} · {formatFileSize(imageFile.size)}
+                              </p>
+                            )}
+                          </div>
+
+                          {/* Both actions are buttons of equal weight — "Remove" was a
+                              bare text link with no hit area of its own on mobile. */}
+                          <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
+                            <label
+                              htmlFor="event-image-upload"
+                              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-white dark:bg-fun-blue-600 border border-gray-300 dark:border-fun-blue-400 text-black dark:text-blog-white rounded-lg text-sm font-medium cursor-pointer hover:bg-gray-100 dark:hover:bg-fun-blue-800 transition-colors"
+                            >
+                              <FontAwesomeIcon icon={faUpload} className="w-4 h-4" />
+                              <FormattedMessage
+                                id="admin-events-image-change-btn"
+                                description="Change image"
+                                defaultMessage="Change image"
+                              />
+                            </label>
+
                             <button
                               type="button"
                               onClick={handleRemoveImage}
-                              className="inline-flex items-center gap-2 px-4 py-2 text-red-600 dark:text-red-400 text-sm font-medium hover:underline w-fit"
+                              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-red-300 dark:border-red-500/50 text-red-600 dark:text-red-400 text-sm font-medium hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors"
                             >
+                              <FontAwesomeIcon icon={faTrash} className="w-4 h-4" />
                               <FormattedMessage
                                 id="admin-events-image-remove-btn"
                                 description="Remove image"
                                 defaultMessage="Remove image"
                               />
                             </button>
-                          )}
+                          </div>
 
-                          <p className="text-xs text-gray-500 dark:text-gray-400">
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-auto">
                             <FormattedMessage
                               id="admin-events-image-hint"
                               description="Image upload hint"
@@ -992,6 +1086,15 @@ function EventManagement() {
                       </div>
                     );
                   })()}
+
+                  {/* One input serves both layouts. */}
+                  <input
+                    type="file"
+                    id="event-image-upload"
+                    accept="image/*"
+                    onChange={handleImageFileChange}
+                    className="hidden"
+                  />
                 </div>
 
                 {/* Public/Private Toggle */}
