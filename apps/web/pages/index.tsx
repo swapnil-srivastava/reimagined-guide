@@ -428,7 +428,7 @@ const Home: NextPage<{ posts: POST[] }> = ({ posts: initialPosts }) => {
       </div>
       
       {/* Post Feed with Title */}
-      <div className={`h-screen flex flex-col justify-start items-center pt-16 px-4 ${posts?.length < 3 ? "" : "lg:ml-96"}`}>
+      <div className={`min-h-screen flex flex-col justify-start items-center pt-16 px-4 ${posts?.length < 3 ? "" : "lg:ml-96"}`}>
         {/* Section title --- Unveiling the Secrets: Dive into my latest article*/}
         <h2 className="font-poppins text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-center dark:text-blog-white max-w-4xl leading-tight mb-8">
           <FormattedMessage
@@ -439,7 +439,7 @@ const Home: NextPage<{ posts: POST[] }> = ({ posts: initialPosts }) => {
         </h2>
         
         {/* Post List */}
-        <div className="flex gap-5 flex-1 w-full justify-center">
+        <div className="flex gap-5 items-start w-full justify-center">
           <PostList posts={posts} loading={loading} postsEnd={postsEnd} enableLoadMore={true}/>
         </div>
       </div>
