@@ -428,7 +428,7 @@ const Home: NextPage<{ posts: POST[] }> = ({ posts: initialPosts }) => {
       </div>
       
       {/* Post Feed with Title */}
-      <div className="min-h-screen lg:h-screen flex flex-col justify-start items-center pt-16 px-4">
+      <div className="min-h-screen flex flex-col justify-start items-center pt-16 px-4">
         {/* Section title --- Unveiling the Secrets: Dive into my latest article*/}
         <h2 className="font-poppins text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-center dark:text-blog-white max-w-4xl leading-tight mb-8">
           <FormattedMessage
