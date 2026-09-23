@@ -15,95 +15,118 @@ interface PostListProps {
     enableLoadMore?: boolean;
 }
 
+// Plain-text preview of the markdown body for the card excerpt
+function generateExcerpt(markdown?: string | null) {
+    if (!markdown) return "";
+    return markdown
+        .replace(/```[\s\S]*?```/g, " ")          // code blocks
+        .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")     // images
+        .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")   // links -> link text
+        .replace(/<[^>]+>/g, " ")                 // html tags
+        .replace(/^\s{0,3}(#{1,6}|>|[-*+]|\d+\.)\s+/gm, "") // headings, quotes, list markers
+        .replace(/[*_~`]/g, "")                   // emphasis and inline code
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
 // Post list to be used only with homepage
 const PostList: React.FC<PostListProps> = ({ posts, loading = false, postsEnd = false, enableLoadMore = false }) => {
-    
-    function generateContent(input?: string) {
-        if (!input) return;
-        if (input.length > 25) {
-            return input.substring(0, 25) + "...";
-        }
-            return input;
-    }  
 
-    return posts ? posts.map((post, index, array) => {
+    return posts ? posts.map((post) => {
         const wordCount = post?.content.trim().split(/\s+/g).length;
-        const contentTrimmed = generateContent(post?.content);
-        const titleTrimmed = generateContent(post?.title);
         const minutesToRead = (wordCount / 100 + 1).toFixed(0);
+        const excerpt = generateExcerpt(post?.content);
+        const initial = (post?.title?.trim()?.[0] ?? "").toUpperCase();
         const dateFormat = moment(post.created_at).isValid()
           ? moment(post.created_at).format("DD MMM YYYY")
           : moment(post.created_at?.toMillis()).format("DD MMM YYYY");
 
         return (
-            <Link key={post.slug} className="flex py-6 hover:py-4 w-full sm:w-72" href={`/${post.username}/${post.slug}`}>
-                <div className="p-6 hover:px-8 flex lg:mx-0 mx-3 bg-blog-white text-blog-black dark:bg-fun-blue-600 dark:text-blog-white hover:rounded-3xl rounded-3xl drop-shadow-lg hover:drop-shadow-xl hover:brightness-125 max-w-md w-full">
-                    <div className="flex flex-col gap-4 justify-between w-full">
-                        {/* DATE and Author */}
-                        <div>
-                            {/* author image and author name */}
-                            <div className="flex items-center gap-2">
-                                {/* Author Image */}
-                                {post?.photo_url && post?.photo_url ? (
-                                    <div className="w-12 h-12 rounded-full cursor-pointer flex items-center overflow-hidden">
-                                    <Image
-                                        width={200}
-                                        height={200}
-                                        src={post.photo_url}
-                                        alt=""
-                                    />
-                                    </div>
-                                ) : (
-                                    <div className="text-base font-thin">{` ${post.username}`}</div>
-                                )}
+            <Link
+                key={post.slug}
+                className="group flex py-2 lg:py-6 w-full sm:w-72 rounded-2xl focus:outline-none"
+                href={`/${post.username}/${post.slug}`}
+            >
+                <article className="flex flex-col w-full mx-3 lg:mx-0 overflow-hidden rounded-2xl font-poppins bg-[var(--surface-raised)] text-[var(--text-primary)] border border-[var(--border-subtle)] shadow-md transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl group-focus-visible:ring-2 group-focus-visible:ring-[var(--color-primary)]">
+                    {/* Cover: grows to fill the card's height on desktop */}
+                    <div className="relative flex-1 min-h-[9rem] overflow-hidden bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-deeper)]">
+                        <div aria-hidden="true" className="absolute inset-0 opacity-20 bg-[radial-gradient(white_1px,transparent_1px)] [background-size:18px_18px]" />
+                        <span
+                            aria-hidden="true"
+                            className="absolute -bottom-8 -right-1 text-[10rem] leading-none font-bold text-white/15 select-none transition-transform duration-500 group-hover:scale-110"
+                        >
+                            {initial}
+                        </span>
+                        <span className="absolute top-4 left-4 rounded-full bg-black/30 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
+                            {minutesToRead}{" "}
+                            <FormattedMessage
+                                id="postfeed-min-read"
+                                description="min read"
+                                defaultMessage="min read"
+                            />
+                        </span>
+                    </div>
 
-                                {/* DATE Div */}
-                                <div className="flex gap-1 self-start">
-                                    {/* Author Name */}
-                                    <div className="self-start">
-                                        {`${post.username}`}
-                                    </div>                                      
-                                </div>
-                            </div>
-                        </div>
+                    {/* Body */}
+                    <div className="flex flex-col gap-3 p-5">
+                        {/* Published date */}
+                        <p className="flex gap-1 text-xs uppercase tracking-wider text-[var(--text-muted)]">
+                            <FormattedMessage
+                                id="post-list-published"
+                                description="Published" // Description should be a string literal
+                                defaultMessage="Published" // Message should be a string literal
+                            />
+                            <span aria-hidden="true">·</span>
+                            <time dateTime={post.created_at ?? undefined}>{dateFormat}</time>
+                        </p>
 
                         {/* Post Title */}
-                        <div className="text-2xl font-semibold flex flex-col" >
-                            <div className="hover:underline underline-offset-2" >
-                                {titleTrimmed}
-                            </div>
-                            <div className="flex gap-2 text-xs self-end font-thin">
-                                <div>
-                                    <FormattedMessage
-                                        id="post-list-published"
-                                        description="Published" // Description should be a string literal
-                                        defaultMessage="Published" // Message should be a string literal
-                                    />
-                                </div>
-                                <div>{dateFormat}</div>
-                            </div>
-                        </div>
+                        <h3 className="text-xl font-semibold leading-snug line-clamp-2 min-h-[3.5rem] underline-offset-4 decoration-2 decoration-[var(--color-primary)] group-hover:underline">
+                            {post.title}
+                        </h3>
 
-                        {/* Read More */}
-                        <div className="text-lg flex items-center gap-2">
-                            <p className="font-thin">
+                        {/* Excerpt */}
+                        {excerpt && (
+                            <p className="text-sm leading-relaxed text-[var(--text-muted)] line-clamp-3">
+                                {excerpt}
+                            </p>
+                        )}
+
+                        {/* Author and Read More */}
+                        <div className="mt-1 flex items-center justify-between gap-3 border-t border-[var(--border-subtle)] pt-4">
+                            <div className="flex items-center gap-2 min-w-0">
+                                {post?.photo_url ? (
+                                    <div className="w-8 h-8 shrink-0 rounded-full overflow-hidden">
+                                        <Image width={64} height={64} src={post.photo_url} alt="" />
+                                    </div>
+                                ) : (
+                                    <div className="w-8 h-8 shrink-0 rounded-full flex items-center justify-center text-sm font-semibold text-[var(--text-on-primary)] bg-[var(--color-primary-deep)]">
+                                        {post.username?.[0]?.toUpperCase()}
+                                    </div>
+                                )}
+                                <span className="text-sm font-medium truncate">{post.username}</span>
+                            </div>
+
+                            <span className="flex shrink-0 items-center gap-2 text-sm font-medium">
                                 <FormattedMessage
                                     id="post-list-read-more"
                                     description="Read more" // Description should be a string literal
                                     defaultMessage="Read more" // Message should be a string literal
                                 />
-                            </p>
-                            <FontAwesomeIcon icon={faArrowRight} />
+                                <span className="w-7 h-7 rounded-full flex items-center justify-center text-[var(--text-on-primary)] bg-[var(--color-primary-deep)] transition-transform duration-300 group-hover:translate-x-1">
+                                    <FontAwesomeIcon icon={faArrowRight} className="text-xs" />
+                                </span>
+                            </span>
                         </div>
                     </div>
-                </div>
+                </article>
             </Link>
         );
     })
     : <FormattedMessage
         id="posts_list_end"
         description="Posts List End" // Description should be a string literal
-        defaultMessage="No more articles" // Message should be a string literal 
+        defaultMessage="No more articles" // Message should be a string literal
     />
  }
 
