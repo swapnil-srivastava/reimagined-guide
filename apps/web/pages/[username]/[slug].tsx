@@ -59,24 +59,11 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  let { data: posts, error } = await supaClient
-    .from("posts")
-    .select("username, slug")
-    .neq("username", null);
-
-  const paths = posts.map((post) => {
-    const { slug, username } = post;
-    return {
-      params: { username, slug },
-    };
-  });
-
+  // Don't prerender posts at build time: querying Supabase for every post
+  // slows down every deploy. Each post is rendered on its first request
+  // (fallback: "blocking") and then cached and revalidated via ISR.
   return {
-    // must be in this format:
-    // paths: [
-    //   { params: { username, slug }}
-    // ],
-    paths,
+    paths: [],
     fallback: "blocking",
   };
 }
