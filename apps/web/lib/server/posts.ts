@@ -1,4 +1,22 @@
-import type { NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
+
+/**
+ * Origin of the deployment handling the request, for links in emails, so a
+ * preview deployment sends links back to itself instead of production.
+ * NEXT_PUBLIC_SITE_URL wins when it is set.
+ */
+export function requestOrigin(req: NextApiRequest): string {
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+  }
+  const forwardedHost = req.headers["x-forwarded-host"];
+  const host =
+    (Array.isArray(forwardedHost) ? forwardedHost[0] : forwardedHost) ||
+    req.headers.host;
+  if (!host) return "https://www.swapnilsrivastava.eu";
+  const protocol = host.startsWith("localhost") ? "http" : "https";
+  return `${protocol}://${host.split(",")[0].trim()}`;
+}
 
 // Keep in sync with `i18n.locales` in next.config.js
 const LOCALES = ["en-US", "de-DE", "fr-FR", "hi-IN"];

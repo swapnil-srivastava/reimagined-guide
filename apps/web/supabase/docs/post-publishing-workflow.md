@@ -48,3 +48,7 @@ Both need the caller's Supabase access token in `Authorization: Bearer <token>`.
 Apply `migrations/20260924000001_post_publishing_workflow.sql` and deploy the
 web app **together**: after the migration, the previous frontend can no longer
 write to `posts`, and the new frontend needs the `post_drafts` table.
+
+To undo the migration (for example if the PR is abandoned), run
+[`rollback-post-publishing-workflow.sql`](./rollback-post-publishing-workflow.sql)
+in the Supabase SQL editor.

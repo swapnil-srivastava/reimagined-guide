@@ -2,11 +2,10 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { getAuthedRequest } from "../../../lib/server/supabase-user";
 import {
   ADMIN_EMAIL,
-  SITE_URL,
   escapeHtml,
   sendMail,
 } from "../../../lib/server/mailer";
-import { isUuid } from "../../../lib/server/posts";
+import { isUuid, requestOrigin } from "../../../lib/server/posts";
 
 // POST /api/posts/submit { postId }
 // Called by the author after marking their draft Web Ready. Emails the admin
@@ -47,7 +46,8 @@ export default async function handler(
   }
 
   const post = Array.isArray(draft.posts) ? draft.posts[0] : draft.posts;
-  const reviewUrl = `${SITE_URL}/approve/${encodeURIComponent(
+  const origin = requestOrigin(req);
+  const reviewUrl = `${origin}/approve/${encodeURIComponent(
     post?.slug ?? ""
   )}?id=${draft.post_id}`;
 

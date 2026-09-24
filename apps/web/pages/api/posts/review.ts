@@ -1,12 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getAuthedRequest } from "../../../lib/server/supabase-user";
 import {
-  SITE_URL,
   escapeHtml,
   getUserEmail,
   sendMail,
 } from "../../../lib/server/mailer";
-import { isUuid, revalidatePost } from "../../../lib/server/posts";
+import { isUuid, requestOrigin, revalidatePost } from "../../../lib/server/posts";
 
 type ReviewAction = "approve" | "request_changes" | "unpublish";
 
@@ -73,6 +72,7 @@ export default async function handler(
       : post.profiles;
     const authorEmail = await getUserEmail(post.uid, profile?.email);
     const title = escapeHtml(post.title);
+    const origin = requestOrigin(req);
 
     if (authorEmail) {
       emailSent =
@@ -81,7 +81,7 @@ export default async function handler(
               authorEmail,
               `Your post is live: ${post.title}`,
               `<p>Good news! "<strong>${title}</strong>" was approved and is now live.</p>
-               <p><a href="${SITE_URL}/${encodeURIComponent(
+               <p><a href="${origin}/${encodeURIComponent(
                  post.username ?? ""
                )}/${encodeURIComponent(post.slug ?? "")}">Read it on the website</a></p>`
             )
@@ -90,7 +90,7 @@ export default async function handler(
               `Changes requested: ${post.title}`,
               `<p>Swapnil reviewed "<strong>${title}</strong>" and asked for some changes:</p>
                <blockquote>${escapeHtml(note)}</blockquote>
-               <p><a href="${SITE_URL}/admin/${encodeURIComponent(
+               <p><a href="${origin}/admin/${encodeURIComponent(
                  post.slug ?? ""
                )}">Edit your post</a></p>`
             );
