@@ -11,6 +11,9 @@ export default function Document() {
                 {/* Favicon */}
                 <link rel="icon" href="https://dbydvpdhbaqudqqjteoq.supabase.co/storage/v1/object/sign/avatars/profile.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJhdmF0YXJzL3Byb2ZpbGUucG5nIiwiaWF0IjoxNzIyMDMzMzMwLCJleHAiOjIwMzczOTMzMzB9.2fCp8-hDw_e05QacUp-MRSDYVp08Z-4TJzJ8RJqmyKo" type="image/x-icon" />
                 
+                {/* RSS feed of approved posts */}
+                <link rel="alternate" type="application/rss+xml" title="Swapnil's Odyssey" href="/rss.xml" />
+
                 {/* Preconnect for performance */}
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

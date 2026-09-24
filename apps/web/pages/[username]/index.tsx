@@ -38,11 +38,14 @@ export async function getServerSideProps({ query }) {
 
     userProfile = userProf;
 
+    // Only posts Swapnil approved are public
     let { data: supaPosts } = await supaClient
       .from("posts")
       .select("*")
-      .like("username", username)
-      .is("published", true);
+      .eq("username", username)
+      .is("published", true)
+      .is("approved", true)
+      .order("created_at", { ascending: false });
 
     posts = supaPosts;
   }

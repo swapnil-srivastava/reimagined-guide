@@ -6,10 +6,6 @@
     },
     "youtubeEmbeds": {
       "type": "string"
-    },
-    "published": {
-      "type": "boolean"
     }
-  },
-  "required": ["published"]
+  }
 }

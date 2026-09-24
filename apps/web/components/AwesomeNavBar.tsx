@@ -17,6 +17,7 @@ import {
   faBasketShopping,
   faHeart,
   faCalendarPlus,
+  faClipboardCheck,
   faCalendarCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import { CSSTransition } from "react-transition-group";
@@ -220,6 +221,25 @@ function AwesomeNavBar() {
               </Link>
             </NavBarItem>
             
+            {/* Post approval queue - Only for authorized admin */}
+            {session?.user?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID && (
+              <NavBarItem nextrouteurl>
+                <Link href="/approve">
+                  <div className="hidden md:flex w-[calc(2.5rem)] h-[calc(2.5rem)] items-center justify-center cursor-pointer rounded-full hover:bg-blog-white hover:bg-opacity-50 transition-colors">
+                    <BasicTooltip title={intl.formatMessage({
+                      id: 'nav-approve-posts-tooltip',
+                      description: 'Tooltip for the link to the post approval queue',
+                      defaultMessage: 'Approve posts'
+                    })} placement="bottom">
+                      <RoundButton>
+                        <FontAwesomeIcon icon={faClipboardCheck} size="lg" />
+                      </RoundButton>
+                    </BasicTooltip>
+                  </div>
+                </Link>
+              </NavBarItem>
+            )}
+
             {/* Admin Events Management - Only for authorized admin */}
             {session?.user?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID && (
               <NavBarItem nextrouteurl>
@@ -477,6 +497,20 @@ function DropdownMenu({ closeDropdown }: { closeDropdown?: () => void }) {
               defaultMessage="Invites"
             />
           </DropdownItem>
+
+          {/* Post approval queue - Only for authorized admin */}
+          {session?.user?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID && (
+            <DropdownItem
+              leftIcon={<FontAwesomeIcon icon={faClipboardCheck} size="lg" />}
+              onClick={() => router.push('/approve')}
+            >
+              <FormattedMessage
+                id="nav-bar-approve-posts-text"
+                description="Dropdown link to the post approval queue"
+                defaultMessage="Approve posts"
+              />
+            </DropdownItem>
+          )}
 
           {/* Admin Events Management - Only for authorized admin */}
           {session?.user?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID && (

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /approve
+Disallow: /api/
+
+Sitemap: https://www.swapnilsrivastava.eu/sitemap.xml

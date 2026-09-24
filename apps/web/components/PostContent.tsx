@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { FormattedMessage, useIntl } from 'react-intl';
 import Image from "next/legacy/image";
-import * as postmark from "postmark";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,86 +10,137 @@ import {
   faFacebook,
   faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
-import { faEllipsis, faHeart, faPenToSquare, faThumbsUp, faCopy, faGlobe, faRocket } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsis, faHeart, faPenToSquare, faThumbsUp, faRotateLeft } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
 
 // React Components
 import HeartButton from "./HeartButton";
 import BasicTooltip from "./Tooltip";
-import AuthCheck from "./AuthCheck";
 import Video from "./Video";
 import AudioPlayer from "./AudioPlayer";
 
 // Interface
 import { RootState } from "../lib/interfaces/interface";
-import { POST } from "../database.types";
+import { POST, POST_DRAFT } from "../database.types";
 
 // Supabase
 import { supaClient } from "../supa-client";
 
-// Email Service
-import { sendEmail } from "../services/email.service";
+// Services
+import { reviewPost } from "../services/email.service";
+
+// Library
+import { sanitizePostHtml } from "../lib/sanitize";
+import {
+  STATUS_BADGE_CLASSES,
+  STATUS_LABELS,
+  WORKFLOW_STEPS,
+  isLive,
+  workflowStep,
+} from "../lib/postWorkflow";
 
 // UI component for main post content
 export default function PostContent({
   post,
   approve = false,
   audioUrl = "",
+  onReviewed,
 }: {
   post: POST;
+  /** Show Swapnil's review actions. The server re-checks the permission. */
   approve?: boolean;
   audioUrl?: string;
+  onReviewed?: () => void;
 }) {
   const intl = useIntl();
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
 
-  const wordCount = post?.content.trim().split(/\s+/g).length;
+  const wordCount = (post?.content ?? "").trim().split(/\s+/g).length;
   const minutesToRead = (wordCount / 100 + 1).toFixed(0);
   const dateFormat = moment(post?.created_at).isValid()
     ? moment(post?.created_at).format("MMM DD")
     : "";
 
-  const approvePost = async (post: POST) => {
-    const {
-      data: { user },
-    } = await supaClient.auth.getUser();
+  const isAuthor = Boolean(profile?.id && profile.id === post?.uid);
+  // Guest (anonymous) sessions cannot like posts; the database enforces it too
+  const canReact = Boolean(profile?.id && !session?.user?.is_anonymous);
+  const isAdmin = Boolean(
+    profile?.id && profile.id === process.env.NEXT_PUBLIC_SWAPNIL_ID
+  );
 
-    if (user?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID) {
-      const { data, error } = await supaClient
-        .from("posts")
-        .update({ approved: true })
-        .eq("slug", post?.slug);
+  // Workflow status is private: only the author and Swapnil can read drafts
+  const [draft, setDraft] = useState<POST_DRAFT | null>(null);
+  const [reviewing, setReviewing] = useState(false);
+  const [heartCount, setHeartCount] = useState(post?.heart_count ?? 0);
 
-      toast.success(intl.formatMessage({
-        id: "postcontent-post-approved",
-        description: "Post approved successfully!",
-        defaultMessage: "Post approved successfully!"
-      }));
+  useEffect(() => setHeartCount(post?.heart_count ?? 0), [post?.heart_count]);
 
-      const articleURL = `https://swapnilsrivastava.eu/${post?.username}/${post?.slug}`;
+  useEffect(() => {
+    if (!post?.id || !(isAuthor || isAdmin)) {
+      setDraft(null);
+      return;
+    }
+    supaClient
+      .from("post_drafts")
+      .select("*")
+      .eq("post_id", post.id)
+      .maybeSingle()
+      .then(({ data }) => setDraft(data ?? null));
+  }, [post?.id, isAuthor, isAdmin]);
 
-      const emailMessage: Partial<postmark.Message> = {
-        To: "contact@swapnilsrivastava.eu",
-        Subject: "Article Approved",
-        HtmlBody: `<strong>Hello</strong> Swapnil Srivastava, new article is approved on your website and visible, navigate to ${articleURL}`,
-      };
+  const review = async (action: "approve" | "request_changes") => {
+    let note: string | undefined;
+    if (action === "request_changes") {
+      note = window.prompt(
+        intl.formatMessage({
+          id: "postcontent-request-changes-prompt",
+          description: "Prompt asking what the author should change",
+          defaultMessage: "What should the author change?",
+        })
+      ) ?? undefined;
+      if (!note?.trim()) return;
+    }
 
-      sendEmail(emailMessage);
-
-      toast.success(intl.formatMessage({
-        id: "postcontent-email-confirmation-sent",
-        description: "Email confirmation sent!",
-        defaultMessage: "Email confirmation sent!"
-      }));
+    setReviewing(true);
+    try {
+      const { emailSent } = await reviewPost(post.id, action, note);
+      toast.success(
+        action === "approve"
+          ? intl.formatMessage({
+              id: "postcontent-post-approved",
+              description: "Post approved successfully!",
+              defaultMessage: "Post approved successfully!"
+            })
+          : intl.formatMessage({
+              id: "postcontent-changes-requested",
+              description: "Toast after sending a post back to its author",
+              defaultMessage: "Sent back to the author"
+            })
+      );
+      if (emailSent) {
+        toast.success(intl.formatMessage({
+          id: "postcontent-email-confirmation-sent",
+          description: "Email confirmation sent!",
+          defaultMessage: "Email confirmation sent!"
+        }));
+      }
+      onReviewed?.();
+    } catch (error) {
+      toast.error((error as Error).message);
+    } finally {
+      setReviewing(false);
     }
   };
+
+  const canReview = approve && isAdmin && draft?.status === "web_ready";
+  const step = draft ? workflowStep(draft.status) : 0;
 
   return <>
     <div className="relative p-3 lg:mx-0 mx-3 bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white rounded-lg drop-shadow-lg hover:drop-shadow-xl dark:hover:brightness-125">
       {/* Floating Engagement Sidebar - Top left side of card */}
-      {post?.heart_count && post.heart_count > 0 && (
+      {heartCount > 0 && (
         <div className="absolute -left-16 top-20 z-50 hidden lg:flex flex-col items-center bg-white dark:bg-gray-800 rounded-full p-3 shadow-lg border border-gray-200 dark:border-gray-600">
           <div className="flex flex-col items-center gap-2">
             <FontAwesomeIcon 
@@ -97,140 +148,72 @@ export default function PostContent({
               className="h-5 w-5 text-red-500 animate-pulse" 
             />
             <span className="text-sm font-bold text-gray-700 dark:text-gray-300">
-              {post.heart_count}
+              {heartCount}
             </span>
           </div>
         </div>
       )}
-      {/* Post Action Dashboard SECTION */}
-      <div className="relative mb-6 p-4 bg-gradient-to-br from-fun-blue-50 to-caribbean-green-50 dark:from-fun-blue-600 dark:to-fun-blue-700 rounded-xl border border-fun-blue-100 dark:border-fun-blue-400 shadow-sm">
-        {/* Status Badge */}
-        <div className="absolute -top-2 -right-2">
-          <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium shadow-sm ${
-            post.published 
-              ? 'bg-caribbean-green-500 text-white ring-2 ring-caribbean-green-100' 
-              : 'bg-hit-pink-500 text-white ring-2 ring-hit-pink-100'
-          }`}>
-            {post.published ? (
-              <FormattedMessage
-                id="postcontent-published-status"
-                description="● Published"
-                defaultMessage="● Published"
-              />
-            ) : (
-              <FormattedMessage
-                id="postcontent-draft-status"
-                description="● Draft"
-                defaultMessage="● Draft"
-              />
-            )}
-          </span>
-        </div>
-
-        {/* Action Buttons Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-2">
-          <button 
-            className="group relative overflow-hidden bg-slate-500 hover:bg-slate-600 text-white rounded p-1.5 transition-all duration-300 transform hover:scale-105 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2"
-            aria-label={intl.formatMessage({
-              id: "postcontent-edit-post-aria",
-              description: "Edit post",
-              defaultMessage: "Edit post"
-            })}
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-400 to-slate-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div className="relative flex items-center justify-center space-x-1">
-              <FontAwesomeIcon icon={faPenToSquare} className="h-3 w-3" />
-              <span className="text-[10px] font-medium leading-tight">Edit</span>
-            </div>
-          </button>
-
-          <button 
-            className="group relative overflow-hidden bg-orange-500 hover:bg-orange-600 text-white rounded p-1.5 transition-all duration-300 transform hover:scale-105 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2"
-            aria-label={intl.formatMessage({
-              id: "postcontent-mark-copy-ready-aria",
-              description: "Mark as copy ready",
-              defaultMessage: "Mark as copy ready"
-            })}
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-red-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div className="relative flex items-center justify-center space-x-1">
-              <FontAwesomeIcon icon={faCopy} className="h-3 w-3" />
-              <span className="text-[10px] font-medium leading-tight">
-                <FormattedMessage
-                  id="postcontent-copy-ready"
-                  description="Copy Ready"
-                  defaultMessage="Copy Ready"
-                />
-              </span>
-            </div>
-          </button>
-
-          <button 
-            className="group relative overflow-hidden bg-emerald-500 hover:bg-emerald-600 text-white rounded p-1.5 transition-all duration-300 transform hover:scale-105 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2"
-            aria-label={intl.formatMessage({
-              id: "postcontent-mark-web-ready-aria",
-              description: "Mark as web ready",
-              defaultMessage: "Mark as web ready"
-            })}
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-green-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div className="relative flex items-center justify-center space-x-1">
-              <FontAwesomeIcon icon={faGlobe} className="h-3 w-3" />
-              <span className="text-[10px] font-medium leading-tight">
-                <FormattedMessage
-                  id="postcontent-web-ready"
-                  description="Web Ready"
-                  defaultMessage="Web Ready"
-                />
-              </span>
-            </div>
-          </button>
-
-          <button 
-            className="group relative overflow-hidden bg-blue-600 hover:bg-blue-700 text-white rounded p-1.5 transition-all duration-300 transform hover:scale-105 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
-            aria-label={intl.formatMessage({
-              id: "postcontent-publish-post-aria",
-              description: "Publish post",
-              defaultMessage: "Publish post"
-            })}
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div className="relative flex items-center justify-center space-x-1">
-              <FontAwesomeIcon icon={faRocket} className="h-3 w-3" />
-              <span className="text-[10px] font-medium leading-tight">
-                <FormattedMessage
-                  id="postcontent-publish"
-                  description="Publish"
-                  defaultMessage="Publish"
-                />
-              </span>
-            </div>
-          </button>
-        </div>
-
-        {/* Workflow Progress Bar */}
-        <div className="mt-4 pt-3 border-t border-fun-blue-100 dark:border-fun-blue-400">
-          <div className="flex items-center justify-between text-xs text-fun-blue-600 dark:text-caribbean-green-300 mb-2">
-            <span>
-              <FormattedMessage
-                id="postcontent-workflow-progress"
-                description="Workflow Progress"
-                defaultMessage="Workflow Progress"
-              />
+      {/* Workflow status - only for the author and Swapnil */}
+      {draft && (
+        <div className="relative mb-6 p-4 bg-gradient-to-br from-fun-blue-50 to-caribbean-green-50 dark:from-fun-blue-600 dark:to-fun-blue-700 rounded-xl border border-fun-blue-100 dark:border-fun-blue-400 shadow-sm">
+          <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
+            <span className={`inline-flex items-center px-3 py-1 rounded-full font-medium ${STATUS_BADGE_CLASSES[draft.status]}`}>
+              {STATUS_LABELS[draft.status]}
             </span>
-            <span className="font-medium">
-              <FormattedMessage
-                id="postcontent-workflow-complete"
-                description="2/4 Complete"
-                defaultMessage="2/4 Complete"
-              />
+            <span className={`inline-flex items-center px-3 py-1 rounded-full font-medium shadow-sm ${
+              isLive(post)
+                ? 'bg-caribbean-green-500 text-white'
+                : 'bg-hit-pink-500 text-white'
+            }`}>
+              {isLive(post) ? (
+                <FormattedMessage
+                  id="postcontent-published-status"
+                  description="● Published"
+                  defaultMessage="● Published"
+                />
+              ) : (
+                <FormattedMessage
+                  id="postcontent-draft-status"
+                  description="● Draft"
+                  defaultMessage="● Draft"
+                />
+              )}
             </span>
           </div>
-          <div className="w-full bg-fun-blue-100 dark:bg-fun-blue-700 rounded-full h-2">
-            <div className="bg-gradient-to-r from-fun-blue-500 to-caribbean-green-500 h-2 rounded-full transition-all duration-500" style={{width: '50%'}}></div>
+
+          <div className="mt-4">
+            <div className="flex items-center justify-between text-xs text-fun-blue-600 dark:text-caribbean-green-300 mb-2">
+              <span>
+                <FormattedMessage
+                  id="postcontent-workflow-progress"
+                  description="Workflow Progress"
+                  defaultMessage="Workflow Progress"
+                />
+              </span>
+              <span className="font-medium">
+                <FormattedMessage
+                  id="postcontent-workflow-steps"
+                  description="How many workflow steps are complete, e.g. 2/4 Complete"
+                  defaultMessage="{step}/{total} Complete"
+                  values={{ step, total: WORKFLOW_STEPS.length }}
+                />
+              </span>
+            </div>
+            <div className="w-full bg-fun-blue-100 dark:bg-fun-blue-700 rounded-full h-2">
+              <div
+                className="bg-gradient-to-r from-fun-blue-500 to-caribbean-green-500 h-2 rounded-full transition-all duration-500"
+                style={{ width: `${(step / WORKFLOW_STEPS.length) * 100}%` }}
+              ></div>
+            </div>
           </div>
+
+          {draft.status === "changes_requested" && draft.review_note && (
+            <p className="mt-3 text-sm text-red-700 dark:text-red-300">
+              {draft.review_note}
+            </p>
+          )}
         </div>
-      </div>
+      )}
 
       {/* User Image and Sharing Button SECTION */}
       <div className="bg-gradient-to-r from-blog-white to-gray-50 dark:from-fun-blue-500 dark:to-fun-blue-600 rounded-lg p-4 border border-gray-100 dark:border-fun-blue-400">
@@ -301,7 +284,7 @@ export default function PostContent({
           <div className="flex items-center gap-3 flex-wrap">
             
             {/* Edit Button - Enhanced */}
-            {profile?.id === post?.uid && (
+            {isAuthor && (
               <Link href={`/admin/${post?.slug}`} legacyBehavior>
                 <button className="inline-flex items-center gap-2 px-3 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-fun-blue-600 dark:hover:bg-fun-blue-700 text-slate-700 dark:text-white rounded-lg transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2">
                   <FontAwesomeIcon icon={faPenToSquare} className="h-4 w-4" />
@@ -310,43 +293,58 @@ export default function PostContent({
               </Link>
             )}
 
-            {/* Approve Button - Enhanced */}
-            {approve && (
-              <button
-                onClick={() => approvePost(post)}
-                className="inline-flex items-center gap-2 px-3 py-2 bg-green-100 hover:bg-green-200 dark:bg-green-600 dark:hover:bg-green-700 text-green-700 dark:text-white rounded-lg transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2"
-              >
-                <FontAwesomeIcon icon={faThumbsUp} className="h-4 w-4" />
-                <span className="text-sm font-medium">
-                  <FormattedMessage
-                    id="postcontent-approve-button"
-                    description="Approve"
-                    defaultMessage="Approve"
-                  />
-                </span>
-              </button>
+            {/* Review Buttons - Swapnil only, for posts waiting for approval */}
+            {canReview && (
+              <>
+                <button
+                  onClick={() => review("approve")}
+                  disabled={reviewing}
+                  className="inline-flex items-center gap-2 px-3 py-2 bg-green-100 hover:bg-green-200 dark:bg-green-600 dark:hover:bg-green-700 text-green-700 dark:text-white rounded-lg transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 disabled:opacity-50"
+                >
+                  <FontAwesomeIcon icon={faThumbsUp} className="h-4 w-4" />
+                  <span className="text-sm font-medium">
+                    <FormattedMessage
+                      id="postcontent-approve-button"
+                      description="Approve"
+                      defaultMessage="Approve"
+                    />
+                  </span>
+                </button>
+                <button
+                  onClick={() => review("request_changes")}
+                  disabled={reviewing}
+                  className="inline-flex items-center gap-2 px-3 py-2 bg-red-50 hover:bg-red-100 dark:bg-red-700 dark:hover:bg-red-800 text-red-700 dark:text-white rounded-lg transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 disabled:opacity-50"
+                >
+                  <FontAwesomeIcon icon={faRotateLeft} className="h-4 w-4" />
+                  <span className="text-sm font-medium">
+                    <FormattedMessage
+                      id="postcontent-request-changes-button"
+                      description="Button to send a post back to its author"
+                      defaultMessage="Request changes"
+                    />
+                  </span>
+                </button>
+              </>
             )}
 
-            {/* Heart/Sign Up Section */}
+            {/* Heart/Sign Up Section - liking needs a signed-in (non-guest) account */}
             <div className="flex items-center">
-              <AuthCheck
-                fallback={
-                  <Link href="/enter" legacyBehavior>
-                    <button className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-hit-pink-500 to-hit-pink-600 hover:from-hit-pink-600 hover:to-hit-pink-700 text-white rounded-lg transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-hit-pink-400 focus:ring-offset-2 shadow-sm">
-                      <FontAwesomeIcon icon={faHeart} className="h-4 w-4" />
-                      <span className="text-sm font-medium">
-                        <FormattedMessage 
-                          id="post-content-auth-check-signup"
-                          description="text on heart button when not signed in"
-                          defaultMessage="Sign up" 
-                        />
-                      </span>
-                    </button>
-                  </Link>
-                }
-              >
-                <HeartButton post={post} userId={profile?.id}/>
-              </AuthCheck>
+              {canReact ? (
+                <HeartButton post={post} userId={profile.id} onCountChange={setHeartCount}/>
+              ) : (
+                <Link href="/enter" legacyBehavior>
+                  <button className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-hit-pink-500 to-hit-pink-600 hover:from-hit-pink-600 hover:to-hit-pink-700 text-white rounded-lg transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-hit-pink-400 focus:ring-offset-2 shadow-sm">
+                    <FontAwesomeIcon icon={faHeart} className="h-4 w-4" />
+                    <span className="text-sm font-medium">
+                      <FormattedMessage 
+                        id="post-content-auth-check-signup"
+                        description="text on heart button when not signed in"
+                        defaultMessage="Sign up" 
+                      />
+                    </span>
+                  </button>
+                </Link>
+              )}
             </div>
 
             {/* Social Sharing with enhanced design */}
@@ -427,7 +425,7 @@ export default function PostContent({
         </div>
 
         {/* Mobile Engagement Bar - Mobile Only */}
-        {post?.heart_count && post.heart_count > 0 && (
+        {heartCount > 0 && (
           <div className="lg:hidden flex items-center justify-center gap-4 py-3">
             <div className="flex items-center gap-2 bg-gradient-to-r from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 px-4 py-2 rounded-full border border-red-100 dark:border-red-800">
               <FontAwesomeIcon 
@@ -435,7 +433,7 @@ export default function PostContent({
                 className="h-4 w-4 text-red-500" 
               />
               <span className="text-sm font-semibold text-red-600 dark:text-red-400">
-                {post.heart_count}
+                {heartCount}
               </span>
             </div>
             
@@ -465,7 +463,7 @@ export default function PostContent({
         {/* POST SECTION */}
         <div
           className="post-content lg:text-xl"
-          dangerouslySetInnerHTML={{ __html: post?.content }}
+          dangerouslySetInnerHTML={{ __html: sanitizePostHtml(post?.content) }}
         ></div>
       </div>
 

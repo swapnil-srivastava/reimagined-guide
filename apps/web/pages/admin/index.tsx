@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import type { NextPage } from 'next';
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import kebabCase from "lodash.kebabcase";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -16,8 +15,9 @@ import PostFeed from "../../components/PostFeed";
 import { supaClient } from "../../supa-client";
 import { RootState } from "../../lib/interfaces/interface";
 
-import { POST } from "../../database.types";
+import { POST_DRAFT_WITH_POST } from "../../database.types";
 import { User } from "@supabase/supabase-js";
+import { WorkflowPost, toWorkflowPost } from "../../lib/postWorkflow";
 
 // e.g. localhost:3000/admin
 
@@ -33,22 +33,26 @@ const Admin: NextPage = () => {
   );
 }
 
-function PostList() {
-  const [posts, setPosts] = useState<POST[]>([]);
-  const [userAuth, setUserAuth] = useState<User>();
-  const [activeTab, setActiveTab] = useState<'all' | 'published' | 'drafts'>('all');
+type PostTab = 'all' | 'in_progress' | 'awaiting' | 'live';
 
-  const selectUser = (state: RootState) => state.users;
-  const { userInfo } = useSelector(selectUser);
-  const { profile, session } = userInfo;
+function PostList() {
+  const [posts, setPosts] = useState<WorkflowPost[]>([]);
+  const [userAuth, setUserAuth] = useState<User>();
+  const [activeTab, setActiveTab] = useState<PostTab>('all');
+
+  const inProgress = (post: WorkflowPost) =>
+    ['draft', 'copy_ready', 'changes_requested'].includes(post.workflowStatus);
+  const awaiting = (post: WorkflowPost) => post.workflowStatus === 'web_ready';
 
   // Filter posts based on active tab
   const filteredPosts = posts.filter(post => {
     switch (activeTab) {
-      case 'published':
-        return post.published;
-      case 'drafts':
-        return !post.published;
+      case 'in_progress':
+        return inProgress(post);
+      case 'awaiting':
+        return awaiting(post);
+      case 'live':
+        return post.isLive;
       default:
         return true; // 'all' shows everything
     }
@@ -64,14 +68,46 @@ function PostList() {
     } = await supaClient.auth.getUser();
 
     setUserAuth(user);
+    if (!user) return;
 
-    let { data: posts, error } = await supaClient
-      .from("posts")
-      .select("*")
-      .like("username", profile?.username);
+    // Drafts hold the author's latest text and workflow status; the joined
+    // post tells whether an approved version is live.
+    const { data: drafts, error } = await supaClient
+      .from("post_drafts")
+      .select("*, posts(*)")
+      .eq("uid", user.id)
+      .order("updated_at", { ascending: false });
 
-    setPosts(posts);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+
+    setPosts(((drafts ?? []) as POST_DRAFT_WITH_POST[]).map(toWorkflowPost));
   }
+
+  const tabs: { key: PostTab; label: React.ReactNode; count: number }[] = [
+    {
+      key: 'all',
+      label: <FormattedMessage id="admin-tab-all-posts" description="All Posts" defaultMessage="All Posts" />,
+      count: posts.length,
+    },
+    {
+      key: 'in_progress',
+      label: <FormattedMessage id="admin-tab-in-progress-posts" description="Posts still being written" defaultMessage="In progress" />,
+      count: posts.filter(inProgress).length,
+    },
+    {
+      key: 'awaiting',
+      label: <FormattedMessage id="admin-tab-awaiting-posts" description="Posts waiting for approval" defaultMessage="Awaiting approval" />,
+      count: posts.filter(awaiting).length,
+    },
+    {
+      key: 'live',
+      label: <FormattedMessage id="admin-tab-live-posts" description="Live posts" defaultMessage="Live" />,
+      count: posts.filter(post => post.isLive).length,
+    },
+  ];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -110,25 +146,25 @@ function PostList() {
             <div className="bg-white card--white dark:bg-fun-blue-600 rounded-lg px-4 py-2 border border-gray-200 dark:border-fun-blue-500">
               <div className="text-sm text-blog-black dark:text-blog-white">
                 <FormattedMessage
-                  id="admin-stats-published"
-                  description="Published"
-                  defaultMessage="Published"
+                  id="admin-stats-live"
+                  description="Live posts"
+                  defaultMessage="Live"
                 />
               </div>
               <div className="text-xl font-bold text-green-600 dark:text-green-400">
-                {posts.filter(post => post.published).length}
+                {posts.filter(post => post.isLive).length}
               </div>
             </div>
             <div className="bg-white card--white dark:bg-fun-blue-600 rounded-lg px-4 py-2 border border-gray-200 dark:border-fun-blue-500">
               <div className="text-sm text-blog-black dark:text-blog-white">
                 <FormattedMessage
-                  id="admin-stats-drafts"
-                  description="Drafts"
-                  defaultMessage="Drafts"
+                  id="admin-stats-awaiting"
+                  description="Posts waiting for approval"
+                  defaultMessage="Awaiting approval"
                 />
               </div>
               <div className="text-xl font-bold text-orange-600 dark:text-orange-400">
-                {posts.filter(post => !post.published).length}
+                {posts.filter(awaiting).length}
               </div>
             </div>
           </div>
@@ -136,49 +172,20 @@ function PostList() {
 
         {/* Filter Tabs */}
         <div className="mt-6 border-b border-gray-200 dark:border-fun-blue-500">
-          <nav className="-mb-px flex space-x-8">
-            <button 
-              onClick={() => setActiveTab('all')}
-              className={`py-2 px-1 border-b-2 font-medium text-sm ${
-                activeTab === 'all'
-                  ? 'border-[var(--color-primary)] text-[var(--text-primary)]'
-                  : 'border-transparent text-[var(--text-primary)] opacity-60 hover:opacity-100 hover:border-[var(--color-primary)]'
-              }`}
-            >
-              <FormattedMessage
-                id="admin-tab-all-posts"
-                description="All Posts"
-                defaultMessage="All Posts"
-              /> ({posts.length})
-            </button>
-            <button 
-              onClick={() => setActiveTab('published')}
-              className={`py-2 px-1 border-b-2 font-medium text-sm ${
-                activeTab === 'published'
-                  ? 'border-[var(--color-primary)] text-[var(--text-primary)]'
-                  : 'border-transparent text-[var(--text-primary)] opacity-60 hover:opacity-100 hover:border-[var(--color-primary)]'
-              }`}
-            >
-              <FormattedMessage
-                id="admin-tab-published-posts"
-                description="Published"
-                defaultMessage="Published"
-              /> ({posts.filter(post => post.published).length})
-            </button>
-            <button 
-              onClick={() => setActiveTab('drafts')}
-              className={`py-2 px-1 border-b-2 font-medium text-sm ${
-                activeTab === 'drafts'
-                  ? 'border-[var(--color-primary)] text-[var(--text-primary)]'
-                  : 'border-transparent text-[var(--text-primary)] opacity-60 hover:opacity-100 hover:border-[var(--color-primary)]'
-              }`}
-            >
-              <FormattedMessage
-                id="admin-tab-drafts-posts"
-                description="Drafts"
-                defaultMessage="Drafts"
-              /> ({posts.filter(post => !post.published).length})
-            </button>
+          <nav className="-mb-px flex flex-wrap gap-x-8">
+            {tabs.map(tab => (
+              <button
+                key={tab.key}
+                onClick={() => setActiveTab(tab.key)}
+                className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                  activeTab === tab.key
+                    ? 'border-[var(--color-primary)] text-[var(--text-primary)]'
+                    : 'border-transparent text-[var(--text-primary)] opacity-60 hover:opacity-100 hover:border-[var(--color-primary)]'
+                }`}
+              >
+                {tab.label} ({tab.count})
+              </button>
+            ))}
           </nav>
         </div>
       </div>
@@ -196,17 +203,17 @@ function PostList() {
               </svg>
             </div>
             <h3 className="text-lg font-medium text-blog-black dark:text-blog-white mb-2">
-              {activeTab === 'published' ? (
+              {activeTab === 'live' ? (
                 <FormattedMessage
-                  id="admin-empty-published-title"
-                  description="No published articles yet"
-                  defaultMessage="No published articles yet"
+                  id="admin-empty-live-title"
+                  description="No live articles yet"
+                  defaultMessage="No live articles yet"
                 />
-              ) : activeTab === 'drafts' ? (
+              ) : activeTab !== 'all' ? (
                 <FormattedMessage
-                  id="admin-empty-drafts-title"
-                  description="No draft articles yet"
-                  defaultMessage="No draft articles yet"
+                  id="admin-empty-stage-title"
+                  description="Empty state when no posts are in the selected workflow stage"
+                  defaultMessage="No posts in this stage"
                 />
               ) : (
                 <FormattedMessage
@@ -217,17 +224,17 @@ function PostList() {
               )}
             </h3>
             <p className="text-blog-black dark:text-blog-white mb-6">
-              {activeTab === 'published' ? (
+              {activeTab === 'live' ? (
                 <FormattedMessage
-                  id="admin-empty-published-description"
-                  description="Publish your first draft to see it here"
-                  defaultMessage="Publish your first draft to see it here"
+                  id="admin-empty-live-description"
+                  description="Explains how a post goes live"
+                  defaultMessage="Posts appear here once Swapnil approves them"
                 />
-              ) : activeTab === 'drafts' ? (
+              ) : activeTab !== 'all' ? (
                 <FormattedMessage
-                  id="admin-empty-drafts-description"
-                  description="Create your first draft to get started"
-                  defaultMessage="Create your first draft to get started"
+                  id="admin-empty-stage-description"
+                  description="Explains that posts move between workflow tabs"
+                  defaultMessage="Posts show up here as they move from Draft to Copy Ready, Web Ready and Live"
                 />
               ) : (
                 <FormattedMessage
@@ -260,29 +267,32 @@ function CreateNewPost() {
 
   const [title, setTitle] = useState("");
 
-  // Ensure slug is URL safe
-  const slug = encodeURI(kebabCase(title));
+  // Preview of the URL; the database picks the final, unique slug
+  const slug = title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 
   // Validate length
-  const isValid = title.length > 3 && title.length < 100;
+  const isValid = title.trim().length > 3 && title.trim().length <= 100;
 
-  // Create a new post in supabase postgres
+  const [creating, setCreating] = useState(false);
+
+  // Creates the post and its draft for the signed-in author
   const createPost = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!isValid || creating) return;
 
-    // Tip: give all fields a default value here
-    const { data, error } = await supaClient.from("posts").insert([
-      {
-        uid: profile?.id,
-        photo_url: profile?.avatar_url,
-        username: profile?.username,
-        content: "# hello world!",
-        title: title,
-        slug: slug,
-        approved: false,
-        published: false,
-      },
-    ]);
+    setCreating(true);
+    const { data: post, error } = await supaClient.rpc("create_post", {
+      p_title: title.trim(),
+    });
+    setCreating(false);
+
+    if (error || !post) {
+      toast.error(error?.message ?? "Could not create the post.");
+      return;
+    }
 
     toast.success(intl.formatMessage({
       id: 'admin-post-created-success',
@@ -291,7 +301,7 @@ function CreateNewPost() {
     }));
 
     // Imperative navigation after doc is set
-    router.push(`/admin/${slug}`);
+    router.push(`/admin/${post.slug}`);
   };
 
   const clearTitle = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -421,7 +431,7 @@ function CreateNewPost() {
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
                   <button
                     type="submit"
-                    disabled={!isValid}
+                    disabled={!isValid || creating}
                     className={`flex-1 py-4 px-8 rounded-xl font-medium text-white transition-all duration-200 ${
                       isValid
                         ? 'bg-gradient-to-r from-fun-blue-500 to-fun-blue-600 hover:from-fun-blue-600 hover:to-fun-blue-700 shadow-sm hover:shadow-lg transform hover:scale-[1.02]'

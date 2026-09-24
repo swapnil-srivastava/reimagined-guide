@@ -313,9 +313,73 @@ export type Database = {
           },
         ]
       }
+      post_drafts: {
+        Row: {
+          audio: string | null
+          content: string
+          created_at: string
+          post_id: string
+          review_note: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: Database["public"]["Enums"]["post_status"]
+          submitted_at: string | null
+          title: string
+          uid: string
+          updated_at: string
+          videoLink: string | null
+        }
+        Insert: {
+          audio?: string | null
+          content?: string
+          created_at?: string
+          post_id: string
+          review_note?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: Database["public"]["Enums"]["post_status"]
+          submitted_at?: string | null
+          title: string
+          uid: string
+          updated_at?: string
+          videoLink?: string | null
+        }
+        Update: {
+          audio?: string | null
+          content?: string
+          created_at?: string
+          post_id?: string
+          review_note?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: Database["public"]["Enums"]["post_status"]
+          submitted_at?: string | null
+          title?: string
+          uid?: string
+          updated_at?: string
+          videoLink?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "post_drafts_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: true
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "post_drafts_uid_fkey"
+            columns: ["uid"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       posts: {
         Row: {
           approved: boolean | null
+          approved_by: string | null
           audio: string | null
           clap_count: number | null
           content: string | null
@@ -326,6 +390,7 @@ export type Database = {
           like_count: number | null
           photo_url: string | null
           published: boolean | null
+          published_at: string | null
           slug: string | null
           title: string | null
           uid: string | null
@@ -335,6 +400,7 @@ export type Database = {
         }
         Insert: {
           approved?: boolean | null
+          approved_by?: string | null
           audio?: string | null
           clap_count?: number | null
           content?: string | null
@@ -345,6 +411,7 @@ export type Database = {
           like_count?: number | null
           photo_url?: string | null
           published?: boolean | null
+          published_at?: string | null
           slug?: string | null
           title?: string | null
           uid?: string | null
@@ -354,6 +421,7 @@ export type Database = {
         }
         Update: {
           approved?: boolean | null
+          approved_by?: string | null
           audio?: string | null
           clap_count?: number | null
           content?: string | null
@@ -364,6 +432,7 @@ export type Database = {
           like_count?: number | null
           photo_url?: string | null
           published?: boolean | null
+          published_at?: string | null
           slug?: string | null
           title?: string | null
           uid?: string | null
@@ -550,10 +619,35 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      approve_post: {
+        Args: { p_post_id: string }
+        Returns: Database["public"]["Tables"]["posts"]["Row"]
+      }
+      create_post: {
+        Args: { p_title: string }
+        Returns: Database["public"]["Tables"]["posts"]["Row"]
+      }
+      is_admin: {
+        Args: Record<PropertyKey, never>
+        Returns: boolean
+      }
+      request_post_changes: {
+        Args: { p_post_id: string; p_note: string }
+        Returns: Database["public"]["Tables"]["post_drafts"]["Row"]
+      }
+      unpublish_post: {
+        Args: { p_post_id: string }
+        Returns: Database["public"]["Tables"]["posts"]["Row"]
+      }
     }
     Enums: {
-      [_ in never]: never
+      // Stored as TEXT with a CHECK constraint in post_drafts.status
+      post_status:
+        | "draft"
+        | "copy_ready"
+        | "web_ready"
+        | "approved"
+        | "changes_requested"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -670,7 +764,18 @@ export type Enums<
       | "username"
       | "audio"
       | "videoLink"
-    >;
+    > & Partial<Pick<POST_ROW["Row"], "published_at" | "approved_by">>;
+
+    type POST_DRAFT_TABLE = Pick<TABLES["Tables"], "post_drafts">;
+
+    export type POST_STATUS = Database["public"]["Enums"]["post_status"];
+
+    export type POST_DRAFT = POST_DRAFT_TABLE["post_drafts"]["Row"];
+
+    /** A draft together with the live post it belongs to */
+    export type POST_DRAFT_WITH_POST = POST_DRAFT & {
+      posts: POST | null;
+    };
     
     type LEADINGTECH_TABLE = Pick<TABLES["Tables"], "leadingtech">;
     type LEADINGTECH_ROW = Pick<LEADINGTECH_TABLE["leadingtech"], "Row">;
