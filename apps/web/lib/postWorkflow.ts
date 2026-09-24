@@ -2,7 +2,7 @@ import type { POST, POST_DRAFT_WITH_POST, POST_STATUS } from "../database.types"
 
 // Editorial workflow shared by the author dashboard, the editor, the approval
 // queue and the post page. The database enforces the transitions
-// (see supabase/migrations/20260924000001_post_publishing_workflow.sql).
+// (see supabase/migrations/20260924011041_post_publishing_workflow.sql).
 
 export const WORKFLOW_STEPS: POST_STATUS[] = [
   "draft",

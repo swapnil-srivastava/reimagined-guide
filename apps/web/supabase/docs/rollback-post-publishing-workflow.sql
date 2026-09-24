@@ -1,4 +1,4 @@
--- Rollback for migrations/20260924000001_post_publishing_workflow.sql
+-- Rollback for migrations/20260924011041_post_publishing_workflow.sql
 --
 -- Run in the Supabase SQL editor only if the previous frontend has to keep
 -- working (e.g. the PR is abandoned). It restores the policies that were live

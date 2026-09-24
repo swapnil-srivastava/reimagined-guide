@@ -175,6 +175,8 @@ DROP POLICY IF EXISTS "Enable delete for users based on user_id" ON public.posts
 -- From 20260108000001_enable_anonymous_signin_support.sql, if it was applied
 DROP POLICY IF EXISTS "Only permanent users can create posts" ON public.posts;
 DROP POLICY IF EXISTS "Authenticated users can insert posts" ON public.posts;
+DROP POLICY IF EXISTS "Live posts are public; authors and admins see their own" ON public.posts;
+DROP POLICY IF EXISTS "Authors and admins can delete posts" ON public.posts;
 
 CREATE POLICY "Live posts are public; authors and admins see their own"
 ON public.posts FOR SELECT

@@ -45,7 +45,7 @@ Both need the caller's Supabase access token in `Authorization: Bearer <token>`.
 
 ## Deploying
 
-Apply `migrations/20260924000001_post_publishing_workflow.sql` and deploy the
+Apply `migrations/20260924011041_post_publishing_workflow.sql` and deploy the
 web app **together**: after the migration, the previous frontend can no longer
 write to `posts`, and the new frontend needs the `post_drafts` table.
 
