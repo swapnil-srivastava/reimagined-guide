@@ -8,9 +8,6 @@ import Link from "next/link";
 // React Toast
 import toast from "react-hot-toast";
 
-// Redux
-import { useSelector } from "react-redux";
-
 // TipTap
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -41,9 +38,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faYoutube } from "@fortawesome/free-brands-svg-icons";
 
-// Postmark
-import * as postmark from "postmark";
-
 // Styles
 import styles from "../../styles/Admin.module.css";
 
@@ -53,20 +47,17 @@ import ImageUploader from "../../components/ImageUploader";
 import AudioUploader from "../../components/AudioUploader";
 import Metatags from "../../components/Metatags";
 import BasicTooltip from "../../components/Tooltip";
+import PostWorkflowBar from "../../components/PostWorkflowBar";
 
 // Supabase
 import { supaClient } from "../../supa-client";
 
 // Interfaces
-import { User } from "@supabase/supabase-js";
-import { POST } from "../../database.types";
-import { RootState } from "../../lib/interfaces/interface";
-
-// Services
-import { sendEmail } from "../../services/email.service";
+import { POST_DRAFT_WITH_POST } from "../../database.types";
 
 // Library
 import { generateMetaDescription } from "../../lib/library";
+import { sanitizePostHtml } from "../../lib/sanitize";
 
 // Admin Slug Schema
 import schema from "../../lib/adminSlug/adminSlugSchema.json";
@@ -97,8 +88,9 @@ const AdminSlug: NextPage = () => {
 
 function PostManager() {
   const [preview, setPreview] = useState(false);
-  const [user, setUser] = useState<User>();
-  const [post, setPost] = useState<POST>();
+  const [draft, setDraft] = useState<POST_DRAFT_WITH_POST | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [dirty, setDirty] = useState(false);
 
   const editor = useEditor({
     extensions: [
@@ -107,92 +99,126 @@ function PostManager() {
         controls: false,
       }),
     ],
+    onUpdate: () => setDirty(true),
   });
 
   const router = useRouter();
   const { slug } = router.query;
 
   useEffect(() => {
-    fetchUserAndAdminPost();
-  }, []);
+    if (!router.isReady) return;
+    fetchOwnDraft();
+  }, [router.isReady, slug]);
 
-  async function fetchUserAndAdminPost() {
+  // Only the author can load a draft: the query is scoped to their uid and
+  // row level security hides everyone else's drafts.
+  async function fetchOwnDraft() {
+    setLoading(true);
     const {
       data: { user },
     } = await supaClient.auth.getUser();
 
-    setUser(user);
+    if (!user) {
+      setLoading(false);
+      return;
+    }
 
-    let { data: adminPosts, error } = await supaClient
-      .from("posts")
-      .select("*")
-      .eq("uid", user?.id)
-      .like("slug", slug as string);
+    const { data, error } = await supaClient
+      .from("post_drafts")
+      .select("*, posts!inner(*)")
+      .eq("uid", user.id)
+      .eq("posts.slug", Array.isArray(slug) ? slug[0] : slug)
+      .maybeSingle();
 
-    const [adminPost] = adminPosts;
+    if (error) toast.error(error.message);
+    setDraft((data as POST_DRAFT_WITH_POST) ?? null);
+    setLoading(false);
+  }
 
-    setPost(adminPost);
+  if (loading) {
+    return <main className={styles.container} />;
+  }
 
-    return user;
+  if (!draft) {
+    return (
+      <main className={`${styles.container} flex flex-col items-center gap-4 p-8 text-center`}>
+        <p className="text-xl">
+          <FormattedMessage
+            id="admin-slug-not-allowed"
+            description="Shown when the post does not exist or belongs to someone else"
+            defaultMessage="This post doesn't exist or you are not its author."
+          />
+        </p>
+        <Link href="/admin" className="underline">
+          <FormattedMessage
+            id="admin-slug-back-to-posts"
+            description="Link back to the author's posts"
+            defaultMessage="Back to your posts"
+          />
+        </Link>
+      </main>
+    );
   }
 
   return <>
     <Metatags
-      title={post?.title}
-      description={generateMetaDescription(post?.content)}
+      title={draft.title}
+      description={generateMetaDescription(draft.content)}
     />
     <main className={styles.container}>
-      {post && (
-        <>
-          <section className="p-3 flex flex-col dark:text-blog-white gap-2">
-            <p className="text-3xl font-sans self-center">{post?.title}</p>
-            <p className="p-1 text-md font-mono self-center">
-            <FormattedMessage
-              id="admin-username-article-url"
-              description="Article URL : " // Description should be a string literal
-              defaultMessage="Article URL : " // Message should be a string literal
-              />{post?.slug}
-            </p>
+      <section className="p-3 flex flex-col dark:text-blog-white gap-2">
+        <p className="text-3xl font-sans self-center">{draft.title}</p>
+        <p className="p-1 text-md font-mono self-center">
+        <FormattedMessage
+          id="admin-username-article-url"
+          description="Article URL : " // Description should be a string literal
+          defaultMessage="Article URL : " // Message should be a string literal
+          />{draft.posts?.slug}
+        </p>
 
-            <PostForm
-              defaultValues={post}
-              preview={preview}
-              editor={editor}
-            />
-          </section>
-        </>
-      )}
+        <PostWorkflowBar draft={draft} dirty={dirty} onChange={setDraft} />
+
+        <PostForm
+          draft={draft}
+          preview={preview}
+          editor={editor}
+          onSaved={(saved) => {
+            setDraft(saved);
+            setDirty(false);
+          }}
+          onDirty={() => setDirty(true)}
+        />
+      </section>
     </main>
   </>;
 }
 
 interface JSON_ADMIN_SLUG {
-  published: boolean;
   videoLink: string;
   youtubeEmbeds?: string;
 }
 
-function PostForm({ defaultValues, preview, editor }) {
+function PostForm({ draft, preview, editor, onSaved, onDirty }: {
+  draft: POST_DRAFT_WITH_POST;
+  preview: boolean;
+  editor: ReturnType<typeof useEditor>;
+  onSaved: (draft: POST_DRAFT_WITH_POST) => void;
+  onDirty: () => void;
+}) {
   const [data, setData] = useState<JSON_ADMIN_SLUG>({
-    published: defaultValues?.published,
-    videoLink: defaultValues.videoLink,
+    videoLink: draft.videoLink ?? "",
   });
   const [jsonErrors, setJsonErrors] = useState([]);
-  const [audioFileName, setAudioFileName] = useState(""); // If no audio file then set empty string
-
-  const router = useRouter();
-  const { slug } = router.query;
-
-  const selectUser = (state: RootState) => state.users;
-  const { userInfo } = useSelector(selectUser);
-  const { profile } = userInfo;
+  // Empty until a new file is uploaded; the saved audio is kept otherwise
+  const [audioFileName, setAudioFileName] = useState("");
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     if (!editor) {
       return null;
     }
-    editor.commands.setContent(defaultValues?.content);
-  }, []);
+    editor.commands.setContent(draft.content, false);
+  }, [editor]);
 
   if (!editor) {
     return null;
@@ -200,6 +226,7 @@ function PostForm({ defaultValues, preview, editor }) {
 
   const changedJsonSchema = async (jsonData, jsonError) => {
     setJsonErrors(jsonError);
+    if ((jsonData?.videoLink ?? "") !== (data?.videoLink ?? "")) onDirty();
     setData(jsonData);
   };
 
@@ -215,32 +242,33 @@ function PostForm({ defaultValues, preview, editor }) {
     }
   };
 
+  // Saves the draft only. The live post changes when Swapnil approves it.
   const updatePost = async () => {
-    const contentEditor = editor.getHTML();
-
-    const { data: dataUpdate, error } = await supaClient
-      .from("posts")
+    setSaving(true);
+    const { data: saved, error } = await supaClient
+      .from("post_drafts")
       .update({
-        content: contentEditor,
-        published: data?.published,
-        audio: audioFileName,
+        content: sanitizePostHtml(editor.getHTML()),
+        audio: audioFileName || draft.audio,
         videoLink: data?.videoLink ?? "",
-        updated_at: new Date().toISOString(),
       })
-      .eq("uid", profile?.id)
-      .eq("slug", Array.isArray(slug) ? slug[0] : slug);
+      .eq("post_id", draft.post_id)
+      .select("*, posts(*)")
+      .single();
+    setSaving(false);
 
-    const articleURL = `https://swapnilsrivastava.eu/approve/${defaultValues?.slug}`;
+    if (error || !saved) {
+      toast.error(error?.message ?? "Could not save the post.");
+      return;
+    }
 
-    const emailMessage: Partial<postmark.Message> = {
-      To: "contact@swapnilsrivastava.eu",
-      Subject: "Hello new article has been created / updated",
-      HtmlBody: `<strong>Hello</strong> Swapnil Srivastava, new article is updated or published on your website, navigate to approve the article ${articleURL}`,
-    };
-
-    sendEmail(emailMessage);
-
-    toast.success("Post updated successfully!");
+    setAudioFileName("");
+    onSaved(saved as POST_DRAFT_WITH_POST);
+    toast.success(
+      saved.status !== draft.status
+        ? "Changes saved. The post is back in Draft."
+        : "Changes saved."
+    );
   };
 
   return (
@@ -248,7 +276,7 @@ function PostForm({ defaultValues, preview, editor }) {
       {preview && (
         <div
           className="drop-shadow-xl admin-content"
-          dangerouslySetInnerHTML={{ __html: defaultValues?.content }}
+          dangerouslySetInnerHTML={{ __html: sanitizePostHtml(draft.content) }}
         ></div>
       )}
 
@@ -553,7 +581,10 @@ function PostForm({ defaultValues, preview, editor }) {
             {/*  Audio Upload */}
             <div className="">
               <AudioUploader
-                getAudioFileName={(fileName) => setAudioFileName(fileName)}
+                getAudioFileName={(fileName) => {
+                  setAudioFileName(fileName);
+                  onDirty();
+                }}
               />
             </div>
 
@@ -573,9 +604,10 @@ function PostForm({ defaultValues, preview, editor }) {
               type="button"
               className="p-2 bg-hit-pink-500 text-blog-black rounded-lg self-center"
               disabled={
-                Array.isArray(jsonErrors) &&
-                jsonErrors !== undefined &&
-                jsonErrors.length !== 0
+                saving ||
+                (Array.isArray(jsonErrors) &&
+                  jsonErrors !== undefined &&
+                  jsonErrors.length !== 0)
               }
               onClick={() => updatePost()}
             >

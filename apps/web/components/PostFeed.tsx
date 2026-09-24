@@ -7,9 +7,15 @@ import moment from "moment";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import type { POST } from "../database.types";
+import {
+  STATUS_BADGE_CLASSES,
+  STATUS_LABELS,
+  WorkflowPost,
+  stripHtml,
+} from "../lib/postWorkflow";
 
 interface PostFeedProps {
-  posts: POST[];
+  posts: (POST | WorkflowPost)[];
   user?: any;
   admin?: boolean;
   parentFunction?: () => void;
@@ -100,7 +106,17 @@ export function PostFeed({
 }
 
 function PostItem({ post, admin = false, approve = false }: { post: any; admin?: boolean; approve?: boolean }) {
-  const wordCount = post?.content.trim().split(/\s+/g).length;
+  const plainText = stripHtml(post?.content);
+  const wordCount = plainText ? plainText.split(/\s+/g).length : 0;
+  // Author and admin lists pass the draft's workflow status
+  const workflowStatus = (post as WorkflowPost).workflowStatus;
+  // Unpublished posts have no public page: open the review or the editor
+  const postHref =
+    workflowStatus && !(post as WorkflowPost).isLive
+      ? approve
+        ? `/approve/${post.slug}?id=${post.id}`
+        : `/admin/${post.slug}`
+      : `/${post.username}/${post.slug}`;
   const contentTrimmed = generateContent(post?.content);
   const titleTrimmed = generateContent(post?.title);
   const minutesToRead = (wordCount / 100 + 1).toFixed(0);
@@ -158,28 +174,48 @@ function PostItem({ post, admin = false, approve = false }: { post: any; admin?:
 
             {/* Compact Status Badge */}
             <div className="flex items-center gap-2">
-              <span className={`inline-flex items-center px-2 py-1 rounded-md text-xs font-medium ${
-                post.published 
-                  ? 'bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400' 
-                  : 'bg-orange-50 text-orange-700 dark:bg-orange-900/20 dark:text-orange-400'
-              }`}>
-                <div className={`w-1.5 h-1.5 rounded-full mr-1.5 ${
-                  post.published ? 'bg-green-500' : 'bg-orange-500'
-                }`}></div>
-                {post.published ? (
-                  <FormattedMessage
-                    id="postfeed-status-live"
-                    description="Live status"
-                    defaultMessage="Live"
-                  />
-                ) : (
-                  <FormattedMessage
-                    id="postfeed-status-draft"
-                    description="Draft status"
-                    defaultMessage="Draft"
-                  />
-                )}
-              </span>
+              {workflowStatus ? (
+                <>
+                  {(post as WorkflowPost).isLive && (
+                    <span className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400">
+                      <div className="w-1.5 h-1.5 rounded-full mr-1.5 bg-green-500"></div>
+                      <FormattedMessage
+                        id="postfeed-status-live"
+                        description="Live status"
+                        defaultMessage="Live"
+                      />
+                    </span>
+                  )}
+                  {workflowStatus !== "approved" && (
+                    <span className={`inline-flex items-center px-2 py-1 rounded-md text-xs font-medium ${STATUS_BADGE_CLASSES[workflowStatus]}`}>
+                      {STATUS_LABELS[workflowStatus]}
+                    </span>
+                  )}
+                </>
+              ) : (
+                <span className={`inline-flex items-center px-2 py-1 rounded-md text-xs font-medium ${
+                  post.published && post.approved
+                    ? 'bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400' 
+                    : 'bg-orange-50 text-orange-700 dark:bg-orange-900/20 dark:text-orange-400'
+                }`}>
+                  <div className={`w-1.5 h-1.5 rounded-full mr-1.5 ${
+                    post.published && post.approved ? 'bg-green-500' : 'bg-orange-500'
+                  }`}></div>
+                  {post.published && post.approved ? (
+                    <FormattedMessage
+                      id="postfeed-status-live"
+                      description="Live status"
+                      defaultMessage="Live"
+                    />
+                  ) : (
+                    <FormattedMessage
+                      id="postfeed-status-draft"
+                      description="Draft status"
+                      defaultMessage="Draft"
+                    />
+                  )}
+                </span>
+              )}
 
               {/* Action Buttons - Creative Circular Design */}
               {(admin || approve) && (
@@ -192,9 +228,9 @@ function PostItem({ post, admin = false, approve = false }: { post: any; admin?:
                     </Link>
                   )}
                   {approve && (
-                    <Link href={`/approve/${post.slug}`} legacyBehavior>
+                    <Link href={`/approve/${post.slug}?id=${post.id}`} legacyBehavior>
                       <div className="w-8 h-8 bg-caribbean-green-300 dark:bg-caribbean-green-400 dark:text-blog-white p-0.5 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:filter hover:brightness-125 group">
-                              <FontAwesomeIcon icon={post.published ? faThumbsUp : faEye} className="h-3.5 w-3.5 text-green-700 group-hover:scale-110 transition-transform" />
+                              <FontAwesomeIcon icon={workflowStatus === "web_ready" ? faThumbsUp : faEye} className="h-3.5 w-3.5 text-green-700 group-hover:scale-110 transition-transform" />
                       </div>
                     </Link>
                   )}
@@ -204,17 +240,16 @@ function PostItem({ post, admin = false, approve = false }: { post: any; admin?:
           </div>
 
           {/* Content Section */}
-          <Link href={`/${post.username}/${post.slug}`} legacyBehavior>
+          <Link href={postHref} legacyBehavior>
             <div className="cursor-pointer">
                     <h2 className="text-lg font-bold text-black mb-2 group-hover:text-[var(--color-primary)] transition-colors duration-200 line-clamp-2 leading-tight">
                 {post.title}
               </h2>
               
               {/* Content Preview - Compact */}
-                    <div 
-                      className="text-sm text-black line-clamp-2 leading-relaxed mb-3"
-                dangerouslySetInnerHTML={{ __html: post?.content.substring(0, 120) + "..." }}
-              />
+                    <p className="text-sm text-black line-clamp-2 leading-relaxed mb-3">
+                {plainText.length > 120 ? `${plainText.substring(0, 120)}...` : plainText}
+              </p>
             </div>
           </Link>
 

@@ -1,7 +1,6 @@
 // Translated
 
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 
 // Styles
 import styles from "../../styles/Post.module.css";
@@ -9,51 +8,46 @@ import styles from "../../styles/Post.module.css";
 // React Components
 import PostContent from "../../components/PostContent";
 import Metatags from "../../components/Metatags";
-import Video from "../../components/Video";
 
-// Interfaces
-import { RootState } from "../../lib/interfaces/interface";
+// Supabase
 import { supaClient } from "../../supa-client";
 
 // Library
 import { generateMetaDescription } from "../../lib/library";
+import { stripHtml } from "../../lib/postWorkflow";
+import { SITE_NAME, postUrl } from "../../lib/site";
+import { POST } from "../../database.types";
 
 // e.g. localhost:3000/swapnil/page1
 // e.g. localhost:3000/swapnil/page2
 
-/**`
- * Gets a users/{uid} document with username
- * @param  {string} username
- */
-export async function getUserWithUsernameSupabase(username) {
-  let { data: posts, error } = await supaClient
+// Only approved, published posts have a public page. Row level security
+// enforces the same rule for the anonymous client used here.
+async function getLivePost(username: string, slug: string): Promise<POST | null> {
+  const { data } = await supaClient
     .from("posts")
     .select("*")
-    .like("username", username);
+    .eq("username", username)
+    .eq("slug", slug)
+    .eq("published", true)
+    .eq("approved", true)
+    .maybeSingle();
 
-  return posts;
+  return data ?? null;
 }
 
 export async function getStaticProps({ params }) {
   const { username, slug } = params;
-  const userPosts = await getUserWithUsernameSupabase(username);
+  const post = await getLivePost(username, slug);
 
-  let post;
-  let path;
-
-  if (userPosts) {
-    let { data: posts, error } = await supaClient
-      .from("posts")
-      .select("*")
-      .like("slug", slug);
-    const [firstPost] = posts;
-
-    post = firstPost;
-    path = firstPost && firstPost?.slug;
+  if (!post) {
+    // Re-checked on the next request after a minute; approving a post also
+    // revalidates this page straight away (see /api/posts/review).
+    return { notFound: true, revalidate: 60 };
   }
 
   return {
-    props: { post, path },
+    props: { post },
     revalidate: 5000,
   };
 }
@@ -68,51 +62,64 @@ export async function getStaticPaths() {
   };
 }
 
-function Post(props) {
+function Post(props: { post: POST }) {
   const [post, setPost] = useState(props.post);
   const [postAudioUrl, setPostAudioUrl] = useState("");
 
+  // Refresh counts on the client; the cached page may be a little stale
   const fetchPost = async () => {
-    const { data: posts, error } = await supaClient
+    const { data: freshPost } = await supaClient
       .from("posts")
       .select("*")
-      .like("slug", props.path);
+      .eq("id", props.post.id)
+      .maybeSingle();
 
-    const [firstPost] = posts;
-    setPost(firstPost);
+    if (freshPost) setPost(freshPost);
 
-    // // Get the audio URL of the Post
-    // const { data: dataUrl } = supaClient.storage
-    //   .from("audio")
-    //   .getPublicUrl(firstPost?.audio);
+    const audio = (freshPost ?? props.post)?.audio;
+    if (!audio) return;
 
     // Get the audio URL of the post.
     // Note Url only valid for 10 mins.
-    const { data: dataSignedUrl, error: errorUrl } = await supaClient.storage
+    const { data: dataSignedUrl } = await supaClient.storage
       .from("audio")
-      .createSignedUrl(firstPost?.audio, 600); // Valid for 600 seconds = 10 mins
+      .createSignedUrl(audio, 600); // Valid for 600 seconds = 10 mins
 
-    const { signedUrl } = dataSignedUrl;
-    setPostAudioUrl(signedUrl);
-
-    // const { publicUrl } = dataUrl;
-    // setPostAudioUrl(publicUrl);
+    if (dataSignedUrl?.signedUrl) setPostAudioUrl(dataSignedUrl.signedUrl);
   };
 
   useEffect(() => {
+    setPost(props.post);
     fetchPost();
-  }, []);
+  }, [props.post.id]);
 
-  // TS infers type: (state: RootState) => boolean
-  const selectUser = (state: RootState) => state.users;
-  const { userInfo } = useSelector(selectUser);
-  const { profile, session } = userInfo;
+  const url = postUrl(post.username, post.slug);
+  const description = generateMetaDescription(stripHtml(post.content));
+  const publishedTime = post.published_at ?? post.created_at;
 
   return (
     <main className={styles.container}>
       <Metatags
         title={post.title}
-        description={generateMetaDescription(post.content)}
+        description={description}
+        type="article"
+        url={url}
+        publishedTime={publishedTime}
+        modifiedTime={post.updated_at}
+        author={post.username}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: post.title,
+          description,
+          url,
+          mainEntityOfPage: url,
+          datePublished: publishedTime,
+          dateModified: post.updated_at ?? publishedTime,
+          author: { "@type": "Person", name: post.username },
+          publisher: { "@type": "Organization", name: SITE_NAME },
+          ...(post.photo_url ? { image: post.photo_url } : {}),
+        }}
       />
 
       <section className="basis-3/5 p-3">

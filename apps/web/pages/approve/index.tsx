@@ -10,8 +10,9 @@ import AuthCheck from "../../components/AuthCheck";
 import PostFeed from "../../components/PostFeed";
 
 // Interfaces
-import { POST } from "../../database.types";
+import { POST_DRAFT_WITH_POST } from "../../database.types";
 import { User } from "@supabase/supabase-js";
+import { WorkflowPost, toWorkflowPost } from "../../lib/postWorkflow";
 
 // e.g. localhost:3000/approve
 
@@ -26,10 +27,10 @@ const ApprovalPage: NextPage = () => {
 };
 
 function ApprovePostList() {
-  const [posts, setPosts] = useState<POST[]>([]);
+  const [posts, setPosts] = useState<WorkflowPost[]>([]);
   const [userAuth, setUserAuth] = useState<User>();
   const [isSwapnil, setIsSwapnil] = useState<User>();
-  const [activeTab, setActiveTab] = useState<'all' | 'pending' | 'approved' | 'rejected'>('all');
+  const [activeTab, setActiveTab] = useState<'all' | 'pending' | 'approved'>('pending');
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const intl = useIntl();
@@ -40,13 +41,10 @@ function ApprovePostList() {
     let tabFilter = true;
     switch (activeTab) {
       case 'pending':
-        tabFilter = !post.approved;
+        tabFilter = post.workflowStatus === 'web_ready';
         break;
       case 'approved':
-        tabFilter = post.approved;
-        break;
-      case 'rejected':
-        tabFilter = post.approved === false; // Explicitly rejected
+        tabFilter = post.isLive;
         break;
       default:
         tabFilter = true; // 'all' shows everything
@@ -77,15 +75,16 @@ function ApprovePostList() {
       if (user?.id === process.env.NEXT_PUBLIC_SWAPNIL_ID) {
         setIsSwapnil(user);
 
-        let { data: posts, error } = await supaClient
-          .from("posts")
-          .select("*")
-          .order('created_at', { ascending: false });
+        // Drafts carry the workflow status; the admin can read every draft
+        const { data: drafts, error } = await supaClient
+          .from("post_drafts")
+          .select("*, posts(*)")
+          .order('updated_at', { ascending: false });
 
         if (error) {
           console.error('Error fetching posts:', error);
         } else {
-          setPosts(posts || []);
+          setPosts(((drafts ?? []) as POST_DRAFT_WITH_POST[]).map(toWorkflowPost));
         }
       }
     } catch (error) {
@@ -138,7 +137,7 @@ function ApprovePostList() {
                 />
               </div>
               <div className="text-xl font-bold text-orange-600 dark:text-orange-400">
-                {posts.filter(post => !post.approved).length}
+                {posts.filter(post => post.workflowStatus === 'web_ready').length}
               </div>
             </div>
             <div className="bg-white card--white dark:bg-fun-blue-600 rounded-lg px-4 py-2 border border-gray-200 dark:border-fun-blue-500">
@@ -150,7 +149,7 @@ function ApprovePostList() {
                 />
               </div>
               <div className="text-xl font-bold text-green-600 dark:text-green-400">
-                {posts.filter(post => post.approved).length}
+                {posts.filter(post => post.isLive).length}
               </div>
             </div>
           </div>
@@ -186,7 +185,7 @@ function ApprovePostList() {
                   id="approve-tab-pending"
                   description="Pending Review"
                   defaultMessage="Pending Review"
-                /> ({posts.filter(post => !post.approved).length})
+                /> ({posts.filter(post => post.workflowStatus === 'web_ready').length})
               </button>
               <button 
                 onClick={() => setActiveTab('approved')}
@@ -200,7 +199,7 @@ function ApprovePostList() {
                   id="approve-tab-approved"
                   description="Approved"
                   defaultMessage="Approved"
-                /> ({posts.filter(post => post.approved).length})
+                /> ({posts.filter(post => post.isLive).length})
               </button>
             </nav>
 
