@@ -843,3 +843,44 @@ button.btn-logo {
 iframe {
   @apply dark:bg-fun-blue-500;
 }
+
+/* Post byline (PostContent). Built on the theme variables so it follows every
+   theme-<color>-<mode> class; `dark:` utilities never match those classes. */
+.byline-muted {
+  color: color-mix(in srgb, var(--text-primary) 72%, transparent);
+}
+
+.byline-rule {
+  border-color: color-mix(in srgb, var(--text-primary) 12%, transparent);
+}
+
+.byline-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 9999px;
+  background-color: currentColor;
+  opacity: 0.6;
+}
+
+/* Same face as <button>, so the Edit link and the heart pill match */
+.byline-action {
+  font-family: "Noto Sans", sans-serif;
+}
+
+.byline-ghost {
+  color: var(--text-primary);
+  transition: background-color 150ms ease;
+}
+
+.byline-ghost:hover {
+  background-color: color-mix(in srgb, var(--text-primary) 8%, transparent);
+}
+
+.byline-focus:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.heart-count {
+  border-left: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+}

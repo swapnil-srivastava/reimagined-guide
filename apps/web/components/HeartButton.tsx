@@ -16,10 +16,13 @@ import { supaClient } from "../supa-client";
 export default function Heart({
   post,
   userId,
+  count,
   onCountChange,
 }: {
   post: POST;
   userId: string;
+  /** Current heart count, shown inside the button */
+  count?: number;
   onCountChange?: (heartCount: number) => void;
 }) {
   const intl = useIntl();
@@ -77,35 +80,49 @@ export default function Heart({
       description: "Do you like the post?",
       defaultMessage: "Do you like the post?"
     })} placement="bottom">
-      <div className="flex items-center">
-        <button
-         className="bg-hit-pink-500 dark:text-blog-black px-3 py-2 mx-1
-                          rounded-3xl flex items-center justify-center
-                          transition-filter duration-500 hover:filter hover:brightness-125
-                          focus:outline-none focus:ring-2
-                          focus:ring-fun-blue-400
-                          focus:ring-offset-2
-                          font-semibold disabled:opacity-60"
-          aria-pressed={hearted}
-          disabled={busy}
-          onClick={toggleHeart}
-        >
-          <FontAwesomeIcon icon={hearted ? faHeart : faHeartOutline} />
-          <div className="ml-2 text-sm md:text-md font-light">
-            {hearted ? (
-              <FormattedMessage id="heart-button-hearted"
-                description="text on heart button when the reader already hearted the post"
-                defaultMessage="Hearted"
-                />
-            ) : (
-              <FormattedMessage id="heart-button-heart"
-                description="text on heart button to heart" // Description should be a string literal
-                defaultMessage="Heart" // Message should be a string literal
-                />
-            )}
-          </div>
-        </button>
-      </div>
+      <button
+        className={heartPillClass(hearted)}
+        aria-pressed={hearted}
+        disabled={busy}
+        onClick={toggleHeart}
+      >
+        <FontAwesomeIcon
+          icon={hearted ? faHeart : faHeartOutline}
+          className={hearted ? "h-4 w-4" : "h-4 w-4 text-hit-pink-600"}
+        />
+        <span>
+          {hearted ? (
+            <FormattedMessage id="heart-button-hearted"
+              description="text on heart button when the reader already hearted the post"
+              defaultMessage="Hearted"
+              />
+          ) : (
+            <FormattedMessage id="heart-button-heart"
+              description="text on heart button to heart" // Description should be a string literal
+              defaultMessage="Heart" // Message should be a string literal
+              />
+          )}
+        </span>
+        <HeartCount count={count} />
+      </button>
     </BasicTooltip>
+  );
+}
+
+// Shared with the signed-out heart link in PostContent so both look the same
+export function heartPillClass(hearted = false) {
+  return `byline-action byline-focus inline-flex h-9 shrink-0 items-center gap-2 rounded-full px-3.5 text-sm font-medium whitespace-nowrap transition-colors duration-150 disabled:opacity-60 ${
+    hearted
+      ? "bg-hit-pink-500 text-neutral-900 hover:bg-hit-pink-400"
+      : "border border-hit-pink-500 text-blog-black hover:bg-hit-pink-500/15"
+  }`;
+}
+
+export function HeartCount({ count }: { count?: number }) {
+  if (!count) return null;
+  return (
+    <span className="heart-count pl-2 tabular-nums font-semibold">
+      {count}
+    </span>
   );
 }
