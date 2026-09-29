@@ -7,6 +7,7 @@ import moment from "moment";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import type { POST } from "../database.types";
+import { TagList } from "./TagChip";
 import {
   STATUS_BADGE_CLASSES,
   STATUS_LABELS,
@@ -24,6 +25,10 @@ interface PostFeedProps {
   enableLoadMore?: boolean;
   approve?: boolean;
   isSwapnil?: any;
+  /** Selected tag slugs, highlighted on the cards */
+  selectedTags?: string[];
+  /** Toggles a tag in the page's filter; without it live posts' tags link to their tag page */
+  onTagToggle?: (slug: string) => void;
 }
 
 export function PostFeed({
@@ -36,6 +41,8 @@ export function PostFeed({
   enableLoadMore = false,
   approve = false,
   isSwapnil = undefined,
+  selectedTags = [],
+  onTagToggle = undefined,
 }: PostFeedProps) {
   const intl = useIntl();
   
@@ -60,6 +67,8 @@ export function PostFeed({
                 ? true
                 : false
             }
+            selectedTags={selectedTags}
+            onTagToggle={onTagToggle}
           />
 
           {index === array.length - 1 &&
@@ -105,7 +114,19 @@ export function PostFeed({
       />;
 }
 
-function PostItem({ post, admin = false, approve = false }: { post: any; admin?: boolean; approve?: boolean }) {
+function PostItem({
+  post,
+  admin = false,
+  approve = false,
+  selectedTags = [],
+  onTagToggle,
+}: {
+  post: any;
+  admin?: boolean;
+  approve?: boolean;
+  selectedTags?: string[];
+  onTagToggle?: (slug: string) => void;
+}) {
   const plainText = stripHtml(post?.content);
   const wordCount = plainText ? plainText.split(/\s+/g).length : 0;
   // Author and admin lists pass the draft's workflow status
@@ -252,6 +273,15 @@ function PostItem({ post, admin = false, approve = false }: { post: any; admin?:
               </p>
             </div>
           </Link>
+
+          {/* Topics. Draft tags are not approved yet, so they don't link anywhere */}
+          <TagList
+            tags={post.tags}
+            selected={selectedTags}
+            onToggle={onTagToggle}
+            linkTags={!workflowStatus}
+            className="mb-3"
+          />
 
           {/* Footer - Compact */}
                 <div className="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-fun-blue-500">

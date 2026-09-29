@@ -11,6 +11,7 @@ import { supaClient } from "../../supa-client";
 import Metatags from "../../components/Metatags";
 import AuthCheck from "../../components/AuthCheck";
 import PostContent from "../../components/PostContent";
+import { TagList } from "../../components/TagChip";
 
 // Interfaces
 import { POST, POST_DRAFT_WITH_POST } from "../../database.types";
@@ -19,6 +20,7 @@ import { POST, POST_DRAFT_WITH_POST } from "../../database.types";
 import { generateMetaDescription } from "../../lib/library";
 import { sanitizePostHtml } from "../../lib/sanitize";
 import { isLive } from "../../lib/postWorkflow";
+import { draftTags } from "../../lib/tags";
 
 // e.g. localhost:3000/approve/article-slug?id=<post id>
 
@@ -61,7 +63,9 @@ function PostApprover() {
 
     // Links from the approval email carry the post id; the slug alone is
     // only unique per author.
-    let query = supaClient.from("post_drafts").select("*, posts!inner(*)");
+    let query = supaClient
+      .from("post_drafts")
+      .select("*, posts!inner(*, tags(slug, name))");
     query =
       typeof id === "string"
         ? query.eq("post_id", id)
@@ -105,16 +109,22 @@ function PostApprover() {
 
   const live = draft.posts;
   // Preview the submitted draft with the live post's metadata
-  const submitted: POST = {
+  const proposedTags = draftTags(draft.tags);
+  const submitted: POST & { tags: typeof proposedTags } = {
     ...(live as POST),
     title: draft.title,
     content: draft.content,
     audio: draft.audio,
     videoLink: draft.videoLink,
+    tags: proposedTags,
   };
+  const liveTags = live?.tags ?? [];
+  const tagKey = (tags: { slug: string }[]) =>
+    tags.map((tag) => tag.slug).sort().join(",");
+  const tagsDiffer = tagKey(liveTags) !== tagKey(proposedTags);
   const liveDiffers =
     isLive(live) &&
-    (live?.content !== draft.content || live?.title !== draft.title);
+    (live?.content !== draft.content || live?.title !== draft.title || tagsDiffer);
 
   return (
     <>
@@ -130,6 +140,16 @@ function PostApprover() {
                 id="approve-slug-not-submitted"
                 description="Explains that only Web Ready posts can be approved"
                 defaultMessage="This post is not waiting for approval. The author has to mark it Web Ready first."
+              />
+            </p>
+          )}
+
+          {isLive(live) && tagsDiffer && (
+            <p className="p-3 rounded-lg bg-blue-50 text-blue-800 dark:bg-blue-900/20 dark:text-blue-200 text-sm">
+              <FormattedMessage
+                id="approve-slug-tags-changed"
+                description="Tells the admin that approving also updates the post's tags"
+                defaultMessage="The tags changed. Approving also updates the tags on the live post."
               />
             </p>
           )}
@@ -150,6 +170,26 @@ function PostApprover() {
                 />
               </summary>
               <h2 className="mt-3 text-xl font-bold">{live?.title}</h2>
+              {tagsDiffer && (
+                <div className="mt-2 flex flex-wrap items-center gap-2 text-sm">
+                  <span className="font-medium">
+                    <FormattedMessage
+                      id="approve-slug-live-tags"
+                      description="Label before the tags currently on the live post"
+                      defaultMessage="Live tags:"
+                    />
+                  </span>
+                  {liveTags.length > 0 ? (
+                    <TagList tags={liveTags} linkTags={false} />
+                  ) : (
+                    <FormattedMessage
+                      id="approve-slug-no-live-tags"
+                      description="Shown when the live post has no tags"
+                      defaultMessage="none"
+                    />
+                  )}
+                </div>
+              )}
               <div
                 className="post-content mt-2"
                 dangerouslySetInnerHTML={{ __html: sanitizePostHtml(live?.content) }}

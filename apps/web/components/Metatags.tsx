@@ -13,6 +13,8 @@ interface MetatagsProps {
   publishedTime?: string | null;
   modifiedTime?: string | null;
   author?: string | null;
+  /** Article topics, as `article:tag` */
+  tags?: string[];
   /** Structured data rendered as application/ld+json */
   jsonLd?: Record<string, unknown>;
 }
@@ -26,6 +28,7 @@ const Metatags: React.FC<MetatagsProps> = ({
   publishedTime,
   modifiedTime,
   author,
+  tags = [],
   jsonLd,
 }: MetatagsProps) => {
   return (
@@ -55,6 +58,11 @@ const Metatags: React.FC<MetatagsProps> = ({
       {type === 'article' && author && (
         <meta property="article:author" content={author} />
       )}
+
+      {type === 'article' &&
+        tags.map((tag) => (
+          <meta key={tag} property="article:tag" content={tag} />
+        ))}
 
       {jsonLd && (
         <script

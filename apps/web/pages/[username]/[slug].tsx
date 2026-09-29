@@ -1,6 +1,7 @@
 // Translated
 
 import React, { useEffect, useState } from "react";
+import { FormattedMessage } from "react-intl";
 
 // Styles
 import styles from "../../styles/Post.module.css";
@@ -8,6 +9,7 @@ import styles from "../../styles/Post.module.css";
 // React Components
 import PostContent from "../../components/PostContent";
 import Metatags from "../../components/Metatags";
+import PostList from "../../components/PostList";
 
 // Supabase
 import { supaClient } from "../../supa-client";
@@ -16,24 +18,41 @@ import { supaClient } from "../../supa-client";
 import { generateMetaDescription } from "../../lib/library";
 import { stripHtml } from "../../lib/postWorkflow";
 import { SITE_NAME, postUrl } from "../../lib/site";
-import { POST } from "../../database.types";
+import {
+  POST_WITH_TAGS,
+  POST_WITH_TAGS_SELECT,
+  withSortedTags,
+} from "../../lib/tags";
 
 // e.g. localhost:3000/swapnil/page1
 // e.g. localhost:3000/swapnil/page2
 
 // Only approved, published posts have a public page. Row level security
 // enforces the same rule for the anonymous client used here.
-async function getLivePost(username: string, slug: string): Promise<POST | null> {
+async function getLivePost(username: string, slug: string): Promise<POST_WITH_TAGS | null> {
   const { data } = await supaClient
     .from("posts")
-    .select("*")
+    .select(POST_WITH_TAGS_SELECT)
     .eq("username", username)
     .eq("slug", slug)
     .eq("published", true)
     .eq("approved", true)
     .maybeSingle();
 
-  return data ?? null;
+  return data ? withSortedTags(data as unknown as POST_WITH_TAGS) : null;
+}
+
+// Live posts sharing the most tags with this one
+async function getRelatedPosts(postId: string): Promise<POST_WITH_TAGS[]> {
+  const { data, error } = await supaClient
+    .rpc("get_related_posts", { p_post_id: postId, p_limit: 3 })
+    .select(POST_WITH_TAGS_SELECT);
+
+  if (error) {
+    console.error("getRelatedPosts: failed to load related posts", error);
+    return [];
+  }
+  return ((data ?? []) as unknown as POST_WITH_TAGS[]).map(withSortedTags);
 }
 
 export async function getStaticProps({ params }) {
@@ -46,8 +65,10 @@ export async function getStaticProps({ params }) {
     return { notFound: true, revalidate: 60 };
   }
 
+  const relatedPosts = await getRelatedPosts(post.id);
+
   return {
-    props: { post },
+    props: { post, relatedPosts },
     revalidate: 5000,
   };
 }
@@ -62,18 +83,19 @@ export async function getStaticPaths() {
   };
 }
 
-function Post(props: { post: POST }) {
+function Post(props: { post: POST_WITH_TAGS; relatedPosts: POST_WITH_TAGS[] }) {
   const [post, setPost] = useState(props.post);
   const [postAudioUrl, setPostAudioUrl] = useState("");
 
   // Refresh counts on the client; the cached page may be a little stale
   const fetchPost = async () => {
-    const { data: freshPost } = await supaClient
+    const { data } = await supaClient
       .from("posts")
-      .select("*")
+      .select(POST_WITH_TAGS_SELECT)
       .eq("id", props.post.id)
       .maybeSingle();
 
+    const freshPost = data ? withSortedTags(data as unknown as POST_WITH_TAGS) : null;
     if (freshPost) setPost(freshPost);
 
     const audio = (freshPost ?? props.post)?.audio;
@@ -107,6 +129,7 @@ function Post(props: { post: POST }) {
         publishedTime={publishedTime}
         modifiedTime={post.updated_at}
         author={post.username}
+        tags={(post.tags ?? []).map((tag) => tag.name)}
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "BlogPosting",
@@ -117,6 +140,7 @@ function Post(props: { post: POST }) {
           datePublished: publishedTime,
           dateModified: post.updated_at ?? publishedTime,
           author: { "@type": "Person", name: post.username },
+          ...(post.tags?.length ? { keywords: post.tags.map((tag) => tag.name).join(", ") } : {}),
           publisher: { "@type": "Organization", name: SITE_NAME },
           ...(post.photo_url ? { image: post.photo_url } : {}),
         }}
@@ -124,6 +148,24 @@ function Post(props: { post: POST }) {
 
       <section className="basis-3/5 p-3">
         <PostContent post={post} audioUrl={postAudioUrl} />
+
+        {props.relatedPosts?.length > 0 && (
+          <section aria-labelledby="related-posts-heading" className="mt-10">
+            <h2
+              id="related-posts-heading"
+              className="px-3 text-2xl font-bold text-blog-black dark:text-blog-white"
+            >
+              <FormattedMessage
+                id="post-related-articles"
+                description="Heading above articles that share topics with the current one"
+                defaultMessage="Related articles"
+              />
+            </h2>
+            <div className="flex flex-wrap gap-5 justify-center lg:justify-start">
+              <PostList posts={props.relatedPosts} />
+            </div>
+          </section>
+        )}
       </section>
     </main>
   );

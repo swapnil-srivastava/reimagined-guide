@@ -48,6 +48,7 @@ import AudioUploader from "../../components/AudioUploader";
 import Metatags from "../../components/Metatags";
 import BasicTooltip from "../../components/Tooltip";
 import PostWorkflowBar from "../../components/PostWorkflowBar";
+import TagInput from "../../components/TagInput";
 
 // Supabase
 import { supaClient } from "../../supa-client";
@@ -209,6 +210,7 @@ function PostForm({ draft, preview, editor, onSaved, onDirty }: {
     videoLink: draft.videoLink ?? "",
   });
   const [jsonErrors, setJsonErrors] = useState([]);
+  const [tags, setTags] = useState<string[]>(draft.tags ?? []);
   // Empty until a new file is uploaded; the saved audio is kept otherwise
   const [audioFileName, setAudioFileName] = useState("");
   const [saving, setSaving] = useState(false);
@@ -251,6 +253,7 @@ function PostForm({ draft, preview, editor, onSaved, onDirty }: {
         content: sanitizePostHtml(editor.getHTML()),
         audio: audioFileName || draft.audio,
         videoLink: data?.videoLink ?? "",
+        tags,
       })
       .eq("post_id", draft.post_id)
       .select("*, posts(*)")
@@ -263,6 +266,7 @@ function PostForm({ draft, preview, editor, onSaved, onDirty }: {
     }
 
     setAudioFileName("");
+    setTags(saved.tags ?? []);
     onSaved(saved as POST_DRAFT_WITH_POST);
     toast.success(
       saved.status !== draft.status
@@ -590,6 +594,14 @@ function PostForm({ draft, preview, editor, onSaved, onDirty }: {
 
             {/*  Editor Content which is changed by tiptap controls  */}
             <EditorContent editor={editor} />
+
+            <TagInput
+              value={tags}
+              onChange={(next) => {
+                setTags(next);
+                onDirty();
+              }}
+            />
 
             <JsonForms
               schema={schema}

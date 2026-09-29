@@ -6,13 +6,18 @@ import moment from "moment";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import type { POST } from "../database.types";
+import { TagList } from "./TagChip";
+import type { POST_WITH_TAGS } from "../lib/tags";
 
 interface PostListProps {
-    posts: POST[];
+    posts: POST_WITH_TAGS[];
     loading?: boolean;
     postsEnd?: boolean;
     enableLoadMore?: boolean;
+    /** Selected tag slugs, highlighted on the cards */
+    selectedTags?: string[];
+    /** Toggles a tag in the page's filter; without it tags link to their tag page */
+    onTagToggle?: (slug: string) => void;
 }
 
 // Plain-text preview of the markdown body for the card excerpt
@@ -30,7 +35,7 @@ function generateExcerpt(markdown?: string | null) {
 }
 
 // Post list to be used only with homepage
-const PostList: React.FC<PostListProps> = ({ posts, loading = false, postsEnd = false, enableLoadMore = false }) => {
+const PostList: React.FC<PostListProps> = ({ posts, loading = false, postsEnd = false, enableLoadMore = false, selectedTags = [], onTagToggle }) => {
 
     return posts ? posts.map((post) => {
         const wordCount = post?.content.trim().split(/\s+/g).length;
@@ -42,12 +47,12 @@ const PostList: React.FC<PostListProps> = ({ posts, loading = false, postsEnd = 
           : moment(post.created_at?.toMillis()).format("DD MMM YYYY");
 
         return (
-            <Link
+            // The title link stretches over the whole card; the tag chips sit above it
+            <div
                 key={post.slug}
-                className="group flex py-2 lg:py-6 w-full sm:w-72 rounded-2xl focus:outline-none"
-                href={`/${post.username}/${post.slug}`}
+                className="group flex py-2 lg:py-6 w-full sm:w-72 rounded-2xl"
             >
-                <article className="flex flex-col w-full mx-3 lg:mx-0 overflow-hidden rounded-2xl font-poppins bg-[var(--surface-raised)] text-[var(--text-primary)] border border-[var(--border-subtle)] shadow-md transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl group-focus-visible:ring-2 group-focus-visible:ring-[var(--color-primary)]">
+                <article className="relative flex flex-col w-full mx-3 lg:mx-0 overflow-hidden rounded-2xl font-poppins bg-[var(--surface-raised)] text-[var(--text-primary)] border border-[var(--border-subtle)] shadow-md transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl">
                     {/* Cover: grows to fill the card's height on desktop */}
                     <div className="relative flex-1 min-h-[9rem] overflow-hidden bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-deeper)]">
                         <div aria-hidden="true" className="absolute inset-0 opacity-20 bg-[radial-gradient(white_1px,transparent_1px)] [background-size:18px_18px]" />
@@ -82,8 +87,19 @@ const PostList: React.FC<PostListProps> = ({ posts, loading = false, postsEnd = 
 
                         {/* Post Title */}
                         <h3 className="text-xl font-semibold leading-snug line-clamp-2 min-h-[3.5rem] underline-offset-4 decoration-2 decoration-[var(--color-primary)] group-hover:underline">
-                            {post.title}
+                            <Link
+                                href={`/${post.username}/${post.slug}`}
+                                className="focus:outline-none after:absolute after:inset-0 after:rounded-2xl after:content-[''] focus-visible:after:ring-2 focus-visible:after:ring-inset focus-visible:after:ring-[var(--color-primary)]"
+                            >
+                                {post.title}
+                            </Link>
                         </h3>
+
+                        <TagList
+                            tags={post.tags}
+                            selected={selectedTags}
+                            onToggle={onTagToggle}
+                        />
 
                         {/* Excerpt */}
                         {excerpt && (
@@ -120,7 +136,7 @@ const PostList: React.FC<PostListProps> = ({ posts, loading = false, postsEnd = 
                         </div>
                     </div>
                 </article>
-            </Link>
+            </div>
         );
     })
     : <FormattedMessage
