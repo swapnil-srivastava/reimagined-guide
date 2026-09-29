@@ -867,20 +867,23 @@ iframe {
   font-family: "Noto Sans", sans-serif;
 }
 
-.byline-ghost {
-  color: var(--text-primary);
-  transition: background-color 150ms ease;
-}
-
-.byline-ghost:hover {
-  background-color: color-mix(in srgb, var(--text-primary) 8%, transparent);
-}
-
 .byline-focus:focus-visible {
   outline: 2px solid var(--text-primary);
   outline-offset: 2px;
 }
 
-.heart-count {
-  border-left: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+/* Capsule that holds the byline actions */
+.byline-track {
+  background-color: color-mix(in srgb, var(--text-primary) 6%, transparent);
+}
+
+/* Outlined round icon button inside the capsule */
+.byline-ring {
+  color: var(--text-primary);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--text-primary) 18%, transparent);
+  transition: background-color 150ms ease;
+}
+
+.byline-ring:hover {
+  background-color: var(--bg-primary);
 }

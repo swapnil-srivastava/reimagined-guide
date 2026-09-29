@@ -319,10 +319,10 @@ export default function PostContent({
           </div>
         </div>
 
-        {/* Actions - a single row at every width: heart and edit on the
+        {/* Actions - one capsule at every width: heart and edit on the
             left, sharing on the right */}
-        <div className="flex flex-nowrap items-center justify-between gap-2 lg:justify-end lg:gap-4">
-          <div className="flex items-center gap-2 min-w-0">
+        <div className="byline-track flex flex-nowrap items-center justify-between gap-2 rounded-full p-1 lg:gap-6">
+          <div className="flex items-center gap-1.5 min-w-0">
             {/* Liking needs a signed-in (non-guest) account */}
             {canReact ? (
               <HeartButton
@@ -339,7 +339,7 @@ export default function PostContent({
               })} placement="bottom">
                 <Link href="/enter" className={heartPillClass()}>
                   <FontAwesomeIcon icon={faHeartOutline} className="h-4 w-4 text-hit-pink-600" />
-                  <span>
+                  <span className="sr-only">
                     <FormattedMessage
                       id="heart-button-heart"
                       description="text on heart button to heart"
@@ -352,29 +352,28 @@ export default function PostContent({
             )}
 
             {isAuthor && (
-              <Link
-                href={`/admin/${post?.slug}`}
-                className="byline-action byline-ghost byline-focus inline-flex h-9 shrink-0 items-center gap-2 rounded-full px-3 text-sm font-medium"
-                aria-label={intl.formatMessage({
-                  id: "postcontent-edit-post",
-                  description: "Accessible name of the edit button on a post",
-                  defaultMessage: "Edit post"
-                })}
-              >
-                <FontAwesomeIcon icon={faPenToSquare} className="h-4 w-4" />
-                <span className="hidden min-[380px]:inline" aria-hidden="true">
-                  <FormattedMessage
-                    id="postcontent-edit"
-                    description="Edit button on a post"
-                    defaultMessage="Edit"
-                  />
-                </span>
-              </Link>
+              <BasicTooltip title={intl.formatMessage({
+                id: "postcontent-edit-post",
+                description: "Accessible name of the edit button on a post",
+                defaultMessage: "Edit post"
+              })} placement="bottom">
+                <Link
+                  href={`/admin/${post?.slug}`}
+                  className="byline-ring byline-focus w-10 h-10 shrink-0 flex items-center justify-center rounded-full"
+                  aria-label={intl.formatMessage({
+                    id: "postcontent-edit-post",
+                    description: "Accessible name of the edit button on a post",
+                    defaultMessage: "Edit post"
+                  })}
+                >
+                  <FontAwesomeIcon icon={faPenToSquare} className="h-4 w-4" />
+                </Link>
+              </BasicTooltip>
             )}
           </div>
 
           <div
-            className="flex shrink-0 items-center gap-0.5 border-l byline-rule pl-1.5 sm:border-l-0 sm:pl-0"
+            className="flex shrink-0 items-center gap-1.5"
             role="group"
             aria-label={intl.formatMessage({
               id: "postcontent-share-group",
@@ -382,7 +381,7 @@ export default function PostContent({
               defaultMessage: "Share this post"
             })}
           >
-            <span className="byline-muted text-xs font-medium mr-1.5 hidden sm:inline" aria-hidden="true">
+            <span className="byline-muted byline-action text-xs font-medium mr-1 hidden sm:inline" aria-hidden="true">
               <FormattedMessage
                 id="postcontent-share-label"
                 description="Share:"
@@ -424,7 +423,7 @@ export default function PostContent({
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="byline-ghost byline-focus w-9 h-9 flex items-center justify-center rounded-full"
+                  className="byline-ring byline-focus w-10 h-10 flex items-center justify-center rounded-full"
                 >
                   <FontAwesomeIcon icon={icon} className="h-4 w-4" />
                 </a>

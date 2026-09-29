@@ -90,7 +90,7 @@ export default function Heart({
           icon={hearted ? faHeart : faHeartOutline}
           className={hearted ? "h-4 w-4" : "h-4 w-4 text-hit-pink-600"}
         />
-        <span>
+        <span className="sr-only">
           {hearted ? (
             <FormattedMessage id="heart-button-hearted"
               description="text on heart button when the reader already hearted the post"
@@ -111,18 +111,14 @@ export default function Heart({
 
 // Shared with the signed-out heart link in PostContent so both look the same
 export function heartPillClass(hearted = false) {
-  return `byline-action byline-focus inline-flex h-9 shrink-0 items-center gap-2 rounded-full px-3.5 text-sm font-medium whitespace-nowrap transition-colors duration-150 disabled:opacity-60 ${
+  return `byline-action byline-focus inline-flex h-10 shrink-0 items-center gap-2 rounded-full px-4 text-sm font-semibold whitespace-nowrap transition-colors duration-150 disabled:opacity-60 ${
     hearted
       ? "bg-hit-pink-500 text-neutral-900 hover:bg-hit-pink-400"
-      : "border border-hit-pink-500 text-blog-black hover:bg-hit-pink-500/15"
+      : "bg-blog-white text-blog-black"
   }`;
 }
 
 export function HeartCount({ count }: { count?: number }) {
   if (!count) return null;
-  return (
-    <span className="heart-count pl-2 tabular-nums font-semibold">
-      {count}
-    </span>
-  );
+  return <span className="tabular-nums">{count}</span>;
 }
