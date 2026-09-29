@@ -18,6 +18,7 @@ import HeartButton from "./HeartButton";
 import BasicTooltip from "./Tooltip";
 import Video from "./Video";
 import AudioPlayer from "./AudioPlayer";
+import ViewCount from "./ViewCount";
 import { TagList } from "./TagChip";
 
 // Interface
@@ -276,6 +277,12 @@ export default function PostContent({
                     defaultMessage="words"
                   />
                 </span>
+                {(post?.view_count ?? 0) > 0 && (
+                  <span className="flex items-center gap-1">
+                    <div className="w-1.5 h-1.5 rounded-full bg-fun-blue-400"></div>
+                    <ViewCount count={post?.view_count} />
+                  </span>
+                )}
               </div>
             </div>
           </div>

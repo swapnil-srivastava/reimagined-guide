@@ -7,6 +7,7 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { TagList } from "./TagChip";
+import ViewCount from "./ViewCount";
 import type { POST_WITH_TAGS } from "../lib/tags";
 
 interface PostListProps {
@@ -86,6 +87,12 @@ const PostList: React.FC<PostListProps> = ({ posts, loading = false, postsEnd = 
                             />
                             <span aria-hidden="true">·</span>
                             <time dateTime={post.created_at ?? undefined}>{dateFormat}</time>
+                            {(post.view_count ?? 0) > 0 && (
+                                <>
+                                    <span aria-hidden="true">·</span>
+                                    <ViewCount count={post.view_count} />
+                                </>
+                            )}
                         </p>
 
                         {/* Post Title */}

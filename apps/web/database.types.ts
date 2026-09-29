@@ -379,6 +379,32 @@ export type Database = {
           },
         ]
       }
+      post_views: {
+        Row: {
+          day: string
+          post_id: string
+          visitor_hash: string
+        }
+        Insert: {
+          day?: string
+          post_id: string
+          visitor_hash: string
+        }
+        Update: {
+          day?: string
+          post_id?: string
+          visitor_hash?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "post_views_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       post_tags: {
         Row: {
           post_id: string
@@ -430,6 +456,7 @@ export type Database = {
           updated_at: string | null
           username: string | null
           videoLink: string | null
+          view_count: number
         }
         Insert: {
           approved?: boolean | null
@@ -451,6 +478,7 @@ export type Database = {
           updated_at?: string | null
           username?: string | null
           videoLink?: string | null
+          view_count?: number
         }
         Update: {
           approved?: boolean | null
@@ -472,6 +500,7 @@ export type Database = {
           updated_at?: string | null
           username?: string | null
           videoLink?: string | null
+          view_count?: number
         }
         Relationships: [
           {
@@ -681,6 +710,10 @@ export type Database = {
         Args: { p_title: string }
         Returns: Database["public"]["Tables"]["posts"]["Row"]
       }
+      get_popular_posts: {
+        Args: { p_days?: number; p_limit?: number }
+        Returns: Database["public"]["Tables"]["posts"]["Row"][]
+      }
       get_posts_by_tags: {
         Args: {
           p_tags?: string[]
@@ -701,6 +734,10 @@ export type Database = {
       is_admin: {
         Args: Record<PropertyKey, never>
         Returns: boolean
+      }
+      record_post_view: {
+        Args: { p_post_id: string; p_visitor_hash: string; p_viewer?: string | null }
+        Returns: number | null
       }
       request_post_changes: {
         Args: { p_post_id: string; p_note: string }
@@ -835,7 +872,7 @@ export type Enums<
       | "username"
       | "audio"
       | "videoLink"
-    > & Partial<Pick<POST_ROW["Row"], "published_at" | "approved_by">>;
+    > & Partial<Pick<POST_ROW["Row"], "published_at" | "approved_by" | "view_count">>;
 
     type POST_DRAFT_TABLE = Pick<TABLES["Tables"], "post_drafts">;
 
