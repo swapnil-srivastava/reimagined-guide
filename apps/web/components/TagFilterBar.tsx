@@ -83,7 +83,7 @@ export default function TagFilterBar({
   return (
     <div className="font-poppins w-full max-w-5xl flex flex-col gap-2">
       <div className="flex items-baseline justify-between gap-3 px-1">
-        <p className="text-sm font-medium text-[var(--text-muted)]" aria-hidden="true">
+        <p className="text-sm font-medium text-[color-mix(in_srgb,var(--text-primary)_80%,transparent)]" aria-hidden="true">
           <FormattedMessage
             id="tag-filter-heading"
             description="Short heading above the topic chips"
@@ -91,7 +91,7 @@ export default function TagFilterBar({
           />
         </p>
         {selected.length > 1 && (
-          <p className="text-xs text-[var(--text-muted)]">
+          <p className="text-xs text-[color-mix(in_srgb,var(--text-primary)_80%,transparent)]">
             <FormattedMessage
               id="tag-filter-match-all-hint"
               description="Explains that selecting several topics shows articles having all of them"

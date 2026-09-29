@@ -145,7 +145,7 @@ function UserProfilePage({ userProfile, posts }) {
                     <FormattedMessage
                       id="user-profile-no-posts-for-tags"
                       description="Shown when none of the author's articles has all of the selected topics"
-                      defaultMessage="No articles by this author have all of these topics."
+                      defaultMessage="No articles by this author cover all of these topics. Remove a topic or show all articles."
                     />
                   </p>
                   <button

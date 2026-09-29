@@ -45,10 +45,17 @@ export default function TagInput({
     const next = [...value];
     let invalid = false;
     let overLimit = false;
+    // Checked per tag: a pasted list is longer than any single tag
+    let tooLong = false;
 
     for (const raw of raws) {
       const typed = cleanTagName(raw);
       if (!typed) continue;
+
+      if (typed.length > MAX_TAG_LENGTH) {
+        tooLong = true;
+        continue;
+      }
 
       const slug = tagSlug(typed);
       if (!slug) {
@@ -79,14 +86,24 @@ export default function TagInput({
         )
       );
     }
-    setText("");
+    // Keep a single too-long tag in the field so it can be shortened
+    setText(tooLong && raws.length === 1 ? raws[0] : "");
     setError(
       invalid
         ? intl.formatMessage({
             id: "tag-input-error-no-letters",
             description: "Error when a typed tag has no letters or numbers",
-            defaultMessage: "Tags need at least one letter or number.",
+            defaultMessage: "Use at least one letter or number in each tag.",
           })
+        : tooLong
+          ? intl.formatMessage(
+              {
+                id: "tag-input-error-too-long",
+                description: "Error when a typed tag is longer than allowed",
+                defaultMessage: "Tags can be at most {max} characters. Shorten it and press Enter.",
+              },
+              { max: MAX_TAG_LENGTH }
+            )
         : overLimit
           ? intl.formatMessage(
               {
@@ -172,7 +189,6 @@ export default function TagInput({
           // Stays focusable when full so the hint explaining the limit is still read
           readOnly={full}
           aria-disabled={full || undefined}
-          maxLength={MAX_TAG_LENGTH}
           name="tags"
           autoComplete="off"
           spellCheck={false}
@@ -209,7 +225,7 @@ export default function TagInput({
             }
           }}
           onBlur={() => text.trim() && add(text)}
-          className="font-poppins flex-1 min-w-[10rem] min-h-[2.75rem] px-2 bg-transparent text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none aria-disabled:cursor-not-allowed"
+          className="font-poppins flex-1 min-w-[10rem] min-h-[2.75rem] px-2 bg-transparent text-[var(--text-primary)] placeholder:text-[color-mix(in_srgb,var(--text-primary)_80%,transparent)] focus:outline-none aria-disabled:cursor-not-allowed"
         />
         <datalist id={listId}>
           {suggestions.map((tag) => (
@@ -218,7 +234,7 @@ export default function TagInput({
         </datalist>
       </div>
 
-      <p id={hintId} className="text-sm text-[var(--text-muted)]">
+      <p id={hintId} className="text-sm text-[color-mix(in_srgb,var(--text-primary)_80%,transparent)]">
         {full ? (
           <FormattedMessage
             id="tag-input-full"
@@ -230,7 +246,7 @@ export default function TagInput({
           <FormattedMessage
             id="tag-input-hint"
             description="Hint below the tag field"
-            defaultMessage="Press Enter or type a comma to add a tag. Up to {max} tags; new tags go live when the post is approved."
+            defaultMessage="Press Enter or type a comma to add a tag (up to {max}). Tags go live when your post is approved."
             values={{ max: MAX_TAGS }}
           />
         )}

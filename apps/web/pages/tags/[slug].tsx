@@ -11,36 +11,46 @@ import { supaClient } from "../../supa-client";
 
 // Library
 import type { TAG } from "../../database.types";
-import { POST_WITH_TAGS, fetchPostsByTags } from "../../lib/tags";
+import { POST_WITH_TAGS, fetchPostsByTags, fetchTagCounts } from "../../lib/tags";
 import { SITE_URL } from "../../lib/site";
 
 // e.g. localhost:3000/tags/java
 // Every live post with one tag: a stable, indexable page for the topic.
 // Combining topics happens on the home page (/?tags=java,frontend).
 
-const LIMIT = 100;
+// Cards need each post's full content (word count, excerpt), so keep the
+// serialized page data small
+const LIMIT = 48;
 
-type TagPageProps = { tag: TAG; posts: POST_WITH_TAGS[] };
+type TagPageProps = {
+  tag: TAG;
+  posts: POST_WITH_TAGS[];
+  /** Every live post with the tag; more than `posts` when over the limit */
+  total: number;
+};
 
 export const getServerSideProps: GetServerSideProps<TagPageProps> = async ({ params, res }) => {
   const slug = String(params?.slug ?? "").toLowerCase();
 
-  const { data: tag } = await supaClient
-    .from("tags")
-    .select("slug, name")
-    .eq("slug", slug)
-    .maybeSingle();
+  // Independent queries: the posts only need the slug from the URL
+  const [{ data: tag }, posts, counts] = await Promise.all([
+    supaClient.from("tags").select("slug, name").eq("slug", slug).maybeSingle(),
+    fetchPostsByTags(supaClient, { tags: [slug], limit: LIMIT }),
+    fetchTagCounts(supaClient),
+  ]);
 
-  if (!tag) return { notFound: true };
+  if (!tag || posts.length === 0) return { notFound: true };
 
-  const posts = await fetchPostsByTags(supaClient, { tags: [tag.slug], limit: LIMIT });
-  if (posts.length === 0) return { notFound: true };
+  const total = Math.max(
+    counts.find((count) => count.slug === slug)?.post_count ?? 0,
+    posts.length
+  );
 
   res.setHeader("Cache-Control", "public, s-maxage=300, stale-while-revalidate=3600");
-  return { props: { tag, posts } };
+  return { props: { tag, posts, total } };
 };
 
-export default function TagPage({ tag, posts }: TagPageProps) {
+export default function TagPage({ tag, posts, total }: TagPageProps) {
   const intl = useIntl();
   const title = intl.formatMessage(
     {
@@ -71,12 +81,12 @@ export default function TagPage({ tag, posts }: TagPageProps) {
           <span aria-hidden="true" className="opacity-60">#</span>
           {tag.name}
         </h1>
-        <p className="text-[var(--text-muted)]">
+        <p className="text-[color-mix(in_srgb,var(--text-primary)_80%,transparent)]">
           <FormattedMessage
             id="tag-page-count"
             description="Number of articles on a topic page"
             defaultMessage="{count, plural, one {# article} other {# articles}}"
-            values={{ count: posts.length }}
+            values={{ count: total }}
           />
         </p>
         <Link
@@ -94,6 +104,21 @@ export default function TagPage({ tag, posts }: TagPageProps) {
       <div className="flex flex-wrap gap-5 w-full justify-center">
         <PostList posts={posts} />
       </div>
+
+      {/* The home page filter pages through all of them */}
+      {total > posts.length && (
+        <Link
+          href={{ pathname: "/", query: { tags: tag.slug }, hash: "post-list" }}
+          className="px-5 py-2.5 rounded-lg font-medium bg-[var(--color-primary-deep)] text-[var(--text-on-primary)] hover:brightness-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
+        >
+          <FormattedMessage
+            id="tag-page-see-all"
+            description="Link to every article with the topic when the topic page shows only the newest"
+            defaultMessage="See all {count} articles"
+            values={{ count: total }}
+          />
+        </Link>
+      )}
     </main>
   );
 }

@@ -148,7 +148,7 @@ function PostApprover() {
               <FormattedMessage
                 id="approve-slug-tags-changed"
                 description="Tells the admin that approving also updates the post's tags"
-                defaultMessage="The tags changed. Approving also updates the tags on the live post."
+                defaultMessage="Tags changed since the live version. Approving updates them on the live post."
               />
             </p>
           )}
@@ -184,7 +184,7 @@ function PostApprover() {
                     <FormattedMessage
                       id="approve-slug-no-live-tags"
                       description="Shown when the live post has no tags"
-                      defaultMessage="none"
+                      defaultMessage="no tags"
                     />
                   )}
                 </div>

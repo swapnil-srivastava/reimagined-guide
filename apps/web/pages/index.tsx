@@ -500,7 +500,7 @@ const Home: NextPage<HomeProps> = ({ posts: initialPosts, tags }) => {
                   <FormattedMessage
                     id="home-no-posts-for-tags"
                     description="Shown when no article has all of the selected topics"
-                    defaultMessage="No articles have all of these topics yet."
+                    defaultMessage="No articles cover all of these topics yet. Remove a topic or show all articles."
                   />
                 </p>
                 <button

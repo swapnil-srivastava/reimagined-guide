@@ -47,18 +47,26 @@ export default function TagChip({ tag, size = "sm", count, selected, onToggle, h
       )}
       <span className="truncate" translate="no">{tag.name}</span>
       {count !== undefined && (
-        <span className="tabular-nums font-normal">
-          <span aria-hidden="true">· </span>
-          <span className="sr-only">, </span>
-          {intl.formatMessage(
-            {
-              id: "tag-chip-post-count",
-              description: "Number of articles with a tag, after the tag name",
-              defaultMessage: "{count, plural, one {# article} other {# articles}}",
-            },
-            { count }
-          )}
-        </span>
+        <>
+          {/* A compact badge on screen; the full phrase for screen readers */}
+          <span
+            aria-hidden="true"
+            className="ml-1 min-w-[1.375rem] px-1.5 rounded-full text-xs text-center tabular-nums font-normal bg-[color-mix(in_srgb,currentColor_14%,transparent)]"
+          >
+            {count}
+          </span>
+          <span className="sr-only">
+            {", "}
+            {intl.formatMessage(
+              {
+                id: "tag-chip-post-count",
+                description: "Number of articles with a tag, after the tag name",
+                defaultMessage: "{count, plural, one {# article} other {# articles}}",
+              },
+              { count }
+            )}
+          </span>
+        </>
       )}
     </>
   );
