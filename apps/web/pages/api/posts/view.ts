@@ -8,21 +8,27 @@ import { isUuid } from "../../../lib/server/posts";
 const BOT_UA =
   /bot|crawl|spider|slurp|preview|fetch|facebookexternalhit|embedly|headless|lighthouse|pingdom|monitor|curl|wget|python|java\/|axios|node-fetch/i;
 
+// Vercel sets x-real-ip / x-forwarded-for itself, overwriting any value the
+// client sends, so they can't be used to fake new readers
 function clientIp(req: NextApiRequest): string {
+  const realIp = req.headers["x-real-ip"];
+  if (typeof realIp === "string" && realIp.trim()) return realIp.trim();
   const forwarded = req.headers["x-forwarded-for"];
   const first = (Array.isArray(forwarded) ? forwarded[0] : forwarded)?.split(",")[0];
   return (first || req.socket.remoteAddress || "").trim();
 }
 
 /**
- * Anonymous id for "this reader, today": a keyed hash of IP and user agent
- * with the date in the key, so it can't be reversed or linked across days.
+ * Anonymous id for "this reader, today": a keyed hash of the IP address with
+ * the date in the key, so it can't be reversed or linked across days.
+ * The user agent is left out on purpose: it's set by the client, so a script
+ * could send a new one with every request and count as a new reader.
  * Nothing is stored in the browser.
  */
 function visitorHash(req: NextApiRequest, secret: string): string {
   const day = new Date().toISOString().slice(0, 10);
   return createHmac("sha256", `${secret}:post-views:${day}`)
-    .update(`${clientIp(req)}|${req.headers["user-agent"] ?? ""}`)
+    .update(clientIp(req))
     .digest("hex");
 }
 
@@ -47,7 +53,7 @@ export default async function handler(
 
   const userAgent = req.headers["user-agent"] ?? "";
   const secret = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!supaServerClient || !secret || !userAgent || BOT_UA.test(userAgent)) {
+  if (!supaServerClient || !secret || !userAgent || BOT_UA.test(userAgent) || !clientIp(req)) {
     return res.status(200).json({ views: null });
   }
 

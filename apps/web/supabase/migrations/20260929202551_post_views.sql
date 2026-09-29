@@ -1,8 +1,8 @@
 -- Migration: Post views
 -- Description: View counts and "popular this month" for blog posts.
 --   * A view counts once per reader, per post, per day. The API route
---     (/api/posts/view) sends an anonymous visitor hash (IP + user agent +
---     a daily salt, hashed server side); no raw IP or cookie is stored.
+--     (/api/posts/view) sends an anonymous visitor hash (IP + a daily
+--     salt, hashed server side); no raw IP or cookie is stored.
 --   * `posts.view_count` is the all-time total, raised only when a new
 --     (post, visitor, day) row is recorded.
 --   * `post_views` keeps 90 days of rows for "popular this month".

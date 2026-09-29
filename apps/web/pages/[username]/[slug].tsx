@@ -98,7 +98,14 @@ function Post(props: { post: POST_WITH_TAGS; relatedPosts: POST_WITH_TAGS[] }) {
     );
 
     const freshPost = data ? withSortedTags(data as unknown as POST_WITH_TAGS) : null;
-    if (freshPost) setPost(freshPost);
+    // Keep the higher count: this read can finish before or after this
+    // visit's view is recorded
+    if (freshPost) {
+      setPost((current) => ({
+        ...freshPost,
+        view_count: Math.max(freshPost.view_count ?? 0, current.view_count ?? 0),
+      }));
+    }
 
     const audio = (freshPost ?? props.post)?.audio;
     if (!audio) return;

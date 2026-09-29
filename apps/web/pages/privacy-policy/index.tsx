@@ -167,7 +167,7 @@ const PrivacyPolicy: NextPage = () => {
           <p className="dark:text-blog-white">
             <FormattedMessage
               id="privacy.article_views_body"
-              defaultMessage="When you open an article, we count one view per reader per day. To tell readers apart without cookies, the server combines your IP address and browser type with a key that changes every day and stores only the resulting one-way hash. Your IP address is never stored, the hash can't be linked to you or across days, and view records are deleted after 90 days."
+              defaultMessage="When you open an article, we count one view per reader per day. To tell readers apart without cookies, the server combines your IP address with a key that changes every day and stores only the resulting one-way hash. Your IP address is never stored, the hash can't be linked to you or across days, and view records are deleted after 90 days."
             />
           </p>
         </section>
