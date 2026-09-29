@@ -10,11 +10,12 @@ import {
   faFacebook,
   faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
-import { faEllipsis, faHeart, faPenToSquare, faThumbsUp, faRotateLeft } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faPenToSquare, faThumbsUp, faRotateLeft } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as faHeartOutline } from "@fortawesome/free-regular-svg-icons";
 import toast from "react-hot-toast";
 
 // React Components
-import HeartButton from "./HeartButton";
+import HeartButton, { HeartCount, heartPillClass } from "./HeartButton";
 import BasicTooltip from "./Tooltip";
 import Video from "./Video";
 import AudioPlayer from "./AudioPlayer";
@@ -209,6 +210,40 @@ export default function PostContent({
             </div>
           </div>
 
+          {/* Review actions - Swapnil only, for posts waiting for approval */}
+          {canReview && (
+            <div className="mt-4 flex flex-wrap gap-2">
+              <button
+                onClick={() => review("approve")}
+                disabled={reviewing}
+                className="inline-flex items-center gap-2 px-3 py-2 bg-green-100 hover:bg-green-200 text-green-700 rounded-lg transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 disabled:opacity-50"
+              >
+                <FontAwesomeIcon icon={faThumbsUp} className="h-4 w-4" />
+                <span className="text-sm font-medium">
+                  <FormattedMessage
+                    id="postcontent-approve-button"
+                    description="Approve"
+                    defaultMessage="Approve"
+                  />
+                </span>
+              </button>
+              <button
+                onClick={() => review("request_changes")}
+                disabled={reviewing}
+                className="inline-flex items-center gap-2 px-3 py-2 bg-red-50 hover:bg-red-100 text-red-700 rounded-lg transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 disabled:opacity-50"
+              >
+                <FontAwesomeIcon icon={faRotateLeft} className="h-4 w-4" />
+                <span className="text-sm font-medium">
+                  <FormattedMessage
+                    id="postcontent-request-changes-button"
+                    description="Button to send a post back to its author"
+                    defaultMessage="Request changes"
+                  />
+                </span>
+              </button>
+            </div>
+          )}
+
           {draft.status === "changes_requested" && draft.review_note && (
             <p className="mt-3 text-sm text-red-700 dark:text-red-300">
               {draft.review_note}
@@ -217,213 +252,186 @@ export default function PostContent({
         </div>
       )}
 
-      {/* User Image and Sharing Button SECTION */}
-      <div className="bg-gradient-to-r from-blog-white to-gray-50 dark:from-fun-blue-500 dark:to-fun-blue-600 rounded-lg p-4 border border-gray-100 dark:border-fun-blue-400">
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
-          
-          {/* Author Profile Card */}
-          <div className="flex items-center gap-4 group relative">
-            
-            {/* USER IMAGE with enhanced styling */}
-            <Link href={`/${post?.username}`} legacyBehavior>
-              <div className="relative cursor-pointer">
-                {post?.photo_url && post?.photo_url ? (
-                  <div className="w-14 h-14 rounded-full overflow-hidden ring-2 ring-fun-blue-200 dark:ring-caribbean-green-300 ring-offset-2 transition-all duration-300 group-hover:ring-fun-blue-400 dark:group-hover:ring-caribbean-green-400 group-hover:scale-105">
-                    <Image
-                      width={200}
-                      height={200}
-                      src={post?.photo_url}
-                      alt={`${post?.username} profile`}
-                      className="object-cover w-full h-full"
-                    />
-                  </div>
-                ) : (
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-fun-blue-400 to-caribbean-green-400 flex items-center justify-center text-white font-bold text-lg ring-2 ring-fun-blue-200 ring-offset-2">
-                    {post?.username?.charAt(0).toUpperCase()}
-                  </div>
-                )}
-                {/* Online indicator */}
-                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-caribbean-green-500 rounded-full border-2 border-white dark:border-fun-blue-500"></div>
+      {/* Byline: author, post facts and the reader's actions. Colours come
+          from the theme variables (.byline-* in globals.css): the theme class
+          is `theme-<color>-<mode>`, never `dark`, so `dark:` utilities don't apply. */}
+      <header className="flex flex-col gap-4 pb-4 mb-2 border-b byline-rule lg:flex-row lg:items-center lg:justify-between">
+
+        {/* Author */}
+        <div className="flex items-center gap-3 min-w-0">
+          <Link
+            href={`/${post?.username}`}
+            className="byline-focus shrink-0 rounded-full"
+            aria-label={post?.username}
+          >
+            {post?.photo_url ? (
+              <div className="w-12 h-12 rounded-full overflow-hidden ring-2 ring-fun-blue-200 ring-offset-2 ring-offset-blog-white">
+                <Image
+                  width={96}
+                  height={96}
+                  src={post?.photo_url}
+                  alt=""
+                  className="object-cover w-full h-full"
+                />
               </div>
+            ) : (
+              <div className="w-12 h-12 rounded-full bg-fun-blue-400 flex items-center justify-center text-white font-bold text-lg ring-2 ring-fun-blue-200 ring-offset-2 ring-offset-blog-white">
+                {post?.username?.charAt(0).toUpperCase()}
+              </div>
+            )}
+          </Link>
+
+          <div className="flex flex-col min-w-0">
+            <Link
+              href={`/${post?.username}`}
+              className="byline-focus self-start max-w-full truncate rounded font-semibold text-base sm:text-lg leading-tight text-blog-black hover:underline underline-offset-4 decoration-2 decoration-hit-pink-500"
+            >
+              {post?.username}
             </Link>
 
-            {/* Author Info Card */}
-            <div className="flex flex-col">
-              <Link href={`/${post?.username}`} className="group">
-                <h3 className="font-semibold text-lg text-gray-900 dark:text-white group-hover:text-fun-blue-600 dark:group-hover:text-caribbean-green-300 transition-colors duration-200">
-                  {post?.username}
-                </h3>
-              </Link>
-              
-              {/* Post Metadata with enhanced styling */}
-              <div className="flex flex-wrap items-center gap-3 text-sm text-gray-600 dark:text-gray-300 mt-1">
-                <span className="flex items-center gap-1">
-                  <div className="w-1.5 h-1.5 rounded-full bg-fun-blue-400"></div>
-                  {dateFormat}
-                </span>
-                <span className="hidden sm:flex items-center gap-1">
-                  <div className="w-1.5 h-1.5 rounded-full bg-caribbean-green-400"></div>
-                  {minutesToRead} <FormattedMessage
-                    id="postcontent-min-read"
-                    description="min read"
-                    defaultMessage="min read"
-                  />
-                </span>
-                <span className="flex items-center gap-1">
-                  <div className="w-1.5 h-1.5 rounded-full bg-hit-pink-400"></div>
-                  {wordCount} <FormattedMessage
-                    id="postcontent-words"
-                    description="words"
-                    defaultMessage="words"
-                  />
-                </span>
-                {(post?.view_count ?? 0) > 0 && (
-                  <span className="flex items-center gap-1">
-                    <div className="w-1.5 h-1.5 rounded-full bg-fun-blue-400"></div>
-                    <ViewCount count={post?.view_count} />
-                  </span>
-                )}
-              </div>
-            </div>
-          </div>
-
-
-          {/* Action Buttons Row */}
-          <div className="flex items-center gap-3 flex-wrap">
-            
-            {/* Edit Button - Enhanced */}
-            {isAuthor && (
-              <Link href={`/admin/${post?.slug}`} legacyBehavior>
-                <button className="inline-flex items-center gap-2 px-3 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-fun-blue-600 dark:hover:bg-fun-blue-700 text-slate-700 dark:text-white rounded-lg transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2">
-                  <FontAwesomeIcon icon={faPenToSquare} className="h-4 w-4" />
-                  <span className="text-sm font-medium">Edit</span>
-                </button>
-              </Link>
-            )}
-
-            {/* Review Buttons - Swapnil only, for posts waiting for approval */}
-            {canReview && (
-              <>
-                <button
-                  onClick={() => review("approve")}
-                  disabled={reviewing}
-                  className="inline-flex items-center gap-2 px-3 py-2 bg-green-100 hover:bg-green-200 dark:bg-green-600 dark:hover:bg-green-700 text-green-700 dark:text-white rounded-lg transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 disabled:opacity-50"
-                >
-                  <FontAwesomeIcon icon={faThumbsUp} className="h-4 w-4" />
-                  <span className="text-sm font-medium">
-                    <FormattedMessage
-                      id="postcontent-approve-button"
-                      description="Approve"
-                      defaultMessage="Approve"
-                    />
-                  </span>
-                </button>
-                <button
-                  onClick={() => review("request_changes")}
-                  disabled={reviewing}
-                  className="inline-flex items-center gap-2 px-3 py-2 bg-red-50 hover:bg-red-100 dark:bg-red-700 dark:hover:bg-red-800 text-red-700 dark:text-white rounded-lg transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 disabled:opacity-50"
-                >
-                  <FontAwesomeIcon icon={faRotateLeft} className="h-4 w-4" />
-                  <span className="text-sm font-medium">
-                    <FormattedMessage
-                      id="postcontent-request-changes-button"
-                      description="Button to send a post back to its author"
-                      defaultMessage="Request changes"
-                    />
-                  </span>
-                </button>
-              </>
-            )}
-
-            {/* Heart/Sign Up Section - liking needs a signed-in (non-guest) account */}
-            <div className="flex items-center">
-              {canReact ? (
-                <HeartButton post={post} userId={profile.id} onCountChange={setHeartCount}/>
-              ) : (
-                <Link href="/enter" legacyBehavior>
-                  <button className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-hit-pink-500 to-hit-pink-600 hover:from-hit-pink-600 hover:to-hit-pink-700 text-white rounded-lg transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-hit-pink-400 focus:ring-offset-2 shadow-sm">
-                    <FontAwesomeIcon icon={faHeart} className="h-4 w-4" />
-                    <span className="text-sm font-medium">
-                      <FormattedMessage 
-                        id="post-content-auth-check-signup"
-                        description="text on heart button when not signed in"
-                        defaultMessage="Sign up" 
-                      />
-                    </span>
-                  </button>
-                </Link>
-              )}
-            </div>
-
-            {/* Social Sharing with enhanced design */}
-            <div className="flex items-center gap-2 pl-2 border-l border-gray-200 dark:border-fun-blue-400">
-              <span className="text-xs text-gray-500 dark:text-gray-400 font-medium hidden sm:block">
-                <FormattedMessage
-                  id="postcontent-share-label"
-                  description="Share:"
-                  defaultMessage="Share:"
+            <p className="byline-muted flex flex-wrap items-center gap-x-2 gap-y-0.5 text-sm mt-1">
+              <span>{dateFormat}</span>
+              <span className="byline-dot inline-block" aria-hidden="true" />
+              <span className="whitespace-nowrap">
+                {minutesToRead} <FormattedMessage
+                  id="postcontent-min-read"
+                  description="min read"
+                  defaultMessage="min read"
                 />
               </span>
-              
-              {/* LinkedIn */}
-              <BasicTooltip title={intl.formatMessage({
-                id: "postcontent-share-linkedin",
-                description: "Share on LinkedIn",
-                defaultMessage: "Share on LinkedIn"
-              })} placement="bottom">
-                <a
-                  href={`https://www.linkedin.com/sharing/share-offsite/?url=https://www.swapnilsrivastava.eu/${post?.username}/${post?.slug}`}
-                  className="w-9 h-9 flex items-center justify-center rounded-lg bg-blue-50 hover:bg-blue-100 dark:bg-blue-900/30 dark:hover:bg-blue-800/40 transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
-                >
-                  <FontAwesomeIcon icon={faLinkedin} className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                </a>
-              </BasicTooltip>
-
-              {/* Twitter */}
-              <BasicTooltip title={intl.formatMessage({
-                id: "postcontent-share-twitter",
-                description: "Share on Twitter",
-                defaultMessage: "Share on Twitter"
-              })} placement="bottom">
-                <a
-                  href={`https://twitter.com/intent/tweet?text=Hi%2C%20checkout%20this%20post%20&url=https://www.swapnilsrivastava.eu/${post?.username}/${post?.slug}&via=swapnil_sri&hashtags=reactjs,nextjs,blog`}
-                  className="w-9 h-9 flex items-center justify-center rounded-lg bg-sky-50 hover:bg-sky-100 dark:bg-sky-900/30 dark:hover:bg-sky-800/40 transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2"
-                >
-                  <FontAwesomeIcon icon={faXTwitter} className="h-4 w-4 text-sky-600 dark:text-sky-400" />
-                </a>
-              </BasicTooltip>
-
-              {/* Facebook */}
-              <BasicTooltip title={intl.formatMessage({
-                id: "postcontent-share-facebook",
-                description: "Share on Facebook",
-                defaultMessage: "Share on Facebook"
-              })} placement="bottom">
-                <a
-                  href={`https://facebook.com/sharer/sharer.php?u=https://www.swapnilsrivastava.eu/${post?.username}/${post?.slug}`}
-                  className="w-9 h-9 flex items-center justify-center rounded-lg bg-blue-50 hover:bg-blue-100 dark:bg-blue-900/30 dark:hover:bg-blue-800/40 transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
-                >
-                  <FontAwesomeIcon icon={faFacebook} className="h-4 w-4 text-blue-700 dark:text-blue-400" />
-                </a>
-              </BasicTooltip>
-
-              {/* Ellipsis Button */}
-              {/* <BasicTooltip title="More options" placement="bottom">
-                <button
-                  className="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-50 hover:bg-gray-100 dark:bg-fun-blue-900/30 dark:hover:bg-fun-blue-800/40 transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
-                  onClick={() => alert(intl.formatMessage({
-                    id: "postcontent-work-in-progress-alert",
-                    description: "work in progress: more share options",
-                    defaultMessage: "work in progress: more share options"
-                  }))}
-                >
-                  <FontAwesomeIcon icon={faEllipsis} className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-                </button>
-              </BasicTooltip> */}
-            </div>
+              <span className="byline-dot hidden sm:inline-block" aria-hidden="true" />
+              <span className="hidden sm:inline whitespace-nowrap">
+                {wordCount} <FormattedMessage
+                  id="postcontent-words"
+                  description="words"
+                  defaultMessage="words"
+                />
+              </span>
+              {(post?.view_count ?? 0) > 0 && (
+                <>
+                  <span className="byline-dot inline-block" aria-hidden="true" />
+                  <span className="whitespace-nowrap">
+                    <ViewCount count={post?.view_count} />
+                  </span>
+                </>
+              )}
+            </p>
           </div>
         </div>
-      </div>
+
+        {/* Actions - one capsule at every width: heart and edit on the
+            left, sharing on the right */}
+        <div className="byline-track flex flex-nowrap items-center justify-between gap-2 rounded-full p-1 lg:gap-6">
+          <div className="flex items-center gap-1.5 min-w-0">
+            {/* Liking needs a signed-in (non-guest) account */}
+            {canReact ? (
+              <HeartButton
+                post={post}
+                userId={profile.id}
+                count={heartCount}
+                onCountChange={setHeartCount}
+              />
+            ) : (
+              <BasicTooltip title={intl.formatMessage({
+                id: "postcontent-heart-signin",
+                description: "Tooltip on the heart button for readers who are not signed in",
+                defaultMessage: "Sign in to heart this post"
+              })} placement="bottom">
+                <Link href="/enter" className={heartPillClass()}>
+                  <FontAwesomeIcon icon={faHeartOutline} className="h-4 w-4 text-hit-pink-600" />
+                  <span className="sr-only">
+                    <FormattedMessage
+                      id="heart-button-heart"
+                      description="text on heart button to heart"
+                      defaultMessage="Heart"
+                    />
+                  </span>
+                  <HeartCount count={heartCount} />
+                </Link>
+              </BasicTooltip>
+            )}
+
+            {isAuthor && (
+              <BasicTooltip title={intl.formatMessage({
+                id: "postcontent-edit-post",
+                description: "Accessible name of the edit button on a post",
+                defaultMessage: "Edit post"
+              })} placement="bottom">
+                <Link
+                  href={`/admin/${post?.slug}`}
+                  className="byline-ring byline-focus w-10 h-10 shrink-0 flex items-center justify-center rounded-full"
+                  aria-label={intl.formatMessage({
+                    id: "postcontent-edit-post",
+                    description: "Accessible name of the edit button on a post",
+                    defaultMessage: "Edit post"
+                  })}
+                >
+                  <FontAwesomeIcon icon={faPenToSquare} className="h-4 w-4" />
+                </Link>
+              </BasicTooltip>
+            )}
+          </div>
+
+          <div
+            className="flex shrink-0 items-center gap-1.5"
+            role="group"
+            aria-label={intl.formatMessage({
+              id: "postcontent-share-group",
+              description: "Accessible name of the share buttons",
+              defaultMessage: "Share this post"
+            })}
+          >
+            <span className="byline-muted byline-action text-xs font-medium mr-1 hidden sm:inline" aria-hidden="true">
+              <FormattedMessage
+                id="postcontent-share-label"
+                description="Share:"
+                defaultMessage="Share:"
+              />
+            </span>
+            {[
+              {
+                icon: faLinkedin,
+                href: `https://www.linkedin.com/sharing/share-offsite/?url=https://www.swapnilsrivastava.eu/${post?.username}/${post?.slug}`,
+                label: intl.formatMessage({
+                  id: "postcontent-share-linkedin",
+                  description: "Share on LinkedIn",
+                  defaultMessage: "Share on LinkedIn"
+                }),
+              },
+              {
+                icon: faXTwitter,
+                href: `https://twitter.com/intent/tweet?text=Hi%2C%20checkout%20this%20post%20&url=https://www.swapnilsrivastava.eu/${post?.username}/${post?.slug}&via=swapnil_sri&hashtags=reactjs,nextjs,blog`,
+                label: intl.formatMessage({
+                  id: "postcontent-share-twitter",
+                  description: "Share on Twitter",
+                  defaultMessage: "Share on Twitter"
+                }),
+              },
+              {
+                icon: faFacebook,
+                href: `https://facebook.com/sharer/sharer.php?u=https://www.swapnilsrivastava.eu/${post?.username}/${post?.slug}`,
+                label: intl.formatMessage({
+                  id: "postcontent-share-facebook",
+                  description: "Share on Facebook",
+                  defaultMessage: "Share on Facebook"
+                }),
+              },
+            ].map(({ icon, href, label }) => (
+              <BasicTooltip key={label} title={label} placement="bottom">
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="byline-ring byline-focus w-10 h-10 flex items-center justify-center rounded-full"
+                >
+                  <FontAwesomeIcon icon={icon} className="h-4 w-4" />
+                </a>
+              </BasicTooltip>
+            ))}
+          </div>
+        </div>
+      </header>
 
       {/* ARTICLE SECTION */}
       <div className="bg-blog-white dark:bg-fun-blue-500 dark:text-blog-white p-3 flex flex-col gap-5">
@@ -438,31 +446,6 @@ export default function PostContent({
           linkTags={isLive(post) && !approve}
           className="justify-center"
         />
-
-        {/* Mobile Engagement Bar - Mobile Only */}
-        {heartCount > 0 && (
-          <div className="lg:hidden flex items-center justify-center gap-4 py-3">
-            <div className="flex items-center gap-2 bg-gradient-to-r from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 px-4 py-2 rounded-full border border-red-100 dark:border-red-800">
-              <FontAwesomeIcon 
-                icon={faHeart} 
-                className="h-4 w-4 text-red-500" 
-              />
-              <span className="text-sm font-semibold text-red-600 dark:text-red-400">
-                {heartCount}
-              </span>
-            </div>
-            
-            {/* Reading time indicator */}
-            <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-              <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
-              <span>{minutesToRead} <FormattedMessage
-                id="postcontent-min-read-2"
-                description="min read"
-                defaultMessage="min read"
-              /></span>
-            </div>
-          </div>
-        )}
 
         {/* Audio Player // Only show if the URL exists */}
         <div>
