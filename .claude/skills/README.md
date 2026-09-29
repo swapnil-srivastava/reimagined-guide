@@ -15,6 +15,9 @@ repository (web, desktop and CLI). Each skill is a folder with a `SKILL.md`.
 | `user-research` | Plan and run user research: interview guides, usability tests, surveys | Design plugin ¹ |
 | `ux-copy` | Write or review microcopy, error messages, empty states and CTAs | Design plugin ¹ |
 
+| `vercel-react-best-practices` | Vercel's React/Next.js performance rules (70 rules in `rules/`) for writing, reviewing or refactoring components, data fetching and bundles | [`vercel-labs/agent-skills`](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices) (`skills/react-best-practices`), MIT |
+| `web-design-guidelines` | Reviews UI code against Vercel's Web Interface Guidelines, which it fetches fresh on each run | [`vercel-labs/agent-skills`](https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines) |
+
 ¹ Anthropic's Design plugin, [`anthropics/knowledge-work-plugins@da38ec1`](https://github.com/anthropics/knowledge-work-plugins/tree/da38ec1ee89d41e5380e652a97382695003396e7/design), copied verbatim, Apache-2.0 (see `LICENSE-knowledge-work-plugins.txt`). These skills refer to tools as `~~design tool`, `~~project tracker` and so on; `DESIGN-CONNECTORS.md` explains the placeholders. No design-tool connector (Figma etc.) is set up here, so give them a URL, a screenshot or a description instead.
 
 ## Updating
@@ -35,6 +38,14 @@ for s in accessibility-review design-critique design-handoff design-system resea
   cp /tmp/kwp/design/skills/$s/SKILL.md .claude/skills/$s/SKILL.md
 done
 cp /tmp/kwp/design/CONNECTORS.md .claude/skills/DESIGN-CONNECTORS.md
+```
+
+The two Vercel skills were installed with the `skills` CLI (tracked in `skills-lock.json`):
+
+```sh
+npx skills add vercel-labs/agent-skills --skill vercel-react-best-practices --agent claude-code --copy -y
+npx skills add vercel-labs/agent-skills --skill web-design-guidelines --agent claude-code --copy -y
+npx skills update -p   # refresh project skills later
 ```
 
 `caveman` is installed by the `skills` CLI into `.agents/skills` (tracked in
