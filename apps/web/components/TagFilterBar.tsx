@@ -62,14 +62,14 @@ export default function TagFilterBar({
 }) {
   const intl = useIntl();
 
-  // Selected tags first, including ones from a shared link that no post uses
+  // A stable order, so a chip doesn't move while it is being clicked. Tags
+  // from a shared link that no post uses come first, so they can be removed.
   const ordered = useMemo(() => {
-    const bySlug = new Map(tags.map((tag) => [tag.slug, tag]));
-    const chosen = selected.map(
-      (slug) => bySlug.get(slug) ?? { slug, name: slug, post_count: 0 }
-    );
-    const others = tags.filter((tag) => !selected.includes(tag.slug));
-    return [...chosen, ...others];
+    const known = new Set(tags.map((tag) => tag.slug));
+    const unknown = selected
+      .filter((slug) => !known.has(slug))
+      .map((slug) => ({ slug, name: slug, post_count: 0 }));
+    return [...unknown, ...tags];
   }, [tags, selected]);
 
   if (ordered.length === 0) return null;

@@ -173,7 +173,9 @@ export default function TagInput({
           readOnly={full}
           aria-disabled={full || undefined}
           maxLength={MAX_TAG_LENGTH}
+          name="tags"
           autoComplete="off"
+          spellCheck={false}
           enterKeyHint="done"
           aria-describedby={hintId}
           aria-invalid={error ? true : undefined}
@@ -183,7 +185,7 @@ export default function TagInput({
               : intl.formatMessage({
                   id: "tag-input-placeholder",
                   description: "Placeholder of the tag field",
-                  defaultMessage: "e.g. Java, Frontend",
+                  defaultMessage: "e.g. Java, Frontend…",
                 })
           }
           onChange={(event) => {

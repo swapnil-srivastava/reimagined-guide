@@ -479,6 +479,8 @@ const Home: NextPage<HomeProps> = ({ posts: initialPosts, tags }) => {
         {/* Post List */}
         <div
           id="post-list"
+          // Linked from the tag pages; keeps the list clear of the fixed navbar
+          style={{ scrollMarginTop: "6rem" }}
           aria-busy={loading || undefined}
           className={`flex flex-wrap gap-5 flex-1 w-full justify-center transition-opacity ${loading ? "opacity-60" : ""}`}
         >

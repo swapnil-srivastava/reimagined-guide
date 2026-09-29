@@ -67,7 +67,7 @@ export default function TagPage({ tag, posts }: TagPageProps) {
       />
 
       <header className="flex flex-col items-center gap-2 text-center">
-        <h1 className="font-poppins text-3xl sm:text-4xl font-bold">
+        <h1 className="font-poppins text-3xl sm:text-4xl font-bold text-balance">
           <span aria-hidden="true" className="opacity-60">#</span>
           {tag.name}
         </h1>

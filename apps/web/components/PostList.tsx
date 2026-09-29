@@ -55,13 +55,13 @@ const PostList: React.FC<PostListProps> = ({ posts, loading = false, postsEnd = 
                 key={post.slug}
                 className="group flex py-2 lg:py-6 w-full sm:w-72 rounded-2xl"
             >
-                <article className="relative flex flex-col w-full mx-3 lg:mx-0 overflow-hidden rounded-2xl font-poppins bg-[var(--surface-raised)] text-[var(--text-primary)] border border-[var(--border-subtle)] shadow-md transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl">
+                <article className="relative flex flex-col w-full mx-3 lg:mx-0 overflow-hidden rounded-2xl font-poppins bg-[var(--surface-raised)] text-[var(--text-primary)] border border-[var(--border-subtle)] shadow-md transition-[transform,box-shadow] duration-300 group-hover:-translate-y-1 group-hover:shadow-xl motion-reduce:transition-none motion-reduce:group-hover:translate-y-0">
                     {/* Cover: grows to fill the card's height on desktop */}
                     <div className="relative flex-1 min-h-[9rem] overflow-hidden bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-deeper)]">
                         <div aria-hidden="true" className="absolute inset-0 opacity-20 bg-[radial-gradient(white_1px,transparent_1px)] [background-size:18px_18px]" />
                         <span
                             aria-hidden="true"
-                            className="absolute -bottom-8 -right-1 text-[10rem] leading-none font-bold text-white/15 select-none transition-transform duration-500 group-hover:scale-110"
+                            className="absolute -bottom-8 -right-1 text-[10rem] leading-none font-bold text-white/15 select-none transition-transform duration-500 group-hover:scale-110 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                         >
                             {initial}
                         </span>
@@ -132,7 +132,7 @@ const PostList: React.FC<PostListProps> = ({ posts, loading = false, postsEnd = 
                                     description="Read more" // Description should be a string literal
                                     defaultMessage="Read more" // Message should be a string literal
                                 />
-                                <span className="w-7 h-7 rounded-full flex items-center justify-center text-[var(--text-on-primary)] bg-[var(--color-primary-deep)] transition-transform duration-300 group-hover:translate-x-1">
+                                <span className="w-7 h-7 rounded-full flex items-center justify-center text-[var(--text-on-primary)] bg-[var(--color-primary-deep)] transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0">
                                     <FontAwesomeIcon icon={faArrowRight} className="text-xs" />
                                 </span>
                             </span>

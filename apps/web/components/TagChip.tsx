@@ -6,7 +6,7 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import type { TAG } from "../database.types";
 
 const BASE =
-  "font-poppins relative z-10 inline-flex items-center gap-1 max-w-full rounded-full border font-medium whitespace-nowrap transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2";
+  "font-poppins touch-manipulation relative z-10 inline-flex items-center gap-1 max-w-full rounded-full border font-medium whitespace-nowrap transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2";
 
 // Small chips stay compact but get a 44px tall hit area
 const SIZES = {
@@ -45,7 +45,7 @@ export default function TagChip({ tag, size = "sm", count, selected, onToggle, h
       ) : (
         <span aria-hidden="true">#</span>
       )}
-      <span className="truncate">{tag.name}</span>
+      <span className="truncate" translate="no">{tag.name}</span>
       {count !== undefined && (
         <span className="tabular-nums font-normal">
           <span aria-hidden="true">· </span>
