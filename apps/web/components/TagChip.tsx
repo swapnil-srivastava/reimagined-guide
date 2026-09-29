@@ -1,20 +1,24 @@
 import Link from "next/link";
 import { useIntl } from "react-intl";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 import type { TAG } from "../database.types";
 
 const BASE =
   "font-poppins relative z-10 inline-flex items-center gap-1 max-w-full rounded-full border font-medium whitespace-nowrap transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2";
 
+// Small chips stay compact but get a 44px tall hit area
 const SIZES = {
-  sm: "min-h-[1.75rem] px-2.5 text-xs",
-  md: "min-h-[2.25rem] px-3.5 text-sm",
+  sm: "min-h-[1.75rem] px-2.5 text-xs after:absolute after:inset-x-0 after:-inset-y-2 after:content-['']",
+  md: "min-h-[2.75rem] px-4 text-sm",
 };
 
 const UNSELECTED =
   "border-[var(--border-subtle)] bg-[var(--surface-inset)] text-[var(--text-primary)] hover:border-[var(--color-primary)]";
+// Selected chips differ by fill, a strong border and a check mark, not color alone
 const SELECTED =
-  "border-transparent bg-[var(--color-primary-deep)] text-[var(--text-on-primary)] hover:brightness-110";
+  "border-[var(--text-primary)] bg-[var(--color-primary-deep)] text-[var(--text-on-primary)] hover:brightness-110";
 
 type TagChipProps = {
   tag: TAG;
@@ -36,10 +40,14 @@ export default function TagChip({ tag, size = "sm", count, selected, onToggle, h
 
   const label = (
     <>
-      <span aria-hidden="true" className="opacity-60">#</span>
+      {selected ? (
+        <FontAwesomeIcon icon={faCheck} aria-hidden="true" className="h-3 w-3" />
+      ) : (
+        <span aria-hidden="true">#</span>
+      )}
       <span className="truncate">{tag.name}</span>
       {count !== undefined && (
-        <span className="tabular-nums opacity-70">
+        <span className="tabular-nums font-normal">
           <span aria-hidden="true">· </span>
           <span className="sr-only">, </span>
           {intl.formatMessage(

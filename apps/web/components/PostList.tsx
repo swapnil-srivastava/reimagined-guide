@@ -34,6 +34,9 @@ function generateExcerpt(markdown?: string | null) {
         .trim();
 }
 
+// Secondary text on the cards uses 85% of the text color: the site-wide
+// --text-muted (65%) is below 4.5:1 on the dark themes' card color.
+
 // Post list to be used only with homepage
 const PostList: React.FC<PostListProps> = ({ posts, loading = false, postsEnd = false, enableLoadMore = false, selectedTags = [], onTagToggle }) => {
 
@@ -75,7 +78,7 @@ const PostList: React.FC<PostListProps> = ({ posts, loading = false, postsEnd = 
                     {/* Body */}
                     <div className="flex flex-col gap-3 p-5">
                         {/* Published date */}
-                        <p className="flex gap-1 text-xs uppercase tracking-wider text-[var(--text-muted)]">
+                        <p className="flex gap-1 text-xs uppercase tracking-wider text-[color-mix(in_srgb,var(--text-primary)_85%,transparent)]">
                             <FormattedMessage
                                 id="post-list-published"
                                 description="Published" // Description should be a string literal
@@ -103,7 +106,7 @@ const PostList: React.FC<PostListProps> = ({ posts, loading = false, postsEnd = 
 
                         {/* Excerpt */}
                         {excerpt && (
-                            <p className="text-sm leading-relaxed text-[var(--text-muted)] line-clamp-3">
+                            <p className="text-sm leading-relaxed text-[color-mix(in_srgb,var(--text-primary)_85%,transparent)] line-clamp-3">
                                 {excerpt}
                             </p>
                         )}

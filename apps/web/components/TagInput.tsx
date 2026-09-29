@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -25,6 +25,9 @@ export default function TagInput({
   const hintId = useId();
   const [text, setText] = useState("");
   const [error, setError] = useState("");
+  // Screen reader confirmation after adding or removing a tag
+  const [announcement, setAnnouncement] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
   const [known, setKnown] = useState<TAG[]>([]);
 
   useEffect(() => {
@@ -41,6 +44,7 @@ export default function TagInput({
   const add = (...raws: string[]) => {
     const next = [...value];
     let invalid = false;
+    let overLimit = false;
 
     for (const raw of raws) {
       const typed = cleanTagName(raw);
@@ -51,14 +55,30 @@ export default function TagInput({
         invalid = true;
         continue;
       }
-      if (next.length >= MAX_TAGS || next.some((name) => tagSlug(name) === slug)) continue;
+      if (next.some((name) => tagSlug(name) === slug)) continue;
+      if (next.length >= MAX_TAGS) {
+        overLimit = true;
+        continue;
+      }
 
       // Reuse the spelling of an existing tag ("java" becomes "Java")
       const existing = known.find((tag) => tag.slug === slug);
       next.push(existing ? existing.name : typed);
     }
 
-    if (next.length !== value.length) onChange(next);
+    if (next.length !== value.length) {
+      onChange(next);
+      setAnnouncement(
+        intl.formatMessage(
+          {
+            id: "tag-input-added",
+            description: "Screen reader confirmation after tags are added",
+            defaultMessage: "Added {names}",
+          },
+          { names: next.slice(value.length).join(", ") }
+        )
+      );
+    }
     setText("");
     setError(
       invalid
@@ -67,13 +87,34 @@ export default function TagInput({
             description: "Error when a typed tag has no letters or numbers",
             defaultMessage: "Tags need at least one letter or number.",
           })
-        : ""
+        : overLimit
+          ? intl.formatMessage(
+              {
+                id: "tag-input-error-too-many",
+                description: "Error when the author types more tags than allowed",
+                defaultMessage: "Only {max} tags fit. Remove one to add another.",
+              },
+              { max: MAX_TAGS }
+            )
+          : ""
     );
   };
 
   const remove = (name: string) => {
     onChange(value.filter((n) => n !== name));
     setError("");
+    setAnnouncement(
+      intl.formatMessage(
+        {
+          id: "tag-input-removed",
+          description: "Screen reader confirmation after a tag is removed",
+          defaultMessage: "Removed {name}",
+        },
+        { name }
+      )
+    );
+    // The remove button disappears; keep keyboard focus in the field
+    inputRef.current?.focus();
   };
 
   const suggestions = known.filter(
@@ -113,7 +154,7 @@ export default function TagInput({
                     },
                     { name }
                   )}
-                  className="w-7 h-7 rounded-full flex items-center justify-center hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                  className="relative w-7 h-7 rounded-full flex items-center justify-center after:absolute after:-inset-2 after:content-[''] hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
                 >
                   <FontAwesomeIcon icon={faXmark} className="h-3.5 w-3.5" />
                 </button>
@@ -123,11 +164,14 @@ export default function TagInput({
         )}
 
         <input
+          ref={inputRef}
           id={inputId}
           type="text"
           list={listId}
           value={text}
-          disabled={full}
+          // Stays focusable when full so the hint explaining the limit is still read
+          readOnly={full}
+          aria-disabled={full || undefined}
           maxLength={MAX_TAG_LENGTH}
           autoComplete="off"
           enterKeyHint="done"
@@ -163,7 +207,7 @@ export default function TagInput({
             }
           }}
           onBlur={() => text.trim() && add(text)}
-          className="font-poppins flex-1 min-w-[10rem] min-h-[2rem] px-2 bg-transparent text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none disabled:cursor-not-allowed"
+          className="font-poppins flex-1 min-w-[10rem] min-h-[2.75rem] px-2 bg-transparent text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none aria-disabled:cursor-not-allowed"
         />
         <datalist id={listId}>
           {suggestions.map((tag) => (
@@ -188,6 +232,9 @@ export default function TagInput({
             values={{ max: MAX_TAGS }}
           />
         )}
+      </p>
+      <p role="status" className="sr-only">
+        {announcement}
       </p>
       {error && (
         <p role="alert" className="text-sm text-red-700 dark:text-red-300">
