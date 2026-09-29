@@ -81,7 +81,7 @@ export default function TagInput({
   );
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="font-poppins flex flex-col gap-2">
       <label htmlFor={inputId} className="font-medium">
         <FormattedMessage
           id="tag-input-label"
@@ -163,7 +163,7 @@ export default function TagInput({
             }
           }}
           onBlur={() => text.trim() && add(text)}
-          className="flex-1 min-w-[10rem] min-h-[2rem] px-2 bg-transparent text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none disabled:cursor-not-allowed"
+          className="font-poppins flex-1 min-w-[10rem] min-h-[2rem] px-2 bg-transparent text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none disabled:cursor-not-allowed"
         />
         <datalist id={listId}>
           {suggestions.map((tag) => (

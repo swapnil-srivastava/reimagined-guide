@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import type { TAG } from "../database.types";
 
 const BASE =
-  "relative z-10 inline-flex items-center gap-1 max-w-full rounded-full border font-medium whitespace-nowrap transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2";
+  "font-poppins relative z-10 inline-flex items-center gap-1 max-w-full rounded-full border font-medium whitespace-nowrap transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2";
 
 const SIZES = {
   sm: "min-h-[1.75rem] px-2.5 text-xs",
@@ -100,7 +100,7 @@ export function TagList({
 
   return (
     <ul
-      className={`flex flex-wrap gap-1.5 ${className}`}
+      className={`font-poppins flex flex-wrap gap-1.5 ${className}`}
       aria-label={intl.formatMessage({
         id: "tag-list-label",
         description: "Accessible name of the list of tags on a post",

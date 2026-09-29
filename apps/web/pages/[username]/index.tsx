@@ -140,7 +140,7 @@ function UserProfilePage({ userProfile, posts }) {
                   onTagToggle={onTagToggle}
                 />
               ) : (
-                <div className="flex flex-col items-center gap-3 py-12 text-center text-blog-black dark:text-blog-white">
+                <div className="font-poppins flex flex-col items-center gap-3 py-12 text-center text-blog-black dark:text-blog-white">
                   <p className="text-lg">
                     <FormattedMessage
                       id="user-profile-no-posts-for-tags"
@@ -151,7 +151,7 @@ function UserProfilePage({ userProfile, posts }) {
                   <button
                     type="button"
                     onClick={() => setSelectedTags([])}
-                    className="px-4 py-2 rounded-lg font-medium bg-[var(--color-primary-deep)] text-[var(--text-on-primary)] hover:brightness-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
+                    className="font-poppins px-4 py-2 rounded-lg font-medium bg-[var(--color-primary-deep)] text-[var(--text-on-primary)] hover:brightness-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
                   >
                     <FormattedMessage
                       id="user-profile-show-all-posts"

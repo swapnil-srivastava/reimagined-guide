@@ -52,7 +52,7 @@ export default function TagPage({ tag, posts }: TagPageProps) {
   );
 
   return (
-    <main className="min-h-screen flex flex-col items-center gap-6 px-4 py-12 bg-blog-white dark:bg-fun-blue-500 text-blog-black dark:text-blog-white">
+    <main className="font-poppins min-h-screen flex flex-col items-center gap-6 px-4 py-12 bg-blog-white dark:bg-fun-blue-500 text-blog-black dark:text-blog-white">
       <Metatags
         title={title}
         description={intl.formatMessage(

@@ -81,7 +81,7 @@ export default function TagFilterBar({
   });
 
   return (
-    <div className="w-full max-w-5xl flex flex-col gap-2">
+    <div className="font-poppins w-full max-w-5xl flex flex-col gap-2">
       <div className="flex items-baseline justify-between gap-3 px-1">
         <p className="text-sm font-medium text-[var(--text-muted)]" aria-hidden="true">
           <FormattedMessage
@@ -123,7 +123,7 @@ export default function TagFilterBar({
           <button
             type="button"
             onClick={() => onChange([])}
-            className="shrink-0 min-h-[2.25rem] px-3.5 rounded-full text-sm font-medium underline underline-offset-4 text-[var(--text-primary)] hover:text-[var(--color-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+            className="font-poppins shrink-0 min-h-[2.25rem] px-3.5 rounded-full text-sm font-medium underline underline-offset-4 text-[var(--text-primary)] hover:text-[var(--color-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
           >
             <FormattedMessage
               id="tag-filter-clear"
