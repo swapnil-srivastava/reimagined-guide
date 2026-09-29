@@ -14,6 +14,20 @@ export const POST_WITH_TAGS_SELECT = "*, tags(slug, name)";
 
 export type POST_WITH_TAGS = POST & { tags?: TAG[] };
 
+/**
+ * Runs a query with the tags embedded and, if that fails (for example before
+ * the tags migration is applied), runs it again without them, so pages keep
+ * showing posts.
+ */
+export async function withTagsFallback<T>(
+  run: (select: string) => PromiseLike<{ data: T | null; error: { message: string } | null }>
+): Promise<{ data: T | null; error: { message: string } | null }> {
+  const withTags = await run(POST_WITH_TAGS_SELECT);
+  if (!withTags.error) return withTags;
+  console.error("Loading tags failed; loading posts without them", withTags.error);
+  return run("*");
+}
+
 /** URL slug for a tag name. Keep in sync with `public.tag_slug` in SQL. */
 export function tagSlug(name: string): string {
   return name
@@ -102,11 +116,30 @@ export async function fetchPostsByTags(
     })
     .select(POST_WITH_TAGS_SELECT);
 
-  if (error) {
-    console.error("fetchPostsByTags: failed to load posts", error);
+  if (!error) {
+    return ((data ?? []) as unknown as POST_WITH_TAGS[]).map(withSortedTags);
+  }
+  console.error("fetchPostsByTags: failed to load posts", error);
+
+  // Without the tag functions (migration not applied yet) posts can't be
+  // filtered, but the unfiltered list still works.
+  if (tags.length > 0) return [];
+  let query = client
+    .from("posts")
+    .select("*")
+    .eq("published", true)
+    .eq("approved", true);
+  if (username) query = query.eq("username", username);
+  if (before) query = query.lt("created_at", before);
+  const { data: posts, error: fallbackError } = await query
+    .order("created_at", { ascending: false })
+    .limit(limit);
+
+  if (fallbackError) {
+    console.error("fetchPostsByTags: fallback failed", fallbackError);
     return [];
   }
-  return ((data ?? []) as unknown as POST_WITH_TAGS[]).map(withSortedTags);
+  return posts ?? [];
 }
 
 /** Tags used on live posts, most used first */

@@ -492,7 +492,7 @@ const Home: NextPage<HomeProps> = ({ posts: initialPosts, tags }) => {
               onTagToggle={onTagToggle}
             />
           ) : (
-            !loading && (
+            !loading && selectedTags.length > 0 && (
               <div className="flex flex-col items-center gap-3 py-12 text-center dark:text-blog-white">
                 <p className="text-lg">
                   <FormattedMessage

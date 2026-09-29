@@ -253,7 +253,8 @@ function PostForm({ draft, preview, editor, onSaved, onDirty }: {
         content: sanitizePostHtml(editor.getHTML()),
         audio: audioFileName || draft.audio,
         videoLink: data?.videoLink ?? "",
-        tags,
+        // Drafts have no tags column until the tags migration is applied
+        ...("tags" in draft ? { tags } : {}),
       })
       .eq("post_id", draft.post_id)
       .select("*, posts(*)")

@@ -20,7 +20,7 @@ import { POST, POST_DRAFT_WITH_POST } from "../../database.types";
 import { generateMetaDescription } from "../../lib/library";
 import { sanitizePostHtml } from "../../lib/sanitize";
 import { isLive } from "../../lib/postWorkflow";
-import { draftTags } from "../../lib/tags";
+import { draftTags, withTagsFallback } from "../../lib/tags";
 
 // e.g. localhost:3000/approve/article-slug?id=<post id>
 
@@ -63,16 +63,15 @@ function PostApprover() {
 
     // Links from the approval email carry the post id; the slug alone is
     // only unique per author.
-    let query = supaClient
-      .from("post_drafts")
-      .select("*, posts!inner(*, tags(slug, name))");
-    query =
-      typeof id === "string"
-        ? query.eq("post_id", id)
-        : query.eq("posts.slug", Array.isArray(slug) ? slug[0] : slug);
-
-    const { data } = await query.limit(1).maybeSingle();
-    setDraft((data as POST_DRAFT_WITH_POST) ?? null);
+    const postId = typeof id === "string" ? id : null;
+    const postSlug = Array.isArray(slug) ? slug[0] : slug;
+    const { data } = await withTagsFallback((select) => {
+      const query = supaClient.from("post_drafts").select(`*, posts!inner(${select})`);
+      return (postId ? query.eq("post_id", postId) : query.eq("posts.slug", postSlug))
+        .limit(1)
+        .maybeSingle();
+    });
+    setDraft((data as unknown as POST_DRAFT_WITH_POST) ?? null);
     setLoading(false);
   };
 

@@ -8,10 +8,10 @@ import TagFilterBar, { toggleTag, useTagFilter } from "../../components/TagFilte
 import { supaClient } from "../../supa-client";
 import {
   POST_WITH_TAGS,
-  POST_WITH_TAGS_SELECT,
   countTags,
   hasAllTags,
   withSortedTags,
+  withTagsFallback,
 } from "../../lib/tags";
 
 // e.g. localhost:3000/swapnil
@@ -47,13 +47,15 @@ export async function getServerSideProps({ query }) {
     userProfile = userProf;
 
     // Only posts Swapnil approved are public
-    let { data: supaPosts } = await supaClient
-      .from("posts")
-      .select(POST_WITH_TAGS_SELECT)
-      .eq("username", username)
-      .is("published", true)
-      .is("approved", true)
-      .order("created_at", { ascending: false });
+    let { data: supaPosts } = await withTagsFallback((select) =>
+      supaClient
+        .from("posts")
+        .select(select)
+        .eq("username", username)
+        .is("published", true)
+        .is("approved", true)
+        .order("created_at", { ascending: false })
+    );
 
     posts = ((supaPosts ?? []) as unknown as POST_WITH_TAGS[]).map(withSortedTags);
   }

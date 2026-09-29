@@ -22,6 +22,7 @@ import {
   POST_WITH_TAGS,
   POST_WITH_TAGS_SELECT,
   withSortedTags,
+  withTagsFallback,
 } from "../../lib/tags";
 
 // e.g. localhost:3000/swapnil/page1
@@ -30,14 +31,16 @@ import {
 // Only approved, published posts have a public page. Row level security
 // enforces the same rule for the anonymous client used here.
 async function getLivePost(username: string, slug: string): Promise<POST_WITH_TAGS | null> {
-  const { data } = await supaClient
-    .from("posts")
-    .select(POST_WITH_TAGS_SELECT)
-    .eq("username", username)
-    .eq("slug", slug)
-    .eq("published", true)
-    .eq("approved", true)
-    .maybeSingle();
+  const { data } = await withTagsFallback((select) =>
+    supaClient
+      .from("posts")
+      .select(select)
+      .eq("username", username)
+      .eq("slug", slug)
+      .eq("published", true)
+      .eq("approved", true)
+      .maybeSingle()
+  );
 
   return data ? withSortedTags(data as unknown as POST_WITH_TAGS) : null;
 }
@@ -89,11 +92,9 @@ function Post(props: { post: POST_WITH_TAGS; relatedPosts: POST_WITH_TAGS[] }) {
 
   // Refresh counts on the client; the cached page may be a little stale
   const fetchPost = async () => {
-    const { data } = await supaClient
-      .from("posts")
-      .select(POST_WITH_TAGS_SELECT)
-      .eq("id", props.post.id)
-      .maybeSingle();
+    const { data } = await withTagsFallback((select) =>
+      supaClient.from("posts").select(select).eq("id", props.post.id).maybeSingle()
+    );
 
     const freshPost = data ? withSortedTags(data as unknown as POST_WITH_TAGS) : null;
     if (freshPost) setPost(freshPost);
