@@ -160,6 +160,16 @@ const PrivacyPolicy: NextPage = () => {
             You can change your cookie preferences at any time by clicking the &quot;Cookie Preferences&quot; 
             button at the bottom left corner of any page.
           </p>
+
+          <h3 className="text-xl font-semibold mt-6 mb-2 dark:text-blog-white">
+            <FormattedMessage id="privacy.article_views_title" defaultMessage="Article View Counts" />
+          </h3>
+          <p className="dark:text-blog-white">
+            <FormattedMessage
+              id="privacy.article_views_body"
+              defaultMessage="When you open an article, we count one view per reader per day. To tell readers apart without cookies, the server combines your IP address and browser type with a key that changes every day and stores only the resulting one-way hash. Your IP address is never stored, the hash can't be linked to you or across days, and view records are deleted after 90 days."
+            />
+          </p>
         </section>
         
         <div className="mt-8">

@@ -10,6 +10,7 @@ import styles from "../../styles/Post.module.css";
 import PostContent from "../../components/PostContent";
 import Metatags from "../../components/Metatags";
 import PostList from "../../components/PostList";
+import { recordPostView } from "../../lib/views";
 
 // Supabase
 import { supaClient } from "../../supa-client";
@@ -110,6 +111,13 @@ function Post(props: { post: POST_WITH_TAGS; relatedPosts: POST_WITH_TAGS[] }) {
 
     if (dataSignedUrl?.signedUrl) setPostAudioUrl(dataSignedUrl.signedUrl);
   };
+
+  // Count the visit; the server skips repeat visits, bots, the author and admins
+  useEffect(() => {
+    recordPostView(props.post.id).then((views) => {
+      if (views !== null) setPost((current) => ({ ...current, view_count: views }));
+    });
+  }, [props.post.id]);
 
   useEffect(() => {
     setPost(props.post);

@@ -19,26 +19,33 @@ import {
   fetchTagCounts,
   parseTagQuery,
 } from "../lib/tags";
+import { fetchPopularPosts } from "../lib/views";
 
 // Max post to query per page
 const LIMIT = 4;
 
-type HomeProps = { posts: POST_WITH_TAGS[]; tags: TAG_COUNT[] };
+type HomeProps = {
+  posts: POST_WITH_TAGS[];
+  tags: TAG_COUNT[];
+  /** Most read in the last 30 days */
+  popular: POST_WITH_TAGS[];
+};
 
 // `?tags=java,frontend` shows only posts that have every selected tag
 export const getServerSideProps: GetServerSideProps<HomeProps> = async (context) => {
   const selected = parseTagQuery(context.query.tags);
-  const [posts, tags] = await Promise.all([
+  const [posts, tags, popular] = await Promise.all([
     fetchPostsByTags(supaClient, { tags: selected, limit: LIMIT }),
     fetchTagCounts(supaClient),
+    fetchPopularPosts(supaClient, { days: 30, limit: 3 }),
   ]);
 
   return {
-    props: { posts, tags }, // will be passed to the page component as props
+    props: { posts, tags, popular }, // will be passed to the page component as props
   };
 }
 
-const Home: NextPage<HomeProps> = ({ posts: initialPosts, tags }) => {
+const Home: NextPage<HomeProps> = ({ posts: initialPosts, tags, popular }) => {
   // Note: add the data in props.posts for reflecting in local development use an array and then object of post inside it.
   const [posts, setPosts] = useState<POST_WITH_TAGS[]>(initialPosts);
   const [loading, setLoading] = useState<boolean>(false);
@@ -467,6 +474,26 @@ const Home: NextPage<HomeProps> = ({ posts: initialPosts, tags }) => {
           />
         </h2>
         
+        {/* Most read this month. Hidden while filtering, and while every
+            article already fits in the first page of the list below. */}
+        {selectedTags.length === 0 && popular.length >= 2 && initialPosts.length >= LIMIT && (
+          <section aria-labelledby="popular-heading" className="w-full flex flex-col items-center gap-2 mb-8">
+            <h3
+              id="popular-heading"
+              className="font-poppins text-lg sm:text-xl font-semibold dark:text-blog-white"
+            >
+              <FormattedMessage
+                id="home-popular-heading"
+                description="Heading above the most read articles of the last 30 days"
+                defaultMessage="Popular this month"
+              />
+            </h3>
+            <div className="flex flex-wrap gap-5 w-full justify-center">
+              <PostList posts={popular} />
+            </div>
+          </section>
+        )}
+
         {/* Topic filter */}
         <TagFilterBar
           tags={tags}

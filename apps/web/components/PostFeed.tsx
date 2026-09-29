@@ -8,6 +8,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 
 import type { POST } from "../database.types";
 import { TagList } from "./TagChip";
+import ViewCount from "./ViewCount";
 import {
   STATUS_BADGE_CLASSES,
   STATUS_LABELS,
@@ -293,6 +294,12 @@ function PostItem({
               /></span>
               <span>·</span>
               <span>{moment(post.created_at).fromNow()}</span>
+              {post.view_count > 0 && (
+                <>
+                  <span>·</span>
+                  <ViewCount count={post.view_count} />
+                </>
+              )}
             </div>
             
             {/* Heart Count - Inline */}
