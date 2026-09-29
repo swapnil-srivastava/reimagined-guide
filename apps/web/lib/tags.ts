@@ -4,7 +4,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database, POST, TAG, TAG_COUNT } from "../database.types";
 
 // Topic tags for posts. The database enforces the same rules
-// (see supabase/migrations/20260929000001_post_tags.sql).
+// (see supabase/migrations/20260929174116_post_tags.sql).
 
 export const MAX_TAGS = 5;
 export const MAX_TAG_LENGTH = 32;
