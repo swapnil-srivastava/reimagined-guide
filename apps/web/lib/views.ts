@@ -4,7 +4,7 @@ import { supaClient } from "../supa-client";
 import type { Database } from "../database.types";
 import { POST_WITH_TAGS, POST_WITH_TAGS_SELECT, withSortedTags } from "./tags";
 
-// Post view counts (see supabase/migrations/20260929200000_post_views.sql).
+// Post view counts (see supabase/migrations/20260929202551_post_views.sql).
 
 const SESSION_KEY = "post-views-recorded";
 
