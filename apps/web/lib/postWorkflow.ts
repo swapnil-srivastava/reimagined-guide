@@ -1,4 +1,5 @@
-import type { POST, POST_DRAFT_WITH_POST, POST_STATUS } from "../database.types";
+import type { POST, POST_DRAFT_WITH_POST, POST_STATUS, TAG } from "../database.types";
+import { draftTags } from "./tags";
 
 // Editorial workflow shared by the author dashboard, the editor, the approval
 // queue and the post page. The database enforces the transitions
@@ -44,6 +45,8 @@ export function isLive(post: Pick<POST, "published" | "approved"> | null | undef
 export type WorkflowPost = POST & {
   workflowStatus: POST_STATUS;
   isLive: boolean;
+  /** The draft's tags, which go live when the post is approved */
+  tags: TAG[];
 };
 
 export function toWorkflowPost(draft: POST_DRAFT_WITH_POST): WorkflowPost {
@@ -57,6 +60,7 @@ export function toWorkflowPost(draft: POST_DRAFT_WITH_POST): WorkflowPost {
     updated_at: draft.updated_at,
     workflowStatus: draft.status,
     isLive: isLive(live),
+    tags: draftTags(draft.tags),
   };
 }
 

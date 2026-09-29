@@ -1,10 +1,18 @@
 // Translated
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import PostFeed from "../../components/PostFeed";
 import UserProfile from "../../components/UserProfile";
+import TagFilterBar, { toggleTag, useTagFilter } from "../../components/TagFilterBar";
 import { supaClient } from "../../supa-client";
+import {
+  POST_WITH_TAGS,
+  countTags,
+  hasAllTags,
+  withSortedTags,
+  withTagsFallback,
+} from "../../lib/tags";
 
 // e.g. localhost:3000/swapnil
 // e.g. localhost:3000/ria
@@ -39,15 +47,17 @@ export async function getServerSideProps({ query }) {
     userProfile = userProf;
 
     // Only posts Swapnil approved are public
-    let { data: supaPosts } = await supaClient
-      .from("posts")
-      .select("*")
-      .eq("username", username)
-      .is("published", true)
-      .is("approved", true)
-      .order("created_at", { ascending: false });
+    let { data: supaPosts } = await withTagsFallback((select) =>
+      supaClient
+        .from("posts")
+        .select(select)
+        .eq("username", username)
+        .is("published", true)
+        .is("approved", true)
+        .order("created_at", { ascending: false })
+    );
 
-    posts = supaPosts;
+    posts = ((supaPosts ?? []) as unknown as POST_WITH_TAGS[]).map(withSortedTags);
   }
 
   return {
@@ -57,6 +67,15 @@ export async function getServerSideProps({ query }) {
 
 function UserProfilePage({ userProfile, posts }) {
   const [activeTab, setActiveTab] = useState<'posts' | 'about'>('posts');
+  // An author has few posts: all are loaded and filtered in the browser.
+  // Several selected tags show posts that have all of them.
+  const [selectedTags, setSelectedTags] = useTagFilter();
+  const tagCounts = useMemo(() => countTags(posts ?? []), [posts]);
+  const visiblePosts = useMemo(
+    () => (posts ?? []).filter((post) => hasAllTags(post, selectedTags)),
+    [posts, selectedTags]
+  );
+  const onTagToggle = (slug: string) => setSelectedTags(toggleTag(selectedTags, slug));
   
   return (
     <div className="min-h-screen bg-blog-white dark:bg-fun-blue-500">
@@ -107,7 +126,42 @@ function UserProfilePage({ userProfile, posts }) {
       {activeTab === 'posts' ? (
         <div className="space-y-4">
           {posts && posts.length > 0 ? (
-            <PostFeed posts={posts} />
+            <>
+              <TagFilterBar
+                tags={tagCounts}
+                selected={selectedTags}
+                onChange={setSelectedTags}
+                resultCount={visiblePosts.length}
+              />
+              {visiblePosts.length > 0 ? (
+                <PostFeed
+                  posts={visiblePosts}
+                  selectedTags={selectedTags}
+                  onTagToggle={onTagToggle}
+                />
+              ) : (
+                <div className="font-poppins flex flex-col items-center gap-3 py-12 text-center text-blog-black dark:text-blog-white">
+                  <p className="text-lg">
+                    <FormattedMessage
+                      id="user-profile-no-posts-for-tags"
+                      description="Shown when none of the author's articles has all of the selected topics"
+                      defaultMessage="No articles by this author cover all of these topics. Remove a topic or show all articles."
+                    />
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedTags([])}
+                    className="font-poppins px-4 py-2 rounded-lg font-medium bg-[var(--color-primary-deep)] text-[var(--text-on-primary)] hover:brightness-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
+                  >
+                    <FormattedMessage
+                      id="user-profile-show-all-posts"
+                      description="Button that clears the topic filter on an author's page"
+                      defaultMessage="Show all articles"
+                    />
+                  </button>
+                </div>
+              )}
+            </>
           ) : (
             /* Empty State for Posts */
             <div className="text-center py-12">

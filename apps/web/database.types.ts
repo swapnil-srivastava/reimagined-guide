@@ -324,6 +324,7 @@ export type Database = {
           reviewed_by: string | null
           status: Database["public"]["Enums"]["post_status"]
           submitted_at: string | null
+          tags: string[]
           title: string
           uid: string
           updated_at: string
@@ -339,6 +340,7 @@ export type Database = {
           reviewed_by?: string | null
           status?: Database["public"]["Enums"]["post_status"]
           submitted_at?: string | null
+          tags?: string[]
           title: string
           uid: string
           updated_at?: string
@@ -354,6 +356,7 @@ export type Database = {
           reviewed_by?: string | null
           status?: Database["public"]["Enums"]["post_status"]
           submitted_at?: string | null
+          tags?: string[]
           title?: string
           uid?: string
           updated_at?: string
@@ -372,6 +375,36 @@ export type Database = {
             columns: ["uid"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      post_tags: {
+        Row: {
+          post_id: string
+          tag_id: string
+        }
+        Insert: {
+          post_id: string
+          tag_id: string
+        }
+        Update: {
+          post_id?: string
+          tag_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "post_tags_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "post_tags_tag_id_fkey"
+            columns: ["tag_id"]
+            isOneToOne: false
+            referencedRelation: "tags"
             referencedColumns: ["id"]
           },
         ]
@@ -614,6 +647,27 @@ export type Database = {
           }
         ]
       }
+      tags: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          slug: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          slug: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          slug?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -626,6 +680,23 @@ export type Database = {
       create_post: {
         Args: { p_title: string }
         Returns: Database["public"]["Tables"]["posts"]["Row"]
+      }
+      get_posts_by_tags: {
+        Args: {
+          p_tags?: string[]
+          p_username?: string | null
+          p_before?: string | null
+          p_limit?: number
+        }
+        Returns: Database["public"]["Tables"]["posts"]["Row"][]
+      }
+      get_related_posts: {
+        Args: { p_post_id: string; p_limit?: number }
+        Returns: Database["public"]["Tables"]["posts"]["Row"][]
+      }
+      get_tag_counts: {
+        Args: { p_username?: string | null }
+        Returns: { slug: string; name: string; post_count: number }[]
       }
       is_admin: {
         Args: Record<PropertyKey, never>
@@ -774,8 +845,14 @@ export type Enums<
 
     /** A draft together with the live post it belongs to */
     export type POST_DRAFT_WITH_POST = POST_DRAFT & {
-      posts: POST | null;
+      posts: (POST & { tags?: TAG[] }) | null;
     };
+
+    /** A topic tag as shown on chips; `slug` is used in URLs */
+    export type TAG = Pick<TABLES["Tables"]["tags"]["Row"], "slug" | "name">;
+
+    /** A tag with the number of live posts using it */
+    export type TAG_COUNT = TAG & { post_count: number };
     
     type LEADINGTECH_TABLE = Pick<TABLES["Tables"], "leadingtech">;
     type LEADINGTECH_ROW = Pick<LEADINGTECH_TABLE["leadingtech"], "Row">;

@@ -1,11 +1,13 @@
 import type { GetServerSideProps } from "next";
 import { escapeXml, getLivePosts } from "../lib/server/livePosts";
 import { SITE_URL, postUrl } from "../lib/site";
+import { supaClient } from "../supa-client";
+import { fetchTagCounts } from "../lib/tags";
 
 // e.g. localhost:3000/sitemap.xml
-// Lists the home page and every approved, published post.
+// Lists the home page, every approved, published post and every topic page.
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  const posts = await getLivePosts();
+  const [posts, tags] = await Promise.all([getLivePosts(), fetchTagCounts(supaClient)]);
 
   const urls = [
     `<url><loc>${SITE_URL}/</loc><changefreq>daily</changefreq></url>`,
@@ -15,6 +17,10 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
         lastmod ? `<lastmod>${new Date(lastmod).toISOString()}</lastmod>` : ""
       }</url>`;
     }),
+    ...tags.map(
+      (tag) =>
+        `<url><loc>${escapeXml(`${SITE_URL}/tags/${encodeURIComponent(tag.slug)}`)}</loc><changefreq>weekly</changefreq></url>`
+    ),
   ];
 
   res.setHeader("Content-Type", "application/xml; charset=utf-8");

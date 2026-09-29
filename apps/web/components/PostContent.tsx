@@ -18,10 +18,11 @@ import HeartButton from "./HeartButton";
 import BasicTooltip from "./Tooltip";
 import Video from "./Video";
 import AudioPlayer from "./AudioPlayer";
+import { TagList } from "./TagChip";
 
 // Interface
 import { RootState } from "../lib/interfaces/interface";
-import { POST, POST_DRAFT } from "../database.types";
+import { POST, POST_DRAFT, TAG } from "../database.types";
 
 // Supabase
 import { supaClient } from "../supa-client";
@@ -46,7 +47,7 @@ export default function PostContent({
   audioUrl = "",
   onReviewed,
 }: {
-  post: POST;
+  post: POST & { tags?: TAG[] };
   /** Show Swapnil's review actions. The server re-checks the permission. */
   approve?: boolean;
   audioUrl?: string;
@@ -423,6 +424,13 @@ export default function PostContent({
         <div className="lg:text-3xl text-xl font-extrabold self-center">
           {post?.title}
         </div>
+
+        {/* Topics - link to every article with the tag */}
+        <TagList
+          tags={post?.tags}
+          linkTags={isLive(post) && !approve}
+          className="justify-center"
+        />
 
         {/* Mobile Engagement Bar - Mobile Only */}
         {heartCount > 0 && (

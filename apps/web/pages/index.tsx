@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { TypeAnimation } from 'react-type-animation';
 import type { GetServerSideProps, NextPage } from 'next';
@@ -7,33 +7,42 @@ import type { GetServerSideProps, NextPage } from 'next';
 import Loader from "../components/Loader";
 import PostList from "../components/PostList";
 import HorizontalScrollTech from "../components/HorizontalScrollTech";
+import TagFilterBar, { toggleTag, useTagFilter } from "../components/TagFilterBar";
 
 // Library
 import Metatags from "../components/Metatags";
 import { supaClient } from "../supa-client";
-import { POST } from "../database.types";
+import { TAG_COUNT } from "../database.types";
+import {
+  POST_WITH_TAGS,
+  fetchPostsByTags,
+  fetchTagCounts,
+  parseTagQuery,
+} from "../lib/tags";
 
 // Max post to query per page
-const LIMIT = 3;
+const LIMIT = 4;
 
-export const getServerSideProps: GetServerSideProps<{ posts: POST[] }> = async (context) => {
-  let { data: posts } = await supaClient
-    .from("posts")
-    .select("*")
-    .is("approved", true)
-    .is("published", true)
-    .order("created_at", { ascending: false })
-    .range(0, LIMIT);
+type HomeProps = { posts: POST_WITH_TAGS[]; tags: TAG_COUNT[] };
+
+// `?tags=java,frontend` shows only posts that have every selected tag
+export const getServerSideProps: GetServerSideProps<HomeProps> = async (context) => {
+  const selected = parseTagQuery(context.query.tags);
+  const [posts, tags] = await Promise.all([
+    fetchPostsByTags(supaClient, { tags: selected, limit: LIMIT }),
+    fetchTagCounts(supaClient),
+  ]);
 
   return {
-    props: { posts }, // will be passed to the page component as props
+    props: { posts, tags }, // will be passed to the page component as props
   };
 }
 
-const Home: NextPage<{ posts: POST[] }> = ({ posts: initialPosts }) => {
+const Home: NextPage<HomeProps> = ({ posts: initialPosts, tags }) => {
   // Note: add the data in props.posts for reflecting in local development use an array and then object of post inside it.
-  const [posts, setPosts] = useState<POST[]>(initialPosts);
+  const [posts, setPosts] = useState<POST_WITH_TAGS[]>(initialPosts);
   const [loading, setLoading] = useState<boolean>(false);
+  const [selectedTags, setSelectedTags] = useTagFilter();
   const intl = useIntl();
 
   const translatedString1 = intl.formatMessage({ id: 'animation.string1',  description:"an Engineer", defaultMessage:"an Engineer"});
@@ -44,32 +53,52 @@ const Home: NextPage<{ posts: POST[] }> = ({ posts: initialPosts }) => {
   const translatedString6 = intl.formatMessage({ id: 'animation.string6',  description:"an Architect", defaultMessage:"an Architect"});
   const translatedString7 = intl.formatMessage({ id: 'animation.string7',  description:"a Solutions Architect", defaultMessage:"a Solutions Architect"});
 
-  const [postsEnd, setPostsEnd] = useState(false);
+  const [postsEnd, setPostsEnd] = useState(initialPosts.length < LIMIT);
+
+  // The server rendered the first page for the tags in the URL; load again
+  // when the selection changes (chip clicks, back and forward buttons).
+  const selectionKey = selectedTags.join(",");
+  const loadedKey = useRef(selectionKey);
+  const requestId = useRef(0);
+
+  useEffect(() => {
+    if (loadedKey.current === selectionKey) return;
+    loadedKey.current = selectionKey;
+    const id = ++requestId.current;
+
+    setLoading(true);
+    fetchPostsByTags(supaClient, { tags: selectedTags, limit: LIMIT }).then((firstPage) => {
+      // Ignore answers to a selection the reader already changed
+      if (id !== requestId.current) return;
+      setPosts(firstPage);
+      setPostsEnd(firstPage.length < LIMIT);
+      setLoading(false);
+    });
+  }, [selectionKey]);
 
   const getMorePosts = async () => {
+    const last = posts[posts.length - 1];
+    if (!last) return;
+
+    const id = ++requestId.current;
     setLoading(true);
 
-    const last = posts[posts.length - 1];
+    const olderPosts = await fetchPostsByTags(supaClient, {
+      tags: selectedTags,
+      before: last.created_at,
+      limit: LIMIT,
+    });
+    if (id !== requestId.current) return;
 
-    const { created_at: cursor } = last;
-
-    let { data: oldPosts } = await supaClient
-      .from("posts")
-      .select("*")
-      .is("published", true)
-      .is("approved", true)
-      .lt("created_at", cursor)
-      .order("created_at", { ascending: false })
-      .range(0, LIMIT);
-
-    setPosts(posts.concat(oldPosts));
-
+    setPosts(posts.concat(olderPosts));
     setLoading(false);
 
-    if (oldPosts.length < LIMIT) {
+    if (olderPosts.length < LIMIT) {
       setPostsEnd(true);
     }
   };
+
+  const onTagToggle = (slug: string) => setSelectedTags(toggleTag(selectedTags, slug));
 
   return (
     <main>
@@ -438,9 +467,56 @@ const Home: NextPage<{ posts: POST[] }> = ({ posts: initialPosts }) => {
           />
         </h2>
         
+        {/* Topic filter */}
+        <TagFilterBar
+          tags={tags}
+          selected={selectedTags}
+          onChange={setSelectedTags}
+          resultCount={posts.length}
+          loading={loading}
+        />
+
         {/* Post List */}
-        <div className="flex flex-wrap gap-5 flex-1 w-full justify-center">
-          <PostList posts={posts} loading={loading} postsEnd={postsEnd} enableLoadMore={true}/>
+        <div
+          id="post-list"
+          // Linked from the tag pages; keeps the list clear of the fixed navbar
+          style={{ scrollMarginTop: "6rem" }}
+          aria-busy={loading || undefined}
+          className={`flex flex-wrap gap-5 flex-1 w-full justify-center transition-opacity ${loading ? "opacity-60" : ""}`}
+        >
+          {posts.length > 0 ? (
+            <PostList
+              posts={posts}
+              loading={loading}
+              postsEnd={postsEnd}
+              enableLoadMore={true}
+              selectedTags={selectedTags}
+              onTagToggle={onTagToggle}
+            />
+          ) : (
+            !loading && selectedTags.length > 0 && (
+              <div className="font-poppins flex flex-col items-center gap-3 py-12 text-center dark:text-blog-white">
+                <p className="text-lg">
+                  <FormattedMessage
+                    id="home-no-posts-for-tags"
+                    description="Shown when no article has all of the selected topics"
+                    defaultMessage="No articles cover all of these topics yet. Remove a topic or show all articles."
+                  />
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setSelectedTags([])}
+                  className="font-poppins px-4 py-2 rounded-lg font-medium bg-[var(--color-primary-deep)] text-[var(--text-on-primary)] hover:brightness-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
+                >
+                  <FormattedMessage
+                    id="home-show-all-posts"
+                    description="Button that clears the topic filter"
+                    defaultMessage="Show all articles"
+                  />
+                </button>
+              </div>
+            )
+          )}
         </div>
       </div>
 
@@ -449,8 +525,25 @@ const Home: NextPage<{ posts: POST[] }> = ({ posts: initialPosts }) => {
         <Loader show={loading} />
       </div>
 
+      {/* Load more */}
+      {!loading && !postsEnd && posts.length > 0 && (
+        <div className="flex items-center justify-center py-6">
+          <button
+            type="button"
+            onClick={getMorePosts}
+            className="font-poppins px-5 py-2.5 rounded-lg font-medium bg-[var(--color-primary-deep)] text-[var(--text-on-primary)] hover:brightness-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
+          >
+            <FormattedMessage
+              id="load_more_button"
+              description="Load More"
+              defaultMessage="Load More"
+            />
+          </button>
+        </div>
+      )}
+
       {/* End of Post Text */}
-      {postsEnd && (
+      {postsEnd && posts.length > 0 && (
         <div className="flex items-center justify-center dark:text-blog-white">
           <FormattedMessage
             id="end_of_articles"
