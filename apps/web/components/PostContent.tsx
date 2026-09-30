@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { FormattedMessage, useIntl } from 'react-intl';
 import Image from "next/legacy/image";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,10 +17,10 @@ import toast from "react-hot-toast";
 // React Components
 import HeartButton, { HeartCount, heartPillClass } from "./HeartButton";
 import BasicTooltip from "./Tooltip";
-import Video from "./Video";
 import AudioPlayer from "./AudioPlayer";
 import ViewCount from "./ViewCount";
 import { TagList } from "./TagChip";
+import { useVideoFacades } from "./useVideoFacades";
 
 // Interface
 import { RootState } from "../lib/interfaces/interface";
@@ -79,6 +79,11 @@ export default function PostContent({
   const [heartCount, setHeartCount] = useState(post?.heart_count ?? 0);
 
   useEffect(() => setHeartCount(post?.heart_count ?? 0), [post?.heart_count]);
+
+  // Inline videos show a click-to-play preview instead of loading the player
+  const contentHtml = useMemo(() => sanitizePostHtml(post?.content), [post?.content]);
+  const contentRef = useRef<HTMLDivElement>(null);
+  useVideoFacades(contentRef, contentHtml);
 
   useEffect(() => {
     if (!post?.id || !(isAuthor || isAdmin)) {
@@ -460,12 +465,11 @@ export default function PostContent({
 
         {/* POST SECTION */}
         <div
+          ref={contentRef}
           className="post-content lg:text-xl"
-          dangerouslySetInnerHTML={{ __html: sanitizePostHtml(post?.content) }}
+          dangerouslySetInnerHTML={{ __html: contentHtml }}
         ></div>
       </div>
-
-      <Video videoSrc={post?.videoLink} />
     </div>
   </>;
 }

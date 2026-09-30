@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FormattedMessage } from "react-intl";
 
 // Next
@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 // TipTap
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import Youtube from "@tiptap/extension-youtube";
+import VideoEmbed from "../../lib/tiptap/VideoEmbed";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -35,8 +35,8 @@ import {
   faLaptopCode,
   faQuoteLeft,
   faQuoteRight,
+  faVideo,
 } from "@fortawesome/free-solid-svg-icons";
-import { faYoutube } from "@fortawesome/free-brands-svg-icons";
 
 // Styles
 import styles from "../../styles/Admin.module.css";
@@ -49,6 +49,7 @@ import Metatags from "../../components/Metatags";
 import BasicTooltip from "../../components/Tooltip";
 import PostWorkflowBar from "../../components/PostWorkflowBar";
 import TagInput from "../../components/TagInput";
+import VideoEmbedPopover from "../../components/editor/VideoEmbedPopover";
 
 // Supabase
 import { supaClient } from "../../supa-client";
@@ -60,17 +61,8 @@ import { POST_DRAFT_WITH_POST } from "../../database.types";
 import { generateMetaDescription } from "../../lib/library";
 import { sanitizePostHtml } from "../../lib/sanitize";
 
-// Admin Slug Schema
-import schema from "../../lib/adminSlug/adminSlugSchema.json";
-import uischema from "../../lib/adminSlug/uiAdminSlugSchema.json";
-
-// JSON Forms
-import { JsonForms } from "@jsonforms/react";
-import {
-  materialCells,
-  materialRenderers,
-} from "@jsonforms/material-renderers";
-
+// Services
+import { fetchVideoMeta } from "../../services/video.service";
 
 // e.g. localhost:3000/admin/page1
 // e.g. localhost:3000/admin/page2
@@ -96,9 +88,7 @@ function PostManager() {
   const editor = useEditor({
     extensions: [
       StarterKit,
-      Youtube.configure({
-        controls: false,
-      }),
+      VideoEmbed.configure({ fetchMeta: fetchVideoMeta }),
     ],
     onUpdate: () => setDirty(true),
   });
@@ -194,11 +184,6 @@ function PostManager() {
   </>;
 }
 
-interface JSON_ADMIN_SLUG {
-  videoLink: string;
-  youtubeEmbeds?: string;
-}
-
 function PostForm({ draft, preview, editor, onSaved, onDirty }: {
   draft: POST_DRAFT_WITH_POST;
   preview: boolean;
@@ -206,14 +191,12 @@ function PostForm({ draft, preview, editor, onSaved, onDirty }: {
   onSaved: (draft: POST_DRAFT_WITH_POST) => void;
   onDirty: () => void;
 }) {
-  const [data, setData] = useState<JSON_ADMIN_SLUG>({
-    videoLink: draft.videoLink ?? "",
-  });
-  const [jsonErrors, setJsonErrors] = useState([]);
   const [tags, setTags] = useState<string[]>(draft.tags ?? []);
   // Empty until a new file is uploaded; the saved audio is kept otherwise
   const [audioFileName, setAudioFileName] = useState("");
   const [saving, setSaving] = useState(false);
+  const [addingVideo, setAddingVideo] = useState(false);
+  const videoButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!editor) {
@@ -226,22 +209,10 @@ function PostForm({ draft, preview, editor, onSaved, onDirty }: {
     return null;
   }
 
-  const changedJsonSchema = async (jsonData, jsonError) => {
-    setJsonErrors(jsonError);
-    if ((jsonData?.videoLink ?? "") !== (data?.videoLink ?? "")) onDirty();
-    setData(jsonData);
-  };
-
-  // Adding the youtube link through the button in the top bar but the link must be part of the
-  // input field called youtube embeds
-  const addYoutubeVideoInEditor = () => {
-    if (data?.youtubeEmbeds) {
-      editor.commands.setYoutubeVideo({
-        src: data?.youtubeEmbeds,
-        width: 640,
-        height: 480,
-      });
-    }
+  // Inserting moves focus into the post; cancelling returns it to the button
+  const closeVideoPanel = (inserted: boolean) => {
+    setAddingVideo(false);
+    if (!inserted) videoButtonRef.current?.focus();
   };
 
   // Saves the draft only. The live post changes when Swapnil approves it.
@@ -252,7 +223,6 @@ function PostForm({ draft, preview, editor, onSaved, onDirty }: {
       .update({
         content: sanitizePostHtml(editor.getHTML()),
         audio: audioFileName || draft.audio,
-        videoLink: data?.videoLink ?? "",
         // Drafts have no tags column until the tags migration is applied
         ...("tags" in draft ? { tags } : {}),
       })
@@ -566,6 +536,7 @@ function PostForm({ draft, preview, editor, onSaved, onDirty }: {
               </BasicTooltip>
               <BasicTooltip title="Redo" placement="top">
                 <button
+                  type="button"
                   onClick={() => editor.chain().focus().redo().run()}
                   disabled={!editor.can().chain().focus().redo().run()}
                   className={styles.btnEditor}
@@ -573,15 +544,23 @@ function PostForm({ draft, preview, editor, onSaved, onDirty }: {
                   <FontAwesomeIcon icon={faRotateRight} />
                 </button>
               </BasicTooltip>
-              <BasicTooltip title="Youtube" placement="top">
+              <BasicTooltip title="Video" placement="top">
                 <button
-                  onClick={() => addYoutubeVideoInEditor()}
-                  className={styles.btnEditor}
+                  ref={videoButtonRef}
+                  type="button"
+                  onClick={() => setAddingVideo((open) => !open)}
+                  aria-expanded={addingVideo}
+                  aria-label="Add a video"
+                  className={addingVideo ? styles.btnEditorActive : styles.btnEditor}
                 >
-                  <FontAwesomeIcon icon={faYoutube} />
+                  <FontAwesomeIcon icon={faVideo} />
                 </button>
               </BasicTooltip>
             </div>
+
+            {addingVideo && (
+              <VideoEmbedPopover editor={editor} onClose={closeVideoPanel} />
+            )}
 
             {/*  Audio Upload */}
             <div className="">
@@ -604,24 +583,10 @@ function PostForm({ draft, preview, editor, onSaved, onDirty }: {
               }}
             />
 
-            <JsonForms
-              schema={schema}
-              uischema={uischema}
-              data={data}
-              renderers={materialRenderers}
-              cells={materialCells}
-              onChange={({ errors, data }) => changedJsonSchema(data, errors)}
-            />
-
             <button
               type="button"
               className="p-2 bg-hit-pink-500 text-blog-black rounded-lg self-center"
-              disabled={
-                saving ||
-                (Array.isArray(jsonErrors) &&
-                  jsonErrors !== undefined &&
-                  jsonErrors.length !== 0)
-              }
+              disabled={saving}
               onClick={() => updatePost()}
             >
               <FormattedMessage

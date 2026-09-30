@@ -117,9 +117,9 @@ importers:
       '@tailwindcss/typography':
         specifier: ^0.5.2
         version: 0.5.19(tailwindcss@3.4.19)
-      '@tiptap/extension-youtube':
-        specifier: ^2.0.4
-        version: 2.27.1(@tiptap/core@2.27.1)
+      '@tiptap/core':
+        specifier: ^2.0.2
+        version: 2.27.1(@tiptap/pm@2.27.1)
       '@tiptap/pm':
         specifier: ^2.0.2
         version: 2.27.1
@@ -2126,14 +2126,6 @@ packages:
 
   /@tiptap/extension-text@2.27.1(@tiptap/core@2.27.1):
     resolution: {integrity: sha512-a4GCT+GZ9tUwl82F4CEum9/+WsuW0/De9Be/NqrMmi7eNfAwbUTbLCTFU0gEvv25WMHCoUzaeNk/qGmzeVPJ1Q==}
-    peerDependencies:
-      '@tiptap/core': ^2.7.0
-    dependencies:
-      '@tiptap/core': 2.27.1(@tiptap/pm@2.27.1)
-    dev: false
-
-  /@tiptap/extension-youtube@2.27.1(@tiptap/core@2.27.1):
-    resolution: {integrity: sha512-HjBBgE0Zbch/S2UP0YYQXervfoBd4Trw0dYmlZbX9cXJcZv+QFx0vsPGmjAGlqzXf9Y8ZioWm8fso4u6AsUfTw==}
     peerDependencies:
       '@tiptap/core': ^2.7.0
     dependencies:
