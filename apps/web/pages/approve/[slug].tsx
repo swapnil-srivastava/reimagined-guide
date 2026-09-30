@@ -114,7 +114,6 @@ function PostApprover() {
     title: draft.title,
     content: draft.content,
     audio: draft.audio,
-    videoLink: draft.videoLink,
     tags: proposedTags,
   };
   const liveTags = live?.tags ?? [];
