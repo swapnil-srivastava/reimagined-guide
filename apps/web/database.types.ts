@@ -328,7 +328,6 @@ export type Database = {
           title: string
           uid: string
           updated_at: string
-          videoLink: string | null
         }
         Insert: {
           audio?: string | null
@@ -344,7 +343,6 @@ export type Database = {
           title: string
           uid: string
           updated_at?: string
-          videoLink?: string | null
         }
         Update: {
           audio?: string | null
@@ -360,7 +358,6 @@ export type Database = {
           title?: string
           uid?: string
           updated_at?: string
-          videoLink?: string | null
         }
         Relationships: [
           {
@@ -455,7 +452,6 @@ export type Database = {
           uid: string | null
           updated_at: string | null
           username: string | null
-          videoLink: string | null
           view_count: number
         }
         Insert: {
@@ -477,7 +473,6 @@ export type Database = {
           uid?: string | null
           updated_at?: string | null
           username?: string | null
-          videoLink?: string | null
           view_count?: number
         }
         Update: {
@@ -499,7 +494,6 @@ export type Database = {
           uid?: string | null
           updated_at?: string | null
           username?: string | null
-          videoLink?: string | null
           view_count?: number
         }
         Relationships: [
@@ -871,7 +865,6 @@ export type Enums<
       | "updated_at"
       | "username"
       | "audio"
-      | "videoLink"
     > & Partial<Pick<POST_ROW["Row"], "published_at" | "approved_by" | "view_count">>;
 
     type POST_DRAFT_TABLE = Pick<TABLES["Tables"], "post_drafts">;
