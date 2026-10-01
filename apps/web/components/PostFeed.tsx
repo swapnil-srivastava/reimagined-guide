@@ -156,7 +156,7 @@ function PostItem({
 
   return <>
     <div className="px-4 sm:px-0">
-      <div className="group bg-white dark:bg-fun-blue-600 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 border border-gray-100 dark:border-fun-blue-500 hover:border-gray-200 dark:hover:border-fun-blue-400">
+      <div className="group bg-[var(--surface-raised)] text-[var(--text-primary)] rounded-xl shadow-sm hover:shadow-md transition-all duration-200 border border-[var(--border-subtle)] hover:border-[var(--color-primary)]">
         
         <div className="p-4">
           {/* Compact Header */}
@@ -180,10 +180,10 @@ function PostItem({
                 )}
                 
                 <div className="flex flex-col">
-                        <span className="text-sm font-medium text-black hover:text-[var(--color-primary)] transition-colors">
+                        <span className="text-sm font-medium text-blog-black hover:text-[var(--color-primary)] transition-colors">
                     {post.username}
                   </span>
-                        <span className="text-xs text-black">
+                        <span className="text-xs text-blog-black">
                     {moment(post.created_at).format("MMM DD")} · {minutesToRead} <FormattedMessage
                       id="postfeed-min-read"
                       description="min read"
@@ -264,12 +264,12 @@ function PostItem({
           {/* Content Section */}
           <Link href={postHref} legacyBehavior>
             <div className="cursor-pointer">
-                    <h2 className="text-lg font-bold text-black mb-2 group-hover:text-[var(--color-primary)] transition-colors duration-200 line-clamp-2 leading-tight">
+                    <h2 className="text-lg font-bold text-blog-black mb-2 group-hover:text-[var(--color-primary)] transition-colors duration-200 line-clamp-2 leading-tight">
                 {post.title}
               </h2>
               
               {/* Content Preview - Compact */}
-                    <p className="text-sm text-black line-clamp-2 leading-relaxed mb-3">
+                    <p className="text-sm text-blog-black line-clamp-2 leading-relaxed mb-3">
                 {plainText.length > 120 ? `${plainText.substring(0, 120)}...` : plainText}
               </p>
             </div>
@@ -285,8 +285,8 @@ function PostItem({
           />
 
           {/* Footer - Compact */}
-                <div className="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-fun-blue-500">
-                  <div className="flex items-center gap-3 text-xs text-black">
+                <div className="flex items-center justify-between pt-2 border-t border-[var(--border-subtle)]">
+                  <div className="flex items-center gap-3 text-xs text-blog-black">
               <span>{wordCount} <FormattedMessage
                 id="postfeed-words"
                 description="Words"
