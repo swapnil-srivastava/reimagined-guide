@@ -23,7 +23,7 @@ import { WorkflowPost, toWorkflowPost } from "../../lib/postWorkflow";
 
 const Admin: NextPage = () => {
   return (
-    <div className="bg-blog-white dark:bg-fun-blue-500 min-h-screen text-blog-black dark:text-blog-white">
+    <div className="font-poppins bg-blog-white dark:bg-fun-blue-500 min-h-screen text-blog-black dark:text-blog-white">
       <AuthCheck>
         <CreateNewPost></CreateNewPost>
         <SendSMS></SendSMS>
@@ -416,7 +416,7 @@ function CreateNewPost() {
                         defaultMessage="Article URL:"
                       />
                     </p>
-                    <div className="flex items-center text-sm font-mono bg-white dark:bg-fun-blue-600 rounded-lg p-3 border border-gray-200 dark:border-fun-blue-500">
+                    <div className="flex items-center text-sm font-poppins bg-white dark:bg-fun-blue-600 rounded-lg p-3 border border-gray-200 dark:border-fun-blue-500">
                       <span className="text-blog-black dark:text-blog-white">
                         swapnilsrivastava.eu/
                       </span>
