@@ -95,19 +95,19 @@ function ApprovePostList() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-blog-black dark:text-blog-white">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 font-poppins text-blog-black">
       {/* Header Section */}
       <div className="mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-blog-black dark:text-blog-white">
+            <h1 className="text-2xl sm:text-3xl font-bold text-blog-black">
               <FormattedMessage
                 id="approve-title"
                 description="Content Moderation"
                 defaultMessage="Content Moderation"
               />
             </h1>
-            <p className="text-blog-black mt-2">
+            <p className="text-[var(--text-muted)] mt-2">
               <FormattedMessage
                 id="approve-subtitle"
                 description="Review and approve user-submitted content"
@@ -118,37 +118,37 @@ function ApprovePostList() {
           
           {/* Quick Stats */}
           <div className="flex items-center gap-4">
-            <div className="bg-white card--white dark:bg-fun-blue-600 rounded-lg px-4 py-2 border border-gray-200 dark:border-fun-blue-500">
-              <div className="text-sm text-blog-black dark:text-gray-300">
+            <div className="bg-[var(--surface-raised)] rounded-lg px-4 py-2 border border-[var(--border-subtle)]">
+              <div className="text-sm text-[var(--text-muted)]">
                 <FormattedMessage
                   id="approve-stats-total"
                   description="Total Posts"
                   defaultMessage="Total Posts"
                 />
               </div>
-              <div className="text-xl font-bold text-blog-black dark:text-blog-white">{posts.length}</div>
+              <div className="text-xl font-bold text-blog-black">{posts.length}</div>
             </div>
-            <div className="bg-white card--white dark:bg-fun-blue-600 rounded-lg px-4 py-2 border border-gray-200 dark:border-fun-blue-500">
-              <div className="text-sm text-blog-black">
+            <div className="bg-[var(--surface-raised)] rounded-lg px-4 py-2 border border-[var(--border-subtle)]">
+              <div className="text-sm text-[var(--text-muted)]">
                 <FormattedMessage
                   id="approve-stats-pending"
                   description="Pending"
                   defaultMessage="Pending"
                 />
               </div>
-              <div className="text-xl font-bold text-orange-600 dark:text-orange-400">
+              <div className="text-xl font-bold text-[var(--status-warning)]">
                 {posts.filter(post => post.workflowStatus === 'web_ready').length}
               </div>
             </div>
-            <div className="bg-white card--white dark:bg-fun-blue-600 rounded-lg px-4 py-2 border border-gray-200 dark:border-fun-blue-500">
-              <div className="text-sm text-blog-black">
+            <div className="bg-[var(--surface-raised)] rounded-lg px-4 py-2 border border-[var(--border-subtle)]">
+              <div className="text-sm text-[var(--text-muted)]">
                 <FormattedMessage
                   id="approve-stats-approved"
                   description="Approved"
                   defaultMessage="Approved"
                 />
               </div>
-              <div className="text-xl font-bold text-green-600 dark:text-green-400">
+              <div className="text-xl font-bold text-[var(--status-success)]">
                 {posts.filter(post => post.isLive).length}
               </div>
             </div>
@@ -156,15 +156,15 @@ function ApprovePostList() {
         </div>
 
         {/* Filter Tabs */}
-        <div className="mt-6 border-b border-gray-200 dark:border-fun-blue-500">
+        <div className="mt-6 border-b border-[var(--border-subtle)]">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
               <nav className="-mb-px flex space-x-8">
               <button 
                 onClick={() => setActiveTab('all')}
                 className={`py-2 px-1 border-b-2 font-medium text-sm ${
                   activeTab === 'all'
-                    ? 'border-fun-blue-500 text-fun-blue-600 dark:text-blog-white'
-                    : 'border-transparent text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-blog-white hover:border-gray-300 dark:hover:border-gray-600'
+                    ? 'border-[var(--color-primary)] text-blog-black'
+                    : 'border-transparent text-[var(--text-muted)] hover:text-blog-black hover:border-[var(--border-subtle)]'
                 }`}
               >
                 <FormattedMessage
@@ -177,8 +177,8 @@ function ApprovePostList() {
                 onClick={() => setActiveTab('pending')}
                 className={`py-2 px-1 border-b-2 font-medium text-sm ${
                   activeTab === 'pending'
-                    ? 'border-fun-blue-500 text-fun-blue-600 dark:text-blog-white'
-                    : 'border-transparent text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-blog-white hover:border-gray-300 dark:hover:border-gray-600'
+                    ? 'border-[var(--color-primary)] text-blog-black'
+                    : 'border-transparent text-[var(--text-muted)] hover:text-blog-black hover:border-[var(--border-subtle)]'
                 }`}
               >
                 <FormattedMessage
@@ -191,8 +191,8 @@ function ApprovePostList() {
                 onClick={() => setActiveTab('approved')}
                 className={`py-2 px-1 border-b-2 font-medium text-sm ${
                   activeTab === 'approved'
-                    ? 'border-fun-blue-500 text-fun-blue-600 dark:text-blog-white'
-                    : 'border-transparent text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-blog-white hover:border-gray-300 dark:hover:border-gray-600'
+                    ? 'border-[var(--color-primary)] text-blog-black'
+                    : 'border-transparent text-[var(--text-muted)] hover:text-blog-black hover:border-[var(--border-subtle)]'
                 }`}
               >
                 <FormattedMessage
@@ -206,7 +206,7 @@ function ApprovePostList() {
             {/* Search Bar */}
             <div className="relative mt-4 sm:mt-0">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-5 w-5 text-[var(--text-muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
@@ -219,7 +219,7 @@ function ApprovePostList() {
                   description: 'Search posts...',
                   defaultMessage: 'Search posts...'
                 })}
-                className="block w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-fun-blue-400 rounded-md leading-5 bg-white card--white dark:bg-fun-blue-700 placeholder-gray-500 dark:placeholder-gray-400 text-blog-black dark:text-blog-white focus:outline-none focus:ring-2 focus:ring-fun-blue-500 focus:border-transparent sm:text-sm"
+                className="block w-full pl-10 pr-3 py-2 border border-[var(--border-subtle)] rounded-md leading-5 bg-[var(--surface-inset)] placeholder:text-[var(--text-muted)] text-blog-black focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent sm:text-sm"
               />
             </div>
           </div>
@@ -229,8 +229,8 @@ function ApprovePostList() {
       {/* Loading State */}
       {loading ? (
           <div className="flex items-center justify-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-fun-blue-500"></div>
-          <span className="ml-3 text-gray-600 dark:text-blog-white">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--color-primary)]"></div>
+          <span className="ml-3 text-[var(--text-muted)]">
             <FormattedMessage
               id="approve-loading"
               description="Loading posts..."
@@ -243,8 +243,8 @@ function ApprovePostList() {
         <div className="space-y-4">
           {/* Results Summary */}
           {searchTerm && (
-            <div className="bg-blue-50 dark:bg-fun-blue-800 border border-blue-200 dark:border-fun-blue-600 rounded-lg p-4 mb-6">
-              <p className="text-blue-800 dark:text-blue-200 text-sm">
+            <div className="bg-[var(--surface-inset)] border border-[var(--border-subtle)] rounded-lg p-4 mb-6">
+              <p className="text-blog-black text-sm">
                 {intl.formatMessage(
                   {
                     id: 'approve-search-results',
@@ -265,12 +265,12 @@ function ApprovePostList() {
           ) : (
             /* Empty State */
             <div className="text-center py-12">
-              <div className="bg-gray-50 dark:bg-fun-blue-700 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4">
-                <svg className="w-12 h-12 text-gray-400 dark:text-blog-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="bg-[var(--surface-inset)] rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4">
+                <svg className="w-12 h-12 text-[var(--text-muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="text-lg font-medium text-blog-black dark:text-blog-white mb-2">
+              <h3 className="text-lg font-medium text-blog-black mb-2">
                 {searchTerm ? (
                   <FormattedMessage
                     id="approve-no-search-results-title"
@@ -297,7 +297,7 @@ function ApprovePostList() {
                   />
                 )}
               </h3>
-              <p className="text-gray-500 dark:text-gray-300 mb-6">
+              <p className="text-[var(--text-muted)] mb-6">
                 {searchTerm ? (
                   <FormattedMessage
                     id="approve-no-search-results-description"
@@ -327,7 +327,7 @@ function ApprovePostList() {
               {searchTerm && (
                 <button
                   onClick={() => setSearchTerm('')}
-                  className="inline-flex items-center px-4 py-2 bg-fun-blue-600 hover:bg-fun-blue-700 text-white rounded-lg font-medium transition-colors"
+                  className="inline-flex items-center px-4 py-2 bg-[var(--color-primary-deep)] hover:bg-[var(--color-primary-deeper)] text-[var(--text-on-primary)] rounded-lg font-medium transition-colors"
                 >
                   <FormattedMessage
                     id="approve-clear-search"
