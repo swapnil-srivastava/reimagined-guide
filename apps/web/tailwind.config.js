@@ -1,13 +1,6 @@
-// next-themes puts a single `theme-<color>-<mode>` class on <html> (see
-// pages/_app.tsx), never a bare `dark` class, so `dark:` variants must match
-// the dark theme classes themselves.
-const DARK_THEMES = ["blue", "green", "purple", "orange", "teal"]
-  .map((color) => `.theme-${color}-dark *`)
-  .join(", ");
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ["variant", `&:is(${DARK_THEMES})`],
+  darkMode: "class",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",

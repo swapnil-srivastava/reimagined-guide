@@ -156,7 +156,7 @@ function PostItem({
 
   return <>
     <div className="px-4 sm:px-0">
-      <div className="group bg-white dark:bg-fun-blue-600 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 border border-gray-100 dark:border-fun-blue-500 hover:border-gray-200 dark:hover:border-fun-blue-400">
+      <div className="group bg-[var(--surface-raised)] text-[var(--text-primary)] rounded-xl shadow-sm hover:shadow-md transition-all duration-200 border border-[var(--border-subtle)] hover:border-[var(--color-primary)]">
         
         <div className="p-4">
           {/* Compact Header */}
@@ -285,7 +285,7 @@ function PostItem({
           />
 
           {/* Footer - Compact */}
-                <div className="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-fun-blue-500">
+                <div className="flex items-center justify-between pt-2 border-t border-[var(--border-subtle)]">
                   <div className="flex items-center gap-3 text-xs text-blog-black">
               <span>{wordCount} <FormattedMessage
                 id="postfeed-words"

@@ -245,11 +245,7 @@
   --data-panel: color-mix(in srgb, var(--bg-primary) 50%, #0b0b0b);
 }
 
-.theme-blue-dark,
-.theme-green-dark,
-.theme-purple-dark,
-.theme-orange-dark,
-.theme-teal-dark {
+.dark {
   /* Toast colors for dark mode */
   --toast-bg: #004b8c;
   --toast-text: #fbfbfb;
