@@ -124,7 +124,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
 
       const session = await stripe.checkout.sessions.create(sessionOptions);
-      res.status(200).json({ id: session.id });
+      res.status(200).json({ id: session.id, url: session.url });
     } catch (error: any) {
       console.error("Error creating checkout session:", error);
       res.status(500).json({ message: error.message });

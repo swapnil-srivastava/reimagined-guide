@@ -135,24 +135,6 @@ const CheckoutButton = ({
       // Track if user is anonymous for order metadata
       const isAnonymous = isUserAnonymous(data.user);
 
-      // Check if Stripe is properly initialized
-      if (!stripePromise) {
-        throw new Error(intl.formatMessage({
-          id: "checkoutbutton-stripe-not-configured",
-          description: "Stripe is not properly configured",
-          defaultMessage: "Payment system is not configured. Please contact support."
-        }));
-      }
-      
-      const stripe = await stripePromise;
-      if (!stripe) {
-        throw new Error(intl.formatMessage({
-          id: "checkoutbutton-stripe-load-failed",
-          description: "Failed to load Stripe",
-          defaultMessage: "Failed to load payment system. Please try again."
-        }));
-      }
-
       // Build checkout payload based on whether we have a priceId or dynamic price
       const checkoutPayload: Record<string, unknown> = {
         userId: data.user?.id,
@@ -187,7 +169,7 @@ const CheckoutButton = ({
         return;
       }
 
-      const { data: axiosData, status } = await axios.post(
+      const { data: axiosData } = await axios.post(
         "/api/checkout",
         checkoutPayload,
         {
@@ -196,15 +178,41 @@ const CheckoutButton = ({
           },
         }
       );
-        
-      await stripe?.redirectToCheckout({ sessionId: axiosData.id });
+
+      // Go straight to the Checkout URL Stripe returns. This needs neither the
+      // publishable key nor stripe.redirectToCheckout, which Stripe deprecated.
+      if (axiosData.url) {
+        window.location.assign(axiosData.url);
+        return;
+      }
+
+      // Older API responses only carry the session id
+      if (!stripePromise) {
+        throw new Error(intl.formatMessage({
+          id: "checkoutbutton-stripe-not-configured",
+          description: "Stripe is not properly configured",
+          defaultMessage: "Payment system is not configured. Please contact support."
+        }));
+      }
+      const stripe = await stripePromise;
+      if (!stripe) {
+        throw new Error(intl.formatMessage({
+          id: "checkoutbutton-stripe-load-failed",
+          description: "Failed to load Stripe",
+          defaultMessage: "Failed to load payment system. Please try again."
+        }));
+      }
+      const { error: redirectError } = await stripe.redirectToCheckout({ sessionId: axiosData.id });
+      if (redirectError) throw redirectError;
     } catch (error: any) {
       console.error("Checkout error:", error);
+      // Say what failed (the API's message, or Stripe's), so a failure can be diagnosed from a phone
+      const detail = error?.response?.data?.message || error?.message;
       toast.error(intl.formatMessage({
         id: "checkoutbutton-error",
         description: "An error occurred during checkout",
         defaultMessage: "An error occurred during checkout. Please try again."
-      }));
+      }) + (detail ? ` (${detail})` : ''));
     } finally {
       setIsLoading(false);
     }
