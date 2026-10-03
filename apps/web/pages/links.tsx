@@ -381,7 +381,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
                   key={link.id}
                   className={`
                     flex flex-col sm:flex-row sm:items-center gap-4 w-full p-4 rounded-xl
-                    transition-all duration-300 transform hover:scale-[1.02]
+                    transition-all duration-300 transform motion-safe:hover:scale-[1.02]
                     drop-shadow-lg hover:drop-shadow-xl
                     bg-gradient-to-r from-hit-pink-500 to-hit-pink-600 hover:from-hit-pink-600 hover:to-hit-pink-700 text-blog-black
                   `}
@@ -437,7 +437,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
               },
               className: `
                 flex items-center gap-4 w-full p-4 rounded-xl
-                transition-all duration-300 transform hover:scale-[1.02]
+                transition-all duration-300 transform motion-safe:hover:scale-[1.02]
                 drop-shadow-lg hover:drop-shadow-xl
                 ${
                   link.isPrimary
@@ -561,6 +561,9 @@ export default function LinksPage({ locale }: LinksPageProps) {
               <form onSubmit={handleEmailSubmit} className="flex flex-col gap-3">
                 <input
                   type="email"
+                  name="email"
+                  autoComplete="email"
+                  spellCheck={false}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder={intl.formatMessage({
@@ -643,7 +646,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
                        text-gray-600 dark:text-blog-white
                        hover:text-fun-blue-500 dark:hover:text-caribbean-green-400
                        drop-shadow-lg hover:drop-shadow-xl
-                       transition-all duration-300 hover:scale-110"
+                       transition-all duration-300 motion-safe:hover:scale-110"
             >
               <FontAwesomeIcon icon={social.icon} className="w-6 h-6" />
             </a>
