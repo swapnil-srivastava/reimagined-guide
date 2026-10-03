@@ -295,9 +295,9 @@ export default function LinksPage({ locale }: LinksPageProps) {
         {/* Additional SEO */}
         <link rel="canonical" href="https://swapnilsrivastava.eu/links" />
         <link rel="alternate" hrefLang="en" href="https://swapnilsrivastava.eu/links" />
-        <link rel="alternate" hrefLang="de" href="https://swapnilsrivastava.eu/de/links" />
-        <link rel="alternate" hrefLang="fr" href="https://swapnilsrivastava.eu/fr/links" />
-        <link rel="alternate" hrefLang="hi" href="https://swapnilsrivastava.eu/hi/links" />
+        <link rel="alternate" hrefLang="de" href="https://swapnilsrivastava.eu/de-DE/links" />
+        <link rel="alternate" hrefLang="fr" href="https://swapnilsrivastava.eu/fr-FR/links" />
+        <link rel="alternate" hrefLang="hi" href="https://swapnilsrivastava.eu/hi-IN/links" />
         <link rel="alternate" hrefLang="x-default" href="https://swapnilsrivastava.eu/links" />
 
         {/* Preconnect to external domains */}
@@ -319,7 +319,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
       </Head>
 
       {/* Main Container */}
-      <main className="min-h-screen bg-blog-white dark:bg-fun-blue-500 flex flex-col items-center px-4 py-8 sm:py-12 pb-24 text-blog-black dark:text-blog-white">
+      <main className="font-poppins min-h-screen bg-blog-white dark:bg-fun-blue-500 flex flex-col items-center px-4 py-8 sm:py-12 pb-24 text-blog-black dark:text-blog-white">
         {/* Hero Section */}
         <section className="flex flex-col items-center text-center mb-6 animate-fadeIn">
           {/* Profile Image */}
@@ -391,21 +391,22 @@ export default function LinksPage({ locale }: LinksPageProps) {
                     <div
                       className={`
                         flex items-center justify-center w-12 h-12 rounded-full flex-shrink-0
-                        bg-white/20 text-blog-blac                    `}
+                        bg-white/20 text-[#0a0a0a]
+                      `}
                     >
                       <FontAwesomeIcon icon={link.icon} className="w-5 h-5" />
                     </div>
 
                     {/* Text Content */}
                     <div className="flex-1 text-left">
-                      <h2 className="font-semibold text-base text-blog-black">
+                      <h2 className="font-semibold text-base text-[#0a0a0a]">
                         <FormattedMessage
                           id={`links-${link.id}-title`}
                           description={`Link title for ${link.id}`}
                           defaultMessage={link.title}
                         />
                       </h2>
-                      <p className="text-sm text-blog-black/70">
+                      <p className="text-sm text-[#0a0a0a]/70">
                         <FormattedMessage
                           id={`links-${link.id}-description`}
                           description={`Link description for ${link.id}`}
@@ -417,7 +418,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
 
                   {/* CheckoutButton - Full Width on Mobile */}
                   <div className="w-full sm:w-auto sm:flex-shrink-0">
-                    <CheckoutButton priceId={'price_1PepBzRomQdDoc7IMPkYqS78'} />
+                    <CheckoutButton priceId={'price_1PepBzRomQdDoc7IMPkYqS78'} name="1:1 Consultation Call" />
                   </div>
                 </div>
               );
@@ -586,7 +587,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
                     description: 'Subscribe button accessibility label',
                     defaultMessage: 'Subscribe to weekly newsletter',
                   })}
-                  className="w-full bg-caribbean-green-500 hover:bg-caribbean-green-600 
+                  className="font-poppins w-full bg-caribbean-green-500 hover:bg-caribbean-green-600 
                            text-blog-black font-semibold py-3 px-4 rounded-lg
                            transition-all duration-200 hover:brightness-110
                            focus:outline-none focus:ring-2 focus:ring-caribbean-green-400 focus:ring-offset-2
@@ -622,7 +623,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
         </section>
 
         {/* Social Links Footer */}
-        <footer className="flex items-center justify-center gap-4 sm:gap-6 mb-12" role="navigation" aria-label="Social Media Links">
+        <nav className="flex items-center justify-center gap-4 sm:gap-6 mb-12" aria-label="Social Media Links">
           {SOCIAL_LINKS.map((social) => (
             <a
               key={social.id}
@@ -645,10 +646,10 @@ export default function LinksPage({ locale }: LinksPageProps) {
               <FontAwesomeIcon icon={social.icon} className="w-6 h-6" />
             </a>
           ))}
-        </footer>
+        </nav>
 
         {/* Attribution */}
-        <p className="text-xs text-gray-400 dark:text-blog-white mb-8">
+        <p className="text-xs text-blog-black opacity-70 mb-8">
           <FormattedMessage
             id="links-attribution"
             description="Page attribution"

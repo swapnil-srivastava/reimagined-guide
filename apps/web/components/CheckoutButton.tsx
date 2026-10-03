@@ -58,12 +58,14 @@ const CheckoutButton = ({
   const [showCaptcha, setShowCaptcha] = useState(false);
   const captchaRef = useRef<HCaptcha>(null);
 
-  const handleCheckout = async() => {
+  // The token is passed straight from onVerify: the captchaToken state set
+  // there isn't visible to this call until the next render
+  const handleCheckout = async(verifiedToken: string | null = captchaToken) => {
     // Check if user is logged in first
     let { data } = await supaClient.auth.getUser();
     
     // If no user and anonymous checkout is allowed, show captcha first if not verified
-    if (!data?.user && allowAnonymous && !captchaToken) {
+    if (!data?.user && allowAnonymous && !verifiedToken) {
       setShowCaptcha(true);
       return;
     }
@@ -74,7 +76,7 @@ const CheckoutButton = ({
       // If no user and anonymous checkout is allowed, sign in anonymously with captcha
       if (!data?.user && allowAnonymous) {
         const { data: anonData, error: anonError } = await supaClient.auth.signInAnonymously({
-          options: captchaToken ? { captchaToken } : undefined
+          options: verifiedToken ? { captchaToken: verifiedToken } : undefined
         });
         
         if (anonError) {
@@ -202,7 +204,7 @@ const CheckoutButton = ({
             onVerify={(token) => {
               setCaptchaToken(token);
               // Auto-proceed with checkout after captcha verification
-              handleCheckout();
+              handleCheckout(token);
             }}
             onExpire={() => setCaptchaToken(null)}
             size="compact"
@@ -213,7 +215,7 @@ const CheckoutButton = ({
       <button
         type="button"
         disabled={isLoading}
-        className="w-full sm:w-auto bg-hit-pink-500 text-black
+        className="font-poppins w-full sm:w-auto bg-hit-pink-500 text-black
         rounded-lg px-4 py-2 m-2
         transition-filter duration-500 hover:filter hover:brightness-125 
         focus:outline-none focus:ring-2 
