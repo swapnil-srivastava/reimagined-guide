@@ -113,13 +113,14 @@ export const ConvertAnonymousUser: React.FC<ConvertAnonymousUserProps> = ({
   };
 
   return (
-    <div className={`bg-white dark:bg-fun-blue-700 rounded-2xl shadow-lg p-6 ${className}`}>
+    // The card is white in every theme (dark: never applies), so its text is fixed dark rather than the theme text colour
+    <div className={`font-poppins [&_button]:font-poppins bg-white rounded-2xl shadow-lg p-6 ${className}`}>
       <div className="text-center mb-6">
         <div className="w-16 h-16 bg-hit-pink-100 dark:bg-hit-pink-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
           <FontAwesomeIcon icon={faUser} className="w-8 h-8 text-hit-pink-500" />
         </div>
         
-        <h3 className="text-xl font-bold text-blog-black dark:text-blog-white mb-2">
+        <h3 className="text-xl font-bold text-[#0a0a0a] mb-2">
           <FormattedMessage
             id="convert-anonymous-title"
             description="Save Your Account"
@@ -183,7 +184,7 @@ export const ConvertAnonymousUser: React.FC<ConvertAnonymousUserProps> = ({
               setShowEmailForm(false);
               setEmail('');
             }}
-            className="w-full py-3 px-4 border border-gray-300 dark:border-fun-blue-500 rounded-lg text-blog-black dark:text-blog-white hover:bg-gray-50 dark:hover:bg-fun-blue-600 transition-colors"
+            className="w-full py-3 px-4 border border-gray-300 dark:border-fun-blue-500 rounded-lg text-[#0a0a0a] hover:bg-gray-50 dark:hover:bg-fun-blue-600 transition-colors"
           >
             <FormattedMessage
               id="convert-anonymous-back-to-options"
@@ -218,7 +219,7 @@ export const ConvertAnonymousUser: React.FC<ConvertAnonymousUserProps> = ({
                   defaultMessage: 'Enter your email address',
                 })}
                 disabled={isLoading}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-fun-blue-500 rounded-lg bg-white dark:bg-fun-blue-600 text-blog-black dark:text-blog-white focus:outline-none focus:ring-2 focus:ring-hit-pink-500 disabled:opacity-50"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-fun-blue-500 rounded-lg bg-white dark:bg-fun-blue-600 text-[#0a0a0a] focus:outline-none focus:ring-2 focus:ring-hit-pink-500 disabled:opacity-50"
               />
             </div>
           </div>
@@ -228,7 +229,7 @@ export const ConvertAnonymousUser: React.FC<ConvertAnonymousUserProps> = ({
               type="button"
               onClick={() => setShowEmailForm(false)}
               disabled={isLoading}
-              className="flex-1 py-3 px-4 border border-gray-300 dark:border-fun-blue-500 rounded-lg text-blog-black dark:text-blog-white hover:bg-gray-50 dark:hover:bg-fun-blue-600 transition-colors disabled:opacity-50"
+              className="flex-1 py-3 px-4 border border-gray-300 dark:border-fun-blue-500 rounded-lg text-[#0a0a0a] hover:bg-gray-50 dark:hover:bg-fun-blue-600 transition-colors disabled:opacity-50"
             >
               <FontAwesomeIcon icon={faTimes} className="mr-2" />
               <FormattedMessage
@@ -241,7 +242,7 @@ export const ConvertAnonymousUser: React.FC<ConvertAnonymousUserProps> = ({
             <button
               type="submit"
               disabled={isLoading}
-              className="flex-1 py-3 px-4 bg-hit-pink-500 text-blog-black rounded-lg hover:brightness-110 transition-all disabled:opacity-50"
+              className="flex-1 py-3 px-4 bg-hit-pink-500 text-[#0a0a0a] rounded-lg hover:brightness-110 transition-all disabled:opacity-50"
             >
               <FontAwesomeIcon icon={faCheck} className="mr-2" />
               {isLoading ? (
@@ -266,7 +267,7 @@ export const ConvertAnonymousUser: React.FC<ConvertAnonymousUserProps> = ({
           <button
             onClick={() => setShowEmailForm(true)}
             disabled={isLoading}
-            className="w-full flex items-center justify-center gap-3 py-3 px-4 border border-gray-300 dark:border-fun-blue-500 rounded-lg text-blog-black dark:text-blog-white hover:bg-gray-50 dark:hover:bg-fun-blue-600 transition-colors disabled:opacity-50"
+            className="w-full flex items-center justify-center gap-3 py-3 px-4 border border-gray-300 dark:border-fun-blue-500 rounded-lg text-[#0a0a0a] hover:bg-gray-50 dark:hover:bg-fun-blue-600 transition-colors disabled:opacity-50"
           >
             <FontAwesomeIcon icon={faEnvelope} className="w-5 h-5" />
             <FormattedMessage

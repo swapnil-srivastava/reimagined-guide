@@ -21,7 +21,7 @@ const Success: NextPage = () => {
   const [showConvertPrompt, setShowConvertPrompt] = useState(true);
   
   return (
-    <div className="min-h-screen bg-blog-white dark:bg-fun-blue-500 flex items-center justify-center p-4 text-blog-black dark:text-blog-white">
+    <div className="font-poppins [&_button]:font-poppins min-h-screen bg-blog-white flex items-center justify-center p-4 text-blog-black">
       <div className="max-w-lg w-full">
         {/* Success Card */}
         <div className="bg-white dark:bg-fun-blue-600 rounded-3xl shadow-2xl overflow-hidden">
@@ -31,7 +31,7 @@ const Success: NextPage = () => {
               <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
                 <FontAwesomeIcon 
                   icon={faCheckCircle} 
-                  className="w-16 h-16 text-white"
+                  className="w-16 h-16 text-6xl text-white"
                 />
               </div>
             </div>
