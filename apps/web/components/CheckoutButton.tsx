@@ -57,10 +57,23 @@ const CheckoutButton = ({
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [showCaptcha, setShowCaptcha] = useState(false);
   const captchaRef = useRef<HCaptcha>(null);
+  // Blocks a second checkout while the first is still before setIsLoading
+  // (e.g. a click right after the captcha's auto-continue)
+  const inFlight = useRef(false);
 
   // The token is passed straight from onVerify: the captchaToken state set
   // there isn't visible to this call until the next render
   const handleCheckout = async(verifiedToken: string | null = captchaToken) => {
+    if (inFlight.current) return;
+    inFlight.current = true;
+    try {
+      await runCheckout(verifiedToken);
+    } finally {
+      inFlight.current = false;
+    }
+  }
+
+  const runCheckout = async(verifiedToken: string | null) => {
     // Check if user is logged in first
     let { data } = await supaClient.auth.getUser();
     
@@ -86,6 +99,9 @@ const CheckoutButton = ({
             description: "Failed to create anonymous session",
             defaultMessage: "Failed to start checkout. Please try again or sign in."
           }));
+          // hCaptcha tokens are single-use, so ask for a fresh one on retry
+          captchaRef.current?.resetCaptcha();
+          setCaptchaToken(null);
           setIsLoading(false);
           return;
         }

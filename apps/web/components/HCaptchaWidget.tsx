@@ -88,7 +88,7 @@ const HCaptchaWidget = forwardRef<HCaptcha, HCaptchaWidgetProps>(
           onVerify={handleVerify}
           onExpire={handleExpire}
           onError={handleError}
-          theme={resolvedTheme === 'dark' ? 'dark' : 'light'}
+          theme={resolvedTheme?.endsWith('-dark') ? 'dark' : 'light'}
           size={size}
         />
       </div>

@@ -220,6 +220,8 @@ export const getStaticProps: GetStaticProps<LinksPageProps> = async ({ locale })
 // ============================================================================
 
 export default function LinksPage({ locale }: LinksPageProps) {
+  // en-US is the default locale and has no prefix
+  const pageUrl = `https://swapnilsrivastava.eu${locale && locale !== 'en-US' ? `/${locale}` : ''}/links`;
   const intl = useIntl();
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -273,7 +275,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
         <meta property="og:image:width" content="400" />
         <meta property="og:image:height" content="400" />
         <meta property="og:image:alt" content="Swapnil Srivastava - Architect & Full Stack Engineer" />
-        <meta property="og:url" content="https://swapnilsrivastava.eu/links" />
+        <meta property="og:url" content={pageUrl} />
         <meta property="og:site_name" content="Swapnil's Odyssey" />
         <meta property="og:locale" content={locale} />
         <meta property="profile:first_name" content="Swapnil" />
@@ -293,7 +295,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
         <meta name="twitter:image:alt" content="Swapnil Srivastava - Architect & Full Stack Engineer" />
 
         {/* Additional SEO */}
-        <link rel="canonical" href="https://swapnilsrivastava.eu/links" />
+        <link rel="canonical" href={pageUrl} />
         <link rel="alternate" hrefLang="en" href="https://swapnilsrivastava.eu/links" />
         <link rel="alternate" hrefLang="de" href="https://swapnilsrivastava.eu/de-DE/links" />
         <link rel="alternate" hrefLang="fr" href="https://swapnilsrivastava.eu/fr-FR/links" />
