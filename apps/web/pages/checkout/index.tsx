@@ -39,7 +39,7 @@ import { supaClient } from "../../supa-client";
 import { addToCartAddressCreate } from "../../redux/actions/actions";
 
 // Anonymous auth
-import { useAnonymousAuth, isUserAnonymous } from "../../lib/use-anonymous-auth";
+import { useAnonymousAuth } from "../../lib/use-anonymous-auth";
 
 // Initialize Stripe outside component to avoid recreating it on every render
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
@@ -56,7 +56,6 @@ function Checkout() {
 
   // Anonymous auth hook
   const { user: anonymousUser, signInAnonymously } = useAnonymousAuth();
-  const isAnonymous = isUserAnonymous(anonymousUser);
 
   const selectStore = (state: RootState) => state.cart;
   const { cartItems } = useSelector(selectStore);
@@ -69,7 +68,7 @@ function Checkout() {
   const { customerAddress } = useSelector(selectAddress);
 
   const selectDeliveryType = (state: RootState) => state.deliveryType;
-  const { deliveryType: { deliveryOption : { name: selectedDeliveryName }} } = useSelector(selectDeliveryType);
+  const { deliveryType: { deliveryOption : { name: selectedDeliveryName, id: selectedDeliveryId }} } = useSelector(selectDeliveryType);
 
   const subTotal = useSelector((state : RootState) => state.subtotal?.subTotal);
   const deliveryCost = useSelector((state : RootState) => state.subtotal?.deliveryCost) || 0;
@@ -81,9 +80,8 @@ function Checkout() {
   const [showCaptcha, setShowCaptcha] = useState(false);
   const captchaRef = useRef<HCaptcha>(null);
 
-  // Determine effective user ID and email (profile takes priority, then anonymous user)
+  // Determine effective user ID (profile takes priority, then anonymous user)
   const effectiveUserId = profile?.id || anonymousUser?.id;
-  const effectiveEmail = profile?.email || anonymousUser?.email;
 
   useEffect(() => {
     const checkAddress = async () => {
@@ -101,6 +99,14 @@ function Checkout() {
     checkAddress();
   }, [profile, dispatch]);
 
+  const cartRequestItems = () =>
+    (cartItems || []).map((item) => ({ id: item.id, quantity: item.quantity }));
+
+  const authHeader = async (): Promise<Record<string, string>> => {
+    const { data: { session } } = await supaClient.auth.getSession();
+    return session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {};
+  };
+
   const handleStripeCheckout = async () => {
     // If user is not logged in and no captcha token, show captcha first
     if (!effectiveUserId && !captchaToken) {
@@ -112,11 +118,7 @@ function Checkout() {
     
     try {
       // If user is not logged in at all, sign in anonymously first
-      let currentUserId = effectiveUserId;
-      let currentEmail = effectiveEmail;
-      let currentIsAnonymous = isAnonymous;
-
-      if (!currentUserId) {
+      if (!effectiveUserId) {
         const anonymousResult = await signInAnonymously(captchaToken || undefined);
         if (anonymousResult.error || !anonymousResult.user) {
           throw new Error(intl.formatMessage({
@@ -125,9 +127,6 @@ function Checkout() {
             defaultMessage: "Failed to initialize checkout session. Please try again."
           }));
         }
-        currentUserId = anonymousResult.user.id;
-        currentEmail = anonymousResult.user.email;
-        currentIsAnonymous = true;
         
         // Reset captcha after successful use
         captchaRef.current?.resetCaptcha();
@@ -135,24 +134,17 @@ function Checkout() {
         setShowCaptcha(false);
       }
 
-      const stripe = await stripePromise;
-      if (!stripe) throw new Error("Stripe failed to initialize.");
-
+      // The server prices the cart from the products table and reads the
+      // buyer from the session token, so only ids and quantities are sent
       const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          ...(await authHeader()),
         },
         body: JSON.stringify({
-          items: cartItems,
-          email: currentEmail,
-          userId: currentUserId,
-          currency: 'EUR', // Or dynamic currency if supported
-          tax: tax || 0,
-          deliveryCost: deliveryCost || 0,
-          totalCost: totalCost || 0,
-          order_type: 'cart',
-          is_anonymous: currentIsAnonymous,
+          items: cartRequestItems(),
+          deliveryOptionId: selectedDeliveryId || null,
         }),
       });
 
@@ -161,7 +153,16 @@ function Checkout() {
         throw new Error(errorData.message || 'Checkout failed');
       }
 
-      const { id: sessionId } = await response.json();
+      const { id: sessionId, url } = await response.json();
+
+      // Same as CheckoutButton: Stripe's own URL needs no publishable key
+      if (url) {
+        window.location.assign(url);
+        return;
+      }
+
+      const stripe = await stripePromise;
+      if (!stripe) throw new Error("Stripe failed to initialize.");
 
       const result = await stripe.redirectToCheckout({
         sessionId,
@@ -461,11 +462,8 @@ function Checkout() {
                   {/* PayPal Payment Button */}
                   <PayPalCheckoutButton
                     totalCost={totalCost}
-                    tax={tax || 0}
-                    deliveryCost={deliveryCost}
                     cartItems={cartItems}
-                    email={effectiveEmail || ''}
-                    userId={effectiveUserId || ''}
+                    deliveryOptionId={selectedDeliveryId || null}
                     disabled={isProcessing || !cartItems || cartItems.length === 0}
                     onSuccess={() => router.push('/success')}
                     currency="EUR"

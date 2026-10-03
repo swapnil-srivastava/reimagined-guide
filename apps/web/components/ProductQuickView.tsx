@@ -4,6 +4,7 @@ import Image from 'next/image';
 import axios from 'axios';
 import { loadStripe } from '@stripe/stripe-js';
 import { useIntl } from 'react-intl';
+import { supaClient } from '../supa-client';
 
 interface ProductQuickViewProps {
   isOpen: boolean;
@@ -17,22 +18,25 @@ export default function ProductQuickView({ isOpen, onRequestClose, product }: Pr
 
   const handleBuyNow = async () => {
     try {
-      const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
-      const stripe = await stripePromise;
+      // The server prices the product from the products table; a signed-in
+      // buyer is attached from their session token
+      const { data: { session } } = await supaClient.auth.getSession();
+      const { data } = await axios.post(
+        '/api/checkout',
+        { items: [{ id: product.id, quantity: 1 }] },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
+          },
+        }
+      );
 
-      const payload: any = {};
-      // if product has a stripe priceId use it, otherwise send price and name
-      if ((product as any).priceId) {
-        payload.priceId = (product as any).priceId;
-      } else {
-        payload.price = Number(product.price);
-        payload.name = product.name;
-        payload.currency = (product.currency || 'EUR');
+      if (data.url) {
+        window.location.assign(data.url);
+        return;
       }
-
-      // If user is logged in, the CheckoutButton flow attaches email; here we just POST
-      const { data } = await axios.post('/api/checkout', payload, { headers: { 'Content-Type': 'application/json' } });
-
+      const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
       await stripe?.redirectToCheckout({ sessionId: data.id });
     } catch (err: any) {
       console.error(err);

@@ -1,6 +1,8 @@
 // pages/api/paypal-checkout.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 import paypal from '@paypal/checkout-server-sdk';
+import { getAuthedRequest } from '../../lib/server/supabase-user';
+import { CURRENCY, PricingError, parseCartItems, priceCart } from '../../lib/server/pricing';
 
 // PayPal environment setup
 function environment() {
@@ -33,50 +35,54 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const { items, email, userId, currency = 'EUR', tax, deliveryCost, totalCost } = req.body;
+    const { items, deliveryOptionId } = req.body || {};
 
-    if (!items || !Array.isArray(items) || items.length === 0) {
-      return res.status(400).json({ message: 'Invalid request: items array is required' });
+    // The buyer comes from their session token, never from the body. A token
+    // that is sent must be valid.
+    let userId = '';
+    if (req.headers.authorization) {
+      const authed = await getAuthedRequest(req);
+      if (!authed) {
+        return res.status(401).json({ message: 'Your session has expired. Please sign in again.' });
+      }
+      userId = authed.user.id;
     }
 
-    if (!totalCost || totalCost <= 0) {
-      return res.status(400).json({ message: 'Invalid request: totalCost is required' });
-    }
+    // Prices, tax and delivery come from the products table and server constants
+    const cart = await priceCart(parseCartItems(items), deliveryOptionId);
+    const currency = CURRENCY;
 
-    // Build purchase units with itemized breakdown
-    const itemsBreakdown = items.map((item: any) => ({
-      name: item.name,
-      description: item.description || '',
+    // Build purchase units with itemized breakdown. The sku carries the
+    // product id so the capture can record order items without trusting the browser.
+    const itemsBreakdown = cart.items.map((item) => ({
+      name: item.name.slice(0, 127),
+      description: item.description.slice(0, 127),
+      sku: item.product_id,
       unit_amount: {
-        currency_code: currency.toUpperCase(),
+        currency_code: currency,
         value: item.price.toFixed(2),
       },
       quantity: item.quantity.toString(),
     }));
 
-    // Build amount breakdown with precise calculations
-    const itemsTotal = items.reduce((sum: number, item: any) => sum + (item.price * item.quantity), 0);
-    const taxAmount = tax || 0;
-    const shippingAmount = deliveryCost || 0;
-    
     const amountBreakdown: any = {
       item_total: {
-        currency_code: currency.toUpperCase(),
-        value: itemsTotal.toFixed(2),
+        currency_code: currency,
+        value: cart.subtotal.toFixed(2),
       },
     };
 
-    if (taxAmount > 0) {
+    if (cart.tax > 0) {
       amountBreakdown.tax_total = {
-        currency_code: currency.toUpperCase(),
-        value: taxAmount.toFixed(2),
+        currency_code: currency,
+        value: cart.tax.toFixed(2),
       };
     }
 
-    if (shippingAmount > 0) {
+    if (cart.delivery > 0) {
       amountBreakdown.shipping = {
-        currency_code: currency.toUpperCase(),
-        value: shippingAmount.toFixed(2),
+        currency_code: currency,
+        value: cart.delivery.toFixed(2),
       };
     }
 
@@ -88,12 +94,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       purchase_units: [
         {
           amount: {
-            currency_code: currency.toUpperCase(),
-            value: totalCost.toFixed(2),
+            currency_code: currency,
+            value: cart.total.toFixed(2),
             breakdown: amountBreakdown,
           },
           items: itemsBreakdown,
-          description: `Order for ${items.length} item(s)`,
+          description: `Order for ${cart.items.length} item(s)`,
           custom_id: userId || undefined,
         },
       ],
@@ -115,6 +121,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       status: order.result.status 
     });
   } catch (error: any) {
+    if (error instanceof PricingError) {
+      return res.status(400).json({ message: error.message });
+    }
     console.error('PayPal checkout error:', error.message);
     
     res.status(500).json({ 

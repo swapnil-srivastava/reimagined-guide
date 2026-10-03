@@ -10,12 +10,6 @@ import HCaptcha from '@hcaptcha/react-hcaptcha';
 // supabase instance in the app
 import { supaClient } from "../supa-client";
 
-// Types
-import { OrderType } from '../types/stripe';
-
-// Anonymous auth utility
-import { isUserAnonymous } from '../lib/use-anonymous-auth';
-
 // Components
 import HCaptchaWidget from './HCaptchaWidget';
 
@@ -25,18 +19,11 @@ const stripePromise = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
   : null;
 
 interface CheckoutButtonProps {
-  // Existing props - for pre-created Stripe prices
-  priceId?: string;
+  // A Stripe price listed in SERVICE_PACKAGES (lib/server/pricing.ts), which
+  // also holds the package's name and id
+  priceId: string;
   text?: string;
-  
-  // New props - for dynamic service package checkout
-  price?: number;
-  name?: string;
-  description?: string;
-  currency?: string;
-  order_type?: OrderType;
-  package_id?: string;
-  
+
   // Allow anonymous checkout (will auto sign-in anonymously if needed)
   allowAnonymous?: boolean;
 }
@@ -44,12 +31,6 @@ interface CheckoutButtonProps {
 const CheckoutButton = ({ 
   priceId, 
   text = "Let's get started",
-  price,
-  name,
-  description,
-  currency = 'EUR',
-  order_type = 'service_package',
-  package_id,
   allowAnonymous = true, // Enable anonymous checkout by default for service_package
 }: CheckoutButtonProps) => {
   const intl = useIntl();
@@ -57,13 +38,28 @@ const CheckoutButton = ({
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [showCaptcha, setShowCaptcha] = useState(false);
   const captchaRef = useRef<HCaptcha>(null);
+  // Blocks a second checkout while the first is still before setIsLoading
+  // (e.g. a click right after the captcha's auto-continue)
+  const inFlight = useRef(false);
 
-  const handleCheckout = async() => {
+  // The token is passed straight from onVerify: the captchaToken state set
+  // there isn't visible to this call until the next render
+  const handleCheckout = async(verifiedToken: string | null = captchaToken) => {
+    if (inFlight.current) return;
+    inFlight.current = true;
+    try {
+      await runCheckout(verifiedToken);
+    } finally {
+      inFlight.current = false;
+    }
+  }
+
+  const runCheckout = async(verifiedToken: string | null) => {
     // Check if user is logged in first
     let { data } = await supaClient.auth.getUser();
     
     // If no user and anonymous checkout is allowed, show captcha first if not verified
-    if (!data?.user && allowAnonymous && !captchaToken) {
+    if (!data?.user && allowAnonymous && !verifiedToken) {
       setShowCaptcha(true);
       return;
     }
@@ -74,7 +70,7 @@ const CheckoutButton = ({
       // If no user and anonymous checkout is allowed, sign in anonymously with captcha
       if (!data?.user && allowAnonymous) {
         const { data: anonData, error: anonError } = await supaClient.auth.signInAnonymously({
-          options: captchaToken ? { captchaToken } : undefined
+          options: verifiedToken ? { captchaToken: verifiedToken } : undefined
         });
         
         if (anonError) {
@@ -84,6 +80,9 @@ const CheckoutButton = ({
             description: "Failed to create anonymous session",
             defaultMessage: "Failed to start checkout. Please try again or sign in."
           }));
+          // hCaptcha tokens are single-use, so ask for a fresh one on retry
+          captchaRef.current?.resetCaptcha();
+          setCaptchaToken(null);
           setIsLoading(false);
           return;
         }
@@ -114,52 +113,9 @@ const CheckoutButton = ({
         return;
       }
       
-      // Track if user is anonymous for order metadata
-      const isAnonymous = isUserAnonymous(data.user);
-
-      // Check if Stripe is properly initialized
-      if (!stripePromise) {
-        throw new Error(intl.formatMessage({
-          id: "checkoutbutton-stripe-not-configured",
-          description: "Stripe is not properly configured",
-          defaultMessage: "Payment system is not configured. Please contact support."
-        }));
-      }
-      
-      const stripe = await stripePromise;
-      if (!stripe) {
-        throw new Error(intl.formatMessage({
-          id: "checkoutbutton-stripe-load-failed",
-          description: "Failed to load Stripe",
-          defaultMessage: "Failed to load payment system. Please try again."
-        }));
-      }
-
-      // Build checkout payload based on whether we have a priceId or dynamic price
-      const checkoutPayload: Record<string, unknown> = {
-        userId: data.user?.id,
-        email: data.user?.email,
-        is_anonymous: isAnonymous,
-      };
-
-      if (priceId) {
-        // Use pre-created Stripe price (existing behavior)
-        checkoutPayload.priceId = priceId;
-        // Service packages using priceId should still be marked as service_package
-        checkoutPayload.order_type = order_type;
-        if (name) checkoutPayload.package_name = name;
-        if (description) checkoutPayload.package_description = description;
-        if (package_id) checkoutPayload.package_id = package_id;
-      } else if (price && name) {
-        // Use dynamic price data (new behavior for service packages)
-        checkoutPayload.price = price;
-        checkoutPayload.name = name;
-        checkoutPayload.currency = currency;
-        checkoutPayload.order_type = order_type;
-        checkoutPayload.package_name = name;
-        if (description) checkoutPayload.package_description = description;
-        if (package_id) checkoutPayload.package_id = package_id;
-      } else {
+      // The server prices the package from priceId and reads the buyer from
+      // the session token, so only those two go over the wire
+      if (!priceId) {
         toast.error(intl.formatMessage({
           id: "checkoutbutton-invalid-config",
           description: "Invalid checkout configuration",
@@ -169,24 +125,55 @@ const CheckoutButton = ({
         return;
       }
 
-      const { data: axiosData, status } = await axios.post(
+      const { data: { session } } = await supaClient.auth.getSession();
+
+      const { data: axiosData } = await axios.post(
         "/api/checkout",
-        checkoutPayload,
+        { priceId },
         {
           headers: {
             "Content-Type": "application/json",
+            ...(session?.access_token
+              ? { Authorization: `Bearer ${session.access_token}` }
+              : {}),
           },
         }
       );
-        
-      await stripe?.redirectToCheckout({ sessionId: axiosData.id });
+
+      // Go straight to the Checkout URL Stripe returns. This needs neither the
+      // publishable key nor stripe.redirectToCheckout, which Stripe deprecated.
+      if (axiosData.url) {
+        window.location.assign(axiosData.url);
+        return;
+      }
+
+      // Older API responses only carry the session id
+      if (!stripePromise) {
+        throw new Error(intl.formatMessage({
+          id: "checkoutbutton-stripe-not-configured",
+          description: "Stripe is not properly configured",
+          defaultMessage: "Payment system is not configured. Please contact support."
+        }));
+      }
+      const stripe = await stripePromise;
+      if (!stripe) {
+        throw new Error(intl.formatMessage({
+          id: "checkoutbutton-stripe-load-failed",
+          description: "Failed to load Stripe",
+          defaultMessage: "Failed to load payment system. Please try again."
+        }));
+      }
+      const { error: redirectError } = await stripe.redirectToCheckout({ sessionId: axiosData.id });
+      if (redirectError) throw redirectError;
     } catch (error: any) {
       console.error("Checkout error:", error);
+      // Say what failed (the API's message, or Stripe's), so a failure can be diagnosed from a phone
+      const detail = error?.response?.data?.message || error?.message;
       toast.error(intl.formatMessage({
         id: "checkoutbutton-error",
         description: "An error occurred during checkout",
         defaultMessage: "An error occurred during checkout. Please try again."
-      }));
+      }) + (detail ? ` (${detail})` : ''));
     } finally {
       setIsLoading(false);
     }
@@ -202,7 +189,7 @@ const CheckoutButton = ({
             onVerify={(token) => {
               setCaptchaToken(token);
               // Auto-proceed with checkout after captcha verification
-              handleCheckout();
+              handleCheckout(token);
             }}
             onExpire={() => setCaptchaToken(null)}
             size="compact"
@@ -213,7 +200,7 @@ const CheckoutButton = ({
       <button
         type="button"
         disabled={isLoading}
-        className="w-full sm:w-auto bg-hit-pink-500 text-black
+        className="font-poppins w-full sm:w-auto bg-hit-pink-500 text-black
         rounded-lg px-4 py-2 m-2
         transition-filter duration-500 hover:filter hover:brightness-125 
         focus:outline-none focus:ring-2 

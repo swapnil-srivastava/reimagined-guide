@@ -11,6 +11,15 @@ import {
   isCartOrder 
 } from '../../types/stripe';
 
+/**
+ * Removes an order whose items failed to save, so Stripe's retry can write
+ * the whole order again instead of hitting the duplicate check
+ */
+async function deleteOrder(orderId: string) {
+  const { error } = await supaServerClient.from('orders').delete().eq('id', orderId);
+  if (error) console.error(`Error removing incomplete order ${orderId}:`, error);
+}
+
 const handler = async (
   req: NextApiRequest,
   res: NextApiResponse
@@ -110,6 +119,11 @@ const handler = async (
         // ============================================
         // DATABASE OPERATIONS: Create order and items
         // ============================================
+        if (userId && !supaServerClient) {
+          // Without the service role key nothing can be saved; a 500 makes Stripe retry
+          throw new Error('SUPABASE_SERVICE_ROLE_KEY is not configured');
+        }
+
         if (supaServerClient && userId) {
           // Check if this is an anonymous user order
           const isAnonymousOrder = sessionMetadata.is_anonymous === 'true';
@@ -145,7 +159,14 @@ const handler = async (
             .single();
 
           if (orderError) {
-            console.error('Error creating order:', orderError);
+            // 23505 = unique violation on payment_intent_id: a parallel delivery
+            // of this event already saved the order
+            if (orderError.code === '23505') {
+              console.log(`⚠️ Order already exists for payment_intent: ${paymentIntentId}, skipping...`);
+              res.json({ received: true, duplicate: true });
+              return;
+            }
+            throw new Error(`Error creating order: ${orderError.message}`);
           } else if (orderData) {
             console.log(`Order created: ${orderData.id} (type: ${orderType}, anonymous: ${isAnonymousOrder})`);
 
@@ -170,7 +191,8 @@ const handler = async (
                 });
 
               if (itemsError) {
-                console.error('Error creating service package order item:', itemsError);
+                await deleteOrder(orderData.id);
+                throw new Error(`Error creating service package order item: ${itemsError.message}`);
               } else {
                 console.log('Service package order item created successfully');
               }
@@ -188,7 +210,8 @@ const handler = async (
                 .insert(orderItemsInsert);
 
               if (itemsError) {
-                console.error('Error creating order items:', itemsError);
+                await deleteOrder(orderData.id);
+                throw new Error(`Error creating order items: ${itemsError.message}`);
               } else {
                 console.log('Order items created successfully');
               }
@@ -544,7 +567,11 @@ const handler = async (
         }
 
       } catch (error) {
+        // A non-2xx response makes Stripe retry the event (for up to 3 days),
+        // so an order that failed to save is not lost
         console.error('Error processing checkout session:', error);
+        res.status(500).json({ received: false, message: error.message });
+        return;
       }
     }
 
