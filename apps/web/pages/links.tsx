@@ -420,7 +420,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
 
                   {/* CheckoutButton - Full Width on Mobile */}
                   <div className="w-full sm:w-auto sm:flex-shrink-0">
-                    <CheckoutButton priceId={'price_1PepBzRomQdDoc7IMPkYqS78'} name="1:1 Consultation Call" />
+                    <CheckoutButton priceId={'price_1PepBzRomQdDoc7IMPkYqS78'} />
                   </div>
                 </div>
               );

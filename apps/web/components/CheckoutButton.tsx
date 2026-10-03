@@ -10,12 +10,6 @@ import HCaptcha from '@hcaptcha/react-hcaptcha';
 // supabase instance in the app
 import { supaClient } from "../supa-client";
 
-// Types
-import { OrderType } from '../types/stripe';
-
-// Anonymous auth utility
-import { isUserAnonymous } from '../lib/use-anonymous-auth';
-
 // Components
 import HCaptchaWidget from './HCaptchaWidget';
 
@@ -25,18 +19,11 @@ const stripePromise = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
   : null;
 
 interface CheckoutButtonProps {
-  // Existing props - for pre-created Stripe prices
-  priceId?: string;
+  // A Stripe price listed in SERVICE_PACKAGES (lib/server/pricing.ts), which
+  // also holds the package's name and id
+  priceId: string;
   text?: string;
-  
-  // New props - for dynamic service package checkout
-  price?: number;
-  name?: string;
-  description?: string;
-  currency?: string;
-  order_type?: OrderType;
-  package_id?: string;
-  
+
   // Allow anonymous checkout (will auto sign-in anonymously if needed)
   allowAnonymous?: boolean;
 }
@@ -44,12 +31,6 @@ interface CheckoutButtonProps {
 const CheckoutButton = ({ 
   priceId, 
   text = "Let's get started",
-  price,
-  name,
-  description,
-  currency = 'EUR',
-  order_type = 'service_package',
-  package_id,
   allowAnonymous = true, // Enable anonymous checkout by default for service_package
 }: CheckoutButtonProps) => {
   const intl = useIntl();
@@ -132,34 +113,9 @@ const CheckoutButton = ({
         return;
       }
       
-      // Track if user is anonymous for order metadata
-      const isAnonymous = isUserAnonymous(data.user);
-
-      // Build checkout payload based on whether we have a priceId or dynamic price
-      const checkoutPayload: Record<string, unknown> = {
-        userId: data.user?.id,
-        email: data.user?.email,
-        is_anonymous: isAnonymous,
-      };
-
-      if (priceId) {
-        // Use pre-created Stripe price (existing behavior)
-        checkoutPayload.priceId = priceId;
-        // Service packages using priceId should still be marked as service_package
-        checkoutPayload.order_type = order_type;
-        if (name) checkoutPayload.package_name = name;
-        if (description) checkoutPayload.package_description = description;
-        if (package_id) checkoutPayload.package_id = package_id;
-      } else if (price && name) {
-        // Use dynamic price data (new behavior for service packages)
-        checkoutPayload.price = price;
-        checkoutPayload.name = name;
-        checkoutPayload.currency = currency;
-        checkoutPayload.order_type = order_type;
-        checkoutPayload.package_name = name;
-        if (description) checkoutPayload.package_description = description;
-        if (package_id) checkoutPayload.package_id = package_id;
-      } else {
+      // The server prices the package from priceId and reads the buyer from
+      // the session token, so only those two go over the wire
+      if (!priceId) {
         toast.error(intl.formatMessage({
           id: "checkoutbutton-invalid-config",
           description: "Invalid checkout configuration",
@@ -169,12 +125,17 @@ const CheckoutButton = ({
         return;
       }
 
+      const { data: { session } } = await supaClient.auth.getSession();
+
       const { data: axiosData } = await axios.post(
         "/api/checkout",
-        checkoutPayload,
+        { priceId },
         {
           headers: {
             "Content-Type": "application/json",
+            ...(session?.access_token
+              ? { Authorization: `Bearer ${session.access_token}` }
+              : {}),
           },
         }
       );

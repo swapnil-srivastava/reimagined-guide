@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import paypal from '@paypal/checkout-server-sdk';
 import { supaServerClient } from '../../supa-server-client';
 import * as postmark from 'postmark';
+import { getAuthedRequest } from '../../lib/server/supabase-user';
 
 const postMarkClient = new postmark.ServerClient(process.env.POSTMARK_API_TOKEN);
 
@@ -36,17 +37,34 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const { orderId, userId, items } = req.body;
+    const { orderId } = req.body || {};
 
-    if (!orderId) {
+    if (!orderId || typeof orderId !== 'string') {
       return res.status(400).json({ message: 'Order ID is required' });
+    }
+
+    const paypalClient = client();
+
+    // Read the order PayPal holds. Its buyer (custom_id) and items (sku =
+    // product id) were set by /api/paypal-checkout from server prices, so
+    // nothing the browser sends here decides what gets recorded.
+    const orderResult = (await paypalClient.execute(new paypal.orders.OrdersGetRequest(orderId))).result;
+    const orderUnit = orderResult.purchase_units?.[0];
+    const userId: string = orderUnit?.custom_id || '';
+    const paidItems: any[] = orderUnit?.items || [];
+
+    // Only the buyer who created the order may capture it
+    if (userId) {
+      const authed = await getAuthedRequest(req);
+      if (!authed || authed.user.id !== userId) {
+        return res.status(403).json({ message: 'This order belongs to another account' });
+      }
     }
 
     // Capture the order
     const request = new paypal.orders.OrdersCaptureRequest(orderId);
     request.requestBody({});
 
-    const paypalClient = client();
     const capture = await paypalClient.execute(request);
 
     const captureResult = capture.result;
@@ -66,7 +84,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const payerEmail = captureResult.payer.email_address;
 
     // Create order in database
-    if (userId && items && Array.isArray(items)) {
+    if (userId && paidItems.length > 0) {
       const { data: orderData, error: orderError } = await supaServerClient
         .from('orders')
         .insert({
@@ -85,11 +103,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         console.log('Order created:', orderData.id);
 
         // Create order items
-        const orderItemsInsert = items.map((item: any) => ({
+        const orderItemsInsert = paidItems.map((item: any) => ({
           order_id: orderData.id,
-          product_id: item.id || null,
-          quantity: item.quantity,
-          price: item.price,
+          product_id: item.sku || null,
+          quantity: parseInt(item.quantity, 10),
+          price: parseFloat(item.unit_amount.value),
         }));
 
         const { error: itemsError } = await supaServerClient

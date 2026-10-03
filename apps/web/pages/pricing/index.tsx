@@ -149,10 +149,6 @@ const Pricing = () => {
                 <div className="text-center font-thin flex items-center justify-center mb-3 text-black">
                     <CheckoutButton 
                       priceId={'price_1PepBzRomQdDoc7IMPkYqS78'}
-                      name="Basic Consultation"
-                      description="30-minute consultation session for web development needs"
-                      package_id="consultation_basic"
-                      order_type="service_package"
                     />
                 </div>
 
@@ -225,10 +221,6 @@ const Pricing = () => {
                 <div className="text-center font-thin flex items-center justify-center mb-3">
                     <CheckoutButton 
                       priceId={'price_1Pe4OYRomQdDoc7IJpfJFW8O'}
-                      name="Basic Package"
-                      description="Complete web development package with responsive design and basic features"
-                      package_id="package_basic"
-                      order_type="service_package"
                     />
                 </div>
               </div>
@@ -288,10 +280,6 @@ const Pricing = () => {
                 <div className="text-center font-thin flex items-center justify-center mb-3 text-blog-black dark:text-blog-white">
                   <CheckoutButton 
                     priceId={'price_1Pe4S4RomQdDoc7IvoWyNYt8'}
-                    name="Standard Package"
-                    description="Advanced web development with custom features and SEO optimization"
-                    package_id="package_standard"
-                    order_type="service_package"
                   />
                 </div>
               </div>
@@ -397,10 +385,6 @@ const Pricing = () => {
                     <CheckoutButton 
                       priceId={'price_1PepHnRomQdDoc7ILk13S3dE'} 
                       text={'Get it now'}
-                      name="Premium Package"
-                      description="Enterprise-level web development with e-commerce, advanced SEO, and custom design"
-                      package_id="package_premium"
-                      order_type="service_package"
                     />
                     <p className="mt-6 text-xs leading-5 text-black">
                       <FormattedMessage

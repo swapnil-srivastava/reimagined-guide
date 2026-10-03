@@ -3,14 +3,20 @@ import { FormattedMessage } from 'react-intl';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import toast from 'react-hot-toast';
 import { useIntl } from 'react-intl';
+import { supaClient } from '../supa-client';
+
+// The server reads the buyer from this token, never from the request body
+const authHeader = async (): Promise<Record<string, string>> => {
+  const { data: { session } } = await supaClient.auth.getSession();
+  return session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {};
+};
 
 interface PayPalCheckoutButtonProps {
+  // Only re-renders the PayPal button when the total changes; the amount
+  // charged is computed on the server
   totalCost: number;
-  tax: number;
-  deliveryCost: number;
   cartItems: any[];
-  email: string;
-  userId: string;
+  deliveryOptionId: string | null;
   disabled: boolean;
   onSuccess: () => void;
   currency?: string;
@@ -18,11 +24,8 @@ interface PayPalCheckoutButtonProps {
 
 const PayPalCheckoutButton: React.FC<PayPalCheckoutButtonProps> = ({
   totalCost,
-  tax,
-  deliveryCost,
   cartItems,
-  email,
-  userId,
+  deliveryOptionId,
   disabled,
   onSuccess,
   currency = 'EUR',
@@ -35,15 +38,11 @@ const PayPalCheckoutButton: React.FC<PayPalCheckoutButtonProps> = ({
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          ...(await authHeader()),
         },
         body: JSON.stringify({
-          items: cartItems,
-          email,
-          userId,
-          currency,
-          tax,
-          deliveryCost,
-          totalCost,
+          items: cartItems.map((item) => ({ id: item.id, quantity: item.quantity })),
+          deliveryOptionId,
         }),
       });
 
@@ -73,11 +72,10 @@ const PayPalCheckoutButton: React.FC<PayPalCheckoutButtonProps> = ({
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          ...(await authHeader()),
         },
         body: JSON.stringify({
           orderId: data.orderID,
-          userId,
-          items: cartItems,
         }),
       });
 
