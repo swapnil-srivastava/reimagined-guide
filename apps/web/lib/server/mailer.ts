@@ -19,7 +19,8 @@ export function escapeHtml(value: string | null | undefined): string {
 export async function sendMail(
   to: string,
   subject: string,
-  htmlBody: string
+  htmlBody: string,
+  textBody?: string
 ): Promise<boolean> {
   if (!process.env.EMAIL_KEY || !process.env.EMAIL) {
     console.error("sendMail: EMAIL_KEY or EMAIL is not configured");
@@ -33,6 +34,7 @@ export async function sendMail(
       To: to,
       Subject: subject,
       HtmlBody: htmlBody,
+      ...(textBody ? { TextBody: textBody } : {}),
       MessageStream: "outbound",
     });
     return true;

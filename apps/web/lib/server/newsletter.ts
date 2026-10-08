@@ -1,5 +1,7 @@
 import { randomBytes } from "crypto";
 import type { NextApiRequest } from "next";
+import { SITE_NAME } from "../site";
+import { emailLayout, paragraph } from "./emailLayout";
 import { ADMIN_EMAIL, SITE_URL, escapeHtml, sendMail } from "./mailer";
 
 // Shared helpers for the /api/newsletter routes
@@ -53,37 +55,46 @@ export function unsubscribeUrl(baseUrl: string, token: string): string {
 
 export function sendConfirmationEmail(email: string, token: string, baseUrl: string): Promise<boolean> {
   const link = confirmUrl(baseUrl, token);
-  return sendMail(
-    email,
-    "Confirm your subscription to Swapnil's weekly tech insights",
-    `
-      <div style="font-family: 'Poppins', Arial, sans-serif; max-width: 560px; margin: 0 auto; color: #0a0a0a;">
-        <h1 style="font-size: 22px;">One click to confirm</h1>
-        <p style="font-size: 16px; line-height: 1.6;">
-          Thanks for signing up for weekly tech insights from Swapnil Srivastava.
-          Please confirm that this is your email address:
-        </p>
-        <p style="margin: 28px 0;">
-          <a href="${escapeHtml(link)}"
-             style="background: #00539c; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;">
-            Confirm subscription
-          </a>
-        </p>
-        <p style="font-size: 14px; color: #555;">
-          If you didn't sign up, ignore this email and you won't hear from us again.
-        </p>
-        <p style="font-size: 12px; color: #888; word-break: break-all;">${escapeHtml(link)}</p>
-      </div>
-    `
-  );
+  const html = emailLayout({
+    preheader: "One tap to confirm your subscription to weekly tech insights.",
+    title: "Confirm your subscription",
+    subtitle: "Weekly tech insights from Swapnil Srivastava",
+    bodyHtml:
+      paragraph("Hi there,") +
+      paragraph(
+        "Thanks for signing up! Tap the button below to confirm your email address and start getting weekly tech insights in your inbox."
+      ),
+    button: { label: "Confirm subscription", href: link },
+    footnoteHtml: `If the button doesn't work, copy this link into your browser:<br>
+      <a href="${escapeHtml(link)}" style="color: #00539c; word-break: break-all;">${escapeHtml(link)}</a>`,
+    footerHtml: `You're getting this because ${escapeHtml(email)} was entered on ${escapeHtml(
+      SITE_NAME
+    )}. If that wasn't you, ignore this email and you won't hear from us again.`,
+  });
+  const text = [
+    "Confirm your subscription",
+    "",
+    "Thanks for signing up for weekly tech insights from Swapnil Srivastava.",
+    "Open this link to confirm your email address:",
+    link,
+    "",
+    "If you didn't sign up, ignore this email and you won't hear from us again.",
+  ].join("\n");
+  return sendMail(email, "Confirm your subscription to weekly tech insights", html, text);
 }
 
 export function sendNewSubscriberNotice(email: string, source: string | null): Promise<boolean> {
-  return sendMail(
-    ADMIN_EMAIL,
-    `New newsletter subscriber: ${email}`,
-    `<p>${escapeHtml(email)} confirmed their newsletter subscription${
-      source ? ` (signed up on /${escapeHtml(source)})` : ""
-    }.</p>`
-  );
+  const where = source ? ` on /${escapeHtml(source)}` : "";
+  const html = emailLayout({
+    preheader: `${email} just confirmed their newsletter subscription.`,
+    title: "New subscriber",
+    bodyHtml:
+      paragraph(`<strong>${escapeHtml(email)}</strong> confirmed their newsletter subscription${where}.`) +
+      paragraph("Subscriber counts are on the Links page card in your admin dashboard."),
+    button: { label: "Open admin dashboard", href: `${SITE_URL}/admin` },
+  });
+  const text = `${email} confirmed their newsletter subscription${
+    source ? ` on /${source}` : ""
+  }.\n\nAdmin dashboard: ${SITE_URL}/admin`;
+  return sendMail(ADMIN_EMAIL, `New newsletter subscriber: ${email}`, html, text);
 }
