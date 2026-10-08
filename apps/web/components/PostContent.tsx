@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { FormattedMessage, useIntl } from 'react-intl';
 import Image from "next/legacy/image";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -28,6 +29,7 @@ import { POST, POST_DRAFT, TAG } from "../database.types";
 
 // Supabase
 import { supaClient } from "../supa-client";
+import { loginHref } from "../lib/login-redirect";
 
 // Services
 import { reviewPost } from "../services/email.service";
@@ -56,6 +58,7 @@ export default function PostContent({
   onReviewed?: () => void;
 }) {
   const intl = useIntl();
+  const router = useRouter();
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
@@ -342,7 +345,7 @@ export default function PostContent({
                 description: "Tooltip on the heart button for readers who are not signed in",
                 defaultMessage: "Sign in to heart this post"
               })} placement="bottom">
-                <Link href="/enter" className={heartPillClass()}>
+                <Link href={loginHref(router.asPath)} className={heartPillClass()}>
                   <FontAwesomeIcon icon={faHeartOutline} className="h-4 w-4 text-hit-pink-600" />
                   <span className="sr-only">
                     <FormattedMessage

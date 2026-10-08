@@ -35,12 +35,14 @@ import { RootState } from "../lib/interfaces/interface";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useThemeSettings } from "../lib/use-theme-settings";
 import ThemeColorPicker from "./ThemeColorPicker";
+import { loginHref } from "../lib/login-redirect";
 
 function AwesomeNavBar() {
   // TS infers type: (state: RootState) => boolean
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
+  const router = useRouter();
 
   const { mode, setMode } = useThemeSettings();
   const intl = useIntl();
@@ -186,7 +188,7 @@ function AwesomeNavBar() {
       {/* user is not signed-in or has not created username */}
       {!profile?.username && (
         <NavBarItem nextrouteurl>
-          <Link href="/enter">
+          <Link href={loginHref(router.asPath)}>
             <div className="w-[calc(2.5rem)] h-[calc(2.5rem)] flex items-center justify-center cursor-pointer rounded-full hover:bg-blog-white hover:bg-opacity-50 transition-colors">
               <BasicTooltip title={intl.formatMessage({
                 id: 'nav-login-tooltip',
@@ -439,7 +441,7 @@ function DropdownMenu({ closeDropdown }: { closeDropdown?: () => void }) {
 
           <DropdownItem
             leftIcon={<FontAwesomeIcon icon={faArrowRightToBracket} size="lg" />}
-            onClick={() => router.push('/enter')}
+            onClick={() => router.push(profile?.id ? '/enter' : loginHref(router.asPath))}
           >
             {profile?.id && profile?.id ? 
               <FormattedMessage
