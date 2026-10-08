@@ -1051,6 +1051,12 @@
       "value": "Google-Anmeldung fehlgeschlagen. Bitte versuchen Sie es erneut."
     }
   ],
+  "auth-hide-password": [
+    {
+      "type": 0,
+      "value": "Passwort verbergen"
+    }
+  ],
   "auth-or-divider": [
     {
       "type": 0,
@@ -1079,6 +1085,12 @@
     {
       "type": 0,
       "value": "Ihr Profil wird verfügbar sein unter:"
+    }
+  ],
+  "auth-show-password": [
+    {
+      "type": 0,
+      "value": "Passwort anzeigen"
     }
   ],
   "auth-sign-in-success": [

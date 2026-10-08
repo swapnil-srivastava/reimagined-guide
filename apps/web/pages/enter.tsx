@@ -40,7 +40,7 @@ const Enter: NextPage = () => {
   // 2. user signed in, but missing username <UsernameForm />
   // 3. user signed in, has username <SignOutCard />
   return (
-    <main className="min-h-screen bg-blog-white dark:bg-fun-blue-500 flex items-center justify-center px-4 py-12">
+    <main className="font-poppins min-h-screen bg-blog-white dark:bg-fun-blue-500 flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
         {profile?.id ? (
           !profile?.username ? (
@@ -355,6 +355,7 @@ function AuthCard() {
           <input
             id="email"
             type="email"
+            autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full px-3 py-3 border border-gray-300 dark:border-gray-600 
@@ -388,6 +389,7 @@ function AuthCard() {
                 <input
                   id="password"
                   type={showPassword ? "text" : "password"}
+                  autoComplete={isSignUp ? "new-password" : "current-password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full px-3 py-3 pr-10 border border-gray-300 dark:border-gray-600 
@@ -407,6 +409,12 @@ function AuthCard() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
+                  aria-label={intl.formatMessage({
+                    id: showPassword ? "auth-hide-password" : "auth-show-password",
+                    description: showPassword ? "Hide password button" : "Show password button",
+                    defaultMessage: showPassword ? "Hide password" : "Show password"
+                  })}
+                  aria-pressed={showPassword}
                   className="absolute inset-y-0 right-0 pr-3 flex items-center"
             >
               <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -433,6 +441,7 @@ function AuthCard() {
             <input
               id="confirmPassword"
               type="password"
+              autoComplete="new-password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-full px-3 py-3 border border-gray-300 dark:border-gray-600 
