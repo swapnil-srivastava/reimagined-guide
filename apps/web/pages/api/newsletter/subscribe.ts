@@ -7,6 +7,7 @@ import {
   newToken,
   normalizeEmail,
   sendConfirmationEmail,
+  siteUrlFor,
 } from "../../../lib/server/newsletter";
 
 const SOURCE_RE = /^[a-z0-9-]{1,40}$/;
@@ -96,7 +97,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
   if (writeError) return ok();
 
-  const sent = await sendConfirmationEmail(email, token);
+  const sent = await sendConfirmationEmail(email, token, siteUrlFor(req));
   if (!sent) {
     return res.status(502).json({ error: "We couldn't send the confirmation email. Please try again later." });
   }

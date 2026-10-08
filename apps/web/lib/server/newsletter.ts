@@ -1,4 +1,5 @@
 import { randomBytes } from "crypto";
+import type { NextApiRequest } from "next";
 import { ADMIN_EMAIL, SITE_URL, escapeHtml, sendMail } from "./mailer";
 
 // Shared helpers for the /api/newsletter routes
@@ -21,16 +22,37 @@ export function normalizeEmail(raw: unknown): string | null {
   return email.length <= 254 && EMAIL_RE.test(email) ? email : null;
 }
 
-export function confirmUrl(token: string): string {
-  return `${SITE_URL}/newsletter/confirm?token=${token}`;
+// This project's Vercel preview deployments, and local development
+const PREVIEW_HOST = /^[a-z0-9-]+-swapnil-srivastavas-projects-c9797073\.vercel\.app$/;
+const LOCAL_HOST = /^localhost(:\d+)?$/;
+
+/**
+ * Where links in emails should point. A signup made on a preview deployment
+ * links back to that preview (the live site may not have the page yet);
+ * everything else links to the live site. Only known hosts are trusted, so a
+ * forged Host header can't make the email link somewhere else.
+ */
+export function siteUrlFor(req: NextApiRequest): string {
+  const forwarded = req.headers["x-forwarded-host"];
+  const host = ((Array.isArray(forwarded) ? forwarded[0] : forwarded) || req.headers.host || "")
+    .split(",")[0]
+    .trim()
+    .toLowerCase();
+  if (PREVIEW_HOST.test(host)) return `https://${host}`;
+  if (LOCAL_HOST.test(host)) return `http://${host}`;
+  return SITE_URL;
 }
 
-export function unsubscribeUrl(token: string): string {
-  return `${SITE_URL}/newsletter/unsubscribe?token=${token}`;
+export function confirmUrl(baseUrl: string, token: string): string {
+  return `${baseUrl}/newsletter/confirm?token=${token}`;
 }
 
-export function sendConfirmationEmail(email: string, token: string): Promise<boolean> {
-  const link = confirmUrl(token);
+export function unsubscribeUrl(baseUrl: string, token: string): string {
+  return `${baseUrl}/newsletter/unsubscribe?token=${token}`;
+}
+
+export function sendConfirmationEmail(email: string, token: string, baseUrl: string): Promise<boolean> {
+  const link = confirmUrl(baseUrl, token);
   return sendMail(
     email,
     "Confirm your subscription to Swapnil's weekly tech insights",
