@@ -4,6 +4,8 @@ import { FormattedMessage } from "react-intl";
 import { RootState } from "../lib/interfaces/interface";
 import { useAnonymousAuth } from "../lib/use-anonymous-auth";
 import { ReactElement } from "react";
+import { useRouter } from "next/router";
+import { loginHref } from "../lib/login-redirect";
 
 // CSS
 import styles from "../styles/Admin.module.css";
@@ -19,6 +21,7 @@ interface AuthCheckProps {
 // With allowAnonymous=true, also allows anonymous authenticated users OR unauthenticated users
 // (for flows like cart/checkout where anonymous sign-in happens at payment time)
 export default function AuthCheck({ children, fallback, allowAnonymous = false }: AuthCheckProps): ReactElement {
+  const router = useRouter();
   // Check Redux store for user profile
   const selectUser = (state: RootState) => state.users;
   const { userInfo } = useSelector(selectUser);
@@ -42,7 +45,7 @@ export default function AuthCheck({ children, fallback, allowAnonymous = false }
   }
 
   return (
-    <Link href="/enter" className="flex justify-center pt-5">
+    <Link href={loginHref(router.asPath)} className="flex justify-center pt-5">
       <button className={`${styles.btnAdmin} card--white text-blog-black dark:text-blog-white`}>
         <FormattedMessage id="auth-check-fallback"
           description="Auth Check fallback message"

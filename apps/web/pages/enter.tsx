@@ -10,6 +10,8 @@ import Image from "next/image";
 import { toast } from "react-hot-toast";
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import HCaptchaWidget from "../components/HCaptchaWidget";
+import { useRouter } from "next/router";
+import { safeReturnPath, rememberReturnPath, takeReturnPath, clearReturnPath } from "../lib/login-redirect";
 
 // e.g. localhost:3000/enter
 const Enter: NextPage = () => {
@@ -17,6 +19,22 @@ const Enter: NextPage = () => {
   const userData = useSelector(selectUser);
   const userInfo = userData?.userInfo;
   const { profile, session } = userInfo || { profile: null, session: null };
+  const router = useRouter();
+
+  // Keep the page the user came from (?next=) so OAuth and magic-link logins,
+  // which come back to /enter without the query, can still return there
+  useEffect(() => {
+    if (!router.isReady) return;
+    const next = safeReturnPath(router.query.next);
+    if (next) rememberReturnPath(next);
+  }, [router.isReady, router.query.next]);
+
+  // Once fully signed in (profile with a username), go back to that page
+  useEffect(() => {
+    if (!router.isReady || !profile?.id || !profile?.username) return;
+    const destination = takeReturnPath();
+    if (destination) router.replace(destination);
+  }, [router.isReady, profile?.id, profile?.username]);
 
   // 1. user signed out <AuthCard />
   // 2. user signed in, but missing username <UsernameForm />
@@ -577,6 +595,7 @@ function SignOutCard() {
   const username = profile?.username || "";
 
   async function signoutSupa() {
+    clearReturnPath();
     try {
       // First sign out from Supabase to handle session properly
       const { error } = await supaClient.auth.signOut();
