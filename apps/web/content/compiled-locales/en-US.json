@@ -1063,6 +1063,12 @@
       "value": "Google sign in failed. Please try again."
     }
   ],
+  "auth-hide-password": [
+    {
+      "type": 0,
+      "value": "Hide password"
+    }
+  ],
   "auth-how-to-signin-title": [
     {
       "type": 0,
@@ -1123,6 +1129,12 @@
     {
       "type": 0,
       "value": "Your profile will be available at:"
+    }
+  ],
+  "auth-show-password": [
+    {
+      "type": 0,
+      "value": "Show password"
     }
   ],
   "auth-sign-in-success": [

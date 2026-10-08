@@ -1047,6 +1047,12 @@
       "value": "Google साइन इन विफल। कृपया पुन: प्रयास करें।"
     }
   ],
+  "auth-hide-password": [
+    {
+      "type": 0,
+      "value": "पासवर्ड छिपाएँ"
+    }
+  ],
   "auth-or-divider": [
     {
       "type": 0,
@@ -1075,6 +1081,12 @@
     {
       "type": 0,
       "value": "आपकी प्रोफ़ाइल यहां उपलब्ध होगी:"
+    }
+  ],
+  "auth-show-password": [
+    {
+      "type": 0,
+      "value": "पासवर्ड दिखाएँ"
     }
   ],
   "auth-sign-in-success": [
