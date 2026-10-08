@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -6,6 +6,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { GetStaticProps } from 'next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CheckoutButton from '../components/CheckoutButton';
+import { recordLinkClick, recordPageView } from '../lib/pageEvents';
 import {
   faCalendarCheck,
   faShoppingCart,
@@ -192,14 +193,11 @@ const webPageSchema = {
 // ANALYTICS HELPER
 // ============================================================================
 
-const trackLinkClick = (linkName: string) => {
-  // Simulating GA4 event - replace with actual GA4 implementation
-  console.log('GA4 Event:', {
-    event: 'link_click',
-    link_name: linkName,
-    page_location: typeof window !== 'undefined' ? window.location.href : '',
-    timestamp: new Date().toISOString(),
-  });
+// Saved per visitor and day (see pages/api/views/event.ts). Every LINKS and
+// SOCIAL_LINKS item is counted under its own id, so give new links a unique id
+// and keep it stable: renaming an id starts its count again.
+const trackLinkClick = (linkId: string) => {
+  recordLinkClick('links', linkId);
 };
 
 // ============================================================================
@@ -224,22 +222,47 @@ export default function LinksPage({ locale }: LinksPageProps) {
   const pageUrl = `https://swapnilsrivastava.eu${locale && locale !== 'en-US' ? `/${locale}` : ''}/links`;
   const intl = useIntl();
   const [email, setEmail] = useState('');
+  // Honeypot: hidden from people, filled in by bots
+  const [website, setWebsite] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [subscribeError, setSubscribeError] = useState<string | null>(null);
 
-  const handleEmailSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    recordPageView('links');
+  }, []);
+
+  const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
     setIsSubmitting(true);
+    setSubscribeError(null);
 
-    // Simulate form submission
-    trackLinkClick('lead_magnet_signup');
-    console.log('Email captured:', email);
-
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const response = await fetch('/api/newsletter/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, website, locale, source: 'links' }),
+      });
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data?.error || 'subscribe failed');
+      }
       setSubmitted(true);
       setEmail('');
-    }, 1000);
+    } catch (error: any) {
+      setSubscribeError(
+        error?.message && error.message !== 'subscribe failed'
+          ? error.message
+          : intl.formatMessage({
+              id: 'links-subscribe-error',
+              description: 'Newsletter signup failed',
+              defaultMessage: 'Something went wrong. Please try again.',
+            })
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -419,7 +442,10 @@ export default function LinksPage({ locale }: LinksPageProps) {
                   </div>
 
                   {/* CheckoutButton - Full Width on Mobile */}
-                  <div className="w-full sm:w-auto sm:flex-shrink-0">
+                  <div
+                    className="w-full sm:w-auto sm:flex-shrink-0"
+                    onClickCapture={() => trackLinkClick(link.id)}
+                  >
                     <CheckoutButton priceId={'price_1PepBzRomQdDoc7IMPkYqS78'} />
                   </div>
                 </div>
@@ -551,7 +577,7 @@ export default function LinksPage({ locale }: LinksPageProps) {
                   <FormattedMessage
                     id="links-lead-magnet-subtitle"
                     description="Lead magnet section subtitle"
-                    defaultMessage="Join 1,000+ developers"
+                    defaultMessage="Weekly tech insights, no spam"
                   />
                 </p>
               </div>
@@ -559,6 +585,17 @@ export default function LinksPage({ locale }: LinksPageProps) {
 
             {!submitted ? (
               <form onSubmit={handleEmailSubmit} className="flex flex-col gap-3">
+                {/* Honeypot: off-screen and skipped by keyboard and screen readers */}
+                <input
+                  type="text"
+                  name="website"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="absolute -left-[9999px] w-px h-px opacity-0"
+                />
                 <input
                   type="email"
                   name="email"
@@ -612,14 +649,19 @@ export default function LinksPage({ locale }: LinksPageProps) {
                     </>
                   )}
                 </button>
+                {subscribeError && (
+                  <p role="alert" className="text-sm text-red-600">
+                    {subscribeError}
+                  </p>
+                )}
               </form>
             ) : (
-              <div className="text-center py-4">
+              <div className="text-center py-4" role="status">
                 <p className="text-caribbean-green-600 dark:text-caribbean-green-400 font-semibold">
                   <FormattedMessage
-                    id="links-subscribe-success"
-                    description="Subscribe success message"
-                    defaultMessage="🎉 Thanks for subscribing!"
+                    id="links-subscribe-check-inbox"
+                    description="Shown after signing up: a confirmation email was sent"
+                    defaultMessage="Almost done! Check your inbox and click the link to confirm."
                   />
                 </p>
               </div>

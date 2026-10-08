@@ -376,6 +376,48 @@ export type Database = {
           },
         ]
       }
+      newsletter_subscribers: {
+        Row: {
+          confirmation_sent_at: string | null
+          confirmed_at: string | null
+          created_at: string
+          email: string
+          id: string
+          locale: string | null
+          signup_ip_hash: string | null
+          source: string | null
+          status: string
+          token: string
+          unsubscribed_at: string | null
+        }
+        Insert: {
+          confirmation_sent_at?: string | null
+          confirmed_at?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          locale?: string | null
+          signup_ip_hash?: string | null
+          source?: string | null
+          status?: string
+          token: string
+          unsubscribed_at?: string | null
+        }
+        Update: {
+          confirmation_sent_at?: string | null
+          confirmed_at?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          locale?: string | null
+          signup_ip_hash?: string | null
+          source?: string | null
+          status?: string
+          token?: string
+          unsubscribed_at?: string | null
+        }
+        Relationships: []
+      }
       post_views: {
         Row: {
           day: string
@@ -704,6 +746,10 @@ export type Database = {
         Args: { p_title: string }
         Returns: Database["public"]["Tables"]["posts"]["Row"]
       }
+      get_page_stats: {
+        Args: { p_page: string }
+        Returns: Json | null
+      }
       get_popular_posts: {
         Args: { p_days?: number; p_limit?: number }
         Returns: Database["public"]["Tables"]["posts"]["Row"][]
@@ -727,6 +773,15 @@ export type Database = {
       }
       is_admin: {
         Args: Record<PropertyKey, never>
+        Returns: boolean
+      }
+      record_page_event: {
+        Args: {
+          p_page: string
+          p_link_id: string | null
+          p_visitor_hash: string
+          p_viewer?: string | null
+        }
         Returns: boolean
       }
       record_post_view: {
