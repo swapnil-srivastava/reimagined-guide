@@ -10,6 +10,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 
 import AuthCheck from "../../components/AuthCheck";
 import PostFeed from "../../components/PostFeed";
+import LinksStatsCard from "../../components/LinksStatsCard";
 
 // supabase instance in the app
 import { supaClient } from "../../supa-client";
@@ -25,6 +26,7 @@ const Admin: NextPage = () => {
   return (
     <div className="font-poppins bg-blog-white dark:bg-fun-blue-500 min-h-screen text-blog-black dark:text-blog-white">
       <AuthCheck>
+        <LinksStatsCard />
         <CreateNewPost></CreateNewPost>
         <SendSMS></SendSMS>
         <PostList></PostList>
