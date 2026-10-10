@@ -10,6 +10,12 @@ import {
   isServicePackageOrder, 
   isCartOrder 
 } from '../../types/stripe';
+import {
+  saveOrderItems,
+  shortfallWarningHtml,
+  shortfallWarningText,
+  StockShortfall,
+} from '../../lib/server/stock';
 
 /**
  * Removes an order whose items failed to save, so Stripe's retry can write
@@ -119,102 +125,109 @@ const handler = async (
         // ============================================
         // DATABASE OPERATIONS: Create order and items
         // ============================================
-        if (userId && !supaServerClient) {
+        // Products that sold out between checkout and payment
+        let stockShortfalls: StockShortfall[] = [];
+
+        if (!supaServerClient) {
           // Without the service role key nothing can be saved; a 500 makes Stripe retry
           throw new Error('SUPABASE_SERVICE_ROLE_KEY is not configured');
         }
 
-        if (supaServerClient && userId) {
-          // Check if this is an anonymous user order
-          const isAnonymousOrder = sessionMetadata.is_anonymous === 'true';
-          
-          // Prepare order metadata based on order type
-          const orderMetadata: Record<string, unknown> = {
-            stripe_session_id: session.id,
-            customer_email: customerEmail,
-            is_anonymous: isAnonymousOrder,
-          };
+        // Guest checkouts (no account) are saved too, with no user_id, so
+        // their stock is lowered like any other order
+        // Check if this is an anonymous user order
+        const isAnonymousOrder = sessionMetadata.is_anonymous === 'true';
+        
+        // Prepare order metadata based on order type
+        const orderMetadata: Record<string, unknown> = {
+          stripe_session_id: session.id,
+          customer_email: customerEmail,
+          is_anonymous: isAnonymousOrder,
+        };
 
-          // Add service package specific metadata
-          if (orderType === 'service_package') {
-            orderMetadata.package_name = sessionMetadata.package_name;
-            orderMetadata.package_description = sessionMetadata.package_description;
-            orderMetadata.package_id = sessionMetadata.package_id;
+        // Add service package specific metadata
+        if (orderType === 'service_package') {
+          orderMetadata.package_name = sessionMetadata.package_name;
+          orderMetadata.package_description = sessionMetadata.package_description;
+          orderMetadata.package_id = sessionMetadata.package_id;
+        }
+
+        // Insert order with unified structure
+        const { data: orderData, error: orderError } = await supaServerClient
+          .from('orders')
+          .insert({
+            user_id: userId,
+            total: totalAmount,
+            status: 'completed',
+            payment_method: 'stripe',
+            payment_intent_id: paymentIntentId,
+            order_type: orderType,
+            metadata: orderMetadata,
+            is_anonymous_order: isAnonymousOrder,
+          })
+          .select()
+          .single();
+
+        if (orderError) {
+          // 23505 = unique violation on payment_intent_id: a parallel delivery
+          // of this event already saved the order
+          if (orderError.code === '23505') {
+            console.log(`⚠️ Order already exists for payment_intent: ${paymentIntentId}, skipping...`);
+            res.json({ received: true, duplicate: true });
+            return;
           }
+          throw new Error(`Error creating order: ${orderError.message}`);
+        } else if (orderData) {
+          console.log(`Order created: ${orderData.id} (type: ${orderType}, anonymous: ${isAnonymousOrder})`);
 
-          // Insert order with unified structure
-          const { data: orderData, error: orderError } = await supaServerClient
-            .from('orders')
-            .insert({
-              user_id: userId,
-              total: totalAmount,
-              status: 'completed',
-              payment_method: 'stripe',
-              payment_intent_id: paymentIntentId,
-              order_type: orderType,
-              metadata: orderMetadata,
-              is_anonymous_order: isAnonymousOrder,
-            })
-            .select()
-            .single();
+          // ============================================
+          // CONDITIONAL LOGIC: Handle order items based on type
+          // ============================================
+          if (orderType === 'service_package') {
+            // SERVICE PACKAGE: Insert single order item from line_items[0] or metadata
+            const packageItem = orderItemsData[0] || {
+              name: sessionMetadata.package_name || 'Service Package',
+              quantity: 1,
+              price: totalAmount,
+            };
 
-          if (orderError) {
-            // 23505 = unique violation on payment_intent_id: a parallel delivery
-            // of this event already saved the order
-            if (orderError.code === '23505') {
-              console.log(`⚠️ Order already exists for payment_intent: ${paymentIntentId}, skipping...`);
-              res.json({ received: true, duplicate: true });
-              return;
-            }
-            throw new Error(`Error creating order: ${orderError.message}`);
-          } else if (orderData) {
-            console.log(`Order created: ${orderData.id} (type: ${orderType}, anonymous: ${isAnonymousOrder})`);
-
-            // ============================================
-            // CONDITIONAL LOGIC: Handle order items based on type
-            // ============================================
-            if (orderType === 'service_package') {
-              // SERVICE PACKAGE: Insert single order item from line_items[0] or metadata
-              const packageItem = orderItemsData[0] || {
-                name: sessionMetadata.package_name || 'Service Package',
-                quantity: 1,
-                price: totalAmount,
-              };
-
-              const { error: itemsError } = await supaServerClient
-                .from('order_items')
-                .insert({
-                  order_id: orderData.id,
-                  product_id: null, // Service packages don't have product_id
-                  quantity: packageItem.quantity,
-                  price: packageItem.price,
-                });
-
-              if (itemsError) {
-                await deleteOrder(orderData.id);
-                throw new Error(`Error creating service package order item: ${itemsError.message}`);
-              } else {
-                console.log('Service package order item created successfully');
-              }
-            } else {
-              // CART: Insert multiple order items (existing logic preserved)
-              const orderItemsInsert = orderItemsData.map((item) => ({
+            const { error: itemsError } = await supaServerClient
+              .from('order_items')
+              .insert({
                 order_id: orderData.id,
-                product_id: item.product_id || null,
-                quantity: item.quantity,
-                price: item.price,
-              }));
+                product_id: null, // Service packages don't have product_id
+                quantity: packageItem.quantity,
+                price: packageItem.price,
+              });
 
-              const { error: itemsError } = await supaServerClient
-                .from('order_items')
-                .insert(orderItemsInsert);
-
-              if (itemsError) {
-                await deleteOrder(orderData.id);
-                throw new Error(`Error creating order items: ${itemsError.message}`);
-              } else {
-                console.log('Order items created successfully');
-              }
+            if (itemsError) {
+              await deleteOrder(orderData.id);
+              throw new Error(`Error creating service package order item: ${itemsError.message}`);
+            } else {
+              console.log('Service package order item created successfully');
+            }
+          } else {
+            // CART: Save the items and lower stock in one transaction
+            try {
+              stockShortfalls = await saveOrderItems(
+                orderData.id,
+                orderItemsData.map((item) => ({
+                  product_id: item.product_id || null,
+                  quantity: item.quantity,
+                  price: item.price,
+                }))
+              );
+            } catch (itemsError) {
+              // Nothing was saved, so remove the order and let Stripe retry.
+              // If the call did save but its response was lost, the delete
+              // fails on the items' foreign key and the retry sees the order
+              // as a duplicate, so stock is never lowered twice.
+              await deleteOrder(orderData.id);
+              throw itemsError;
+            }
+            console.log('Order items created and stock updated');
+            if (stockShortfalls.length > 0) {
+              console.warn(`⚠️ Order ${orderData.id} oversold:`, stockShortfalls);
             }
           }
         }
@@ -372,6 +385,7 @@ const handler = async (
                 <p style="color: #a7f3d0; margin: 10px 0 0 0; font-size: 16px;">Ka-ching! Time to celebrate!</p>
               </div>
               <div style="padding: 30px;">
+                ${shortfallWarningHtml(stockShortfalls)}
                 <div style="background-color: #ecfdf5; border-radius: 12px; padding: 20px; margin-bottom: 20px;">
                   <h2 style="color: #059669; margin: 0 0 10px 0; font-size: 18px;">👤 Customer Information</h2>
                   <p style="color: #374151; margin: 5px 0;"><strong>Email:</strong> ${customerEmail || 'Not provided'}</p>
@@ -526,13 +540,14 @@ const handler = async (
           : `Order Confirmed!\n\nThank you for your purchase!\n\nOrder Details:\n${orderItemsText}\nTotal: €${totalAmount.toFixed(2)}\n\nVisit us at https://swapnilsrivastava.eu`;
 
         // Admin email subject and text based on order type
+        const stockNoteText = shortfallWarningText(stockShortfalls);
         const adminEmailSubject = orderType === 'service_package'
           ? `📅 ACTION REQUIRED: New Consultation Booking - ${packageName} - €${totalAmount.toFixed(2)}`
-          : `💰 New Order Received - €${totalAmount.toFixed(2)}`;
+          : `${stockNoteText ? '⚠️ OVERSOLD: ' : ''}💰 New Order Received - €${totalAmount.toFixed(2)}`;
 
         const adminEmailText = orderType === 'service_package'
           ? `ACTION REQUIRED: New Consultation Booking!\n\n⚡ This customer needs a calendar invite for their 1-hour consultation call!\n\nCustomer Email: ${customerEmail || 'Not provided'}\nUser ID: ${userId || 'N/A'}\n\nBooking Details:\nPackage: ${packageName}\nAmount Paid: €${totalAmount.toFixed(2)}\nCall Duration: 1 Hour\nPackage ID: ${sessionMetadata.package_id || 'N/A'}\n\nPlease send the calendar scheduling link to: ${customerEmail}`
-          : `New Order Received!\n\nCustomer: ${customerEmail || 'Guest'}\nUser ID: ${userId || 'N/A'}\n\nOrder Details:\n${orderItemsText}\nTotal: €${totalAmount.toFixed(2)}`;
+          : `New Order Received!\n\nCustomer: ${customerEmail || 'Guest'}\nUser ID: ${userId || 'N/A'}\n\nOrder Details:\n${orderItemsText}\nTotal: €${totalAmount.toFixed(2)}${stockNoteText ? `\n\n${stockNoteText}` : ''}`;
 
         // Send email to customer
         if (customerEmail) {
