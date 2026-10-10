@@ -9,6 +9,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 import type { POST } from "../database.types";
 import { TagList } from "./TagChip";
 import ViewCount from "./ViewCount";
+import { readingStats } from "../lib/readingTime";
 import {
   STATUS_BADGE_CLASSES,
   STATUS_LABELS,
@@ -129,7 +130,7 @@ function PostItem({
   onTagToggle?: (slug: string) => void;
 }) {
   const plainText = stripHtml(post?.content);
-  const wordCount = plainText ? plainText.split(/\s+/g).length : 0;
+  const { wordCount, minutesToRead } = readingStats(post?.content);
   // Author and admin lists pass the draft's workflow status
   const workflowStatus = (post as WorkflowPost).workflowStatus;
   // Unpublished posts have no public page: open the review or the editor
@@ -141,7 +142,6 @@ function PostItem({
       : `/${post.username}/${post.slug}`;
   const contentTrimmed = generateContent(post?.content);
   const titleTrimmed = generateContent(post?.title);
-  const minutesToRead = (wordCount / 100 + 1).toFixed(0);
   const dateFormat = moment(post.created_at).isValid()
     ? moment(post.created_at).format("DD MMM YYYY hh:mm a")
     : moment(post.created_at?.toMillis()).format("DD MMM YYYY hh:mm a");

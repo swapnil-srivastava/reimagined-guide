@@ -609,6 +609,8 @@ function CreateNewPost() {
 }
 
 function SendSMS() {
+  const { session } = useSelector((state: RootState) => state.users).userInfo;
+
   async function sendSMS(): Promise<void> {
     const phoneMessage = {
       phone: "+4915163579215",
@@ -622,6 +624,7 @@ function SendSMS() {
         {
           headers: {
             "Content-Type": "application/json",
+            ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
           },
         }
       );

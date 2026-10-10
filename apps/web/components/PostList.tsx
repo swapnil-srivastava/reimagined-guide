@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { TagList } from "./TagChip";
 import ViewCount from "./ViewCount";
+import { readingStats } from "../lib/readingTime";
 import type { POST_WITH_TAGS } from "../lib/tags";
 
 interface PostListProps {
@@ -42,8 +43,7 @@ function generateExcerpt(markdown?: string | null) {
 const PostList: React.FC<PostListProps> = ({ posts, loading = false, postsEnd = false, enableLoadMore = false, selectedTags = [], onTagToggle }) => {
 
     return posts ? posts.map((post) => {
-        const wordCount = post?.content.trim().split(/\s+/g).length;
-        const minutesToRead = (wordCount / 100 + 1).toFixed(0);
+        const { minutesToRead } = readingStats(post?.content);
         const excerpt = generateExcerpt(post?.content);
         const initial = (post?.title?.trim()?.[0] ?? "").toUpperCase();
         const dateFormat = moment(post.created_at).isValid()

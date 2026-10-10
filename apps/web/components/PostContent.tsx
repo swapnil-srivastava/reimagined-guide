@@ -30,6 +30,7 @@ import { POST, POST_DRAFT, TAG } from "../database.types";
 // Supabase
 import { supaClient } from "../supa-client";
 import { loginHref } from "../lib/login-redirect";
+import { readingStats } from "../lib/readingTime";
 
 // Services
 import { reviewPost } from "../services/email.service";
@@ -63,8 +64,7 @@ export default function PostContent({
   const { userInfo } = useSelector(selectUser);
   const { profile, session } = userInfo;
 
-  const wordCount = (post?.content ?? "").trim().split(/\s+/g).length;
-  const minutesToRead = (wordCount / 100 + 1).toFixed(0);
+  const { wordCount, minutesToRead } = readingStats(post?.content);
   const dateFormat = moment(post?.created_at).isValid()
     ? moment(post?.created_at).format("MMM DD")
     : "";
