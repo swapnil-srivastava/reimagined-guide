@@ -128,106 +128,106 @@ const handler = async (
         // Products that sold out between checkout and payment
         let stockShortfalls: StockShortfall[] = [];
 
-        if (userId && !supaServerClient) {
+        if (!supaServerClient) {
           // Without the service role key nothing can be saved; a 500 makes Stripe retry
           throw new Error('SUPABASE_SERVICE_ROLE_KEY is not configured');
         }
 
-        if (supaServerClient && userId) {
-          // Check if this is an anonymous user order
-          const isAnonymousOrder = sessionMetadata.is_anonymous === 'true';
-          
-          // Prepare order metadata based on order type
-          const orderMetadata: Record<string, unknown> = {
-            stripe_session_id: session.id,
-            customer_email: customerEmail,
-            is_anonymous: isAnonymousOrder,
-          };
+        // Guest checkouts (no account) are saved too, with no user_id, so
+        // their stock is lowered like any other order
+        // Check if this is an anonymous user order
+        const isAnonymousOrder = sessionMetadata.is_anonymous === 'true';
+        
+        // Prepare order metadata based on order type
+        const orderMetadata: Record<string, unknown> = {
+          stripe_session_id: session.id,
+          customer_email: customerEmail,
+          is_anonymous: isAnonymousOrder,
+        };
 
-          // Add service package specific metadata
-          if (orderType === 'service_package') {
-            orderMetadata.package_name = sessionMetadata.package_name;
-            orderMetadata.package_description = sessionMetadata.package_description;
-            orderMetadata.package_id = sessionMetadata.package_id;
+        // Add service package specific metadata
+        if (orderType === 'service_package') {
+          orderMetadata.package_name = sessionMetadata.package_name;
+          orderMetadata.package_description = sessionMetadata.package_description;
+          orderMetadata.package_id = sessionMetadata.package_id;
+        }
+
+        // Insert order with unified structure
+        const { data: orderData, error: orderError } = await supaServerClient
+          .from('orders')
+          .insert({
+            user_id: userId,
+            total: totalAmount,
+            status: 'completed',
+            payment_method: 'stripe',
+            payment_intent_id: paymentIntentId,
+            order_type: orderType,
+            metadata: orderMetadata,
+            is_anonymous_order: isAnonymousOrder,
+          })
+          .select()
+          .single();
+
+        if (orderError) {
+          // 23505 = unique violation on payment_intent_id: a parallel delivery
+          // of this event already saved the order
+          if (orderError.code === '23505') {
+            console.log(`⚠️ Order already exists for payment_intent: ${paymentIntentId}, skipping...`);
+            res.json({ received: true, duplicate: true });
+            return;
           }
+          throw new Error(`Error creating order: ${orderError.message}`);
+        } else if (orderData) {
+          console.log(`Order created: ${orderData.id} (type: ${orderType}, anonymous: ${isAnonymousOrder})`);
 
-          // Insert order with unified structure
-          const { data: orderData, error: orderError } = await supaServerClient
-            .from('orders')
-            .insert({
-              user_id: userId,
-              total: totalAmount,
-              status: 'completed',
-              payment_method: 'stripe',
-              payment_intent_id: paymentIntentId,
-              order_type: orderType,
-              metadata: orderMetadata,
-              is_anonymous_order: isAnonymousOrder,
-            })
-            .select()
-            .single();
+          // ============================================
+          // CONDITIONAL LOGIC: Handle order items based on type
+          // ============================================
+          if (orderType === 'service_package') {
+            // SERVICE PACKAGE: Insert single order item from line_items[0] or metadata
+            const packageItem = orderItemsData[0] || {
+              name: sessionMetadata.package_name || 'Service Package',
+              quantity: 1,
+              price: totalAmount,
+            };
 
-          if (orderError) {
-            // 23505 = unique violation on payment_intent_id: a parallel delivery
-            // of this event already saved the order
-            if (orderError.code === '23505') {
-              console.log(`⚠️ Order already exists for payment_intent: ${paymentIntentId}, skipping...`);
-              res.json({ received: true, duplicate: true });
-              return;
-            }
-            throw new Error(`Error creating order: ${orderError.message}`);
-          } else if (orderData) {
-            console.log(`Order created: ${orderData.id} (type: ${orderType}, anonymous: ${isAnonymousOrder})`);
+            const { error: itemsError } = await supaServerClient
+              .from('order_items')
+              .insert({
+                order_id: orderData.id,
+                product_id: null, // Service packages don't have product_id
+                quantity: packageItem.quantity,
+                price: packageItem.price,
+              });
 
-            // ============================================
-            // CONDITIONAL LOGIC: Handle order items based on type
-            // ============================================
-            if (orderType === 'service_package') {
-              // SERVICE PACKAGE: Insert single order item from line_items[0] or metadata
-              const packageItem = orderItemsData[0] || {
-                name: sessionMetadata.package_name || 'Service Package',
-                quantity: 1,
-                price: totalAmount,
-              };
-
-              const { error: itemsError } = await supaServerClient
-                .from('order_items')
-                .insert({
-                  order_id: orderData.id,
-                  product_id: null, // Service packages don't have product_id
-                  quantity: packageItem.quantity,
-                  price: packageItem.price,
-                });
-
-              if (itemsError) {
-                await deleteOrder(orderData.id);
-                throw new Error(`Error creating service package order item: ${itemsError.message}`);
-              } else {
-                console.log('Service package order item created successfully');
-              }
+            if (itemsError) {
+              await deleteOrder(orderData.id);
+              throw new Error(`Error creating service package order item: ${itemsError.message}`);
             } else {
-              // CART: Save the items and lower stock in one transaction
-              try {
-                stockShortfalls = await saveOrderItems(
-                  orderData.id,
-                  orderItemsData.map((item) => ({
-                    product_id: item.product_id || null,
-                    quantity: item.quantity,
-                    price: item.price,
-                  }))
-                );
-              } catch (itemsError) {
-                // Nothing was saved, so remove the order and let Stripe retry.
-                // If the call did save but its response was lost, the delete
-                // fails on the items' foreign key and the retry sees the order
-                // as a duplicate, so stock is never lowered twice.
-                await deleteOrder(orderData.id);
-                throw itemsError;
-              }
-              console.log('Order items created and stock updated');
-              if (stockShortfalls.length > 0) {
-                console.warn(`⚠️ Order ${orderData.id} oversold:`, stockShortfalls);
-              }
+              console.log('Service package order item created successfully');
+            }
+          } else {
+            // CART: Save the items and lower stock in one transaction
+            try {
+              stockShortfalls = await saveOrderItems(
+                orderData.id,
+                orderItemsData.map((item) => ({
+                  product_id: item.product_id || null,
+                  quantity: item.quantity,
+                  price: item.price,
+                }))
+              );
+            } catch (itemsError) {
+              // Nothing was saved, so remove the order and let Stripe retry.
+              // If the call did save but its response was lost, the delete
+              // fails on the items' foreign key and the retry sees the order
+              // as a duplicate, so stock is never lowered twice.
+              await deleteOrder(orderData.id);
+              throw itemsError;
+            }
+            console.log('Order items created and stock updated');
+            if (stockShortfalls.length > 0) {
+              console.warn(`⚠️ Order ${orderData.id} oversold:`, stockShortfalls);
             }
           }
         }
