@@ -4,6 +4,14 @@ import paypal from '@paypal/checkout-server-sdk';
 import { supaServerClient } from '../../supa-server-client';
 import * as postmark from 'postmark';
 import { getAuthedRequest } from '../../lib/server/supabase-user';
+import {
+  itemsNotSavedHtml,
+  itemsNotSavedText,
+  saveOrderItems,
+  shortfallWarningHtml,
+  shortfallWarningText,
+  StockShortfall,
+} from '../../lib/server/stock';
 
 const postMarkClient = new postmark.ServerClient(process.env.POSTMARK_API_TOKEN);
 
@@ -102,23 +110,32 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       } else if (orderData) {
         console.log('Order created:', orderData.id);
 
-        // Create order items
-        const orderItemsInsert = paidItems.map((item: any) => ({
-          order_id: orderData.id,
-          product_id: item.sku || null,
-          quantity: parseInt(item.quantity, 10),
-          price: parseFloat(item.unit_amount.value),
-        }));
-
-        const { error: itemsError } = await supaServerClient
-          .from('order_items')
-          .insert(orderItemsInsert);
-
-        if (itemsError) {
+        // Save the items and lower stock in one transaction. PayPal has no
+        // retry, so if this fails the admin email says stock wasn't updated.
+        let stockShortfalls: StockShortfall[] = [];
+        let itemsSaved = false;
+        try {
+          stockShortfalls = await saveOrderItems(
+            orderData.id,
+            paidItems.map((item: any) => ({
+              product_id: item.sku || null,
+              quantity: parseInt(item.quantity, 10),
+              price: parseFloat(item.unit_amount.value),
+            }))
+          );
+          itemsSaved = true;
+          console.log('Order items created and stock updated');
+          if (stockShortfalls.length > 0) {
+            console.warn(`⚠️ Order ${orderData.id} oversold:`, stockShortfalls);
+          }
+        } catch (itemsError) {
           console.error('Error creating order items:', itemsError);
-        } else {
-          console.log('Order items created successfully');
         }
+
+        const stockNoteText = [
+          shortfallWarningText(stockShortfalls),
+          itemsSaved ? '' : itemsNotSavedText(),
+        ].filter(Boolean).join('\n\n');
 
         // Fetch order items with product details for email
         const { data: orderItems, error: fetchError } = await supaServerClient
@@ -210,6 +227,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 <p style="color: #a7f3d0; margin: 10px 0 0 0; font-size: 16px;">Ka-ching! PayPal payment processed!</p>
               </div>
               <div style="padding: 30px;">
+                ${shortfallWarningHtml(stockShortfalls)}
+                ${itemsSaved ? '' : itemsNotSavedHtml()}
                 <div style="background-color: #ecfdf5; border-radius: 12px; padding: 20px; margin-bottom: 20px;">
                   <h2 style="color: #059669; margin: 0 0 10px 0; font-size: 18px;">👤 Customer Information</h2>
                   <p style="color: #374151; margin: 5px 0;"><strong>Email:</strong> ${payerEmail || 'Not provided'}</p>
@@ -277,9 +296,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           await postMarkClient.sendEmail({
             From: process.env.EMAIL,
             To: "contact@swapnilsrivastava.eu",
-            Subject: `💰 New PayPal Order - €${totalAmount.toFixed(2)}`,
+            Subject: `${stockNoteText ? '⚠️ STOCK: ' : ''}💰 New PayPal Order - €${totalAmount.toFixed(2)}`,
             HtmlBody: adminEmailHtml,
-            TextBody: `New PayPal Order Received!\n\nCustomer: ${payerEmail || 'Guest'}\nUser ID: ${userId || 'N/A'}\nPayPal Transaction ID: ${captureResult.id}\n\nOrder Details:\n${orderItemsText}\nTotal: €${totalAmount.toFixed(2)}`,
+            TextBody: `New PayPal Order Received!\n\nCustomer: ${payerEmail || 'Guest'}\nUser ID: ${userId || 'N/A'}\nPayPal Transaction ID: ${captureResult.id}\n\nOrder Details:\n${orderItemsText}\nTotal: €${totalAmount.toFixed(2)}${stockNoteText ? `\n\n${stockNoteText}` : ''}`,
             MessageStream: "outbound",
           });
           console.log('✅ PayPal admin email sent');

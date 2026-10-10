@@ -10,6 +10,12 @@ import {
   isServicePackageOrder, 
   isCartOrder 
 } from '../../types/stripe';
+import {
+  saveOrderItems,
+  shortfallWarningHtml,
+  shortfallWarningText,
+  StockShortfall,
+} from '../../lib/server/stock';
 
 /**
  * Removes an order whose items failed to save, so Stripe's retry can write
@@ -119,6 +125,9 @@ const handler = async (
         // ============================================
         // DATABASE OPERATIONS: Create order and items
         // ============================================
+        // Products that sold out between checkout and payment
+        let stockShortfalls: StockShortfall[] = [];
+
         if (userId && !supaServerClient) {
           // Without the service role key nothing can be saved; a 500 makes Stripe retry
           throw new Error('SUPABASE_SERVICE_ROLE_KEY is not configured');
@@ -197,23 +206,27 @@ const handler = async (
                 console.log('Service package order item created successfully');
               }
             } else {
-              // CART: Insert multiple order items (existing logic preserved)
-              const orderItemsInsert = orderItemsData.map((item) => ({
-                order_id: orderData.id,
-                product_id: item.product_id || null,
-                quantity: item.quantity,
-                price: item.price,
-              }));
-
-              const { error: itemsError } = await supaServerClient
-                .from('order_items')
-                .insert(orderItemsInsert);
-
-              if (itemsError) {
+              // CART: Save the items and lower stock in one transaction
+              try {
+                stockShortfalls = await saveOrderItems(
+                  orderData.id,
+                  orderItemsData.map((item) => ({
+                    product_id: item.product_id || null,
+                    quantity: item.quantity,
+                    price: item.price,
+                  }))
+                );
+              } catch (itemsError) {
+                // Nothing was saved, so remove the order and let Stripe retry.
+                // If the call did save but its response was lost, the delete
+                // fails on the items' foreign key and the retry sees the order
+                // as a duplicate, so stock is never lowered twice.
                 await deleteOrder(orderData.id);
-                throw new Error(`Error creating order items: ${itemsError.message}`);
-              } else {
-                console.log('Order items created successfully');
+                throw itemsError;
+              }
+              console.log('Order items created and stock updated');
+              if (stockShortfalls.length > 0) {
+                console.warn(`⚠️ Order ${orderData.id} oversold:`, stockShortfalls);
               }
             }
           }
@@ -372,6 +385,7 @@ const handler = async (
                 <p style="color: #a7f3d0; margin: 10px 0 0 0; font-size: 16px;">Ka-ching! Time to celebrate!</p>
               </div>
               <div style="padding: 30px;">
+                ${shortfallWarningHtml(stockShortfalls)}
                 <div style="background-color: #ecfdf5; border-radius: 12px; padding: 20px; margin-bottom: 20px;">
                   <h2 style="color: #059669; margin: 0 0 10px 0; font-size: 18px;">👤 Customer Information</h2>
                   <p style="color: #374151; margin: 5px 0;"><strong>Email:</strong> ${customerEmail || 'Not provided'}</p>
@@ -526,13 +540,14 @@ const handler = async (
           : `Order Confirmed!\n\nThank you for your purchase!\n\nOrder Details:\n${orderItemsText}\nTotal: €${totalAmount.toFixed(2)}\n\nVisit us at https://swapnilsrivastava.eu`;
 
         // Admin email subject and text based on order type
+        const stockNoteText = shortfallWarningText(stockShortfalls);
         const adminEmailSubject = orderType === 'service_package'
           ? `📅 ACTION REQUIRED: New Consultation Booking - ${packageName} - €${totalAmount.toFixed(2)}`
-          : `💰 New Order Received - €${totalAmount.toFixed(2)}`;
+          : `${stockNoteText ? '⚠️ OVERSOLD: ' : ''}💰 New Order Received - €${totalAmount.toFixed(2)}`;
 
         const adminEmailText = orderType === 'service_package'
           ? `ACTION REQUIRED: New Consultation Booking!\n\n⚡ This customer needs a calendar invite for their 1-hour consultation call!\n\nCustomer Email: ${customerEmail || 'Not provided'}\nUser ID: ${userId || 'N/A'}\n\nBooking Details:\nPackage: ${packageName}\nAmount Paid: €${totalAmount.toFixed(2)}\nCall Duration: 1 Hour\nPackage ID: ${sessionMetadata.package_id || 'N/A'}\n\nPlease send the calendar scheduling link to: ${customerEmail}`
-          : `New Order Received!\n\nCustomer: ${customerEmail || 'Guest'}\nUser ID: ${userId || 'N/A'}\n\nOrder Details:\n${orderItemsText}\nTotal: €${totalAmount.toFixed(2)}`;
+          : `New Order Received!\n\nCustomer: ${customerEmail || 'Guest'}\nUser ID: ${userId || 'N/A'}\n\nOrder Details:\n${orderItemsText}\nTotal: €${totalAmount.toFixed(2)}${stockNoteText ? `\n\n${stockNoteText}` : ''}`;
 
         // Send email to customer
         if (customerEmail) {

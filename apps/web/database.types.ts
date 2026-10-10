@@ -792,6 +792,10 @@ export type Database = {
         Args: { p_post_id: string; p_note: string }
         Returns: Database["public"]["Tables"]["post_drafts"]["Row"]
       }
+      save_order_items: {
+        Args: { p_order_id: string; p_items: Json }
+        Returns: Json
+      }
       unpublish_post: {
         Args: { p_post_id: string }
         Returns: Database["public"]["Tables"]["posts"]["Row"]
