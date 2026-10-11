@@ -15,6 +15,7 @@ import {
   faChevronLeft,
   faShoppingCart,
   faBasketShopping,
+  faReceipt,
   faHeart,
   faCalendarPlus,
   faClipboardCheck,
@@ -436,6 +437,19 @@ function DropdownMenu({ closeDropdown }: { closeDropdown?: () => void }) {
                   defaultMessage="My Profile"
                 />
               </div>
+            </DropdownItem>
+          )}
+
+          {profile?.id && (
+            <DropdownItem
+              leftIcon={<FontAwesomeIcon icon={faReceipt} size="lg" />}
+              onClick={() => router.push('/orders')}
+            >
+              <FormattedMessage
+                id="nav-bar-my-orders"
+                description="Link to the customer's order history"
+                defaultMessage="My Orders"
+              />
             </DropdownItem>
           )}
 

@@ -162,9 +162,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         stockShortfalls = await saveOrderItems(
           orderData.id,
           [
-            ...items.map(({ product_id, quantity, price }) => ({ product_id, quantity, price })),
+            ...items.map(({ product_id, quantity, price, name }) => ({ product_id, quantity, price, name })),
             // Tax and delivery as rows without a product, as the Stripe webhook saves them
-            ...extraLines.map((line) => ({ product_id: null, quantity: 1, price: line.amount })),
+            ...extraLines.map((line) => ({ product_id: null, quantity: 1, price: line.amount, name: line.name })),
           ]
         );
         itemsSaved = true;

@@ -198,6 +198,7 @@ const handler = async (
                 product_id: null, // Service packages don't have product_id
                 quantity: packageItem.quantity,
                 price: packageItem.price,
+                name: packageItem.name,
               });
 
             if (itemsError) {
@@ -215,6 +216,7 @@ const handler = async (
                   product_id: item.product_id || null,
                   quantity: item.quantity,
                   price: item.price,
+                  name: item.name,
                 }))
               );
             } catch (itemsError) {
