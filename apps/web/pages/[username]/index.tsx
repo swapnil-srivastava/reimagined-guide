@@ -1,11 +1,16 @@
 // Translated
 
 import React, { useMemo, useState } from "react";
+import Link from "next/link";
+import { useSelector } from "react-redux";
 import { FormattedMessage } from "react-intl";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faReceipt } from "@fortawesome/free-solid-svg-icons";
 import PostFeed from "../../components/PostFeed";
 import UserProfile from "../../components/UserProfile";
 import TagFilterBar, { toggleTag, useTagFilter } from "../../components/TagFilterBar";
 import { supaClient } from "../../supa-client";
+import { RootState } from "../../lib/interfaces/interface";
 import {
   POST_WITH_TAGS,
   countTags,
@@ -66,6 +71,9 @@ export async function getServerSideProps({ query }) {
 }
 
 function UserProfilePage({ userProfile, posts }) {
+  // Signed-in visitors on their own profile get a link to their orders
+  const { profile } = useSelector((state: RootState) => state.users.userInfo);
+  const isOwnProfile = Boolean(profile?.id && profile.id === userProfile?.id);
   const [activeTab, setActiveTab] = useState<'posts' | 'about'>('posts');
   // An author has few posts: all are loaded and filtered in the browser.
   // Several selected tags show posts that have all of them.
@@ -83,6 +91,21 @@ function UserProfilePage({ userProfile, posts }) {
       <div className="bg-blog-white dark:bg-fun-blue-500 border-b border-gray-200 dark:border-fun-blue-400">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <UserProfile user={userProfile} />
+          {isOwnProfile && (
+            <div className="flex justify-center mt-4">
+              <Link
+                href="/orders"
+                className="font-poppins inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium bg-[var(--color-primary-deep)] text-[var(--text-on-primary)] hover:brightness-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
+              >
+                <FontAwesomeIcon icon={faReceipt} className="w-4 h-4" aria-hidden="true" />
+                <FormattedMessage
+                  id="user-profile-my-orders"
+                  description="Link from your own profile to your order history"
+                  defaultMessage="My orders"
+                />
+              </Link>
+            </div>
+          )}
         </div>
       </div>
 

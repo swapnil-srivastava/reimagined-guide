@@ -7,6 +7,8 @@ export interface OrderItemInput {
   product_id: string | null;
   quantity: number;
   price: number;
+  /** What the customer saw at checkout, e.g. the product name, "Delivery" */
+  name: string;
 }
 
 /** A product that sold out between checkout and payment */
