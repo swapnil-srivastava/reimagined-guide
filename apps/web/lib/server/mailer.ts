@@ -48,7 +48,9 @@ export async function sendMail(
     });
     return true;
   } catch (error) {
-    console.error("sendMail: failed to send email", error);
+    // Postmark puts the reason (bad sender, inactive recipient, …) in code and message
+    const { code, message } = (error ?? {}) as { code?: number; message?: string };
+    console.error(`sendMail: failed to send "${subject}" to ${to}: ${code ?? ""} ${message ?? String(error)}`);
     return false;
   }
 }

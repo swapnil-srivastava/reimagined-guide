@@ -4,7 +4,7 @@ import React from "react";
 // the theme variables in styles/globals.css (Tailwind `dark:` never applies).
 
 export const inputClass =
-  "w-full min-h-[44px] rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-primary)] " +
+  "booking-input w-full min-w-0 min-h-[44px] rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-primary)] " +
   "text-[var(--text-primary)] px-3 py-2 text-base focus:outline-none focus:ring-2 " +
   "focus:ring-[var(--text-primary)] disabled:opacity-60";
 
