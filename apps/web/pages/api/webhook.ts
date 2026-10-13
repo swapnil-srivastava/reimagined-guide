@@ -575,7 +575,7 @@ const handler = async (
 
         // Customer email subject and text based on order type
         const customerEmailSubject = orderType === 'service_package'
-          ? (bookingLink ? `Next step: pick a time for your ${packageName} call` : `🚀 Consultation Booked! - ${packageName} - Swapnil's Odyssey`)
+          ? (bookingLink ? `Next step: pick a time for your ${/call$/i.test(packageName) ? packageName : `${packageName} call`}` : `🚀 Consultation Booked! - ${packageName} - Swapnil's Odyssey`)
           : "🎉 Your Order is Confirmed! - Swapnil's Odyssey";
 
         const customerEmailText = orderType === 'service_package'
