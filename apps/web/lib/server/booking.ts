@@ -92,10 +92,12 @@ export interface BookingContext {
 /** Everything the booking page needs for one link, or null if the token is unknown */
 export async function loadByToken(token: string): Promise<BookingContext | null> {
   if (!TOKEN_RE.test(token)) return null;
+  // The order email's link, or the second one sent with the "not booked yet" reminder
+  const hash = hashToken(token);
   const { data: entitlement } = await db()
     .from("booking_entitlements")
     .select("*")
-    .eq("token_hash", hashToken(token))
+    .or(`token_hash.eq.${hash},nudge_token_hash.eq.${hash}`)
     .maybeSingle();
   if (!entitlement) return null;
 

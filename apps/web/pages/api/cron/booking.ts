@@ -16,6 +16,9 @@ import type { BookingHost, BookingType } from "../../../lib/booking/types";
 // Supabase's pg_cron calls this every 15 minutes (migration
 // 20261014120000_booking_reminders.sql). Each email is claimed in the
 // database before it is sent, so extra calls never send anything twice.
+// Sending a batch of emails can take a while
+export const config = { maxDuration: 60 };
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST" && req.method !== "GET") {
     res.setHeader("Allow", "GET, POST");
@@ -59,23 +62,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     for (const link of unbooked ?? []) {
       const type = await typeOf(link.booking_type_id);
       if (!type || !link.email) continue;
-      // Only the hash of the old token is stored, so the nudge carries a new
-      // link. The link was never used, so nothing else points at it.
+      // Only the hash of the order email's token is stored, so the nudge
+      // carries a second link to the same credit; both keep working.
       const token = randomBytes(24).toString("base64url");
-      const { error: swapError } = await db.from("booking_entitlements").update({ token_hash: hashToken(token) }).eq("id", link.id);
-      if (swapError) {
-        console.error(`Nudge for link ${link.id}: new token failed`, swapError);
+      const { error: tokenError } = await db.from("booking_entitlements").update({ nudge_token_hash: hashToken(token) }).eq("id", link.id);
+      if (tokenError) {
+        console.error(`Nudge for link ${link.id}: new token failed`, tokenError);
         sent.failed++;
         continue;
       }
       const ok = await sendNudgeEmail({ email: link.email, name: link.name, type, url: bookingUrl(token), paidOn: link.created_at });
-      if (ok) {
-        sent.nudges++;
-      } else {
-        // Keep the order email's link working when the nudge didn't arrive
-        await db.from("booking_entitlements").update({ token_hash: link.token_hash }).eq("id", link.id);
-        sent.failed++;
-      }
+      if (ok) sent.nudges++;
+      else sent.failed++;
     }
 
     // Rate limit counters older than a day are no longer needed

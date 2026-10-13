@@ -271,6 +271,7 @@ export type Database = {
           token_hash: string
           used: number
           nudged_at: string | null
+          nudge_token_hash: string | null
         }
         Insert: {
           booking_type_id: string
@@ -285,6 +286,7 @@ export type Database = {
           token_hash: string
           used?: number
           nudged_at?: string | null
+          nudge_token_hash?: string | null
         }
         Update: {
           booking_type_id?: string
@@ -299,6 +301,7 @@ export type Database = {
           token_hash?: string
           used?: number
           nudged_at?: string | null
+          nudge_token_hash?: string | null
         }
         Relationships: []
       }

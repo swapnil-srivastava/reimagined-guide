@@ -29,6 +29,9 @@ const m = defineMessages({
   stateExpired: { id: "booking-admin-links-state-expired", description: "Booking admin: link expired", defaultMessage: "Expired" },
   turnOff: { id: "booking-admin-links-turn-off", description: "Booking admin: turn a link off", defaultMessage: "Turn off" },
   turnOn: { id: "booking-admin-links-turn-on", description: "Booking admin: turn a link back on", defaultMessage: "Turn back on" },
+  turnOffFor: { id: "booking-admin-links-turn-off-for", description: "Booking admin: screen reader label, turn off one buyer's link", defaultMessage: "Turn off the link for {who}" },
+  turnOnFor: { id: "booking-admin-links-turn-on-for", description: "Booking admin: screen reader label, turn one buyer's link back on", defaultMessage: "Turn back on the link for {who}" },
+  loading: { id: "booking-admin-links-loading", description: "Booking admin: booking links are loading", defaultMessage: "Loading booking links" },
   turnedOff: { id: "booking-admin-links-turned-off", description: "Booking admin: toast after turning a link off", defaultMessage: "Link turned off" },
   turnedOn: { id: "booking-admin-links-turned-on", description: "Booking admin: toast after turning a link on", defaultMessage: "Link turned back on" },
   showMore: { id: "booking-admin-links-show-more", description: "Booking admin: load older links", defaultMessage: "Show older links" },
@@ -76,7 +79,9 @@ export default function BookingLinks() {
   return (
     <Panel title={intl.formatMessage(m.title)} description={intl.formatMessage(m.help)}>
       {links === null ? (
-        <div className="h-24 rounded-xl bg-[var(--surface-inset)] motion-safe:animate-pulse" aria-hidden="true" />
+        <div className="h-24 rounded-xl bg-[var(--surface-inset)] motion-safe:animate-pulse" role="status">
+          <span className="sr-only">{intl.formatMessage(m.loading)}</span>
+        </div>
       ) : !links.length ? (
         <p className="text-sm text-[var(--text-muted)]">{intl.formatMessage(m.empty)}</p>
       ) : (
@@ -103,7 +108,14 @@ export default function BookingLinks() {
                   <Pill tone={state === "active" ? "success" : state === "off" ? "danger" : "muted"}>
                     {intl.formatMessage(state === "active" ? m.stateActive : state === "off" ? m.stateOff : m.stateExpired)}
                   </Pill>
-                  <Button variant={link.revoked_at ? "secondary" : "ghost"} disabled={busy === link.id} onClick={() => toggle(link)}>
+                  <Button
+                    variant={link.revoked_at ? "secondary" : "ghost"}
+                    disabled={busy === link.id}
+                    aria-label={intl.formatMessage(link.revoked_at ? m.turnOnFor : m.turnOffFor, {
+                      who: link.email ?? link.name ?? intl.formatMessage(m.noEmail),
+                    })}
+                    onClick={() => toggle(link)}
+                  >
                     {intl.formatMessage(link.revoked_at ? m.turnOn : m.turnOff)}
                   </Button>
                 </li>

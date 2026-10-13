@@ -12,9 +12,11 @@ ALTER TABLE public.bookings
   ADD COLUMN IF NOT EXISTS reminder_24h_sent_at TIMESTAMPTZ,
   ADD COLUMN IF NOT EXISTS reminder_1h_sent_at TIMESTAMPTZ;
 
--- When the buyer was reminded to pick a time
+-- When the buyer was reminded to pick a time, and the hash of the second
+-- link that reminder carries (the order email's link keeps working too)
 ALTER TABLE public.booking_entitlements
-  ADD COLUMN IF NOT EXISTS nudged_at TIMESTAMPTZ;
+  ADD COLUMN IF NOT EXISTS nudged_at TIMESTAMPTZ,
+  ADD COLUMN IF NOT EXISTS nudge_token_hash TEXT UNIQUE;
 
 -- Hash of the host's private calendar feed token (the feed URL is the only copy)
 ALTER TABLE public.booking_hosts
@@ -156,7 +158,8 @@ SELECT cron.schedule(
   SELECT net.http_post(
     url := 'https://www.swapnilsrivastava.eu/api/cron/booking',
     body := '{}'::jsonb,
-    headers := '{"Content-Type": "application/json"}'::jsonb
+    headers := '{"Content-Type": "application/json"}'::jsonb,
+    timeout_milliseconds := 30000
   );
   $$
 );
