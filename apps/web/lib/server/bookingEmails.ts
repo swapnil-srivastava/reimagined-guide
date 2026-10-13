@@ -205,8 +205,9 @@ export async function sendHostEmail(input: BookingEmailInput): Promise<boolean> 
   ]);
 }
 
-/** Sends both emails; a failed email never fails the booking */
-export async function sendBookingEmails(input: BookingEmailInput): Promise<void> {
-  const [invitee, hostMail] = await Promise.all([sendInviteeEmail(input), sendHostEmail(input)]);
-  if (!invitee || !hostMail) console.error(`Booking ${input.booking.id}: ${input.event} email failed`, { invitee, hostMail });
+/** Sends both emails; a failed email never fails the booking. Says which ones went. */
+export async function sendBookingEmails(input: BookingEmailInput): Promise<{ invitee: boolean; host: boolean }> {
+  const [invitee, host] = await Promise.all([sendInviteeEmail(input), sendHostEmail(input)]);
+  if (!invitee || !host) console.error(`Booking ${input.booking.id}: ${input.event} email failed`, { invitee, host });
+  return { invitee, host };
 }

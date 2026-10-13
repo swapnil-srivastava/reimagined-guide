@@ -37,6 +37,11 @@ const m = defineMessages({
     defaultMessage: "The buyer gets an email, the call goes back on their link and they can pick a new time.",
   },
   cancelled: { id: "booking-admin-booking-cancelled-toast", description: "Booking admin: toast after cancelling", defaultMessage: "Call cancelled" },
+  cancelledNoEmail: {
+    id: "booking-admin-booking-cancelled-no-email",
+    description: "Booking admin: toast when the call was cancelled but an email failed",
+    defaultMessage: "Call cancelled, but the cancellation email didn't send. Please let the buyer know yourself.",
+  },
   completed: { id: "booking-admin-booking-mark-completed", description: "Booking admin: mark a past call as done", defaultMessage: "Mark as done" },
   noShow: { id: "booking-admin-booking-mark-no-show", description: "Booking admin: mark a past call as no-show", defaultMessage: "No-show" },
   saved: { id: "booking-admin-booking-saved", description: "Booking admin: toast after updating a booking", defaultMessage: "Booking updated" },
@@ -175,7 +180,8 @@ function BookingItem({ booking, host, type, reload }: { booking: Booking; host: 
     setSaving(false);
     const body = res ? await res.json().catch(() => ({})) : {};
     if (!fail(res?.ok ? null : { message: body.error ?? "network" })) {
-      toast.success(intl.formatMessage(m.cancelled));
+      if (body.emailed === false) toast.error(intl.formatMessage(m.cancelledNoEmail), { duration: 8000 });
+      else toast.success(intl.formatMessage(m.cancelled));
       setCancelling(false);
     }
     await reload();

@@ -264,6 +264,19 @@
   color-scheme: light;
 }
 
+/* iOS Safari gives date and time inputs a fixed native width and centres
+   their value, so two side by side spill out of their grid cells. */
+.booking-input[type="date"],
+.booking-input[type="time"] {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+}
+.booking-input::-webkit-date-and-time-value {
+  text-align: left;
+  min-height: 1.5em;
+}
+
 .theme-blue-dark .booking-ui,
 .theme-green-dark .booking-ui,
 .theme-purple-dark .booking-ui,

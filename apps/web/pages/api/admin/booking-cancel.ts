@@ -31,6 +31,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(500).json({ error: "server" });
   }
 
+  // Whether the buyer and host emails went out, so the admin page can say so
+  let emailed: boolean | null = null;
   try {
     const [{ data: type }, { data: host }] = await Promise.all([
       authed.client.from("booking_types").select("*").eq("id", booking.booking_type_id).single(),
@@ -38,7 +40,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     ]);
     // Past calls are cancelled quietly; the buyer only hears about upcoming ones
     if (type && host && Date.parse(booking.starts_at) > Date.now()) {
-      await sendBookingEmails({
+      const sent = await sendBookingEmails({
         event: "cancelled",
         booking,
         type,
@@ -47,9 +49,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         cancelledBy: "host",
         reason: booking.cancel_reason,
       });
+      emailed = sent.invitee && sent.host;
     }
   } catch (mailError) {
+    emailed = false;
     console.error("admin cancel email failed", mailError);
   }
-  return res.status(200).json({ ok: true });
+  return res.status(200).json({ ok: true, emailed });
 }
