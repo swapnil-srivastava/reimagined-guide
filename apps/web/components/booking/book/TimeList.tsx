@@ -39,10 +39,10 @@ export default function TimeList({
               type="button"
               onClick={() => onChoose(slot.start)}
               aria-pressed={active}
-              className={`min-h-[48px] rounded-lg border text-base font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] ${
+              className={`min-h-[48px] rounded-lg border text-base font-semibold transition-[border-color,background-color,width] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] ${
                 active
-                  ? "w-1/2 border-[var(--text-muted)] bg-[var(--text-muted)] text-[var(--bg-primary)]"
-                  : "w-full border-[color-mix(in_srgb,var(--accent-ink)_55%,transparent)] text-[var(--accent-ink)] hover:border-[var(--accent-ink)] hover:border-2"
+                  ? "w-1/2 border-2 border-[var(--accent-ink)] bg-[var(--accent-tint)] text-[var(--accent-ink)]"
+                  : "w-full border-[color-mix(in_srgb,var(--accent-ink)_55%,transparent)] text-[var(--accent-ink)] hover:border-[var(--accent-ink)] hover:bg-[var(--accent-tint)]"
               }`}
             >
               {label}
@@ -51,8 +51,7 @@ export default function TimeList({
               <button
                 type="button"
                 onClick={onNext}
-                autoFocus
-                className="w-1/2 min-h-[48px] rounded-lg bg-[var(--accent-ink)] text-[var(--bg-primary)] text-base font-semibold hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)]"
+                className="w-1/2 min-h-[48px] rounded-lg bg-[var(--accent-ink)] text-[var(--bg-primary)] text-base font-semibold hover:bg-[color-mix(in_srgb,var(--accent-ink)_88%,var(--bg-primary))] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--text-primary)]"
               >
                 {intl.formatMessage(m.next)}
               </button>

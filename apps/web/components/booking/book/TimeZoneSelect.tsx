@@ -11,18 +11,28 @@ const m = defineMessages({
   label: { id: "book-timezone-label", description: "Booking: time zone picker label", defaultMessage: "Time zone" },
 });
 
+function zoneOption(zone: string, now: DateTime) {
+  const at = now.setZone(zone);
+  return { zone, offset: at.offset, label: `(${at.toFormat("'GMT'ZZ")}) ${zone.replace(/_/g, " ")}` };
+}
+
+// Built once per page load: ~400 zones, each needing an offset lookup
+let cached: ReturnType<typeof zoneOption>[] | null = null;
+function zoneOptions() {
+  if (!cached) {
+    const now = DateTime.now();
+    cached = allTimeZones()
+      .map((zone) => zoneOption(zone, now))
+      .sort((a, b) => a.offset - b.offset || a.zone.localeCompare(b.zone));
+  }
+  return cached;
+}
+
 export default function TimeZoneSelect({ value, onChange }: { value: string; onChange: (zone: string) => void }) {
   const intl = useIntl();
   const options = useMemo(() => {
-    const now = DateTime.now();
-    const zones = allTimeZones();
-    if (!zones.includes(value)) zones.push(value);
-    return zones
-      .map((zone) => {
-        const at = now.setZone(zone);
-        return { zone, offset: at.offset, label: `(${at.toFormat("'GMT'ZZ")}) ${zone.replace(/_/g, " ")}` };
-      })
-      .sort((a, b) => a.offset - b.offset || a.zone.localeCompare(b.zone));
+    const list = zoneOptions();
+    return list.some((o) => o.zone === value) ? list : [...list, zoneOption(value, DateTime.now())];
   }, [value]);
 
   return (
@@ -35,7 +45,7 @@ export default function TimeZoneSelect({ value, onChange }: { value: string; onC
         id="book-timezone"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full min-h-[44px] rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-primary)] text-[var(--text-primary)] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+        className="w-full min-h-[44px] rounded-lg border border-[var(--border-control)] bg-[var(--bg-primary)] text-[var(--text-primary)] px-3 py-2 text-sm focus:outline-none focus-visible:ring-2 focus:ring-[var(--text-primary)]"
       >
         {options.map((o) => (
           <option key={o.zone} value={o.zone}>

@@ -12,6 +12,7 @@ const m = defineMessages({
   next: { id: "book-calendar-next", description: "Booking calendar: next month", defaultMessage: "Next month" },
   free: { id: "book-calendar-day-free", description: "Booking calendar: a day with free times (screen readers)", defaultMessage: "{day}, times available" },
   none: { id: "book-calendar-day-none", description: "Booking calendar: a day without free times (screen readers)", defaultMessage: "{day}, no times" },
+  today: { id: "book-calendar-today", description: "Booking calendar: marks today's date (screen readers)", defaultMessage: "{day} (today)" },
 });
 
 export default function MonthCalendar({
@@ -43,6 +44,7 @@ export default function MonthCalendar({
   const days = first.daysInMonth ?? 30;
   const today = DateTime.now().setZone(month.zone).toISODate();
   const weekdays = Info.weekdays("short", { locale: intl.locale });
+  const headingId = React.useId();
 
   const cells: (DateTime | null)[] = [
     ...Array.from({ length: lead }, () => null),
@@ -51,13 +53,13 @@ export default function MonthCalendar({
 
   const navButton =
     "inline-flex items-center justify-center w-11 h-11 rounded-full text-[var(--accent-ink)] " +
-    "bg-[color-mix(in_srgb,var(--accent-ink)_14%,transparent)] hover:bg-[color-mix(in_srgb,var(--accent-ink)_24%,transparent)] " +
-    "disabled:opacity-30 disabled:bg-transparent disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]";
+    "bg-[var(--accent-tint)] hover:bg-[var(--accent-tint-hover)] " +
+    "disabled:opacity-30 disabled:bg-transparent disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)]";
 
   return (
     <div>
       <div className="flex items-center justify-between gap-2 mb-4">
-        <h3 className="text-base sm:text-lg font-semibold capitalize" aria-live="polite">
+        <h3 id={headingId} className="text-base sm:text-lg font-semibold capitalize" aria-live="polite">
           {first.setLocale(intl.locale).toLocaleString({ month: "long", year: "numeric" })}
         </h3>
         <div className="flex gap-2">
@@ -78,17 +80,19 @@ export default function MonthCalendar({
         ))}
       </div>
 
-      <div className={`grid grid-cols-7 gap-1 transition-opacity ${loading ? "opacity-50" : ""}`} role="grid">
+      <div className={`grid grid-cols-7 gap-1 transition-opacity ${loading ? "opacity-50" : ""}`} role="group" aria-labelledby={headingId}>
         {cells.map((day, i) => {
           if (!day) return <div key={`lead-${i}`} />;
           const iso = day.toISODate()!;
           const free = available.has(iso);
           const isSelected = selected === iso;
-          const label = day.setLocale(intl.locale).toLocaleString({ weekday: "long", day: "numeric", month: "long" });
+          const isToday = iso === today;
+          const dayName = day.setLocale(intl.locale).toLocaleString({ weekday: "long", day: "numeric", month: "long" });
+          const label = isToday ? intl.formatMessage(m.today, { day: dayName }) : dayName;
           const tone = isSelected
             ? "bg-[var(--accent-ink)] text-[var(--bg-primary)] font-bold shadow"
             : free
-              ? "bg-[color-mix(in_srgb,var(--accent-ink)_14%,transparent)] text-[var(--accent-ink)] font-bold hover:bg-[color-mix(in_srgb,var(--accent-ink)_26%,transparent)]"
+              ? "bg-[var(--accent-tint)] text-[var(--accent-ink)] font-bold hover:bg-[var(--accent-tint-hover)]"
               : "text-[var(--text-muted)] opacity-60 cursor-default";
           return (
             <div key={iso} className="flex justify-center">
@@ -97,11 +101,12 @@ export default function MonthCalendar({
                 disabled={!free}
                 onClick={() => onSelect(iso)}
                 aria-pressed={isSelected}
+                aria-current={isToday ? "date" : undefined}
                 aria-label={intl.formatMessage(free ? m.free : m.none, { day: label })}
-                className={`relative w-full max-w-[3rem] aspect-square min-h-[40px] rounded-full text-sm sm:text-base transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] ${tone}`}
+                className={`relative w-full max-w-[3rem] aspect-square min-h-[44px] rounded-full text-sm sm:text-base transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] ${tone}`}
               >
                 {day.day}
-                {iso === today && (
+                {isToday && (
                   <span
                     aria-hidden
                     className={`absolute left-1/2 -translate-x-1/2 bottom-1 w-1 h-1 rounded-full ${isSelected ? "bg-[var(--bg-primary)]" : "bg-[var(--text-primary)]"}`}

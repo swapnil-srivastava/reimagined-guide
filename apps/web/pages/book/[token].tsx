@@ -23,7 +23,7 @@ import TimeList from "../../components/booking/book/TimeList";
 import TimeZoneSelect from "../../components/booking/book/TimeZoneSelect";
 import CallSummary, { HostAvatar } from "../../components/booking/book/CallSummary";
 import { bookingApi, browserZone, PublicBooking, PublicContext, Slot } from "../../components/booking/book/api";
-import { longDayLabel, rangeLabel } from "../../lib/booking/format";
+import { durationLabel, longDayLabel, rangeLabel } from "../../lib/booking/format";
 import { googleCalendarUrl, outlookCalendarUrl } from "../../lib/booking/calendarLinks";
 
 // e.g. localhost:3000/book/<token>
@@ -54,11 +54,11 @@ const m = defineMessages({
   emailHint: { id: "book-field-email-hint", description: "Booking form: what the email is for", defaultMessage: "The invite and any changes go here." },
   notes: { id: "book-field-notes", description: "Booking form: notes", defaultMessage: "Anything that helps me prepare? (optional)" },
   confirm: { id: "book-confirm", description: "Booking form: book the call", defaultMessage: "Book the call" },
-  confirmMove: { id: "book-confirm-move", description: "Booking: confirm moving the call", defaultMessage: "Move my call" },
+  confirmMove: { id: "book-confirm-move", description: "Booking: confirm moving the call", defaultMessage: "Confirm new time" },
   moveFrom: { id: "book-move-from", description: "Booking: the old time when moving", defaultMessage: "Was" },
   moveTo: { id: "book-move-to", description: "Booking: the new time when moving", defaultMessage: "New time" },
   booked: { id: "book-done-booked", description: "Booking: done heading", defaultMessage: "You're booked" },
-  moved: { id: "book-done-moved", description: "Booking: done heading after moving", defaultMessage: "Your call has moved" },
+  moved: { id: "book-done-moved", description: "Booking: done heading after moving", defaultMessage: "Your call is rescheduled" },
   sentTo: {
     id: "book-done-sent",
     description: "Booking: where the invite was sent",
@@ -69,21 +69,21 @@ const m = defineMessages({
   addOutlook: { id: "book-add-outlook", description: "Booking: add to Outlook", defaultMessage: "Outlook" },
   addTo: { id: "book-add-to", description: "Booking: label above add-to-calendar buttons", defaultMessage: "Add to calendar" },
   reschedule: { id: "book-reschedule", description: "Booking: move the call", defaultMessage: "Reschedule" },
-  cancel: { id: "book-cancel", description: "Booking: cancel the call", defaultMessage: "Cancel" },
+  cancel: { id: "book-cancel", description: "Booking: cancel the call", defaultMessage: "Cancel call" },
   tooLate: {
     id: "book-too-late",
     description: "Booking: too close to the call to change it here",
-    defaultMessage: "The call is less than {hours} hours away, so it can't be changed here. Reply to your confirmation email if something came up.",
+    defaultMessage: "The call is less than {cutoff} away, so it can't be changed here. Reply to your confirmation email if something came up.",
   },
   changeUntil: {
     id: "book-change-until",
     description: "Booking: how long the buyer can change the call",
-    defaultMessage: "You can reschedule or cancel up to {hours} hours before the call.",
+    defaultMessage: "You can reschedule or cancel up to {cutoff} before the call.",
   },
   bookAnother: { id: "book-another", description: "Booking: book one more call on the same link", defaultMessage: "Book another call" },
   cancelHeading: { id: "book-cancel-heading", description: "Booking: cancel confirm heading", defaultMessage: "Cancel this call?" },
   cancelReason: { id: "book-cancel-reason", description: "Booking: optional reason for cancelling", defaultMessage: "Reason (optional)" },
-  cancelConfirm: { id: "book-cancel-confirm", description: "Booking: confirm cancelling", defaultMessage: "Cancel call" },
+  cancelConfirm: { id: "book-cancel-confirm", description: "Booking: confirm cancelling", defaultMessage: "Yes, cancel it" },
   keep: { id: "book-cancel-keep", description: "Booking: keep the call", defaultMessage: "Keep it" },
   cancelled: { id: "book-cancelled-heading", description: "Booking: call cancelled heading", defaultMessage: "Your call is cancelled" },
   cancelledText: {
@@ -118,7 +118,12 @@ const m = defineMessages({
     description: "Booking: call not offered at the moment",
     defaultMessage: "Booking this call is paused for now. Reply to your order email and we'll find a time together.",
   },
-  loadFailed: { id: "book-load-failed", description: "Booking: page failed to load", defaultMessage: "Something went wrong loading this page." },
+  loadFailed: { id: "book-load-failed", description: "Booking: page failed to load", defaultMessage: "This page didn't load" },
+  loadFailedText: {
+    id: "book-load-failed-text",
+    description: "Booking: page failed to load, what to do",
+    defaultMessage: "Check your connection and try again. If it keeps happening, reply to your order email.",
+  },
   retry: { id: "book-retry", description: "Booking: try loading again", defaultMessage: "Try again" },
   errTaken: { id: "book-error-taken", description: "Booking error: time taken", defaultMessage: "Sorry, that time was just taken. Please pick another." },
   errUsedUp: { id: "book-error-used-up", description: "Booking error: no calls left", defaultMessage: "Every call on this link is already booked." },
@@ -129,7 +134,23 @@ const m = defineMessages({
   errName: { id: "book-error-name", description: "Booking error: bad name", defaultMessage: "Please enter your name." },
   errSame: { id: "book-error-same", description: "Booking error: same time chosen", defaultMessage: "That's the time you already have." },
   errServer: { id: "book-error-server", description: "Booking error: anything else", defaultMessage: "Something went wrong. Please try again." },
-  sending: { id: "book-sending", description: "Booking: while saving", defaultMessage: "One moment…" },
+  errNetwork: { id: "book-error-network", description: "Booking error: no connection", defaultMessage: "You seem to be offline. Check your connection and try again." },
+  booking: { id: "book-saving-book", description: "Booking: while booking", defaultMessage: "Booking…" },
+  rescheduling: { id: "book-saving-reschedule", description: "Booking: while rescheduling", defaultMessage: "Rescheduling…" },
+  cancelling: { id: "book-saving-cancel", description: "Booking: while cancelling", defaultMessage: "Cancelling…" },
+  loading: { id: "book-loading", description: "Booking: page is loading (screen readers)", defaultMessage: "Loading your booking…" },
+  loadingTimes: { id: "book-loading-times", description: "Booking: free times are loading (screen readers)", defaultMessage: "Loading free times…" },
+  timesOnDay: {
+    id: "book-times-on-day",
+    description: "Booking: how many times the chosen day has (screen readers)",
+    defaultMessage: "{count, plural, one {# time} other {# times}} on {day}",
+  },
+  newTab: { id: "book-new-tab", description: "Booking: link opens in a new tab (screen readers)", defaultMessage: "(opens in a new tab)" },
+  eventDetails: {
+    id: "book-event-details",
+    description: "Booking: text of the calendar event added from the page",
+    defaultMessage: "{type} with {host}. To reschedule or cancel, use the link in your confirmation email.",
+  },
 });
 
 type View = "pick" | "details" | "done" | "manage" | "cancel" | "cancelled";
@@ -144,7 +165,17 @@ const ERRORS: Record<string, keyof typeof m> = {
   bad_email: "errEmail",
   bad_name: "errName",
   same_time: "errSame",
+  network: "errNetwork",
 };
+
+// Errors shown next to the field they are about
+const FIELD_ERRORS: Record<string, "name" | "email"> = { bad_name: "name", bad_email: "email" };
+
+const EMPTY = new Set<string>();
+
+/** "smooth", unless the buyer asked for less motion */
+const smooth = (): ScrollBehavior =>
+  typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
 
 const card = "rounded-2xl bg-[var(--surface-raised)] text-[var(--text-primary)] border border-[var(--border-subtle)] shadow-xl";
 
@@ -171,12 +202,15 @@ const BookPage: NextPage = () => {
   const [notice, setNotice] = useState<string | null>(null);
   const autoAdvanced = useRef(false);
   const timesRef = useRef<HTMLDivElement>(null);
+  const mainRef = useRef<HTMLElement>(null);
+  const firstView = useRef(true);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [notes, setNotes] = useState("");
   const [reason, setReason] = useState("");
   const [saving, setSaving] = useState(false);
+  const [fieldError, setFieldError] = useState<{ field: "name" | "email"; text: string } | null>(null);
 
   const errorText = (code: string) => intl.formatMessage(m[ERRORS[code] ?? "errServer"]);
 
@@ -209,7 +243,9 @@ const BookPage: NextPage = () => {
     });
   }, [router.isReady, load]);
 
-  const host = ctx?.hosts.find((h) => h.id === hostId) ?? ctx?.hosts[0];
+  // Hosts listed only because the buyer has a call with them can't be picked
+  const bookableHosts = ctx?.hosts.filter((h) => h.bookable) ?? [];
+  const host = bookableHosts.find((h) => h.id === hostId) ?? bookableHosts[0];
   const now = DateTime.now().setZone(zone);
   const minMonth = now.startOf("month");
   const maxMonth = now.plus({ days: ctx?.type.max_days_ahead ?? 60 }).startOf("month");
@@ -255,6 +291,22 @@ const BookPage: NextPage = () => {
     return map;
   }, [slots, zone]);
   const available = useMemo(() => new Set(byDay.keys()), [byDay]);
+  // Slots in state may answer an older request (month, zone or host changed)
+  const fresh = loadedKey === requestKey;
+
+  // Move focus to the new heading when the view changes, so keyboard and
+  // screen reader users land on what just appeared
+  useEffect(() => {
+    if (firstView.current) {
+      firstView.current = false;
+      return;
+    }
+    const heading = mainRef.current?.querySelector("h2");
+    if (heading) {
+      heading.setAttribute("tabindex", "-1");
+      heading.focus({ preventScroll: true });
+    }
+  }, [view]);
 
   // Jump to the next month once if this one is already full, and open the
   // first free day so the times show without an extra tap
@@ -286,7 +338,7 @@ const BookPage: NextPage = () => {
     setNotice(null);
     // On phones the times are under the calendar
     if (window.matchMedia("(max-width: 767px)").matches) {
-      setTimeout(() => timesRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+      setTimeout(() => timesRef.current?.scrollIntoView({ behavior: smooth(), block: "start" }), 50);
     }
   };
 
@@ -299,7 +351,7 @@ const BookPage: NextPage = () => {
     setNotice(null);
     autoAdvanced.current = false;
     setView("pick");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: smooth() });
   };
 
   const chosenSlot = slots.find((s) => s.start === chosen) ?? null;
@@ -310,6 +362,12 @@ const BookPage: NextPage = () => {
   }, [view, chosenSlot]);
 
   const handleConflict = (code: string) => {
+    const field = FIELD_ERRORS[code];
+    if (field && view === "details") {
+      setFieldError({ field, text: errorText(code) });
+      document.getElementById(`book-${field}`)?.focus();
+      return;
+    }
     if (code === "taken") {
       setNotice(errorText(code));
       setChosen(null);
@@ -332,6 +390,7 @@ const BookPage: NextPage = () => {
   const submitBooking = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!chosenSlot || !host || saving) return;
+    setFieldError(null);
     setSaving(true);
     const res = moving
       ? await bookingApi<{ booking: PublicBooking }>(token, "/reschedule", {
@@ -352,7 +411,7 @@ const BookPage: NextPage = () => {
     if (!res.ok) return handleConflict(res.error);
     setFocus(res.data.booking);
     setView("done");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: smooth() });
     load();
   };
 
@@ -375,7 +434,7 @@ const BookPage: NextPage = () => {
     if (ctx.state === "revoked") closed = "revoked";
     else if (ctx.state === "expired") closed = "expired";
     else if (ctx.remaining <= 0) closed = "used_up";
-    else if (!ctx.type.active || !ctx.hosts.length) closed = "unavailable";
+    else if (!ctx.type.active || !ctx.hosts.some((h) => h.bookable)) closed = "unavailable";
   }
 
   const shell = (children: React.ReactNode) => (
@@ -385,8 +444,9 @@ const BookPage: NextPage = () => {
         <meta name="robots" content="noindex, nofollow" />
         <meta name="referrer" content="no-referrer" />
       </Head>
-      <div className="font-poppins min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
-        <div className="max-w-5xl mx-auto px-4 py-6 sm:py-12">{children}</div>
+      <div className="booking-ui font-poppins min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
+        {/* Room at the bottom on phones for the floating cookie and privacy buttons */}
+        <div className="max-w-5xl mx-auto px-4 pt-6 pb-28 sm:py-12">{children}</div>
       </div>
     </>
   );
@@ -398,7 +458,7 @@ const BookPage: NextPage = () => {
       expired: { icon: faHourglassEnd, title: "expired", text: "expiredText" },
       used_up: { icon: faCalendarCheck, title: "usedUp", text: "usedUpText" },
       unavailable: { icon: faCalendarXmark, title: "unavailable", text: "unavailableText" },
-      failed: { icon: faCalendarXmark, title: "loadFailed", text: "errServer" },
+      failed: { icon: faCalendarXmark, title: "loadFailed", text: "loadFailedText" },
     };
     const c = content[closed];
     return shell(
@@ -417,7 +477,10 @@ const BookPage: NextPage = () => {
 
   if (!ctx) {
     return shell(
-      <div className={`${card} p-6 sm:p-8 animate-pulse lg:grid lg:grid-cols-[19rem_1fr] gap-8`} aria-busy>
+      <div className={`${card} p-6 sm:p-8 motion-safe:animate-pulse lg:grid lg:grid-cols-[19rem_1fr] gap-8`} aria-busy>
+        <p className="sr-only" role="status">
+          {intl.formatMessage(m.loading)}
+        </p>
         <div className="flex flex-col gap-3 mb-6 lg:mb-0">
           <div className="w-16 h-16 rounded-full bg-[var(--surface-inset)]" />
           <div className="h-6 w-2/3 rounded bg-[var(--surface-inset)]" />
@@ -428,7 +491,7 @@ const BookPage: NextPage = () => {
     );
   }
 
-  const hours = Math.round(ctx.type.cancel_cutoff_minutes / 60);
+  const cutoff = durationLabel(ctx.type.cancel_cutoff_minutes);
   const summaryBooking = view === "done" || view === "manage" || view === "cancel" || view === "cancelled" ? focus : null;
   const summaryHost = summaryBooking ? ctx.hosts.find((h) => h.id === summaryBooking.host_id) ?? host : host;
 
@@ -452,16 +515,16 @@ const BookPage: NextPage = () => {
           <div className="flex flex-col gap-5">
             <MonthCalendar
               month={shownMonth}
-              available={available}
+              available={fresh ? available : EMPTY}
               selected={day}
-              loading={slotsLoading}
+              loading={slotsLoading || !fresh}
               canPrev={+shownMonth > +minMonth}
               canNext={+shownMonth < +maxMonth}
               onPrev={() => changeMonth(-1)}
               onNext={() => changeMonth(1)}
               onSelect={selectDay}
             />
-            {!slotsLoading && loadedKey === requestKey && !slots.length && (
+            {!slotsLoading && fresh && !slots.length && (
               <p className="text-sm text-[var(--text-muted)]">{intl.formatMessage(nothingAtAll ? m.noTimesAtAll : m.noTimesMonth)}</p>
             )}
             <TimeZoneSelect
@@ -475,7 +538,7 @@ const BookPage: NextPage = () => {
             />
           </div>
           <div ref={timesRef} className="scroll-mt-4">
-            {day ? (
+            {day && fresh ? (
               <>
                 <h3 className="text-base font-semibold mb-3">{dayHeading}</h3>
                 <div className="md:max-h-[26rem] md:overflow-y-auto md:pr-1">
@@ -483,7 +546,7 @@ const BookPage: NextPage = () => {
                 </div>
               </>
             ) : (
-              !slotsLoading && slots.length > 0 && <p className="text-sm text-[var(--text-muted)]">{intl.formatMessage(m.pickDay)}</p>
+              !slotsLoading && fresh && slots.length > 0 && <p className="text-sm text-[var(--text-muted)]">{intl.formatMessage(m.pickDay)}</p>
             )}
           </div>
         </div>
@@ -513,35 +576,78 @@ const BookPage: NextPage = () => {
           <>
             <div className="flex flex-col gap-1">
               <label htmlFor="book-name" className="text-sm font-semibold">{intl.formatMessage(m.name)}</label>
-              <input id="book-name" className={inputClass} value={name} onChange={(ev) => setName(ev.target.value)} required maxLength={100} autoComplete="name" />
+              <input
+                id="book-name"
+                name="name"
+                className={inputClass}
+                value={name}
+                onChange={(ev) => {
+                  setName(ev.target.value);
+                  if (fieldError?.field === "name") setFieldError(null);
+                }}
+                required
+                maxLength={100}
+                autoComplete="name"
+                aria-invalid={fieldError?.field === "name" || undefined}
+                aria-describedby={fieldError?.field === "name" ? "book-name-error" : undefined}
+              />
+              {fieldError?.field === "name" && (
+                <p id="book-name-error" className="text-xs font-semibold text-[var(--status-danger)]">
+                  {fieldError.text}
+                </p>
+              )}
             </div>
             <div className="flex flex-col gap-1">
               <label htmlFor="book-email" className="text-sm font-semibold">{intl.formatMessage(m.email)}</label>
-              <input id="book-email" type="email" className={inputClass} value={email} onChange={(ev) => setEmail(ev.target.value)} required maxLength={254} autoComplete="email" inputMode="email" />
-              <p className="text-xs text-[var(--text-muted)]">{intl.formatMessage(m.emailHint)}</p>
+              <input
+                id="book-email"
+                name="email"
+                type="email"
+                className={inputClass}
+                value={email}
+                onChange={(ev) => {
+                  setEmail(ev.target.value);
+                  if (fieldError?.field === "email") setFieldError(null);
+                }}
+                required
+                maxLength={254}
+                autoComplete="email"
+                inputMode="email"
+                spellCheck={false}
+                aria-invalid={fieldError?.field === "email" || undefined}
+                aria-describedby={fieldError?.field === "email" ? "book-email-error book-email-hint" : "book-email-hint"}
+              />
+              {fieldError?.field === "email" && (
+                <p id="book-email-error" className="text-xs font-semibold text-[var(--status-danger)]">
+                  {fieldError.text}
+                </p>
+              )}
+              <p id="book-email-hint" className="text-xs text-[var(--text-muted)]">{intl.formatMessage(m.emailHint)}</p>
             </div>
             <div className="flex flex-col gap-1">
               <label htmlFor="book-notes" className="text-sm font-semibold">{intl.formatMessage(m.notes)}</label>
-              <textarea id="book-notes" className={`${inputClass} min-h-[110px]`} value={notes} onChange={(ev) => setNotes(ev.target.value)} maxLength={1000} />
+              <textarea id="book-notes" name="notes" className={`${inputClass} min-h-[110px]`} value={notes} onChange={(ev) => setNotes(ev.target.value)} maxLength={1000} />
             </div>
           </>
         )}
         <Button type="submit" variant="accent" disabled={saving} className="w-full sm:w-auto sm:self-start px-8">
-          {saving ? intl.formatMessage(m.sending) : intl.formatMessage(moving ? m.confirmMove : m.confirm)}
+          {intl.formatMessage(saving ? (moving ? m.rescheduling : m.booking) : moving ? m.confirmMove : m.confirm)}
         </Button>
-        {!moving && <p className="text-xs text-[var(--text-muted)]">{intl.formatMessage(m.changeUntil, { hours })}</p>}
+        {!moving && <p className="text-xs text-[var(--text-muted)]">{intl.formatMessage(m.changeUntil, { cutoff })}</p>}
       </form>
     );
   }
 
   if ((view === "done" || view === "manage") && focus) {
     const done = view === "done";
-    const details = `${ctx.type.name} with ${summaryHost?.name ?? ""}.\n\nReschedule or cancel: ${typeof window !== "undefined" ? window.location.href : ""}`;
+    // Not the page URL: the token in it is the key to this booking, and these
+    // links hand the text to Google or Microsoft
+    const details = intl.formatMessage(m.eventDetails, { type: ctx.type.name, host: summaryHost?.name ?? "" });
     const event = { title: `${ctx.type.name}: ${summaryHost?.name ?? ""}`, start: focus.starts_at, end: focus.ends_at, details };
     main = (
       <div className="flex flex-col gap-5">
         <div className="flex items-start gap-3">
-          <FontAwesomeIcon icon={done ? faCircleCheck : faCalendarCheck} className="text-3xl text-[var(--status-success-solid)] mt-0.5" />
+          <FontAwesomeIcon icon={done ? faCircleCheck : faCalendarCheck} className="text-3xl text-[var(--status-success)] mt-0.5" />
           <div>
             <h2 className="text-xl font-bold">{intl.formatMessage(done ? (focus.rescheduled ? m.moved : m.booked) : m.upcoming)}</h2>
             <p className="text-sm text-[var(--text-muted)] mt-1">{bookingLabel(focus, zone, intl.locale)}</p>
@@ -553,10 +659,12 @@ const BookPage: NextPage = () => {
           <p className="text-sm font-semibold">{intl.formatMessage(m.addTo)}</p>
           <div className="flex flex-wrap gap-2">
             <a href={googleCalendarUrl(event)} target="_blank" rel="noopener noreferrer" className={linkButton}>
-              <FontAwesomeIcon icon={faCalendarPlus} /> {intl.formatMessage(m.addGoogle)}
+              <FontAwesomeIcon icon={faCalendarPlus} aria-hidden /> {intl.formatMessage(m.addGoogle)}
+              <span className="sr-only"> {intl.formatMessage(m.newTab)}</span>
             </a>
             <a href={outlookCalendarUrl(event)} target="_blank" rel="noopener noreferrer" className={linkButton}>
-              <FontAwesomeIcon icon={faCalendarPlus} /> {intl.formatMessage(m.addOutlook)}
+              <FontAwesomeIcon icon={faCalendarPlus} aria-hidden /> {intl.formatMessage(m.addOutlook)}
+              <span className="sr-only"> {intl.formatMessage(m.newTab)}</span>
             </a>
           </div>
         </div>
@@ -572,10 +680,10 @@ const BookPage: NextPage = () => {
                   {intl.formatMessage(m.cancel)}
                 </Button>
               </div>
-              <p className="text-xs text-[var(--text-muted)]">{intl.formatMessage(m.changeUntil, { hours })}</p>
+              <p className="text-xs text-[var(--text-muted)]">{intl.formatMessage(m.changeUntil, { cutoff })}</p>
             </>
           ) : (
-            <Notice tone="info">{intl.formatMessage(m.tooLate, { hours })}</Notice>
+            <Notice tone="info">{intl.formatMessage(m.tooLate, { cutoff })}</Notice>
           )}
           {ctx.state === "ok" && ctx.remaining > 0 && (
             <Button variant="secondary" className="self-start" onClick={() => startPicking(null)}>
@@ -594,11 +702,11 @@ const BookPage: NextPage = () => {
         <p className="text-sm">{bookingLabel(focus, zone, intl.locale)}</p>
         <div className="flex flex-col gap-1">
           <label htmlFor="book-reason" className="text-sm font-semibold">{intl.formatMessage(m.cancelReason)}</label>
-          <textarea id="book-reason" className={`${inputClass} min-h-[90px]`} value={reason} onChange={(e) => setReason(e.target.value)} maxLength={500} />
+          <textarea id="book-reason" name="reason" className={`${inputClass} min-h-[90px]`} value={reason} onChange={(e) => setReason(e.target.value)} maxLength={500} />
         </div>
         <div className="flex flex-wrap gap-2">
           <Button variant="danger" disabled={saving} onClick={submitCancel}>
-            {saving ? intl.formatMessage(m.sending) : intl.formatMessage(m.cancelConfirm)}
+            {intl.formatMessage(saving ? m.cancelling : m.cancelConfirm)}
           </Button>
           <Button variant="ghost" disabled={saving} onClick={() => setView("manage")}>
             {intl.formatMessage(m.keep)}
@@ -627,7 +735,18 @@ const BookPage: NextPage = () => {
     );
   }
 
-  const showHostPicker = view === "pick" && !moving && ctx.hosts.length > 1;
+  const showHostPicker = view === "pick" && !moving && bookableHosts.length > 1;
+
+  // Announced to screen readers: loading, and how many times the day has
+  let status = "";
+  if (view === "pick") {
+    if (slotsLoading || !fresh) status = intl.formatMessage(m.loadingTimes);
+    else if (day)
+      status = intl.formatMessage(m.timesOnDay, {
+        count: byDay.get(day)?.length ?? 0,
+        day: longDayLabel(DateTime.fromISO(day, { zone }).setLocale(intl.locale)),
+      });
+  }
 
   return shell(
     <div className={`${card} overflow-hidden lg:grid lg:grid-cols-[19rem_minmax(0,1fr)]`}>
@@ -642,7 +761,7 @@ const BookPage: NextPage = () => {
         {showHostPicker && (
           <fieldset className="flex flex-col gap-2">
             <legend className="text-sm font-semibold mb-2">{intl.formatMessage(m.host)}</legend>
-            {ctx.hosts.map((h) => (
+            {bookableHosts.map((h) => (
               <button
                 key={h.id}
                 type="button"
@@ -670,7 +789,12 @@ const BookPage: NextPage = () => {
           </fieldset>
         )}
       </aside>
-      <section className="p-5 sm:p-7 min-w-0">{main}</section>
+      <section ref={mainRef} className="p-5 sm:p-7 min-w-0 [&_h2]:outline-none">
+        {main}
+        <p className="sr-only" role="status" aria-live="polite">
+          {status}
+        </p>
+      </section>
     </div>
   );
 };

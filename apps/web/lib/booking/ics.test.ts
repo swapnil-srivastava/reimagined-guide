@@ -48,3 +48,9 @@ test("long lines fold at 75 octets without splitting characters", () => {
   for (const p of parts) assert.ok(new TextEncoder().encode(p).length <= 75);
   assert.equal(parts.map((p, i) => (i ? p.slice(1) : p)).join(""), line);
 });
+
+test("a name can't add lines to the invite", () => {
+  const ics = buildInvite({ ...base, attendeeName: 'Bob"\r\nATTENDEE;CN=X:mailto:evil@example.com\r\nX-A:"' });
+  assert.equal(ics.match(/^ATTENDEE/gm)?.length, 1);
+  assert.ok(!ics.includes("\r\nATTENDEE;CN=X"));
+});

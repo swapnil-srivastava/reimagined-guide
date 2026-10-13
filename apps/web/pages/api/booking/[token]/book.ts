@@ -10,6 +10,7 @@ import {
   inviteIdentity,
   isTimeZone,
   loadByToken,
+  oneLine,
   publicBooking,
 } from "../../../../lib/server/booking";
 import { sendBookingEmails } from "../../../../lib/server/bookingEmails";
@@ -20,9 +21,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "method" });
   }
-  const { hostId, start, name, email, timezone, notes } = req.body ?? {};
+  const { hostId, start, email, timezone, notes } = req.body ?? {};
   if (typeof start !== "string" || typeof hostId !== "string") return res.status(400).json({ error: "bad_slot" });
-  if (typeof name !== "string" || !name.trim() || name.length > 100) return res.status(400).json({ error: "bad_name" });
+  // The name goes into email subjects and calendar invites, so one line only
+  const name = typeof req.body?.name === "string" ? oneLine(req.body.name) : "";
+  if (!name || name.length > 100) return res.status(400).json({ error: "bad_name" });
   if (typeof email !== "string" || email.length > 254 || !EMAIL_RE.test(email.trim())) {
     return res.status(400).json({ error: "bad_email" });
   }

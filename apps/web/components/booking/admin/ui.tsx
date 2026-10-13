@@ -6,12 +6,12 @@ import React from "react";
 export const inputClass =
   "w-full min-h-[44px] rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-primary)] " +
   "text-[var(--text-primary)] px-3 py-2 text-base focus:outline-none focus:ring-2 " +
-  "focus:ring-[var(--color-primary)] disabled:opacity-60";
+  "focus:ring-[var(--text-primary)] disabled:opacity-60";
 
 const buttonBase =
   "inline-flex items-center justify-center gap-2 min-h-[44px] px-4 py-2 rounded-lg text-sm font-semibold " +
   "transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 " +
-  "focus-visible:ring-[var(--color-primary)] disabled:opacity-50 disabled:cursor-not-allowed";
+  "focus-visible:ring-[var(--text-primary)] disabled:opacity-50 disabled:cursor-not-allowed";
 
 const variants = {
   primary: "bg-[var(--color-primary-deep)] text-[var(--text-on-primary)] hover:bg-[var(--color-primary-deeper)]",
@@ -124,7 +124,7 @@ export function ChipGroup<T extends string>({
             role="radio"
             aria-checked={selected}
             onClick={() => onChange(option.value)}
-            className={`min-h-[40px] px-3 rounded-full border text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] ${
+            className={`min-h-[40px] px-3 rounded-full border text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] ${
               selected
                 ? "bg-[var(--color-primary-deep)] text-[var(--text-on-primary)] border-transparent"
                 : "border-[var(--border-subtle)] bg-[var(--surface-inset)] text-[var(--text-primary)]"

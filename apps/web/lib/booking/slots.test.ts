@@ -93,6 +93,14 @@ test("the daily limit closes a day once it is reached", () => {
   assert.equal(computeSlots(input({ bookings, rules: { ...rules, daily_limit: 1 } })).length, 0);
 });
 
+test("only the bookings in limitStarts count toward the daily limit", () => {
+  // A call of another type that day still blocks its own time, but not the day
+  const bookings = [{ starts_at: "2026-11-02T09:00:00+01:00", ends_at: "2026-11-02T09:30:00+01:00" }];
+  const slots = computeSlots(input({ bookings, limitStarts: [], rules: { ...rules, daily_limit: 1 } }));
+  assert.ok(slots.length > 0);
+  assert.ok(!slots.some((s) => s.start === "2026-11-02T08:00:00.000Z"));
+});
+
 test("a date override replaces that day's hours, and a closed override closes it", () => {
   const short = computeSlots(input({ overrides: [{ date: "2026-11-02", start_time: "10:00", end_time: "11:00" }] }));
   assert.deepEqual(berlinTimes(short), ["10:00", "10:30"]);

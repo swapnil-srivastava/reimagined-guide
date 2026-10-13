@@ -34,7 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(500).json({ error: "server" });
     }
 
-    const host = ctx.hosts.find((h) => h.id === booking.host_id) ?? (await hostById(booking.host_id));
+    const host = [...ctx.hosts, ...ctx.bookedHosts].find((h) => h.id === booking.host_id) ?? (await hostById(booking.host_id));
     if (host) {
       await sendBookingEmails({
         event: "cancelled",
