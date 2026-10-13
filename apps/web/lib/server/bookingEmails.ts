@@ -6,7 +6,7 @@ import { durationLabel } from "../booking/format";
 import { SITE_URL } from "../site";
 import type { Booking, BookingHost, BookingType } from "../booking/types";
 
-// Emails for booked, moved and cancelled calls. The buyer and the host each
+// Emails for booked, rescheduled and cancelled calls. The buyer and the host each
 // get one, with an .ics invite so the call lands in (or leaves) their
 // calendar. Times are shown in the reader's own zone, with the other side's
 // zone next to it when they differ.
@@ -125,11 +125,11 @@ export function sendInviteeEmail(input: BookingEmailInput): Promise<boolean> {
           : "Your call is cancelled, as you asked.";
     button = manageUrl ? { label: "Pick a new time", href: manageUrl } : undefined;
   } else if (event === "rescheduled") {
-    subject = `Moved: ${type.name} is now ${when(booking, zone)}`;
-    title = "Your call has moved";
+    subject = `Rescheduled: ${type.name} is now ${when(booking, zone)}`;
+    title = "Your call is rescheduled";
     intro = previous
-      ? `Your call has moved from ${when(previous, zone)} to the new time below. The invite attached updates your calendar.`
-      : "Your call has moved to the new time below. The invite attached updates your calendar.";
+      ? `Your call is moved from ${when(previous, zone)} to the new time below. The attached invite updates your calendar.`
+      : "Your call is moved to the new time below. The attached invite updates your calendar.";
     button = manageUrl ? { label: "Reschedule or cancel", href: manageUrl } : undefined;
   } else {
     subject = `Booked: ${type.name} on ${when(booking, zone)}`;
@@ -181,13 +181,13 @@ export async function sendHostEmail(input: BookingEmailInput): Promise<boolean> 
     if (input.reason) rows.push(["Reason", input.reason]);
   }
 
-  const verb = event === "booked" ? "New booking" : event === "rescheduled" ? "Moved" : "Cancelled";
+  const verb = event === "booked" ? "New booking" : event === "rescheduled" ? "Rescheduled" : "Cancelled";
   const subject = `${verb}: ${booking.invitee_name}, ${when(booking, zone)}`;
   const intro =
     event === "booked"
       ? `${booking.invitee_name} booked a ${type.duration_minutes}-minute ${type.name}.`
       : event === "rescheduled"
-        ? `${booking.invitee_name} moved their call.`
+        ? `${booking.invitee_name} rescheduled their call.`
         : `The call with ${booking.invitee_name} is cancelled. The time is free again.`;
 
   const html = emailLayout({

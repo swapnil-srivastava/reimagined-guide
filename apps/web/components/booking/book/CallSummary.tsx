@@ -18,7 +18,7 @@ const m = defineMessages({
   hostTime: {
     id: "book-summary-host-time",
     description: "Booking: the chosen time in the host's zone",
-    defaultMessage: "{time} for {name}",
+    defaultMessage: "{time} in {name}'s time zone",
   },
 });
 

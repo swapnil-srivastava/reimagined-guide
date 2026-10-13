@@ -252,6 +252,30 @@
   --data-panel: color-mix(in srgb, var(--bg-primary) 50%, #0b0b0b);
 }
 
+/* Booking page (/book/<token>). Dark themes put the primary colour close to
+   the background, so the default muted text and accent measure only ~3.4:1
+   there (blue and orange dark). Inside the booking card they lean further
+   toward --text-primary: every theme then clears 4.4:1 for text on the card.
+   Scoped so the rest of the site keeps its look. */
+.booking-ui {
+  --accent-tint: color-mix(in srgb, var(--accent-ink) 14%, transparent);
+  --accent-tint-hover: color-mix(in srgb, var(--accent-ink) 24%, transparent);
+  --border-control: color-mix(in srgb, var(--text-primary) 40%, var(--bg-primary));
+  color-scheme: light;
+}
+
+.theme-blue-dark .booking-ui,
+.theme-green-dark .booking-ui,
+.theme-purple-dark .booking-ui,
+.theme-orange-dark .booking-ui,
+.theme-teal-dark .booking-ui {
+  --text-muted: color-mix(in srgb, var(--text-primary) 82%, transparent);
+  --accent-ink: color-mix(in srgb, var(--color-primary) 25%, var(--text-primary));
+  --accent-tint: color-mix(in srgb, var(--accent-ink) 9%, transparent);
+  --accent-tint-hover: color-mix(in srgb, var(--accent-ink) 18%, transparent);
+  color-scheme: dark;
+}
+
 .dark {
   /* Toast colors for dark mode */
   --toast-bg: #004b8c;

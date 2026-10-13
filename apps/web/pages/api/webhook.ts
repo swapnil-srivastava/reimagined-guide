@@ -332,7 +332,7 @@ const handler = async (
           <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f3f4f6; margin: 0; padding: 20px;">
             <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
               <div style="background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%); padding: 40px 30px; text-align: center;">
-                <h1 style="color: #ffffff; margin: 0; font-size: 28px;">🚀 Consultation Booked!</h1>
+                <h1 style="color: #ffffff; margin: 0; font-size: 28px;">${bookingLink ? 'Payment received – now pick your call time' : '🚀 Consultation Booked!'}</h1>
                 <p style="color: #ddd6fe; margin: 10px 0 0 0; font-size: 16px;">Your journey to an amazing website starts here</p>
               </div>
               <div style="padding: 30px;">
@@ -354,10 +354,10 @@ const handler = async (
                     Pick a date and time for your <strong>${callMinutes}-minute consultation call</strong>. The times are shown in your own time zone.
                   </p>
                   <div style="text-align: center; margin: 20px 0 8px 0;">
-                    <a href="${escapeHtml(bookingLink)}" style="display: inline-block; background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%); color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-weight: bold; font-size: 16px;">Pick your time</a>
+                    <a href="${escapeHtml(bookingLink)}" style="display: inline-block; background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%); color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-weight: bold; font-size: 16px;">Pick a time</a>
                   </div>
                   <p style="color: #6b7280; margin: 12px 0 0 0; font-size: 12px; line-height: 1.6;">
-                    Keep this email: the same button lets you reschedule or cancel later. If it doesn't work, copy this link: <a href="${escapeHtml(bookingLink)}" style="color: #00539c; word-break: break-all;">${escapeHtml(bookingLink)}</a>
+                    Keep this email: the same button lets you reschedule or cancel later. If the button doesn't work, copy and paste this link into your browser: <a href="${escapeHtml(bookingLink)}" style="color: #00539c; word-break: break-all;">${escapeHtml(bookingLink)}</a>
                   </p>` : `
                   <p style="color: #374151; margin: 0; font-size: 14px; line-height: 1.8;">
                     We're preparing your <strong>${callMinutes}-minute consultation call</strong>! Shortly, you'll receive another email with a <strong>calendar link</strong> where you can select a date and time that works best for you.
@@ -575,11 +575,11 @@ const handler = async (
 
         // Customer email subject and text based on order type
         const customerEmailSubject = orderType === 'service_package'
-          ? `🚀 Consultation Booked! - ${packageName} - Swapnil's Odyssey`
+          ? (bookingLink ? `Next step: pick a time for your ${packageName} call` : `🚀 Consultation Booked! - ${packageName} - Swapnil's Odyssey`)
           : "🎉 Your Order is Confirmed! - Swapnil's Odyssey";
 
         const customerEmailText = orderType === 'service_package'
-          ? `Consultation Booked!\n\nThank you for booking ${packageName}!\n\nWhat's Next:\n${bookingLink ? `Pick a date and time for your ${callMinutes}-minute consultation call (times are shown in your own time zone):\n${bookingLink}\n\nKeep this email: the same link lets you reschedule or cancel later.` : `We're preparing your ${callMinutes}-minute consultation call. Shortly, you'll receive another email with a calendar link where you can select a date and time that works best for you.`}\n\nBooking Summary:\nPackage: ${packageName}\nAmount Paid: €${totalAmount.toFixed(2)}\nCall Duration: ${callMinutes} minutes\n\nCan't wait to turn your ideas into pixels!\n\nVisit us at https://swapnilsrivastava.eu`
+          ? `${bookingLink ? 'Payment received – now pick your call time' : 'Consultation Booked!'}\n\nThank you for booking ${packageName}!\n\nWhat's Next:\n${bookingLink ? `Pick a date and time for your ${callMinutes}-minute consultation call (times are shown in your own time zone):\n${bookingLink}\n\nKeep this email: the same link lets you reschedule or cancel later.` : `We're preparing your ${callMinutes}-minute consultation call. Shortly, you'll receive another email with a calendar link where you can select a date and time that works best for you.`}\n\nBooking Summary:\nPackage: ${packageName}\nAmount Paid: €${totalAmount.toFixed(2)}\nCall Duration: ${callMinutes} minutes\n\nCan't wait to turn your ideas into pixels!\n\nVisit us at https://swapnilsrivastava.eu`
           : `Order Confirmed!\n\nThank you for your purchase!\n\nOrder Details:\n${orderItemsText}\nTotal: €${totalAmount.toFixed(2)}\n\nVisit us at https://swapnilsrivastava.eu`;
 
         // Admin email subject and text based on order type

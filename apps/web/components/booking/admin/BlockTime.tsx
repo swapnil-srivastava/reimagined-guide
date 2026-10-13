@@ -412,7 +412,7 @@ export default function BlockTime({ host, data, reload, onShowBookings }: Props)
                       onClick={() => onCell(day, min)}
                       aria-pressed={selected}
                       aria-label={`${dayLabel(day)} ${timeLabel(info.start)}, ${label}${info.past ? `, ${intl.formatMessage(m.past)}` : ""}`}
-                      className={`h-11 md:h-8 border rounded-md mb-px text-left px-1.5 text-[11px] leading-tight truncate focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] disabled:cursor-not-allowed ${tone} ${
+                      className={`h-11 md:h-8 border rounded-md mb-px text-left px-1.5 text-[11px] leading-tight truncate focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] disabled:cursor-not-allowed ${tone} ${
                         info.past ? "opacity-40" : ""
                       }`}
                     >
