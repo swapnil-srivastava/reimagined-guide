@@ -35,22 +35,36 @@ export async function sendMail(
     return false;
   }
 
-  try {
-    const client = new postmark.ServerClient(process.env.EMAIL_KEY);
-    await client.sendEmail({
-      From: process.env.EMAIL,
+  const client = new postmark.ServerClient(process.env.EMAIL_KEY);
+  const send = (withAttachments: boolean) =>
+    client.sendEmail({
+      // No MessageStream: the server's default stream, as the order emails use
+      From: process.env.EMAIL!,
       To: to,
       Subject: subject,
       HtmlBody: htmlBody,
       ...(textBody ? { TextBody: textBody } : {}),
-      ...(attachments?.length ? { Attachments: attachments.map((a) => ({ ...a, ContentID: null })) } : {}),
-      MessageStream: "outbound",
+      ...(withAttachments && attachments?.length ? { Attachments: attachments.map((a) => ({ ...a, ContentID: null })) } : {}),
     });
-    return true;
-  } catch (error) {
+  const logFailure = (error: unknown, what: string) => {
     // Postmark puts the reason (bad sender, inactive recipient, …) in code and message
     const { code, message } = (error ?? {}) as { code?: number; message?: string };
-    console.error(`sendMail: failed to send "${subject}" to ${to}: ${code ?? ""} ${message ?? String(error)}`);
+    console.error(`sendMail: failed to send "${subject}" to ${to}${what}: ${code ?? ""} ${message ?? String(error)}`);
+  };
+
+  try {
+    await send(true);
+    return true;
+  } catch (error) {
+    logFailure(error, attachments?.length ? " with attachments" : "");
+    if (!attachments?.length) return false;
+  }
+  // The email matters more than the calendar file: try once more without it
+  try {
+    await send(false);
+    return true;
+  } catch (error) {
+    logFailure(error, " without attachments");
     return false;
   }
 }
