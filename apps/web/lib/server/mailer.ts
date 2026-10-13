@@ -15,12 +15,20 @@ export function escapeHtml(value: string | null | undefined): string {
     .replace(/'/g, "&#39;");
 }
 
+export interface MailAttachment {
+  Name: string;
+  /** Base64 encoded file content */
+  Content: string;
+  ContentType: string;
+}
+
 /** Sends an email through Postmark. Returns false instead of throwing. */
 export async function sendMail(
   to: string,
   subject: string,
   htmlBody: string,
-  textBody?: string
+  textBody?: string,
+  attachments?: MailAttachment[]
 ): Promise<boolean> {
   if (!process.env.EMAIL_KEY || !process.env.EMAIL) {
     console.error("sendMail: EMAIL_KEY or EMAIL is not configured");
@@ -35,6 +43,7 @@ export async function sendMail(
       Subject: subject,
       HtmlBody: htmlBody,
       ...(textBody ? { TextBody: textBody } : {}),
+      ...(attachments?.length ? { Attachments: attachments.map((a) => ({ ...a, ContentID: null })) } : {}),
       MessageStream: "outbound",
     });
     return true;

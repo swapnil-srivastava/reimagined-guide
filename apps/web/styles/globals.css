@@ -206,6 +206,13 @@
   --color-primary-deeper: color-mix(in srgb, var(--color-primary) 40%, #000000);
   --text-on-primary: #ffffff;
 
+  /* Accent for text, outlines and selected fills on the page background
+     (the booking calendar). Mixing toward --text-primary makes it a deep
+     shade in light themes and a pale one in dark themes, where the primary
+     colour is about the same as the background. Text on an --accent-ink fill
+     uses --bg-primary. */
+  --accent-ink: color-mix(in srgb, var(--color-primary) 45%, var(--text-primary));
+
   /* Status accents for the admin RSVP panel.
      These deliberately do NOT follow the theme picker — "not attending" must stay
      red in the green theme — but their lightness must follow light/dark. Mixing

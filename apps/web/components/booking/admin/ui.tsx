@@ -20,6 +20,8 @@ const variants = {
     "hover:bg-[color-mix(in_srgb,var(--text-primary)_10%,var(--bg-primary))]",
   danger: "bg-[var(--status-danger-solid)] text-white hover:brightness-110",
   ghost: "text-[var(--text-primary)] hover:bg-[var(--surface-inset)]",
+  /** Deep in light themes, pale in dark ones (see --accent-ink) */
+  accent: "bg-[var(--accent-ink)] text-[var(--bg-primary)] hover:opacity-90",
 };
 
 export function Button({

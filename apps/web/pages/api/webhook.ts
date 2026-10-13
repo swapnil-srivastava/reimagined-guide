@@ -16,6 +16,8 @@ import {
   shortfallWarningText,
   StockShortfall,
 } from '../../lib/server/stock';
+import { createBookingLink } from '../../lib/server/booking';
+import { escapeHtml } from '../../lib/server/mailer';
 
 /**
  * Removes an order whose items failed to save, so Stripe's retry can write
@@ -127,6 +129,10 @@ const handler = async (
         // ============================================
         // Products that sold out between checkout and payment
         let stockShortfalls: StockShortfall[] = [];
+        // The buyer's link to pick a time, when the package includes a call
+        let bookingLink: string | null = null;
+        let callMinutes = 30;
+        let bookingLinkFailed = false;
 
         if (!supaServerClient) {
           // Without the service role key nothing can be saved; a 500 makes Stripe retry
@@ -206,6 +212,24 @@ const handler = async (
               throw new Error(`Error creating service package order item: ${itemsError.message}`);
             } else {
               console.log('Service package order item created successfully');
+            }
+
+            // A failure here must not lose the paid order: the admin email
+            // then asks for the link to be sent by hand, as before
+            try {
+              const link = await createBookingLink({
+                orderId: orderData.id,
+                packageId: sessionMetadata.package_id,
+                email: customerEmail,
+                name: session.customer_details?.name,
+              });
+              if (link) {
+                bookingLink = link.url;
+                callMinutes = link.type.duration_minutes;
+              }
+            } catch (linkError) {
+              bookingLinkFailed = true;
+              console.error(`❌ Booking link for order ${orderData.id} failed:`, linkError);
             }
           } else {
             // CART: Save the items and lower stock in one transaction
@@ -324,12 +348,22 @@ const handler = async (
 
                 <div style="background-color: #f0fdf4; border-radius: 12px; padding: 20px; margin: 20px 0; border-left: 4px solid #22c55e;">
                   <h2 style="color: #15803d; margin: 0 0 15px 0; font-size: 18px;">📅 What's Next?</h2>
+                  ${bookingLink ? `
                   <p style="color: #374151; margin: 0; font-size: 14px; line-height: 1.8;">
-                    We're preparing your <strong>1-hour consultation call</strong>! Shortly, you'll receive another email with a <strong>calendar link</strong> where you can select a date and time that works best for you.
+                    Pick a date and time for your <strong>${callMinutes}-minute consultation call</strong>. The times are shown in your own time zone.
+                  </p>
+                  <div style="text-align: center; margin: 20px 0 8px 0;">
+                    <a href="${escapeHtml(bookingLink)}" style="display: inline-block; background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%); color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-weight: bold; font-size: 16px;">Pick your time</a>
+                  </div>
+                  <p style="color: #6b7280; margin: 12px 0 0 0; font-size: 12px; line-height: 1.6;">
+                    Keep this email: the same button lets you reschedule or cancel later. If it doesn't work, copy this link: <a href="${escapeHtml(bookingLink)}" style="color: #00539c; word-break: break-all;">${escapeHtml(bookingLink)}</a>
+                  </p>` : `
+                  <p style="color: #374151; margin: 0; font-size: 14px; line-height: 1.8;">
+                    We're preparing your <strong>${callMinutes}-minute consultation call</strong>! Shortly, you'll receive another email with a <strong>calendar link</strong> where you can select a date and time that works best for you.
                   </p>
                   <p style="color: #374151; margin: 15px 0 0 0; font-size: 14px; line-height: 1.8;">
                     Once you pick your slot, we'll send a meeting invite to <strong>${customerEmail}</strong> with all the details you need.
-                  </p>
+                  </p>`}
                 </div>
 
                 <div style="background-color: #f9fafb; border-radius: 12px; padding: 20px; margin: 20px 0;">
@@ -345,7 +379,7 @@ const handler = async (
                     </tr>
                     <tr>
                       <td style="padding: 8px 0; color: #6b7280;">Call Duration:</td>
-                      <td style="padding: 8px 0; color: #374151; font-weight: bold; text-align: right;">1 Hour</td>
+                      <td style="padding: 8px 0; color: #374151; font-weight: bold; text-align: right;">${callMinutes} minutes</td>
                     </tr>
                   </table>
                 </div>
@@ -444,19 +478,25 @@ const handler = async (
           <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f3f4f6; margin: 0; padding: 20px;">
             <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
               <div style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); padding: 40px 30px; text-align: center;">
-                <h1 style="color: #ffffff; margin: 0; font-size: 28px;">📅 ACTION REQUIRED</h1>
-                <p style="color: #fecaca; margin: 10px 0 0 0; font-size: 16px;">New Consultation Booking - Send Calendar Invite!</p>
+                <h1 style="color: #ffffff; margin: 0; font-size: 28px;">${bookingLink ? '📅 New Consultation' : '📅 ACTION REQUIRED'}</h1>
+                <p style="color: #fecaca; margin: 10px 0 0 0; font-size: 16px;">${bookingLink ? 'The buyer picks their own time' : 'New Consultation Booking - Send Calendar Invite!'}</p>
               </div>
               <div style="padding: 30px;">
                 
                 <div style="background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border-radius: 12px; padding: 20px; margin-bottom: 20px; border: 2px solid #fca5a5;">
+                  ${bookingLink ? `
+                  <h2 style="color: #dc2626; margin: 0 0 10px 0; font-size: 18px;">Nothing to do yet</h2>
+                  <p style="color: #7f1d1d; margin: 0; font-size: 15px; line-height: 1.6;">
+                    ${customerEmail ? 'The customer got a link to book' : 'There was no customer email, so forward this link to the customer to book'} their <strong>${callMinutes}-minute consultation call</strong>. You'll get another email with an invite once they pick a time.
+                  </p>
+                  ${customerEmail ? '' : `<p style="color: #7f1d1d; margin: 15px 0 0 0; font-size: 13px; word-break: break-all;">${escapeHtml(bookingLink)}</p>`}` : `
                   <h2 style="color: #dc2626; margin: 0 0 10px 0; font-size: 18px;">⚡ Immediate Action Needed</h2>
                   <p style="color: #7f1d1d; margin: 0; font-size: 15px; line-height: 1.6;">
-                    This customer has booked a <strong>${packageName}</strong> and is waiting for a calendar invite to schedule their <strong>1-hour consultation call</strong>.
+                    This customer has booked a <strong>${packageName}</strong> and is waiting for a calendar invite to schedule their <strong>${callMinutes}-minute consultation call</strong>.${bookingLinkFailed ? ' Creating their booking link failed, so it was not sent.' : ''}
                   </p>
                   <p style="color: #7f1d1d; margin: 15px 0 0 0; font-size: 15px; font-weight: bold;">
                     📧 Please send the calendar scheduling link to: <span style="background-color: #ffffff; padding: 4px 8px; border-radius: 4px;">${customerEmail}</span>
-                  </p>
+                  </p>`}
                 </div>
 
                 <div style="background-color: #ecfdf5; border-radius: 12px; padding: 20px; margin-bottom: 20px;">
@@ -486,7 +526,7 @@ const handler = async (
                     </tr>
                     <tr>
                       <td style="padding: 8px 0; color: #6b7280;">Call Duration:</td>
-                      <td style="padding: 8px 0; color: #374151; font-weight: bold;">1 Hour</td>
+                      <td style="padding: 8px 0; color: #374151; font-weight: bold;">${callMinutes} minutes</td>
                     </tr>
                     <tr>
                       <td style="padding: 8px 0; color: #6b7280;">Package ID:</td>
@@ -538,17 +578,17 @@ const handler = async (
           : "🎉 Your Order is Confirmed! - Swapnil's Odyssey";
 
         const customerEmailText = orderType === 'service_package'
-          ? `Consultation Booked!\n\nThank you for booking ${packageName}!\n\nWhat's Next:\nWe're preparing your 1-hour consultation call. Shortly, you'll receive another email with a calendar link where you can select a date and time that works best for you.\n\nBooking Summary:\nPackage: ${packageName}\nAmount Paid: €${totalAmount.toFixed(2)}\nCall Duration: 1 Hour\n\nCan't wait to turn your ideas into pixels!\n\nVisit us at https://swapnilsrivastava.eu`
+          ? `Consultation Booked!\n\nThank you for booking ${packageName}!\n\nWhat's Next:\n${bookingLink ? `Pick a date and time for your ${callMinutes}-minute consultation call (times are shown in your own time zone):\n${bookingLink}\n\nKeep this email: the same link lets you reschedule or cancel later.` : `We're preparing your ${callMinutes}-minute consultation call. Shortly, you'll receive another email with a calendar link where you can select a date and time that works best for you.`}\n\nBooking Summary:\nPackage: ${packageName}\nAmount Paid: €${totalAmount.toFixed(2)}\nCall Duration: ${callMinutes} minutes\n\nCan't wait to turn your ideas into pixels!\n\nVisit us at https://swapnilsrivastava.eu`
           : `Order Confirmed!\n\nThank you for your purchase!\n\nOrder Details:\n${orderItemsText}\nTotal: €${totalAmount.toFixed(2)}\n\nVisit us at https://swapnilsrivastava.eu`;
 
         // Admin email subject and text based on order type
         const stockNoteText = shortfallWarningText(stockShortfalls);
         const adminEmailSubject = orderType === 'service_package'
-          ? `📅 ACTION REQUIRED: New Consultation Booking - ${packageName} - €${totalAmount.toFixed(2)}`
+          ? `${bookingLink ? '📅 New Consultation' : '📅 ACTION REQUIRED: New Consultation Booking'} - ${packageName} - €${totalAmount.toFixed(2)}`
           : `${stockNoteText ? '⚠️ OVERSOLD: ' : ''}💰 New Order Received - €${totalAmount.toFixed(2)}`;
 
         const adminEmailText = orderType === 'service_package'
-          ? `ACTION REQUIRED: New Consultation Booking!\n\n⚡ This customer needs a calendar invite for their 1-hour consultation call!\n\nCustomer Email: ${customerEmail || 'Not provided'}\nUser ID: ${userId || 'N/A'}\n\nBooking Details:\nPackage: ${packageName}\nAmount Paid: €${totalAmount.toFixed(2)}\nCall Duration: 1 Hour\nPackage ID: ${sessionMetadata.package_id || 'N/A'}\n\nPlease send the calendar scheduling link to: ${customerEmail}`
+          ? `${bookingLink ? `New Consultation Booking\n\nThe customer picks their own time for their ${callMinutes}-minute call. You'll get an invite once they book.${customerEmail ? '' : `\nThere was no customer email, so forward this link: ${bookingLink}`}` : `ACTION REQUIRED: New Consultation Booking!\n\n⚡ This customer needs a calendar invite for their ${callMinutes}-minute consultation call!${bookingLinkFailed ? ' Creating their booking link failed.' : ''}`}\n\nCustomer Email: ${customerEmail || 'Not provided'}\nUser ID: ${userId || 'N/A'}\n\nBooking Details:\nPackage: ${packageName}\nAmount Paid: €${totalAmount.toFixed(2)}\nCall Duration: ${callMinutes} minutes\nPackage ID: ${sessionMetadata.package_id || 'N/A'}${bookingLink ? '' : `\n\nPlease send the calendar scheduling link to: ${customerEmail}`}`
           : `New Order Received!\n\nCustomer: ${customerEmail || 'Guest'}\nUser ID: ${userId || 'N/A'}\n\nOrder Details:\n${orderItemsText}\nTotal: €${totalAmount.toFixed(2)}${stockNoteText ? `\n\n${stockNoteText}` : ''}`;
 
         // Send email to customer
