@@ -1,7 +1,7 @@
 // Run with: pnpm test:booking
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { buildInvite, foldLine, icsText } from "./ics.ts";
+import { buildFeed, buildInvite, foldLine, icsText } from "./ics.ts";
 
 const base = {
   uid: "abc@swapnilsrivastava.eu",
@@ -53,4 +53,16 @@ test("a name can't add lines to the invite", () => {
   const ics = buildInvite({ ...base, attendeeName: 'Bob"\r\nATTENDEE;CN=X:mailto:evil@example.com\r\nX-A:"' });
   assert.equal(ics.match(/^ATTENDEE/gm)?.length, 1);
   assert.ok(!ics.includes("\r\nATTENDEE;CN=X"));
+});
+
+test("a feed lists every event with escaped text and no METHOD", () => {
+  const feed = buildFeed("Bookings, Swapnil", [
+    { uid: "a@x", start: new Date("2026-10-20T08:00:00Z"), end: new Date("2026-10-20T08:30:00Z"), summary: "Call: Priya", description: "priya@example.com\nNotes; hi" },
+    { uid: "b@x", start: new Date("2026-10-21T08:00:00Z"), end: new Date("2026-10-21T08:30:00Z"), summary: "Call: Bob", description: "" },
+  ]);
+  assert.equal(feed.match(/^BEGIN:VEVENT/gm)?.length, 2);
+  assert.ok(feed.includes("X-WR-CALNAME:Bookings\\, Swapnil\r\n"));
+  assert.ok(feed.includes("DESCRIPTION:priya@example.com\\nNotes\\; hi\r\n"));
+  assert.ok(!feed.includes("METHOD:"));
+  assert.ok(!/[^\r]\n/.test(feed), "every newline is CRLF");
 });

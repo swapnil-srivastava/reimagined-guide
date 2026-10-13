@@ -135,6 +135,11 @@ const m = defineMessages({
   errSame: { id: "book-error-same", description: "Booking error: same time chosen", defaultMessage: "That's the time you already have." },
   errServer: { id: "book-error-server", description: "Booking error: anything else", defaultMessage: "Something went wrong. Please try again." },
   errNetwork: { id: "book-error-network", description: "Booking error: no connection", defaultMessage: "You seem to be offline. Check your connection and try again." },
+  errRateLimited: {
+    id: "book-error-rate-limited",
+    description: "Booking error: too many requests in a short time",
+    defaultMessage: "That was a lot of tries in a short time. Please wait a minute and try again.",
+  },
   booking: { id: "book-saving-book", description: "Booking: while booking", defaultMessage: "Booking…" },
   rescheduling: { id: "book-saving-reschedule", description: "Booking: while rescheduling", defaultMessage: "Rescheduling…" },
   cancelling: { id: "book-saving-cancel", description: "Booking: while cancelling", defaultMessage: "Cancelling…" },
@@ -166,6 +171,7 @@ const ERRORS: Record<string, keyof typeof m> = {
   bad_name: "errName",
   same_time: "errSame",
   network: "errNetwork",
+  rate_limited: "errRateLimited",
 };
 
 // Errors shown next to the field they are about

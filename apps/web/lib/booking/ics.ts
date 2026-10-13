@@ -81,3 +81,45 @@ export function buildInvite(input: InviteInput): string {
   ];
   return lines.map(foldLine).join("\r\n") + "\r\n";
 }
+
+export interface FeedEvent {
+  uid: string;
+  start: Date;
+  end: Date;
+  summary: string;
+  description: string;
+  location?: string | null;
+  /** Last change, so calendar apps notice edits */
+  updated?: Date;
+}
+
+/** A subscribable calendar (the host's private feed): no METHOD, one VEVENT per call */
+export function buildFeed(name: string, events: FeedEvent[], now = new Date()): string {
+  const lines = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//swapnilsrivastava.eu//Booking feed//EN",
+    "CALSCALE:GREGORIAN",
+    `X-WR-CALNAME:${icsText(name)}`,
+    // Ask apps to check for changes every 15 minutes (most still decide themselves)
+    "REFRESH-INTERVAL;VALUE=DURATION:PT15M",
+    "X-PUBLISHED-TTL:PT15M",
+  ];
+  for (const event of events) {
+    lines.push(
+      "BEGIN:VEVENT",
+      `UID:${event.uid}`,
+      `DTSTAMP:${stamp(event.updated ?? now)}`,
+      `DTSTART:${stamp(event.start)}`,
+      `DTEND:${stamp(event.end)}`,
+      `SUMMARY:${icsText(event.summary)}`,
+      `DESCRIPTION:${icsText(event.description)}`,
+      ...(event.location ? [`LOCATION:${icsText(event.location)}`] : []),
+      "STATUS:CONFIRMED",
+      "TRANSP:OPAQUE",
+      "END:VEVENT"
+    );
+  }
+  lines.push("END:VCALENDAR");
+  return lines.map(foldLine).join("\r\n") + "\r\n";
+}

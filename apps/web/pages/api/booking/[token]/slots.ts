@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { rateLimited } from "../../../../lib/server/rateLimit";
 import { availableSlots, loadByToken, MAX_RANGE_DAYS } from "../../../../lib/server/booking";
 
 // Free start times of one host: GET ?host=<id>&from=<iso>&to=<iso>[&exclude=<booking id>]
@@ -8,6 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.setHeader("Allow", "GET");
     return res.status(405).json({ error: "method" });
   }
+  if (await rateLimited(req, res, "booking-read", 120)) return;
   res.setHeader("Cache-Control", "no-store");
   const from = new Date(String(req.query.from ?? ""));
   const to = new Date(String(req.query.to ?? ""));
