@@ -56,6 +56,315 @@ export type Database = {
           },
         ]
       }
+      booking_hosts: {
+        Row: {
+          active: boolean
+          created_at: string
+          id: string
+          is_default: boolean
+          name: string
+          photo_url: string | null
+          slug: string
+          timezone: string
+          title: string | null
+          user_id: string | null
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          is_default?: boolean
+          name: string
+          photo_url?: string | null
+          slug: string
+          timezone?: string
+          title?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          is_default?: boolean
+          name?: string
+          photo_url?: string | null
+          slug?: string
+          timezone?: string
+          title?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      booking_types: {
+        Row: {
+          active: boolean
+          buffer_after_minutes: number
+          buffer_before_minutes: number
+          cancel_cutoff_minutes: number
+          created_at: string
+          daily_limit: number | null
+          description: string | null
+          duration_minutes: number
+          id: string
+          location_kind: string
+          location_value: string | null
+          max_days_ahead: number
+          min_notice_minutes: number
+          name: string
+          package_id: string | null
+          slot_step_minutes: number
+          slug: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          buffer_after_minutes?: number
+          buffer_before_minutes?: number
+          cancel_cutoff_minutes?: number
+          created_at?: string
+          daily_limit?: number | null
+          description?: string | null
+          duration_minutes?: number
+          id?: string
+          location_kind?: string
+          location_value?: string | null
+          max_days_ahead?: number
+          min_notice_minutes?: number
+          name: string
+          package_id?: string | null
+          slot_step_minutes?: number
+          slug: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          buffer_after_minutes?: number
+          buffer_before_minutes?: number
+          cancel_cutoff_minutes?: number
+          created_at?: string
+          daily_limit?: number | null
+          description?: string | null
+          duration_minutes?: number
+          id?: string
+          location_kind?: string
+          location_value?: string | null
+          max_days_ahead?: number
+          min_notice_minutes?: number
+          name?: string
+          package_id?: string | null
+          slot_step_minutes?: number
+          slug?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      booking_type_hosts: {
+        Row: {
+          booking_type_id: string
+          host_id: string
+          is_default: boolean
+        }
+        Insert: {
+          booking_type_id: string
+          host_id: string
+          is_default?: boolean
+        }
+        Update: {
+          booking_type_id?: string
+          host_id?: string
+          is_default?: boolean
+        }
+        Relationships: []
+      }
+      booking_weekly_hours: {
+        Row: {
+          end_time: string
+          host_id: string
+          id: string
+          start_time: string
+          weekday: number
+        }
+        Insert: {
+          end_time: string
+          host_id: string
+          id?: string
+          start_time: string
+          weekday: number
+        }
+        Update: {
+          end_time?: string
+          host_id?: string
+          id?: string
+          start_time?: string
+          weekday?: number
+        }
+        Relationships: []
+      }
+      booking_date_overrides: {
+        Row: {
+          date: string
+          end_time: string | null
+          host_id: string
+          id: string
+          start_time: string | null
+        }
+        Insert: {
+          date: string
+          end_time?: string | null
+          host_id: string
+          id?: string
+          start_time?: string | null
+        }
+        Update: {
+          date?: string
+          end_time?: string | null
+          host_id?: string
+          id?: string
+          start_time?: string | null
+        }
+        Relationships: []
+      }
+      booking_blocks: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          ends_at: string
+          host_id: string
+          id: string
+          reason: string | null
+          starts_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          ends_at: string
+          host_id: string
+          id?: string
+          reason?: string | null
+          starts_at: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          ends_at?: string
+          host_id?: string
+          id?: string
+          reason?: string | null
+          starts_at?: string
+        }
+        Relationships: []
+      }
+      booking_entitlements: {
+        Row: {
+          booking_type_id: string
+          created_at: string
+          email: string | null
+          expires_at: string | null
+          id: string
+          name: string | null
+          order_id: string | null
+          quantity: number
+          revoked_at: string | null
+          token_hash: string
+          used: number
+        }
+        Insert: {
+          booking_type_id: string
+          created_at?: string
+          email?: string | null
+          expires_at?: string | null
+          id?: string
+          name?: string | null
+          order_id?: string | null
+          quantity?: number
+          revoked_at?: string | null
+          token_hash: string
+          used?: number
+        }
+        Update: {
+          booking_type_id?: string
+          created_at?: string
+          email?: string | null
+          expires_at?: string | null
+          id?: string
+          name?: string | null
+          order_id?: string | null
+          quantity?: number
+          revoked_at?: string | null
+          token_hash?: string
+          used?: number
+        }
+        Relationships: []
+      }
+      bookings: {
+        Row: {
+          booking_type_id: string
+          busy_from: string
+          busy_until: string
+          cancel_reason: string | null
+          cancelled_at: string | null
+          cancelled_by: string | null
+          created_at: string
+          ends_at: string
+          entitlement_id: string | null
+          host_id: string
+          id: string
+          invitee_email: string
+          invitee_name: string
+          invitee_timezone: string | null
+          notes: string | null
+          order_id: string | null
+          rescheduled_from: string | null
+          starts_at: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          booking_type_id: string
+          busy_from: string
+          busy_until: string
+          cancel_reason?: string | null
+          cancelled_at?: string | null
+          cancelled_by?: string | null
+          created_at?: string
+          ends_at: string
+          entitlement_id?: string | null
+          host_id: string
+          id?: string
+          invitee_email: string
+          invitee_name: string
+          invitee_timezone?: string | null
+          notes?: string | null
+          order_id?: string | null
+          rescheduled_from?: string | null
+          starts_at: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          booking_type_id?: string
+          busy_from?: string
+          busy_until?: string
+          cancel_reason?: string | null
+          cancelled_at?: string | null
+          cancelled_by?: string | null
+          created_at?: string
+          ends_at?: string
+          entitlement_id?: string | null
+          host_id?: string
+          id?: string
+          invitee_email?: string
+          invitee_name?: string
+          invitee_timezone?: string | null
+          notes?: string | null
+          order_id?: string | null
+          rescheduled_from?: string | null
+          starts_at?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       emotions: {
         Row: {
           created_at: string | null
@@ -744,6 +1053,10 @@ export type Database = {
       approve_post: {
         Args: { p_post_id: string }
         Returns: Database["public"]["Tables"]["posts"]["Row"]
+      }
+      booking_cancel: {
+        Args: { p_booking_id: string; p_cancelled_by: string; p_reason?: string | null }
+        Returns: Database["public"]["Tables"]["bookings"]["Row"]
       }
       create_post: {
         Args: { p_title: string }

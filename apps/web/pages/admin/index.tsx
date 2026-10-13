@@ -12,6 +12,7 @@ import AuthCheck from "../../components/AuthCheck";
 import PostFeed from "../../components/PostFeed";
 import LinksStatsCard from "../../components/LinksStatsCard";
 import AdminOrdersCard from "../../components/AdminOrdersCard";
+import AdminBookingCard from "../../components/AdminBookingCard";
 
 // supabase instance in the app
 import { supaClient } from "../../supa-client";
@@ -29,6 +30,7 @@ const Admin: NextPage = () => {
       <AuthCheck>
         <LinksStatsCard />
         <AdminOrdersCard />
+        <AdminBookingCard />
         <CreateNewPost></CreateNewPost>
         <SendSMS></SendSMS>
         <PostList></PostList>
