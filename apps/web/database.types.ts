@@ -68,6 +68,7 @@ export type Database = {
           timezone: string
           title: string | null
           user_id: string | null
+          feed_token_hash: string | null
         }
         Insert: {
           active?: boolean
@@ -80,6 +81,7 @@ export type Database = {
           timezone?: string
           title?: string | null
           user_id?: string | null
+          feed_token_hash?: string | null
         }
         Update: {
           active?: boolean
@@ -92,6 +94,7 @@ export type Database = {
           timezone?: string
           title?: string | null
           user_id?: string | null
+          feed_token_hash?: string | null
         }
         Relationships: []
       }
@@ -267,6 +270,8 @@ export type Database = {
           revoked_at: string | null
           token_hash: string
           used: number
+          nudged_at: string | null
+          nudge_token_hash: string | null
         }
         Insert: {
           booking_type_id: string
@@ -280,6 +285,8 @@ export type Database = {
           revoked_at?: string | null
           token_hash: string
           used?: number
+          nudged_at?: string | null
+          nudge_token_hash?: string | null
         }
         Update: {
           booking_type_id?: string
@@ -293,7 +300,15 @@ export type Database = {
           revoked_at?: string | null
           token_hash?: string
           used?: number
+          nudged_at?: string | null
+          nudge_token_hash?: string | null
         }
+        Relationships: []
+      }
+      booking_rate_limits: {
+        Row: { key: string; window_start: string; hits: number }
+        Insert: { key: string; window_start: string; hits?: number }
+        Update: { key?: string; window_start?: string; hits?: number }
         Relationships: []
       }
       bookings: {
@@ -318,6 +333,8 @@ export type Database = {
           starts_at: string
           status: string
           updated_at: string
+          reminder_24h_sent_at: string | null
+          reminder_1h_sent_at: string | null
         }
         Insert: {
           booking_type_id: string
@@ -340,6 +357,8 @@ export type Database = {
           starts_at: string
           status?: string
           updated_at?: string
+          reminder_24h_sent_at?: string | null
+          reminder_1h_sent_at?: string | null
         }
         Update: {
           booking_type_id?: string
@@ -362,6 +381,8 @@ export type Database = {
           starts_at?: string
           status?: string
           updated_at?: string
+          reminder_24h_sent_at?: string | null
+          reminder_1h_sent_at?: string | null
         }
         Relationships: []
       }
@@ -1080,6 +1101,18 @@ export type Database = {
           p_timezone: string | null
         }
         Returns: Database["public"]["Tables"]["bookings"]["Row"]
+      }
+      booking_claim_reminders: {
+        Args: { p_kind: string }
+        Returns: Database["public"]["Tables"]["bookings"]["Row"][]
+      }
+      booking_claim_nudges: {
+        Args: Record<PropertyKey, never>
+        Returns: Database["public"]["Tables"]["booking_entitlements"]["Row"][]
+      }
+      booking_rate_hit: {
+        Args: { p_key: string; p_limit: number; p_window_seconds: number }
+        Returns: boolean
       }
       booking_cancel: {
         Args: { p_booking_id: string; p_cancelled_by: string; p_reason?: string | null }

@@ -7,6 +7,8 @@ import { allTimeZones, durationLabel, zoneName } from "../../../lib/booking/form
 import type { BookingHost, BookingType } from "../../../lib/booking/types";
 import type { BookingAdminData } from "./useBookingAdmin";
 import { Button, Field, Notice, Panel, Pill, inputClass } from "./ui";
+import BookingLinks from "./BookingLinks";
+import CalendarFeed from "./CalendarFeed";
 
 const m = defineMessages({
   typeTitle: { id: "booking-admin-settings-type-title", description: "Booking admin: booking rules heading", defaultMessage: "Booking rules: {name}" },
@@ -77,6 +79,8 @@ export default function BookingSettings({ host, type, data, reload }: Props) {
   return (
     <div className="flex flex-col gap-6">
       {type && <TypeSettings type={type} reload={reload} />}
+      <BookingLinks />
+      <CalendarFeed host={host} reload={reload} />
       <HostSettings host={host} reload={reload} />
       <HostList data={data} type={type} reload={reload} />
     </div>

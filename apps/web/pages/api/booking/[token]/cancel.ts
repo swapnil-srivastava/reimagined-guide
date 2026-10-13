@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { rateLimited } from "../../../../lib/server/rateLimit";
 import { supaServerClient } from "../../../../supa-server-client";
 import { bookingUrl, canChange, inviteIdentity, loadByToken, publicBooking } from "../../../../lib/server/booking";
 import { sendBookingEmails } from "../../../../lib/server/bookingEmails";
@@ -10,6 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "method" });
   }
+  if (await rateLimited(req, res, "booking-write", 10)) return;
   const { bookingId, reason } = req.body ?? {};
   if (typeof bookingId !== "string") return res.status(400).json({ error: "bad_booking" });
   if (reason != null && (typeof reason !== "string" || reason.length > 500)) return res.status(400).json({ error: "bad_reason" });

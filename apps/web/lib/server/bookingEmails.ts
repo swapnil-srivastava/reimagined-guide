@@ -97,11 +97,9 @@ export interface BookingEmailInput {
   reason?: string | null;
 }
 
-/** Sends the buyer's email. Returns false instead of throwing. */
-export function sendInviteeEmail(input: BookingEmailInput): Promise<boolean> {
-  const { event, booking, previous, type, host, manageUrl } = input;
+/** The call's details as the buyer reads them, in their own zone */
+function inviteeRows(booking: Booking, type: BookingType, host: BookingHost): [string, string][] {
   const zone = booking.invitee_timezone || host.timezone;
-  const first = booking.invitee_name.split(" ")[0] || booking.invitee_name;
   const rows: [string, string][] = [
     ["When", when(booking, zone)],
     ["Time zone", zoneLabel(zone, booking.starts_at)],
@@ -109,6 +107,18 @@ export function sendInviteeEmail(input: BookingEmailInput): Promise<boolean> {
     ["Where", locationText(type)],
   ];
   if (zone !== host.timezone) rows.splice(2, 0, [`${host.name.split(" ")[0]}'s time`, `${when(booking, host.timezone)} ${zoneLabel(host.timezone, booking.starts_at)}`]);
+  return rows;
+}
+
+/** Plain-text version of an email: lines, with runs of blank lines collapsed */
+const textOf = (lines: string[]) => lines.filter((line, i, all) => line !== "" || all[i - 1] !== "").join("\n");
+
+/** Sends the buyer's email. Returns false instead of throwing. */
+export function sendInviteeEmail(input: BookingEmailInput): Promise<boolean> {
+  const { event, booking, previous, type, host, manageUrl } = input;
+  const zone = booking.invitee_timezone || host.timezone;
+  const first = booking.invitee_name.split(" ")[0] || booking.invitee_name;
+  const rows = inviteeRows(booking, type, host);
 
   let subject: string;
   let title: string;
@@ -210,4 +220,79 @@ export async function sendBookingEmails(input: BookingEmailInput): Promise<{ inv
   const [invitee, host] = await Promise.all([sendInviteeEmail(input), sendHostEmail(input)]);
   if (!invitee || !host) console.error(`Booking ${input.booking.id}: ${input.event} email failed`, { invitee, host });
   return { invitee, host };
+}
+
+export type ReminderKind = "24h" | "1h";
+
+/** Reminds the buyer of their call, a day and an hour before. No invite: the call is already in their calendar. */
+export function sendReminderEmail(kind: ReminderKind, booking: Booking, type: BookingType, host: BookingHost): Promise<boolean> {
+  const zone = booking.invitee_timezone || host.timezone;
+  const start = DateTime.fromISO(booking.starts_at).setZone(zone).setLocale(LOCALE);
+  const first = booking.invitee_name.split(" ")[0] || booking.invitee_name;
+  const soon = kind === "1h";
+  const subject = soon ? `Starting soon: ${type.name} at ${start.toFormat("HH:mm")}` : `Reminder: ${type.name} on ${when(booking, zone)}`;
+  const title = soon ? "Your call starts in an hour" : "Your call is coming up";
+  const intro = soon
+    ? `Hi ${first}, your ${type.duration_minutes}-minute call with ${host.name} starts at ${start.toFormat("HH:mm")}.`
+    : `Hi ${first}, a reminder that your ${type.duration_minutes}-minute call with ${host.name} is on ${start.toFormat("cccc d LLLL")} at ${start.toFormat("HH:mm")}.`;
+  const rows = inviteeRows(booking, type, host);
+  const footnote = "Something came up? Reply to this email.";
+
+  const html = emailLayout({
+    preheader: `${title}: ${when(booking, zone)}`,
+    title,
+    subtitle: type.name,
+    bodyHtml: paragraph(escapeHtml(intro)) + detailsHtml(rows),
+    footnoteHtml: escapeHtml(footnote),
+  });
+  const text = textOf([title, "", intro, "", detailsText(rows), "", footnote]);
+  return sendMail(booking.invitee_email, subject, html, text);
+}
+
+/** Tells the host a call starts within the hour */
+export async function sendHostReminderEmail(booking: Booking, type: BookingType, host: BookingHost): Promise<boolean> {
+  const zone = host.timezone;
+  const start = DateTime.fromISO(booking.starts_at).setZone(zone).setLocale(LOCALE);
+  const subject = `In an hour: ${booking.invitee_name}, ${start.toFormat("HH:mm")}`;
+  const title = "Call in an hour";
+  const intro = `Your ${type.duration_minutes}-minute ${type.name} with ${booking.invitee_name} starts at ${start.toFormat("HH:mm")}.`;
+  const rows: [string, string][] = [
+    ["When", `${when(booking, zone)} ${zoneLabel(zone, booking.starts_at)}`],
+    ["Name", booking.invitee_name],
+    ["Email", booking.invitee_email],
+  ];
+  if (booking.notes) rows.push(["Notes", booking.notes]);
+
+  const html = emailLayout({
+    preheader: `${title}: ${booking.invitee_name}`,
+    title,
+    subtitle: type.name,
+    bodyHtml: paragraph(escapeHtml(intro)) + detailsHtml(rows),
+    button: { label: "Open bookings", href: `${SITE_URL}/admin/booking` },
+  });
+  const text = textOf([title, "", intro, "", detailsText(rows), "", `Bookings: ${SITE_URL}/admin/booking`]);
+  const to = host.user_id ? await getUserEmail(host.user_id, ADMIN_EMAIL) : ADMIN_EMAIL;
+  return sendMail(to ?? ADMIN_EMAIL, subject, html, text);
+}
+
+/** Reminds a buyer who paid but hasn't picked a time, with a fresh link */
+export function sendNudgeEmail(options: { email: string; name: string | null; type: BookingType; url: string; paidOn: string }): Promise<boolean> {
+  const { email, type, url } = options;
+  const first = options.name?.trim().split(" ")[0];
+  const paid = DateTime.fromISO(options.paidOn).setLocale(LOCALE).toFormat("d LLLL");
+  const subject = `Pick a time for your ${type.name}`;
+  const title = "Pick a time for your call";
+  const intro = `${first ? `Hi ${first}, you` : "You"} bought a ${type.duration_minutes}-minute ${type.name} on ${paid} but haven't picked a time yet. It only takes a minute.`;
+  const footnote = "This link replaces the one in your order email. Questions? Reply to this email.";
+
+  const html = emailLayout({
+    preheader: "Your call is paid for. Pick a time that suits you.",
+    title,
+    subtitle: type.name,
+    bodyHtml: paragraph(escapeHtml(intro)),
+    button: { label: "Pick a time", href: url },
+    footnoteHtml: escapeHtml(footnote),
+  });
+  const text = textOf([title, "", intro, "", `Pick a time: ${url}`, "", footnote]);
+  return sendMail(email, subject, html, text);
 }
