@@ -159,9 +159,9 @@ const Pricing = () => {
                     <div><FontAwesomeIcon icon={faCheck} /></div>
                     <div>
                       <FormattedMessage
-                        id="pricing-basic-1-hour-call"
-                        description="1 hour call"
-                        defaultMessage="1 hour call"
+                        id="pricing-basic-30-minute-call"
+                        description="Length of the 1:1 call"
+                        defaultMessage="30-minute call"
                       />
                     </div>
                   </div>

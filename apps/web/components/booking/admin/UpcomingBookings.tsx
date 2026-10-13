@@ -34,7 +34,7 @@ const m = defineMessages({
   cancelNote: {
     id: "booking-admin-booking-cancel-note",
     description: "Booking admin: what cancelling does",
-    defaultMessage: "The buyer gets the call back and can pick a new time from their link.",
+    defaultMessage: "The buyer gets an email, the call goes back on their link and they can pick a new time.",
   },
   cancelled: { id: "booking-admin-booking-cancelled-toast", description: "Booking admin: toast after cancelling", defaultMessage: "Call cancelled" },
   completed: { id: "booking-admin-booking-mark-completed", description: "Booking admin: mark a past call as done", defaultMessage: "Mark as done" },
@@ -165,13 +165,16 @@ function BookingItem({ booking, host, type, reload }: { booking: Booking; host: 
 
   const cancel = async () => {
     setSaving(true);
-    const { error } = await supaClient.rpc("booking_cancel", {
-      p_booking_id: booking.id,
-      p_cancelled_by: "host",
-      p_reason: reason.trim() || null,
-    });
+    // Through the API, so the buyer gets an email and a calendar update
+    const { data } = await supaClient.auth.getSession();
+    const res = await fetch("/api/admin/booking-cancel", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${data.session?.access_token ?? ""}` },
+      body: JSON.stringify({ bookingId: booking.id, reason: reason.trim() || null }),
+    }).catch(() => null);
     setSaving(false);
-    if (!fail(error)) {
+    const body = res ? await res.json().catch(() => ({})) : {};
+    if (!fail(res?.ok ? null : { message: body.error ?? "network" })) {
       toast.success(intl.formatMessage(m.cancelled));
       setCancelling(false);
     }

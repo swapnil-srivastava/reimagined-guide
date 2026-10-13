@@ -1054,6 +1054,33 @@ export type Database = {
         Args: { p_post_id: string }
         Returns: Database["public"]["Tables"]["posts"]["Row"]
       }
+      booking_book: {
+        Args: {
+          p_entitlement_id: string
+          p_host_id: string
+          p_starts_at: string
+          p_ends_at: string
+          p_busy_from: string
+          p_busy_until: string
+          p_name: string
+          p_email: string
+          p_timezone: string | null
+          p_notes: string | null
+        }
+        Returns: Database["public"]["Tables"]["bookings"]["Row"]
+      }
+      booking_reschedule: {
+        Args: {
+          p_booking_id: string
+          p_host_id: string
+          p_starts_at: string
+          p_ends_at: string
+          p_busy_from: string
+          p_busy_until: string
+          p_timezone: string | null
+        }
+        Returns: Database["public"]["Tables"]["bookings"]["Row"]
+      }
       booking_cancel: {
         Args: { p_booking_id: string; p_cancelled_by: string; p_reason?: string | null }
         Returns: Database["public"]["Tables"]["bookings"]["Row"]

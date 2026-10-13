@@ -2545,10 +2545,10 @@
       "value": "Configuration SEO avancée"
     }
   ],
-  "pricing-basic-1-hour-call": [
+  "pricing-basic-30-minute-call": [
     {
       "type": 0,
-      "value": "Appel d'1 heure"
+      "value": "Appel de 30 minutes"
     }
   ],
   "pricing-basic-consultation-subtitle": [
