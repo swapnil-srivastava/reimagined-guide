@@ -48,7 +48,8 @@ export function foldLine(line: string): string {
   return parts.join("\r\n ");
 }
 
-const cn = (name: string) => `"${name.replace(/"/g, "'")}"`;
+// Quoted parameter values may not hold control characters or quotes
+const cn = (name: string) => `"${name.replace(/[\u0000-\u001f\u007f]+/g, " ").replace(/"/g, "'")}"`;
 
 export function buildInvite(input: InviteInput): string {
   const cancelled = input.method === "CANCEL";

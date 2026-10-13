@@ -42,6 +42,8 @@ export function isTimeZone(zone: unknown): zone is string {
  */
 export async function createBookingLink(options: {
   orderId: string;
+  /** Calls bought; defaults to 1 */
+  quantity?: number;
   packageId: string | null | undefined;
   email: string | null | undefined;
   name: string | null | undefined;
@@ -62,6 +64,7 @@ export async function createBookingLink(options: {
     .insert({
       order_id: options.orderId,
       booking_type_id: type.id,
+      quantity: Math.max(1, Math.floor(options.quantity ?? 1)),
       token_hash: hashToken(token),
       email: options.email?.trim().toLowerCase() || null,
       name: options.name?.trim() || null,
@@ -77,7 +80,10 @@ export interface BookingContext {
   entitlement: Entitlement;
   state: LinkState;
   type: BookingType;
+  /** Hosts the buyer can book now */
   hosts: BookingHost[];
+  /** Hosts of the buyer's bookings who no longer offer the call */
+  bookedHosts: BookingHost[];
   defaultHostId: string;
   /** Bookings made with this link, newest first (cancelled ones included) */
   bookings: Booking[];
@@ -104,12 +110,16 @@ export async function loadByToken(token: string): Promise<BookingContext | null>
   ]);
   if (!type) return null;
 
-  const hostIds = (links ?? []).map((l) => l.host_id);
+  // Hosts of the buyer's own bookings are loaded too, so a call stays with its
+  // host even after that host stops offering the call
+  const offeredIds = (links ?? []).map((l) => l.host_id);
+  const hostIds = Array.from(new Set([...offeredIds, ...(bookings ?? []).map((b) => b.host_id)]));
   const { data: hostRows } = hostIds.length
-    ? await db().from("booking_hosts").select("*").in("id", hostIds).eq("active", true).order("name")
+    ? await db().from("booking_hosts").select("*").in("id", hostIds).order("name")
     : { data: [] as BookingHost[] };
-  const hosts = hostRows ?? [];
-  // Hosts of past bookings stay visible even if no longer offered
+  const allHosts = hostRows ?? [];
+  const hosts = allHosts.filter((h) => h.active && offeredIds.includes(h.id));
+  const bookedHosts = allHosts.filter((h) => !hosts.includes(h));
   const preferred =
     (links ?? []).find((l) => l.is_default && hosts.some((h) => h.id === l.host_id))?.host_id ??
     hosts.find((h) => h.is_default)?.id ??
@@ -123,7 +133,7 @@ export async function loadByToken(token: string): Promise<BookingContext | null>
       ? "expired"
       : "ok";
 
-  return { entitlement, state, type, hosts, defaultHostId: preferred, bookings: bookings ?? [] };
+  return { entitlement, state, type, hosts, bookedHosts, defaultHostId: preferred, bookings: bookings ?? [] };
 }
 
 /** Busy range a call at [start, end) takes, with the type's buffers */
@@ -153,7 +163,7 @@ export async function availableSlots(
 
   let bookingsQuery = db()
     .from("bookings")
-    .select("id, busy_from, busy_until")
+    .select("id, booking_type_id, starts_at, busy_from, busy_until")
     .eq("host_id", host.id)
     .eq("status", "confirmed")
     .lt("busy_from", loadTo)
@@ -179,13 +189,14 @@ export async function availableSlots(
   const failed = weekly.error || overrides.error || blocks.error || bookings.error;
   if (failed) throw new Error(`Loading availability failed: ${failed.message}`);
 
-  // A daily limit counts the host's calls of this type only
   return computeSlots({
     timezone: host.timezone,
     weeklyHours: weekly.data ?? [],
     overrides: overrides.data ?? [],
     blocks: blocks.data ?? [],
     bookings: (bookings.data ?? []).map((b) => ({ starts_at: b.busy_from, ends_at: b.busy_until })),
+    // A daily limit counts the host's calls of this type only
+    limitStarts: (bookings.data ?? []).filter((b) => b.booking_type_id === type.id).map((b) => b.starts_at),
     rules: rulesOf(type),
     now: new Date(),
     from,
@@ -292,12 +303,20 @@ export function publicContext(ctx: BookingContext) {
       max_days_ahead: type.max_days_ahead,
       active: type.active,
     },
-    hosts: ctx.hosts.map((h) => ({ id: h.id, name: h.name, title: h.title, photo_url: h.photo_url, timezone: h.timezone })),
+    hosts: [
+      ...ctx.hosts.map((h) => ({ ...publicHost(h), bookable: true })),
+      ...ctx.bookedHosts.map((h) => ({ ...publicHost(h), bookable: false })),
+    ],
     default_host_id: ctx.defaultHostId,
     bookings: ctx.bookings.map((b) => publicBooking(type, b)),
   };
 }
 
 export type PublicContext = ReturnType<typeof publicContext>;
+
+const publicHost = (h: BookingHost) => ({ id: h.id, name: h.name, title: h.title, photo_url: h.photo_url, timezone: h.timezone });
+
+/** Removes control characters (line breaks included) from a one-line value */
+export const oneLine = (value: string) => value.replace(/[\u0000-\u001f\u007f]+/g, " ").trim();
 
 export const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

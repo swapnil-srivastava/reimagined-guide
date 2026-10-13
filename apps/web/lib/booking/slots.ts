@@ -46,6 +46,8 @@ export interface SlotInput {
   blocks: BusyRange[];
   /** Confirmed bookings with their buffers (busy_from / busy_until) */
   bookings: BusyRange[];
+  /** Start times that count toward the daily limit; defaults to every booking's */
+  limitStarts?: string[];
   rules: BookingRules;
   now: Date;
   /** Only slots starting in [from, to) are returned */
@@ -129,8 +131,8 @@ export function computeSlots(input: SlotInput): Slot[] {
 
   // Bookings per host-local day, for the daily limit
   const perDay = new Map<string, number>();
-  for (const booking of input.bookings) {
-    const day = DateTime.fromISO(booking.starts_at).setZone(timezone).toISODate() as string;
+  for (const start of input.limitStarts ?? input.bookings.map((b) => b.starts_at)) {
+    const day = DateTime.fromISO(start).setZone(timezone).toISODate() as string;
     perDay.set(day, (perDay.get(day) ?? 0) + 1);
   }
 

@@ -1,7 +1,8 @@
 import { DateTime } from "luxon";
-import { ADMIN_EMAIL, escapeHtml, sendMail, MailAttachment } from "./mailer";
+import { ADMIN_EMAIL, escapeHtml, getUserEmail, sendMail, MailAttachment } from "./mailer";
 import { emailLayout, paragraph } from "./emailLayout";
 import { buildInvite } from "../booking/ics";
+import { durationLabel } from "../booking/format";
 import { SITE_URL } from "../site";
 import type { Booking, BookingHost, BookingType } from "../booking/types";
 
@@ -119,7 +120,9 @@ export function sendInviteeEmail(input: BookingEmailInput): Promise<boolean> {
     intro =
       input.cancelledBy === "host"
         ? `${host.name} had to cancel your call. Sorry about that. You can pick a new time with the link in your order email${manageUrl ? " or the button below" : ""}.`
-        : "Your call is cancelled, as you asked. You can pick a new time whenever you like.";
+        : manageUrl
+          ? "Your call is cancelled, as you asked. You can pick a new time whenever you like."
+          : "Your call is cancelled, as you asked.";
     button = manageUrl ? { label: "Pick a new time", href: manageUrl } : undefined;
   } else if (event === "rescheduled") {
     subject = `Moved: ${type.name} is now ${when(booking, zone)}`;
@@ -136,11 +139,10 @@ export function sendInviteeEmail(input: BookingEmailInput): Promise<boolean> {
   }
 
   const reasonRow: [string, string][] = input.reason && event === "cancelled" ? [["Reason", input.reason]] : [];
-  const cutoffHours = Math.round(type.cancel_cutoff_minutes / 60);
   const footnote =
     event === "cancelled" || !manageUrl
       ? undefined
-      : `You can reschedule or cancel up to ${cutoffHours} hours before the call. After that, just reply to this email.`;
+      : `You can reschedule or cancel up to ${durationLabel(type.cancel_cutoff_minutes)} before the call. After that, just reply to this email.`;
 
   const html = emailLayout({
     preheader: `${title}: ${when(booking, zone)}`,
@@ -160,8 +162,8 @@ export function sendInviteeEmail(input: BookingEmailInput): Promise<boolean> {
   ]);
 }
 
-/** Sends the host's copy. Returns false instead of throwing. */
-export function sendHostEmail(input: BookingEmailInput): Promise<boolean> {
+/** Sends the host's copy, to the host's own account email when they have one. Returns false instead of throwing. */
+export async function sendHostEmail(input: BookingEmailInput): Promise<boolean> {
   const { event, booking, previous, type, host } = input;
   const zone = host.timezone;
   const rows: [string, string][] = [
@@ -197,7 +199,8 @@ export function sendHostEmail(input: BookingEmailInput): Promise<boolean> {
   });
   const text = [verb, "", intro, "", detailsText(rows), "", `Bookings: ${SITE_URL}/admin/booking`].join("\n");
 
-  return sendMail(ADMIN_EMAIL, subject, html, text, [
+  const to = host.user_id ? await getUserEmail(host.user_id, ADMIN_EMAIL) : ADMIN_EMAIL;
+  return sendMail(to ?? ADMIN_EMAIL, subject, html, text, [
     invite(event === "cancelled" ? "CANCEL" : "REQUEST", booking, type, host, input.identity),
   ]);
 }

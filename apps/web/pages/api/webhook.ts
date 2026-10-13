@@ -219,6 +219,7 @@ const handler = async (
             try {
               const link = await createBookingLink({
                 orderId: orderData.id,
+                quantity: packageItem.quantity,
                 packageId: sessionMetadata.package_id,
                 email: customerEmail,
                 name: session.customer_details?.name,
