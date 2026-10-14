@@ -283,7 +283,7 @@ export function sendNudgeEmail(options: { email: string; name: string | null; ty
   const subject = `Pick a time for your ${type.name}`;
   const title = "Pick a time for your call";
   const intro = `${first ? `Hi ${first}, you` : "You"} bought a ${type.duration_minutes}-minute ${type.name} on ${paid} but haven't picked a time yet. It only takes a minute.`;
-  const footnote = "This link replaces the one in your order email. Questions? Reply to this email.";
+  const footnote = "The link in your order email works too. Questions? Reply to this email.";
 
   const html = emailLayout({
     preheader: "Your call is paid for. Pick a time that suits you.",
@@ -294,5 +294,32 @@ export function sendNudgeEmail(options: { email: string; name: string | null; ty
     footnoteHtml: escapeHtml(footnote),
   });
   const text = textOf([title, "", intro, "", `Pick a time: ${url}`, "", footnote]);
+  return sendMail(email, subject, html, text);
+}
+
+/**
+ * Sends the buyer their booking link again (from /admin/booking), for when
+ * the order email went missing. Works whether or not they have booked yet.
+ */
+export function sendLinkEmail(options: { email: string; name: string | null; type: BookingType; url: string; booked: boolean }): Promise<boolean> {
+  const { email, type, url, booked } = options;
+  const first = options.name?.trim().split(" ")[0];
+  const subject = `Your booking link for the ${type.name}`;
+  const title = "Your booking link";
+  const intro = booked
+    ? `${first ? `Hi ${first}, here` : "Here"} is your booking link again. Use it to see, move or cancel your call.`
+    : `${first ? `Hi ${first}, here` : "Here"} is your booking link again. Use it to pick a time for your ${type.duration_minutes}-minute call.`;
+  const label = booked ? "Open my booking" : "Pick a time";
+  const footnote = "Keep this email: the link is how you change your call later. Questions? Reply to this email.";
+
+  const html = emailLayout({
+    preheader: booked ? "See, move or cancel your call." : "Your call is paid for. Pick a time that suits you.",
+    title,
+    subtitle: type.name,
+    bodyHtml: paragraph(escapeHtml(intro)),
+    button: { label, href: url },
+    footnoteHtml: escapeHtml(footnote),
+  });
+  const text = textOf([title, "", intro, "", `${label}: ${url}`, "", footnote]);
   return sendMail(email, subject, html, text);
 }
