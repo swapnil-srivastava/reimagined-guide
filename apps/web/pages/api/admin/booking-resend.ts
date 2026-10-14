@@ -38,8 +38,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.error("booking resend: new token failed", error);
     return res.status(500).json({ error: "server" });
   }
-  const { count } = await db.from("bookings").select("id", { count: "exact", head: true }).eq("entitlement_id", link.id);
-  const sent = await sendLinkEmail({ email: link.email, name: link.name, type, url: bookingUrl(token), booked: (count ?? 0) > 0 });
-  if (!sent) return res.status(502).json({ error: "email_failed" });
+  // used counts calls that are booked now (a cancelled call gives its credit back)
+  const sent = await sendLinkEmail({ email: link.email, name: link.name, type, url: bookingUrl(token), booked: link.used > 0 });
+  if (!sent) {
+    // Keep the previous reminder or resent link working when this email didn't go out
+    await db.from("booking_entitlements").update({ nudge_token_hash: link.nudge_token_hash }).eq("id", link.id);
+    return res.status(502).json({ error: "email_failed" });
+  }
   return res.status(200).json({ ok: true });
 }

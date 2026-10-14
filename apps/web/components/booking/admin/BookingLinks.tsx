@@ -36,9 +36,14 @@ const m = defineMessages({
   turnedOff: { id: "booking-admin-links-turned-off", description: "Booking admin: toast after turning a link off", defaultMessage: "Link turned off" },
   turnedOn: { id: "booking-admin-links-turned-on", description: "Booking admin: toast after turning a link on", defaultMessage: "Link turned back on" },
   resend: { id: "booking-admin-links-resend", description: "Booking admin: email the buyer their link again", defaultMessage: "Resend link" },
-  resendFor: { id: "booking-admin-links-resend-for", description: "Booking admin: screen reader label, resend one buyer's link", defaultMessage: "Email the booking link again to {who}" },
+  resendFor: { id: "booking-admin-links-resend-for", description: "Booking admin: screen reader label, resend one buyer's link", defaultMessage: "Resend link to {who}" },
   resent: { id: "booking-admin-links-resent", description: "Booking admin: toast after resending a link", defaultMessage: "Link sent to {email}" },
   resendFailed: { id: "booking-admin-links-resend-failed", description: "Booking admin: toast when resending fails", defaultMessage: "Couldn't send the link: {error}" },
+  resendEmailFailed: {
+    id: "booking-admin-links-resend-email-failed",
+    description: "Booking admin: toast when the resend email didn't go out",
+    defaultMessage: "The email didn't go out, so nothing changed. Try again in a minute.",
+  },
   showMore: { id: "booking-admin-links-show-more", description: "Booking admin: load older links", defaultMessage: "Show older links" },
   failed: { id: "booking-admin-save-failed", description: "Booking admin: toast when saving fails", defaultMessage: "Couldn't save: {error}" },
 });
@@ -89,7 +94,10 @@ export default function BookingLinks() {
     const body = res ? await res.json().catch(() => ({})) : {};
     setBusy(null);
     if (res?.ok) toast.success(intl.formatMessage(m.resent, { email: link.email }));
+    else if (body.error === "email_failed") toast.error(intl.formatMessage(m.resendEmailFailed));
     else toast.error(intl.formatMessage(m.resendFailed, { error: body.error ?? "network" }));
+    // A link can change state while the page is open (turned off, expired)
+    if (!res?.ok) await load();
   };
 
   const date = (iso: string) => new Date(iso).toLocaleDateString(intl.locale, { day: "numeric", month: "short", year: "numeric" });
