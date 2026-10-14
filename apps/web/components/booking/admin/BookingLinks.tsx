@@ -8,7 +8,8 @@ import { Button, Panel, Pill } from "./ui";
 
 // The booking links sent with paid orders, newest first. Turning a link off
 // stops it working (for example after a refund); its booked calls stay until
-// you cancel them. Turning it back on restores it.
+// you cancel them. Turning it back on restores it. "Resend link" emails the
+// buyer a fresh link when the order email went missing.
 
 type Link = Database["public"]["Tables"]["booking_entitlements"]["Row"];
 
@@ -34,6 +35,15 @@ const m = defineMessages({
   loading: { id: "booking-admin-links-loading", description: "Booking admin: booking links are loading", defaultMessage: "Loading booking links" },
   turnedOff: { id: "booking-admin-links-turned-off", description: "Booking admin: toast after turning a link off", defaultMessage: "Link turned off" },
   turnedOn: { id: "booking-admin-links-turned-on", description: "Booking admin: toast after turning a link on", defaultMessage: "Link turned back on" },
+  resend: { id: "booking-admin-links-resend", description: "Booking admin: email the buyer their link again", defaultMessage: "Resend link" },
+  resendFor: { id: "booking-admin-links-resend-for", description: "Booking admin: screen reader label, resend one buyer's link", defaultMessage: "Resend link to {who}" },
+  resent: { id: "booking-admin-links-resent", description: "Booking admin: toast after resending a link", defaultMessage: "Link sent to {email}" },
+  resendFailed: { id: "booking-admin-links-resend-failed", description: "Booking admin: toast when resending fails", defaultMessage: "Couldn't send the link: {error}" },
+  resendEmailFailed: {
+    id: "booking-admin-links-resend-email-failed",
+    description: "Booking admin: toast when the resend email didn't go out",
+    defaultMessage: "The email didn't go out, so nothing changed. Try again in a minute.",
+  },
   showMore: { id: "booking-admin-links-show-more", description: "Booking admin: load older links", defaultMessage: "Show older links" },
   failed: { id: "booking-admin-save-failed", description: "Booking admin: toast when saving fails", defaultMessage: "Couldn't save: {error}" },
 });
@@ -73,6 +83,23 @@ export default function BookingLinks() {
     await load();
   };
 
+  const resend = async (link: Link) => {
+    setBusy(link.id);
+    const { data } = await supaClient.auth.getSession();
+    const res = await fetch("/api/admin/booking-resend", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${data.session?.access_token ?? ""}` },
+      body: JSON.stringify({ entitlementId: link.id }),
+    }).catch(() => null);
+    const body = res ? await res.json().catch(() => ({})) : {};
+    setBusy(null);
+    if (res?.ok) toast.success(intl.formatMessage(m.resent, { email: link.email }));
+    else if (body.error === "email_failed") toast.error(intl.formatMessage(m.resendEmailFailed));
+    else toast.error(intl.formatMessage(m.resendFailed, { error: body.error ?? "network" }));
+    // A link can change state while the page is open (turned off, expired)
+    if (!res?.ok) await load();
+  };
+
   const date = (iso: string) => new Date(iso).toLocaleDateString(intl.locale, { day: "numeric", month: "short", year: "numeric" });
   const shown = (links ?? []).slice(0, limit);
 
@@ -108,6 +135,15 @@ export default function BookingLinks() {
                   <Pill tone={state === "active" ? "success" : state === "off" ? "danger" : "muted"}>
                     {intl.formatMessage(state === "active" ? m.stateActive : state === "off" ? m.stateOff : m.stateExpired)}
                   </Pill>
+                  {state === "active" && link.email && (
+                    <Button
+                      disabled={busy === link.id}
+                      aria-label={intl.formatMessage(m.resendFor, { who: link.email })}
+                      onClick={() => resend(link)}
+                    >
+                      {intl.formatMessage(m.resend)}
+                    </Button>
+                  )}
                   <Button
                     variant={link.revoked_at ? "secondary" : "ghost"}
                     disabled={busy === link.id}
