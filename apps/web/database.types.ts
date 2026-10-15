@@ -901,6 +901,7 @@ export type Database = {
           description: string | null
           id: string
           image_url: string | null
+          low_stock_threshold: number
           name: string
           price: number
           stock: number
@@ -911,6 +912,7 @@ export type Database = {
           description?: string | null
           id?: string
           image_url?: string | null
+          low_stock_threshold?: number
           name: string
           price: number
           stock: number
@@ -921,6 +923,7 @@ export type Database = {
           description?: string | null
           id?: string
           image_url?: string | null
+          low_stock_threshold?: number
           name?: string
           price?: number
           stock?: number
@@ -1167,6 +1170,16 @@ export type Database = {
       request_post_changes: {
         Args: { p_post_id: string; p_note: string }
         Returns: Database["public"]["Tables"]["post_drafts"]["Row"]
+      }
+      mark_order_refunded: {
+        Args: {
+          p_order_id: string
+          p_amount_refunded: number
+          p_full: boolean
+          p_refund_ref?: string | null
+          p_cancel_bookings?: boolean
+        }
+        Returns: Json
       }
       save_order_items: {
         Args: { p_order_id: string; p_items: Json }

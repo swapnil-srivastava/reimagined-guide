@@ -11,11 +11,14 @@ import {
   isCartOrder 
 } from '../../types/stripe';
 import {
+  LowStock,
   saveOrderItems,
+  sendLowStockEmail,
   shortfallWarningHtml,
   shortfallWarningText,
   StockShortfall,
 } from '../../lib/server/stock';
+import { handleChargeRefunded } from '../../lib/server/refunds';
 import { createBookingLink } from '../../lib/server/booking';
 import { escapeHtml } from '../../lib/server/mailer';
 
@@ -61,7 +64,9 @@ const handler = async (
         // ============================================
         // COMMON LOGIC: Extract shared data from session
         // ============================================
-        const paymentIntentId = session.payment_intent as string;
+        // A 100%-off promo code means no payment, so no payment intent: the
+        // session id is then the order's unique key, so a retry can't save it twice
+        const paymentIntentId = (session.payment_intent as string | null) || session.id;
         const userId = session.metadata?.user_id || null;
         const customerEmail = session.customer_email || session.customer_details?.email;
         const totalAmount = (session.amount_total || 0) / 100;
@@ -75,7 +80,7 @@ const handler = async (
         // ============================================
         // IDEMPOTENCY CHECK: Prevent duplicate orders
         // ============================================
-        if (supaServerClient && paymentIntentId) {
+        if (supaServerClient) {
           const { data: existingOrder } = await supaServerClient
             .from('orders')
             .select('id')
@@ -98,6 +103,9 @@ const handler = async (
         let orderItemsHtml = '';
         let orderItemsText = '';
         const orderItemsData: OrderItemData[] = [];
+
+        const discount = (session.total_details?.amount_discount || 0) / 100;
+        const promoCode = discount > 0 ? await promotionCodeOf(stripe, session.id) : null;
 
         lineItems.data.forEach((item) => {
           const product = item.price?.product as Stripe.Product;
@@ -124,11 +132,24 @@ const handler = async (
           orderItemsText += `${productName} x${quantity} - €${itemTotal.toFixed(2)}\n`;
         });
 
+        // Line prices are before the discount; this row explains the total
+        if (discount > 0) {
+          const label = `Discount${promoCode ? ` (${escapeHtml(promoCode)})` : ''}`;
+          orderItemsHtml += `
+            <tr>
+              <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;" colspan="3">${label}</td>
+              <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; text-align: right;">−€${discount.toFixed(2)}</td>
+            </tr>
+          `;
+          orderItemsText += `Discount${promoCode ? ` (${promoCode})` : ''} - −€${discount.toFixed(2)}\n`;
+        }
+
         // ============================================
         // DATABASE OPERATIONS: Create order and items
         // ============================================
         // Products that sold out between checkout and payment
         let stockShortfalls: StockShortfall[] = [];
+        let lowStock: LowStock[] = [];
         // The buyer's link to pick a time, when the package includes a call
         let bookingLink: string | null = null;
         let callMinutes = 30;
@@ -150,6 +171,10 @@ const handler = async (
           customer_email: customerEmail,
           is_anonymous: isAnonymousOrder,
         };
+        if (discount > 0) {
+          orderMetadata.discount = discount;
+          if (promoCode) orderMetadata.promo_code = promoCode;
+        }
 
         // Add service package specific metadata
         if (orderType === 'service_package') {
@@ -235,7 +260,7 @@ const handler = async (
           } else {
             // CART: Save the items and lower stock in one transaction
             try {
-              stockShortfalls = await saveOrderItems(
+              ({ shortfalls: stockShortfalls, lowStock } = await saveOrderItems(
                 orderData.id,
                 orderItemsData.map((item) => ({
                   product_id: item.product_id || null,
@@ -243,7 +268,7 @@ const handler = async (
                   price: item.price,
                   name: item.name,
                 }))
-              );
+              ));
             } catch (itemsError) {
               // Nothing was saved, so remove the order and let Stripe retry.
               // If the call did save but its response was lost, the delete
@@ -624,6 +649,8 @@ const handler = async (
           console.error('❌ Error sending admin email:', emailError);
         }
 
+        await sendLowStockEmail(lowStock);
+
       } catch (error) {
         // A non-2xx response makes Stripe retry the event (for up to 3 days),
         // so an order that failed to save is not lost
@@ -631,6 +658,21 @@ const handler = async (
         res.status(500).json({ received: false, message: error.message });
         return;
       }
+    }
+
+    // A full or partial refund from the Stripe dashboard. Needs charge.refunded
+    // turned on for this endpoint in Stripe (Developers → Webhooks).
+    if (event.type === 'charge.refunded') {
+      try {
+        await handleChargeRefunded(event.data.object as Stripe.Charge);
+      } catch (error) {
+        // A 500 makes Stripe retry; mark_order_refunded is safe to repeat
+        console.error('Error processing refund:', error);
+        res.status(500).json({ received: false, message: error.message });
+        return;
+      }
+      res.json({ received: true });
+      return;
     }
 
     if (event.type === 'customer.subscription.updated') {
@@ -657,6 +699,23 @@ const handler = async (
     res.status(405).end('Method Not Allowed');
   }
 };
+
+/** The promotion code the buyer typed at checkout, e.g. "WELCOME10", or null */
+async function promotionCodeOf(stripe: Stripe, sessionId: string): Promise<string | null> {
+  try {
+    const full = await stripe.checkout.sessions.retrieve(sessionId, { expand: ['total_details.breakdown'] });
+    for (const { discount } of full.total_details?.breakdown?.discounts ?? []) {
+      const promo = discount.promotion_code;
+      if (!promo) continue;
+      if (typeof promo !== 'string') return promo.code;
+      return (await stripe.promotionCodes.retrieve(promo)).code;
+    }
+  } catch (error) {
+    // The order matters more than the code's name
+    console.error(`Promotion code for session ${sessionId} could not be read:`, error);
+  }
+  return null;
+}
 
 export const config = {
   api: {
