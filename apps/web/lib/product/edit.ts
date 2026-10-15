@@ -83,3 +83,7 @@ export function stockLevel(stock: number, threshold: number): StockLevel {
   if (stock <= 0) return "out";
   return stock <= threshold ? "low" : "ok";
 }
+
+/** Sold out, or at or below its low-stock level */
+export const isLowStock = (p: { stock: number; low_stock_threshold: number }) =>
+  stockLevel(p.stock, p.low_stock_threshold) !== "ok";

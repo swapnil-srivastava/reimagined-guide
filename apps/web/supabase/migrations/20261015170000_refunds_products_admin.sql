@@ -4,9 +4,11 @@
 --   2. Admins (is_admin()) add, edit and delete products, instead of one
 --      hard-coded user id
 --   3. save_order_items() also reports products that just went low on stock
---   4. mark_order_refunded(): the Stripe webhook marks an order refunded,
+--   4. admin_update_product(): the products page saves a product, with
+--      stock as a change (+3, -1), so a sale meanwhile is never overwritten
+--   5. mark_order_refunded(): the Stripe webhook marks an order refunded,
 --      puts a fully refunded order's stock back once, and switches off its
---      booking link and upcoming calls
+--      booking link and upcoming calls (cancelled_by = 'refund')
 --
 -- Run this whole file in the Supabase SQL editor BEFORE deploying the code
 -- that uses it. It is safe to run with the old code live.
@@ -155,7 +157,46 @@ REVOKE ALL ON FUNCTION public.save_order_items(UUID, JSONB) FROM PUBLIC, anon, a
 GRANT EXECUTE ON FUNCTION public.save_order_items(UUID, JSONB) TO service_role;
 
 -- =====================================================
--- STEP 4: mark_order_refunded()
+-- STEP 4: admin_update_product()
+-- =====================================================
+-- Runs as the signed-in admin, so the row level security above applies.
+-- Stock is changed by p_stock_change, not set, so a sale between opening
+-- the form and saving it is kept. Stock can't go below 0 (the CHECK).
+-- Returns the updated row, or nothing if the product no longer exists.
+CREATE OR REPLACE FUNCTION public.admin_update_product(
+  p_product_id UUID,
+  p_name TEXT,
+  p_description TEXT,
+  p_price NUMERIC,
+  p_low_stock_threshold INTEGER,
+  p_stock_change INTEGER DEFAULT 0
+)
+RETURNS SETOF public.products
+LANGUAGE sql
+SET search_path = ''
+AS $$
+  UPDATE public.products
+  SET name = p_name,
+      description = p_description,
+      price = p_price,
+      low_stock_threshold = p_low_stock_threshold,
+      stock = stock + p_stock_change
+  WHERE id = p_product_id
+  RETURNING *;
+$$;
+
+REVOKE ALL ON FUNCTION public.admin_update_product(UUID, TEXT, TEXT, NUMERIC, INTEGER, INTEGER) FROM PUBLIC, anon;
+GRANT EXECUTE ON FUNCTION public.admin_update_product(UUID, TEXT, TEXT, NUMERIC, INTEGER, INTEGER) TO authenticated;
+
+-- =====================================================
+-- STEP 5: Calls cancelled by a refund
+-- =====================================================
+ALTER TABLE public.bookings DROP CONSTRAINT IF EXISTS bookings_cancelled_by_check;
+ALTER TABLE public.bookings
+  ADD CONSTRAINT bookings_cancelled_by_check CHECK (cancelled_by IN ('invitee', 'host', 'refund'));
+
+-- =====================================================
+-- STEP 6: mark_order_refunded()
 -- =====================================================
 -- Called by the Stripe webhook on charge.refunded with the charge's total
 -- refunded so far (in euros). Stripe retries webhooks and sends one event per
@@ -168,10 +209,10 @@ GRANT EXECUTE ON FUNCTION public.save_order_items(UUID, JSONB) TO service_role;
 --     because Stripe doesn't say which items were refunded; it never
 --     downgrades an order that is already 'refunded'
 --   - with p_cancel_bookings, a full refund also switches off the order's
---     booking links and cancels its upcoming calls (by the host, reason
---     "Order refunded"), once
+--     booking links and cancels its upcoming calls (cancelled_by 'refund'),
+--     once
 -- Returns what changed, so the webhook only emails about new changes:
---   { found, status, previous_status, amount_refunded, changed,
+--   { found, status, amount_refunded, changed,
 --     restocked: [{product_id, name, quantity, stock}],
 --     cancelled_bookings: [bookings row, ...], links_revoked }
 CREATE OR REPLACE FUNCTION public.mark_order_refunded(
@@ -250,7 +291,7 @@ BEGIN
     WITH cancelled AS (
       UPDATE public.bookings
       SET status = 'cancelled',
-          cancelled_by = 'host',
+          cancelled_by = 'refund',
           cancel_reason = 'Order refunded',
           cancelled_at = now()
       WHERE order_id = p_order_id AND status = 'confirmed' AND starts_at > now()
@@ -277,7 +318,6 @@ BEGIN
   RETURN jsonb_build_object(
     'found', true,
     'status', v_status,
-    'previous_status', v_order.status,
     'amount_refunded', v_amount,
     'changed', v_status IS DISTINCT FROM v_order.status
       OR v_amount IS DISTINCT FROM COALESCE((v_order.metadata->>'amount_refunded')::numeric, 0)

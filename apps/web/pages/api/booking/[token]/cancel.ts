@@ -45,7 +45,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         host,
         identity: await inviteIdentity(booking),
         manageUrl: ctx.state === "ok" ? bookingUrl(token) : undefined,
-        cancelledBy: "invitee",
         reason: booking.cancel_reason,
       });
     }

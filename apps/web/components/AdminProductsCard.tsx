@@ -4,7 +4,7 @@ import { defineMessages, useIntl } from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faBoxesStacked } from "@fortawesome/free-solid-svg-icons";
 import { supaClient } from "../supa-client";
-import { stockLevel } from "../lib/product/edit";
+import { isLowStock } from "../lib/product/edit";
 
 const m = defineMessages({
   title: { id: "admin-products-card-title", description: "Admin products card heading", defaultMessage: "Products" },
@@ -34,7 +34,7 @@ export default function AdminProductsCard() {
         return;
       }
       const list = products ?? [];
-      setCounts({ count: list.length, low: list.filter((p) => stockLevel(p.stock, p.low_stock_threshold) !== "ok").length });
+      setCounts({ count: list.length, low: list.filter(isLowStock).length });
     });
   }, []);
 

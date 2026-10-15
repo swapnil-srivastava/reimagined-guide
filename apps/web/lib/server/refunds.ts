@@ -1,9 +1,8 @@
 import type Stripe from "stripe";
 import { supaServerClient } from "../../supa-server-client";
-import type { Booking, BookingHost, BookingType } from "../booking/types";
-import { orderNumber } from "../orders";
-import { inviteIdentity } from "./booking";
-import { sendBookingEmails } from "./bookingEmails";
+import type { Booking } from "../booking/types";
+import { customerEmail, orderNumber } from "../orders";
+import { sendCancelledEmails } from "./booking";
 import { emailLayout, paragraph } from "./emailLayout";
 import { ADMIN_EMAIL, SITE_URL, escapeHtml, sendMail } from "./mailer";
 
@@ -24,7 +23,6 @@ interface Restocked {
 interface RefundResult {
   found: boolean;
   status?: "refunded" | "partially_refunded";
-  previous_status?: string;
   amount_refunded?: number;
   changed?: boolean;
   restocked?: Restocked[];
@@ -62,6 +60,7 @@ export async function handleChargeRefunded(charge: Stripe.Charge): Promise<void>
     // Nothing to change, so tell the admin once instead of failing forever.
     console.warn(`Refund for ${paymentIntentId ?? charge.id}: no order found`);
     await sendAdminRefundEmail({
+      title: "Refund with no order",
       subject: `Refund with no order: ${euro(refunded)}`,
       lines: [
         `Stripe refunded ${euro(refunded)} of ${euro(paid)}, but no order on the site has this payment.`,
@@ -89,11 +88,11 @@ export async function handleChargeRefunded(charge: Stripe.Charge): Promise<void>
   }
 
   const cancelled = result.cancelled_bookings ?? [];
-  const emailsFailed = await emailCancelledCalls(cancelled);
+  const sent = await Promise.all(cancelled.map((booking) => sendCancelledEmails(supaServerClient!, booking)));
+  const emailsFailed = sent.includes(false);
 
   const restocked = result.restocked ?? [];
   const number = orderNumber(order);
-  const email = (order.metadata as Record<string, unknown> | null)?.customer_email;
   const lines: string[] = [];
   if (result.status === "refunded") {
     lines.push(`Order ${number} was fully refunded (${euro(refunded)}). It now shows as Refunded.`);
@@ -115,61 +114,33 @@ export async function handleChargeRefunded(charge: Stripe.Charge): Promise<void>
     );
   }
 
+  const title = result.status === "refunded" ? "Refunded" : "Partly refunded";
   await sendAdminRefundEmail({
-    subject: `${result.status === "refunded" ? "Refunded" : "Partly refunded"}: ${euro(refunded)} for order ${number}`,
+    title,
+    subject: `${title}: ${euro(refunded)} for order ${number}`,
     lines,
     details: [
-      ["Customer", typeof email === "string" && email ? email : "Unknown"],
+      ["Customer", customerEmail(order as { metadata: Record<string, unknown> | null }) ?? "Unknown"],
       ["Payment", paymentIntentId ?? charge.id],
     ],
     button: result.status === "refunded" ? undefined : { label: "Open products", href: `${SITE_URL}/admin/products` },
   });
 }
 
-/** Emails the buyer and host about each call a refund cancelled. Returns true if any email failed. */
-async function emailCancelledCalls(cancelled: Booking[]): Promise<boolean> {
-  if (!supaServerClient || cancelled.length === 0) return false;
-  let failed = false;
-  for (const booking of cancelled) {
-    try {
-      const [{ data: type }, { data: host }] = await Promise.all([
-        supaServerClient.from("booking_types").select("*").eq("id", booking.booking_type_id).single(),
-        supaServerClient.from("booking_hosts").select("*").eq("id", booking.host_id).single(),
-      ]);
-      if (!type || !host) {
-        failed = true;
-        continue;
-      }
-      const sent = await sendBookingEmails({
-        event: "cancelled",
-        booking,
-        type: type as BookingType,
-        host: host as BookingHost,
-        identity: await inviteIdentity(booking),
-        cancelledBy: "refund",
-      });
-      if (!sent.invitee || !sent.host) failed = true;
-    } catch (mailError) {
-      failed = true;
-      console.error(`Refund: cancel email for booking ${booking.id} failed`, mailError);
-    }
-  }
-  return failed;
-}
-
 async function sendAdminRefundEmail(options: {
+  title: string;
   subject: string;
   lines: string[];
   details: [string, string][];
   button?: { label: string; href: string };
 }): Promise<void> {
-  const { subject, lines, details, button } = options;
+  const { title, subject, lines, details, button } = options;
   const detailsHtml = details
     .map(([label, value]) => `<strong>${escapeHtml(label)}:</strong> ${escapeHtml(value)}`)
     .join("<br>");
   const html = emailLayout({
     preheader: lines[0],
-    title: subject.split(":")[0],
+    title,
     bodyHtml: lines.map((line) => paragraph(escapeHtml(line))).join("") + paragraph(detailsHtml),
     button: button ?? { label: "Open orders", href: `${SITE_URL}/admin` },
   });

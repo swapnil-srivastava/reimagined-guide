@@ -93,8 +93,6 @@ export interface BookingEmailInput {
   identity: { uid: string; sequence: number };
   /** The buyer's /book/<token> page, when known */
   manageUrl?: string;
-  /** "refund": the order was refunded in Stripe, so the call is off for good */
-  cancelledBy?: "invitee" | "host" | "refund";
   reason?: string | null;
 }
 
@@ -129,14 +127,14 @@ export function sendInviteeEmail(input: BookingEmailInput): Promise<boolean> {
     subject = `Cancelled: ${type.name} on ${when(booking, zone)}`;
     title = "Your call is cancelled";
     intro =
-      input.cancelledBy === "refund"
+      booking.cancelled_by === "refund"
         ? "Your order was refunded, so this call is cancelled and taken off your calendar."
-        : input.cancelledBy === "host"
+        : booking.cancelled_by === "host"
         ? `${host.name} had to cancel your call. Sorry about that. You can pick a new time with the link in your order email${manageUrl ? " or the button below" : ""}.`
         : manageUrl
           ? "Your call is cancelled, as you asked. You can pick a new time whenever you like."
           : "Your call is cancelled, as you asked.";
-    button = manageUrl && input.cancelledBy !== "refund" ? { label: "Pick a new time", href: manageUrl } : undefined;
+    button = manageUrl && booking.cancelled_by !== "refund" ? { label: "Pick a new time", href: manageUrl } : undefined;
   } else if (event === "rescheduled") {
     subject = `Rescheduled: ${type.name} is now ${when(booking, zone)}`;
     title = "Your call is rescheduled";
@@ -190,7 +188,7 @@ export async function sendHostEmail(input: BookingEmailInput): Promise<boolean> 
   if (previous && event === "rescheduled") rows.push(["Was", when(previous, zone)]);
   if (booking.notes) rows.push(["Notes", booking.notes]);
   if (event === "cancelled") {
-    rows.push(["Cancelled by", input.cancelledBy === "refund" ? "Refund" : input.cancelledBy === "host" ? "You" : booking.invitee_name]);
+    rows.push(["Cancelled by", booking.cancelled_by === "refund" ? "Refund" : booking.cancelled_by === "host" ? "You" : booking.invitee_name]);
     if (input.reason) rows.push(["Reason", input.reason]);
   }
 

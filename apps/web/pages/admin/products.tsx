@@ -18,12 +18,14 @@ import {
   MAX_PRICE,
   MAX_STOCK,
   ProductDraft,
+  isLowStock,
   stockLevel,
   validateDraft,
 } from "../../lib/product/edit";
 
 // e.g. localhost:3000/admin/products?filter=low
-// Admins change product names, prices and stock here. Stock also goes down
+// Admins change product names, prices and stock here (admin_update_product,
+// migration 20261015170000; stock is saved as a change). Stock also goes down
 // with each paid order (save_order_items) and back up on a full refund, and
 // the admin gets an email when a sale takes a product to its low-stock level.
 
@@ -76,10 +78,10 @@ const m = defineMessages({
   cancel: { id: "products-admin-cancel", description: "Products admin: close the form without saving", defaultMessage: "Cancel" },
   saved: { id: "products-admin-saved", description: "Products admin: the changes were saved", defaultMessage: "Saved {name}." },
   saveFailed: { id: "products-admin-save-failed", description: "Products admin: saving failed", defaultMessage: "Saving failed ({error}). Please try again." },
-  stockMoved: {
-    id: "products-admin-stock-moved",
-    description: "Products admin: stock changed (a sale or refund) while the form was open",
-    defaultMessage: "Stock changed to {stock} while you were editing, probably a sale. Check the number and save again.",
+  stockBelowZero: {
+    id: "products-admin-stock-below-zero",
+    description: "Products admin: the stock change would go below 0 because of sales while the form was open",
+    defaultMessage: "That would take stock below 0: some sold while you were editing. Close the form, open it again and check the number.",
   },
   gone: { id: "products-admin-gone", description: "Products admin: the product was deleted meanwhile", defaultMessage: "This product no longer exists." },
   errRequired: { id: "products-admin-err-required", description: "Products admin field error: empty", defaultMessage: "Required." },
@@ -169,7 +171,7 @@ function ProductsAdmin() {
   const removeProduct = (id: string) => setProducts((list) => (list ?? []).filter((p) => p.id !== id));
 
   const lowCount = useMemo(
-    () => (products ?? []).filter((p) => stockLevel(p.stock, p.low_stock_threshold) !== "ok").length,
+    () => (products ?? []).filter(isLowStock).length,
     [products]
   );
 
@@ -177,7 +179,7 @@ function ProductsAdmin() {
     const needle = query.trim().toLocaleLowerCase();
     const list = (products ?? []).filter(
       (p) =>
-        (filter === "all" || stockLevel(p.stock, p.low_stock_threshold) !== "ok") &&
+        (filter === "all" || isLowStock(p)) &&
         (!needle || p.name.toLocaleLowerCase().includes(needle) || (p.description ?? "").toLocaleLowerCase().includes(needle))
     );
     // Low on stock: the emptiest first
@@ -272,7 +274,6 @@ function ProductsAdmin() {
                       setEditingId(null);
                       setSavedName(row.name);
                     }}
-                    onChanged={replaceProduct}
                     onGone={() => {
                       removeProduct(product.id);
                       setEditingId(null);
@@ -302,7 +303,6 @@ function ProductItem({
   onEdit,
   onClose,
   onSaved,
-  onChanged,
   onGone,
 }: {
   product: ProductRow;
@@ -310,7 +310,6 @@ function ProductItem({
   onEdit: () => void;
   onClose: () => void;
   onSaved: (row: ProductRow) => void;
-  onChanged: (row: ProductRow) => void;
   onGone: () => void;
 }) {
   const intl = useIntl();
@@ -346,7 +345,7 @@ function ProductItem({
           </Button>
         )}
       </div>
-      {editing && <EditForm product={product} onClose={onClose} onSaved={onSaved} onChanged={onChanged} onGone={onGone} />}
+      {editing && <EditForm product={product} onClose={onClose} onSaved={onSaved} onGone={onGone} />}
     </article>
   );
 }
@@ -363,23 +362,18 @@ function EditForm({
   product,
   onClose,
   onSaved,
-  onChanged,
   onGone,
 }: {
   product: ProductRow;
   onClose: () => void;
   onSaved: (row: ProductRow) => void;
-  onChanged: (row: ProductRow) => void;
   onGone: () => void;
 }) {
   const intl = useIntl();
   const id = useId();
   const [draft, setDraft] = useState<ProductDraft>(() => toDraft(product));
-  // The stock this form started from: a save only goes through if it is
-  // still the stock in the database, so a sale in the meantime isn't lost
-  const [baseStock, setBaseStock] = useState(product.stock);
   const [errors, setErrors] = useState<Partial<Record<keyof ProductDraft, FieldError>>>({});
-  const [notice, setNotice] = useState<{ tone: "danger" | "warning"; text: string } | null>(null);
+  const [failure, setFailure] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
 
   const set = (field: keyof ProductDraft) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -387,7 +381,7 @@ function EditForm({
 
   const stepStock = (delta: number) =>
     setDraft((d) => {
-      const current = /^\d+$/.test(d.stock.trim()) ? Number(d.stock.trim()) : baseStock;
+      const current = /^\d+$/.test(d.stock.trim()) ? Number(d.stock.trim()) : product.stock;
       return { ...d, stock: String(Math.min(MAX_STOCK, Math.max(0, current + delta))) };
     });
 
@@ -407,7 +401,7 @@ function EditForm({
 
   const save = async (e: React.FormEvent) => {
     e.preventDefault();
-    setNotice(null);
+    setFailure(null);
     const checked = validateDraft(draft);
     if ("errors" in checked) {
       setErrors(checked.errors);
@@ -418,129 +412,87 @@ function EditForm({
     }
     setErrors({});
     setSaving(true);
-    // Stock left as it was isn't written, so a sale meanwhile can't block
-    // a price or name change
-    const { stock, ...rest } = checked.changes;
-    const update = supaClient.from("products").update(stock === baseStock ? rest : checked.changes).eq("id", product.id);
-    const { data, error } = await (stock === baseStock ? update : update.eq("stock", baseStock)).select(PRODUCT_COLUMNS);
-    if (error) {
-      setSaving(false);
-      setNotice({ tone: "danger", text: intl.formatMessage(m.saveFailed, { error: error.message }) });
-      return;
-    }
-    if (data && data.length > 0) {
-      setSaving(false);
-      onSaved(data[0] as ProductRow);
-      return;
-    }
-
-    // Nothing matched: the stock moved (a sale or refund), or the product is gone
-    const { data: fresh, error: freshError } = await supaClient
-      .from("products")
-      .select(PRODUCT_COLUMNS)
-      .eq("id", product.id)
-      .maybeSingle();
+    // Stock is saved as a change from what the form opened with, so a sale
+    // between opening and saving is kept rather than overwritten
+    const { changes } = checked;
+    const { data, error } = await supaClient.rpc("admin_update_product", {
+      p_product_id: product.id,
+      p_name: changes.name,
+      p_description: changes.description,
+      p_price: changes.price,
+      p_low_stock_threshold: changes.low_stock_threshold,
+      p_stock_change: changes.stock - product.stock,
+    });
     setSaving(false);
-    if (freshError) {
-      setNotice({ tone: "danger", text: intl.formatMessage(m.saveFailed, { error: freshError.message }) });
+    if (error) {
+      // 23514: the change would take stock below 0 (sales took more meanwhile)
+      setFailure(error.code === "23514" ? intl.formatMessage(m.stockBelowZero) : intl.formatMessage(m.saveFailed, { error: error.message }));
       return;
     }
-    if (!fresh) {
-      setNotice({ tone: "danger", text: intl.formatMessage(m.gone) });
+    const row = (data as ProductRow[] | null)?.[0];
+    if (!row) {
+      setFailure(intl.formatMessage(m.gone));
       setTimeout(onGone, 2500);
       return;
     }
-    const row = fresh as ProductRow;
-    onChanged(row);
-    setBaseStock(row.stock);
-    setDraft((d) => ({ ...d, stock: String(row.stock) }));
-    setNotice({ tone: "warning", text: intl.formatMessage(m.stockMoved, { stock: row.stock }) });
-    document.getElementById(`${id}-stock`)?.focus();
+    onSaved(row);
   };
 
-  const fieldProps = (field: keyof ProductDraft) => ({
-    id: `${id}-${field}`,
-    "aria-invalid": errors[field] ? true : undefined,
-    "aria-describedby": errors[field] ? `${id}-${field}-error` : undefined,
-  });
-  const fieldError = (field: keyof ProductDraft) =>
-    errors[field] ? (
-      <p id={`${id}-${field}-error`} className="text-xs font-medium text-[var(--status-danger)]">
-        {errorText(field)}
-      </p>
-    ) : null;
+  // A labelled input with its id, error line and aria wiring
+  const field = (name: keyof ProductDraft, label: string, input: (props: Record<string, unknown>) => React.ReactNode, hint?: string) => (
+    <div className="flex flex-col gap-1">
+      <Field label={label} htmlFor={`${id}-${name}`} hint={hint}>
+        {input({
+          id: `${id}-${name}`,
+          value: draft[name],
+          onChange: set(name),
+          autoComplete: "off",
+          "aria-invalid": errors[name] ? true : undefined,
+          "aria-describedby": errors[name] ? `${id}-${name}-error` : undefined,
+        })}
+      </Field>
+      {errors[name] && (
+        <p id={`${id}-${name}-error`} className="text-xs font-medium text-[var(--status-danger)]">
+          {errorText(name)}
+        </p>
+      )}
+    </div>
+  );
 
   return (
     <form onSubmit={save} noValidate className="mt-4 pt-4 border-t border-[var(--border-subtle)] flex flex-col gap-4">
       <div className="grid gap-4 sm:grid-cols-2">
-        <div className="sm:col-span-2 flex flex-col gap-1">
-          <Field label={intl.formatMessage(m.name)} htmlFor={`${id}-name`}>
-            <input {...fieldProps("name")} className={inputClass} value={draft.name} onChange={set("name")} maxLength={MAX_NAME + 20} autoComplete="off" />
-          </Field>
-          {fieldError("name")}
+        <div className="sm:col-span-2">
+          {field("name", intl.formatMessage(m.name), (props) => <input {...props} className={inputClass} maxLength={MAX_NAME + 20} />)}
         </div>
-        <div className="sm:col-span-2 flex flex-col gap-1">
-          <Field label={intl.formatMessage(m.description)} htmlFor={`${id}-description`}>
-            <textarea
-              {...fieldProps("description")}
-              className={`${inputClass} min-h-[88px]`}
-              rows={3}
-              value={draft.description}
-              onChange={set("description")}
-            />
-          </Field>
-          {fieldError("description")}
+        <div className="sm:col-span-2">
+          {field("description", intl.formatMessage(m.description), (props) => (
+            <textarea {...props} className={`${inputClass} min-h-[88px]`} rows={3} />
+          ))}
         </div>
-        <div className="flex flex-col gap-1">
-          <Field label={intl.formatMessage(m.price)} htmlFor={`${id}-price`}>
-            <input
-              {...fieldProps("price")}
-              className={inputClass}
-              inputMode="decimal"
-              autoComplete="off"
-              value={draft.price}
-              onChange={set("price")}
-            />
-          </Field>
-          {fieldError("price")}
-        </div>
-        <div className="flex flex-col gap-1">
-          <Field label={intl.formatMessage(m.stock)} htmlFor={`${id}-stock`}>
-            <div className="flex gap-2">
-              <Button onClick={() => stepStock(-1)} aria-label={intl.formatMessage(m.less)} className="w-11 shrink-0 px-0">
-                <FontAwesomeIcon icon={faMinus} className="w-3.5 h-3.5" aria-hidden="true" />
-              </Button>
-              <input
-                {...fieldProps("stock")}
-                className={`${inputClass} text-center tabular-nums`}
-                inputMode="numeric"
-                autoComplete="off"
-                value={draft.stock}
-                onChange={set("stock")}
-              />
-              <Button onClick={() => stepStock(1)} aria-label={intl.formatMessage(m.more)} className="w-11 shrink-0 px-0">
-                <FontAwesomeIcon icon={faPlus} className="w-3.5 h-3.5" aria-hidden="true" />
-              </Button>
-            </div>
-          </Field>
-          {fieldError("stock")}
-        </div>
-        <div className="sm:col-span-2 flex flex-col gap-1 sm:max-w-xs">
-          <Field label={intl.formatMessage(m.lowStock)} htmlFor={`${id}-lowStock`} hint={intl.formatMessage(m.lowStockHint)}>
-            <input
-              {...fieldProps("lowStock")}
-              className={`${inputClass} tabular-nums`}
-              inputMode="numeric"
-              autoComplete="off"
-              value={draft.lowStock}
-              onChange={set("lowStock")}
-            />
-          </Field>
-          {fieldError("lowStock")}
+        {field("price", intl.formatMessage(m.price), (props) => <input {...props} className={inputClass} inputMode="decimal" />)}
+        {field("stock", intl.formatMessage(m.stock), (props) => (
+          <div className="flex gap-2">
+            <Button onClick={() => stepStock(-1)} aria-label={intl.formatMessage(m.less)} className="w-11 shrink-0 px-0">
+              <FontAwesomeIcon icon={faMinus} className="w-3.5 h-3.5" aria-hidden="true" />
+            </Button>
+            <input {...props} className={`${inputClass} text-center tabular-nums`} inputMode="numeric" />
+            <Button onClick={() => stepStock(1)} aria-label={intl.formatMessage(m.more)} className="w-11 shrink-0 px-0">
+              <FontAwesomeIcon icon={faPlus} className="w-3.5 h-3.5" aria-hidden="true" />
+            </Button>
+          </div>
+        ))}
+        <div className="sm:col-span-2 sm:max-w-xs">
+          {field(
+            "lowStock",
+            intl.formatMessage(m.lowStock),
+            (props) => <input {...props} className={`${inputClass} tabular-nums`} inputMode="numeric" />,
+            intl.formatMessage(m.lowStockHint)
+          )}
         </div>
       </div>
 
-      {notice && <Notice tone={notice.tone}>{notice.text}</Notice>}
+      {failure && <Notice tone="danger">{failure}</Notice>}
 
       <div className="flex flex-wrap gap-2">
         <Button type="submit" variant="primary" disabled={saving}>

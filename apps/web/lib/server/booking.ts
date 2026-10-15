@@ -6,6 +6,8 @@ import { computeSlots, Slot } from "../booking/slots";
 import { rulesOf } from "../booking/types";
 import type { Booking, BookingHost, BookingType } from "../booking/types";
 import type { Database } from "../../database.types";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import { sendBookingEmails } from "./bookingEmails";
 
 // Server side of the buyer's booking page (/book/<token>). Everything here
 // uses the service role client, so the API routes must check the token
@@ -249,6 +251,37 @@ export async function inviteIdentity(booking: Booking): Promise<{ uid: string; s
     depth++;
   }
   return { uid: `${rootId}@swapnilsrivastava.eu`, sequence: depth };
+}
+
+/**
+ * Emails the buyer and host that a call was cancelled by the host or by a
+ * refund (the booking row's cancelled_by says which). Past calls are
+ * cancelled quietly. Returns whether both emails went out, or null when
+ * none were due. Never throws.
+ */
+export async function sendCancelledEmails(client: SupabaseClient<Database>, booking: Booking): Promise<boolean | null> {
+  if (Date.parse(booking.starts_at) <= Date.now()) return null;
+  try {
+    const [{ data: type }, { data: host }, identity] = await Promise.all([
+      client.from("booking_types").select("*").eq("id", booking.booking_type_id).single(),
+      client.from("booking_hosts").select("*").eq("id", booking.host_id).single(),
+      inviteIdentity(booking),
+    ]);
+    if (!type || !host) return false;
+    const sent = await sendBookingEmails({
+      event: "cancelled",
+      booking,
+      type,
+      host,
+      identity,
+      // A refund's reason is in the email's own wording
+      reason: booking.cancelled_by === "refund" ? null : booking.cancel_reason,
+    });
+    return sent.invitee && sent.host;
+  } catch (error) {
+    console.error(`Cancel emails for booking ${booking.id} failed`, error);
+    return false;
+  }
 }
 
 /** What a failed booking_book / booking_reschedule call means for the buyer */

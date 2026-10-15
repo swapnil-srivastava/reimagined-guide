@@ -1171,6 +1171,17 @@ export type Database = {
         Args: { p_post_id: string; p_note: string }
         Returns: Database["public"]["Tables"]["post_drafts"]["Row"]
       }
+      admin_update_product: {
+        Args: {
+          p_product_id: string
+          p_name: string
+          p_description: string | null
+          p_price: number
+          p_low_stock_threshold: number
+          p_stock_change?: number
+        }
+        Returns: Database["public"]["Tables"]["products"]["Row"][]
+      }
       mark_order_refunded: {
         Args: {
           p_order_id: string

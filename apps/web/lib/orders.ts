@@ -29,7 +29,7 @@ export interface OrderRow {
   order_items: OrderItemRow[];
 }
 
-const metaString = (order: OrderRow, key: string): string | null => {
+const metaString = (order: Pick<OrderRow, "metadata">, key: string): string | null => {
   const value = order.metadata?.[key];
   return typeof value === "string" && value.trim() ? value : null;
 };
@@ -39,7 +39,7 @@ const metaAmount = (order: Pick<OrderRow, "metadata">, key: string): number => {
   return Number.isFinite(value) && value > 0 ? value : 0;
 };
 
-export const customerEmail = (order: OrderRow) => metaString(order, "customer_email");
+export const customerEmail = (order: Pick<OrderRow, "metadata">) => metaString(order, "customer_email");
 
 /** Promo code discount taken off at Stripe checkout, saved by the webhook */
 export const discountAmount = (order: OrderRow) => metaAmount(order, "discount");

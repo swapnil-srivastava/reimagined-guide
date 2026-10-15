@@ -133,14 +133,15 @@ const handler = async (
 
         // Line prices are before the discount; this row explains the total
         if (discount > 0) {
-          const label = `Discount${promoCode ? ` (${escapeHtml(promoCode)})` : ''}`;
+          const label = promoCode ? `Discount (${promoCode})` : 'Discount';
+          const amount = `−€${discount.toFixed(2)}`;
           orderItemsHtml += `
             <tr>
-              <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;" colspan="3">${label}</td>
-              <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; text-align: right;">−€${discount.toFixed(2)}</td>
+              <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;" colspan="3">${escapeHtml(label)}</td>
+              <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; text-align: right;">${amount}</td>
             </tr>
           `;
-          orderItemsText += `Discount${promoCode ? ` (${promoCode})` : ''} - −€${discount.toFixed(2)}\n`;
+          orderItemsText += `${label} - ${amount}\n`;
         }
 
         // ============================================
