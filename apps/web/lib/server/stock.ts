@@ -75,7 +75,9 @@ export async function sendLowStockEmail(lowStock: LowStock[]): Promise<void> {
       ? lowStock[0].stock === 0
         ? `Sold out: ${lowStock[0].name}`
         : `Low stock: ${lowStock[0].name} has ${lowStock[0].stock} left`
-      : `Low stock: ${lowStock.length} products`;
+      : lowStock.every((p) => p.stock === 0)
+        ? `Sold out: ${lowStock.length} products`
+        : `Low stock: ${lowStock.length} products`;
   const url = `${SITE_URL}/admin/products?filter=low`;
   const html = emailLayout({
     preheader: lines.join(", "),
@@ -86,7 +88,7 @@ export async function sendLowStockEmail(lowStock: LowStock[]): Promise<void> {
       paragraph("Restock them on the products page, or change the level there if this is too early."),
     button: { label: "Open products", href: url },
   });
-  const text = `A sale just took these products to their low-stock level or below:\n${lines.join("\n")}\n\nRestock them here: ${url}`;
+  const text = `A sale just took these products to their low-stock level or below:\n${lines.join("\n")}\n\nRestock them, or change the level if this is too early: ${url}`;
   try {
     await sendMail(ADMIN_EMAIL, subject, html, text);
   } catch (error) {

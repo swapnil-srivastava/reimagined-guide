@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useId, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -34,7 +34,7 @@ const m = defineMessages({
   subtitle: {
     id: "products-admin-subtitle",
     description: "Products admin page subtitle",
-    defaultMessage: "Prices and stock for the shop. Stock goes down with each sale, and you get an email when a product runs low.",
+    defaultMessage: "Prices and stock for the shop. Stock goes down with each sale.",
   },
   back: { id: "products-admin-back", description: "Link back to the admin page", defaultMessage: "Admin" },
   add: { id: "products-admin-add", description: "Link to the form that adds a product, on the shop page", defaultMessage: "Add a product" },
@@ -49,6 +49,17 @@ const m = defineMessages({
     id: "products-admin-summary",
     description: "Products admin: number of products and how many are low on stock",
     defaultMessage: "{count, plural, one {# product} other {# products}} · {low, plural, =0 {none low on stock} other {# low on stock}}",
+  },
+  shownCount: {
+    id: "products-admin-shown",
+    description: "Products admin: how many products match the search or filter",
+    defaultMessage: "{count, plural, =0 {No matches} one {# shown} other {# shown}}",
+  },
+  loading: { id: "products-admin-loading", description: "Products admin: screen reader text while loading", defaultMessage: "Loading products…" },
+  discard: {
+    id: "products-admin-discard",
+    description: "Products admin: confirm closing a form with unsaved changes",
+    defaultMessage: "Your changes to {name} aren't saved. Close the form anyway?",
   },
   search: { id: "products-admin-search", description: "Products admin: search box label", defaultMessage: "Search products" },
   filter: { id: "products-admin-filter", description: "Products admin: label of the filter chips", defaultMessage: "Show" },
@@ -65,11 +76,11 @@ const m = defineMessages({
   description: { id: "products-admin-description", description: "Products admin field: product description", defaultMessage: "Description" },
   price: { id: "products-admin-price", description: "Products admin field: price in euros", defaultMessage: "Price (€)" },
   stock: { id: "products-admin-stock", description: "Products admin field: number in stock", defaultMessage: "In stock" },
-  lowStock: { id: "products-admin-low-stock", description: "Products admin field: low-stock email level", defaultMessage: "Low-stock email at" },
+  lowStock: { id: "products-admin-low-stock", description: "Products admin field: low-stock email level", defaultMessage: "Email me when stock drops to" },
   lowStockHint: {
     id: "products-admin-low-stock-hint",
     description: "Products admin: explains the low-stock level",
-    defaultMessage: "You get an email when a sale takes stock to this number or below. 0 means only when it sells out.",
+    defaultMessage: "Or lower, after a sale. 0 means only when it sells out.",
   },
   less: { id: "products-admin-stock-less", description: "Products admin: lower stock by one", defaultMessage: "Remove one from stock" },
   more: { id: "products-admin-stock-more", description: "Products admin: raise stock by one", defaultMessage: "Add one to stock" },
@@ -81,7 +92,7 @@ const m = defineMessages({
   stockBelowZero: {
     id: "products-admin-stock-below-zero",
     description: "Products admin: the stock change would go below 0 because of sales while the form was open",
-    defaultMessage: "That would take stock below 0: some sold while you were editing. Close the form, open it again and check the number.",
+    defaultMessage: "Some sold while you were editing, so stock would go below 0. Stock is now {stock}. Check the number and save again.",
   },
   gone: { id: "products-admin-gone", description: "Products admin: the product was deleted meanwhile", defaultMessage: "This product no longer exists." },
   errRequired: { id: "products-admin-err-required", description: "Products admin field error: empty", defaultMessage: "Required." },
@@ -146,6 +157,20 @@ function ProductsAdmin() {
   const [query, setQuery] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
   const [savedName, setSavedName] = useState<string | null>(null);
+  // The open form's unsaved changes, so they aren't lost by accident
+  const dirty = useRef(false);
+  const editingName = (products ?? []).find((p) => p.id === editingId)?.name ?? "";
+  const mayClose = () => !dirty.current || window.confirm(intl.formatMessage(m.discard, { name: editingName }));
+
+  useEffect(() => {
+    const warn = (e: BeforeUnloadEvent) => {
+      if (!dirty.current) return;
+      e.preventDefault();
+      e.returnValue = "";
+    };
+    window.addEventListener("beforeunload", warn);
+    return () => window.removeEventListener("beforeunload", warn);
+  }, []);
 
   const filter: Filter = router.query.filter === "low" ? "low" : "all";
   const setFilter = (next: Filter) =>
@@ -249,9 +274,17 @@ function ProductsAdmin() {
 
           <p className="text-sm text-[var(--text-muted)]" aria-live="polite">
             {intl.formatMessage(m.summary, { count: products.length, low: lowCount })}
+            {(query.trim() || filter !== "all") && ` · ${intl.formatMessage(m.shownCount, { count: shown.length })}`}
           </p>
 
-          {savedName && <Notice tone="success">{intl.formatMessage(m.saved, { name: savedName })}</Notice>}
+          {/* Always rendered, so screen readers announce the text when it appears */}
+          <div role="status">
+            {savedName && (
+              <div className="rounded-lg border-l-4 border-[var(--status-success)] bg-[var(--surface-inset)] px-3 py-2 text-sm">
+                {intl.formatMessage(m.saved, { name: savedName })}
+              </div>
+            )}
+          </div>
 
           {shown.length === 0 ? (
             <Panel>
@@ -265,16 +298,28 @@ function ProductsAdmin() {
                     product={product}
                     editing={editingId === product.id}
                     onEdit={() => {
+                      if (!mayClose()) return;
+                      dirty.current = false;
                       setSavedName(null);
                       setEditingId(product.id);
                     }}
-                    onClose={() => setEditingId(null)}
+                    onClose={() => {
+                      if (!mayClose()) return;
+                      dirty.current = false;
+                      setEditingId(null);
+                    }}
+                    onRefresh={replaceProduct}
+                    onDirty={(value) => {
+                      dirty.current = value;
+                    }}
                     onSaved={(row) => {
+                      dirty.current = false;
                       replaceProduct(row);
                       setEditingId(null);
                       setSavedName(row.name);
                     }}
                     onGone={() => {
+                      dirty.current = false;
                       removeProduct(product.id);
                       setEditingId(null);
                     }}
@@ -302,6 +347,8 @@ function ProductItem({
   editing,
   onEdit,
   onClose,
+  onRefresh,
+  onDirty,
   onSaved,
   onGone,
 }: {
@@ -309,10 +356,20 @@ function ProductItem({
   editing: boolean;
   onEdit: () => void;
   onClose: () => void;
+  onRefresh: (row: ProductRow) => void;
+  onDirty: (dirty: boolean) => void;
   onSaved: (row: ProductRow) => void;
   onGone: () => void;
 }) {
   const intl = useIntl();
+  const editButton = useRef<HTMLButtonElement>(null);
+  const wasEditing = useRef(editing);
+  // The Edit button replaces the form, so focus goes back to it on close
+  useEffect(() => {
+    if (wasEditing.current && !editing) editButton.current?.focus();
+    wasEditing.current = editing;
+  }, [editing]);
+
   return (
     <article
       className="rounded-2xl bg-[var(--surface-raised)] text-[var(--text-primary)] border border-[var(--border-subtle)] shadow-md p-4"
@@ -340,12 +397,12 @@ function ProductItem({
           </div>
         </div>
         {!editing && (
-          <Button onClick={onEdit} aria-label={intl.formatMessage(m.editFor, { name: product.name })}>
+          <Button ref={editButton} onClick={onEdit} aria-label={intl.formatMessage(m.editFor, { name: product.name })}>
             {intl.formatMessage(m.edit)}
           </Button>
         )}
       </div>
-      {editing && <EditForm product={product} onClose={onClose} onSaved={onSaved} onGone={onGone} />}
+      {editing && <EditForm product={product} onClose={onClose} onRefresh={onRefresh} onDirty={onDirty} onSaved={onSaved} onGone={onGone} />}
     </article>
   );
 }
@@ -358,14 +415,20 @@ const toDraft = (p: ProductRow): ProductDraft => ({
   lowStock: String(p.low_stock_threshold),
 });
 
+const FIELDS = ["name", "description", "price", "stock", "lowStock"] as const;
+
 function EditForm({
   product,
   onClose,
+  onRefresh,
+  onDirty,
   onSaved,
   onGone,
 }: {
   product: ProductRow;
   onClose: () => void;
+  onRefresh: (row: ProductRow) => void;
+  onDirty: (dirty: boolean) => void;
   onSaved: (row: ProductRow) => void;
   onGone: () => void;
 }) {
@@ -375,6 +438,21 @@ function EditForm({
   const [errors, setErrors] = useState<Partial<Record<keyof ProductDraft, FieldError>>>({});
   const [failure, setFailure] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [gone, setGone] = useState(false);
+  // Set on a failed save; focused once the errors have rendered, so screen
+  // readers read the field together with its error
+  const [focusField, setFocusField] = useState<keyof ProductDraft | null>("name");
+
+  useEffect(() => {
+    if (!focusField) return;
+    document.getElementById(`${id}-${focusField}`)?.focus();
+    setFocusField(null);
+  }, [focusField, id]);
+
+  useEffect(() => {
+    const initial = toDraft(product);
+    onDirty(FIELDS.some((f) => draft[f] !== initial[f]));
+  }, [draft, product, onDirty]);
 
   const set = (field: keyof ProductDraft) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setDraft((d) => ({ ...d, [field]: e.target.value }));
@@ -405,9 +483,7 @@ function EditForm({
     const checked = validateDraft(draft);
     if ("errors" in checked) {
       setErrors(checked.errors);
-      // Focus the first field with a problem
-      const first = (["name", "description", "price", "stock", "lowStock"] as const).find((f) => checked.errors[f]);
-      if (first) document.getElementById(`${id}-${first}`)?.focus();
+      setFocusField(FIELDS.find((f) => checked.errors[f]) ?? null);
       return;
     }
     setErrors({});
@@ -424,15 +500,27 @@ function EditForm({
       p_stock_change: changes.stock - product.stock,
     });
     setSaving(false);
+    if (error?.code === "23514") {
+      // The change would take stock below 0 (sales took more meanwhile):
+      // show the current stock, and save the next change from it
+      const { data: fresh } = await supaClient.from("products").select(PRODUCT_COLUMNS).eq("id", product.id).maybeSingle();
+      if (fresh) {
+        onRefresh(fresh as ProductRow);
+        setDraft((d) => ({ ...d, stock: String(fresh.stock) }));
+      }
+      setFailure(intl.formatMessage(m.stockBelowZero, { stock: fresh?.stock ?? "?" }));
+      setFocusField("stock");
+      return;
+    }
     if (error) {
-      // 23514: the change would take stock below 0 (sales took more meanwhile)
-      setFailure(error.code === "23514" ? intl.formatMessage(m.stockBelowZero) : intl.formatMessage(m.saveFailed, { error: error.message }));
+      setFailure(intl.formatMessage(m.saveFailed, { error: error.message }));
       return;
     }
     const row = (data as ProductRow[] | null)?.[0];
     if (!row) {
+      // Stays until Cancel, which then takes the product off the list
       setFailure(intl.formatMessage(m.gone));
-      setTimeout(onGone, 2500);
+      setGone(true);
       return;
     }
     onSaved(row);
@@ -441,15 +529,20 @@ function EditForm({
   // A labelled input with its id, error line and aria wiring
   const field = (name: keyof ProductDraft, label: string, input: (props: Record<string, unknown>) => React.ReactNode, hint?: string) => (
     <div className="flex flex-col gap-1">
-      <Field label={label} htmlFor={`${id}-${name}`} hint={hint}>
+      <Field label={label} htmlFor={`${id}-${name}`}>
         {input({
           id: `${id}-${name}`,
           value: draft[name],
           onChange: set(name),
           autoComplete: "off",
           "aria-invalid": errors[name] ? true : undefined,
-          "aria-describedby": errors[name] ? `${id}-${name}-error` : undefined,
+          "aria-describedby": [hint && `${id}-${name}-hint`, errors[name] && `${id}-${name}-error`].filter(Boolean).join(" ") || undefined,
         })}
+        {hint && (
+          <p id={`${id}-${name}-hint`} className="text-xs text-[var(--text-muted)]">
+            {hint}
+          </p>
+        )}
       </Field>
       {errors[name] && (
         <p id={`${id}-${name}-error`} className="text-xs font-medium text-[var(--status-danger)]">
@@ -495,10 +588,10 @@ function EditForm({
       {failure && <Notice tone="danger">{failure}</Notice>}
 
       <div className="flex flex-wrap gap-2">
-        <Button type="submit" variant="primary" disabled={saving}>
+        <Button type="submit" variant="primary" disabled={saving || gone}>
           {intl.formatMessage(saving ? m.saving : m.save)}
         </Button>
-        <Button onClick={onClose} disabled={saving}>
+        <Button onClick={gone ? onGone : onClose} disabled={saving}>
           {intl.formatMessage(m.cancel)}
         </Button>
       </div>
@@ -507,10 +600,14 @@ function EditForm({
 }
 
 function ListSkeleton() {
+  const intl = useIntl();
   return (
     <div className="flex flex-col gap-3" aria-busy="true">
+      <p role="status" className="sr-only">
+        {intl.formatMessage(m.loading)}
+      </p>
       {[0, 1, 2].map((i) => (
-        <div key={i} className="rounded-2xl bg-[var(--surface-raised)] border border-[var(--border-subtle)] p-4 flex items-center gap-4 animate-pulse">
+        <div key={i} className="rounded-2xl bg-[var(--surface-raised)] border border-[var(--border-subtle)] p-4 flex items-center gap-4 motion-safe:animate-pulse">
           <div className="w-14 h-14 rounded-lg bg-[var(--surface-inset)]" />
           <div className="flex-1">
             <div className="h-4 w-40 rounded bg-[var(--surface-inset)] mb-2" />

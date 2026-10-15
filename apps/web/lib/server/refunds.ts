@@ -102,7 +102,7 @@ export async function handleChargeRefunded(charge: Stripe.Charge): Promise<void>
     if (cancelled.length > 0) {
       lines.push(
         `Cancelled ${cancelled.length === 1 ? "1 upcoming call" : `${cancelled.length} upcoming calls`} and emailed the buyer${
-          emailsFailed ? ", but at least one email failed: please tell them yourself" : ""
+          emailsFailed ? ", but a cancellation email didn't send: check the buyer knows" : ""
         }.`
       );
     }

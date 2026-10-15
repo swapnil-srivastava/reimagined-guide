@@ -24,13 +24,12 @@ const variants = {
   accent: "bg-[var(--accent-ink)] text-[var(--bg-primary)] hover:opacity-90",
 };
 
-export function Button({
-  variant = "secondary",
-  className = "",
-  ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: keyof typeof variants }) {
-  return <button type="button" className={`${buttonBase} ${variants[variant]} ${className}`} {...props} />;
-}
+export const Button = React.forwardRef<
+  HTMLButtonElement,
+  React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: keyof typeof variants }
+>(function Button({ variant = "secondary", className = "", ...props }, ref) {
+  return <button ref={ref} type="button" className={`${buttonBase} ${variants[variant]} ${className}`} {...props} />;
+});
 
 export function Panel({
   title,

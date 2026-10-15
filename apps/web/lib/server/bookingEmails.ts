@@ -128,7 +128,7 @@ export function sendInviteeEmail(input: BookingEmailInput): Promise<boolean> {
     title = "Your call is cancelled";
     intro =
       booking.cancelled_by === "refund"
-        ? "Your order was refunded, so this call is cancelled and taken off your calendar."
+        ? "Your order was refunded, so this call is cancelled. You don't need to do anything."
         : booking.cancelled_by === "host"
         ? `${host.name} had to cancel your call. Sorry about that. You can pick a new time with the link in your order email${manageUrl ? " or the button below" : ""}.`
         : manageUrl
@@ -188,7 +188,7 @@ export async function sendHostEmail(input: BookingEmailInput): Promise<boolean> 
   if (previous && event === "rescheduled") rows.push(["Was", when(previous, zone)]);
   if (booking.notes) rows.push(["Notes", booking.notes]);
   if (event === "cancelled") {
-    rows.push(["Cancelled by", booking.cancelled_by === "refund" ? "Refund" : booking.cancelled_by === "host" ? "You" : booking.invitee_name]);
+    rows.push(["Cancelled by", booking.cancelled_by === "refund" ? "A refund" : booking.cancelled_by === "host" ? "You" : booking.invitee_name]);
     if (input.reason) rows.push(["Reason", input.reason]);
   }
 

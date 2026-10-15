@@ -48,7 +48,7 @@ export default function OrderItems({ order }: { order: OrderRow }) {
       {refunded > 0 && (
         <div className="flex items-baseline justify-between gap-4 pt-1">
           <FormattedMessage id="orders-refunded" description="Order line: amount refunded to the customer" defaultMessage="Refunded" />
-          <span className="tabular-nums">−{formatEuro(intl, refunded)}</span>
+          <span className="tabular-nums">{formatEuro(intl, refunded)}</span>
         </div>
       )}
     </div>

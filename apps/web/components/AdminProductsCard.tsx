@@ -14,6 +14,7 @@ const m = defineMessages({
     defaultMessage: "{count, plural, one {# product} other {# products}} · {low, plural, =0 {none low on stock} other {# low on stock}}",
   },
   open: { id: "admin-products-card-open", description: "Admin products card: open the products page", defaultMessage: "Manage products" },
+  loadFailed: { id: "admin-products-card-load-failed", description: "Admin products card: the products could not be loaded", defaultMessage: "Couldn't load products." },
   openLow: { id: "admin-products-card-open-low", description: "Admin products card: open the products that are low on stock", defaultMessage: "See low stock" },
 });
 
@@ -22,6 +23,7 @@ export default function AdminProductsCard() {
   const intl = useIntl();
   const [isAdmin, setIsAdmin] = useState(false);
   const [counts, setCounts] = useState<{ count: number; low: number } | null>(null);
+  const [failed, setFailed] = useState(false);
 
   useEffect(() => {
     supaClient.rpc("is_admin").then(async ({ data }) => {
@@ -31,6 +33,7 @@ export default function AdminProductsCard() {
       if (error) {
         // The products migration hasn't been run yet
         console.error("Loading products failed", error);
+        setFailed(true);
         return;
       }
       const list = products ?? [];
@@ -52,7 +55,7 @@ export default function AdminProductsCard() {
             <h2 id="admin-products-heading" className="text-xl font-bold">
               {intl.formatMessage(m.title)}
             </h2>
-            <p className="text-sm opacity-80">{counts ? intl.formatMessage(m.summary, counts) : " "}</p>
+            <p className="text-sm opacity-80">{counts ? intl.formatMessage(m.summary, counts) : failed ? intl.formatMessage(m.loadFailed) : " "}</p>
           </div>
         </div>
         <Link
