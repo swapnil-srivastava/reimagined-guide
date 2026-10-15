@@ -9,7 +9,6 @@ import {
   ORDER_SELECT,
   OrderRow,
   STATUS_PILL,
-  amountRefunded,
   customerEmail,
   formatEuro,
   formatOrderDate,
@@ -76,7 +75,9 @@ export default function AdminOrdersCard() {
       setIsAdmin(true);
       loadPage(0);
       // Totals over every order; fine at this volume (a few hundred rows)
-      const { data: all, error } = await supaClient.from("orders").select("total, created_at, metadata");
+      const { data: all, error } = await supaClient
+        .from("orders")
+        .select<string, { total: number; created_at: string | null; amount_refunded: unknown }>("total, created_at, amount_refunded:metadata->amount_refunded");
       if (error) {
         console.error("Loading order totals failed", error);
         return;
@@ -84,8 +85,8 @@ export default function AdminOrdersCard() {
       const since = Date.now() - 30 * DAY_MS;
       const recent = (all ?? []).filter((o) => o.created_at && new Date(o.created_at).getTime() >= since);
       // Refunds come off: revenue is what was paid and kept
-      const sum = (rows: { total: number; metadata: unknown }[]) =>
-        rows.reduce((acc, o) => acc + (Number(o.total) || 0) - amountRefunded(o as Pick<OrderRow, "metadata">), 0);
+      const sum = (rows: { total: number; amount_refunded: unknown }[]) =>
+        rows.reduce((acc, o) => acc + (Number(o.total) || 0) - (Number(o.amount_refunded) || 0), 0);
       setTotals({
         revenue30d: sum(recent),
         orders30d: recent.length,

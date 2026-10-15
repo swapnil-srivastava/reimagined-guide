@@ -49,7 +49,7 @@ export const promoCode = (order: OrderRow) => metaString(order, "promo_code");
 export const amountRefunded = (order: Pick<OrderRow, "metadata">) => metaAmount(order, "amount_refunded");
 
 /** Short order number customers can quote, e.g. "3F2A9C1B" */
-export const orderNumber = (order: OrderRow) => order.id.slice(0, 8).toUpperCase();
+export const orderNumber = (order: Pick<OrderRow, "id">) => order.id.slice(0, 8).toUpperCase();
 
 /** Product lines first, then tax and delivery, each group in saved order */
 export function sortedItems(order: OrderRow): OrderItemRow[] {

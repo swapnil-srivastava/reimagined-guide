@@ -94,18 +94,17 @@ const handler = async (
           }
         }
 
-        // Retrieve line items from the session with expanded product data
-        const lineItems = await stripe.checkout.sessions.listLineItems(session.id, {
-          expand: ['data.price.product'],
-        });
+        // Line items with their products, and the promo code when there was a discount
+        const discount = (session.total_details?.amount_discount || 0) / 100;
+        const [lineItems, promoCode] = await Promise.all([
+          stripe.checkout.sessions.listLineItems(session.id, { expand: ['data.price.product'] }),
+          discount > 0 ? promotionCodeOf(stripe, session.id) : Promise.resolve(null),
+        ]);
 
         // Build order items HTML for email
         let orderItemsHtml = '';
         let orderItemsText = '';
         const orderItemsData: OrderItemData[] = [];
-
-        const discount = (session.total_details?.amount_discount || 0) / 100;
-        const promoCode = discount > 0 ? await promotionCodeOf(stripe, session.id) : null;
 
         lineItems.data.forEach((item) => {
           const product = item.price?.product as Stripe.Product;

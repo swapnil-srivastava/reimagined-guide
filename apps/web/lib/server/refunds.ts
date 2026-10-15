@@ -1,6 +1,7 @@
 import type Stripe from "stripe";
 import { supaServerClient } from "../../supa-server-client";
 import type { Booking, BookingHost, BookingType } from "../booking/types";
+import { orderNumber } from "../orders";
 import { inviteIdentity } from "./booking";
 import { sendBookingEmails } from "./bookingEmails";
 import { emailLayout, paragraph } from "./emailLayout";
@@ -50,7 +51,7 @@ export async function handleChargeRefunded(charge: Stripe.Charge): Promise<void>
   const { data: order, error: findError } = paymentIntentId
     ? await supaServerClient
         .from("orders")
-        .select("id, total, order_type, metadata")
+        .select("id, metadata")
         .eq("payment_intent_id", paymentIntentId)
         .maybeSingle()
     : { data: null, error: null };
@@ -91,11 +92,11 @@ export async function handleChargeRefunded(charge: Stripe.Charge): Promise<void>
   const emailsFailed = await emailCancelledCalls(cancelled);
 
   const restocked = result.restocked ?? [];
-  const orderNumber = order.id.slice(0, 8).toUpperCase();
+  const number = orderNumber(order);
   const email = (order.metadata as Record<string, unknown> | null)?.customer_email;
   const lines: string[] = [];
   if (result.status === "refunded") {
-    lines.push(`Order ${orderNumber} was fully refunded (${euro(refunded)}). It now shows as Refunded.`);
+    lines.push(`Order ${number} was fully refunded (${euro(refunded)}). It now shows as Refunded.`);
     if (restocked.length > 0) {
       lines.push(`Put back into stock: ${restocked.map((r) => `${r.name} +${r.quantity} (now ${r.stock})`).join(", ")}.`);
     }
@@ -109,13 +110,13 @@ export async function handleChargeRefunded(charge: Stripe.Charge): Promise<void>
     if ((result.links_revoked ?? 0) > 0) lines.push("Their booking link is switched off.");
   } else {
     lines.push(
-      `Order ${orderNumber} was partly refunded: ${euro(refunded)} of ${euro(paid)} so far. It now shows as Partly refunded.`,
+      `Order ${number} was partly refunded: ${euro(refunded)} of ${euro(paid)} so far. It now shows as Partly refunded.`,
       "Stock and bookings were not changed, because Stripe doesn't say which items were refunded. Adjust stock on the products page if needed."
     );
   }
 
   await sendAdminRefundEmail({
-    subject: `${result.status === "refunded" ? "Refunded" : "Partly refunded"}: ${euro(refunded)} for order ${orderNumber}`,
+    subject: `${result.status === "refunded" ? "Refunded" : "Partly refunded"}: ${euro(refunded)} for order ${number}`,
     lines,
     details: [
       ["Customer", typeof email === "string" && email ? email : "Unknown"],

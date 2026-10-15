@@ -161,7 +161,9 @@ GRANT EXECUTE ON FUNCTION public.save_order_items(UUID, JSONB) TO service_role;
 -- refunded so far (in euros). Stripe retries webhooks and sends one event per
 -- refund, so this is safe to call any number of times, in any order:
 --   - a full refund sets status 'refunded' and puts every product of the
---     order back into stock, once (metadata.restocked_at marks it done)
+--     order back into stock, once (metadata.restocked_at marks it done). An
+--     oversold product only gets back what the sale actually took
+--     (metadata.stock_shortfall), so restocking never invents stock
 --   - a partial refund sets 'partially_refunded' and leaves stock alone,
 --     because Stripe doesn't say which items were refunded; it never
 --     downgrades an order that is already 'refunded'
@@ -213,12 +215,19 @@ BEGIN
   IF p_full AND NOT (v_metadata ? 'restocked_at') THEN
     -- Same lock order as save_order_items(), so the two can't deadlock
     FOR v_item IN
-      SELECT oi.product_id, SUM(oi.quantity)::integer AS quantity
-      FROM public.order_items oi
-      WHERE oi.order_id = p_order_id AND oi.product_id IS NOT NULL
-      GROUP BY oi.product_id
+      SELECT oi.product_id, oi.quantity - COALESCE(s.ordered - s.in_stock, 0) AS quantity
+      FROM (
+        SELECT product_id, SUM(quantity)::integer AS quantity
+        FROM public.order_items
+        WHERE order_id = p_order_id AND product_id IS NOT NULL
+        GROUP BY product_id
+      ) oi
+      LEFT JOIN jsonb_to_recordset(COALESCE(v_order.metadata->'stock_shortfall', '[]'::jsonb))
+        AS s(product_id UUID, ordered INTEGER, in_stock INTEGER)
+        ON s.product_id = oi.product_id
       ORDER BY oi.product_id
     LOOP
+      CONTINUE WHEN v_item.quantity <= 0;
       UPDATE public.products
       SET stock = stock + v_item.quantity
       WHERE id = v_item.product_id
@@ -271,7 +280,10 @@ BEGIN
     'previous_status', v_order.status,
     'amount_refunded', v_amount,
     'changed', v_status IS DISTINCT FROM v_order.status
-      OR v_amount IS DISTINCT FROM COALESCE((v_order.metadata->>'amount_refunded')::numeric, 0),
+      OR v_amount IS DISTINCT FROM COALESCE((v_order.metadata->>'amount_refunded')::numeric, 0)
+      OR jsonb_array_length(v_restocked) > 0
+      OR jsonb_array_length(v_cancelled) > 0
+      OR v_links > 0,
     'restocked', v_restocked,
     'cancelled_bookings', v_cancelled,
     'links_revoked', v_links
