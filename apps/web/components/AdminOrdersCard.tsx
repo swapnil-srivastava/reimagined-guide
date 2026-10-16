@@ -75,14 +75,18 @@ export default function AdminOrdersCard() {
       setIsAdmin(true);
       loadPage(0);
       // Totals over every order; fine at this volume (a few hundred rows)
-      const { data: all, error } = await supaClient.from("orders").select("total, created_at");
+      const { data: all, error } = await supaClient
+        .from("orders")
+        .select<string, { total: number; created_at: string | null; amount_refunded: unknown }>("total, created_at, amount_refunded:metadata->amount_refunded");
       if (error) {
         console.error("Loading order totals failed", error);
         return;
       }
       const since = Date.now() - 30 * DAY_MS;
       const recent = (all ?? []).filter((o) => o.created_at && new Date(o.created_at).getTime() >= since);
-      const sum = (rows: { total: number }[]) => rows.reduce((acc, o) => acc + (Number(o.total) || 0), 0);
+      // Refunds come off: revenue is what was paid and kept
+      const sum = (rows: { total: number; amount_refunded: unknown }[]) =>
+        rows.reduce((acc, o) => acc + (Number(o.total) || 0) - (Number(o.amount_refunded) || 0), 0);
       setTotals({
         revenue30d: sum(recent),
         orders30d: recent.length,
@@ -129,7 +133,7 @@ export default function AdminOrdersCard() {
               icon={faEuroSign}
               label={<FormattedMessage id="admin-orders-revenue-30d" description="Revenue in the last 30 days" defaultMessage="Revenue, 30 days" />}
               value={formatEuro(intl, totals.revenue30d)}
-              detail={<FormattedMessage id="admin-orders-incl-tax" description="Revenue includes tax and delivery" defaultMessage="Including tax and delivery" />}
+              detail={<FormattedMessage id="admin-orders-incl-tax-refunds" description="Revenue includes tax and delivery, minus refunds" defaultMessage="Including tax and delivery, less refunds" />}
             />
             <Tile
               icon={faShoppingCart}
@@ -148,7 +152,7 @@ export default function AdminOrdersCard() {
               icon={faEuroSign}
               label={<FormattedMessage id="admin-orders-revenue-total" description="All-time revenue" defaultMessage="Revenue, all time" />}
               value={formatEuro(intl, totals.revenueTotal)}
-              detail={<FormattedMessage id="admin-orders-incl-tax" description="Revenue includes tax and delivery" defaultMessage="Including tax and delivery" />}
+              detail={<FormattedMessage id="admin-orders-incl-tax-refunds" description="Revenue includes tax and delivery, minus refunds" defaultMessage="Including tax and delivery, less refunds" />}
             />
             <Tile
               icon={faReceipt}

@@ -29,15 +29,27 @@ export interface OrderRow {
   order_items: OrderItemRow[];
 }
 
-const metaString = (order: OrderRow, key: string): string | null => {
+const metaString = (order: Pick<OrderRow, "metadata">, key: string): string | null => {
   const value = order.metadata?.[key];
   return typeof value === "string" && value.trim() ? value : null;
 };
 
-export const customerEmail = (order: OrderRow) => metaString(order, "customer_email");
+const metaAmount = (order: Pick<OrderRow, "metadata">, key: string): number => {
+  const value = Number(order.metadata?.[key]);
+  return Number.isFinite(value) && value > 0 ? value : 0;
+};
+
+export const customerEmail = (order: Pick<OrderRow, "metadata">) => metaString(order, "customer_email");
+
+/** Promo code discount taken off at Stripe checkout, saved by the webhook */
+export const discountAmount = (order: OrderRow) => metaAmount(order, "discount");
+export const promoCode = (order: OrderRow) => metaString(order, "promo_code");
+
+/** Refunded so far, saved by the webhook on charge.refunded */
+export const amountRefunded = (order: Pick<OrderRow, "metadata">) => metaAmount(order, "amount_refunded");
 
 /** Short order number customers can quote, e.g. "3F2A9C1B" */
-export const orderNumber = (order: OrderRow) => order.id.slice(0, 8).toUpperCase();
+export const orderNumber = (order: Pick<OrderRow, "id">) => order.id.slice(0, 8).toUpperCase();
 
 /** Product lines first, then tax and delivery, each group in saved order */
 export function sortedItems(order: OrderRow): OrderItemRow[] {
@@ -94,6 +106,8 @@ export function statusLabel(intl: IntlShape, status: string): string {
       return intl.formatMessage({ id: "orders-status-pending", description: "Order status: waiting for payment", defaultMessage: "Pending" });
     case "refunded":
       return intl.formatMessage({ id: "orders-status-refunded", description: "Order status: refunded", defaultMessage: "Refunded" });
+    case "partially_refunded":
+      return intl.formatMessage({ id: "orders-status-partly-refunded", description: "Order status: part of the payment was refunded", defaultMessage: "Partly refunded" });
     case "cancelled":
     case "canceled":
       return intl.formatMessage({ id: "orders-status-cancelled", description: "Order status: cancelled", defaultMessage: "Cancelled" });

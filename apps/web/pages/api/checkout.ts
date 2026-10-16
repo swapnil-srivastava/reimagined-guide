@@ -110,6 +110,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       payment_method_types: ['card'],
       line_items,
       mode: 'payment',
+      // Codes are made in the Stripe dashboard (Products → Coupons). The
+      // webhook saves the discount and code on the order.
+      allow_promotion_codes: true,
       success_url: `${req.headers.origin}/success`,
       cancel_url: `${req.headers.origin}/cancel`,
     };

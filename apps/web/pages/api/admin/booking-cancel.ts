@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getAuthedRequest } from "../../../lib/server/supabase-user";
-import { inviteIdentity } from "../../../lib/server/booking";
-import { sendBookingEmails } from "../../../lib/server/bookingEmails";
+import { sendCancelledEmails } from "../../../lib/server/booking";
 
 // The host cancels a call from /admin/booking: POST { bookingId, reason }.
 // Runs as the signed-in admin (row level security applies) and emails the
@@ -32,28 +31,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   // Whether the buyer and host emails went out, so the admin page can say so
-  let emailed: boolean | null = null;
-  try {
-    const [{ data: type }, { data: host }] = await Promise.all([
-      authed.client.from("booking_types").select("*").eq("id", booking.booking_type_id).single(),
-      authed.client.from("booking_hosts").select("*").eq("id", booking.host_id).single(),
-    ]);
-    // Past calls are cancelled quietly; the buyer only hears about upcoming ones
-    if (type && host && Date.parse(booking.starts_at) > Date.now()) {
-      const sent = await sendBookingEmails({
-        event: "cancelled",
-        booking,
-        type,
-        host,
-        identity: await inviteIdentity(booking),
-        cancelledBy: "host",
-        reason: booking.cancel_reason,
-      });
-      emailed = sent.invitee && sent.host;
-    }
-  } catch (mailError) {
-    emailed = false;
-    console.error("admin cancel email failed", mailError);
-  }
+  const emailed = await sendCancelledEmails(authed.client, booking);
   return res.status(200).json({ ok: true, emailed });
 }

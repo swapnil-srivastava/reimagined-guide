@@ -7,7 +7,9 @@ import { ADMIN_EMAIL, escapeHtml, sendMail } from '../../lib/server/mailer';
 import {
   itemsNotSavedHtml,
   itemsNotSavedText,
+  LowStock,
   saveOrderItems,
+  sendLowStockEmail,
   shortfallWarningHtml,
   shortfallWarningText,
   StockShortfall,
@@ -157,9 +159,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // Save the items and lower stock in one transaction. PayPal has no
       // retry, so if this fails the admin email says stock wasn't updated.
       let stockShortfalls: StockShortfall[] = [];
+      let lowStock: LowStock[] = [];
       let itemsSaved = false;
       try {
-        stockShortfalls = await saveOrderItems(
+        const saved = await saveOrderItems(
           orderData.id,
           [
             ...items.map(({ product_id, quantity, price, name }) => ({ product_id, quantity, price, name })),
@@ -167,6 +170,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             ...extraLines.map((line) => ({ product_id: null, quantity: 1, price: line.amount, name: line.name })),
           ]
         );
+        stockShortfalls = saved.shortfalls;
+        lowStock = saved.lowStock;
         itemsSaved = true;
         console.log('Order items created and stock updated');
         if (stockShortfalls.length > 0) {
@@ -334,6 +339,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         adminEmailHtml,
         `New PayPal Order Received!\n\nCustomer: ${payerEmail || 'Guest'}\nUser ID: ${userId || 'N/A'}\nPayPal Transaction ID: ${captureResult.id}\n\nOrder Details:\n${orderItemsText}\nTotal: €${totalAmount.toFixed(2)}${stockNoteText ? `\n\n${stockNoteText}` : ''}`
       );
+      await sendLowStockEmail(lowStock);
     }
 
     res.status(200).json({ 

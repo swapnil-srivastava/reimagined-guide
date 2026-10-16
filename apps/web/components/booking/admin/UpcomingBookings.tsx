@@ -53,7 +53,7 @@ const m = defineMessages({
   cancelledBy: {
     id: "booking-admin-cancelled-by",
     description: "Booking admin: who cancelled",
-    defaultMessage: "{who, select, host {Cancelled by you} invitee {Cancelled by the buyer} other {Cancelled}}{reason, select, none {} other {: {reason}}}",
+    defaultMessage: "{who, select, host {Cancelled by you} invitee {Cancelled by the buyer} refund {Cancelled by a refund} other {Cancelled}}{reason, select, none {} other {: {reason}}}",
   },
 });
 
