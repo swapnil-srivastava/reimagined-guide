@@ -1182,6 +1182,17 @@ export type Database = {
         }
         Returns: Database["public"]["Tables"]["products"]["Row"][]
       }
+      mark_order_disputed: {
+        Args: {
+          p_order_id: string
+          p_dispute_id: string
+          p_stage: string
+          p_amount: number
+          p_details?: Json
+          p_cancel_bookings?: boolean
+        }
+        Returns: Json
+      }
       mark_order_refunded: {
         Args: {
           p_order_id: string

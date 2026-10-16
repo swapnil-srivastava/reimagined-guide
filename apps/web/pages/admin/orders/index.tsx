@@ -66,7 +66,7 @@ const m = defineMessages({
 });
 
 // Statuses an admin can filter by; "partially_refunded" is the saved value
-const STATUSES = ["completed", "refunded", "partially_refunded"] as const;
+const STATUSES = ["completed", "refunded", "partially_refunded", "disputed", "dispute_lost"] as const;
 type StatusFilter = "all" | (typeof STATUSES)[number];
 
 const AdminOrders: NextPage = () => {

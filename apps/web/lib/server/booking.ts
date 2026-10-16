@@ -274,8 +274,8 @@ export async function sendCancelledEmails(client: SupabaseClient<Database>, book
       type,
       host,
       identity,
-      // A refund's reason is in the email's own wording
-      reason: booking.cancelled_by === "refund" ? null : booking.cancel_reason,
+      // A refund's or dispute's reason is in the email's own wording
+      reason: booking.cancelled_by === "refund" || booking.cancelled_by === "dispute" ? null : booking.cancel_reason,
     });
     return sent.invitee && sent.host;
   } catch (error) {

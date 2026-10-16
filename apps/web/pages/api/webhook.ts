@@ -19,6 +19,7 @@ import {
   StockShortfall,
 } from '../../lib/server/stock';
 import { handleChargeRefunded } from '../../lib/server/refunds';
+import { handleStripeDispute } from '../../lib/server/disputes';
 import { createBookingLink } from '../../lib/server/booking';
 import { escapeHtml } from '../../lib/server/mailer';
 
@@ -668,6 +669,22 @@ const handler = async (
       } catch (error) {
         // A 500 makes Stripe retry; mark_order_refunded is safe to repeat
         console.error('Error processing refund:', error);
+        res.status(500).json({ received: false, message: error.message });
+        return;
+      }
+      res.json({ received: true });
+      return;
+    }
+
+    // A buyer disputed a card payment with their bank (a chargeback), and its
+    // outcome. Needs charge.dispute.created and charge.dispute.closed turned
+    // on for this endpoint in Stripe (Developers → Webhooks).
+    if (event.type === 'charge.dispute.created' || event.type === 'charge.dispute.closed') {
+      try {
+        await handleStripeDispute(event.data.object as Stripe.Dispute, event.type === 'charge.dispute.closed');
+      } catch (error) {
+        // A 500 makes Stripe retry; mark_order_disputed is safe to repeat
+        console.error('Error processing dispute:', error);
         res.status(500).json({ received: false, message: error.message });
         return;
       }
