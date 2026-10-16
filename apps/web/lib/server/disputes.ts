@@ -39,7 +39,16 @@ export interface DisputeInput {
   outcome: string | null;
   /** Where the admin answers or reads the dispute */
   url: string;
+  /** When the provider opened the dispute, in ms */
+  openedAt: number;
 }
+
+/**
+ * How long a dispute with no order is retried before the admin is emailed.
+ * A dispute can arrive before its order is saved (Stripe's instant-dispute
+ * test card does this every time), and the provider's retry finds it then.
+ */
+const NO_ORDER_RETRY_MS = 60 * 60 * 1000;
 
 const readable = (code: string | null) => (code ? code.replace(/_/g, " ").toLowerCase() : "not given");
 
@@ -67,6 +76,10 @@ export async function recordDispute(input: DisputeInput): Promise<void> {
   ];
 
   if (!order) {
+    if (findBy && Date.now() - input.openedAt < NO_ORDER_RETRY_MS) {
+      // Thrown, so the webhook answers 500 and the provider sends it again
+      throw new Error(`Dispute ${disputeId}: no order for ${findBy} yet`);
+    }
     console.warn(`Dispute ${disputeId} (${stage}): no order found for ${findBy}`);
     // Only the opening needs the admin; its closing is in the provider's email
     if (stage === "open") {
@@ -184,6 +197,7 @@ export function handleStripeDispute(dispute: Stripe.Dispute, closed: boolean): P
     evidenceDueBy: dueBy ? new Date(dueBy * 1000).toISOString() : null,
     outcome: closed ? dispute.status : null,
     url: stripeDisputeUrl(dispute),
+    openedAt: dispute.created * 1000,
   });
 }
 
@@ -203,5 +217,6 @@ export function handlePaypalDispute(resource: any, resolved: boolean): Promise<v
     evidenceDueBy: resource?.seller_response_due_date ?? null,
     outcome,
     url: paypalResolutionCenterUrl(),
+    openedAt: Date.parse(resource?.create_time) || 0,
   });
 }
