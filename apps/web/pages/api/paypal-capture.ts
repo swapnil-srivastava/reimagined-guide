@@ -110,6 +110,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       { name: 'Tax', amount: parseFloat(breakdown?.tax_total?.value) || 0 },
       { name: 'Delivery', amount: parseFloat(breakdown?.shipping?.value) || 0 },
     ].filter((line) => line.amount > 0);
+    // A website promo code: /api/paypal-checkout put the discount in the
+    // breakdown and the code in reference_id
+    const discount = parseFloat(breakdown?.discount?.value) || 0;
+    const reference: string = orderUnit?.reference_id || '';
+    const promoCode = reference.startsWith('promo:') ? reference.slice('promo:'.length) : null;
+    const discountLabel = promoCode ? `Discount (${promoCode})` : 'Discount';
 
     // Create order in database. Guest checkouts (no account) are saved too,
     // with no user_id, so their stock is lowered like any other order.
@@ -130,7 +136,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           status: 'completed',
           payment_method: 'paypal',
           payment_intent_id: captureDetails.id,
-          metadata: { customer_email: payerEmail || null, paypal_order_id: orderId },
+          metadata: {
+            customer_email: payerEmail || null,
+            paypal_order_id: orderId,
+            ...(discount > 0 ? { discount, ...(promoCode ? { promo_code: promoCode } : {}) } : {}),
+          },
           is_anonymous_order: !userId,
         })
         .select()
@@ -203,11 +213,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           <td style="padding: 12px; text-align: right;">€${line.amount.toFixed(2)}</td>
           <td style="padding: 12px; text-align: right; font-weight: bold;">€${line.amount.toFixed(2)}</td>
         </tr>`),
+        ...(discount > 0 ? [`
+        <tr style="border-bottom: 1px solid #e5e7eb;">
+          <td style="padding: 12px; text-align: left;">${escapeHtml(discountLabel)}</td>
+          <td style="padding: 12px; text-align: center;"></td>
+          <td style="padding: 12px; text-align: right;"></td>
+          <td style="padding: 12px; text-align: right; font-weight: bold;">−€${discount.toFixed(2)}</td>
+        </tr>`] : []),
       ].join('');
 
       const orderItemsText = [
         ...items.map((item) => `${item.name} x${item.quantity} - €${item.lineTotal.toFixed(2)}`),
         ...extraLines.map((line) => `${line.name} - €${line.amount.toFixed(2)}`),
+        ...(discount > 0 ? [`${discountLabel} - −€${discount.toFixed(2)}`] : []),
       ].join('\n');
 
       // Customer confirmation email

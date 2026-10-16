@@ -17,6 +17,8 @@ interface PayPalCheckoutButtonProps {
   totalCost: number;
   cartItems: any[];
   deliveryOptionId: string | null;
+  /** A promo code checked on the checkout page; the server checks it again */
+  promoCode?: string | null;
   disabled: boolean;
   onSuccess: () => void;
   currency?: string;
@@ -26,6 +28,7 @@ const PayPalCheckoutButton: React.FC<PayPalCheckoutButtonProps> = ({
   totalCost,
   cartItems,
   deliveryOptionId,
+  promoCode = null,
   disabled,
   onSuccess,
   currency = 'EUR',
@@ -43,6 +46,7 @@ const PayPalCheckoutButton: React.FC<PayPalCheckoutButtonProps> = ({
         body: JSON.stringify({
           items: cartItems.map((item) => ({ id: item.id, quantity: item.quantity })),
           deliveryOptionId,
+          promoCode,
         }),
       });
 

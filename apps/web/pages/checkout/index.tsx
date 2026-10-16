@@ -30,6 +30,7 @@ import { PRODUCT } from "../../database.types";
 import AuthCheck from "../../components/AuthCheck";
 import CurrencyPriceComponent from "../../components/CurrencyPriceComponent";
 import PayPalCheckoutButton from "../../components/PayPalCheckoutButton";
+import PromoCodeField, { AppliedPromo } from "../../components/PromoCodeField";
 import HCaptchaWidget from "../../components/HCaptchaWidget";
 
 // Supabase
@@ -76,6 +77,7 @@ function Checkout() {
   const totalCost = useSelector((state : RootState) => state.subtotal?.totalCost) || 0;
 
   const [isProcessing, setIsProcessing] = useState(false);
+  const [promo, setPromo] = useState<AppliedPromo | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [showCaptcha, setShowCaptcha] = useState(false);
   const captchaRef = useRef<HCaptcha>(null);
@@ -106,6 +108,35 @@ function Checkout() {
     const { data: { session } } = await supaClient.auth.getSession();
     return session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {};
   };
+
+  // The server prices the cart and the code; the page only shows the result
+  const checkPromo = async (code: string): Promise<AppliedPromo> => {
+    const response = await fetch('/api/promo-code', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code, items: cartRequestItems(), deliveryOptionId: selectedDeliveryId || null }),
+    });
+    const body = await response.json().catch(() => ({}));
+    if (response.status === 429) {
+      throw new Error(intl.formatMessage({ id: "promo-too-many", description: "Checkout: too many promo code attempts", defaultMessage: "Too many tries. Please wait a minute and try again." }));
+    }
+    if (!response.ok) throw new Error(body.message);
+    return body as AppliedPromo;
+  };
+
+  // A different cart or delivery changes the discount, so check the code again
+  const cartKey = JSON.stringify([cartRequestItems(), selectedDeliveryId]);
+  const promoCode = promo?.code;
+  useEffect(() => {
+    if (!promoCode) return;
+    checkPromo(promoCode)
+      .then(setPromo)
+      .catch((error) => {
+        setPromo(null);
+        toast.error(error.message);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cartKey]);
 
   const handleStripeCheckout = async () => {
     // If user is not logged in and no captcha token, show captcha first
@@ -145,6 +176,7 @@ function Checkout() {
         body: JSON.stringify({
           items: cartRequestItems(),
           deliveryOptionId: selectedDeliveryId || null,
+          promoCode: promo?.code || undefined,
         }),
       });
 
@@ -383,6 +415,17 @@ function Checkout() {
                     </span>
                   </div>
 
+                  {/* Promo code */}
+                  <PromoCodeField applied={promo} onApply={setPromo} check={checkPromo} disabled={isProcessing || !cartItems || cartItems.length === 0} />
+                  {promo && (
+                    <div className="flex justify-between items-center py-2 border-b border-[var(--border-subtle)] text-[var(--text-primary)]">
+                      <span className="font-medium">
+                        <FormattedMessage id="checkout-discount" description="Checkout: promo code discount line" defaultMessage="Discount ({code}):" values={{ code: promo.code }} />
+                      </span>
+                      <span className="font-semibold tabular-nums">−€ {promo.discount.toFixed(2)}</span>
+                    </div>
+                  )}
+
                   {/* Total */}
                   <div className="flex justify-between items-center py-4 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 rounded-lg px-4 mt-4">
                     <span className="text-lg font-bold text-blog-black dark:text-blog-white">
@@ -393,7 +436,7 @@ function Checkout() {
                       />
                     </span>
                     <span className="text-2xl font-bold text-green-600 dark:text-green-400">
-                      <CurrencyPriceComponent price={totalCost} />
+                      <CurrencyPriceComponent price={promo ? promo.total.toFixed(2) : totalCost} />
                     </span>
                   </div>
                 </div>
@@ -461,9 +504,10 @@ function Checkout() {
 
                   {/* PayPal Payment Button */}
                   <PayPalCheckoutButton
-                    totalCost={totalCost}
+                    totalCost={promo ? promo.total : totalCost}
                     cartItems={cartItems}
                     deliveryOptionId={selectedDeliveryId || null}
+                    promoCode={promo?.code}
                     disabled={isProcessing || !cartItems || cartItems.length === 0}
                     onSuccess={() => router.push('/success')}
                     currency="EUR"
