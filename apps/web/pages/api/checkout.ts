@@ -10,6 +10,7 @@ import {
   parseCartItems,
   priceCart,
 } from '../../lib/server/pricing';
+import { PromoError, findPromo } from '../../lib/server/promo';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -27,7 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const { priceId, items, deliveryOptionId } = req.body || {};
+    const { priceId, items, deliveryOptionId, promoCode } = req.body || {};
 
     // A Buy now from the shop works without signing in, but a token that is
     // sent must be valid, so nobody can attach an order to another account
@@ -117,6 +118,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       cancel_url: `${req.headers.origin}/cancel`,
     };
 
+    // A code entered on the website comes pre-applied. Stripe allows either
+    // that or its own code box, not both.
+    if (promoCode) {
+      const promo = await findPromo(stripe, promoCode);
+      sessionOptions.discounts = [{ promotion_code: promo.id }];
+      delete sessionOptions.allow_promotion_codes;
+    }
+
     if (user?.email) {
       sessionOptions.customer_email = user.email;
     }
@@ -124,7 +133,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const session = await stripe.checkout.sessions.create(sessionOptions);
     res.status(200).json({ id: session.id, url: session.url });
   } catch (error: any) {
-    if (error instanceof PricingError) {
+    if (error instanceof PricingError || error instanceof PromoError) {
       return res.status(400).json({ message: error.message });
     }
     console.error("Error creating checkout session:", error);

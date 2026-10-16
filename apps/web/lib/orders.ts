@@ -5,7 +5,7 @@ import type { IntlShape } from "react-intl";
 // (app_admins) can read all of them (migration 20261011090000).
 
 export const ORDER_SELECT =
-  "id, created_at, status, total, payment_method, order_type, metadata, user_id, " +
+  "id, created_at, status, total, payment_method, order_type, metadata, user_id, payment_intent_id, " +
   "order_items(id, name, quantity, price, product_id, products(name))";
 
 export interface OrderItemRow {
@@ -26,10 +26,11 @@ export interface OrderRow {
   order_type: string | null;
   metadata: Record<string, unknown> | null;
   user_id: string | null;
+  payment_intent_id: string | null;
   order_items: OrderItemRow[];
 }
 
-const metaString = (order: Pick<OrderRow, "metadata">, key: string): string | null => {
+export const metaString = (order: Pick<OrderRow, "metadata">, key: string): string | null => {
   const value = order.metadata?.[key];
   return typeof value === "string" && value.trim() ? value : null;
 };
@@ -119,3 +120,41 @@ export function statusLabel(intl: IntlShape, status: string): string {
 /** Tailwind classes for the status pill, from theme colours only */
 export const STATUS_PILL =
   "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-[color-mix(in_srgb,var(--color-primary)_18%,transparent)] text-[var(--text-primary)] border border-[var(--border-subtle)]";
+
+export interface OrderTotals {
+  revenue30d: number;
+  orders30d: number;
+  revenueTotal: number;
+  ordersTotal: number;
+}
+
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+/** Revenue is what was paid and kept: refunds come off */
+export function orderTotals(rows: Pick<OrderRow, "total" | "created_at" | "metadata">[], now = Date.now()): OrderTotals {
+  const since = now - 30 * DAY_MS;
+  const recent = rows.filter((o) => o.created_at && new Date(o.created_at).getTime() >= since);
+  const sum = (list: typeof rows) => list.reduce((acc, o) => acc + (Number(o.total) || 0) - amountRefunded(o), 0);
+  return { revenue30d: sum(recent), orders30d: recent.length, revenueTotal: sum(rows), ordersTotal: rows.length };
+}
+
+/** Text an admin can search an order by: email, order number, codes and item names */
+export function orderSearchText(order: OrderRow): string {
+  return [
+    customerEmail(order),
+    orderNumber(order),
+    order.id,
+    promoCode(order),
+    ...order.order_items.map((item) => item.name ?? item.products?.name),
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLocaleLowerCase();
+}
+
+/** The payment in the Stripe dashboard (test or live, from the publishable key), or null for PayPal */
+export function stripePaymentUrl(paymentIntentId: string | null | undefined): string | null {
+  if (!paymentIntentId?.startsWith("pi_")) return null;
+  const test = (process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "").startsWith("pk_test");
+  return `https://dashboard.stripe.com/${test ? "test/" : ""}payments/${paymentIntentId}`;
+}

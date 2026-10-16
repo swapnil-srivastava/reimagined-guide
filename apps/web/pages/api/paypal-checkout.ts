@@ -2,7 +2,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import paypal from '@paypal/checkout-server-sdk';
 import { getAuthedRequest } from '../../lib/server/supabase-user';
+import Stripe from 'stripe';
 import { CURRENCY, PricingError, parseCartItems, priceCart } from '../../lib/server/pricing';
+import { PromoError, findPromo, promoDiscount } from '../../lib/server/promo';
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 // PayPal environment setup
 function environment() {
@@ -35,7 +39,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const { items, deliveryOptionId } = req.body || {};
+    const { items, deliveryOptionId, promoCode } = req.body || {};
 
     // The buyer comes from their session token, never from the body. A token
     // that is sent must be valid.
@@ -51,6 +55,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Prices, tax and delivery come from the products table and server constants
     const cart = await priceCart(parseCartItems(items), deliveryOptionId);
     const currency = CURRENCY;
+
+    // Promo codes live in Stripe for card and PayPal alike; PayPal gets the
+    // same discount in its breakdown, and the code in reference_id so the
+    // capture can save it on the order
+    const promo = promoCode ? await findPromo(stripe, promoCode) : null;
+    const discount = promo ? promoDiscount(promo, cart.total) : 0;
+    const total = Math.round((cart.total - discount) * 100) / 100;
+    if (total <= 0) {
+      return res.status(400).json({ message: 'PayPal needs something to pay. Use Pay with Card for this code.' });
+    }
 
     // Build purchase units with itemized breakdown. The sku carries the
     // product id so the capture can record order items without trusting the browser.
@@ -86,6 +100,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       };
     }
 
+    if (discount > 0) {
+      amountBreakdown.discount = {
+        currency_code: currency,
+        value: discount.toFixed(2),
+      };
+    }
+
     // Create order request
     const request = new paypal.orders.OrdersCreateRequest();
     request.prefer('return=representation');
@@ -95,11 +116,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         {
           amount: {
             currency_code: currency,
-            value: cart.total.toFixed(2),
+            value: total.toFixed(2),
             breakdown: amountBreakdown,
           },
           items: itemsBreakdown,
           description: `Order for ${cart.items.length} item(s)`,
+          ...(promo ? { reference_id: `promo:${promo.code}` } : {}),
           custom_id: userId || undefined,
         },
       ],
@@ -121,7 +143,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       status: order.result.status 
     });
   } catch (error: any) {
-    if (error instanceof PricingError) {
+    if (error instanceof PricingError || error instanceof PromoError) {
       return res.status(400).json({ message: error.message });
     }
     console.error('PayPal checkout error:', error.message);
