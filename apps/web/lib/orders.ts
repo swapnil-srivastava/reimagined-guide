@@ -46,8 +46,49 @@ export const customerEmail = (order: Pick<OrderRow, "metadata">) => metaString(o
 export const discountAmount = (order: OrderRow) => metaAmount(order, "discount");
 export const promoCode = (order: OrderRow) => metaString(order, "promo_code");
 
-/** Refunded so far, saved by the webhook on charge.refunded */
+/** Refunded so far, saved by the Stripe and PayPal webhooks */
 export const amountRefunded = (order: Pick<OrderRow, "metadata">) => metaAmount(order, "amount_refunded");
+
+/** A chargeback, saved by the webhooks in metadata.dispute (migration 20261016200000) */
+export interface OrderDispute {
+  id: string;
+  stage: "open" | "won" | "lost";
+  amount: number;
+  provider: string | null;
+  reason: string | null;
+  evidenceDueBy: string | null;
+  outcome: string | null;
+  url: string | null;
+  openedAt: string | null;
+  closedAt: string | null;
+}
+
+export function orderDispute(order: Pick<OrderRow, "metadata">): OrderDispute | null {
+  const raw = order.metadata?.dispute as Record<string, unknown> | undefined;
+  if (!raw || typeof raw.id !== "string") return null;
+  const text = (key: string) => (typeof raw[key] === "string" && raw[key] ? (raw[key] as string) : null);
+  const stage = raw.stage === "won" || raw.stage === "lost" ? raw.stage : "open";
+  const amount = Number(raw.amount);
+  return {
+    id: raw.id,
+    stage,
+    amount: Number.isFinite(amount) && amount > 0 ? amount : 0,
+    provider: text("provider"),
+    reason: text("reason"),
+    evidenceDueBy: text("evidence_due_by"),
+    outcome: text("outcome"),
+    url: text("url"),
+    openedAt: text("opened_at"),
+    closedAt: text("closed_at"),
+  };
+}
+
+/** What the shop gave back: refunds plus a lost dispute, never more than the total */
+export function amountReturned(order: Pick<OrderRow, "total" | "metadata">): number {
+  const dispute = orderDispute(order);
+  const lost = dispute?.stage === "lost" ? dispute.amount : 0;
+  return Math.min(Number(order.total) || 0, amountRefunded(order) + lost);
+}
 
 /** Short order number customers can quote, e.g. "3F2A9C1B" */
 export const orderNumber = (order: Pick<OrderRow, "id">) => order.id.slice(0, 8).toUpperCase();
@@ -109,6 +150,10 @@ export function statusLabel(intl: IntlShape, status: string): string {
       return intl.formatMessage({ id: "orders-status-refunded", description: "Order status: refunded", defaultMessage: "Refunded" });
     case "partially_refunded":
       return intl.formatMessage({ id: "orders-status-partly-refunded", description: "Order status: part of the payment was refunded", defaultMessage: "Partly refunded" });
+    case "disputed":
+      return intl.formatMessage({ id: "orders-status-disputed", description: "Order status: the buyer disputed the payment with their bank or PayPal", defaultMessage: "Disputed" });
+    case "dispute_lost":
+      return intl.formatMessage({ id: "orders-status-dispute-lost", description: "Order status: the payment dispute was lost, the buyer got the money back", defaultMessage: "Dispute lost" });
     case "cancelled":
     case "canceled":
       return intl.formatMessage({ id: "orders-status-cancelled", description: "Order status: cancelled", defaultMessage: "Cancelled" });
@@ -130,11 +175,11 @@ export interface OrderTotals {
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
-/** Revenue is what was paid and kept: refunds come off */
+/** Revenue is what was paid and kept: refunds and lost disputes come off */
 export function orderTotals(rows: Pick<OrderRow, "total" | "created_at" | "metadata">[], now = Date.now()): OrderTotals {
   const since = now - 30 * DAY_MS;
   const recent = rows.filter((o) => o.created_at && new Date(o.created_at).getTime() >= since);
-  const sum = (list: typeof rows) => list.reduce((acc, o) => acc + (Number(o.total) || 0) - amountRefunded(o), 0);
+  const sum = (list: typeof rows) => list.reduce((acc, o) => acc + (Number(o.total) || 0) - amountReturned(o), 0);
   return { revenue30d: sum(recent), orders30d: recent.length, revenueTotal: sum(rows), ordersTotal: rows.length };
 }
 

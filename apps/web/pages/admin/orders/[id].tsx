@@ -22,6 +22,7 @@ import {
   discountAmount,
   formatEuro,
   metaString,
+  orderDispute,
   orderNumber,
   orderTypeLabel,
   paymentMethodLabel,
@@ -32,7 +33,7 @@ import {
 
 // e.g. localhost:3000/admin/orders/5a99b58d-...
 // One order for admins: items, customer, payment, promo code, refund, stock
-// put back and the 1:1 calls booked with it.
+// put back, a payment dispute and the 1:1 calls booked with it.
 
 const m = defineMessages({
   title: { id: "admin-order-title", description: "Admin order page heading", defaultMessage: "Order {number}" },
@@ -57,14 +58,25 @@ const m = defineMessages({
   notRestocked: {
     id: "admin-order-not-restocked",
     description: "Admin order: a partial refund doesn't change stock",
-    defaultMessage: "Stock wasn't changed, because Stripe doesn't say which items a partial refund covers.",
+    defaultMessage: "Stock wasn't changed, because a partial refund doesn't say which items it covers.",
   },
+  dispute: { id: "admin-order-dispute", description: "Admin order: heading of the payment dispute section", defaultMessage: "Dispute" },
+  disputeStage: {
+    id: "admin-order-dispute-stage",
+    description: "Admin order: the state of a payment dispute and its amount",
+    defaultMessage: "{stage, select, open {The buyer disputed {amount}. Respond before the deadline or they win.} won {The dispute closed in your favour. You kept {amount}.} other {The dispute was lost: {amount} went back to the buyer. Stock wasn't put back.}}",
+  },
+  disputeReason: { id: "admin-order-dispute-reason", description: "Admin order: why the buyer disputed the payment", defaultMessage: "Reason" },
+  disputeDue: { id: "admin-order-dispute-due", description: "Admin order: when evidence for the dispute is due", defaultMessage: "Respond by" },
+  disputeOpened: { id: "admin-order-dispute-opened", description: "Admin order: when the dispute was opened", defaultMessage: "Opened" },
+  disputeClosed: { id: "admin-order-dispute-closed", description: "Admin order: when the dispute closed", defaultMessage: "Closed" },
+  openProvider: { id: "admin-order-open-provider", description: "Admin order: open the dispute at Stripe or PayPal", defaultMessage: "Open in {provider}" },
   calls: { id: "admin-order-calls", description: "Admin order: heading of the booked calls section", defaultMessage: "Calls" },
   callStatus: { id: "admin-order-call-status", description: "Admin order: a booked call's status", defaultMessage: "{status, select, confirmed {Booked} cancelled {Cancelled} other {{status}}}" },
   cancelledBy: {
     id: "admin-order-call-cancelled-by",
     description: "Admin order: who cancelled the call",
-    defaultMessage: "{by, select, refund {by the refund} host {by you} invitee {by the buyer} other {}}",
+    defaultMessage: "{by, select, refund {by the refund} dispute {by the lost dispute} host {by you} invitee {by the buyer} other {}}",
   },
 });
 
@@ -165,6 +177,11 @@ function OrderDetail() {
   const refunded = amountRefunded(order);
   const refundedAt = metaString(order, "refunded_at");
   const restocked = (Array.isArray(order.metadata?.restocked) ? order.metadata?.restocked : []) as Restocked[];
+  const dispute = orderDispute(order);
+  const shortDate = (iso: string | null, withTime = false) =>
+    iso
+      ? intl.formatDate(iso, { day: "numeric", month: "short", year: "numeric", ...(withTime ? { hour: "numeric", minute: "2-digit" } : {}) })
+      : null;
   const code = promoCode(order);
   const discount = discountAmount(order);
   const stripeUrl = stripePaymentUrl(order.payment_intent_id);
@@ -245,6 +262,42 @@ function OrderDetail() {
             ) : order.status === "partially_refunded" ? (
               <p className="text-[var(--text-muted)]">{intl.formatMessage(m.notRestocked)}</p>
             ) : null}
+          </div>
+        </Panel>
+      )}
+
+      {dispute && (
+        <Panel title={intl.formatMessage(m.dispute)}>
+          <div className="flex flex-col gap-3 text-sm">
+            <p>{intl.formatMessage(m.disputeStage, { stage: dispute.stage, amount: formatEuro(intl, dispute.amount) })}</p>
+            <dl className="grid grid-cols-1 sm:grid-cols-[10rem_1fr] gap-x-4 gap-y-1">
+              {(
+                [
+                  [m.disputeReason, dispute.reason ? dispute.reason.replace(/_/g, " ").toLowerCase() : null],
+                  [m.disputeDue, dispute.stage === "open" ? shortDate(dispute.evidenceDueBy, true) : null],
+                  [m.disputeOpened, shortDate(dispute.openedAt)],
+                  [m.disputeClosed, dispute.stage === "open" ? null : shortDate(dispute.closedAt)],
+                ] as const
+              )
+                .filter(([, value]) => value)
+                .map(([label, value]) => (
+                  <React.Fragment key={label.id}>
+                    <dt className="text-[var(--text-muted)] mt-2 sm:mt-0">{intl.formatMessage(label)}</dt>
+                    <dd className="min-w-0 break-words first-letter:uppercase">{value}</dd>
+                  </React.Fragment>
+                ))}
+            </dl>
+            {dispute.url && (
+              <a
+                href={dispute.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 self-start min-h-[44px] font-semibold underline underline-offset-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] rounded"
+              >
+                {intl.formatMessage(m.openProvider, { provider: dispute.provider ?? "Stripe" })}
+                <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="w-3 h-3" aria-hidden="true" />
+              </a>
+            )}
           </div>
         </Panel>
       )}

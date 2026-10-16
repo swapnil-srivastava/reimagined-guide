@@ -30,27 +30,56 @@ interface RefundResult {
   links_revoked?: number;
 }
 
-const euro = (amount: number) => `€${amount.toFixed(2)}`;
+export const euro = (amount: number) => `€${amount.toFixed(2)}`;
 
 /**
  * Handles Stripe's charge.refunded event, sent for every full or partial
  * refund with the charge's total refunded so far. Throws on a database error,
  * so the webhook returns 500 and Stripe retries; emails never throw.
  */
-export async function handleChargeRefunded(charge: Stripe.Charge): Promise<void> {
-  if (!supaServerClient) throw new Error("SUPABASE_SERVICE_ROLE_KEY is not configured");
-
+export function handleChargeRefunded(charge: Stripe.Charge): Promise<void> {
   const paymentIntentId =
     typeof charge.payment_intent === "string" ? charge.payment_intent : charge.payment_intent?.id ?? null;
-  const refunded = charge.amount_refunded / 100;
-  const paid = charge.amount / 100;
-  const full = charge.refunded;
+  return recordRefund({
+    provider: "Stripe",
+    paymentRef: paymentIntentId ?? charge.id,
+    findBy: paymentIntentId,
+    refunded: charge.amount_refunded / 100,
+    paid: charge.amount / 100,
+    full: charge.refunded,
+    refundRef: charge.id,
+    customer: charge.billing_details?.email ?? null,
+  });
+}
 
-  const { data: order, error: findError } = paymentIntentId
+export interface RefundInput {
+  provider: "Stripe" | "PayPal";
+  /** Shown in emails */
+  paymentRef: string;
+  /** orders.payment_intent_id: the Stripe payment intent or PayPal capture id */
+  findBy: string | null;
+  /** Total refunded so far, in euros */
+  refunded: number;
+  /** What was paid, in euros */
+  paid: number;
+  full: boolean;
+  refundRef: string;
+  customer: string | null;
+}
+
+/**
+ * Records a refund on its order (Stripe or PayPal) and emails the admin about
+ * what changed. Throws on a database error so the webhook is retried.
+ */
+export async function recordRefund(input: RefundInput): Promise<void> {
+  if (!supaServerClient) throw new Error("SUPABASE_SERVICE_ROLE_KEY is not configured");
+  const { provider, paymentRef, findBy, refunded, paid, full } = input;
+
+  const { data: order, error: findError } = findBy
     ? await supaServerClient
         .from("orders")
         .select("id, metadata")
-        .eq("payment_intent_id", paymentIntentId)
+        .eq("payment_intent_id", findBy)
         .maybeSingle()
     : { data: null, error: null };
   if (findError) throw new Error(`Finding the refunded order failed: ${findError.message}`);
@@ -58,15 +87,15 @@ export async function handleChargeRefunded(charge: Stripe.Charge): Promise<void>
   if (!order) {
     // An order saved before orders were stored, or one that never saved.
     // Nothing to change, so tell the admin once instead of failing forever.
-    console.warn(`Refund for ${paymentIntentId ?? charge.id}: no order found`);
-    await sendAdminRefundEmail({
+    console.warn(`Refund for ${paymentRef}: no order found`);
+    await sendAdminOrderEmail({
       title: "Refund with no order",
       subject: `Refund with no order: ${euro(refunded)}`,
       lines: [
-        `Stripe refunded ${euro(refunded)} of ${euro(paid)}, but no order on the site has this payment.`,
+        `${provider} refunded ${euro(refunded)} of ${euro(paid)}, but no order on the site has this payment.`,
         "Nothing was changed. Check stock and bookings by hand if needed.",
       ],
-      details: [["Payment", paymentIntentId ?? charge.id], ["Customer", charge.billing_details?.email ?? "Unknown"]],
+      details: [["Payment", paymentRef], ["Customer", input.customer ?? "Unknown"]],
     });
     return;
   }
@@ -75,7 +104,7 @@ export async function handleChargeRefunded(charge: Stripe.Charge): Promise<void>
     p_order_id: order.id,
     p_amount_refunded: refunded,
     p_full: full,
-    p_refund_ref: charge.id,
+    p_refund_ref: input.refundRef,
     p_cancel_bookings: REFUND_CANCELS_CALLS,
   });
   if (error) throw new Error(`mark_order_refunded failed: ${error.message}`);
@@ -110,24 +139,28 @@ export async function handleChargeRefunded(charge: Stripe.Charge): Promise<void>
   } else {
     lines.push(
       `Order ${number} was partly refunded: ${euro(refunded)} of ${euro(paid)} so far. It now shows as Partly refunded.`,
-      "Stock and bookings were not changed, because Stripe doesn't say which items were refunded. Adjust stock on the products page if needed."
+      `Stock and bookings were not changed, because ${provider} doesn't say which items were refunded. Adjust stock on the products page if needed.`
     );
   }
 
   const title = result.status === "refunded" ? "Refunded" : "Partly refunded";
-  await sendAdminRefundEmail({
+  await sendAdminOrderEmail({
     title,
     subject: `${title}: ${euro(refunded)} for order ${number}`,
     lines,
     details: [
       ["Customer", customerEmail(order as { metadata: Record<string, unknown> | null }) ?? "Unknown"],
-      ["Payment", paymentIntentId ?? charge.id],
+      ["Payment", `${paymentRef} (${provider})`],
     ],
-    button: result.status === "refunded" ? undefined : { label: "Open products", href: `${SITE_URL}/admin/products` },
+    button:
+      result.status === "refunded"
+        ? { label: "Open order", href: `${SITE_URL}/admin/orders/${order.id}` }
+        : { label: "Open products", href: `${SITE_URL}/admin/products` },
   });
 }
 
-async function sendAdminRefundEmail(options: {
+/** An email to the admin about an order: refunds and disputes */
+export async function sendAdminOrderEmail(options: {
   title: string;
   subject: string;
   lines: string[];
@@ -142,9 +175,9 @@ async function sendAdminRefundEmail(options: {
     preheader: lines[0],
     title,
     bodyHtml: lines.map((line) => paragraph(escapeHtml(line))).join("") + paragraph(detailsHtml),
-    button: button ?? { label: "Open orders", href: `${SITE_URL}/admin` },
+    button: button ?? { label: "Open orders", href: `${SITE_URL}/admin/orders` },
   });
   const text = [...lines, "", ...details.map(([label, value]) => `${label}: ${value}`)].join("\n");
   const sent = await sendMail(ADMIN_EMAIL, subject, html, text);
-  if (!sent) console.error(`Refund email "${subject}" failed`);
+  if (!sent) console.error(`Admin email "${subject}" failed`);
 }
