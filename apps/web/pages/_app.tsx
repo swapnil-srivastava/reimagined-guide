@@ -3,6 +3,7 @@ import { IntlProvider } from "react-intl";
 import { ThemeProvider } from "next-themes";
 import { useStore } from "../redux/store";
 import { useRouter } from "next/router";
+import Head from "next/head";
 import { useMemo } from "react";
 
 import { config } from "@fortawesome/fontawesome-svg-core";
@@ -11,6 +12,7 @@ import { Toaster } from "react-hot-toast";
 
 import "../styles/globals.css";
 import { useUserData } from "../lib/hooks";
+import { SITE_URL } from "../lib/site";
 
 import English from "../content/compiled-locales/en-US.json";
 import Hindi from "../content/compiled-locales/hi-IN.json";
@@ -45,7 +47,7 @@ config.autoAddCss = false;
 
 function MyApp({ Component, pageProps }) {
   const userData = useUserData();
-  const { locale: nextLocale, defaultLocale: nextDefaultLocale } = useRouter();
+  const { locale: nextLocale, defaultLocale: nextDefaultLocale, asPath } = useRouter();
   const store = useStore({ ...pageProps.initialReduxState, users: userData });
 
   const messages = useMemo(() => {
@@ -63,8 +65,17 @@ function MyApp({ Component, pageProps }) {
     }
   }, [nextLocale]);
 
+  // Every domain the site is served on (.eu, .de, previews) points search
+  // engines at the same address. Pages can override it with key="canonical".
+  const localePrefix = nextLocale && nextLocale !== nextDefaultLocale ? `/${nextLocale}` : "";
+  const path = asPath.split(/[?#]/)[0];
+  const canonicalUrl = `${SITE_URL}${localePrefix}${path === "/" ? (localePrefix ? "" : "/") : path}`;
+
   return (
     <>
+      <Head>
+        <link rel="canonical" href={canonicalUrl} key="canonical" />
+      </Head>
        <main className={`${roboto.variable} ${poppins.variable}`}>
         <ThemeProvider 
           attribute="class"

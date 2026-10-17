@@ -7,6 +7,7 @@ import { GetStaticProps } from 'next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CheckoutButton from '../components/CheckoutButton';
 import { recordLinkClick, recordPageView } from '../lib/pageEvents';
+import { SITE_URL } from '../lib/site';
 import {
   faCalendarCheck,
   faShoppingCart,
@@ -120,7 +121,7 @@ const jsonLdData = {
     alternateName: 'swapnilsrivastava',
     description:
       'Architect & Full Stack Engineer. Building modern web applications with Next.js, React, TypeScript, Spring Boot, Apache Kafka, and cloud technologies (GCP, Azure, AWS). Specialized in solutions architecture, microservices, and end-to-end development.',
-    url: 'https://swapnilsrivastava.eu',
+    url: SITE_URL,
     image: PROFILE_IMAGE_URL,
     sameAs: [
       'https://www.linkedin.com/in/swapnilsrivastava',
@@ -159,12 +160,12 @@ const webPageSchema = {
   name: 'Swapnil Srivastava - Architect & Full Stack Engineer | Links',
   description:
     'Connect with Swapnil Srivastava. Book consultations, explore tech recommendations, watch latest videos, and view portfolio.',
-  url: 'https://swapnilsrivastava.eu/links',
+  url: `${SITE_URL}/links`,
   inLanguage: 'en-US',
   isPartOf: {
     '@type': 'WebSite',
     name: "Swapnil's Odyssey",
-    url: 'https://swapnilsrivastava.eu',
+    url: SITE_URL,
   },
   breadcrumb: {
     '@type': 'BreadcrumbList',
@@ -173,19 +174,19 @@ const webPageSchema = {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://swapnilsrivastava.eu',
+        item: SITE_URL,
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Links',
-        item: 'https://swapnilsrivastava.eu/links',
+        item: `${SITE_URL}/links`,
       },
     ],
   },
   potentialAction: {
     '@type': 'ReadAction',
-    target: 'https://swapnilsrivastava.eu/links',
+    target: `${SITE_URL}/links`,
   },
 };
 
@@ -219,7 +220,7 @@ export const getStaticProps: GetStaticProps<LinksPageProps> = async ({ locale })
 
 export default function LinksPage({ locale }: LinksPageProps) {
   // en-US is the default locale and has no prefix
-  const pageUrl = `https://swapnilsrivastava.eu${locale && locale !== 'en-US' ? `/${locale}` : ''}/links`;
+  const pageUrl = `${SITE_URL}${locale && locale !== 'en-US' ? `/${locale}` : ''}/links`;
   const intl = useIntl();
   const [email, setEmail] = useState('');
   // Honeypot: hidden from people, filled in by bots
@@ -318,12 +319,12 @@ export default function LinksPage({ locale }: LinksPageProps) {
         <meta name="twitter:image:alt" content="Swapnil Srivastava - Architect & Full Stack Engineer" />
 
         {/* Additional SEO */}
-        <link rel="canonical" href={pageUrl} />
-        <link rel="alternate" hrefLang="en" href="https://swapnilsrivastava.eu/links" />
-        <link rel="alternate" hrefLang="de" href="https://swapnilsrivastava.eu/de-DE/links" />
-        <link rel="alternate" hrefLang="fr" href="https://swapnilsrivastava.eu/fr-FR/links" />
-        <link rel="alternate" hrefLang="hi" href="https://swapnilsrivastava.eu/hi-IN/links" />
-        <link rel="alternate" hrefLang="x-default" href="https://swapnilsrivastava.eu/links" />
+        <link rel="canonical" href={pageUrl} key="canonical" />
+        <link rel="alternate" hrefLang="en" href={`${SITE_URL}/links`} />
+        <link rel="alternate" hrefLang="de" href={`${SITE_URL}/de-DE/links`} />
+        <link rel="alternate" hrefLang="fr" href={`${SITE_URL}/fr-FR/links`} />
+        <link rel="alternate" hrefLang="hi" href={`${SITE_URL}/hi-IN/links`} />
+        <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}/links`} />
 
         {/* Preconnect to external domains */}
         <link rel="preconnect" href="https://www.amazon.com" />
