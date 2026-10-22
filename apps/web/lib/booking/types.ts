@@ -22,15 +22,6 @@ export type Case = Tables["cases"]["Row"];
 
 export type BookingStatus = "confirmed" | "cancelled" | "completed" | "no_show";
 
-export const VISIT_MODES = ["video", "audio", "in_person"] as const;
-export type VisitMode = (typeof VISIT_MODES)[number];
-
-/** first: a new consult; follow_up: free or paid, inside a case; clinic_visit: the doctor asked an online patient to come in */
-export type BookingKind = "first" | "follow_up" | "clinic_visit";
-export type HostKind = "consultant" | "doctor";
-export type CaseStatus = "open" | "follow_up" | "closed";
-export type ConsentKind = "teleconsult" | "data" | "parent_data";
-
 /** The slot rules of a booking type, as computeSlots takes them */
 export const rulesOf = (type: BookingType) => ({
   duration_minutes: type.duration_minutes,

@@ -225,8 +225,9 @@ CREATE TRIGGER cases_updated_at
 -- =====================================================
 -- STEP 6: Booking links and bookings
 -- =====================================================
--- mode: video, audio or in_person. On a booking link it may be empty when
---       the patient picks the mode with the time.
+-- mode: video, audio or in_person. On a booking link it may be empty;
+--       the booking then takes the mode of its booking type (location_kind,
+--       where 'phone' is an audio call).
 -- kind: first (a new consult), follow_up (free or paid, inside a case),
 --       clinic_visit (the doctor asked an online patient to come in; free)
 ALTER TABLE public.booking_entitlements
@@ -289,6 +290,13 @@ ALTER TABLE public.bookings
     AND (no_show_marked_at IS NULL OR status = 'no_show')
   );
 
+-- Existing bookings take the mode of their booking type
+UPDATE public.bookings b
+SET mode = CASE t.location_kind WHEN 'phone' THEN 'audio' ELSE t.location_kind END
+FROM public.booking_types t
+WHERE t.id = b.booking_type_id
+  AND b.mode IS DISTINCT FROM (CASE t.location_kind WHEN 'phone' THEN 'audio' ELSE t.location_kind END);
+
 CREATE INDEX IF NOT EXISTS bookings_patient ON public.bookings (patient_id);
 CREATE INDEX IF NOT EXISTS bookings_case ON public.bookings (case_id);
 
@@ -296,8 +304,9 @@ CREATE INDEX IF NOT EXISTS bookings_case ON public.bookings (case_id);
 -- STEP 7: Booking and rescheduling carry the new fields
 -- =====================================================
 -- Same signatures as before. A booking takes phone, patient, case, mode and
--- kind from its link; a link without a mode books the host's first mode.
--- A reschedule keeps all of them.
+-- kind from its link; a link without a mode takes the booking type's, and a
+-- link without a phone takes the patient's. A reschedule keeps all of them.
+-- (The patient choosing the mode on the booking page comes with PR 4.)
 CREATE OR REPLACE FUNCTION public.booking_book(
   p_entitlement_id UUID,
   p_host_id UUID,
@@ -318,6 +327,7 @@ DECLARE
   v_ent public.booking_entitlements;
   v_booking public.bookings;
   v_mode TEXT;
+  v_phone TEXT;
 BEGIN
   -- Locking the entitlement makes two tabs booking at once run one at a time
   SELECT * INTO v_ent FROM public.booking_entitlements WHERE id = p_entitlement_id FOR UPDATE;
@@ -334,10 +344,21 @@ BEGIN
     RAISE EXCEPTION 'This host does not offer this call' USING ERRCODE = '22023';
   END IF;
 
-  SELECT COALESCE(v_ent.mode, h.modes[1]) INTO v_mode FROM public.booking_hosts h WHERE h.id = p_host_id;
+  SELECT COALESCE(v_ent.mode, CASE t.location_kind WHEN 'phone' THEN 'audio' ELSE t.location_kind END)
+  INTO v_mode FROM public.booking_types t WHERE t.id = v_ent.booking_type_id;
   IF NOT EXISTS (SELECT 1 FROM public.booking_hosts WHERE id = p_host_id AND v_mode = ANY (modes)) THEN
     RAISE EXCEPTION 'This host does not offer this kind of visit' USING ERRCODE = '22023';
   END IF;
+
+  -- A case belongs to one patient and one doctor; the booking must match it
+  IF v_ent.case_id IS NOT NULL AND NOT EXISTS (
+    SELECT 1 FROM public.cases
+    WHERE id = v_ent.case_id AND host_id = p_host_id AND patient_id IS NOT DISTINCT FROM v_ent.patient_id
+  ) THEN
+    RAISE EXCEPTION 'This booking link is for another doctor or patient' USING ERRCODE = '22023';
+  END IF;
+
+  v_phone := COALESCE(v_ent.phone, (SELECT phone FROM public.patients WHERE id = v_ent.patient_id));
 
   PERFORM public.booking_assert_not_blocked(p_host_id, p_busy_from, p_busy_until);
 
@@ -347,7 +368,7 @@ BEGIN
     patient_id, case_id, mode, kind
   ) VALUES (
     v_ent.id, v_ent.order_id, p_host_id, v_ent.booking_type_id, p_starts_at, p_ends_at, p_busy_from, p_busy_until,
-    trim(p_name), NULLIF(lower(trim(p_email)), ''), v_ent.phone, p_timezone, NULLIF(trim(p_notes), ''),
+    trim(p_name), NULLIF(lower(trim(p_email)), ''), v_phone, p_timezone, NULLIF(trim(p_notes), ''),
     v_ent.patient_id, v_ent.case_id, v_mode, v_ent.kind
   )
   RETURNING * INTO v_booking;
@@ -389,8 +410,14 @@ BEGIN
   ) THEN
     RAISE EXCEPTION 'This host does not offer this call' USING ERRCODE = '22023';
   END IF;
-  IF NOT EXISTS (SELECT 1 FROM public.booking_hosts WHERE id = p_host_id AND v_old.mode = ANY (modes)) THEN
+  -- Moving to another host needs one who offers the same kind of visit;
+  -- the same host can always move a booking they already have
+  IF p_host_id <> v_old.host_id
+     AND NOT EXISTS (SELECT 1 FROM public.booking_hosts WHERE id = p_host_id AND v_old.mode = ANY (modes)) THEN
     RAISE EXCEPTION 'This host does not offer this kind of visit' USING ERRCODE = '22023';
+  END IF;
+  IF v_old.case_id IS NOT NULL AND p_host_id <> v_old.host_id THEN
+    RAISE EXCEPTION 'A booking in a case stays with its doctor' USING ERRCODE = '22023';
   END IF;
 
   PERFORM public.booking_assert_not_blocked(p_host_id, p_busy_from, p_busy_until);
