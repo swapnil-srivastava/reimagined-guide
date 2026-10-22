@@ -131,7 +131,7 @@ const DoctorProfile: NextPage<Props> = ({ doctor }) => {
   const weekdays = Info.weekdays("short", { locale: intl.locale });
   const clinicLine = doctor.clinic ? clinicAddress(doctor.clinic) : "";
   const mapHref =
-    doctor.clinic?.map_url ||
+    (doctor.clinic?.map_url?.startsWith("https://") && doctor.clinic.map_url) ||
     (clinicLine ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${doctor.clinic!.name}, ${clinicLine}`)}` : null);
   const hourLabel = (time: string) =>
     DateTime.fromFormat(time === "24:00" ? "23:59" : time, "HH:mm", { locale: intl.locale }).toLocaleString(DateTime.TIME_SIMPLE);
