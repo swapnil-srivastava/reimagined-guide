@@ -290,12 +290,22 @@ ALTER TABLE public.bookings
     AND (no_show_marked_at IS NULL OR status = 'no_show')
   );
 
+-- The visit mode a booking type stands for ('phone' is an audio call)
+CREATE OR REPLACE FUNCTION public.booking_mode_of(p_location_kind TEXT)
+RETURNS TEXT
+LANGUAGE sql
+IMMUTABLE
+SET search_path = ''
+AS $$
+  SELECT CASE p_location_kind WHEN 'phone' THEN 'audio' ELSE p_location_kind END;
+$$;
+
 -- Existing bookings take the mode of their booking type
 UPDATE public.bookings b
-SET mode = CASE t.location_kind WHEN 'phone' THEN 'audio' ELSE t.location_kind END
+SET mode = public.booking_mode_of(t.location_kind)
 FROM public.booking_types t
 WHERE t.id = b.booking_type_id
-  AND b.mode IS DISTINCT FROM (CASE t.location_kind WHEN 'phone' THEN 'audio' ELSE t.location_kind END);
+  AND b.mode IS DISTINCT FROM public.booking_mode_of(t.location_kind);
 
 CREATE INDEX IF NOT EXISTS bookings_patient ON public.bookings (patient_id);
 CREATE INDEX IF NOT EXISTS bookings_case ON public.bookings (case_id);
@@ -344,7 +354,7 @@ BEGIN
     RAISE EXCEPTION 'This host does not offer this call' USING ERRCODE = '22023';
   END IF;
 
-  SELECT COALESCE(v_ent.mode, CASE t.location_kind WHEN 'phone' THEN 'audio' ELSE t.location_kind END)
+  SELECT COALESCE(v_ent.mode, public.booking_mode_of(t.location_kind))
   INTO v_mode FROM public.booking_types t WHERE t.id = v_ent.booking_type_id;
   IF NOT EXISTS (SELECT 1 FROM public.booking_hosts WHERE id = p_host_id AND v_mode = ANY (modes)) THEN
     RAISE EXCEPTION 'This host does not offer this kind of visit' USING ERRCODE = '22023';
