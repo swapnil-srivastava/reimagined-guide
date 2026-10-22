@@ -29,7 +29,6 @@ const m = defineMessages({
     defaultMessage: "Every change to this doctor's details, newest first.",
   },
   empty: { id: "practice-history-empty", description: "Change history: nothing changed yet", defaultMessage: "No changes yet." },
-  by: { id: "practice-history-by", description: "Change history: who made a change", defaultMessage: "{name}" },
   someone: { id: "practice-history-someone", description: "Change history: change made by the system or an unknown person", defaultMessage: "System" },
   from: { id: "practice-history-from-to", description: "Change history: screen reader text for old and new value", defaultMessage: "from {old} to {new}" },
   more: { id: "practice-history-more", description: "Change history: load older changes", defaultMessage: "Show older changes" },

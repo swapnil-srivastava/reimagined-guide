@@ -13,9 +13,6 @@ export const MAX_FOLLOW_UP_DAYS = 30;
 export const MIN_REASON = 3;
 export const MAX_REASON = 500;
 
-/** Share of the fee a patient pays under a charge rule */
-export const CHARGE_SHARE: Record<Charge, number> = { full: 1, three_quarters: 0.75, half: 0.5, free: 0 };
-
 export const isCharge = (value: unknown): value is Charge => CHARGES.includes(value as Charge);
 
 /** "₹600" or "₹612.50", Indian digit grouping ("₹1,00,000") */
@@ -50,9 +47,6 @@ export function parseWhole(raw: string, min: number, max: number): number | null
   const n = Number(text);
   return n >= min && n <= max ? n : null;
 }
-
-/** A doctor's own value when set, otherwise the practice's */
-export const effective = <T>(own: T | null | undefined, practice: T): T => (own ?? practice);
 
 /** What a doctor can see and do, from their row */
 export interface DoctorLike {
