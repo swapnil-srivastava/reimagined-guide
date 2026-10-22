@@ -81,6 +81,12 @@ function invite(
   };
 }
 
+/** The person's email and mobile number, whichever they gave */
+const contactRows = (booking: Booking): [string, string][] =>
+  ([["Email", booking.invitee_email], ["Mobile", booking.invitee_phone]] as [string, string | null][]).filter(
+    (row): row is [string, string] => !!row[1]
+  );
+
 export type BookingEvent = "booked" | "rescheduled" | "cancelled";
 
 export interface BookingEmailInput {
@@ -113,8 +119,11 @@ function inviteeRows(booking: Booking, type: BookingType, host: BookingHost): [s
 const textOf = (lines: string[]) => lines.filter((line, i, all) => line !== "" || all[i - 1] !== "").join("\n");
 
 /** Sends the buyer's email. Returns false instead of throwing. */
-export function sendInviteeEmail(input: BookingEmailInput): Promise<boolean> {
+export async function sendInviteeEmail(input: BookingEmailInput): Promise<boolean> {
   const { event, booking, previous, type, host, manageUrl } = input;
+  // Doctor patients may give only a mobile number: nothing to email, which
+  // is not a failure (their SMS comes with the SMS provider, PR 3)
+  if (!booking.invitee_email) return true;
   const zone = booking.invitee_timezone || host.timezone;
   const first = booking.invitee_name.split(" ")[0] || booking.invitee_name;
   const rows = inviteeRows(booking, type, host);
@@ -182,7 +191,7 @@ export async function sendHostEmail(input: BookingEmailInput): Promise<boolean> 
   const rows: [string, string][] = [
     ["When", `${when(booking, zone)} ${zoneLabel(zone, booking.starts_at)}`],
     ["Name", booking.invitee_name],
-    ["Email", booking.invitee_email],
+    ...contactRows(booking),
   ];
   if (booking.invitee_timezone && booking.invitee_timezone !== zone) {
     rows.push(["Their time", `${when(booking, booking.invitee_timezone)} ${zoneLabel(booking.invitee_timezone, booking.starts_at)}`]);
@@ -228,7 +237,8 @@ export async function sendBookingEmails(input: BookingEmailInput): Promise<{ inv
 export type ReminderKind = "24h" | "1h";
 
 /** Reminds the buyer of their call, a day and an hour before. No invite: the call is already in their calendar. */
-export function sendReminderEmail(kind: ReminderKind, booking: Booking, type: BookingType, host: BookingHost): Promise<boolean> {
+export async function sendReminderEmail(kind: ReminderKind, booking: Booking, type: BookingType, host: BookingHost): Promise<boolean> {
+  if (!booking.invitee_email) return true;
   const zone = booking.invitee_timezone || host.timezone;
   const start = DateTime.fromISO(booking.starts_at).setZone(zone).setLocale(LOCALE);
   const first = booking.invitee_name.split(" ")[0] || booking.invitee_name;
@@ -262,7 +272,7 @@ export async function sendHostReminderEmail(booking: Booking, type: BookingType,
   const rows: [string, string][] = [
     ["When", `${when(booking, zone)} ${zoneLabel(zone, booking.starts_at)}`],
     ["Name", booking.invitee_name],
-    ["Email", booking.invitee_email],
+    ...contactRows(booking),
   ];
   if (booking.notes) rows.push(["Notes", booking.notes]);
 

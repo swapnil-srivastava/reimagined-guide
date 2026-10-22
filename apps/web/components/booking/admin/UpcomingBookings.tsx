@@ -3,7 +3,7 @@ import { DateTime } from "luxon";
 import toast from "react-hot-toast";
 import { defineMessages, useIntl } from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarXmark, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faCalendarXmark, faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
 
 import { supaClient } from "../../../supa-client";
 import { dayLabel, inZone, longDayLabel, rangeLabel, timeLabel } from "../../../lib/booking/format";
@@ -214,10 +214,18 @@ function BookingItem({ booking, host, type, reload }: { booking: Booking; host: 
             {booking.invitee_name}
             <Pill tone={STATUS_TONE[status]}>{statusText}</Pill>
           </p>
-          <a href={`mailto:${booking.invitee_email}`} className="text-sm underline break-all inline-flex items-center gap-1.5">
-            <FontAwesomeIcon icon={faEnvelope} className="w-3.5 h-3.5" aria-hidden="true" />
-            {booking.invitee_email}
-          </a>
+          {booking.invitee_email && (
+            <a href={`mailto:${booking.invitee_email}`} className="text-sm underline break-all inline-flex items-center gap-1.5">
+              <FontAwesomeIcon icon={faEnvelope} className="w-3.5 h-3.5" aria-hidden="true" />
+              {booking.invitee_email}
+            </a>
+          )}
+          {booking.invitee_phone && (
+            <a href={`tel:${booking.invitee_phone}`} className="text-sm underline break-all inline-flex items-center gap-1.5">
+              <FontAwesomeIcon icon={faPhone} className="w-3.5 h-3.5" aria-hidden="true" />
+              {booking.invitee_phone}
+            </a>
+          )}
           <p className="text-sm text-[var(--text-muted)]">
             {[type?.name, booking.order_id ? intl.formatMessage(m.order, { number: booking.order_id.slice(0, 8).toUpperCase() }) : null]
               .filter(Boolean)

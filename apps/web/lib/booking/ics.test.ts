@@ -36,6 +36,12 @@ test("a cancellation keeps the UID and has no reminder", () => {
   assert.ok(!ics.includes("VALARM"));
 });
 
+test("an invite without an email has no attendee line", () => {
+  const ics = buildInvite({ ...base, attendeeEmail: null });
+  assert.ok(!ics.includes("ATTENDEE"));
+  assert.ok(buildInvite(base).includes("ATTENDEE;CN="));
+});
+
 test("text is escaped", () => {
   assert.equal(icsText("a,b;c\\d\ne"), "a\\,b\\;c\\\\d\\ne");
 });
