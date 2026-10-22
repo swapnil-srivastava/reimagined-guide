@@ -12,7 +12,24 @@ export type BookingDateOverride = Tables["booking_date_overrides"]["Row"];
 export type BookingBlock = Tables["booking_blocks"]["Row"];
 export type Booking = Tables["bookings"]["Row"];
 
+// Doctors (migration 20261022170000_doctors_data_model.sql)
+export type Clinic = Tables["clinics"]["Row"];
+export type ClinicMember = Tables["clinic_members"]["Row"];
+export type Patient = Tables["patients"]["Row"];
+export type ConsentVersion = Tables["consent_versions"]["Row"];
+export type PatientConsent = Tables["patient_consents"]["Row"];
+export type Case = Tables["cases"]["Row"];
+
 export type BookingStatus = "confirmed" | "cancelled" | "completed" | "no_show";
+
+export const VISIT_MODES = ["video", "audio", "in_person"] as const;
+export type VisitMode = (typeof VISIT_MODES)[number];
+
+/** first: a new consult; follow_up: free or paid, inside a case; clinic_visit: the doctor asked an online patient to come in */
+export type BookingKind = "first" | "follow_up" | "clinic_visit";
+export type HostKind = "consultant" | "doctor";
+export type CaseStatus = "open" | "follow_up" | "closed";
+export type ConsentKind = "teleconsult" | "data" | "parent_data";
 
 /** The slot rules of a booking type, as computeSlots takes them */
 export const rulesOf = (type: BookingType) => ({

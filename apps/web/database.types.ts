@@ -69,6 +69,17 @@ export type Database = {
           title: string | null
           user_id: string | null
           feed_token_hash: string | null
+          kind: string
+          qualification: string | null
+          specialty: string | null
+          registration_number: string | null
+          registration_council: string | null
+          registration_verified_at: string | null
+          registration_verified_by: string | null
+          bio: string | null
+          languages: string[]
+          clinic_id: string | null
+          modes: string[]
         }
         Insert: {
           active?: boolean
@@ -82,6 +93,17 @@ export type Database = {
           title?: string | null
           user_id?: string | null
           feed_token_hash?: string | null
+          kind?: string
+          qualification?: string | null
+          specialty?: string | null
+          registration_number?: string | null
+          registration_council?: string | null
+          registration_verified_at?: string | null
+          registration_verified_by?: string | null
+          bio?: string | null
+          languages?: string[]
+          clinic_id?: string | null
+          modes?: string[]
         }
         Update: {
           active?: boolean
@@ -95,6 +117,17 @@ export type Database = {
           title?: string | null
           user_id?: string | null
           feed_token_hash?: string | null
+          kind?: string
+          qualification?: string | null
+          specialty?: string | null
+          registration_number?: string | null
+          registration_council?: string | null
+          registration_verified_at?: string | null
+          registration_verified_by?: string | null
+          bio?: string | null
+          languages?: string[]
+          clinic_id?: string | null
+          modes?: string[]
         }
         Relationships: []
       }
@@ -272,6 +305,11 @@ export type Database = {
           used: number
           nudged_at: string | null
           nudge_token_hash: string | null
+          phone: string | null
+          patient_id: string | null
+          case_id: string | null
+          mode: string | null
+          kind: string
         }
         Insert: {
           booking_type_id: string
@@ -287,6 +325,11 @@ export type Database = {
           used?: number
           nudged_at?: string | null
           nudge_token_hash?: string | null
+          phone?: string | null
+          patient_id?: string | null
+          case_id?: string | null
+          mode?: string | null
+          kind?: string
         }
         Update: {
           booking_type_id?: string
@@ -302,6 +345,11 @@ export type Database = {
           used?: number
           nudged_at?: string | null
           nudge_token_hash?: string | null
+          phone?: string | null
+          patient_id?: string | null
+          case_id?: string | null
+          mode?: string | null
+          kind?: string
         }
         Relationships: []
       }
@@ -324,7 +372,7 @@ export type Database = {
           entitlement_id: string | null
           host_id: string
           id: string
-          invitee_email: string
+          invitee_email: string | null
           invitee_name: string
           invitee_timezone: string | null
           notes: string | null
@@ -335,6 +383,16 @@ export type Database = {
           updated_at: string
           reminder_24h_sent_at: string | null
           reminder_1h_sent_at: string | null
+          invitee_phone: string | null
+          patient_id: string | null
+          case_id: string | null
+          mode: string
+          kind: string
+          patient_arrived_at: string | null
+          checked_in_at: string | null
+          checked_in_by: string | null
+          no_show_marked_at: string | null
+          no_show_marked_by: string | null
         }
         Insert: {
           booking_type_id: string
@@ -348,7 +406,7 @@ export type Database = {
           entitlement_id?: string | null
           host_id: string
           id?: string
-          invitee_email: string
+          invitee_email?: string | null
           invitee_name: string
           invitee_timezone?: string | null
           notes?: string | null
@@ -359,6 +417,16 @@ export type Database = {
           updated_at?: string
           reminder_24h_sent_at?: string | null
           reminder_1h_sent_at?: string | null
+          invitee_phone?: string | null
+          patient_id?: string | null
+          case_id?: string | null
+          mode?: string
+          kind?: string
+          patient_arrived_at?: string | null
+          checked_in_at?: string | null
+          checked_in_by?: string | null
+          no_show_marked_at?: string | null
+          no_show_marked_by?: string | null
         }
         Update: {
           booking_type_id?: string
@@ -372,7 +440,7 @@ export type Database = {
           entitlement_id?: string | null
           host_id?: string
           id?: string
-          invitee_email?: string
+          invitee_email?: string | null
           invitee_name?: string
           invitee_timezone?: string | null
           notes?: string | null
@@ -383,6 +451,16 @@ export type Database = {
           updated_at?: string
           reminder_24h_sent_at?: string | null
           reminder_1h_sent_at?: string | null
+          invitee_phone?: string | null
+          patient_id?: string | null
+          case_id?: string | null
+          mode?: string
+          kind?: string
+          patient_arrived_at?: string | null
+          checked_in_at?: string | null
+          checked_in_by?: string | null
+          no_show_marked_at?: string | null
+          no_show_marked_by?: string | null
         }
         Relationships: []
       }
@@ -1069,11 +1147,279 @@ export type Database = {
         }
         Relationships: []
       }
+      clinics: {
+        Row: {
+          id: string
+          name: string
+          slug: string
+          address_line1: string | null
+          address_line2: string | null
+          city: string | null
+          state: string | null
+          postcode: string | null
+          country: string
+          phone: string | null
+          email: string | null
+          map_url: string | null
+          timezone: string
+          active: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          slug: string
+          address_line1?: string | null
+          address_line2?: string | null
+          city?: string | null
+          state?: string | null
+          postcode?: string | null
+          country?: string
+          phone?: string | null
+          email?: string | null
+          map_url?: string | null
+          timezone?: string
+          active?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          slug?: string
+          address_line1?: string | null
+          address_line2?: string | null
+          city?: string | null
+          state?: string | null
+          postcode?: string | null
+          country?: string
+          phone?: string | null
+          email?: string | null
+          map_url?: string | null
+          timezone?: string
+          active?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      clinic_members: {
+        Row: {
+          clinic_id: string
+          user_id: string
+          role: string
+          created_at: string
+        }
+        Insert: {
+          clinic_id: string
+          user_id: string
+          role?: string
+          created_at?: string
+        }
+        Update: {
+          clinic_id?: string
+          user_id?: string
+          role?: string
+          created_at?: string
+        }
+        Relationships: []
+      }
+      patients: {
+        Row: {
+          id: string
+          user_id: string | null
+          full_name: string
+          phone: string
+          phone_verified_at: string | null
+          email: string | null
+          date_of_birth: string | null
+          sex: string | null
+          address_line1: string | null
+          address_line2: string | null
+          city: string | null
+          state: string | null
+          postcode: string | null
+          abha_number: string | null
+          abha_address: string | null
+          abha_linked_at: string | null
+          guardian_name: string | null
+          guardian_relation: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id?: string | null
+          full_name: string
+          phone: string
+          phone_verified_at?: string | null
+          email?: string | null
+          date_of_birth?: string | null
+          sex?: string | null
+          address_line1?: string | null
+          address_line2?: string | null
+          city?: string | null
+          state?: string | null
+          postcode?: string | null
+          abha_number?: string | null
+          abha_address?: string | null
+          abha_linked_at?: string | null
+          guardian_name?: string | null
+          guardian_relation?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string | null
+          full_name?: string
+          phone?: string
+          phone_verified_at?: string | null
+          email?: string | null
+          date_of_birth?: string | null
+          sex?: string | null
+          address_line1?: string | null
+          address_line2?: string | null
+          city?: string | null
+          state?: string | null
+          postcode?: string | null
+          abha_number?: string | null
+          abha_address?: string | null
+          abha_linked_at?: string | null
+          guardian_name?: string | null
+          guardian_relation?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      consent_versions: {
+        Row: {
+          kind: string
+          version: string
+          title: string
+          body: string
+          published_at: string
+        }
+        Insert: {
+          kind: string
+          version: string
+          title: string
+          body: string
+          published_at?: string
+        }
+        Update: {
+          kind?: string
+          version?: string
+          title?: string
+          body?: string
+          published_at?: string
+        }
+        Relationships: []
+      }
+      patient_consents: {
+        Row: {
+          id: string
+          patient_id: string
+          kind: string
+          version: string
+          given_by: string
+          given_at: string
+          withdrawn_at: string | null
+          entitlement_id: string | null
+          ip_hash: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          id?: string
+          patient_id: string
+          kind: string
+          version: string
+          given_by?: string
+          given_at?: string
+          withdrawn_at?: string | null
+          entitlement_id?: string | null
+          ip_hash?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          id?: string
+          patient_id?: string
+          kind?: string
+          version?: string
+          given_by?: string
+          given_at?: string
+          withdrawn_at?: string | null
+          entitlement_id?: string | null
+          ip_hash?: string | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
+      cases: {
+        Row: {
+          id: string
+          patient_id: string
+          host_id: string
+          status: string
+          chief_complaint: string | null
+          follow_up_until: string | null
+          closed_at: string | null
+          close_reason: string | null
+          previous_case_id: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          patient_id: string
+          host_id: string
+          status?: string
+          chief_complaint?: string | null
+          follow_up_until?: string | null
+          closed_at?: string | null
+          close_reason?: string | null
+          previous_case_id?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          patient_id?: string
+          host_id?: string
+          status?: string
+          chief_complaint?: string | null
+          follow_up_until?: string | null
+          closed_at?: string | null
+          close_reason?: string | null
+          previous_case_id?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      my_host_ids: {
+        Args: Record<PropertyKey, never>
+        Returns: string[]
+      }
+      my_clinic_host_ids: {
+        Args: Record<PropertyKey, never>
+        Returns: string[]
+      }
+      my_patient_ids: {
+        Args: Record<PropertyKey, never>
+        Returns: string[]
+      }
+      my_care_patient_ids: {
+        Args: Record<PropertyKey, never>
+        Returns: string[]
+      }
       approve_post: {
         Args: { p_post_id: string }
         Returns: Database["public"]["Tables"]["posts"]["Row"]

@@ -18,7 +18,8 @@ export interface InviteInput {
   organizerName: string;
   organizerEmail: string;
   attendeeName: string;
-  attendeeEmail: string;
+  /** Left out of the invite when the person gave no email (doctor patients) */
+  attendeeEmail?: string | null;
   now?: Date;
 }
 
@@ -70,7 +71,9 @@ export function buildInvite(input: InviteInput): string {
     ...(input.location ? [`LOCATION:${icsText(input.location)}`] : []),
     ...(input.url ? [`URL:${input.url}`] : []),
     `ORGANIZER;CN=${cn(input.organizerName)}:mailto:${input.organizerEmail}`,
-    `ATTENDEE;CN=${cn(input.attendeeName)};ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=FALSE:mailto:${input.attendeeEmail}`,
+    ...(input.attendeeEmail
+      ? [`ATTENDEE;CN=${cn(input.attendeeName)};ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=FALSE:mailto:${input.attendeeEmail}`]
+      : []),
     `STATUS:${cancelled ? "CANCELLED" : "CONFIRMED"}`,
     "TRANSP:OPAQUE",
     ...(cancelled

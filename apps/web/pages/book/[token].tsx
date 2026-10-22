@@ -659,7 +659,7 @@ const BookPage: NextPage = () => {
             <p className="text-sm text-[var(--text-muted)] mt-1">{bookingLabel(focus, zone, intl.locale)}</p>
           </div>
         </div>
-        {done && <p className="text-sm">{intl.formatMessage(m.sentTo, { email: focus.invitee_email })}</p>}
+        {done && focus.invitee_email && <p className="text-sm">{intl.formatMessage(m.sentTo, { email: focus.invitee_email })}</p>}
 
         <div className="flex flex-col gap-2">
           <p className="text-sm font-semibold">{intl.formatMessage(m.addTo)}</p>

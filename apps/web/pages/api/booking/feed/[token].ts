@@ -51,7 +51,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           start: new Date(b.starts_at),
           end: new Date(b.ends_at),
           summary: `${type?.name ?? "Call"}: ${b.invitee_name}`,
-          description: [b.invitee_email, b.notes ? `Notes: ${b.notes}` : ""].filter(Boolean).join("\n\n"),
+          description: [b.invitee_email, b.invitee_phone, b.notes ? `Notes: ${b.notes}` : ""].filter(Boolean).join("\n\n"),
           location: type?.location_value,
           updated: new Date(b.updated_at),
         };
