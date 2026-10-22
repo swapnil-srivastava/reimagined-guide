@@ -7,9 +7,8 @@ import { faCalendarCheck, faClock, faMagnifyingGlass, faStethoscope } from "@for
 
 import Metatags from "../../components/Metatags";
 import { EmergencyNote, cardClass, linkButton } from "../../components/doctors/ui";
-import { specialtyCounts } from "../../lib/doctors/directory";
 import { SITE_URL } from "../../lib/site";
-import { directoryConfigured, loadDoctors } from "../../lib/server/doctors";
+import { directoryConfigured, loadSpecialties } from "../../lib/server/doctors";
 
 // e.g. localhost:3000/book-appointment
 // Start of the doctor booking journey (P1): what it is, how it works and the
@@ -159,8 +158,7 @@ const BookAppointment: NextPage<Props> = ({ specialties }) => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const doctors = directoryConfigured ? await loadDoctors() : [];
-  return { props: { specialties: specialtyCounts(doctors) }, revalidate: REVALIDATE_SECONDS };
+  return { props: { specialties: directoryConfigured ? await loadSpecialties() : [] }, revalidate: REVALIDATE_SECONDS };
 };
 
 export default BookAppointment;

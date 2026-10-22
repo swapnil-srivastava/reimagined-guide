@@ -4,7 +4,7 @@ import { defineMessages, useIntl } from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDays, faLanguage } from "@fortawesome/free-solid-svg-icons";
 import { durationLabel } from "../../lib/booking/format";
-import type { PublicDoctor } from "../../lib/doctors/directory";
+import { formatRupees, type PublicDoctor } from "../../lib/doctors/directory";
 import { DoctorAvatar, Tag, cardClass, linkButton, m, modesLabel, whenLabel } from "./ui";
 
 // One doctor in the list (P2 / W1)
@@ -71,9 +71,16 @@ export default function DoctorCard({
 
       <div className="border-t border-[var(--border-subtle)] pt-3 flex flex-col gap-2">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          {first ? (
+          {first || doctor.first_fee_paise !== null ? (
             <p className="text-sm font-semibold">
-              {first.name} · {durationLabel(first.duration_minutes)}
+              {[
+                doctor.first_fee_paise !== null
+                  ? intl.formatMessage(m.from, { fee: formatRupees(doctor.first_fee_paise, intl.locale) })
+                  : first?.name,
+                first && durationLabel(first.duration_minutes),
+              ]
+                .filter(Boolean)
+                .join(" · ")}
             </p>
           ) : (
             <span />

@@ -12,6 +12,7 @@ import {
   filtersToQuery,
   hoursByWeekday,
   matchesQuery,
+  formatRupees,
   modeOfLocation,
   specialtyCounts,
   withoutPastSlots,
@@ -35,6 +36,8 @@ const doctor = (over: Partial<PublicDoctor>): PublicDoctor => ({
   registration_council: null,
   registration_verified: false,
   timezone: IST,
+  first_fee_paise: null,
+  follow_up_fee_paise: null,
   clinic: null,
   weekly_hours: [],
   consultations: [],
@@ -168,4 +171,6 @@ test("clinic address and booking type modes", () => {
   assert.equal(modeOfLocation("phone"), "audio");
   assert.equal(modeOfLocation("in_person"), "in_person");
   assert.equal(modeOfLocation("video"), "video");
+  assert.equal(formatRupees(60000), "₹600");
+  assert.equal(formatRupees(120000), "₹1,200");
 });

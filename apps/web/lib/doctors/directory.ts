@@ -45,6 +45,9 @@ export interface PublicDoctor {
   registration_verified: boolean;
   /** The doctor's own zone; working hours are wall-clock times in it */
   timezone: string;
+  /** First consultation and follow-up fees in paise (₹1 = 100), null until set */
+  first_fee_paise: number | null;
+  follow_up_fee_paise: number | null;
   clinic: PublicClinic | null;
   weekly_hours: { weekday: number; start_time: string; end_time: string }[];
   consultations: PublicConsultation[];
@@ -151,7 +154,7 @@ export function sortDoctors(doctors: PublicDoctor[], sort: SortKey): PublicDocto
 }
 
 /** Specialties with how many doctors have each, most common first */
-export function specialtyCounts(doctors: PublicDoctor[]): { specialty: string; count: number }[] {
+export function specialtyCounts(doctors: Pick<PublicDoctor, "specialty">[]): { specialty: string; count: number }[] {
   const counts = new Map<string, number>();
   for (const doctor of doctors) {
     if (doctor.specialty) counts.set(doctor.specialty, (counts.get(doctor.specialty) ?? 0) + 1);
@@ -169,6 +172,11 @@ export function allLanguages(doctors: PublicDoctor[]): string[] {
 /** How many filters (not search or sort) are switched on, for the Filters button badge */
 export function activeFilterCount(filters: DirectoryFilters): number {
   return filters.languages.length + filters.modes.length + (filters.availability === "any" ? 0 : 1);
+}
+
+/** "₹600", "₹1,200" (Indian grouping) */
+export function formatRupees(paise: number, locale = "en-IN"): string {
+  return new Intl.NumberFormat(locale, { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(paise / 100);
 }
 
 /** One line of a clinic's address: "FC Road, Pune, Maharashtra 411004" */

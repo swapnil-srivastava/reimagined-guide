@@ -18,9 +18,9 @@ import TimeZoneSelect from "../../components/booking/book/TimeZoneSelect";
 import { browserZone } from "../../components/booking/book/api";
 import { DoctorAvatar, EmergencyNote, PageHeading, Tag, cardClass, m, modesLabel, whenLabel } from "../../components/doctors/ui";
 import { durationLabel, zoneName } from "../../lib/booking/format";
-import { clinicAddress, hoursByWeekday, type PublicDoctor } from "../../lib/doctors/directory";
+import { clinicAddress, formatRupees, hoursByWeekday, type PublicDoctor } from "../../lib/doctors/directory";
 import { SITE_URL } from "../../lib/site";
-import { directoryConfigured, loadDoctor, loadDoctors } from "../../lib/server/doctors";
+import { directoryConfigured, loadDoctor, loadDoctorSlugs } from "../../lib/server/doctors";
 
 // e.g. localhost:3000/doctors/garima-srivastava
 // A doctor's public profile (P3 / W2, time zone picker N7). Built on the
@@ -79,6 +79,8 @@ const msg = defineMessages({
       "{clinic, select, none {} other {At the clinic in {clinic}}}{both, select, yes {, or } other {}}{online, select, both {by video or audio call} video {by video call} audio {by audio call} other {}}",
   },
   worksIn: { id: "doctor-profile-works-in", description: "Doctor profile: the doctor's own zone", defaultMessage: "Works in {zone}" },
+  firstFee: { id: "doctor-profile-first-fee", description: "Doctor profile: fee of a first consultation", defaultMessage: "First consultation" },
+  followUpFee: { id: "doctor-profile-follow-up-fee", description: "Doctor profile: fee of a follow-up", defaultMessage: "Follow-up" },
   book: { id: "doctor-profile-book", description: "Doctor profile: booking card heading", defaultMessage: "Book an appointment" },
   bookSoon: {
     id: "doctor-profile-book-soon",
@@ -346,6 +348,22 @@ const DoctorProfile: NextPage<Props> = ({ doctor }) => {
               </Section>
 
               <Section title={intl.formatMessage(msg.book)}>
+                {(doctor.first_fee_paise !== null || doctor.follow_up_fee_paise !== null) && (
+                  <dl className="grid grid-cols-[1fr_auto] gap-x-4 gap-y-1.5 text-sm mb-3">
+                    {doctor.first_fee_paise !== null && (
+                      <>
+                        <dt>{intl.formatMessage(msg.firstFee)}</dt>
+                        <dd className="font-semibold text-right">{formatRupees(doctor.first_fee_paise, intl.locale)}</dd>
+                      </>
+                    )}
+                    {doctor.follow_up_fee_paise !== null && (
+                      <>
+                        <dt>{intl.formatMessage(msg.followUpFee)}</dt>
+                        <dd className="font-semibold text-right">{formatRupees(doctor.follow_up_fee_paise, intl.locale)}</dd>
+                      </>
+                    )}
+                  </dl>
+                )}
                 <p className="text-sm flex items-start gap-2">
                   <FontAwesomeIcon icon={faCalendarDays} className="mt-0.5 text-[var(--text-muted)]" aria-hidden="true" />
                   {intl.formatMessage(msg.bookSoon)}
@@ -367,9 +385,9 @@ const DoctorProfile: NextPage<Props> = ({ doctor }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const doctors = directoryConfigured ? await loadDoctors() : [];
-  // Doctors switched on later are built on their first visit
-  return { paths: doctors.map((d) => ({ params: { slug: d.slug } })), fallback: "blocking" };
+  // Doctors switched on later, or missed here, are built on their first visit
+  const slugs = directoryConfigured ? await loadDoctorSlugs().catch(() => []) : [];
+  return { paths: slugs.map((slug) => ({ params: { slug } })), fallback: "blocking" };
 };
 
 export const getStaticProps: GetStaticProps<Props, { slug: string }> = async ({ params }) => {

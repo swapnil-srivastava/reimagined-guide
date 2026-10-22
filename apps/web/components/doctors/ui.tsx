@@ -5,6 +5,7 @@ import { defineMessages, useIntl } from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { initials } from "../booking/book/CallSummary";
+import { dayLabel, inZone, timeLabel } from "../../lib/booking/format";
 import type { PublicDoctor, VisitMode } from "../../lib/doctors/directory";
 
 // Pieces shared by the doctor directory pages. Colours come from the theme
@@ -33,6 +34,7 @@ export const m = defineMessages({
     defaultMessage: "Online booking opens soon",
   },
   back: { id: "doctors-back", description: "Doctors: back button label", defaultMessage: "Back" },
+  from: { id: "doctors-fee-from", description: "Doctors: first consultation fee, e.g. 'From ₹600'", defaultMessage: "From {fee}" },
 });
 
 /** "Video · Clinic" */
@@ -40,15 +42,14 @@ export function modesLabel(intl: ReturnType<typeof useIntl>, modes: VisitMode[])
   return modes.map((mode) => intl.formatMessage(m[mode])).join(" · ");
 }
 
-/** "Today, 4:30 PM", "Tomorrow, 9:00 AM" or "Tue 27 Oct, 9:00 AM", in the given zone */
+/** "Today, 4:30 PM", "Tomorrow, 9:00 AM" or "Tue, 27 Oct, 9:00 AM", in the given zone */
 export function whenLabel(intl: ReturnType<typeof useIntl>, iso: string, zone: string, now = DateTime.now()) {
-  const at = DateTime.fromISO(iso).setZone(zone).setLocale(intl.locale);
-  const today = now.setZone(zone).startOf("day");
-  const time = at.toLocaleString(DateTime.TIME_SIMPLE);
-  const day = at.startOf("day");
-  if (day.equals(today)) return intl.formatMessage(m.today, { time });
-  if (day.equals(today.plus({ days: 1 }))) return intl.formatMessage(m.tomorrow, { time });
-  return `${at.toLocaleString({ weekday: "short", day: "numeric", month: "short" })}, ${time}`;
+  const at = inZone(iso, zone, intl.locale);
+  const today = now.setZone(zone);
+  const time = timeLabel(at);
+  if (at.hasSame(today, "day")) return intl.formatMessage(m.today, { time });
+  if (at.hasSame(today.plus({ days: 1 }), "day")) return intl.formatMessage(m.tomorrow, { time });
+  return `${dayLabel(at)}, ${time}`;
 }
 
 export function DoctorAvatar({ doctor, size = "md" }: { doctor: Pick<PublicDoctor, "name" | "photo_url">; size?: "md" | "lg" }) {

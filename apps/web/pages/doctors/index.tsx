@@ -109,11 +109,19 @@ const DoctorsPage: NextPage<Props> = ({ doctors: built }) => {
 
   const doctors = useMemo(() => (clock ? withoutPastSlots(built, clock.now) : built), [built, clock]);
   const specialties = useMemo(() => specialtyCounts(doctors), [doctors]);
-  const languages = useMemo(() => allLanguages(doctors), [doctors]);
+  // A language picked from a shared link stays visible so it can be switched off
+  const languages = useMemo(
+    () => Array.from(new Set([...allLanguages(doctors), ...filters.languages])),
+    [doctors, filters.languages]
+  );
   // Typing stays smooth while the list catches up
   const deferred = useDeferredValue(filters);
   const shown = useMemo(
-    () => filterDoctors(doctors, deferred, new Date(clock?.now ?? 0), clock?.zone ?? "UTC"),
+    () =>
+      clock
+        ? filterDoctors(doctors, deferred, new Date(clock.now), clock.zone)
+        : // Until the visitor's clock is known, "today" and "this week" can't be judged
+          filterDoctors(doctors, { ...deferred, availability: "any" }, new Date(), "UTC"),
     [doctors, deferred, clock]
   );
   const filterCount = activeFilterCount(filters);
