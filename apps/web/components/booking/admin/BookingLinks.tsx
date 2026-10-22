@@ -5,6 +5,7 @@ import { defineMessages, useIntl } from "react-intl";
 import { supaClient } from "../../../supa-client";
 import type { Database } from "../../../database.types";
 import { Button, Panel, Pill } from "./ui";
+import { modeLabel } from "../../practice/labels";
 
 // The booking links sent with paid orders, newest first. Turning a link off
 // stops it working (for example after a refund); its booked calls stay until
@@ -120,10 +121,11 @@ export default function BookingLinks() {
               return (
                 <li key={link.id} className="flex flex-wrap items-center gap-3 py-3">
                   <div className="min-w-0 flex-1">
-                    <p className="font-medium break-all">{link.email ?? intl.formatMessage(m.noEmail)}</p>
+                    <p className="font-medium break-all">{link.email ?? link.phone ?? intl.formatMessage(m.noEmail)}</p>
                     <p className="text-sm text-[var(--text-muted)]">
                       {[
                         link.name,
+                        link.mode ? modeLabel(intl, link.mode) : null,
                         intl.formatMessage(m.bought, { date: date(link.created_at) }),
                         intl.formatMessage(m.used, { used: link.used, quantity: link.quantity }),
                         link.nudged_at ? intl.formatMessage(m.nudged, { date: date(link.nudged_at) }) : null,
@@ -148,7 +150,7 @@ export default function BookingLinks() {
                     variant={link.revoked_at ? "secondary" : "ghost"}
                     disabled={busy === link.id}
                     aria-label={intl.formatMessage(link.revoked_at ? m.turnOnFor : m.turnOffFor, {
-                      who: link.email ?? link.name ?? intl.formatMessage(m.noEmail),
+                      who: link.email ?? link.phone ?? link.name ?? intl.formatMessage(m.noEmail),
                     })}
                     onClick={() => toggle(link)}
                   >

@@ -35,6 +35,7 @@ const m = defineMessages({
   tabHours: { id: "booking-admin-tab-hours", description: "Booking admin tab: weekly hours", defaultMessage: "Weekly hours" },
   tabSettings: { id: "booking-admin-tab-settings", description: "Booking admin tab: settings", defaultMessage: "Settings" },
   host: { id: "booking-admin-host-picker", description: "Booking admin: choose whose calendar to manage", defaultMessage: "Calendar of" },
+  allHosts: { id: "booking-admin-host-all", description: "Booking admin: show every calendar's bookings", defaultMessage: "All calendars" },
   notAdmin: { id: "booking-admin-not-admin", description: "Booking admin: shown to non-admins", defaultMessage: "Only admins can manage bookings." },
   loadFailed: {
     id: "booking-admin-load-failed",
@@ -45,6 +46,7 @@ const m = defineMessages({
 });
 
 const TABS = ["upcoming", "block", "hours", "settings"] as const;
+const ALL = "all";
 type Tab = (typeof TABS)[number];
 
 const AdminBooking: NextPage = () => {
@@ -79,14 +81,26 @@ function BookingAdmin() {
   const intl = useIntl();
   const router = useRouter();
   const { data, loading, error, reload } = useBookingAdmin();
-  const [hostId, setHostId] = useState<string | null>(null);
-
   const queryTab = typeof router.query.tab === "string" ? router.query.tab : "";
   const tab: Tab = (TABS as readonly string[]).includes(queryTab) ? (queryTab as Tab) : "upcoming";
-  const setTab = (next: Tab) =>
-    router.replace({ pathname: router.pathname, query: next === "upcoming" ? {} : { tab: next } }, undefined, { shallow: true, scroll: false });
+  // The chosen calendar is in the URL (?host=<id>), so Doctors can link to it
+  const queryHost = typeof router.query.host === "string" ? router.query.host : null;
+  const go = (next: { tab?: Tab; host?: string | null }) => {
+    const nextTab = next.tab ?? tab;
+    const nextHost = next.host === undefined ? queryHost : next.host;
+    router.replace(
+      { pathname: router.pathname, query: { ...(nextTab === "upcoming" ? {} : { tab: nextTab }), ...(nextHost ? { host: nextHost } : {}) } },
+      undefined,
+      { shallow: true, scroll: false },
+    );
+  };
 
-  const host = data.hosts.find((h) => h.id === hostId) ?? data.hosts.find((h) => h.is_default) ?? data.hosts[0] ?? null;
+  const setTab = (next: Tab) => go({ tab: next });
+
+  // "All calendars" lists every host's bookings; the other tabs need one host
+  const showAll = queryHost === ALL && tab === "upcoming";
+  const host =
+    data.hosts.find((h) => h.id === queryHost) ?? data.hosts.find((h) => h.is_default) ?? data.hosts[0] ?? null;
   // The booking type this host offers (the 1:1 call for now)
   const typeIds = data.typeHosts.filter((t) => host && t.host_id === host.id).map((t) => t.booking_type_id);
   const type = data.types.find((t) => typeIds.includes(t.id)) ?? data.types[0] ?? null;
@@ -124,7 +138,8 @@ function BookingAdmin() {
           {data.hosts.length > 1 && host && (
             <label className="flex flex-col gap-1 text-sm font-semibold w-full sm:w-64">
               {intl.formatMessage(m.host)}
-              <select className={inputClass} value={host.id} onChange={(e) => setHostId(e.target.value)}>
+              <select className={inputClass} value={showAll ? ALL : host.id} onChange={(e) => go({ host: e.target.value })}>
+                {tab === "upcoming" && <option value={ALL}>{intl.formatMessage(m.allHosts)}</option>}
                 {data.hosts.map((h) => (
                   <option key={h.id} value={h.id}>{h.name}</option>
                 ))}
@@ -169,7 +184,7 @@ function BookingAdmin() {
         ) : !host ? (
           <Panel>{intl.formatMessage(m.noHost)}</Panel>
         ) : tab === "upcoming" ? (
-          <UpcomingBookings host={host} types={data.types} data={data} reload={reload} />
+          <UpcomingBookings host={showAll ? null : host} types={data.types} data={data} reload={reload} />
         ) : tab === "block" ? (
           <BlockTime host={host} data={data} reload={reload} onShowBookings={() => setTab("upcoming")} />
         ) : tab === "hours" ? (
