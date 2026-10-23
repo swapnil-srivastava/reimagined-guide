@@ -27,6 +27,13 @@ const nextConfig = {
     defaultLocale: "en-US",
   },
   env: {},
+  async redirects() {
+    return [
+      // Old placeholder pages of the doctor booking journey
+      { source: "/choose-your-doctor", destination: "/doctors", permanent: false },
+      { source: "/doctor-page", destination: "/doctors", permanent: false },
+    ];
+  },
   experimental: {
     // Bundle node_modules into the server bundles instead of leaving them as
     // external requires. Otherwise Next's build-trace step has to walk ~1,600

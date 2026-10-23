@@ -3,11 +3,17 @@ import { escapeXml, getLivePosts } from "../lib/server/livePosts";
 import { SITE_URL, postUrl } from "../lib/site";
 import { supaClient } from "../supa-client";
 import { fetchTagCounts } from "../lib/tags";
+import { directoryConfigured, loadDoctorSlugs } from "../lib/server/doctors";
 
 // e.g. localhost:3000/sitemap.xml
-// Lists the home page, every approved, published post and every topic page.
+// Lists the home page, every approved, published post, every topic page and
+// the doctor pages.
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  const [posts, tags] = await Promise.all([getLivePosts(), fetchTagCounts(supaClient)]);
+  const [posts, tags, doctorSlugs] = await Promise.all([
+    getLivePosts(),
+    fetchTagCounts(supaClient),
+    directoryConfigured ? loadDoctorSlugs().catch(() => []) : [],
+  ]);
 
   const urls = [
     `<url><loc>${SITE_URL}/</loc><changefreq>daily</changefreq></url>`,
@@ -21,6 +27,10 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
       (tag) =>
         `<url><loc>${escapeXml(`${SITE_URL}/tags/${encodeURIComponent(tag.slug)}`)}</loc><changefreq>weekly</changefreq></url>`
     ),
+    ...(doctorSlugs.length
+      ? [`${SITE_URL}/book-appointment`, `${SITE_URL}/doctors`, ...doctorSlugs.map((slug) => `${SITE_URL}/doctors/${slug}`)]
+      : []
+    ).map((loc) => `<url><loc>${escapeXml(loc)}</loc><changefreq>weekly</changefreq></url>`),
   ];
 
   res.setHeader("Content-Type", "application/xml; charset=utf-8");
