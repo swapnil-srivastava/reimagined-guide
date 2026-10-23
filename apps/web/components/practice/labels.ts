@@ -1,5 +1,4 @@
 import { defineMessages, type IntlShape } from "react-intl";
-import { durationLabel } from "../../lib/booking/format";
 import { formatRupees, isCharge, type Charge, type Mode } from "../../lib/practice";
 
 // Labels shared by the practice admin pages (/admin/doctors, /admin/practice)
@@ -22,6 +21,8 @@ const m = defineMessages({
   days: { id: "practice-value-days", description: "A number of days", defaultMessage: "{count, plural, one {# day} other {# days}}" },
   everyone: { id: "practice-value-everyone", description: "Who may pay at the clinic: everyone", defaultMessage: "Everyone" },
   returning: { id: "practice-value-returning", description: "Who may pay at the clinic: returning patients only", defaultMessage: "Returning patients only" },
+  hours: { id: "practice-value-hours", description: "A number of hours", defaultMessage: "{count, plural, one {# hour} other {# hours}}" },
+  minutes: { id: "practice-value-minutes", description: "A number of minutes", defaultMessage: "{count, plural, one {# minute} other {# minutes}}" },
   noBuffer: { id: "practice-value-no-buffer", description: "Zero minutes between calls", defaultMessage: "None" },
 
   // Field names in the change history
@@ -34,7 +35,7 @@ const m = defineMessages({
   pay_at_clinic_who: { id: "practice-field-pay-at-clinic-who", description: "History field: who can pay at reception", defaultMessage: "Who can pay at the clinic" },
   min_notice_minutes: { id: "practice-field-min-notice", description: "History field: minimum notice", defaultMessage: "Minimum notice" },
   cancel_cutoff_minutes: { id: "practice-field-cancel-cutoff", description: "History field: free cancellation until", defaultMessage: "Free cancellation until" },
-  buffer_minutes: { id: "practice-field-buffer", description: "History field: gap between calls", defaultMessage: "Gap between calls" },
+  buffer_minutes: { id: "practice-field-buffer", description: "History field: gap between calls", defaultMessage: "Gap between visits" },
   max_days_ahead: { id: "practice-field-max-days", description: "History field: bookable ahead", defaultMessage: "Bookable ahead" },
   name: { id: "practice-field-name", description: "History field: doctor's name", defaultMessage: "Name" },
   qualification: { id: "practice-field-qualification", description: "History field: doctor's qualifications", defaultMessage: "Qualifications" },
@@ -45,7 +46,7 @@ const m = defineMessages({
   registration_verified_at: { id: "practice-field-registration-verified", description: "History field: registration check", defaultMessage: "Registration check" },
   clinic_id: { id: "practice-field-clinic", description: "History field: doctor's clinic", defaultMessage: "Clinic" },
   modes: { id: "practice-field-modes", description: "History field: visit modes offered", defaultMessage: "Modes" },
-  active: { id: "practice-field-active", description: "History field: doctor can be booked", defaultMessage: "Bookable" },
+  active: { id: "practice-field-active", description: "History field: doctor switched on for patients", defaultMessage: "Active" },
 });
 
 const CHARGE_MESSAGE = { full: m.chargeFull, three_quarters: m.chargeThreeQuarters, half: m.chargeHalf, free: m.chargeFree };
@@ -57,7 +58,13 @@ export const modeLabel = (intl: IntlShape, mode: string) =>
 export const daysLabel = (intl: IntlShape, count: number) => intl.formatMessage(m.days, { count });
 export const payWhoLabel = (intl: IntlShape, who: string) => intl.formatMessage(who === "returning" ? m.returning : m.everyone);
 export const practiceDefaultLabel = (intl: IntlShape) => intl.formatMessage(m.practiceDefault);
-export const minutesLabel = (intl: IntlShape, minutes: number) => (minutes === 0 ? intl.formatMessage(m.noBuffer) : durationLabel(minutes));
+/** "None", "15 minutes", "12 hours", "2 days" */
+export function minutesLabel(intl: IntlShape, minutes: number): string {
+  if (minutes === 0) return intl.formatMessage(m.noBuffer);
+  if (minutes % 1440 === 0) return intl.formatMessage(m.days, { count: minutes / 1440 });
+  if (minutes % 60 === 0) return intl.formatMessage(m.hours, { count: minutes / 60 });
+  return intl.formatMessage(m.minutes, { count: minutes });
+}
 
 export function fieldLabel(intl: IntlShape, field: string): string {
   const message = (m as Record<string, (typeof m)["name"]>)[field];

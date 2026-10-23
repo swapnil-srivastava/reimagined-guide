@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { defineMessages, useIntl } from "react-intl";
@@ -13,7 +13,6 @@ import {
   MODES,
   changedFields,
   doctorState,
-  formatRupees,
   isCharge,
   parseRupees,
   rupeesInput,
@@ -21,7 +20,7 @@ import {
   type DoctorState,
 } from "../../lib/practice";
 import { Button, ChipGroup, Field, Notice, Panel, Pill, inputClass } from "../booking/admin/ui";
-import { FeeInput, FieldError } from "./fields";
+import { Checkbox, FeeInput, FieldError } from "./fields";
 import { chargeLabel, modeLabel, practiceDefaultLabel } from "./labels";
 
 // Edit one doctor (Figma A3): details, registration and its check, visit
@@ -92,7 +91,7 @@ const m = defineMessages({
     defaultMessage: "{state, select, pending {Check the registration before activating.} expired {The registration has expired. Enter the new valid-until date.} other {Save your changes before activating.}}",
   },
   saveFirst: { id: "doctor-editor-save-first", description: "Why Deactivate is off: unsaved changes", defaultMessage: "Save or discard your changes before deactivating." },
-  required: { id: "doctor-editor-required", description: "Error: field required", defaultMessage: "Required" },
+  required: { id: "doctor-editor-required", description: "Error: the doctor's name is empty", defaultMessage: "Enter the doctor's full name." },
   tooLong: { id: "doctor-editor-too-long", description: "Error: text too long", defaultMessage: "At most {max} characters" },
   invalidFee: { id: "doctor-editor-invalid-fee", description: "Error: fee not valid", defaultMessage: "Enter an amount in rupees, like 600, or leave empty." },
   noMode: { id: "doctor-editor-no-mode", description: "Error: no mode chosen", defaultMessage: "Choose at least one mode." },
@@ -175,12 +174,27 @@ export default function DoctorEditor({ doctor, clinics, settings, today, onSaved
   const [saving, setSaving] = useState(false);
   const [triedSave, setTriedSave] = useState(false);
   const [confirmOff, setConfirmOff] = useState(false);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const keepRef = useRef<HTMLButtonElement>(null);
+  const shownId = useRef(doctor.id);
 
   useEffect(() => {
     setDraft(toDraft(doctor));
     setTriedSave(false);
     setConfirmOff(false);
   }, [doctor]);
+
+  // Picking another doctor moves focus to their name, so keyboard and screen
+  // reader users land on the editor (on a phone the list is hidden)
+  useEffect(() => {
+    if (shownId.current !== doctor.id) headingRef.current?.focus();
+    shownId.current = doctor.id;
+  }, [doctor.id]);
+
+  // The safe choice gets focus when the deactivate question opens
+  useEffect(() => {
+    if (confirmOff) keepRef.current?.focus();
+  }, [confirmOff]);
 
   const registrationChanged =
     draft.registration_number.trim() !== (doctor.registration_number ?? "") ||
@@ -290,7 +304,8 @@ export default function DoctorEditor({ doctor, clinics, settings, today, onSaved
     { value: "default" as ChargeChoice, label: intl.formatMessage(m.chargeDefault, { value: practiceCharge(key) }) },
     ...CHARGES.map((c) => ({ value: c as ChargeChoice, label: chargeLabel(intl, c) })),
   ];
-  const feePlaceholder = (paise: number | undefined) => (paise == null ? undefined : intl.formatMessage(m.feeDefault, { fee: formatRupees(paise) }));
+  // The input already shows ₹, so the placeholder is the bare amount
+  const feePlaceholder = (paise: number | undefined) => (paise == null ? undefined : intl.formatMessage(m.feeDefault, { fee: rupeesInput(paise) }));
   const clinic = clinics.find((c) => c.id === draft.clinic_id);
   const initials = doctor.name.replace(/^dr\.?\s+/i, "").split(/\s+/).map((w) => w[0]).slice(0, 2).join("").toUpperCase();
   const canActivate = state === "ready" && !dirty;
@@ -306,10 +321,14 @@ export default function DoctorEditor({ doctor, clinics, settings, today, onSaved
             {initials}
           </span>
           <div className="min-w-0 flex-1">
-            <h2 className="text-xl font-bold break-words">{doctor.name}</h2>
+            <h2 ref={headingRef} tabIndex={-1} className="text-xl font-bold break-words focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] rounded">
+              {doctor.name}
+            </h2>
             <p className="text-xs text-[var(--text-muted)]">{intl.formatMessage(m.shownOn)}</p>
+            <div className="mt-2">
+              <Pill tone={STATE_TONE[state]}>{stateLabel(state)}</Pill>
+            </div>
           </div>
-          <Pill tone={STATE_TONE[state]}>{stateLabel(state)}</Pill>
         </div>
         <div className="flex flex-col gap-4">
           <TextField id="doctor-name" label={intl.formatMessage(m.name)} value={draft.name} error={shownError("name")} autoComplete="name" onChange={(v) => set("name", v)} />
@@ -336,16 +355,8 @@ export default function DoctorEditor({ doctor, clinics, settings, today, onSaved
             <TextField id="doctor-reg-number" label={intl.formatMessage(m.number)} value={draft.registration_number} error={shownError("registration_number")} onChange={(v) => set("registration_number", v)} />
             <TextField id="doctor-reg-council" label={intl.formatMessage(m.council)} value={draft.registration_council} error={shownError("registration_council")} onChange={(v) => set("registration_council", v)} />
           </div>
-          <label className="flex items-start gap-3 text-sm min-h-[44px] cursor-pointer">
-            <input
-              type="checkbox"
-              className="mt-0.5 w-5 h-5 shrink-0 accent-[var(--color-primary-deep)]"
-              checked={draft.checked}
-              aria-describedby={errors.checked ? "doctor-checked-error" : undefined}
-              onChange={(e) => set("checked", e.target.checked)}
-            />
-            <span>
-              {intl.formatMessage(m.checked)}
+          <Checkbox checked={draft.checked} describedBy={errors.checked ? "doctor-checked-error" : undefined} onChange={(v) => set("checked", v)}>
+            {intl.formatMessage(m.checked)}
               {draft.checked && doctor.registration_verified_at && !registrationChanged && (
                 <span className="flex items-center gap-1.5 text-xs text-[var(--status-success)] mt-1">
                   <FontAwesomeIcon icon={faCircleCheck} className="w-3 h-3" aria-hidden="true" />
@@ -354,8 +365,7 @@ export default function DoctorEditor({ doctor, clinics, settings, today, onSaved
                   })}
                 </span>
               )}
-            </span>
-          </label>
+          </Checkbox>
           {errors.checked && <FieldError id="doctor-checked-error">{errors.checked}</FieldError>}
           {registrationChanged && doctor.registration_verified_at && !draft.checked && <Notice tone="warning">{intl.formatMessage(m.recheck)}</Notice>}
           <Field label={intl.formatMessage(m.validUntil)} htmlFor="doctor-reg-valid">
@@ -372,7 +382,7 @@ export default function DoctorEditor({ doctor, clinics, settings, today, onSaved
 
       <Panel title={intl.formatMessage(m.consultTitle)}>
         <div className="flex flex-col gap-4">
-          <fieldset className="flex flex-col gap-2">
+          <fieldset className="flex flex-col gap-2" aria-describedby={errors.modes ? "doctor-modes-error" : undefined}>
             <legend className="text-sm font-semibold mb-2">{intl.formatMessage(m.modes)}</legend>
             <div className="flex flex-wrap gap-2">
               {MODES.map((mode) => {
@@ -383,7 +393,7 @@ export default function DoctorEditor({ doctor, clinics, settings, today, onSaved
                     type="button"
                     aria-pressed={on}
                     onClick={() => toggleMode(mode)}
-                    className={`inline-flex items-center gap-1.5 min-h-[40px] px-3 rounded-full border text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] ${
+                    className={`inline-flex items-center gap-1.5 min-h-[44px] px-4 rounded-full border text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] ${
                       on
                         ? "bg-[var(--color-primary-deep)] text-[var(--text-on-primary)] border-transparent"
                         : "border-[var(--border-subtle)] bg-[var(--surface-inset)] text-[var(--text-primary)]"
@@ -395,7 +405,7 @@ export default function DoctorEditor({ doctor, clinics, settings, today, onSaved
                 );
               })}
             </div>
-            {errors.modes && <p className="text-sm text-[var(--status-danger)]" role="alert">{errors.modes}</p>}
+            {errors.modes && <p id="doctor-modes-error" className="text-sm text-[var(--status-danger)]" role="alert">{errors.modes}</p>}
           </fieldset>
           <div className="grid gap-4 sm:grid-cols-2">
             <FeeInput
@@ -493,7 +503,7 @@ export default function DoctorEditor({ doctor, clinics, settings, today, onSaved
               <Button variant="danger" disabled={saving} onClick={() => setActive(false)}>
                 {intl.formatMessage(m.deactivateYes)}
               </Button>
-              <Button variant="ghost" disabled={saving} onClick={() => setConfirmOff(false)}>
+              <Button ref={keepRef} variant="ghost" disabled={saving} onClick={() => setConfirmOff(false)}>
                 {intl.formatMessage(m.keep)}
               </Button>
             </div>

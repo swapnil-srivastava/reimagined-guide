@@ -11,7 +11,7 @@ import Metatags from "../../components/Metatags";
 import AdminGate, { ListSkeleton, NotAdmin } from "../../components/admin/AdminGate";
 import { Button, ChipGroup, Field, Notice, Panel, inputClass } from "../../components/booking/admin/ui";
 import ChangeHistory from "../../components/practice/ChangeHistory";
-import { FeeInput, FieldError } from "../../components/practice/fields";
+import { Checkbox, FeeInput, FieldError } from "../../components/practice/fields";
 import { chargeLabel, daysLabel, minutesLabel } from "../../components/practice/labels";
 import { supaClient } from "../../supa-client";
 import type { Database, Json } from "../../database.types";
@@ -108,6 +108,7 @@ const m = defineMessages({
     description: "How many settings are changed but not saved",
     defaultMessage: "{count, plural, =0 {No changes yet.} one {# change not saved yet.} other {# changes not saved yet.}}",
   },
+  review: { id: "practice-settings-review", description: "Phone: go to the reason box to save", defaultMessage: "Add reason and save" },
   save: { id: "practice-settings-save", description: "Button: save practice settings", defaultMessage: "Save changes" },
   discard: { id: "practice-settings-discard", description: "Button: undo unsaved changes", defaultMessage: "Discard" },
   saved: { id: "practice-settings-saved", description: "Toast after saving", defaultMessage: "Practice settings saved" },
@@ -343,15 +344,9 @@ function PracticeSettings() {
                 <p className="text-sm font-semibold">{intl.formatMessage(m.noShow)}</p>
                 <ChipGroup<Charge> label={intl.formatMessage(m.noShow)} options={chargeOptions} value={draft.no_show_charge} onChange={(v) => set("no_show_charge", v)} />
               </div>
-              <label className="flex items-start gap-3 text-sm min-h-[44px] cursor-pointer">
-                <input
-                  type="checkbox"
-                  className="mt-0.5 w-5 h-5 shrink-0 accent-[var(--color-primary-deep)]"
-                  checked={draft.pay_at_clinic}
-                  onChange={(e) => set("pay_at_clinic", e.target.checked)}
-                />
+              <Checkbox checked={draft.pay_at_clinic} onChange={(v) => set("pay_at_clinic", v)}>
                 {intl.formatMessage(m.payAtClinic)}
-              </label>
+              </Checkbox>
               {draft.pay_at_clinic && (
                 <>
                   <div className="flex flex-col gap-2">
@@ -419,8 +414,8 @@ function PracticeSettings() {
         <div className="flex flex-col gap-6 min-w-0 lg:sticky lg:top-6">
           <Panel>
             <div className="flex flex-col gap-3">
-              <p className="text-sm text-[var(--text-muted)]" role="status">
-                {intl.formatMessage(m.unsaved, { count: changeCount })}
+              <p className="text-sm text-[var(--text-muted)] empty:hidden" role="status">
+                {changeCount > 0 && intl.formatMessage(m.unsaved, { count: changeCount })}
               </p>
               <Field label={intl.formatMessage(m.reason)} htmlFor="change-reason" hint={intl.formatMessage(m.reasonHint)}>
                 <textarea
@@ -449,6 +444,23 @@ function PracticeSettings() {
           <ChangeHistory subject="practice" version={version} clinicName={clinicName} />
         </div>
       </div>
+
+      {/* On a phone the save box is far below the settings: this bar leads to it. It sits above the site's floating buttons. */}
+      {changeCount > 0 && (
+        <div className="lg:hidden fixed inset-x-4 bottom-20 z-20 rounded-xl border border-[var(--border-subtle)] bg-[var(--surface-raised)] px-4 py-3 flex items-center justify-between gap-3 shadow-md">
+          <p className="text-sm">{intl.formatMessage(m.unsaved, { count: changeCount })}</p>
+          <Button
+            variant="primary"
+            onClick={() => {
+              const box = document.getElementById("change-reason");
+              box?.scrollIntoView({ behavior: "smooth", block: "center" });
+              box?.focus({ preventScroll: true });
+            }}
+          >
+            {intl.formatMessage(m.review)}
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

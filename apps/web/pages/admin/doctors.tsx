@@ -44,7 +44,7 @@ const m = defineMessages({
   active: { id: "admin-doctors-filter-active", description: "Filter: bookable doctors", defaultMessage: "Active" },
   pending: { id: "admin-doctors-filter-pending", description: "Filter: registration not checked", defaultMessage: "Pending" },
   inactive: { id: "admin-doctors-filter-inactive", description: "Filter: switched-off doctors", defaultMessage: "Inactive" },
-  none: { id: "admin-doctors-none", description: "No doctor matches the filter", defaultMessage: "No doctors here." },
+  none: { id: "admin-doctors-none", description: "No doctor matches the filter", defaultMessage: "No doctors match this filter." },
   noQualification: { id: "admin-doctors-no-qualification", description: "Doctor without qualifications yet", defaultMessage: "Qualifications not added" },
   reg: { id: "admin-doctors-reg", description: "Registration number and council", defaultMessage: "Reg. {number} · {council}" },
   noReg: { id: "admin-doctors-no-reg", description: "Doctor without a registration yet", defaultMessage: "Registration not added" },
@@ -231,7 +231,7 @@ function DoctorsAdmin() {
                           href={{ pathname: router.pathname, query: { id: d.id } }}
                           shallow
                           scroll={false}
-                          aria-current={current ? "page" : undefined}
+                          aria-current={current ? "true" : undefined}
                           className={`flex flex-wrap gap-x-4 gap-y-2 rounded-xl border p-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] ${
                             current
                               ? "border-[var(--color-primary)] bg-[var(--surface-inset)]"

@@ -50,3 +50,29 @@ export function FeeInput({
     </div>
   );
 }
+
+/** A checkbox with its label beside it, at least 44px tall */
+export function Checkbox({
+  checked,
+  describedBy,
+  onChange,
+  children,
+}: {
+  checked: boolean;
+  describedBy?: string;
+  onChange: (checked: boolean) => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <label className="flex items-start gap-3 text-sm min-h-[44px] cursor-pointer">
+      <input
+        type="checkbox"
+        className="mt-0.5 w-5 h-5 shrink-0 accent-[var(--color-primary-deep)]"
+        checked={checked}
+        aria-describedby={describedBy}
+        onChange={(e) => onChange(e.target.checked)}
+      />
+      <span>{children}</span>
+    </label>
+  );
+}
