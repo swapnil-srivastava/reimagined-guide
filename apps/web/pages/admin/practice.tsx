@@ -106,7 +106,7 @@ const m = defineMessages({
   unsaved: {
     id: "practice-settings-unsaved",
     description: "How many settings are changed but not saved",
-    defaultMessage: "{count, plural, =0 {No changes yet.} one {# change not saved yet.} other {# changes not saved yet.}}",
+    defaultMessage: "{count, plural, one {# change not saved yet.} other {# changes not saved yet.}}",
   },
   review: { id: "practice-settings-review", description: "Phone: go to the reason box to save", defaultMessage: "Add reason and save" },
   save: { id: "practice-settings-save", description: "Button: save practice settings", defaultMessage: "Save changes" },
