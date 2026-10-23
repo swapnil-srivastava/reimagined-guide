@@ -22,8 +22,13 @@ const msg = defineMessages({
   },
   noTimes: {
     id: "doctors-card-no-times",
-    description: "Doctor card: no free times are published yet",
-    defaultMessage: "Times not published yet",
+    description: "Doctor card: no free time in the next two weeks",
+    defaultMessage: "No free times in the next two weeks",
+  },
+  noTimesYet: {
+    id: "doctors-card-no-times-yet",
+    description: "Doctor card: the doctor has nothing bookable yet",
+    defaultMessage: "Online booking opens soon",
   },
 });
 
@@ -49,7 +54,7 @@ export default function DoctorCard({
       <div className="flex items-start gap-3">
         <DoctorAvatar doctor={doctor} />
         <div className="min-w-0">
-          <h2 id={headingId} className="text-lg font-bold leading-snug">
+          <h2 id={headingId} className="text-lg font-bold leading-snug break-words">
             {doctor.name}
           </h2>
           {subtitle && <p className="text-sm text-[var(--text-muted)]">{subtitle}</p>}
@@ -88,14 +93,15 @@ export default function DoctorCard({
           {doctor.modes.length > 0 && <Tag>{modesLabel(intl, doctor.modes)}</Tag>}
         </div>
         {showTimes ? (
-          <p className={`flex items-center gap-2 text-sm ${next ? "text-[var(--status-success)]" : "text-[var(--text-muted)]"}`}>
-            <FontAwesomeIcon icon={faCalendarDays} aria-hidden="true" />
+          <p className={`flex items-center gap-2 text-sm ${next ? "font-medium" : "text-[var(--text-muted)]"}`}>
+            {/* Green on the icon only: green text is under 4.5:1 on dark cards */}
+            <FontAwesomeIcon icon={faCalendarDays} className={next ? "text-[var(--status-success)]" : undefined} aria-hidden="true" />
             {next
               ? intl.formatMessage(m.nextAvailable, { when: whenLabel(intl, next, zone) })
-              : intl.formatMessage(msg.noTimes)}
+              : intl.formatMessage(first ? msg.noTimes : msg.noTimesYet)}
           </p>
         ) : (
-          <p aria-hidden="true" className="h-5 w-48 max-w-full rounded bg-[var(--surface-inset)] animate-pulse" />
+          <p aria-hidden="true" className="h-5 w-48 max-w-full rounded bg-[var(--surface-inset)] motion-safe:animate-pulse" />
         )}
       </div>
 

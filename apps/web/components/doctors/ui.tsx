@@ -12,10 +12,9 @@ import type { PublicDoctor, VisitMode } from "../../lib/doctors/directory";
 // variables in styles/globals.css (Tailwind `dark:` never applies).
 
 export const m = defineMessages({
-  in_person: { id: "doctors-mode-in-person", description: "Doctors: visit at the clinic", defaultMessage: "Clinic" },
+  in_person: { id: "doctors-mode-in-person", description: "Doctors: visit at the clinic", defaultMessage: "In person" },
   video: { id: "doctors-mode-video", description: "Doctors: video consultation", defaultMessage: "Video" },
   audio: { id: "doctors-mode-audio", description: "Doctors: audio (phone) consultation", defaultMessage: "Audio" },
-  modeInPersonLong: { id: "doctors-mode-in-person-long", description: "Doctors filter: in-person visit", defaultMessage: "In person" },
   emergency: {
     id: "doctors-emergency",
     description: "Doctors: warning that the service is not for emergencies (112 is India's emergency number)",
@@ -28,16 +27,11 @@ export const m = defineMessages({
   },
   today: { id: "doctors-today", description: "Doctors: a time today, e.g. 'Today, 4:30 PM'", defaultMessage: "Today, {time}" },
   tomorrow: { id: "doctors-tomorrow", description: "Doctors: a time tomorrow", defaultMessage: "Tomorrow, {time}" },
-  bookingSoon: {
-    id: "doctors-booking-soon",
-    description: "Doctors: online booking is not open yet",
-    defaultMessage: "Online booking opens soon",
-  },
   back: { id: "doctors-back", description: "Doctors: back button label", defaultMessage: "Back" },
   from: { id: "doctors-fee-from", description: "Doctors: first consultation fee, e.g. 'From ₹600'", defaultMessage: "From {fee}" },
 });
 
-/** "Video · Clinic" */
+/** "In person · Video" */
 export function modesLabel(intl: ReturnType<typeof useIntl>, modes: VisitMode[]) {
   return modes.map((mode) => intl.formatMessage(m[mode])).join(" · ");
 }
@@ -56,7 +50,8 @@ export function DoctorAvatar({ doctor, size = "md" }: { doctor: Pick<PublicDocto
   const box = size === "lg" ? "w-24 h-24 text-3xl" : "w-14 h-14 text-lg";
   if (doctor.photo_url) {
     // eslint-disable-next-line @next/next/no-img-element
-    return <img src={doctor.photo_url} alt="" className={`${box} shrink-0 rounded-full object-cover`} />;
+    const px = size === "lg" ? 96 : 56;
+    return <img src={doctor.photo_url} alt="" width={px} height={px} className={`${box} shrink-0 rounded-full object-cover`} />;
   }
   return (
     <span
@@ -68,7 +63,7 @@ export function DoctorAvatar({ doctor, size = "md" }: { doctor: Pick<PublicDocto
   );
 }
 
-/** Small outlined label, e.g. a specialty or "Video · Clinic" */
+/** Small outlined label, e.g. a specialty or "In person · Video" */
 export function Tag({ strong = false, children }: { strong?: boolean; children: React.ReactNode }) {
   return (
     <span
@@ -103,11 +98,11 @@ export function PageHeading({ backHref, children }: { backHref: string; children
       <Link
         href={backHref}
         aria-label={intl.formatMessage(m.back)}
-        className="w-10 h-10 shrink-0 rounded-full inline-flex items-center justify-center bg-[var(--surface-inset)] text-[var(--text-primary)] border border-[var(--border-subtle)] hover:brightness-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)]"
+        className="w-11 h-11 shrink-0 rounded-full inline-flex items-center justify-center bg-[var(--surface-inset)] text-[var(--text-primary)] border border-[var(--border-subtle)] hover:brightness-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)]"
       >
         <FontAwesomeIcon icon={faChevronLeft} aria-hidden="true" />
       </Link>
-      <h1 className="text-2xl sm:text-3xl font-bold leading-tight min-w-0">{children}</h1>
+      <h1 className="text-2xl sm:text-3xl font-bold leading-tight min-w-0 break-words text-balance">{children}</h1>
     </div>
   );
 }

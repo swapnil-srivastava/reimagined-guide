@@ -39,10 +39,15 @@ const msg = defineMessages({
   noTimes: {
     id: "doctor-profile-no-times",
     description: "Doctor profile: no free times published",
-    defaultMessage: "No free times are published for the next two weeks.",
+    defaultMessage: "No free times in the next two weeks.",
+  },
+  noTimesYet: {
+    id: "doctor-profile-no-times-yet",
+    description: "Doctor profile: the doctor has nothing bookable yet",
+    defaultMessage: "Free times appear here once online booking opens.",
   },
   timesIn: { id: "doctor-profile-times-in", description: "Doctor profile: zone the times are in", defaultMessage: "Times in {zone}" },
-  change: { id: "doctor-profile-change-zone", description: "Doctor profile: change the time zone", defaultMessage: "Change" },
+  change: { id: "doctor-profile-change-zone", description: "Doctor profile: change the time zone", defaultMessage: "Change time zone" },
   done: { id: "doctor-profile-zone-done", description: "Doctor profile: close the time zone picker", defaultMessage: "Done" },
   hours: { id: "doctor-profile-hours", description: "Doctor profile: weekly working hours", defaultMessage: "Working hours" },
   hoursIn: { id: "doctor-profile-hours-in", description: "Doctor profile: zone of the working hours", defaultMessage: "Times in {zone}" },
@@ -166,13 +171,15 @@ const DoctorProfile: NextPage<Props> = ({ doctor }) => {
         jsonLd={jsonLd}
         {...(doctor.photo_url && { image: doctor.photo_url })}
       />
-      <div className="font-poppins min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
+      <div className="booking-ui doctors-ui font-poppins min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex flex-col gap-5">
           <PageHeading backHref="/doctors">{doctor.name}</PageHeading>
 
-          <div className="grid gap-5 lg:grid-cols-[1fr_22rem] items-start">
-            <div className="flex flex-col gap-5 min-w-0">
-              <section className={`${cardClass} p-4 sm:p-5 flex flex-col sm:flex-row items-center sm:items-start gap-4`}>
+          {/* One column on phones in the P3 order (free times and hours right
+              after the consultations); two columns from lg, as W2 */}
+          <div className="flex flex-col gap-5 lg:grid lg:grid-cols-[1fr_22rem] lg:items-start">
+            <div className="contents lg:flex lg:flex-col lg:gap-5 lg:min-w-0">
+              <section className={`${cardClass} order-1 p-4 sm:p-5 flex flex-col sm:flex-row items-center sm:items-start gap-4`}>
                 <DoctorAvatar doctor={doctor} size="lg" />
                 <div className="flex flex-col gap-2 min-w-0 text-center sm:text-left w-full">
                   {subtitle && <p className="text-sm text-[var(--text-muted)]">{subtitle}</p>}
@@ -203,13 +210,13 @@ const DoctorProfile: NextPage<Props> = ({ doctor }) => {
               </section>
 
               {doctor.bio && (
-                <Section title={intl.formatMessage(msg.about)}>
+                <Section title={intl.formatMessage(msg.about)} className="order-2">
                   <p className="text-sm whitespace-pre-line">{doctor.bio}</p>
                 </Section>
               )}
 
               {doctor.consultations.length > 0 && (
-                <Section title={intl.formatMessage(msg.consultations)}>
+                <Section title={intl.formatMessage(msg.consultations)} className="order-3">
                   <ul className="grid gap-3 sm:grid-cols-2">
                     {doctor.consultations.map((c) => (
                       <li key={c.slug} className="rounded-xl border border-[var(--border-subtle)] bg-[var(--surface-inset)] p-3">
@@ -224,7 +231,7 @@ const DoctorProfile: NextPage<Props> = ({ doctor }) => {
                 </Section>
               )}
 
-              <Section title={intl.formatMessage(msg.registration)}>
+              <Section title={intl.formatMessage(msg.registration)} className="order-6">
                 <ul className="flex flex-col gap-2 text-sm">
                   {doctor.qualification && (
                     <li className="flex items-start gap-2">
@@ -246,7 +253,7 @@ const DoctorProfile: NextPage<Props> = ({ doctor }) => {
                           })
                         : intl.formatMessage(msg.regPending)}
                       {doctor.registration_number && doctor.registration_verified && (
-                        <span className="block text-xs text-[var(--status-success)]">{intl.formatMessage(msg.verified)}</span>
+                        <span className="block text-xs text-[var(--text-muted)]">{intl.formatMessage(msg.verified)}</span>
                       )}
                     </span>
                   </li>
@@ -254,7 +261,7 @@ const DoctorProfile: NextPage<Props> = ({ doctor }) => {
               </Section>
 
               {doctor.clinic && (
-                <Section title={intl.formatMessage(msg.clinic)}>
+                <Section title={intl.formatMessage(msg.clinic)} className="order-7">
                   <p className="font-semibold">{doctor.clinic.name}</p>
                   {clinicLine && (
                     <p className="text-sm flex items-start gap-2 mt-1">
@@ -264,12 +271,12 @@ const DoctorProfile: NextPage<Props> = ({ doctor }) => {
                   )}
                   <div className="flex flex-wrap gap-x-4 gap-y-2 mt-3 text-sm font-semibold">
                     {mapHref && (
-                      <a href={mapHref} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">
+                      <a href={mapHref} target="_blank" rel="noopener noreferrer" className="inline-flex items-center min-h-[44px] underline underline-offset-2 hover:opacity-80 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)]">
                         {intl.formatMessage(msg.map)}
                       </a>
                     )}
                     {doctor.clinic.phone && (
-                      <a href={`tel:${doctor.clinic.phone}`} className="inline-flex items-center gap-1.5 underline underline-offset-2">
+                      <a href={`tel:${doctor.clinic.phone}`} className="inline-flex items-center gap-1.5 min-h-[44px] underline underline-offset-2 hover:opacity-80 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)]">
                         <FontAwesomeIcon icon={faPhone} aria-hidden="true" />
                         {intl.formatMessage(msg.call)}
                       </a>
@@ -279,10 +286,10 @@ const DoctorProfile: NextPage<Props> = ({ doctor }) => {
               )}
             </div>
 
-            <aside className="flex flex-col gap-5 lg:sticky lg:top-4">
-              <Section title={intl.formatMessage(msg.next)}>
+            <div className="contents lg:flex lg:flex-col lg:gap-5 lg:sticky lg:top-4">
+              <Section title={intl.formatMessage(msg.next)} className="order-4">
                 {zone === null ? (
-                  <div aria-hidden="true" className="h-10 rounded-lg bg-[var(--surface-inset)] animate-pulse" />
+                  <div aria-hidden="true" className="h-10 rounded-lg bg-[var(--surface-inset)] motion-safe:animate-pulse" />
                 ) : slots.length ? (
                   <ul className="flex flex-wrap gap-2">
                     {slots.map((s) => (
@@ -292,7 +299,9 @@ const DoctorProfile: NextPage<Props> = ({ doctor }) => {
                     ))}
                   </ul>
                 ) : (
-                  <p className="text-sm text-[var(--text-muted)]">{intl.formatMessage(msg.noTimes)}</p>
+                  <p className="text-sm text-[var(--text-muted)]">
+                    {intl.formatMessage(doctor.consultations.length ? msg.noTimes : msg.noTimesYet)}
+                  </p>
                 )}
                 {zone !== null && slots.length > 0 && (
                   <div className="mt-3 text-sm">
@@ -302,31 +311,31 @@ const DoctorProfile: NextPage<Props> = ({ doctor }) => {
                         <button
                           type="button"
                           onClick={() => setPickingZone(false)}
-                          className="self-start font-semibold underline underline-offset-2"
+                          className="self-start inline-flex items-center min-h-[44px] font-semibold underline underline-offset-2 hover:opacity-80 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)]"
                         >
                           {intl.formatMessage(msg.done)}
                         </button>
                       </div>
                     ) : (
-                      <p>
-                        {intl.formatMessage(msg.timesIn, { zone: zoneName(zone, intl.locale) })} ·{" "}
+                      <div className="flex flex-col items-start">
+                        <p>{intl.formatMessage(msg.timesIn, { zone: zoneName(zone, intl.locale) })}</p>
                         <button
                           type="button"
                           onClick={() => setPickingZone(true)}
-                          className="font-semibold underline underline-offset-2"
+                          className="inline-flex items-center min-h-[44px] font-semibold underline underline-offset-2 hover:opacity-80 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)]"
                         >
                           {intl.formatMessage(msg.change)}
                         </button>
-                      </p>
+                      </div>
                     )}
                   </div>
                 )}
               </Section>
 
-              <Section title={intl.formatMessage(msg.hours)}>
+              <Section title={intl.formatMessage(msg.hours)} className="order-5">
                 {doctor.weekly_hours.length ? (
                   <>
-                    <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-sm">
+                    <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-sm tabular-nums">
                       {hours.map((day) => (
                         <React.Fragment key={day.weekday}>
                           <dt className="font-semibold">{weekdays[day.weekday - 1]}</dt>
@@ -347,7 +356,7 @@ const DoctorProfile: NextPage<Props> = ({ doctor }) => {
                 )}
               </Section>
 
-              <Section title={intl.formatMessage(msg.book)}>
+              <Section title={intl.formatMessage(msg.book)} className="order-8">
                 {(doctor.first_fee_paise !== null || doctor.follow_up_fee_paise !== null) && (
                   <dl className="grid grid-cols-[1fr_auto] gap-x-4 gap-y-1.5 text-sm mb-3">
                     {doctor.first_fee_paise !== null && (
@@ -374,7 +383,7 @@ const DoctorProfile: NextPage<Props> = ({ doctor }) => {
                   </div>
                 )}
               </Section>
-            </aside>
+            </div>
           </div>
 
           <EmergencyNote />

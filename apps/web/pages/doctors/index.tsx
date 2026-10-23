@@ -1,4 +1,4 @@
-import React, { useDeferredValue, useEffect, useId, useMemo, useState } from "react";
+import React, { useDeferredValue, useEffect, useId, useMemo, useRef, useState } from "react";
 import type { GetStaticProps, NextPage } from "next";
 import { useRouter } from "next/router";
 import { defineMessages, useIntl } from "react-intl";
@@ -33,6 +33,8 @@ import { directoryConfigured, loadDoctors } from "../../lib/server/doctors";
 
 /** Seconds a built list is served before it is rebuilt */
 const REVALIDATE_SECONDS = 300;
+/** Typing pause before the URL catches up with the search box */
+const URL_SYNC_MS = 300;
 
 const msg = defineMessages({
   title: { id: "doctors-list-title", description: "Doctors list: page heading", defaultMessage: "Doctors" },
@@ -45,7 +47,7 @@ const msg = defineMessages({
   searchPlaceholder: {
     id: "doctors-list-search-placeholder",
     description: "Doctors list: search field placeholder",
-    defaultMessage: "Search by name or specialty",
+    defaultMessage: "Search by name or specialty…",
   },
   specialty: { id: "doctors-list-specialty", description: "Doctors list: specialty chips label", defaultMessage: "Specialty" },
   all: { id: "doctors-list-all", description: "Doctors list: every specialty", defaultMessage: "All" },
@@ -90,6 +92,9 @@ const DoctorsPage: NextPage<Props> = ({ doctors: built }) => {
   const searchId = useId();
   const [filters, setFilters] = useState<DirectoryFilters>(NO_FILTERS);
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [urlReady, setUrlReady] = useState(false);
+  const filtersButton = useRef<HTMLButtonElement>(null);
+  const searchBox = useRef<HTMLInputElement>(null);
   // Times depend on the visitor's zone and clock, so they appear after the first render
   const [clock, setClock] = useState<{ zone: string; now: number } | null>(null);
 
@@ -97,15 +102,29 @@ const DoctorsPage: NextPage<Props> = ({ doctors: built }) => {
 
   // Filters come from the URL once Next has read it
   useEffect(() => {
-    if (router.isReady) setFilters(filtersFromQuery(router.query));
+    if (!router.isReady) return;
+    setFilters(filtersFromQuery(router.query));
+    setUrlReady(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady]);
 
-  const update = (next: DirectoryFilters) => {
-    setFilters(next);
-    router.replace({ pathname: router.pathname, query: filtersToQuery(next) }, undefined, { shallow: true, scroll: false });
-  };
+  // The URL follows the filters, after a short pause so typing stays cheap
+  useEffect(() => {
+    if (!urlReady) return;
+    const timer = setTimeout(() => {
+      router.replace({ pathname: router.pathname, query: filtersToQuery(filters) }, undefined, { shallow: true, scroll: false });
+    }, URL_SYNC_MS);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters, urlReady]);
+
+  const update = setFilters;
   const clear = () => update(NO_FILTERS);
+  const closeSheet = () => {
+    setSheetOpen(false);
+    // The sheet's button goes away with it, so focus returns to the one that opened it
+    filtersButton.current?.focus();
+  };
 
   const doctors = useMemo(() => (clock ? withoutPastSlots(built, clock.now) : built), [built, clock]);
   const specialties = useMemo(() => specialtyCounts(doctors), [doctors]);
@@ -134,7 +153,7 @@ const DoctorsPage: NextPage<Props> = ({ doctors: built }) => {
   return (
     <>
       <Metatags title={title} description={intl.formatMessage(msg.metaDescription)} url={`${SITE_URL}/doctors`} />
-      <div className="font-poppins min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
+      <div className="booking-ui doctors-ui font-poppins min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex flex-col gap-5">
           <PageHeading backHref="/book-appointment">{title}</PageHeading>
 
@@ -157,6 +176,7 @@ const DoctorsPage: NextPage<Props> = ({ doctors: built }) => {
                     aria-hidden="true"
                   />
                   <input
+                    ref={searchBox}
                     id={searchId}
                     type="search"
                     value={filters.query}
@@ -187,6 +207,7 @@ const DoctorsPage: NextPage<Props> = ({ doctors: built }) => {
                   {intl.formatMessage(msg.count, { count: shown.length })}
                 </p>
                 <button
+                  ref={filtersButton}
                   type="button"
                   aria-expanded={sheetOpen}
                   aria-controls="doctors-filters-sheet"
@@ -201,7 +222,7 @@ const DoctorsPage: NextPage<Props> = ({ doctors: built }) => {
               {sheetOpen && (
                 <div id="doctors-filters-sheet" className={`${cardClass} p-4 lg:hidden`}>
                   {panel(
-                    <button type="button" onClick={() => setSheetOpen(false)} className={`${linkButton.primary} w-full`}>
+                    <button type="button" onClick={closeSheet} className={`${linkButton.primary} w-full`}>
                       {intl.formatMessage(msg.show, { count: shown.length })}
                     </button>
                   )}
@@ -230,7 +251,15 @@ const DoctorsPage: NextPage<Props> = ({ doctors: built }) => {
                       </span>
                       <h2 className="text-lg font-bold">{intl.formatMessage(msg.noMatch)}</h2>
                       <p className="text-sm text-[var(--text-muted)]">{intl.formatMessage(msg.noMatchHint)}</p>
-                      <button type="button" onClick={clear} className={`${linkButton.secondary} w-full max-w-xs`}>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          clear();
+                          // This button goes away with the empty state
+                          searchBox.current?.focus();
+                        }}
+                        className={`${linkButton.secondary} w-full max-w-xs`}
+                      >
                         {intl.formatMessage(msg.clear)}
                       </button>
                     </div>
@@ -251,7 +280,9 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   // Builds without database access (e.g. a local build) get an empty list.
   // A failed load throws, so Next keeps serving the last good list.
   const doctors = directoryConfigured ? await loadDoctors() : [];
-  return { props: { doctors }, revalidate: REVALIDATE_SECONDS };
+  // The list only needs what a card shows; the profile page has the rest
+  const cards = doctors.map((d) => ({ ...d, bio: null, clinic: null, weekly_hours: [], consultations: d.consultations.slice(0, 1) }));
+  return { props: { doctors: cards }, revalidate: REVALIDATE_SECONDS };
 };
 
 export default DoctorsPage;

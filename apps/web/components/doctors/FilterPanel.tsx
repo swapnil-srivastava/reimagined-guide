@@ -42,7 +42,7 @@ function ToggleChips<T extends string>({
             type="button"
             aria-pressed={on}
             onClick={() => onChange(on ? values.filter((v) => v !== option.value) : [...values, option.value])}
-            className={`min-h-[40px] px-3 rounded-full border text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] ${
+            className={`min-h-[44px] px-3 rounded-full border text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] ${
               on
                 ? "bg-[var(--color-primary-deep)] text-[var(--text-on-primary)] border-transparent"
                 : "border-[var(--border-subtle)] bg-[var(--surface-inset)] text-[var(--text-primary)]"
@@ -82,8 +82,7 @@ export default function FilterPanel({
 }) {
   const intl = useIntl();
   const set = <K extends keyof DirectoryFilters>(key: K, value: DirectoryFilters[K]) => onChange({ ...filters, [key]: value });
-  const modeLabel = { in_person: m.modeInPersonLong, video: m.video, audio: m.audio };
-
+  
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between gap-2">
@@ -91,7 +90,7 @@ export default function FilterPanel({
         <button
           type="button"
           onClick={onClear}
-          className="text-sm font-semibold underline-offset-2 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] rounded"
+          className="inline-flex items-center min-h-[44px] text-sm font-semibold underline-offset-2 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] rounded"
         >
           {intl.formatMessage(msg.clear)}
         </button>
@@ -111,7 +110,7 @@ export default function FilterPanel({
       <Section title={intl.formatMessage(msg.consultation)}>
         <ToggleChips
           label={intl.formatMessage(msg.consultation)}
-          options={VISIT_MODES.map((mode) => ({ value: mode, label: intl.formatMessage(modeLabel[mode]) }))}
+          options={VISIT_MODES.map((mode) => ({ value: mode, label: intl.formatMessage(m[mode]) }))}
           values={filters.modes}
           onChange={(v) => set("modes", v)}
         />

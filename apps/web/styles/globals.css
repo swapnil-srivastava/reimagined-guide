@@ -289,6 +289,17 @@
   color-scheme: dark;
 }
 
+/* Doctor directory pages (/doctors, /book-appointment) sit inside .booking-ui;
+   their small muted text is on raised cards, where orange-dark only reached
+   4.4:1 at 82%. 88% clears 4.5:1 in every dark theme. */
+.theme-blue-dark .doctors-ui,
+.theme-green-dark .doctors-ui,
+.theme-purple-dark .doctors-ui,
+.theme-orange-dark .doctors-ui,
+.theme-teal-dark .doctors-ui {
+  --text-muted: color-mix(in srgb, var(--text-primary) 88%, transparent);
+}
+
 .dark {
   /* Toast colors for dark mode */
   --toast-bg: #004b8c;

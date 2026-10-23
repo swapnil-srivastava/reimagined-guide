@@ -85,7 +85,7 @@ const BookAppointment: NextPage<Props> = ({ specialties }) => {
   return (
     <>
       <Metatags title={intl.formatMessage(msg.find)} description={intl.formatMessage(msg.intro)} url={`${SITE_URL}/book-appointment`} />
-      <div className="font-poppins min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
+      <div className="booking-ui doctors-ui font-poppins min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 flex flex-col gap-6">
           <header className="flex flex-col gap-3">
             <h1 className="text-3xl sm:text-4xl font-bold leading-tight text-balance">{intl.formatMessage(msg.title)}</h1>
