@@ -35,7 +35,7 @@ const Metatags: React.FC<MetatagsProps> = ({
     <Head>
       <title>{title}</title>
       <meta name="description" content={description} />
-      {url && <link rel="canonical" href={url} />}
+      {url && <link rel="canonical" href={url} key="canonical" />}
 
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:site" content="@swapnil_sri" />

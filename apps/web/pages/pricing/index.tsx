@@ -6,6 +6,7 @@ import Head from "next/head";
 
 import CheckoutButton from "../../components/CheckoutButton";
 import Metatags from "../../components/Metatags";
+import { SITE_URL } from "../../lib/site";
 
 const Pricing = () => {
   const intl = useIntl();
@@ -111,7 +112,7 @@ const Pricing = () => {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
-        <link rel="canonical" href="https://swapnilsrivastava.eu/pricing" />
+        <link rel="canonical" href={`${SITE_URL}/pricing`} key="canonical" />
       </Head>
       <div className="min-h-screen flex flex-col items-center gap-2 font-poppins mt-10 px-4 bg-blog-white dark:bg-fun-blue-500 text-blog-black dark:text-blog-white">
         {/* Title */}
