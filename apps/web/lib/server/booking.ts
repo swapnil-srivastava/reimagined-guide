@@ -8,6 +8,7 @@ import type { Booking, BookingHost, BookingType } from "../booking/types";
 import type { Database } from "../../database.types";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { sendBookingEmails } from "./bookingEmails";
+import { registrationLapsed, todayInIndia } from "../practice";
 
 // Server side of the buyer's booking page (/book/<token>). Everything here
 // uses the service role client, so the API routes must check the token
@@ -122,7 +123,9 @@ export async function loadByToken(token: string): Promise<BookingContext | null>
     ? await db().from("booking_hosts").select("*").in("id", hostIds).order("name")
     : { data: [] as BookingHost[] };
   const allHosts = hostRows ?? [];
-  const hosts = allHosts.filter((h) => h.active && offeredIds.includes(h.id));
+  // A doctor whose registration has lapsed can't take new bookings (TPG 2020)
+  const today = todayInIndia();
+  const hosts = allHosts.filter((h) => h.active && !registrationLapsed(h, today) && offeredIds.includes(h.id));
   const bookedHosts = allHosts.filter((h) => !hosts.includes(h));
   const preferred =
     (links ?? []).find((l) => l.is_default && hosts.some((h) => h.id === l.host_id))?.host_id ??

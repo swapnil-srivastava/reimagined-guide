@@ -13,6 +13,7 @@ import PostFeed from "../../components/PostFeed";
 import LinksStatsCard from "../../components/LinksStatsCard";
 import AdminOrdersCard from "../../components/AdminOrdersCard";
 import AdminBookingCard from "../../components/AdminBookingCard";
+import AdminDoctorsCard from "../../components/AdminDoctorsCard";
 import AdminProductsCard from "../../components/AdminProductsCard";
 
 // supabase instance in the app
@@ -32,6 +33,7 @@ const Admin: NextPage = () => {
         <LinksStatsCard />
         <AdminOrdersCard />
         <AdminBookingCard />
+        <AdminDoctorsCard />
         <AdminProductsCard />
         <CreateNewPost></CreateNewPost>
         <SendSMS></SendSMS>

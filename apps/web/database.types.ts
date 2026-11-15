@@ -80,6 +80,11 @@ export type Database = {
           languages: string[]
           clinic_id: string | null
           modes: string[]
+          registration_valid_until: string | null
+          first_consult_fee_paise: number | null
+          follow_up_fee_paise: number | null
+          referral_charge: string | null
+          no_show_charge: string | null
         }
         Insert: {
           active?: boolean
@@ -104,6 +109,11 @@ export type Database = {
           languages?: string[]
           clinic_id?: string | null
           modes?: string[]
+          registration_valid_until?: string | null
+          first_consult_fee_paise?: number | null
+          follow_up_fee_paise?: number | null
+          referral_charge?: string | null
+          no_show_charge?: string | null
         }
         Update: {
           active?: boolean
@@ -128,6 +138,11 @@ export type Database = {
           languages?: string[]
           clinic_id?: string | null
           modes?: string[]
+          registration_valid_until?: string | null
+          first_consult_fee_paise?: number | null
+          follow_up_fee_paise?: number | null
+          referral_charge?: string | null
+          no_show_charge?: string | null
         }
         Relationships: []
       }
@@ -1399,11 +1414,103 @@ export type Database = {
         }
         Relationships: []
       }
+      // Practice admin (migration 20261022190000_practice_admin.sql)
+      practice_settings: {
+        Row: {
+          id: boolean
+          follow_up_days: number
+          first_consult_fee_paise: number
+          follow_up_fee_paise: number
+          referral_charge: string
+          no_show_charge: string
+          pay_at_clinic: boolean
+          pay_at_clinic_who: string
+          min_notice_minutes: number
+          cancel_cutoff_minutes: number
+          buffer_minutes: number
+          max_days_ahead: number
+          updated_at: string
+        }
+        Insert: {
+          id?: boolean
+          follow_up_days?: number
+          first_consult_fee_paise?: number
+          follow_up_fee_paise?: number
+          referral_charge?: string
+          no_show_charge?: string
+          pay_at_clinic?: boolean
+          pay_at_clinic_who?: string
+          min_notice_minutes?: number
+          cancel_cutoff_minutes?: number
+          buffer_minutes?: number
+          max_days_ahead?: number
+          updated_at?: string
+        }
+        Update: {
+          id?: boolean
+          follow_up_days?: number
+          first_consult_fee_paise?: number
+          follow_up_fee_paise?: number
+          referral_charge?: string
+          no_show_charge?: string
+          pay_at_clinic?: boolean
+          pay_at_clinic_who?: string
+          min_notice_minutes?: number
+          cancel_cutoff_minutes?: number
+          buffer_minutes?: number
+          max_days_ahead?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      practice_changes: {
+        Row: {
+          id: string
+          subject: string
+          host_id: string | null
+          field: string
+          old_value: Json | null
+          new_value: Json | null
+          reason: string | null
+          changed_by: string | null
+          changed_by_name: string | null
+          changed_at: string
+        }
+        Insert: {
+          id?: string
+          subject: string
+          host_id?: string | null
+          field: string
+          old_value?: Json | null
+          new_value?: Json | null
+          reason?: string | null
+          changed_by?: string | null
+          changed_by_name?: string | null
+          changed_at?: string
+        }
+        Update: {
+          id?: string
+          subject?: string
+          host_id?: string | null
+          field?: string
+          old_value?: Json | null
+          new_value?: Json | null
+          reason?: string | null
+          changed_by?: string | null
+          changed_by_name?: string | null
+          changed_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      admin_update_practice_settings: {
+        Args: { p_changes: Json; p_reason: string }
+        Returns: Database["public"]["Tables"]["practice_settings"]["Row"]
+      }
       my_host_ids: {
         Args: Record<PropertyKey, never>
         Returns: string[]

@@ -10,10 +10,16 @@ import { dayLabel, inZone, longDayLabel, rangeLabel, timeLabel } from "../../../
 import type { Booking, BookingHost, BookingStatus, BookingType } from "../../../lib/booking/types";
 import type { BookingAdminData } from "./useBookingAdmin";
 import { Button, ChipGroup, Field, Notice, Panel, Pill, inputClass } from "./ui";
+import { modeLabel } from "../../practice/labels";
 
 const m = defineMessages({
   title: { id: "booking-admin-upcoming-title", description: "Booking admin: bookings list heading", defaultMessage: "Bookings" },
   timesIn: { id: "booking-admin-times-in", description: "Booking admin: which time zone times are shown in", defaultMessage: "Times in {zone}" },
+  timesInAll: {
+    id: "booking-admin-times-in-all",
+    description: "Booking admin, all calendars: every calendar's bookings, in the viewer's time zone",
+    defaultMessage: "Every calendar's bookings. Times in your time zone ({zone}).",
+  },
   filterUpcoming: { id: "booking-admin-filter-upcoming", description: "Booking admin filter: upcoming", defaultMessage: "Upcoming" },
   filterPast: { id: "booking-admin-filter-past", description: "Booking admin filter: past", defaultMessage: "Past" },
   filterCancelled: { id: "booking-admin-filter-cancelled", description: "Booking admin filter: cancelled", defaultMessage: "Cancelled" },
@@ -67,7 +73,8 @@ const STATUS_TONE: Record<BookingStatus, "success" | "danger" | "info" | "muted"
 };
 
 interface Props {
-  host: BookingHost;
+  /** null: every host's bookings */
+  host: BookingHost | null;
   types: BookingType[];
   data: BookingAdminData;
   reload: () => Promise<void>;
@@ -78,7 +85,11 @@ export default function UpcomingBookings({ host, types, data, reload }: Props) {
   const [filter, setFilter] = useState<Filter>("upcoming");
   const now = Date.now();
 
-  const all = data.bookings.filter((b) => b.host_id === host.id);
+  const hostOf = (b: Booking) => host ?? data.hosts.find((h) => h.id === b.host_id);
+  const all = host ? data.bookings.filter((b) => b.host_id === host.id) : data.bookings;
+  // One zone for the whole list, so days group in order: the host's, or with
+  // every calendar shown, the viewer's own
+  const zone = host?.timezone ?? DateTime.local().zoneName ?? "UTC";
   const shown = all
     .filter((b) => {
       const ended = DateTime.fromISO(b.ends_at).toMillis() <= now;
@@ -92,7 +103,7 @@ export default function UpcomingBookings({ host, types, data, reload }: Props) {
   // Grouped by the host's calendar day
   const groups: { day: string; items: Booking[] }[] = [];
   for (const booking of shown) {
-    const day = inZone(booking.starts_at, host.timezone).toISODate() as string;
+    const day = inZone(booking.starts_at, zone).toISODate() as string;
     const last = groups[groups.length - 1];
     if (last?.day === day) last.items.push(booking);
     else groups.push({ day, items: [booking] });
@@ -108,7 +119,7 @@ export default function UpcomingBookings({ host, types, data, reload }: Props) {
   return (
     <Panel
       title={intl.formatMessage(m.title)}
-      description={intl.formatMessage(m.timesIn, { zone: host.timezone })}
+      description={intl.formatMessage(host ? m.timesIn : m.timesInAll, { zone })}
       actions={<ChipGroup<Filter> label={intl.formatMessage(m.title)} options={filters} value={filter} onChange={setFilter} />}
     >
       {groups.length === 0 ? (
@@ -124,15 +135,21 @@ export default function UpcomingBookings({ host, types, data, reload }: Props) {
                 {longDayLabel(DateTime.fromISO(group.day).setLocale(intl.locale))}
               </h3>
               <ul className="flex flex-col gap-3">
-                {group.items.map((booking) => (
+                {group.items.map((booking) => {
+                  const bookingHost = hostOf(booking);
+                  if (!bookingHost) return null;
+                  return (
                   <BookingItem
                     key={booking.id}
                     booking={booking}
-                    host={host}
+                    host={bookingHost}
+                    zone={zone}
+                    showHost={!host}
                     type={types.find((t) => t.id === booking.booking_type_id) ?? null}
                     reload={reload}
                   />
-                ))}
+                  );
+                })}
               </ul>
             </section>
           ))}
@@ -142,14 +159,29 @@ export default function UpcomingBookings({ host, types, data, reload }: Props) {
   );
 }
 
-function BookingItem({ booking, host, type, reload }: { booking: Booking; host: BookingHost; type: BookingType | null; reload: () => Promise<void> }) {
+function BookingItem({
+  booking,
+  host,
+  zone,
+  showHost,
+  type,
+  reload,
+}: {
+  booking: Booking;
+  host: BookingHost;
+  /** The zone times are shown in */
+  zone: string;
+  showHost: boolean;
+  type: BookingType | null;
+  reload: () => Promise<void>;
+}) {
   const intl = useIntl();
   const [cancelling, setCancelling] = useState(false);
   const [reason, setReason] = useState("");
   const [saving, setSaving] = useState(false);
 
-  const start = inZone(booking.starts_at, host.timezone, intl.locale);
-  const end = inZone(booking.ends_at, host.timezone, intl.locale);
+  const start = inZone(booking.starts_at, zone, intl.locale);
+  const end = inZone(booking.ends_at, zone, intl.locale);
   const ended = end.toMillis() <= Date.now();
   const status = booking.status as BookingStatus;
   const theirZone = booking.invitee_timezone;
@@ -227,7 +259,11 @@ function BookingItem({ booking, host, type, reload }: { booking: Booking; host: 
             </a>
           )}
           <p className="text-sm text-[var(--text-muted)]">
-            {[type?.name, booking.order_id ? intl.formatMessage(m.order, { number: booking.order_id.slice(0, 8).toUpperCase() }) : null]
+            {[
+              showHost ? host.name : null,
+              type?.name,
+              host.kind === "doctor" ? modeLabel(intl, booking.mode) : null,
+              booking.order_id ? intl.formatMessage(m.order, { number: booking.order_id.slice(0, 8).toUpperCase() }) : null]
               .filter(Boolean)
               .join(" · ")}
           </p>

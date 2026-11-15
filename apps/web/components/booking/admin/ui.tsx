@@ -123,7 +123,7 @@ export function ChipGroup<T extends string>({
             role="radio"
             aria-checked={selected}
             onClick={() => onChange(option.value)}
-            className={`min-h-[40px] px-3 rounded-full border text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] ${
+            className={`min-h-[44px] px-4 rounded-full border text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] ${
               selected
                 ? "bg-[var(--color-primary-deep)] text-[var(--text-on-primary)] border-transparent"
                 : "border-[var(--border-subtle)] bg-[var(--surface-inset)] text-[var(--text-primary)]"
