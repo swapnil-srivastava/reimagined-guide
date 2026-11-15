@@ -1,5 +1,11 @@
 # GitHub Copilot Instructions for `reimagined-guide`
 
+> **Read `CLAUDE.md` at the repo root first; it is newer and wins where they differ.**
+> Known corrections to this file: the package manager is **pnpm** (not yarn), and
+> Tailwind **`dark:` classes do not work** here (themes set `theme-<colour>-<mode>` on
+> `<html>`, not `.dark`). Use the theme CSS variables listed in
+> `.claude/skills/site-ui/SKILL.md` instead of `dark:` variants and fixed colours.
+
 ## Project Overview
 
 - **Project Name:** Swapnil's Odyssey - Reimagined Guide
@@ -56,7 +62,7 @@
     defaultMessage: "Hello {name}!"
   }, { name: userName });
   ```
-- **After adding FormattedMessage:** Always run `yarn i18n` to extract and compile messages
+- **After adding FormattedMessage:** Always run `pnpm i18n` to extract and compile messages
 - **Toast Messages:** Use `intl.formatMessage` for toast.success/error messages
 - **Accessibility:** Internationalize all aria-labels, alt text, and sr-only content
 
@@ -99,16 +105,16 @@
 
 ### Development Workflow
 
-- **Package Manager:** Use `yarn` exclusively (never npm)
+- **Package Manager:** Use `pnpm` exclusively (never yarn or npm)
 - **Available Scripts:**
   ```bash
-  yarn dev              # Development server (localhost:3000)
-  yarn build            # Production build
-  yarn start            # Production server
-  yarn lint             # ESLint code quality
-  yarn i18n             # Extract + compile translations
-  yarn extract:i18n     # Extract FormattedMessage components
-  yarn compile:i18n     # Compile translation files
+  pnpm dev              # Development server (localhost:3000)
+  pnpm build            # Production build
+  pnpm start            # Production server
+  pnpm lint             # ESLint code quality
+  pnpm i18n             # Extract + compile translations
+  pnpm extract:i18n     # Extract FormattedMessage components
+  pnpm compile:i18n     # Compile translation files
   ```
 
 ## Code Style and Patterns
@@ -381,8 +387,8 @@ export default async function handler(
 ### Code Quality
 - **ESLint:** Configured with Next.js rules
 - **TypeScript:** Strict type checking enabled
-- **Build:** Must pass `yarn build` without errors
-- **Linting:** Must pass `yarn lint` without warnings
+- **Build:** Must pass `pnpm build` without errors
+- **Linting:** Must pass `pnpm lint` without warnings
 
 ### Testing Strategy
 - **Unit Tests:** Component testing (setup as needed)
@@ -446,7 +452,7 @@ NEXTAUTH_SECRET=
 3. **Internationalize:** Use FormattedMessage for all text
 4. **Add types:** Define interfaces in `lib/interfaces/`
 5. **Database:** Create migrations if needed
-6. **Extract i18n:** Run `yarn i18n`
+6. **Extract i18n:** Run `pnpm i18n`
 7. **Test:** Verify build and functionality
 
 ### Adding New API Endpoint
@@ -460,9 +466,9 @@ NEXTAUTH_SECRET=
 ### Internationalization Workflow
 1. **Add FormattedMessage:** Replace hardcoded strings
 2. **Dynamic content:** Use useIntl for dynamic text
-3. **Extract messages:** Run `yarn extract:i18n`
-4. **Compile translations:** Run `yarn compile:i18n`
-5. **Test build:** Verify with `yarn build`
+3. **Extract messages:** Run `pnpm extract:i18n`
+4. **Compile translations:** Run `pnpm compile:i18n`
+5. **Test build:** Verify with `pnpm build`
 6. **Add translations:** Update locale files as needed
 
 ## Error Handling Patterns
@@ -519,12 +525,12 @@ try {
 ## Critical Reminders
 
 🚨 **NEVER** use hardcoded strings in user interfaces  
-🚨 **ALWAYS** run `yarn i18n` after adding FormattedMessage components  
+🚨 **ALWAYS** run `pnpm i18n` after adding FormattedMessage components  
 🚨 **ALWAYS** use Poppins as default font (either `font-poppins` or rely on default)  
-🚨 **ALWAYS** use `text-blog-black dark:text-blog-white` for primary text  
-🚨 **ALWAYS** use `bg-blog-white dark:bg-fun-blue-500` for page backgrounds  
-🚨 **ALWAYS** use `bg-white dark:bg-fun-blue-600` for card/container backgrounds  
-🚨 **ALWAYS** include dark mode variants for every style  
+🚨 **ALWAYS** use `text-blog-black` / `text-[var(--text-primary)]` for primary text (no `dark:` variants)  
+🚨 **ALWAYS** use `bg-blog-white` / `bg-[var(--bg-primary)]` for page backgrounds  
+🚨 **ALWAYS** use `bg-[var(--surface-raised)]` for card/container backgrounds  
+🚨 **NEVER** add Tailwind `dark:` variants; theme variables already switch with the theme  
 🚨 **ALWAYS** use Flexbox or CSS Grid for layouts - NEVER use absolute/relative positioning except for overlays  
 🚨 **ALWAYS** use Next.js `Image` component instead of `<img>` tags for all images  
 🚨 **ALWAYS** use TypeScript types from `database.types.ts`  

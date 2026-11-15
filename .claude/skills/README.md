@@ -2,6 +2,25 @@
 
 Skills in this folder load automatically in every Claude Code session on this
 repository (web, desktop and CLI). Each skill is a folder with a `SKILL.md`.
+Start with `CLAUDE.md` at the repo root; it lists the project rules.
+
+## Project skills (written for this site)
+
+| Skill | Use when |
+|---|---|
+| `site-ui` | Pages, components, admin screens, emails: theme variables instead of `dark:`, `font-poppins`, i18n, `loginHref`, screenshots |
+| `supabase-change` | Migrations, RLS with `is_admin()`, RPCs, cron, types, free-plan load, hand-off to Swapnil |
+| `payments-orders` | Checkout, Stripe/PayPal webhooks, orders, refunds, disputes, promo codes, stock |
+| `third-party-adapter` | Any outside provider (video, phone, SMS, WhatsApp, payments, email) behind our own interface |
+| `ship-website-change` | Checks, screenshots, PR, migrations/env vars to hand over, what to record |
+
+These are maintained here by hand. Keep them short, and update them when a
+convention changes (e.g. a new decision from Swapnil), so a fresh session can work
+without being told again.
+
+## Upstream skills (copied, kept verbatim)
+
+Where these conflict with `CLAUDE.md` or the project skills, the project rules win.
 
 | Skill | What it does | Source |
 |---|---|---|
@@ -14,11 +33,10 @@ repository (web, desktop and CLI). Each skill is a folder with a `SKILL.md`.
 | `research-synthesis` | Turn research notes, surveys or feedback into themes and recommendations | Design plugin ¹ |
 | `user-research` | Plan and run user research: interview guides, usability tests, surveys | Design plugin ¹ |
 | `ux-copy` | Write or review microcopy, error messages, empty states and CTAs | Design plugin ¹ |
-
 | `vercel-react-best-practices` | Vercel's React/Next.js performance rules (70 rules in `rules/`) for writing, reviewing or refactoring components, data fetching and bundles | [`vercel-labs/agent-skills`](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices) (`skills/react-best-practices`), MIT |
 | `web-design-guidelines` | Reviews UI code against Vercel's Web Interface Guidelines, which it fetches fresh on each run | [`vercel-labs/agent-skills`](https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines) |
 
-¹ Anthropic's Design plugin, [`anthropics/knowledge-work-plugins@da38ec1`](https://github.com/anthropics/knowledge-work-plugins/tree/da38ec1ee89d41e5380e652a97382695003396e7/design), copied verbatim, Apache-2.0 (see `LICENSE-knowledge-work-plugins.txt`). These skills refer to tools as `~~design tool`, `~~project tracker` and so on; `DESIGN-CONNECTORS.md` explains the placeholders. No design-tool connector (Figma etc.) is set up here, so give them a URL, a screenshot or a description instead.
+¹ Anthropic's Design plugin, [`anthropics/knowledge-work-plugins@da38ec1`](https://github.com/anthropics/knowledge-work-plugins/tree/da38ec1ee89d41e5380e652a97382695003396e7/design), copied verbatim, Apache-2.0 (see `LICENSE-knowledge-work-plugins.txt`). These skills refer to tools as `~~design tool`, `~~project tracker` and so on; `DESIGN-CONNECTORS.md` explains the placeholders. In this project `~~design tool` means Figma (the Figma connector works in Claude project threads; doctors designs live in the "Doctors pages – swapnilsrivastava.eu" file). Without it, give them a URL, a screenshot or a description.
 
 ## Updating
 
